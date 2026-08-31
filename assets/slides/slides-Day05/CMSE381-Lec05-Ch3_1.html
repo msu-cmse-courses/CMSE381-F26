@@ -1,0 +1,493 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec05-Ch3_1.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec05-Ch3_1.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec05-Ch3_12.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec05-Ch3_10x.png' />
+<img alt='picture' src='CMSE381-Lec05-Ch3_12x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       3.1:
+                                      More
+                                      Linear
+                                   Regression</span></h1>
+                                      Lecture
+                                         5
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                        <div class='date'>Fri,
+                                        Jan
+                                        23,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 104 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Started
+      3.1
+      -
+      Simple
+      linear
+      regression
+      (least
+      squares)</li></ul>                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>Covered
+  in
+  this
+  lecture</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Confidence
+      interval,
+      hypothesis
+      test,
+      and
+      p-value
+      for
+      coefficient
+      estimates
+      </li><li class='itemize'>Residual
+      standard
+      error
+      (RSE)
+      </li><li class='itemize'>R
+      squared</li></ul>                                </div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 126 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec05-Ch3_13x.png' />
+<img alt='picture' src='CMSE381-Lec05-Ch3_15x.png' /></p><div class='minipage'>                                                        <a href='#Navigation5'><span class='cmss-12x-x-120'>Last
+                                           time</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Setup</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 153 --><p class='noindent'>Predict <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      on a single predictor variable
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 153 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi>
+</mrow></math></td></tr></table>
+      </li>
+      <li class='itemize'>”<!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-rel' stretchy='false'>≈</mo></mrow></math>”
+      .... “is approximately modeled
+      as”</li></ul>                                     </div>          <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Given
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li><li class='itemize'>Let
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo><msub><mrow> <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow> <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>
+        be
+      prediction
+      for
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      on
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      value
+      of
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>.
+      </li><li class='itemize'><!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>e</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>
+        is
+      the
+      <!-- l. 153 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      residual</li></ul>
+<!-- l. 153 --><p class='noindent'><img alt='scatter plot with linear fit and
+residuals' src='../../Figures/Fig3-1.png' style='max-width:100%' />                                     </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Least
+  squares
+  criterion:
+  RSS</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='left: contour plots of residual sum of squares in
+beta0-beta1 plane. Right: Three dimensional plot of RSS
+versus beta0 and beta1.' src='../../Figures/Fig3-2.png' style='max-width:100%' />                                         </div>    <div class='minipage'>Residual sum of squares RSS is
+<!-- tex4ht:inline --><!-- l. 187 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+  <mtr><mtd class='align-odd' columnalign='right'><mi mathvariant='italic'>𝑅𝑆𝑆</mi></mtd>  <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msubsup><mrow><mi>e</mi></mrow><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msubsup><mrow><mi>e</mi></mrow><mrow>
+<mi>n</mi></mrow><mrow><mn>2</mn></mrow></msubsup><mspace width='2em'></mspace></mtd>                     <mtd class='align-label' columnalign='right'></mtd>   <mtd class='align-label'>
+   <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>          <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo><munder class='msub'><mrow><mo> ∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup><mspace width='2em'></mspace></mtd>   <mtd class='align-label' columnalign='right'></mtd>   <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+</tr></table>
+<table class='columns'><tr>
+<div class='minipage'><div class='block'>
+<img alt='picture' src='CMSE381-Lec05-Ch3_16x.png' /><div class='minipage'><span class='cmss-12'>Least
+squares
+criterion</span>                                             </div>
+<img alt='picture' src='CMSE381-Lec05-Ch3_17x.png' />
+<img alt='picture' src='CMSE381-Lec05-Ch3_19x.png' /><div class='minipage'>Find
+<!-- l. 187 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+and
+<!-- l. 187 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+that
+minimize
+the
+RSS.                                                     </div>
+</div>                                                                       </div>  <div class='minipage'>
+<!-- tex4ht:inline --><!-- l. 187 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+      <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub></mtd>        <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>y</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
+     <mrow><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></mfrac>      <mspace width='2em'></mspace></mtd>        <mtd class='align-label' columnalign='right'></mtd>        <mtd class='align-label'>
+        <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub></mtd>        <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='false' class='mml-overline'><mrow><mi>y</mi></mrow><mo accent='true'>¯</mo></mover> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mspace width='2em'></mspace></mtd>                         <mtd class='align-label' columnalign='right'></mtd>      <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 196 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec05-Ch3_110x.png' />
+<img alt='picture' src='CMSE381-Lec05-Ch3_112x.png' /></p><div class='minipage'>                                                    <a href='#Navigation9'><span class='cmss-12x-x-120'>Assessing
+                                       Coefficient
+                                         Estimate
+                                        Accuracy</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Bias
+  in
+  estimation
+  </span><span class='cmss-9'>Analogy
+   with
+   mean</span>                                                                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'>       <ul class='itemize1'>
+       <li class='itemize'>Assume
+      a
+      true
+      value
+      <!-- l. 230 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>μ</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msup></math>
+   </li><li class='itemize'>An
+      estimate
+      from
+      training
+      data
+      <!-- l. 230 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover></math>
+      </li><li class='itemize'>The
+      estimate
+      is
+      unbiased
+      if
+      <!-- l. 230 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>E</mi><mo class='MathClass-open' stretchy='false'>(</mo><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msup><mrow><mi>μ</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msup></mrow></math></li></ul> </div> <div class='minipage'>   <ul class='itemize1'>
+   <li class='itemize'>
+   <!-- l. 230 --><p class='noindent'>Sample mean is unbiased for population mean:
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 230 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+             <mi>E</mi><mo class='MathClass-open' stretchy='false'>(</mo><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>E</mi> <mrow><mo fence='true' form='prefix'> (</mo><mrow><mfrac><mrow><mn>1</mn></mrow>
+<mrow><mi>n</mi></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>μ</mi>
+</mrow></math></td></tr></table>
+     </li>
+     <li class='itemize'>
+     <!-- l. 230 --><p class='noindent'>Standard variance estimate is biased  </p><table class='equation-star'><tr><td>
+      <!-- l. 230 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+        <mi>E</mi><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mover accent='true'><mrow><mi>σ</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>E</mi> <mrow><mo fence='true' form='prefix'> [</mo><mrow><mfrac><mrow><mn>1</mn></mrow>
+<mrow><mi>n</mi></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>X</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow><mo fence='true' form='postfix'>]</mo></mrow> <mo class='MathClass-rel' stretchy='false'>≠</mo><msup><mrow><mi>σ</mi></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table>
+        </li></ul>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Linear
+  regression
+  is
+  unbiased</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><!-- l. 256 --><p class='noindent'><img alt='Scatter plot of simulated
+data with linear relationship
+plus noise with overalid true
+line relationship and least
+squres linear fit.' src='../../Figures/Fig3-3a.png' style='max-width:100%' />                </p></div>  <div class='minipage'><!-- l. 256 --><p class='noindent'><img alt='10 linear fits for the same
+data with 10 different noise
+realizations.' src='../../Figures/Fig3-3b.png' style='max-width:100%' />                     </p></div>  <div class='minipage'>                                               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Variance
+  in
+  estimation
+  </span><span class='cmss-9'>Continuing
+   analogy
+   with
+   mean</span>                                                                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'>       <ul class='itemize1'>
+       <li class='itemize'>True
+      value
+      <!-- l. 279 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>μ</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msup></math>
+   </li><li class='itemize'>Estimate
+      from
+      training
+      data
+      <!-- l. 279 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover></math>
+      </li><li class='itemize'>Variance
+      of
+      sample
+      mean
+      <!-- l. 279 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mstyle mathvariant='normal'><mi>Var</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle mathvariant='normal'><mi>SE</mi></mstyle><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mover accent='true'><mrow><mi>μ</mi></mrow><mo accent='true'>^</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><msup><mrow><mi>σ</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow> 
+ <mrow><mi>n</mi></mrow></mfrac> </mrow></math></li></ul> </div> <div class='minipage'>                                                                                  </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Variance
+  of
+  linear
+  regression
+  estimates</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 306 --><p class='noindent'>Variance of linear regression estimates:
+      </p><!-- tex4ht:inline --><!-- l. 306 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+       <mtr><mtd class='align-odd' columnalign='right'><mstyle mathvariant='normal'><mi>SE</mi></mstyle><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mtd>         <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msup><mrow><mi>σ</mi></mrow><mrow><mn>2</mn></mrow></msup> <mrow><mo fence='true' form='prefix'> [</mo><mrow><mfrac><mrow><mn>1</mn></mrow>
+<mrow><mi>n</mi></mrow></mfrac> <mo class='MathClass-bin' stretchy='false'>+</mo>          <mfrac><mrow><msup><mrow><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover></mrow><mrow><mn>2</mn></mrow></msup></mrow> 
+<mrow><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></mfrac> </mrow><mo fence='true' form='postfix'>]</mo></mrow><mspace width='2em'></mspace></mtd>         <mtd class='align-label' columnalign='right'></mtd>         <mtd class='align-label'>
+         <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mstyle mathvariant='normal'><mi>SE</mi></mstyle><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mtd>         <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>          <mfrac><mrow><msup><mrow><mi>σ</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow> 
+<mrow><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></mfrac><mspace width='2em'></mspace></mtd>                      <mtd class='align-label' columnalign='right'></mtd>         <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math>
+        <!-- l. 306 --><p class='noindent'>where <!-- l. 306 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mi>σ</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle mathvariant='normal'><mi>Var</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>𝜀</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </p>
+      </li><li class='itemize'>
+      <!-- l. 306 --><p class='noindent'>Residual standard error is an estimate of
+      <!-- l. 306 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>σ</mi></math>
+     </p><table class='equation-star'><tr><td>
+     <!-- l. 306 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+               <mi mathvariant='italic'>𝑅𝑆𝐸</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msqrt><mrow><mi mathvariant='italic'>𝑅𝑆𝑆</mi><mo class='MathClass-bin' stretchy='false'>∕</mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>n</mi> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msqrt>
+</mrow></math></td></tr></table>
+      </li></ul>                                                           </div>      <div class='minipage'>                                          </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Coding
+  group
+  work</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>Run the section titled “Simulating data”  </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Confidence
+  Interval</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>The 95% confidence interval for
+<!-- l. 354 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+approximately takes the form <table class='equation-star'><tr><td>
+<!-- l. 354 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+            <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>±</mo> <mn>2</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mstyle mathvariant='normal'><mi>SE</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table></div>          <div class='minipage'><span class='cmssbx-10x-x-109'>Interpretation:</span>
+<!-- l. 354 --><p class='noindent'>There is approximately a 95% chance
+that the interval </p><table class='equation-star'><tr><td>
+<!-- l. 354 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mrow><mo fence='true' form='prefix'> [</mo><mrow><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mstyle mathvariant='normal'><mi>SE</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>2</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mstyle mathvariant='normal'><mi>SE</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mo fence='true' form='postfix'>]</mo></mrow>
+</math></td></tr></table>
+<!-- l. 354 --><p class='noindent'>will contain <!-- l. 354 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+where we repeatedly approximate
+<!-- l. 354 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub></math>
+using repeated samples.                  </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>CI
+  in
+  Advertising
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='scatter plot with linear fit and residuals' src='../../Figures/Fig3-1.png' style='max-width:100%' />                </div>    <div class='minipage'>For the advertising data set, the 95% CIs
+are: 
+      <ul class='itemize1'>
+      <li class='itemize'><!-- l. 376 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        ::
+      <!-- l. 376 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>[</mo><mn>0.042</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>0.053</mn><mo class='MathClass-close' stretchy='false'>]</mo></mrow></math>
+      </li><li class='itemize'><!-- l. 376 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+        ::
+      <!-- l. 376 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>[</mo><mn>6.130</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>7.935</mn><mo class='MathClass-close' stretchy='false'>]</mo></mrow></math></li></ul> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Hypothesis
+  testing</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>There
+      is
+      no
+      relationship
+      between
+      <!-- l. 401 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      and
+      <!-- l. 401 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      </li>
+      <li class='itemize'>There
+      is
+      some
+      relationship
+      between
+      <!-- l. 401 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      and
+      <!-- l. 401 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math></li></ul> </div> <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Test
+  statistic
+  and
+  p-value</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>Test statistic: <table class='equation-star'><tr><td>
+<!-- l. 426 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+               <mi>t</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mfrac><mrow><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>0</mn></mrow> 
+<mrow><mstyle mathvariant='normal'><mi>SE</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac>
+</mrow></math></td></tr></table>
+<!-- l. 426 --><p class='noindent'>t-distribution with <!-- l. 426 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>n</mi> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn></mrow></math>
+degrees of freedom <img alt='student t-distribution
+for four different values of nu.' src='../../Figures/Student_t_pdf-wikipedia.svg' style='max-width:100%' />          </p></div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>Advertising
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+                  <div class='minipage'><img alt='linear fit table for the sales versus TV advertising in 1000
+dollars data.' src='../../Figures/Table3-1.png' style='max-width:100%' /> <img alt='scatter plot with linear fit and residuals' src='../../Figures/Fig3-1.png' style='max-width:100%' />      </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>Assessing
+  the
+  accuracy
+  of
+  the
+  module:
+  RSE</span>                                                                                          </span>
+<h2 class='frametitle'></h2> <table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Residual standard error (RSE):</span>
+<!-- tex4ht:inline --><!-- l. 462 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+     <mtr><mtd class='align-odd' columnalign='right'><mi mathvariant='italic'>𝑅𝑆𝐸</mi></mtd>     <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msqrt><mrow> <mfrac> <mrow> <mn>1</mn></mrow>
+<mrow><mi>n</mi> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn></mrow></mfrac><mi mathvariant='italic'>𝑅𝑆𝑆</mi></mrow></msqrt><mspace width='2em'></mspace></mtd>                    <mtd class='align-label' columnalign='right'></mtd>     <mtd class='align-label'>
+     <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>           <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msqrt><mrow> <mfrac> <mrow> <mn>1</mn></mrow>
+<mrow><mi>n</mi> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></msqrt><mspace width='2em'></mspace></mtd>       <mtd class='align-label' columnalign='right'></mtd>       <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div> <div class='minipage'>                                                             </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox76'> <span class='cmss-12x-x-120'>Assessing
+  the
+  accuracy
+  of
+  the
+  module:</span>
+  <!-- l. 487 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup></math>  </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+     <div class='minipage'><span class='cmssbx-10x-x-109'>R squared:</span>
+<!-- tex4ht:inline --><!-- l. 487 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+    <mtr><mtd class='align-odd' columnalign='right'><msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup></mtd>      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mi mathvariant='italic'>𝑇𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi mathvariant='italic'>𝑅𝑆𝑆</mi></mrow> 
+     <mrow><mi mathvariant='italic'>𝑇𝑆𝑆</mi></mrow></mfrac>      <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mfrac><mrow><mi mathvariant='italic'>𝑅𝑆𝑆</mi></mrow> 
+<mrow><mi mathvariant='italic'>𝑇𝑆𝑆</mi></mrow></mfrac><mspace width='2em'></mspace></mtd>     <mtd class='align-label' columnalign='right'></mtd>     <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math>
+<!-- l. 487 --><p class='noindent'>where total sum of squares is </p><table class='equation-star'><tr><td>
+<!-- l. 487 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+          <mi mathvariant='italic'>𝑇𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munder class='msub'><mrow><mo> ∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>y</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>          <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox80'> <span class='cmss-12x-x-120'>Advertising
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<!-- l. 513 --><p class='noindent'><img alt='Sales versus TV advertising scatter plot with linear fit line' src='../../Figures/Advertising-SalesVsTV.png' style='max-width:30%' /> <img alt='Sales versus radio advertising scatter
+plot with linear fit line' src='../../Figures/Advertising-SalesVsRadio.png' style='max-width:30%' /> <img alt='Sales versus newspaper advertising scatter plot with linear fit line' src='../../Figures/Advertising-SalesVsNewspaper.png' style='max-width:30%' />
+</p>
+<table class='equation-star'><tr><td>
+<!-- l. 513 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                <msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.61</mn><mspace width='86.72377pt'></mspace>                        <msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.33</mn><mspace width='86.72377pt'></mspace>                        <msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.05</mn>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+       <div class='minipage'>                                               </div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox84'> <span class='cmss-12x-x-120'>Coding
+  group
+  work</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>Run the section titled “Assessing
+Coefficient Estimate Accuracy”              </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

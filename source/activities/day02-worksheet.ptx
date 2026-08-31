@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- When creating a new activity, make a copy of this file with appropriate name -->
+<worksheet xml:id="day02-worksheet" component="day02">
+    <title>Day 02 Worksheet</title>
+
+    <!-- Optional introduction -->
+    <introduction>
+        <p>
+            Work with your group to answer the following questions.
+        </p>
+    </introduction>
+    <!-- Exercises start here. -->
+    <exercise label="day02-WS1" groupwork="yes">
+        <title>Group Work</title>
+
+        <introduction>
+            <p>
+                We collect a set of data on the top 500 firms in the US.
+                For each firm we record profit, number of employees, industry
+                and the CEO salary.
+                We are interested in understanding which factors affect CEO
+                salary.
+            </p>
+
+            <p component="instructor-notes">
+                Instructor note: From Ex.
+                2.4.2
+            </p>
+        </introduction>
+
+        <task label="day02-WS1-a">
+            <statement>
+                <p>
+                    Is this classification or regression?
+                </p>
+            </statement>
+
+            <choices>
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            Regression
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Nice!
+                        </p>
+                    </feedback>
+                </choice>
+
+                <choice>
+                    <statement>
+                        <p>
+                            Classification
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Is the outcome variable quantitative or qualitative?
+                        </p>
+                    </feedback>
+                </choice>
+            </choices>
+        </task>
+
+        <task label="day02-WS1-b">
+            <statement>
+                <p>
+                    Do we want inference or prediction?
+                </p>
+            </statement>
+
+            <choices>
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            Inference
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Nice!
+                        </p>
+                    </feedback>
+                </choice>
+
+                <choice>
+                    <statement>
+                        <p>
+                            Prediction
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Are we interested merely in the output, or no how
+                            the predictors influence the output?
+                        </p>
+                    </feedback>
+                </choice>
+            </choices>
+        </task>
+
+        <task label="day02-WS1-c">
+            <statement>
+                <p>
+                    What is <m>n</m>, the number of data points?
+                </p>
+            </statement>
+            <response/>
+            <answer>
+                <p>
+                    <m>n=500</m>
+                </p>
+            </answer>
+        </task>
+
+        <task label="day02-WS1-d">
+            <statement>
+                <p>
+                    What is <m>p</m>, the number of variables?
+                </p>
+            </statement>
+            <response/>
+            <answer>
+                <p>
+                    <m>p=3</m>
+                </p>
+            </answer>
+        </task>
+    </exercise>
+
+    <exercise label="day02-WS2" groupwork="yes">
+        <title>Group Work</title>
+
+        <introduction>
+            <p>
+                We are considering launching a new product and wish to know
+                whether it will be a success or a failure.
+                We collect data on 20 similar products that were previously
+                launched.
+                For each product we have recorded whether it was a success or
+                failure, price charged for the product, marketing budget,
+                competition price, and ten other variables.
+            </p>
+        </introduction>
+
+        <task label="day02-WS2-a">
+            <statement>
+                <p>
+                    Is this classification or regression?
+                </p>
+            </statement>
+
+            <choices>
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            Classification
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Nice!
+                        </p>
+                    </feedback>
+                </choice>
+
+                <choice>
+                    <statement>
+                        <p>
+                            Regression
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Is the outcome variable quantitative or qualitative?
+                        </p>
+                    </feedback>
+                </choice>
+            </choices>
+        </task>
+
+        <task label="day02-WS2-b">
+            <statement>
+                <p>
+                    Do we want inference or prediction?
+                </p>
+            </statement>
+
+            <choices>
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            Prediction
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Nice!
+                        </p>
+                    </feedback>
+                </choice>
+
+                <choice>
+                    <statement>
+                        <p>
+                            Inference
+                        </p>
+                    </statement>
+
+                    <feedback>
+                        <p>
+                            Are we interested merely in the output, or no how
+                            the predictors influence the output?
+                        </p>
+                    </feedback>
+                </choice>
+            </choices>
+        </task>
+
+        <task label="day02-WS2-c">
+            <statement>
+                <p>
+                    What is <m>n</m>, the number of data points?
+                </p>
+            </statement>
+            <response/>
+            <answer>
+                <p>
+                    <m>n=20</m>
+                </p>
+            </answer>
+        </task>
+
+        <task label="day02-WS2-d">
+            <statement>
+                <p>
+                    What is <m>p</m>, the number of variables?
+                </p>
+            </statement>
+            <response/>
+            <answer>
+                <p>
+                    <m>p=13</m>
+                </p>
+            </answer>
+        </task>
+    </exercise>
+</worksheet>
+<!-- <hint>
+            <p>
+                Regression predicts quantitative variables.
+                Classification predicts qualitative/categorical variables.
+            </p>
+        </hint>
+
+        <hint>
+            <p>
+                Regression involves variables where there is a clear notion of
+                distance, for example, predicting stock prices.
+            </p>
+        </hint>
+
+        <hint>
+            <p>
+                Classification involves predicting variables where there is no
+                clear notion of distance, for example, if a cell is cancerous.
+            </p>
+        </hint> -->

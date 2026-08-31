@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day02" xml:id="day-02-lecture">
+    <title>Day 02</title>
+
+    <paragraphs>
+        <title>Intro to class</title>
+
+    </paragraphs>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Input/output variables
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Prediction vs inference.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Reduceable vs irreduceable error.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Overfitting
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Classification vs regression
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Supervised vs Unsupervised learning
+                </p>
+            </li>
+        </ul>
+    </objectives>
+    <alert>
+        Please note: no jupyter notebook for today's class, slides only
+    </alert>
+
+    <sidebyside widths="28% 28%" valign="top">
+        <figure>
+            <caption>
+                Sales of a product in 200 markets, along with amount spent on
+                three different types of advertising
+            </caption>
+
+            <image source="figures/AdvertisingDataSet-Screenshot.png" width="95%">
+                <shortdescription>
+                    screenshot of the advertising data set
+                </shortdescription>
+            </image>
+        </figure>
+
+        <ul>
+            <li>
+                <p>
+                    Sales of a product in 200 markets, along with amount spent
+                    on three different types of advertising.
+                    Data available at
+                    <dataurl source="./data/Advertising.csv" visual="advertising dataset."/>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <em>Goal: Predict Sales based on amount spent in each type of advertising</em>
+                </p>
+            </li>
+        </ul>
+    </sidebyside>
+
+    <exercise xml:id="day02-ad-data-input-variable" label="day02-ad-data-ex1">
+        <title>Input Variables</title>
+
+        <statement>
+            <p>
+                List the <em>input</em> variables.
+            </p>
+        </statement>
+
+        <choices randomize="yes">
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        TV
+                    </p>
+                </statement>
+            </choice>
+
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Radio
+                    </p>
+                </statement>
+            </choice>
+
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Newspaper
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Sales
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+
+        <hint>
+            <p>
+                Those are used to predict the output.
+            </p>
+        </hint>
+    </exercise>
+
+    <exercise xml:id="day02-ad-data-output-variable" label="day02-ad-data-ex2">
+        <title>Output Variables</title>
+
+        <statement>
+            <p>
+                List the <em>output</em> variables.
+            </p>
+        </statement>
+
+        <choices multiple-correct="yes" randomize="yes">
+            <choice>
+                <statement>
+                    <p>
+                        TV
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Radio
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Newspaper
+                    </p>
+                </statement>
+            </choice>
+
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Sales
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+
+        <hint>
+            <p>
+                Those are what we measure or estimate.
+            </p>
+        </hint>
+    </exercise>
+
+    <paragraphs>
+        <title>Notation and Big Assumption</title>
+
+        <sidebyside/>
+        <sidebyside widths="40% 40%" valign="top">
+            <ul>
+                <li>
+                    <p>
+                        Input variables: <m>X_1, X_2, \cdots, X_p</m>
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Output variable: <m>Y</m>
+                    </p>
+                </li>
+            </ul>
+
+            <stack>
+                <p>
+                    <md>
+                        Y = f(X) + \epsilon
+                    </md>
+                </p>
+
+                <p component="instructor-notes">
+                    <ul>
+                        <li>
+                            <p>
+                                <m>f</m> is the systemic information that
+                                <m>X</m> provides about <m>Y</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                It is the ground truth that we want but can't
+                                access
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                So our goal is to come up with an estimated
+                                model <m>\hat f</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>\epsilon</m> is a random error term which is
+                                independent of <m>X</m> and has mean <m>0</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Advertising Example</title>
+
+        <image source="figures/Fig2-1.png">
+            <shortdescription>
+                Sales versus TV, radio, and newspaper advertising spending all
+                in units of 1000
+            </shortdescription>
+        </image>
+    </paragraphs>
+
+    <paragraphs>
+        <title>More examples</title>
+
+        <sidebyside widths="55% 40%">
+            <image source="figures/Fig2-2.png">
+                <shortdescription>
+                    Data points for income in units of 1000 versus years of
+                    education and a nonlinear curve fit to the data
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig2-3.png">
+                <shortdescription>
+                    Data points for income in units of 1000 versus years of
+                    education and seniority along with a surface fit to data
+                </shortdescription>
+            </image>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Prediction vs Inference</title>
+
+        <paragraphs>
+            <title>Prediction</title>
+
+            <sidebyside width="40%">
+                <stack>
+                    <p>
+                        Given a value <m>X</m>, try to provide an estimate for
+                        <m>f(X)</m>.
+                    </p>
+
+                    <p>
+                        Build a model
+                        <md>
+                            \hat Y = \hat f (X)
+                        </md>
+                    </p>
+
+                    <ul component="instructor-notes">
+                        <li>
+                            <p>
+                                Want to get a good guess for $f$, which is
+                                unknown blue
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Model is <m>\hat f</m> is green dashed lines
+                            </p>
+                        </li>
+                    </ul>
+                </stack>
+
+                <stack>
+                    <p>
+                        Example: If we spend $250 on TV advertising, what do we
+                        predict we will we make in sales?
+                    </p>
+
+                    <image source="figures/Fig2-1-WithHatF-TV.png">
+                        <shortdescription>
+                            Sales versus TV advertising spending in units of
+                            1000 along with two different linear fits
+                        </shortdescription>
+                    </image>
+                </stack>
+            </sidebyside>
+        </paragraphs>
+    </paragraphs>
+    <!-- <exercises xml:id="exercises-day02-GW1"> -->
+    <!-- <exercisegroup> -->
+    <!-- <title>Group Work</title> -->
+    <introduction>
+        <p>
+            The blue solid line is <m>f</m>.
+            The green dashed line is <m>\hat f</m>.
+            What is the predicted sales for the first three data points using
+            the green dashed line <m>\hat f</m> shown in the graph?
+            Note all values are approximate.
+        </p>
+    </introduction>
+
+    <exercise label="day02-GW1">
+        <statement>
+            <p>
+                What is <m>\hat f(230.1)</m>?
+            </p>
+        </statement>
+        <response/>
+        <answer>
+            <p>
+                <m>\hat f(230.1) = 19</m>
+            </p>
+        </answer>
+    </exercise>
+
+    <exercise label="day02-GW2">
+        <statement>
+            <p>
+                What is <m>\hat f(44.5)</m>?
+            </p>
+        </statement>
+        <response/>
+        <answer>
+            <p>
+                <m>\hat f(44.5) = 7</m>
+            </p>
+        </answer>
+    </exercise>
+
+    <exercise label="day02-GW3">
+        <statement>
+            <p>
+                What is <m>\hat f(17.2)</m>?
+            </p>
+        </statement>
+        <response/>
+        <answer>
+            <p>
+                <m>\hat f(17.2) = 5</m>
+            </p>
+        </answer>
+    </exercise>
+    <!-- </exercisegroup>  -->
+    <!-- </exercises> -->
+    <p>
+        Using the dashed green line as the predicted model <m>\hat{f}</m>, how
+        can we quantify the error in each of the three predictions?
+        This is what we will learn next.
+    </p>
+
+    <paragraphs>
+        <title>Reducible vs irreducible error</title>
+
+        <md>
+            Y-\hat{Y}
+        </md>
+
+        <sidebyside width="40%" valign="top">
+            <stack>
+                <p>
+                    <term>Reducible error</term>
+                </p>
+
+                <ul component="instructor-notes">
+                    <li>
+                        <p>
+                            <m>\hat f</m> will not be a perfect estimate for
+                            <m>f</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            We can potentially improve the irreducible accuracy
+                            of <m>\hat f</m> by using the most appropriate
+                            statistical learning technique
+                        </p>
+                    </li>
+                </ul>
+            </stack>
+
+            <stack>
+                <p>
+                    <term>Irreducible error</term>
+                </p>
+
+                <ul component="instructor-notes">
+                    <li>
+                        <p>
+                            Model was <m>Y = f(X) + \epsilon</m>,
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Variability of <m>\epsilon</m> also affects
+                            predictions
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            No matter how well we estimate <m>f</m>, we can't
+                            get rid of this error.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Would expect this in real life though
+                        </p>
+                    </li>
+                </ul>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>More on error</title>
+
+        <ul>
+            <li>
+                <p>
+                    Given estimate <m>\hat{f}</m> (fixed)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Set of predictors <m>X</m> (fixed)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Prediction <m>\hat{Y} = \hat{f}(X)</m>
+                </p>
+            </li>
+        </ul>
+        <md>
+            E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\epsilon)
+        </md>
+
+        <p component="instructor-notes">
+            <m>[f(X) - \hat f (X)]^2</m> is reducible, <m>Var(\epsilon)</m> is
+            irreducible
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Inference</title>
+
+        <sidebyside widths="40% 50%" valign="top">
+            <p>
+                Want <m>f</m>, but not for prediction (or possibly combined with
+                prediction)
+            </p>
+
+            <ul>
+                <li>
+                    <p>
+                        Which predictors are associated with the response?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        What is the relationship between the response and each
+                        predictor?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Can the relationship between <m>Y</m> and each predictor
+                        be adequately summarized using a linear equation?
+                        Is it more complicated?
+                    </p>
+                </li>
+            </ul>
+        </sidebyside>
+    </paragraphs>
+
+    <exercise label="day02-GW4">
+        <statement>
+            <p>
+                Predict effectiveness of vaccine
+            </p>
+        </statement>
+
+        <choices>
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Prediction
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Inference
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+    </exercise>
+
+    <exercise label="day02-GW5">
+        <statement>
+            <p>
+                Determine the address written on the image of an envelope.
+            </p>
+        </statement>
+
+        <choices>
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Prediction
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Inference
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+    </exercise>
+
+    <exercise label="day02-GW6">
+        <statement>
+            <p>
+                Identify risk factors for getting long covid.
+            </p>
+        </statement>
+
+        <choices>
+            <choice>
+                <statement>
+                    <p>
+                        Prediction
+                    </p>
+                </statement>
+            </choice>
+
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Inference
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+    </exercise>
+
+    <exercise label="day02-GW7">
+        <statement>
+            <p>
+                Transcribe an audio file of a person talking.
+            </p>
+        </statement>
+
+        <choices>
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Prediction
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Inference
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+    </exercise>
+
+    <exercise label="day02-GW8">
+        <statement>
+            <p>
+                Predict stock prices.
+            </p>
+        </statement>
+
+        <choices>
+            <choice correct="yes">
+                <statement>
+                    <p>
+                        Prediction
+                    </p>
+                </statement>
+            </choice>
+
+            <choice>
+                <statement>
+                    <p>
+                        Inference
+                    </p>
+                </statement>
+            </choice>
+        </choices>
+    </exercise>
+
+    <paragraphs>
+        <title>How to estimate <m>f</m></title>
+
+    </paragraphs>
+
+    <paragraphs>
+        <title>
+            <p>
+                Input: training data
+            </p>
+        </title>
+
+        <sidebyside widths="50% 30%">
+            <p>
+                <ul>
+                    <li><m>n</m> data points observed</li>
+                    <li>
+                        <m>x_{ij}</m> is the <m>j</m> th predictor for
+                        observation <m>i</m>
+                    </li>
+
+                    <li>
+                        <m>y_i</m> is the response variable for the <m>i</m> th
+                        observation
+                    </li>
+
+                    <li>
+                        <p>
+                            Training data:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <m>\{(x_1,y_1), (x_2,y_2), \dots, (x_n,y_n)\}</m>
+                            </li>
+
+                            <li><m>x_i = (x_{i1},x_{i2},\dots,x_{ip})^T</m></li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+
+            <image source="figures/AdvertisingDataSet-Screenshot.png">
+                <shortdescription>
+                    screenshot of the advertising data set
+                </shortdescription>
+            </image>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Parametric methods</title>
+
+        <dl>
+            <li>
+                <title>Step1: Select a model</title>
+
+                <p>
+                    EXample:
+                    <md>
+                        f(X) = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \cdots + \beta_pX_p
+                    </md>
+                </p>
+            </li>
+
+            <li>
+                <title>Step 2: Train the model</title>
+
+                <p>
+                    Example: Find $ <m>B'_i</m> s so that
+                    <md>
+                        Y \approx \beta_0 + \beta_1X_1 + \beta_2 X_2 + \cdots + \beta_pX_p
+                    </md>
+                </p>
+            </li>
+        </dl>
+
+        <image source="figures/Fig2-4.png" width="70%">
+            <shortdescription>
+                income in units of 1000 versus years of education and seniority
+            </shortdescription>
+
+            <description>
+                <p>
+                    Data points for income in units of 1000 versus years of
+                    education and seniority along with a planar surface fit to
+                    data
+                </p>
+            </description>
+        </image>
+    </paragraphs>
+
+    <paragraphs>
+        <title>How do you decide on the coefficients?</title>
+
+        <sidebyside width="45%">
+            <md>
+                Y \approx \beta_0 + \beta_1X_1
+            </md>
+
+            <image source="figures/ExampleScatter.png">
+                <shortdescription>A 2D scatter plot</shortdescription>
+            </image>
+        </sidebyside>
+
+        <p>
+            Change the values of the coefficients and observe how the fit
+            changes.
+        </p>
+
+        <interactive desmos="skvt8c73l7" width="70%"/>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Example Non-parametric method: Nearest Neighbors</title>
+
+        <p>
+            <md>
+                <mrow> N_k(x) \amp= \text{Set of $k$ nearest neighbors of $x$} </mrow>
+                <mrow> \hat f(x) \amp = \frac{1}{k} \sum_{x_i \in N_k(x) } y_i </mrow>
+            </md>
+        </p>
+
+        <image source="figures/ESLR-Fig2-2.png" width="60%">
+            <shortdescription>
+                Nearest neighbors with two classes
+            </shortdescription>
+
+            <description>
+                <p>
+                    A picture of data with two classes separated by a non-linear
+                    boundary obtained using nearest neighbors with <m>k=15</m>.
+                </p>
+            </description>
+        </image>
+    </paragraphs>
+
+    <table>
+        <title>Parametric methods: Pros and Cons</title>
+
+        <tabular halign="center" width="80%">
+            <row header="yes" bottom="medium">
+                <cell>Pros</cell>
+                <cell>Cons</cell>
+            </row>
+
+            <row>
+                <cell component="instructor-notes">
+                    Easier to estimate parameters than to figure out a
+                    completely arbitrary function
+                </cell>
+                <cell component="instructor-notes">
+                    You might have chosen the wrong function type
+                </cell>
+            </row>
+        </tabular>
+    </table>
+
+    <paragraphs>
+        <title>Overfitting</title>
+
+        <p component="instructor-notes">
+            Possible fix: Find more <term>Flexible models</term>, which means
+            braider functional form
+        </p>
+
+        <p component="instructor-notes">
+            Problem: needs more variables, could lead to overfitting
+        </p>
+
+        <p component="instructor-notes">
+            <term>Overfitting</term>: Following the noise too closely
+        </p>
+
+        <sidebyside>
+            <image source="figures/Fig2-5.png">
+                <shortdescription>
+                    Income versus years of education and seniority and less
+                    flexible fit
+                </shortdescription>
+
+                <description>
+                    <p>
+                        Data points for income in units of 1000 versus years of
+                        education and seniority along with a non-planar surface
+                        fit to data
+                    </p>
+                </description>
+            </image>
+
+            <image source="figures/Fig2-6.png">
+                <shortdescription>
+                    Income versus years of education and seniority and more
+                    flexible fit
+                </shortdescription>
+
+                <description>
+                    <p>
+                        Data points for income in units of 1000 versus years of
+                        education and seniority along with a more flexible
+                        non-planar surface fit to data
+                    </p>
+                </description>
+            </image>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Prediction Accuracy vs Model Interpretability</title>
+
+        <image source="figures/Fig2-7.png">
+            <shortdescription>
+                Interpretability and flexibility of common machine learning
+                methods
+            </shortdescription>
+
+            <description>
+                <p>
+                    A figure that plots common methods for machine learning with
+                    low and high levels for interpretability on the y-axis
+                    versus flexibility on the x-axis
+                </p>
+            </description>
+        </image>
+
+        <ul component="instructor-notes">
+            <li>
+                <p>
+                    More flexible allows for greater accuracy, but potential for
+                    overfitting
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Also more restrictive makes it easier to understand and
+                    interpret the results
+                </p>
+            </li>
+        </ul>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Supervised and unsupervised learning:</title>
+
+        <stack>
+            <p>
+                <term>Supervised learning</term>: Training data has response
+                variable <m>y</m> for every input <m>x</m>
+            </p>
+
+            <image source="figures/Fig2-1.png" width="80%">
+                <shortdescription>
+                    Sales versus TV, radio, and newspaper advertising spending
+                    all in units of 1000
+                </shortdescription>
+            </image>
+        </stack>
+
+        <stack>
+            <p>
+                <term>Unsupervised learning</term>: Training data does not have
+                response variable <m>y</m> for every input <m>x</m>
+            </p>
+
+            <image source="figures/Fig2-8a.png" width="40%">
+                <shortdescription>
+                    Plot of 3 different classes separately grouped versus two
+                    predictors X1 and X2
+                </shortdescription>
+            </image>
+        </stack>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Regression vs Classification</title>
+
+        <p>
+            Types of variables
+        </p>
+
+        <p component="instructor-notes">
+            Instructor note: Emphasize this is output variable, and which it is determines
+            regression vs classification
+        </p>
+        <dl>
+            <li>
+                <title><term>Quantitative</term></title>
+
+                <p component="instructor-notes">
+                    Ex: Blood pressure, temperature, volume, height, income
+                </p>
+            </li>
+
+            <li>
+                <title><term>Qualitative</term> or <term>Categorical</term></title>
+
+                <p component="instructor-notes">
+                    Ex: Purchased a ticket, owns a house, Job, Digit in MNIST
+                </p>
+            </li>
+        </dl>
+
+        <p component="instructor-notes">
+            Instructor note: Emphasize that this has to do with the output variable type
+        </p>
+    </paragraphs>
+    <paragraphs>
+      <title>TL;DR</title>      
+      <conclusion>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Input/output variables	
+              </p>
+            </li>
+            <li>
+              <p>
+                Prediction vs inference
+              </p>
+            </li>
+            <li>
+              <p>
+                Reducible vs irreducible error
+              </p>
+            </li>
+            <li>
+              <p>
+                Overfitting
+              </p>
+            </li>
+            <li>
+              <p>
+                Classification vs regression
+              </p>
+            </li>
+            <li>
+              <p>
+                Supervised vs Unsupervised learning
+              </p>
+            </li>
+          </ul>
+        </p>
+      </conclusion>
+    </paragraphs>
+    <p>
+        Group work: Work in groups to complete <xref ref="day02-worksheet" text="custom">this classroom activity</xref>. 
+    </p>
+    </handout>

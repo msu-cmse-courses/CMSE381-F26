@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This frontmatter division will contain all content before the -->
+<!-- first chapter. Fill in and comment/uncomment to see how this -->
+<!-- works. -->
+
+<frontmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="frontmatter">
+  <bibinfo>
+    <author>
+      <personname>CMSE faculty</personname>
+      <department>Computational Mathematics, Science, and Engineering (CMSE)</department>
+      <institution>Michigan State University</institution>
+    </author>
+    <date>
+      Last Updated: <today />
+    </date>
+  </bibinfo>
+
+  <!-- This displays the title page information -->
+  <titlepage>
+    <titlepage-items/>
+  </titlepage>
+
+  <chapter xml:id="ch-course-info">
+    <title>Course Information and Office Hours</title>
+
+    <section>
+    <title>Instructional Team</title>
+
+    <paragraphs>
+      <title>Instructional Team</title>
+      <figure xml:id="instructional-team-Section-001">
+        <caption>Section 001 team.</caption>
+
+        <sidebyside widths="35% 40%">
+          
+        
+        <figure xml:id="firas-khasawneh">
+          <caption><line>Dr. Firas A. Khasawneh</line><line>Section 001 Instructor</line></caption>        
+        <image source="people/firas_khasawneh.jpg">
+          <shortdescription>Personal photo of firas khasawneh"</shortdescription>
+        </image>        
+        </figure>
+        <figure xml:id="Siyu-Guo">
+          <caption><line>Siyu Guo</line><line>Section 001 TA</line></caption>        
+        <image source="people/SiyuGuo.jpeg">
+          <shortdescription>Personal photo of Siyu Guo"</shortdescription>
+        </image>
+        </figure>
+
+      </sidebyside>
+      </figure>
+
+      <figure xml:id="instructional-team-Section-002">
+        <caption>Section 002 team.</caption>
+
+
+      <sidebyside widths="39% 40%">
+        <figure xml:id="Lianzhang-Bao">
+          <caption><line>Dr. Lianzhang Bao</line><line>Section 002 Instructor</line></caption>        
+        <image source="people/Bao.png">
+          <shortdescription>Personal photo of Lianzhang Bao"</shortdescription>
+        </image>
+        </figure>
+
+        <figure xml:id="Christy-Lu">
+          <caption><line>Christy Lu</line><line>Section 002 TA</line></caption>        
+        <image source="people/ChristyLu_resized.jpg">
+          <shortdescription>Personal photo of Christy Lu"</shortdescription>
+             </image>
+        </figure>
+        
+      </sidebyside>
+
+      </figure>
+    </paragraphs>
+    <p>
+    </p>
+  </section>
+
+    <section xml:id="subsec-Office-Hours">
+    <title>Office Hours</title>
+    
+  <tabular halign="center">
+    <row header="no" bottom="minor" >
+      <cell>Person</cell>
+      <cell>Time </cell>
+      <cell>Location</cell>      
+    </row>
+    <row valign="top">
+      <cell>Dr. Khasawneh</cell>
+      <cell><line>TBD</line><line>TBD </line></cell>
+      <cell>Modality/Location (TBD)</cell>      
+      <!-- <cell><line>Modality (TBD) </line><line><url href="https://msu.zoom.us/j/98717159065"/></line></cell>       -->
+    </row>
+    <row>
+      <cell>Dr. Bao</cell>
+      <cell>TBD</cell>
+      <cell>Modality/Location (TBD)</cell>      
+    </row>
+    <row>
+    <cell>Siyu Guo</cell>
+    <cell>TBD</cell>
+    <cell>Modality/Location (TBD)</cell>      
+  </row>            
+  <row>
+    <cell>Christy Lu</cell>
+    <cell>TBD</cell>
+    <cell>Modality/Location (TBD)</cell>      
+  </row>
+  </tabular>
+
+
+  </section>
+
+  <section>
+    <title>What is this course about?</title>
+    <paragraphs>
+      <title>Topics:</title>
+      <tabular>
+        <row>
+          <cell>Fundamental concepts of data science</cell>
+        </row>
+        <row>
+          <cell>Regression</cell>
+        </row>
+        <row>
+          <cell>Classification</cell>
+        </row>
+        <row>
+          <cell>Dimension reduction</cell>
+        </row>
+        <row>
+          <cell>Resampling methods</cell>
+        </row>
+        <row>
+          <cell>Tree-based methods, etc.</cell>
+        </row>
+      </tabular>
+      
+    </paragraphs>
+
+
+  </section>
+
+  <section xml:id="subsec-D2L">
+    <title>D2L and where to find grades</title>
+    <p>
+      <url href="https://d2l.msu.edu/d2l/home/2387930"/>      
+    </p>
+
+      <image source="course_screenshots/D2L_s26_001.png" width="70%">
+        <shortdescription>screenshot of course page on D2L</shortdescription>
+      </image>
+
+
+  </section>
+
+  <section xml:id="subsec-course-website">
+    <title>Course website, Slides, and jupyter notebooks</title>
+      <p>
+      <url href="https://cmse.msu.edu/CMSE381/"/> 
+      or 
+      <url href="https://msu-cmse-courses.github.io/CMSE381-S26/"/> 
+    </p>
+
+      <image source="course_screenshots/coursewebsite_s26.png" width="80%">
+        <shortdescription>screenshot of course website</shortdescription>
+      </image>  
+
+      <p>
+        The syllabus can be found <xref ref="syllabus" text="custom">here.</xref>
+      </p>
+
+  </section>
+
+  <section xml:id="subsubsec-crowdmark-info">
+    <title>Crowdmark and where we grade your quizzes/midterms</title>
+      <image source="course_screenshots/Crowdmark_screenshot.png" width="60%">
+      <shortdescription>screenshot of assignment page on Crowdmark</shortdescription>
+      </image> 
+      <p>
+        You will get a link to the submission page in your email.
+      </p>
+  </section>
+
+ 
+<section xml:id="subsec-class-structure">
+  <title>Class Structure</title>
+
+    <p>
+    <ul>
+      <li><p>Class is a combination of lecture time, and group work/coding time. 
+      <ul>
+        <li>Bring computer every day    </li>
+        <li>Jupyter notebooks    </li>
+        <li>Python</li>
+      </ul>
+      </p>        
+      </li>
+      <li> <p>
+          Once a week, there will be a short check-in quiz, mostly consisting of multiple choice questions. 
+          This will be basic content related to lectures since the last class. 
+          Possible questions include checking on definitions, or basic understanding of major ideas.               
+        <ul>
+          <li> 10 points per quiz   </li>
+          <li> Drop three lowest grades</li>
+        </ul>
+        </p>
+      </li>
+      <li>
+        <p>
+          Homeworks due approximately biweekly, midnight of the day marked in the schedule.
+          <ul>
+            <li> Drop lowest grade.            </li>
+            <li> <xref ref="sec-assessments" text="custom">Sliding scale</xref> for later HW.</li>
+          </ul>
+        </p>
+      </li>
+      <li><p>Three midterms
+        <ul>
+          <li> See schedule for dates.          </li>
+          <li> Not cumulative </li>
+        </ul>
+      </p>
+      </li>
+      <li> <p>One project
+        <ul>
+          <li> Analyze dataset using tools in class, submit typed report.          </li>          
+          <li> Due at the end of the semester </li>
+        </ul>
+      </p>
+      </li>      
+  </ul>
+    </p>
+
+<section xml:id="subsec-Basic-Expectations">
+  <title>Basic Expectations</title>
+
+<p>
+  <ul>
+    <li>
+      <p>
+        attend each class for the full 70 min duration
+      </p>
+    </li>
+    <li>
+      <p>
+        take detailed notes on, or beside, the skeleton slides provided.
+      </p>
+    </li>
+    <li>
+      <p>
+        complete the jupyter notebook in class. 
+      </p>
+    </li>
+    <li>
+      <p>
+        read the assigned textbook chapters listed in the course schedule (on course website).
+      </p>
+    </li>
+    <li>
+      <p>
+        actively participate in group work and interactive Q\&amp;A sessions.
+      </p>
+    </li>
+    <li>
+      <p>
+        complete all homework assignments, quizzes, exams, and a semester project. 
+      </p>
+    </li>
+  </ul>
+</p>
+  
+</section>
+
+
+
+</section>
+    
+  </chapter>
+
+</frontmatter>
+

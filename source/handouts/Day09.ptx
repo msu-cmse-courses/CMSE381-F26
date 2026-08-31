@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <handout xml:id="day-09-lecture" component="day09">
+        <title>Day 09</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day09/CMSE381-Lec09-Classification.html" visual="Day09 slides"/>
+        </p>
+    
+        </handout>

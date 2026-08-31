@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- When creating a new activity, make a copy of this file with appropriate name -->
+<!-- <worksheet xml:id="day01-worksheet">
+  <title>Day01 - Python Review</title> -->
+<section xml:id="day01-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="day01">
+  <title>Day01 Worksheet</title>
+
+  <!-- Optional introduction -->
+  <introduction>
+    <p>
+      In today's assignment, we are going to go over some of the python commands
+      you've (hopefully!) seen before.
+      In order to successfully complete this assignment you need to participate
+      both individually and in groups during class.
+      This lab loosely follows the lab content from the
+      <url href="https://www.statlearning.com" visual="the ISLP textbook"/>, Ch
+      2.3.
+    </p>
+
+    <p>
+      <alert>Important:</alert> If you are looking at this notebook prior to
+      class with the intention of doing it early PLEASE DON'T!
+      The intention of these notebooks is for group work in class, so it will be
+      much more interesting if you don't have it done already and can talk with
+      the rest of the group members.
+    </p>
+  </introduction>
+
+  <subsection xml:id="day01-subsec-the-data-set">
+    <title>The Dataset</title>
+
+    <data xml:id="day01-Auto-csv">
+      <title>Auto: Auto Data Set</title>
+
+      <p>
+        Information about the data set
+        <ul>
+          <li>
+            <p>
+              <url href="https://rdrr.io/cran/ISLR/man/Auto.html" visual="custom">Info on R version</url>
+            </p>
+          </li>
+
+          <li>
+            <p>
+              <url href="https://islp.readthedocs.io/en/latest/datasets/Auto.html" visual="custom">Info on Python version</url>
+            </p>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        A data frame with 392 observations on the following 9 variables.
+        <dl>
+          <li>
+            <title>mpg</title>
+
+            <p>
+              miles per gallon
+            </p>
+          </li>
+
+          <li>
+            <title>cylinders</title>
+
+            <p>
+              Number of cylinders between 4 and 8
+            </p>
+          </li>
+
+          <li>
+            <title>displacement</title>
+
+            <p>
+              Engine displacement (cu.
+              inches)
+            </p>
+          </li>
+
+          <li>
+            <title>horsepower</title>
+
+            <p>
+              Engine horsepower.
+            </p>
+          </li>
+
+          <li>
+            <title>weight</title>
+
+            <p>
+              Vehicle weight (lbs.)
+            </p>
+          </li>
+
+          <li>
+            <title>acceleration</title>
+
+            <p>
+              Time to accelerate from 0 to 60 mph (sec.)
+            </p>
+          </li>
+
+          <li>
+            <title>year</title>
+
+            <p>
+              Model year (modulo 100)
+            </p>
+          </li>
+
+          <li>
+            <title>origin</title>
+
+            <p>
+              Origin of car (1.
+              American, 2.
+              European, 3.
+              Japanese)
+            </p>
+          </li>
+
+          <li>
+            <title>name</title>
+
+            <p>
+              Vehicle name
+            </p>
+          </li>
+        </dl>
+      </p>
+
+      <p>
+        The orginal data contained 408 observations but 16 observations with
+        missing values were removed.
+      </p>
+
+      <p>
+        Source: This dataset was taken from the StatLib library which is
+        maintained at Carnegie Mellon University.
+        The dataset was used in the 1983 American Statistical Association
+        Exposition.
+      </p>
+      <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
+        <pre source="data/Auto.csv"/>
+      </datafile>
+      <dataurl source="data/Auto.csv" visual="Auto.csv data file"/>
+    </data>
+    <exercises xml:id="exercises-day01">
+      <title>Day01 Coding Exercises</title>
+
+      <exercisegroup>
+        <title>Python Review</title>
+
+        <introduction>
+          <p>
+            Answer the following questions
+          </p>
+        </introduction>
+
+        <exercise xml:id="day01-load-data" xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+          <introduction>
+            <p>
+              Start by loading the data.
+            </p>
+          </introduction>
+
+          <task>
+            <statement>
+              <p>
+                Load the data set and view the top part of the data, the column
+                labels, its shape.
+              </p>
+
+              <program language="python3" filename="day01-part1">
+                <preamble visible="yes">
+                # As always, we start with our favorite standard imports.
+                import numpy as np
+                import pandas as pd
+                import matplotlib.pyplot as plt 
+                %matplotlib inline            
+
+                </preamble>
+                <code>
+                # Now load the data
+                auto = pd.read_csv('../../DataSets/Auto.csv')
+                </code>
+                <postamble>
+                  # the following command should show you the top of your data frame.
+                auto.head()
+
+                # and the following command show show you the column labels.
+                auto.columns
+
+                # The
+                  <c>shape</c>
+                  command tells us about the size of the dataframe.
+                auto.shape
+                </postamble>
+              </program>
+            </statement>
+
+            <hint>
+              <p>
+                If you are pulling straight from the course's git repo, this
+                command will open the file already on your system.
+                However, if you are doing something else to access the notebook,
+                such as downloading from the github website, you might need to
+                modify this command to point to the right place.
+              </p>
+            </hint>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                How many data points do we have?
+                How many variables do we have?
+              </p>
+            </statement>
+            <response/>
+          </task>
+        </exercise>
+
+        <exercise xml:id="day01-clean-data" xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+          <introduction>
+            <p>
+              Here's one thing this class won't really show you.....
+              real data is MESSY.
+              You almost never are handed a data set that's ready to go for
+              analysis off the bat.
+              You'll have to spend a bit of time cleaning up your data before
+              you can use the awesome tools we have in this class.
+              So, to that end, let's do some careful checking of this data set
+              before we get started.
+              My favorite place to start with any data set is the
+              <sq>describe</sq> command.
+            </p>
+
+            <p>
+              Run the <pf>auto.describe()</pf> command.
+            </p>
+          </introduction>
+
+          <task>
+            <statement>
+              <p>
+                What columns are missing from the <c>describe</c> output?
+              </p>
+            </statement>
+            <response width="20"/>
+            <answer>
+              <p>
+                It's missing the <c>name</c> column, which makes sense since
+                that's object data, but is also missing the <c>horsepower</c>
+                column.
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement correct="no">
+              <p>
+                The next thing to check is to see if there is any missing data.
+                Usually, this is an entry in your dataframe that shows up as
+                <sq>np.nan</sq>, which is a special value from numpy that just
+                means the data is missing from that cell.
+              </p>
+
+              <p>
+                Use the <pf>isna()</pf> command to see if there are any null
+                values around.
+                Did you find any NaN values?
+              </p>
+            </statement>
+
+            <feedback>
+              <p>
+                Correct!
+                There are no NaNs!
+              </p>
+            </feedback>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Check out the first 40 rows of the data.
+                Do you remember how to do that?
+              </p>
+            </statement>
+
+            <hint>
+              <p>
+                See <xref ref="day01-load-data">above</xref> for the function
+                you need to use.
+              </p>
+            </hint>
+
+            <hint>
+              <p>
+                You will need to pass another argument to that function to get
+                the first 40 rows.
+              </p>
+            </hint>
+
+            <answer>
+              <p>
+                <pf>auto.head(40)</pf>
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                What symbol(s) is this data set using to represent missing data?
+              </p>
+            </statement>
+            <response/>
+            <answer>
+              <p>
+                Missing values are <c>?</c> in this set.
+                Run <pf>auto.loc[auto['horsepower'] == '?']</pf> to see some
+                example rows.
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Well, it's not the end of the world, but there are lots of built
+                in commands in pandas that make life easier when we have
+                `np.nan` used as the missing value entry.
+              </p>
+
+              <p>
+                Use the <c>replace</c> command to swap out the missing value
+                they used for <c>np.nan</c> everywhere it shows up.
+              </p>
+
+              <program language="python3" filename="day01-nan-swap">
+                <code>
+                  # Your code goes here
+
+
+
+                </code>
+                <postamble>
+                  # this command should show NaNs somewhere
+                  auto[auto.isna().any(axis=1)]
+                </postamble>
+              </program>
+            </statement>
+
+            <hint>
+              <p>
+                Look up <c>pandas.DataFrame.replace</c>.
+              </p>
+            </hint>
+
+            <hint>
+              <p>
+                note that <c>inplace=False</c> is the default for the
+                <c>replace</c> command.
+              </p>
+            </hint>
+
+            <answer>
+              <program language="python3" filename="day01-nan-swap-answer">
+                <code>                  
+                  # We'll take one example and show its values before/after the replacement
+                  # print the entry before the replacement of the '?' with NaN
+                  print('---Before---')                  
+                  print(auto.loc[32])
+                  
+                  # Replace the question marks with nan
+                  auto = auto.replace('?', np.nan)
+                  
+                  # see the same entry after the replacement
+                  print('---After---')
+                  print(auto.loc[32])
+
+                </code>
+                <postamble>
+                  # this command should show NaNs somewhere
+                  auto[auto.isna().any(axis=1)]
+                </postamble>
+              </program>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Finally, let's just get rid of those rows from the data set
+                entirely.
+              </p>
+
+              <p>
+                Overwrite the <sq>data</sq> frame with the version that deletes
+                those 5 rows using the <c>dropna</c> command.
+              </p>
+
+              <program language="python3" filename="day01-drop-nan-rows">
+                <code>
+                  # Your code goes here                  
+
+
+                </code>
+                <postamble>
+                  # If that worked, you now have 392 rows
+                  auto.shape
+                </postamble>
+              </program>
+            </statement>
+
+            <answer>
+              <p>
+                <pf>auto = auto.dropna()</pf>
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Fixing horsepower: One last weird data cleanup for us to do on
+                this data set.
+                Check out the <sq>horsepower</sq> column.
+              </p>
+
+              <p>
+                Run <pf>auto['horsepower']</pf> and compare the output to the
+                <sq>weight</sq> and <sq>name</sq> columns.
+                What differene(s) did you notice?
+              </p>
+            </statement>
+
+            <hint>
+              <p>
+                Check the <sq>dtype</sq> for these columns.
+              </p>
+            </hint>
+            <response/>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                The <sq>dtype</sq> tells us what kind of data pandas thinks is
+                contained in there.
+                <sq>int64</sq> is for numbers, like horsepower, but for some
+                <xref ref="day01-null-as-q-mark" text="custom">reason</xref>
+                pandas is treating it like object data, which is what pandas
+                uses for basically anything else, like data inputs that are
+                strings.
+                This makes sense for the <sq>name</sq> column, but we'd like to
+                fix it for the <sq>horsepower</sq> column now that we've fixed
+                the <sq>np.nan</sq> issue.
+                The command <pf>auto['horsepower'].astype('int')</pf> returns
+                the <sq>horsepower</sq> column with <sq>dtype: int64</sq>.
+              </p>
+              <aside xml:id="day01-null-as-q-mark">
+                <p>
+                  The reason is related to the weird choice of null entry for
+                  this data set.
+                  It's also why <sq>describe</sq> above didn't have the
+                  <sq>horsepower</sq> column.
+                </p>
+              </aside>
+
+              <p>
+                Overwrite the `horsepower` column in the `auto` data frame with
+                this fixed version.
+              </p>
+
+              <program language="python3" filename="day01-overwite-horsepower">
+                <code>
+                  # Your code goes here                  
+
+
+                </code>
+              </program>
+            </statement>
+
+            <answer>
+              <program language="python3" filename="day01-overwite-horsepower-answer">
+                <code>
+                  # Replace that column with the integer version
+                  auto['horsepower'] = auto['horsepower'].astype('int')                  
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+
+        <exercise>
+          <title>Extracting data from a frame</title>
+
+          <introduction>
+            <p>
+              Ok, I know everyone needs a reminder on this (It's me.
+              I can never remember any of this without googling it.....), let's
+              just do a quick refresh on how to get out portions of your data
+              table.
+            </p>
+
+            <p>
+              First, you can get a whole column (which is known as a pandas
+              `Series`) using <pf>auto['weight']</pf>.
+            </p>
+
+            <p>
+              For more fine-grained control, there are two commands that are
+              used: `loc`, and `iloc`.
+            </p>
+
+            <program language="python3" filename="day01-loc-and-iloc">
+              auto.head()
+
+              # `loc` takes the labels as inputs to find a particular point
+              auto.loc[3,'weight']
+
+              # 'iloc' takex the indices. Here's how to get the same number
+              auto.iloc[3,4]
+            </program>
+            <p>
+              In this case, the row entry is the same for both (`3`) because the
+              rows happen to be labeled with their number.
+              However, for `.loc`, we need the name of the column we want
+              (`weight`), while for `.iloc` we need the number of the column
+              (`4` because we count from zero...).
+            </p>
+          </introduction>
+
+          <task>
+            <statement>
+              <p>
+                Extract a data frame with rows 3,4,5, and 6, and with
+                information on displacement, horsepower, and weight.
+              </p>
+
+              <program language="python3" filename="day01-loc-and-iloc-challenge">
+                <code>
+                  # Your code goes here                  
+
+
+                </code>
+              </program>
+            </statement>
+
+            <answer>
+              <p>
+                <pf>auto.loc[range(3,7), ['displacement','horsepower','weight']]</pf>
+              </p>
+            </answer>
+          </task>
+        </exercise>
+
+        <exercise>
+          <title>Plotting</title>
+
+          <introduction>
+            <p>
+              The third-ish thing I do with a new data set that I'm trying to
+              understand is to just start plotting random things.
+              This is great for getting a sense of ranges for values, as well as
+              to start looking for simple correlations.
+              In this class, we will use two python modules for plotting,
+              depending on which has the tools we want:
+              <ul>
+                <li>
+                  <p>
+                    <sq>matplotlib</sq>.
+                    This is basically the standard plotting tool.
+                    It does basically anything you want (albeit with a bit of
+                    pain and suffering and a few choice four letter words along
+                    the way).
+                    You've already seen this package in CMSE 201 at least.
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    <sq>seaborn</sq>.
+                    This is helpful for some prepackaged figure generation that
+                    we will make use of.
+                    It's actually built on top of matplotlib, but has often
+                    simplified syntax.
+                  </p>
+                </li>
+              </ul>
+            </p>
+
+            <program language="python" filename="day01-import-seaborn">
+              <preamble>
+                # Make sure you run this to import seaborn. If this doesn't run
+                # for some reason, check that it's installed.
+                import seaborn as sns
+              </preamble>
+              <code>
+                # let's examine the first few rows of the data again
+                auto.head()
+              </code>
+            </program>
+          </introduction>
+
+          <task>
+            <statement>
+              <p>
+                First, use matplotlib's <c>hist</c> command to show a histogram
+                of the <sq>weight</sq> data.
+              </p>
+
+              <program language="python" filename="day01-hist-for-weight">
+                <code>
+                  # your code here
+
+
+
+                </code>
+              </program>
+            </statement>
+
+            <hint>
+              <p>
+                if you ever forget how to use a command, you can of course
+                google it, but you can also type <sq>?</sq> before the name of
+                the command to see the help info from inside the jupyter
+                notebook, e.g.: <pf>?plt.hist</pf>.
+              </p>
+            </hint>
+
+            <answer>
+              <p>
+                <pf>plt.hist(auto['weight'])</pf>
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Plot the same histogram using seaborn's <c>histplot</c>.
+              </p>
+            </statement>
+
+            <answer>
+              <p>
+                <pf>sns.histplot(auto['weight'])</pf>
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                The next useful tool is to see data points scattered with each
+                other in 2 dimensions.
+              </p>
+
+              <p>
+                Draw a scatter plot of the <sq>weight</sq> variable vs
+                <sq>mpg</sq> variable.
+              </p>
+            </statement>
+
+            <hint>
+              <p>
+                Check the command <c>plt.scatter</c>.
+              </p>
+            </hint>
+
+            <answer>
+              <p>
+                <pf>plt.scatter(auto['weight'],auto['mpg'])</pf>
+              </p>
+            </answer>
+
+            <answer>
+              <p>
+                This command should get you approximately the same thing, but
+                with the added perk of automatically labeling axes
+              </p>
+
+              <p>
+                <pf>sns.relplot(x="weight", y="mpg", data=auto);</pf>
+              </p>
+            </answer>
+          </task>
+
+          <task>
+            <statement>
+              <p>
+                Now here is what I think is one of the most useful tools in
+                seaborn for use when you're starting to understand a dataset....
+              </p>
+
+              <p>
+                <pf>sns.pairplot(auto)</pf>
+              </p>
+
+              <p>
+                Run the above command.
+                What is each graph on this giant grid showing you?
+              </p>
+            </statement>
+            <response/>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+
+  <conclusion>
+    <p>
+      The new version of the textbook has been setup in python, and with it they
+      have setup a python package with the stuff needed for the labs.
+      <ul>
+        <li>
+          <p>
+            <url href="https://islp.readthedocs.io/en/latest/" visual="islp.readthedocs.io/en/latest/">Documentation of ISLP</url>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <url href="https://islp.readthedocs.io/en/latest/installation.html" visual="islp.readthedocs.io/en/latest/installation.html">Installation Instructions</url>
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      In theory, you should be able to get it running using the command
+      <pf>pip install ISLP</pf>
+    </p>
+
+    <p>
+      however this caused a bunch of headaches when I tried to do it on my
+      machine.
+    </p>
+
+    <p>
+      For the moment, I'm not going to try to set up all labs without using this package.
+      The issue is that their package is VERY restrictive about versions of
+      dependent packages ( <sq>numpy</sq>, <sq>matplotlib</sq>, etc), which
+      means you would need to downgrade many standard packages on your system,
+      or be comfortable with using conda environments.
+      If that is something you are comfortable with, you can still follow the
+      <url href="https://islp.readthedocs.io/en/latest/installation.html" visual="islp.readthedocs.io/en/latest/installation.html">Installation
+      Instructions</url>
+      to install the package.
+    </p>
+
+    <p>
+      Congratulations, we're done!
+    </p>
+  </conclusion>
+</section>

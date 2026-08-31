@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<section xml:id="syllabus" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Syllabus</title>
+
+  <introduction>
+    <p>
+    </p>
+  </introduction>
+  <!-- Include chapters -->
+  <subsection xml:id="sec-course-info">
+    <title>Policy Sheet</title>
+
+    <p>
+      This is the syllabus for <term>Fundamentals of Data Science Methods (CMSE 381)</term> for [Fall] 2026.
+      It is a [4] credit course.
+      <!-- use a description list (dl) for short items -->
+      <dl>
+        <li>
+          <title>Instructor</title>
+
+          <p>
+            Prof. Firas Khasawneh, Ph.D. (Dr. K), EB 2503, <url href="mailto:khasawn3@msu.edu">khasawn3@msu.edu</url>.
+          </p>
+        </li>            
+          
+        <li>
+          <title>Instructor</title>
+
+          <p>
+            Liangzhang Bao, Ph.D., EB 2507L, <url href="mailto:baolianz@msu.edu">baolianz@msu.edu</url>.
+          </p>
+        </li>
+
+        <li>
+          <title>Office hours</title>
+
+          <p>
+            TBD
+          </p>
+        </li>
+
+        <li>
+          <title>Class meets</title>
+
+          <p>
+            Section 001 (Dr. K): MWF 3:30-4:40 PM at Olds Hall 109
+          </p>
+          <p>
+            Section 002 (Dr. Bao): MWF 12:30-1:40 PM at Holden Hall C135
+          </p>
+        </li>
+
+        <li>
+          <title>Course Description</title>
+
+          <p>
+            CMSE 381 is an introduction course to statistical and machine learning. It covers the fundamentals of data science methods, including unsupervised learning and supervised learning, feature extraction, dimension reduction, clustering, regression and classification.
+          </p>
+        </li>
+
+        <li>
+          <title>Prerequisite</title>
+
+          <p>
+            (STT 180 and MTH 314 and CMSE 201 and STT 380)
+          </p>
+          <p>
+             or (STT 180 and MTH 314 and CMSE 201 and STT 441 and STT 442)
+          </p>
+        </li>
+
+        <li>
+          <title>Textbook and course materials</title>
+
+          <p>
+            <pubtitle>An Introduction to Statistical Learning: With Applications in Python</pubtitle>
+            by James, Witten, Hastie, Tibshirani, and Taylor. Available as a FREE download at <url href="https://statlearning.com/">https://statlearning.com/</url>
+          </p>
+          <p>
+            Some additional reading for those interested, although we will not have any assignments from this book: <pubtitle>The Elements of Statistical Learning}. Hastie, Tibshirani, and Friedman</pubtitle>. Available as a FREE download <url href="http://www-stat.stanford.edu/ElemStatLearn">here</url>.
+          </p>
+        </li>
+      </dl>
+    </p>
+
+    <!-- Use paragraphs to break apart subsections -->
+    <paragraphs>
+      <title>Websites</title>
+
+      <p>
+        <ul>
+          <li> 
+            <p>Content for the class will be posted on the course webpage:   <url href="https://msu-cmse-courses.github.io/CMSE381-F26/">msu-cmse-courses.github.io/CMSE381-S26/</url>  
+              which can also be accessed from <url href="http://cmse.msu.edu/CMSE381/">cmse.msu.edu/CMSE381</url>. 
+              Nearly every class will have a skeleton of slides, as well as a jupyter notebook for coding portions.  
+           </p>
+          </li>
+          <li>
+            <p>
+              The D2L website has your grades kept as up to date as possible. Note that any running class GPAs are approximate as long as some assignments' grades are still pending and they are meant to give the students an idea of their class performance as opposed to what their final GPA in the course is. Any accidental deviations in the distribution/calculation of the approximate running course GPAs on D2L will be corrected using the grades' distribution posted in the syllabus. When all the semester grades are in, the instructors will post the final calculated grades for the students to check. It is the students' responsibility to check that their grades were entered correctly and that their final grades are consistent with the distribution posted in the syllabus. 
+            </p>
+          </li>
+          <li>
+            <p>
+              We use Crowdmark (\url{https://crowdmark.com/}) for grading. You will have access to graded quizzes and tests from this website. Once we have the first quiz, you will get an invitation from the website to be able to upload your stuff.                
+            </p>
+          </li>
+          <!--<li>
+            <p>
+              We use our locally developed AI system (<url href="https://www.msu-stt-learning.com/">msu-stt-learning.com</url>) to provide feedback on your in-class coding exercises and homework.
+            </p>
+          </li> -->
+        </ul>
+      </p>
+    </paragraphs>
+
+  <!-- Use paragraphs to break apart subsections -->
+    <paragraphs>
+      <title>Course Objectives</title>
+
+      <p>
+        Understand how to find patterns and structure in data using statistical methods and machine learning algorithms, and be able to implement simple versions of such techniques. Understand the concepts of unsupervised and supervised learning broadly, in addition to having proficiency in common algorithms and ideas within each field.
+      </p>
+    </paragraphs>
+
+  <!-- Use paragraphs to break apart subsections -->
+    <paragraphs>
+      <title>Basic Expectations</title>
+
+      <p>
+        <ul>
+          <li>
+            <p>
+              We expect you to attend each class for the full 70 min duration. During this time, we expect you to take detailed notes on, or beside, the skeleton slides provided before each class. We also expect you to complete the jupyter notebook.
+            </p>
+          </li>
+          <li>
+            <p>
+              We expect you to read the assigned chapters in the text book as listed in the course schedule (see the most up-to-date version on course website).
+            </p>
+          </li>
+          <li>
+            <p>
+              \item We expect you to actively participate in group work and interactive Q &amp; A sessions.
+            </p>
+          </li>
+          <li>
+            <p>
+              We expect you to complete all homework assignments, quizzes, exams, and a semester project.
+            </p>
+          </li>
+        </ul>
+           
+
+
+
+      </p>
+    </paragraphs>
+
+  </subsection>
+
+
+
+
+  <!-- Other subsections for larger dividers -->
+  <subsection xml:id="sec-assessments">
+    <title>Assessments and Grades</title>
+ 
+    <paragraphs>
+      <title>Grading</title>     
+
+    <p> 
+      
+      <ul>
+        <li>
+          <p>
+            <term>Homework</term>: All homework must be submitted directly D2L as a Jupyter Notebook (.ipynb) file. 
+            Students are responsible for ensuring that submitted notebooks run from top to bottom without errors and that all required code, outputs, and explanations are clearly visible. A clear and well-organized solution pathway is expected. 
+            <ul>
+            <li><p>Homeworks are due by midnight on the days marked in the schedule.</p></li>
+            <li><p>Homeworks submitted before midnight the following day will still be graded with a 5% penalty. </p></li>
+            <li><p>Homeworks submitted before midnight two days after will still be graded with a 15% penalty.</p></li>
+            <li><p>After midnight 2 days after, no credit will be given, but see the dropped grades policy below.
+            For example, if homework is due on Friday, those turned in before midnight on Saturday have a 5% penalty; those turned in before midnight Sunday will have a 15% penalty; and no homework will be accepted after that.
+            Late homework will not be accepted, please see the <em>missed work policy</em> section below for information on automatically dropped grades. 
+          </p></li>      
+        </ul>
+      </p>     
+        </li>
+          <li>
+          <p>
+            Academic integrity policies apply. All submitted work must be the student’s own unless collaboration is explicitly permitted. 
+            Any use of generative AI tools must be clearly disclosed, with appropriate citations for the tools and models used, including the prompts used to generate content, as specified in the syllabus.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    </paragraphs>
+
+    <paragraphs>
+      <title>Collaboration Policy</title>
+      <p>      
+      The material presented draws from many disparate backgrounds, and it is highly unlikely any one student will have experience with all of it.
+      To that end, we encourage students to work together,  discuss the problems, and teach each other while struggling together.
+      The collaboration policy is as follows.
+      <ul>
+        <li> We  <em>do</em> assume you will talk to each other to work on things.              </li>
+        <li> We  <em>do</em> assume you will google definitions while you are working on things. </li>              
+        <li> 
+          <p>
+            We  <em>do</em> assume you will include an acknowledgement section in your homework mentioning the people and resources you used in the course of answering problems.
+            <em>Example:
+              I worked with Maryam Mirzakhani and Grigori Perelman while completing this assignment. 
+              I also used wikipedia to understand Galois cohomology and stack overflow to get me started on an algorithm for
+              enumerating Hamiltonian cycles in a graph.
+            </em>
+          </p>
+        </li>
+        <li>
+          <p>
+            We <alert>do not</alert> assume you will copy each other's work or copy from the internet.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+  </paragraphs>
+
+  <paragraphs>
+    <title>Quizzes</title>  
+          <p>
+            Once a week, there will be a short in class quiz on basics from the previous week's course. 
+            The quiz will last for about 10 minutes. The sorts of things we will put on quizzes include checking understanding definitions and interpretations of the content to ensure that we are all at the same place with the material.
+            Note that no makeups will be given, see the missed work policy below.
+          </p>
+    </paragraphs>
+
+    <paragraphs>
+  <title>Exams</title>
+          <p>
+            There will be three non-cumulative midterms given. See the schedule section for dates. There is no final for the course.  
+          </p>          
+          <p>
+            Bring 8.5x11 sheet of paper 
+            Handwritten both sides 
+            Anything you want on it, but must be your work 
+            Must have your name and group number
+            You must turn it in
+            Calculator w/o internet
+          </p>
+    </paragraphs>
+
+          
+    <paragraphs>
+      <title>Project</title>
+    <p>
+            <term>Project:</term> 
+            There will be a final project where you will take a publicly available data set, use tools learned in class to analyze the data, and submit a written report of your results. 
+            This project will be due at the end of the semester, but we will have several checkpoints throughout the semester.
+          </p>        
+    </paragraphs>
+          
+    <paragraphs>
+      <title>Missed Work Policy</title>
+      <p>            
+            At the end of the semester, we will drop the one lowest homework grade; and the three lowest quiz grades. 
+            For this reason, there is no late homework accepted and no makeups are available for quizzes. 
+            Students with an issue (i.e.~medical, bereavement) needing to miss a midterm need to get in touch with your section instructor as soon as possible, preferably before the exam is administered. 
+            A time to make up the exam will be organized with the student.
+      </p>   
+  </paragraphs>
+
+  <paragraphs>
+    <title>Points</title>
+    <table>
+  <title>Assignments' Weights</title>
+  <tabular halign="center">
+    <row header="yes" bottom="minor">
+      <cell><line>Homework</line> <line>(Drop lowest 1)</line></cell>
+      <cell><line>Quizzes</line><line>(Drop lowest 3)</line></cell>
+      <cell>Midterms <m></m></cell>
+      <cell>Final Project <m></m></cell>
+      <cell>Total<m></m></cell>
+    </row>
+    <row>
+      <cell>17%</cell>
+      <cell>14%</cell>
+      <cell>52%</cell>
+      <cell>17%</cell>
+      <cell>100%</cell>
+    </row>     
+  </tabular>
+
+</table>
+<p>
+  Your final grade will be calculated using the following scale:
+</p>
+
+  <table>
+    <title>Final Grade Scale</title>
+    <tabular>
+      <row>
+        <cell>4.0</cell>
+        <cell> <m>\geq</m> 90</cell>
+      </row>
+      <row>
+        <cell>3.5</cell>
+        <cell> <m>\geq</m> 85</cell>
+      </row>
+        <row>
+        <cell>3.0</cell>
+        <cell><m>\geq</m> 80</cell>
+      </row>
+      <row>
+        <cell>2.5</cell>
+        <cell><m>\geq</m> 75</cell>
+      </row>
+      <row>
+        <cell>2.0</cell>
+        <cell><m>\geq</m> 70</cell>
+      </row>
+        <row>
+        <cell>1.5</cell>
+        <cell><m>\geq</m> 65</cell>
+      </row>
+      <row>
+        <cell>1.0</cell>
+        <cell><m>\geq</m> 60</cell>
+      </row>
+      <row>
+        <cell>0.0</cell>
+        <cell> <m>\geq</m> 60</cell>
+      </row>
+    </tabular>
+  </table>
+  
+   
+  </paragraphs>
+
+  <paragraphs>
+    <title>Course Activities:</title>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Occasionally, we may need to change the class format (for example, if an instructor is ill). 
+            We will notify you as soon as possible, primarily by email and, when feasible, during class. 
+            We will also try to post announcements on D2L, though email should be considered the primary method of communication. 
+            Whenever possible, changes will be announced by noon on the day of class. 
+            If class is moved online, the Zoom link will be emailed before class begins.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    
+  </paragraphs>
+
+  <paragraphs>
+    <title>Required Materials</title>
+
+    <p>
+      You will need to ensure that you have the following:
+      <ul>
+        <li>
+          <p>
+            A laptop to bring to class. We will be coding examples of topics nearly every day, so be sure to bring it with you. 
+            In the case that you do not have access to a laptop to bring to class every day, please speak to me as soon as possible so we can figure out alternative accommodations.
+          </p>
+        </li>
+        <li>
+          <p>
+            You need to have access to the course website before every class, as we will  be posting skeleton slides and jupyter notebooks prior to class.
+            These should be posted before noon the day of class.
+            If you want the ability to take notes on the slides, you need to be sure to either have access to a tablet, or print out the slides in advance of class.  
+            We will not be providing print-outs of the slide decks.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    
+  </paragraphs>
+
+  <paragraphs>
+    <title>Tentative Schedule</title>
+
+    <p>
+      Note that this schedule is only provided as a guide. 
+      What content is covered on which day is <alert>very likely subject to change</alert>. 
+      However, the dates of the midterms <alert>will not change</alert>. 
+      We maintain the schedule as it changes at this link <url href="https://www.accuweather.com/en/us/east-lansing/48823/weather-forecast/333737">here</url>.
+    </p>
+    
+  </paragraphs>
+  
+  <paragraphs>
+    <title>Acceptable and Unacceptable Use of Generative AI</title>
+    <p>
+      This course is all about the use of machine learning, and so understanding the potential for use of generative AI tools such as ChatGPT, Dall-e, etc., is directly applicable to our learning objectives. 
+      That being said, the extremely fast emergence of this tool means that we are all still learning about how it can be used, and working to understand the use of this tool in an ethical manner, particularly in our classroom context. 
+      In class, we will draft a list of examples of how we as a class think that that these tools can and cannot be used for the purposes of this course. 
+    </p>
+
+    <p>
+      Your use of AI tools must be properly documented and cited in order to stay within university policies on academic integrity and the Spartan Code of Honor Academic Pledge. 
+      <alert>Clearly indicate where generative AI has been used in your assignments and provide proper citations for the AI tools and models you utilized, along with the prompts you used to generate content.</alert>
+      This can be done through comments in your code, annotations in your documentation, or a dedicated section in your homework or project reports. Properly citing both the tools and the specific prompts for each piece of generated content helps ensure transparency, reproducibility, and gives credit to the creators of the AI tools.
+      Any assignment that is found to have used generative AI tools in unauthorized ways is subject to being given a 0.  
+      When in doubt about permitted usage, please ask for clarification. 
+    </p>
+    
+  </paragraphs>
+
+  <paragraphs>
+    <title>Inclusive classroom behavior</title>    
+
+    <p>
+      Respectful and responsible behavior is expected at all times, which includes not interrupting other students, refraining from non-course-related use of electronic devices or additional software during class sessions, and not using offensive or demeaning language in our discussions. Flagrant or repeated violations of this expectation may result in ejection from the classroom, grade-related penalties, and/or involvement of the university Ombudsperson. In particular, behaviors that could be considered discriminatory or harassing, or unwanted sexual attention, will not be tolerated and will be immediately reported to the appropriate MSU office (which may include the MSU Police Department).      
+    </p>
+    <p>
+      In addition, MSU welcomes a full spectrum of experiences, viewpoints, and intellectual approaches because they enrich the conversation, even as they challenge us to think differently and grow. However, we believe that expressions and actions that demean individuals or groups comprise the environment for intellectual growth and undermine the social fabric on which the community is based. These demeaning behaviors are not welcome in this classroom.
+    </p>
+
+  </paragraphs>
+
+  <paragraphs>
+    <title>Accommodations for Students with Disabilities</title>
+    <p>
+      (from the Resource Center for Persons with Disabilities (RCPD)): Michigan State University is committed to providing equal opportunity for participation in all programs, services and activities. Requests for accommodations by persons with disabilities may be made by contacting the Resource Center for Persons with Disabilities at 517-884-RCPD or on the web at http://rcpd.msu.edu.  Once your eligibility for an accommodation has been determined, you will be issued a Verified Individual Services Accommodation ("VISA") form. 
+      Please present this form to the instructor at the start of the term and/or two weeks prior to the accommodation date (test, project, etc.). 
+      Requests received after this date may not be honored.
+    </p>
+    
+  </paragraphs>
+
+  <paragraphs>
+    <title>Academic honesty</title>
+
+    <p>
+      Intellectual integrity is the foundation of the scientific enterprise.  In all instances, you must do your own work and give proper credit to all sources that you use in your papers and oral presentations – any instance of submitting another person’s work, ideas, or wording as your own counts as plagiarism.  This includes failing to cite any direct quotations in your essays, research paper, class debate, or written presentation.  The MSU College of Engineering adheres to the policies of academic honesty as specified in the General Student Regulations 1.0, Protection of Scholarship and Grades, and in the all-University statement on Integrity of Scholarship and Grades, which are included in Spartan Life: Student Handbook and Resource Guide.  Students who plagiarize will receive a 0.0 in the course.  In addition, University policy requires that any cheating offense, regardless of the magnitude of the infraction or punishment decided upon by the professor, be reported immediately to the dean of the student's college.  (See also the Academic Integrity webpage.)
+    </p>
+
+    <p>
+      It is important to note that plagiarism in the context of this course includes, but is not limited to, directly copying another student’s solutions to assignments; copying materials from online sources, textbooks, or other reference materials without citing those references in your source code or documentation, or having somebody else do your in-class work or homework on your behalf.  Any work that is done in collaboration with other students should state this explicitly, and have their names as well as yours listed clearly.
+    </p>
+
+    <p>
+      More broadly, we ask that students adhere to the Spartan Code of Honor academic pledge, as written by the Associated Students of Michigan State University (ASMSU):
+
+      <em>``As a Spartan, I will strive to uphold values of the highest ethical standard. I will practice honesty in my work, foster honesty in my peers, and take pride in knowing that honor is worth more than grades. I will carry these values beyond my time as a student at Michigan State University, continuing the endeavor to build personal integrity in all that I do.''</em>
+    </p>
+    
+  </paragraphs>
+
+  <paragraphs>
+    <title>Limits to confidentiality:</title>
+
+    <p>
+      Essays, journals, and other materials submitted for this class are generally considered confidential pursuant to the University's student record policies.  However, students should be aware that University employees, including instructors, may not be able to maintain confidentiality when it conflicts with their responsibility to report certain issues to protect the health and safety of MSU community members and others.  As the instructor, I must report the following information to other University offices (including the Department of Police and Public Safety) if you share it with me:
+      <ul>
+        <li>
+          <p>
+            suspected child abuse/neglect, even if this maltreatment happened when you were a child,
+          </p>
+        </li>
+        <li>
+          <p>
+            allegations of sexual assault or sexual harassment when they involve MSU students, faculty, or staff, and
+          </p>
+        </li>
+        <li>
+          <p>
+            credible threats of harm to oneself or to others.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+       These reports may trigger contact from a campus official who will want to talk with you about the incident that you have shared.  In almost all cases, it will be your decision whether you wish to speak with that individual.  If you would like to talk about these events in a more confidential setting you are encouraged to make an appointment with the MSU Counseling Center.
+    </p>
+    
+  </paragraphs>
+
+<paragraphs>
+  <title>Drops and Adds</title>
+
+  <p>
+    <ul>
+      <li> The last day to add this course is {\color{red}Jan 16, 2026}     </li>
+      <li> The last day to drop this course with a 100 percent refund and no grade reported is {\color{red}Feb 5, 2026}.     </li>
+      <li> The last day to drop this course with no refund and no grade reported is {\color{red}March 9, 2026}.     </li>
+      <li> See the registrar's page for up-to-date information regarding dates.
+    You should immediately make a copy of your amended schedule to verify you have added or dropped this course.</li>
+    </ul>
+  </p>
+  
+</paragraphs>
+
+<paragraphs>
+  <title>Changes to Syllabus</title>
+<p>
+  The syllabus may also be adjusted if needed. 
+  These types of changes will be announced during class or by email. 
+</p>
+
+  
+</paragraphs>
+
+<paragraphs>
+  <title>Disruptive Behavior</title>
+<p>
+Article 2.III.B.4 of the Student Rights and Responsibilities (SRR) for students at Michigan State University states: ``The student's behavior in the classroom shall be conducive to the teaching and learning process for all concerned.'' Article 2.III.B.10 of the SRR states that ``The student and the faculty share the responsibility for maintaining professional relationships based on mutual trust and civility.''
+General Student Regulation 5.02 states: "No student shall . . . interfere with the functions and services of the University (for example, but not limited to, classes . . .) such that the function or service is obstructed or disrupted. Students whose conduct adversely affects the learning environment in this classroom may be subject to disciplinary action through the Student Judicial Affairs office.
+</p>
+
+  
+</paragraphs>
+
+
+<paragraphs>
+  <title>Grief Absence Policy</title>
+<p>
+  Michigan State University is committed to ensuring that the bereavement process of a student who loses a family member during a semester does not put the student at an academic disadvantage in their classes. 
+  If you require a grief absence, you should complete the “Grief Absence Request” web form no later than one week after knowledge of the circumstance. 
+  I will work with you to make appropriate accommodations so that you are not penalized due to a verified grief absence.
+</p>
+
+  
+</paragraphs>
+
+  </subsection>
+</section>

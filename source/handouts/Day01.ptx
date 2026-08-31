@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+    
+    
+<handout component="day01" xml:id="day-01-lecture">
+    <title>Day 01</title>
+
+    <paragraphs>
+        <title>Intro to class</title>
+
+    </paragraphs>
+
+    <p>
+        <em>What is statistical learning?</em>
+        <sidebyside widths="45% 45%" valign="top">
+            <list>
+                <title>Statistical Learning</title>
+
+                <ul>
+                    <li>Subfield of statistics</li>
+                    <li>
+                        <p>
+                            Emphasizes models and their interpretability,
+                            precision, and uncertainty
+                        </p>
+                    </li>
+                </ul>
+            </list>
+
+            <list>
+                <title>Machine Learning</title>
+
+                <ul>
+                    <li>
+                        <p>
+                            Has a greater emphasis on large scale applications
+                            and prediction accuracy.
+                        </p>
+                    </li>
+                </ul>
+            </list>
+        </sidebyside>
+    </p>
+
+    <p>
+        <em>Why should you care?</em>
+        <ul>
+            <li>
+                <p>
+                    Data is everywhere, getting more complicated and useful.
+                    Learning how to analyze data is critical.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Web data, e-commerce (Amazon, JD, Alibaba)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Car sales (Tesla, Ford, and GM)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Sports team (MSU, Lions, etc)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Politics and government
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Image, videos, text
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    even fancier data in biomedicine
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        <em>Learning tools as black boxes?</em>
+        <ul>
+            <li>
+                <p>
+                    Need to understand the machinery enough to
+                </p>
+
+                <ul>
+                    <li>
+                        <p>
+                            know what tool to use
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            know how to interpret output of the tool
+                        </p>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <p>
+                    Don't need to rebuild the entire box from scratch
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <example>
+        <title>Spam versus non-spam email</title>
+        <statement>
+            <image source="figures/ESLR-Table1-1.png" width="80%">
+                <shortdescription>
+                    table of distribution of strings in samples of spam versus non-spam
+                    emails
+                </shortdescription>
+            </image>
+            <p>
+                Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.
+            </p>
+        </statement>
+        <answer>
+            <p>
+                One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) &amp; (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0)  then spam. 
+            </p>
+        </answer>
+        
+        
+        
+    </example>
+
+
+    <p>
+        <em>Supervised learning</em>
+        <ul>
+            <li>
+                <p>
+                    Outcome measurement <m>Y</m> (also called dependent
+                    variable, response, target, label).
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Vector of <m>p</m> predictor measurements <m>X</m> (also
+                    called inputs, regressors, covariates, features, independent
+                    variables).
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    In the regression problem, <m>Y</m> is quantitative (e.g
+                    price, blood pressure).
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    In the classification problem, <m>Y</m> takes values in a
+                    set of distinct categories (survived/died, cancer class of
+                    tissue sample, types of language).
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        <em>Unsupervised learning</em>
+        <ul>
+            <li>
+                <p>
+                    No outcome variable, just a set of predictors (features)
+                    measured on a set of samples.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Objective is fuzzier: often explore the intrinsic relation
+                    between samples (e.g.,clustering) or features (e.g.
+                    dimensionality reduction)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Difficult to know how well you are are doing
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Different from supervised learning but can be useful as a
+                    pre-processing step for supervised learning.
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <exercise label="genAI-discussion" groupwork="yes">
+        <title>Generative AI discussion</title>
+
+        <p>
+            Generative artificial intelligence (AI) is artificial intelligence
+            capable of generating text, images, or other media, using generative
+            models.
+            Generative AI models learn the patterns and structure of their input
+            training data and then generate new data that has similar
+            characteristics.
+        </p>
+
+        <task>
+            <statement>
+                <p>
+                    Get in a group of about 4.
+                </p>
+            </statement>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    In your group, brainstorm cases where someone might use
+                    generative AI in the context of our class.
+                </p>
+            </statement>
+        </task>
+
+        <task>
+            <statement workspace="2in">
+                <p>
+                    Once you have added a few, start adding arguments for or
+                    against whether we should allow the use of that context in
+                    class.
+                </p>
+            </statement>
+        </task>
+    </exercise>
+
+    <p workspace="0.5in">
+        Download the jupyter notebook and get started!
+    </p>
+</handout>

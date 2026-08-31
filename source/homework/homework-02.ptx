@@ -1,0 +1,22 @@
+<worksheet>
+  <title>Homework 02</title>
+  <introduction>
+    <p>
+      <alert>Instructions:</alert> Complete all the exercises below and submit your work by the due date.
+    </p>
+  </introduction>
+
+  <page>
+    <program language="python" xml:id="program-example">
+        <code><xi:include parse="text" href="./HW_notebooks/CMSE381-HW2-2026S.ipynb"></code>
+        <!-- Use add-files to connect the program to the data file 
+        <datafile add-files="data-id">
+            <pre source="external-data.txt"/>
+        </datafile>-->
+    </program> 
+    <!-- Define the data file elsewhere in your docinfo or project 
+    <datafile xml:id="data-id" filename="data.txt" source="external-data.txt"/> -->
+
+
+  </page>
+</worksheet>

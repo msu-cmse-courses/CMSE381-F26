@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a sample slide deck to get started with.  If you want the slides to be built, -->
+<!-- you must go to `project.ptx` and uncomment the slides targets (starting on line 12)   -->
+
+<pretext xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- Include the docinfo common to the course, in the parent folder (..) -->
+  <xi:include href="../docinfo.ptx"/>
+
+  <slideshow xml:id="Day01-slides">
+          <objectives>
+        <ul>
+          <li>
+            <p>
+              Know how to do stuff
+            </p>
+          </li>
+        </ul>
+      </objectives>
+    <title>Day 01 Slides</title>
+    
+    
+    <frontmatter>
+      <titlepage-items/>
+    </frontmatter>
+    
+    <!-- This assumes you want to structure your entire slide deck by sections -->
+    <!-- RevealJS will use 2-d navigation: move left-right to switch between sections, up-down to switch between slides in a section -->
+    <section xml:id="class-intro">
+      <title>Intro to class</title>              
+      <introduction>
+        <p>
+          
+        </p>
+      </introduction>
+
+      <slide>
+        <title>What is Statistical Learning?</title>
+  <sidebyside widths="45% 45%" valign="top">
+    <p>    
+    <ul>
+      <title>Statistical Learning</title>
+      <li>
+        Subfield of statistics
+      </li>
+      <li>
+        <p>
+         Emphasizes models and their interpretability, precision, and uncertainty 
+        </p>
+      </li>
+    </ul>
+  </p>
+
+    <p>      
+    <ul>
+      <title>Machine Learning</title>
+      <li>
+        <p>
+          Has a greater emphasis on large scale applications and prediction accuracy.
+        </p>
+      </li>
+    </ul>
+  </p>
+    
+  </sidebyside>
+
+
+      </slide>    
+    </section>
+
+    <section xml:id="Python-Review-Lab-Pt1">
+      <title>Python Review Lab: Pt 1</title>
+      <slide>
+        <title>Plan for the lab</title>
+        <p>
+            <ul>
+              <li>Download Jupyter notebook for Python Review Lab.              </li>
+              <li>
+                <p>
+                  Get started!
+                </p>
+              </li>
+            </ul>
+        </p>
+      </slide>
+    </section>   
+
+
+  </slideshow>
+</pretext>

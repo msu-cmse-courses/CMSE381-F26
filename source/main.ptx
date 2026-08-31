@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is the main course file for CMSE 381 . It is used to generate all the public facing course materials so those can be hosted online.  -->
+<pretext xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- Include common macros etc: -->
+  <xi:include href="./docinfo.ptx"/>
+  <!-- By creating a PreTeXt "book" for the course, we can split components into "chapters" -->
+  <book>
+    <title>CMSE 381: Fundamentals of Data Science Methods</title>
+
+    <subtitle>Fall 2026</subtitle>
+    <!-- Optional: include frontmatter with author info and date -->
+    <xi:include href="./frontmatter.ptx"/>
+    <chapter xml:id="course-documents">
+      <title>Syllabus and Course Schedule</title>
+
+      <!-- Course syllabus -->
+      <xi:include href="./syllabus/syllabus.ptx"/>
+      <url href="https://www.accuweather.com/en/us/east-lansing/48823/weather-forecast/333737"/>
+      <url href="https://msu-cmse-courses.github.io/CMSE381-S26/Course_Info/Schedule.html#google-calendar-for-office-hours"/>
+      <!-- Other documents could go here, like a schedule, project description, etc. -->
+      <xi:include href="./syllabus/course_schedule.ptx"/>
+    </chapter>
+    <!-- <chapter xml:id="course-notes">
+      <title>Notes</title>
+
+      <introduction>
+        <p>
+          The following slides are provided to facilitate note taking, and to
+          remind you of what we covered each week.
+          They are not a substitute for attending class and not a substitute for
+          reading the textbook.
+        </p>
+      </introduction>
+
+      <xi:include href="./notes/Day01.ptx"/>
+      <xi:include href="./notes/Day02.ptx"/> -->
+    <!-- etc. -->
+    <!-- </chapter> -->
+    <chapter xml:id="activities">
+      <title>In-Class Activities</title>
+
+      <!-- <introduction>
+        <p>
+          These are copies of the in-class activities distributed during the
+          semester.
+        </p>
+      </introduction> -->
+      <!-- Remove the example and replace with your own activities -->
+      <xi:include href="./activities/day01-worksheet.ptx"/>
+      <xi:include href="./activities/day02-worksheet.ptx"/>
+      <!-- Add more xi:include files here to include them in the main course -->
+    </chapter>
+
+    <chapter xml:id="lectures">
+      <title>Lectures</title>
+
+      <!-- Include handouts -->
+      <section xml:id="sec-exam1-material0">
+        <title>Exam 1 material</title>
+
+        <introduction>
+          <p>
+            <ul>
+              <li component="day01">
+                <p>
+                  <xref ref="day-01-lecture" text="custom">Day 01</xref>
+                </p>
+              </li>
+
+              <li component="day02">
+                <p>
+                  <xref ref="day-02-lecture" text="custom">Day 02</xref>
+                </p>
+              </li>
+
+              <li component="day03">
+                <p>
+                  <xref ref="day-03-lecture" text="custom">Day 03</xref>
+                </p>
+              </li>
+              <li component="day04">
+                <p>
+                  <xref ref="day-04-lecture" text="custom">Day 04</xref>
+                </p>
+              </li>
+              <li component="day05">
+                <p>
+                  <xref ref="day-05-lecture" text="custom">Day 05</xref>
+                </p>
+              </li>
+              <li component="day06">
+                <p>
+                  <xref ref="day-06-lecture" text="custom">Day 06</xref>
+                </p>
+              </li>
+              <li component="day07">
+                <p>
+                  <xref ref="day-07-lecture" text="custom">Day 07</xref>
+                </p>
+              </li>
+              <li component="day08">
+                <p>
+                  <xref ref="day-08-lecture" text="custom">Day 08</xref>
+                </p>
+              </li>
+              <li component="day09">
+                <p>
+                  <xref ref="day-09-lecture" text="custom">Day 09</xref>
+                </p>
+              </li>
+              <li component="day10">
+                <p>
+                  <xref ref="day-10-lecture" text="custom">Day 10</xref>
+                </p>
+              </li>
+            </ul>
+          </p>
+        </introduction>
+
+        <xi:include href="./handouts/Day01.ptx"/>
+        <xi:include href="./handouts/Day02.ptx"/>        
+        <xi:include href="./handouts/Day03.ptx"/>
+        <xi:include href="./handouts/Day04.ptx"/>
+        <xi:include href="./handouts/Day05.ptx"/>
+        <xi:include href="./handouts/Day06.ptx"/>        
+        <xi:include href="./handouts/Day07.ptx"/>
+        <xi:include href="./handouts/Day08.ptx"/>
+        <xi:include href="./handouts/Day09.ptx"/>
+        <xi:include href="./handouts/Day10.ptx"/>        
+
+
+      </section>
+    </chapter>
+
+    <chapter xml:id="homework">
+      <title>Homework</title>
+
+      <!-- Include homework files -->
+      <!--<xi:include href="./homework/homework01.ptx"/>-->
+    </chapter>
+    <!-- Include additional chapters for other categories -->
+    <!-- <chapter xml:id="slides">
+      <title>Slides</title>
+
+      <section xml:id="sec-exam1-material">
+        <title>Exam 1 material</title>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                <dataurl source="slides/slides-Day01/index.html" visual="Day01 slides"/>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                <dataurl source="slides/slides-Day02/CMSE381-002-Lec02-Ch2_1.html" visual="Day02 slides"/>
+              </p>
+            </li>
+          </ul>
+        </p>
+      </section>
+
+      <section xml:id="sec-exam2-material">
+        <title>Exam2 material</title>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                put links for exam 2 slides here.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </section>
+      <xi:include href="./slides/Day01-slides.ptx"/>
+      <xi:include href="./slides/Day02-slides.ptx"/>
+    </chapter> -->
+  </book>
+</pretext>

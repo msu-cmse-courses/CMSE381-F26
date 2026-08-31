@@ -147,7 +147,7 @@
           </li>
           <li>
             <p>
-              We expect you to complete all homework assignments, quizzes, exams, and a semester project.
+              We expect you to complete all homework assignments, quizzes, exams, (and a semester project, if applicable).
             </p>
           </li>
         </ul>
@@ -231,8 +231,8 @@
   <paragraphs>
     <title>Quizzes</title>  
           <p>
-            Once a week, there will be a short in class quiz on basics from the previous week's course. 
-            The quiz will last for about 10 minutes. The sorts of things we will put on quizzes include checking understanding definitions and interpretations of the content to ensure that we are all at the same place with the material.
+            Once a week, there will be a short in class quiz on basics from the previous week's course on the last day we have a class that week, unless the instructor announces otherwise. 
+            The quiz will last for about 10 minutes. The sorts of things we will put on quizzes include checking understanding definitions and interpretations of the content to ensure that we are all at the same place with the material. Attending the full class period is required to receive credit for the quiz.
             Note that no makeups will be given, see the missed work policy below.
           </p>
     </paragraphs>
@@ -240,27 +240,27 @@
     <paragraphs>
   <title>Exams</title>
           <p>
-            There will be three non-cumulative midterms given. See the schedule section for dates. There is no final for the course.  
-          </p>          
-          <p>
-            Bring 8.5x11 sheet of paper 
-            Handwritten both sides 
-            Anything you want on it, but must be your work 
-            Must have your name and group number
-            You must turn it in
-            Calculator w/o internet
-          </p>
+            There will be three non-cumulative midterms given. See the schedule section for dates. There is no final for the course. You are allowed a formula sheet for each midterm with the following requirements. You must turn in your formula sheet with your exam. A penalty of 10% will be applied to your exam grade for formula sheets that do not follow the requirements below.     
+          <ul>
+            <li> 1 page, 8.5x11, handwritten on both sides </li>
+            <li> Anything you want on it, but must be your work </li>
+            <li> Must have your name and group number </li>
+            <li> You must turn it in </li>
+            <li> Calculator w/o internet </li>   
+              </ul>
+              </p>
+          
     </paragraphs>
 
           
-    <paragraphs>
+    <!-- <paragraphs>
       <title>Project</title>
     <p>
             <term>Project:</term> 
             There will be a final project where you will take a publicly available data set, use tools learned in class to analyze the data, and submit a written report of your results. 
             This project will be due at the end of the semester, but we will have several checkpoints throughout the semester.
           </p>        
-    </paragraphs>
+    </paragraphs> -->
           
     <paragraphs>
       <title>Missed Work Policy</title>
@@ -281,14 +281,14 @@
       <cell><line>Homework</line> <line>(Drop lowest 1)</line></cell>
       <cell><line>Quizzes</line><line>(Drop lowest 3)</line></cell>
       <cell>Midterms <m></m></cell>
-      <cell>Final Project <m></m></cell>
+      <!-- <cell>Final Project <m></m></cell> -->
       <cell>Total<m></m></cell>
     </row>
     <row>
-      <cell>17%</cell>
-      <cell>14%</cell>
-      <cell>52%</cell>
-      <cell>17%</cell>
+      <cell>24%</cell>
+      <cell>16%</cell>
+      <cell>60%</cell>
+      <!-- <cell>17%</cell> -->
       <cell>100%</cell>
     </row>     
   </tabular>
@@ -392,7 +392,6 @@
       Note that this schedule is only provided as a guide. 
       What content is covered on which day is <alert>very likely subject to change</alert>. 
       However, the dates of the midterms <alert>will not change</alert>. 
-      We maintain the schedule as it changes at this link <url href="https://www.accuweather.com/en/us/east-lansing/48823/weather-forecast/333737">here</url>.
     </p>
     
   </paragraphs>
@@ -408,7 +407,7 @@
     <p>
       Your use of AI tools must be properly documented and cited in order to stay within university policies on academic integrity and the Spartan Code of Honor Academic Pledge. 
       <alert>Clearly indicate where generative AI has been used in your assignments and provide proper citations for the AI tools and models you utilized, along with the prompts you used to generate content.</alert>
-      This can be done through comments in your code, annotations in your documentation, or a dedicated section in your homework or project reports. Properly citing both the tools and the specific prompts for each piece of generated content helps ensure transparency, reproducibility, and gives credit to the creators of the AI tools.
+      This can be done through comments in your code, annotations in your documentation, or a dedicated section in your homework or project reports (if applicable). Properly citing both the tools and the specific prompts for each piece of generated content helps ensure transparency, reproducibility, and gives credit to the creators of the AI tools.
       Any assignment that is found to have used generative AI tools in unauthorized ways is subject to being given a 0.  
       When in doubt about permitted usage, please ask for clarification. 
     </p>
@@ -431,7 +430,7 @@
     <title>Accommodations for Students with Disabilities</title>
     <p>
       (from the Resource Center for Persons with Disabilities (RCPD)): Michigan State University is committed to providing equal opportunity for participation in all programs, services and activities. Requests for accommodations by persons with disabilities may be made by contacting the Resource Center for Persons with Disabilities at 517-884-RCPD or on the web at http://rcpd.msu.edu.  Once your eligibility for an accommodation has been determined, you will be issued a Verified Individual Services Accommodation ("VISA") form. 
-      Please present this form to the instructor at the start of the term and/or two weeks prior to the accommodation date (test, project, etc.). 
+      Please present this form to the instructor at the start of the term and/or two weeks prior to the accommodation date (test, project-if applicable, etc.). 
       Requests received after this date may not be honored.
     </p>
     
@@ -486,7 +485,7 @@
     
   </paragraphs>
 
-<paragraphs>
+<!-- <paragraphs>
   <title>Drops and Adds</title>
 
   <p>
@@ -499,7 +498,7 @@
     </ul>
   </p>
   
-</paragraphs>
+</paragraphs> -->
 
 <paragraphs>
   <title>Changes to Syllabus</title>

@@ -160,7 +160,7 @@
       <p>
       <url href="https://cmse.msu.edu/CMSE381/"/> 
       or 
-      <url href="https://msu-cmse-courses.github.io/CMSE381-S26/"/> 
+      <url href="https://msu-cmse-courses.github.io/CMSE381-F26/"/> 
     </p>
 
       <image source="course_screenshots/coursewebsite_s26.png" width="80%">
@@ -193,12 +193,13 @@
       <ul>
         <li>Bring computer every day    </li>
         <li>Jupyter notebooks    </li>
-        <li>Python</li>
+          <li>Website exercises </li>
+            <li>Group exercises</li>
       </ul>
       </p>        
       </li>
       <li> <p>
-          Once a week, there will be a short check-in quiz, mostly consisting of multiple choice questions. 
+          Once a week, there will be a short check-in quiz on the last day we have class that week (unless otherwise announced), mostly consisting of multiple choice questions. 
           This will be basic content related to lectures since the last class. 
           Possible questions include checking on definitions, or basic understanding of major ideas.               
         <ul>
@@ -223,13 +224,13 @@
         </ul>
       </p>
       </li>
-      <li> <p>One project
+      <!-- <li> <p>One project
         <ul>
           <li> Analyze dataset using tools in class, submit typed report.          </li>          
           <li> Due at the end of the semester </li>
         </ul>
       </p>
-      </li>      
+      </li>       -->
   </ul>
     </p>
 

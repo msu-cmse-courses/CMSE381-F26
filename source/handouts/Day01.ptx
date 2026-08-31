@@ -214,7 +214,7 @@
         </ul>
     </p>
 
-    <exercise label="genAI-discussion" groupwork="yes">
+    <exercise label="genAI-discussion">
         <title>Generative AI discussion</title>
 
         <p>
@@ -255,6 +255,6 @@
     </exercise>
 
     <p workspace="0.5in">
-        Download the jupyter notebook and get started!
+        Get started on <xref ref="day01-notebook" text="custom">Day01 Worksheet</xref>!
     </p>
 </handout>

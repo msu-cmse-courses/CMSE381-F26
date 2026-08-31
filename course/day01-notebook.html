@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Day01 Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
+<script type="module">import { startMathJax } from './_static/pretext/js/dist/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: false,
+isReact: false,
+htmlPresentation: false,
+lang: "en-US",
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta name="twitter:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="og:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="book:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta name="twitter:description" content="Fall 2026">
+<meta property="og:description" content="Fall 2026">
+<meta name="twitter:card" content="summary">
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.52"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.52"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '8.2.10';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script src="_static/prefix-runtime.e3f9706509fcf6f7.bundle.js"></script><script src="_static/prefix-926.5c7038c8ef173faf.bundle.js"></script><script src="_static/prefix-runestone.c5ba0ffa5f963084.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-926.229729d09512acc9.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.efe427683fc41f98.css">
+<script src="_static/pretext/js/dist/lti_iframe_resizer.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha512-dubtf8xMHSQlExGRQ5R7toxHLgSDZ0K7AunqPWHXmJQ8XyVIG19S1T95gBxlAeGOK02P4Da2RTnQz0Za0H0ebQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-highlight/prism-line-highlight.min.js" integrity="sha512-93uCmm0q+qO5Lb1huDqr7tywS8A2TFA+1/WHvyiWaK6/pvsFl6USnILagntBx8JnVbQH5s3n0vQZY6xNthNfKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/dist/pretext_search.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script>
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead" role="banner"><div class="ptx-banner"><div class="title-container">
+<div class="heading ptx-banner-heading"><a href="root-1-2.html"><span class="title">CMSE 381: Fundamentals of Data Science Methods</span> <span class="subtitle">Fall 2026</span></a></div>
+<p class="byline">CMSE faculty</p>
+</div></div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><div class="ptx-navbar-contents">
+<button id="ptx-toc-toggle" type="button" aria-controls="ptx-sidebar" class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="ptx-search-box">
+<div class="ptx-search-widget"><button id="ptx-search-button" type="button" class="ptx-search-button button" title="Search Book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<dialog id="ptx-search-dialog" class="ptx-dialog ptx-search-dialog"><div class="ptx-search-dialog-controls">
+<input aria-label="Search term" id="ptx-search-terms" class="ptx-search-terms" type="text" name="terms" placeholder="Search terms"><button aria-label="Close" id="ptx-search-close" class="ptx-search-close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div id="ptx-search-status" class="ptx-search-status" aria-live="polite" aria-atomic="true"></div>
+<h2 class="heading ptx-search-results-heading">Search Results: </h2>
+<div id="ptx-search-empty" class="ptx-search-empty"><span>No results.</span></div>
+<ol id="ptx-search-results" class="ptx-search-results"></ol></dialog>
+</div>
+<span class="nav-other-controls"><button id="ptx-embed-button" class="ptx-embed-button button" title="Embed this page"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe86f;</span><span class="name">Embed</span></button><dialog class="ptx-dialog ptx-embed-popup" id="ptx-embed-popup"><div class="ptx-embed-popup-controls">
+<p>Copy the code below to embed this page in your own website or LMS page.</p>
+<button class="ptx-embed-close-button button" id="ptx-embed-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-embed-code-container">
+<textarea class="ptx-embed-code-textbox" id="ptx-embed-code-textbox" readonly aria-label="Embed"><iframe src="https://example.com/embed" width="100%" height="1000"></iframe></textarea><button autofocus="autofocus" class="ptx-embed-copy-button button" id="ptx-embed-copy-button" title="Copy"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe14d;</span><span class="name">Copy</span></button>
+</div></dialog><button id="ptx-read-aloud-button" class="ptx-read-aloud-button button" title="Read aloud" aria-expanded="false"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf1bc;</span><span class="name">Read aloud</span></button><div id="ptx-read-aloud-player" class="ptx-read-aloud-player" hidden="hidden" role="group" aria-label="Read aloud">
+<button id="ptx-read-aloud-prev" class="button" title="Previous sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe045;</span></button><button id="ptx-read-aloud-toggle" class="ptx-read-aloud-toggle button" title="Play"><span class="ptx-read-aloud-icon-play"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></span><span class="ptx-read-aloud-icon-pause"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe034;</span></span></button><button id="ptx-read-aloud-next" class="button" title="Next sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe044;</span></button><a id="ptx-read-aloud-continue" class="ptx-read-aloud-continue button" hidden="hidden">Continue<span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></a><button id="ptx-read-aloud-settings-button" class="ptx-read-aloud-settings-button button" title="Reading settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe429;</span></button>
+</div>
+<dialog class="ptx-dialog ptx-read-aloud-settings-popup" id="ptx-read-aloud-settings-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Read aloud settings</h2>
+<button class="ptx-read-aloud-settings-close-button button" id="ptx-read-aloud-settings-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label for="ptx-read-aloud-voice"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe91f;</span><span>Voice</span></label><select id="ptx-read-aloud-voice"></select><label class="ptx-readability-slider-label" for="ptx-read-aloud-rate"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe9e4;</span><span>Reading speed</span><output id="ptx-read-aloud-rate-value" for="ptx-read-aloud-rate">1×</output></label><input type="range" id="ptx-read-aloud-rate" min="0.5" max="2" step="0.1" value="1"><label for="ptx-read-aloud-asides"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d7;</span><span>Collapsed content</span></label><select id="ptx-read-aloud-asides"><option value="skip">Announce, do not read</option>
+<option value="read">Read automatically</option></select><label for="ptx-read-aloud-autoscroll"><input type="checkbox" id="ptx-read-aloud-autoscroll" checked><span>Follow along (auto-scroll)</span></label><label for="ptx-read-aloud-autocontinue"><input type="checkbox" id="ptx-read-aloud-autocontinue"><span>Continue to the next page automatically</span></label>
+</div></dialog><button id="ptx-readability-options-button" class="ptx-readability-options-button button" title="Readability settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf6f1;</span><span class="name">Readability settings</span></button><dialog class="ptx-dialog ptx-readability-options-popup" id="ptx-readability-options-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Readability settings</h2>
+<button class="ptx-readability-options-close-button button" id="ptx-readability-options-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-line-height"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe240;</span><span>Line height</span><output id="ptx-readability-line-height-value" for="ptx-readability-line-height">1.35</output></label><input type="range" id="ptx-readability-line-height" min="1.10" max="3" step="0.05" value="1.35">
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-font-size"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe245;</span><span>Content font size</span><output id="ptx-readability-font-size-value" for="ptx-readability-font-size">100%</output></label><input type="range" id="ptx-readability-font-size" min="0.8" max="1.5" step="0.05" value="1">
+</div>
+<fieldset class="ptx-readability-options-group ptx-readability-options-group-theme">
+<legend>Theme</legend>
+<label for="ptx-readability-theme-system"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-system" value="system"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe1ab;</span><span>System</span></label><label for="ptx-readability-theme-light"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-light" value="light"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe518;</span><span>Light</span></label><label for="ptx-readability-theme-dark"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-dark" value="dark"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span>Dark</span></label>
+</fieldset>
+<fieldset class="ptx-readability-options-group">
+<legend>Assistive technologies</legend>
+<label for="ptx-readability-accessible-permalinks"><input type="checkbox" id="ptx-readability-accessible-permalinks"><span>🔗</span><span>Expose permalinks</span></label>
+</fieldset>
+<div class="ptx-readability-options-group"><button type="button" class="ptx-readability-reset-button button" id="ptx-readability-reset-button"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf053;</span><span class="name">Reset All</span></button></div></dialog></span><span class="treebuttons"><a class="previous-button button" href="activities.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="activities.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+</div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth3 focused" data-preexpanded-levels="0" data-max-levels="3"><ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul id="ptx-toc-group-frontmatter" class="structural toc-item-list"><li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-course-info.html" class="internal"><span class="title">Course Information and Office Hours</span></a></div>
+<ul id="ptx-toc-group-ch-course-info" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-2.html" class="internal"><span class="title">Instructional Team</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-Office-Hours.html" class="internal"><span class="title">Office Hours</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-4.html" class="internal"><span class="title">What is this course about?</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-D2L.html" class="internal"><span class="title">D2L and where to find grades</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-course-website.html" class="internal"><span class="title">Course website, Slides, and jupyter notebooks</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsubsec-crowdmark-info.html" class="internal"><span class="title">Crowdmark and where we grade your quizzes/midterms</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="subsec-class-structure.html" class="internal"><span class="title">Class Structure</span></a></div>
+<ul id="ptx-toc-group-subsec-class-structure" class="structural toc-item-list"><li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-class-structure.html#subsec-Basic-Expectations" class="internal"><span class="title">Basic Expectations</span></a></div></li></ul>
+</li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="course-documents.html" class="internal"><span class="title">Syllabus and Course Schedule</span></a></div>
+<ul id="ptx-toc-group-course-documents" class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="syllabus.html" class="internal"><span class="title">Syllabus</span></a></div>
+<ul id="ptx-toc-group-syllabus" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-course-info" class="internal"><span class="title">Policy Sheet</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-assessments" class="internal"><span class="title">Assessments and Grades</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="schedule.html" class="internal"><span class="title">Course Schedule</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="activities.html" class="internal"><span class="title">In-Class Activities</span></a></div>
+<ul class="structural toc-item-list contains-active" id="ptx-toc-group-activities"><li class="toc-item toc-section contains-active">
+<div class="toc-title-box"><a href="day01-notebook.html" class="internal"><span class="title">Day01 Worksheet</span></a></div>
+<ul class="structural toc-item-list active" id="ptx-toc-group-day01-notebook"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day01-notebook.html#day01-subsec-the-data-set" class="internal"><span class="title">The Dataset</span></a></div>
+<ul id="ptx-toc-group-day01-subsec-the-data-set" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day01-notebook.html#exercises-day01" class="internal"><span class="title">Day01 Coding Exercises</span></a></div></li></ul>
+</li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="lectures.html" class="internal"><span class="title">Lectures</span></a></div>
+<ul id="ptx-toc-group-lectures" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="sec-exam1-material0.html" class="internal"><span class="title">Exam 1 material</span></a></div>
+<ul id="ptx-toc-group-sec-exam1-material0" class="structural toc-item-list"><li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material0.html#day-01-lecture" class="internal"><span class="title">Day 01</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter"><div class="toc-title-box"><a href="homework.html" class="internal"><span class="title">Homework</span></a></div></li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="day01-notebook">
+<h1 class="heading hide-type">
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day01 Worksheet</span>
+</h1>
+<section class="introduction" id="day01-notebook-2">
+<div class="para" id="day01-notebook-2-1">In today’s assignment, we are going to go over some of the python commands you’ve (hopefully!) seen before. In order to successfully complete this assignment you need to participate both individually and in groups during class. This lab loosely follows the lab content from the <a class="external" href="https://www.statlearning.com" target="_blank"><code class="code-inline tex2jax_ignore">the ISLP textbook</code></a>, Ch 2.3.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-notebook-2-2">
+<em class="alert">Important:</em> If you are looking at this notebook prior to class with the intention of doing it early PLEASE DON’T! The intention of these notebooks is for group work in class, so it will be much more interesting if you don’t have it done already and can talk with the rest of the group members.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<section class="subsection" id="day01-subsec-the-data-set">
+<h2 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">The Dataset</span>
+</h2>
+<article class="data computation-like" id="day01-Auto-csv"><h3 class="heading">
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">6</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Auto: Auto Data Set.</span>
+</h3>
+<div class="para logical" id="day01-Auto-csv-2">
+<div class="para">Information about the data set</div>
+<ul class="disc" id="day01-Auto-csv-2-1">
+<li id="day01-Auto-csv-2-1-1">
+<div class="para" id="day01-Auto-csv-2-1-1-1">
+<a class="external" href="https://rdrr.io/cran/ISLR/man/Auto.html" target="_blank">Info on R version</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day01-Auto-csv-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day01-Auto-csv-2-1-2">
+<div class="para" id="day01-Auto-csv-2-1-2-1">
+<a class="external" href="https://islp.readthedocs.io/en/latest/datasets/Auto.html" target="_blank">Info on Python version</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day01-Auto-csv-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day01-Auto-csv-3">
+<div class="para">A data frame with 392 observations on the following 9 variables.</div>
+<dl class="description-list">
+<dt id="day01-Auto-csv-3-1-1">mpg<div class="autopermalink" aria-hidden="true" data-description="Item: mpg"><a tabindex="-1" href="#day01-Auto-csv-3-1-1" title="Copy heading and permalink for Item: mpg" aria-label="Copy heading and permalink for Item: mpg">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-1-2">miles per gallon<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-2">cylinders<div class="autopermalink" aria-hidden="true" data-description="Item: cylinders"><a tabindex="-1" href="#day01-Auto-csv-3-1-2" title="Copy heading and permalink for Item: cylinders" aria-label="Copy heading and permalink for Item: cylinders">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-2-2">Number of cylinders between 4 and 8<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-3">displacement<div class="autopermalink" aria-hidden="true" data-description="Item: displacement"><a tabindex="-1" href="#day01-Auto-csv-3-1-3" title="Copy heading and permalink for Item: displacement" aria-label="Copy heading and permalink for Item: displacement">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-3-2">Engine displacement (cu. inches)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-4">horsepower<div class="autopermalink" aria-hidden="true" data-description="Item: horsepower"><a tabindex="-1" href="#day01-Auto-csv-3-1-4" title="Copy heading and permalink for Item: horsepower" aria-label="Copy heading and permalink for Item: horsepower">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-4-2">Engine horsepower.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-5">weight<div class="autopermalink" aria-hidden="true" data-description="Item: weight"><a tabindex="-1" href="#day01-Auto-csv-3-1-5" title="Copy heading and permalink for Item: weight" aria-label="Copy heading and permalink for Item: weight">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-5-2">Vehicle weight (lbs.)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-6">acceleration<div class="autopermalink" aria-hidden="true" data-description="Item: acceleration"><a tabindex="-1" href="#day01-Auto-csv-3-1-6" title="Copy heading and permalink for Item: acceleration" aria-label="Copy heading and permalink for Item: acceleration">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-6-2">Time to accelerate from 0 to 60 mph (sec.)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-6-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-7">year<div class="autopermalink" aria-hidden="true" data-description="Item: year"><a tabindex="-1" href="#day01-Auto-csv-3-1-7" title="Copy heading and permalink for Item: year" aria-label="Copy heading and permalink for Item: year">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-7-2">Model year (modulo 100)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-7-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-8">origin<div class="autopermalink" aria-hidden="true" data-description="Item: origin"><a tabindex="-1" href="#day01-Auto-csv-3-1-8" title="Copy heading and permalink for Item: origin" aria-label="Copy heading and permalink for Item: origin">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-8-2">Origin of car (1. American, 2. European, 3. Japanese)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-8-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="day01-Auto-csv-3-1-9">name<div class="autopermalink" aria-hidden="true" data-description="Item: name"><a tabindex="-1" href="#day01-Auto-csv-3-1-9" title="Copy heading and permalink for Item: name" aria-label="Copy heading and permalink for Item: name">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="day01-Auto-csv-3-1-9-2">Vehicle name<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3-1-9-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+</dl>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-Auto-csv-4">The orginal data contained 408 observations but 16 observations with missing values were removed.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-Auto-csv-5">Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-Auto-csv-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="runestone datafile">
+<div class="datafile_caption"><code class="code-inline tex2jax_ignore">Data: Auto.csv</code></div>
+<pre id="rs-auto-dataset" data-component="datafile" data-filename="Auto.csv" data-edit="false" data-hidden="" data-rows="20" data-cols="60">mpg,cylinders,displacement,horsepower,weight,acceleration,year,origin,name
+18,8,307,130,3504,12,70,1,chevrolet chevelle malibu
+15,8,350,165,3693,11.5,70,1,buick skylark 320
+18,8,318,150,3436,11,70,1,plymouth satellite
+16,8,304,150,3433,12,70,1,amc rebel sst
+17,8,302,140,3449,10.5,70,1,ford torino
+15,8,429,198,4341,10,70,1,ford galaxie 500
+14,8,454,220,4354,9,70,1,chevrolet impala
+14,8,440,215,4312,8.5,70,1,plymouth fury iii
+14,8,455,225,4425,10,70,1,pontiac catalina
+15,8,390,190,3850,8.5,70,1,amc ambassador dpl
+15,8,383,170,3563,10,70,1,dodge challenger se
+14,8,340,160,3609,8,70,1,plymouth 'cuda 340
+15,8,400,150,3761,9.5,70,1,chevrolet monte carlo
+14,8,455,225,3086,10,70,1,buick estate wagon (sw)
+24,4,113,95,2372,15,70,3,toyota corona mark ii
+22,6,198,95,2833,15.5,70,1,plymouth duster
+18,6,199,97,2774,15.5,70,1,amc hornet
+21,6,200,85,2587,16,70,1,ford maverick
+27,4,97,88,2130,14.5,70,3,datsun pl510
+26,4,97,46,1835,20.5,70,2,volkswagen 1131 deluxe sedan
+25,4,110,87,2672,17.5,70,2,peugeot 504
+24,4,107,90,2430,14.5,70,2,audi 100 ls
+25,4,104,95,2375,17.5,70,2,saab 99e
+26,4,121,113,2234,12.5,70,2,bmw 2002
+21,6,199,90,2648,15,70,1,amc gremlin
+10,8,360,215,4615,14,70,1,ford f250
+10,8,307,200,4376,15,70,1,chevy c20
+11,8,318,210,4382,13.5,70,1,dodge d200
+9,8,304,193,4732,18.5,70,1,hi 1200d
+27,4,97,88,2130,14.5,71,3,datsun pl510
+28,4,140,90,2264,15.5,71,1,chevrolet vega 2300
+25,4,113,95,2228,14,71,3,toyota corona
+25,4,98,?,2046,19,71,1,ford pinto
+19,6,232,100,2634,13,71,1,amc gremlin
+16,6,225,105,3439,15.5,71,1,plymouth satellite custom
+17,6,250,100,3329,15.5,71,1,chevrolet chevelle malibu
+19,6,250,88,3302,15.5,71,1,ford torino 500
+18,6,232,100,3288,15.5,71,1,amc matador
+14,8,350,165,4209,12,71,1,chevrolet impala
+14,8,400,175,4464,11.5,71,1,pontiac catalina brougham
+14,8,351,153,4154,13.5,71,1,ford galaxie 500
+14,8,318,150,4096,13,71,1,plymouth fury iii
+12,8,383,180,4955,11.5,71,1,dodge monaco (sw)
+13,8,400,170,4746,12,71,1,ford country squire (sw)
+13,8,400,175,5140,12,71,1,pontiac safari (sw)
+18,6,258,110,2962,13.5,71,1,amc hornet sportabout (sw)
+22,4,140,72,2408,19,71,1,chevrolet vega (sw)
+19,6,250,100,3282,15,71,1,pontiac firebird
+18,6,250,88,3139,14.5,71,1,ford mustang
+23,4,122,86,2220,14,71,1,mercury capri 2000
+28,4,116,90,2123,14,71,2,opel 1900
+30,4,79,70,2074,19.5,71,2,peugeot 304
+30,4,88,76,2065,14.5,71,2,fiat 124b
+31,4,71,65,1773,19,71,3,toyota corolla 1200
+35,4,72,69,1613,18,71,3,datsun 1200
+27,4,97,60,1834,19,71,2,volkswagen model 111
+26,4,91,70,1955,20.5,71,1,plymouth cricket
+24,4,113,95,2278,15.5,72,3,toyota corona hardtop
+25,4,97.5,80,2126,17,72,1,dodge colt hardtop
+23,4,97,54,2254,23.5,72,2,volkswagen type 3
+20,4,140,90,2408,19.5,72,1,chevrolet vega
+21,4,122,86,2226,16.5,72,1,ford pinto runabout
+13,8,350,165,4274,12,72,1,chevrolet impala
+14,8,400,175,4385,12,72,1,pontiac catalina
+15,8,318,150,4135,13.5,72,1,plymouth fury iii
+14,8,351,153,4129,13,72,1,ford galaxie 500
+17,8,304,150,3672,11.5,72,1,amc ambassador sst
+11,8,429,208,4633,11,72,1,mercury marquis
+13,8,350,155,4502,13.5,72,1,buick lesabre custom
+12,8,350,160,4456,13.5,72,1,oldsmobile delta 88 royale
+13,8,400,190,4422,12.5,72,1,chrysler newport royal
+19,3,70,97,2330,13.5,72,3,mazda rx2 coupe
+15,8,304,150,3892,12.5,72,1,amc matador (sw)
+13,8,307,130,4098,14,72,1,chevrolet chevelle concours (sw)
+13,8,302,140,4294,16,72,1,ford gran torino (sw)
+14,8,318,150,4077,14,72,1,plymouth satellite custom (sw)
+18,4,121,112,2933,14.5,72,2,volvo 145e (sw)
+22,4,121,76,2511,18,72,2,volkswagen 411 (sw)
+21,4,120,87,2979,19.5,72,2,peugeot 504 (sw)
+26,4,96,69,2189,18,72,2,renault 12 (sw)
+22,4,122,86,2395,16,72,1,ford pinto (sw)
+28,4,97,92,2288,17,72,3,datsun 510 (sw)
+23,4,120,97,2506,14.5,72,3,toyouta corona mark ii (sw)
+28,4,98,80,2164,15,72,1,dodge colt (sw)
+27,4,97,88,2100,16.5,72,3,toyota corolla 1600 (sw)
+13,8,350,175,4100,13,73,1,buick century 350
+14,8,304,150,3672,11.5,73,1,amc matador
+13,8,350,145,3988,13,73,1,chevrolet malibu
+14,8,302,137,4042,14.5,73,1,ford gran torino
+15,8,318,150,3777,12.5,73,1,dodge coronet custom
+12,8,429,198,4952,11.5,73,1,mercury marquis brougham
+13,8,400,150,4464,12,73,1,chevrolet caprice classic
+13,8,351,158,4363,13,73,1,ford ltd
+14,8,318,150,4237,14.5,73,1,plymouth fury gran sedan
+13,8,440,215,4735,11,73,1,chrysler new yorker brougham
+12,8,455,225,4951,11,73,1,buick electra 225 custom
+13,8,360,175,3821,11,73,1,amc ambassador brougham
+18,6,225,105,3121,16.5,73,1,plymouth valiant
+16,6,250,100,3278,18,73,1,chevrolet nova custom
+18,6,232,100,2945,16,73,1,amc hornet
+18,6,250,88,3021,16.5,73,1,ford maverick
+23,6,198,95,2904,16,73,1,plymouth duster
+26,4,97,46,1950,21,73,2,volkswagen super beetle
+11,8,400,150,4997,14,73,1,chevrolet impala
+12,8,400,167,4906,12.5,73,1,ford country
+13,8,360,170,4654,13,73,1,plymouth custom suburb
+12,8,350,180,4499,12.5,73,1,oldsmobile vista cruiser
+18,6,232,100,2789,15,73,1,amc gremlin
+20,4,97,88,2279,19,73,3,toyota carina
+21,4,140,72,2401,19.5,73,1,chevrolet vega
+22,4,108,94,2379,16.5,73,3,datsun 610
+18,3,70,90,2124,13.5,73,3,maxda rx3
+19,4,122,85,2310,18.5,73,1,ford pinto
+21,6,155,107,2472,14,73,1,mercury capri v6
+26,4,98,90,2265,15.5,73,2,fiat 124 sport coupe
+15,8,350,145,4082,13,73,1,chevrolet monte carlo s
+16,8,400,230,4278,9.5,73,1,pontiac grand prix
+29,4,68,49,1867,19.5,73,2,fiat 128
+24,4,116,75,2158,15.5,73,2,opel manta
+20,4,114,91,2582,14,73,2,audi 100ls
+19,4,121,112,2868,15.5,73,2,volvo 144ea
+15,8,318,150,3399,11,73,1,dodge dart custom
+24,4,121,110,2660,14,73,2,saab 99le
+20,6,156,122,2807,13.5,73,3,toyota mark ii
+11,8,350,180,3664,11,73,1,oldsmobile omega
+20,6,198,95,3102,16.5,74,1,plymouth duster
+21,6,200,?,2875,17,74,1,ford maverick
+19,6,232,100,2901,16,74,1,amc hornet
+15,6,250,100,3336,17,74,1,chevrolet nova
+31,4,79,67,1950,19,74,3,datsun b210
+26,4,122,80,2451,16.5,74,1,ford pinto
+32,4,71,65,1836,21,74,3,toyota corolla 1200
+25,4,140,75,2542,17,74,1,chevrolet vega
+16,6,250,100,3781,17,74,1,chevrolet chevelle malibu classic
+16,6,258,110,3632,18,74,1,amc matador
+18,6,225,105,3613,16.5,74,1,plymouth satellite sebring
+16,8,302,140,4141,14,74,1,ford gran torino
+13,8,350,150,4699,14.5,74,1,buick century luxus (sw)
+14,8,318,150,4457,13.5,74,1,dodge coronet custom (sw)
+14,8,302,140,4638,16,74,1,ford gran torino (sw)
+14,8,304,150,4257,15.5,74,1,amc matador (sw)
+29,4,98,83,2219,16.5,74,2,audi fox
+26,4,79,67,1963,15.5,74,2,volkswagen dasher
+26,4,97,78,2300,14.5,74,2,opel manta
+31,4,76,52,1649,16.5,74,3,toyota corona
+32,4,83,61,2003,19,74,3,datsun 710
+28,4,90,75,2125,14.5,74,1,dodge colt
+24,4,90,75,2108,15.5,74,2,fiat 128
+26,4,116,75,2246,14,74,2,fiat 124 tc
+24,4,120,97,2489,15,74,3,honda civic
+26,4,108,93,2391,15.5,74,3,subaru
+31,4,79,67,2000,16,74,2,fiat x1.9
+19,6,225,95,3264,16,75,1,plymouth valiant custom
+18,6,250,105,3459,16,75,1,chevrolet nova
+15,6,250,72,3432,21,75,1,mercury monarch
+15,6,250,72,3158,19.5,75,1,ford maverick
+16,8,400,170,4668,11.5,75,1,pontiac catalina
+15,8,350,145,4440,14,75,1,chevrolet bel air
+16,8,318,150,4498,14.5,75,1,plymouth grand fury
+14,8,351,148,4657,13.5,75,1,ford ltd
+17,6,231,110,3907,21,75,1,buick century
+16,6,250,105,3897,18.5,75,1,chevroelt chevelle malibu
+15,6,258,110,3730,19,75,1,amc matador
+18,6,225,95,3785,19,75,1,plymouth fury
+21,6,231,110,3039,15,75,1,buick skyhawk
+20,8,262,110,3221,13.5,75,1,chevrolet monza 2+2
+13,8,302,129,3169,12,75,1,ford mustang ii
+29,4,97,75,2171,16,75,3,toyota corolla
+23,4,140,83,2639,17,75,1,ford pinto
+20,6,232,100,2914,16,75,1,amc gremlin
+23,4,140,78,2592,18.5,75,1,pontiac astro
+24,4,134,96,2702,13.5,75,3,toyota corona
+25,4,90,71,2223,16.5,75,2,volkswagen dasher
+24,4,119,97,2545,17,75,3,datsun 710
+18,6,171,97,2984,14.5,75,1,ford pinto
+29,4,90,70,1937,14,75,2,volkswagen rabbit
+19,6,232,90,3211,17,75,1,amc pacer
+23,4,115,95,2694,15,75,2,audi 100ls
+23,4,120,88,2957,17,75,2,peugeot 504
+22,4,121,98,2945,14.5,75,2,volvo 244dl
+25,4,121,115,2671,13.5,75,2,saab 99le
+33,4,91,53,1795,17.5,75,3,honda civic cvcc
+28,4,107,86,2464,15.5,76,2,fiat 131
+25,4,116,81,2220,16.9,76,2,opel 1900
+25,4,140,92,2572,14.9,76,1,capri ii
+26,4,98,79,2255,17.7,76,1,dodge colt
+27,4,101,83,2202,15.3,76,2,renault 12tl
+17.5,8,305,140,4215,13,76,1,chevrolet chevelle malibu classic
+16,8,318,150,4190,13,76,1,dodge coronet brougham
+15.5,8,304,120,3962,13.9,76,1,amc matador
+14.5,8,351,152,4215,12.8,76,1,ford gran torino
+22,6,225,100,3233,15.4,76,1,plymouth valiant
+22,6,250,105,3353,14.5,76,1,chevrolet nova
+24,6,200,81,3012,17.6,76,1,ford maverick
+22.5,6,232,90,3085,17.6,76,1,amc hornet
+29,4,85,52,2035,22.2,76,1,chevrolet chevette
+24.5,4,98,60,2164,22.1,76,1,chevrolet woody
+29,4,90,70,1937,14.2,76,2,vw rabbit
+33,4,91,53,1795,17.4,76,3,honda civic
+20,6,225,100,3651,17.7,76,1,dodge aspen se
+18,6,250,78,3574,21,76,1,ford granada ghia
+18.5,6,250,110,3645,16.2,76,1,pontiac ventura sj
+17.5,6,258,95,3193,17.8,76,1,amc pacer d/l
+29.5,4,97,71,1825,12.2,76,2,volkswagen rabbit
+32,4,85,70,1990,17,76,3,datsun b-210
+28,4,97,75,2155,16.4,76,3,toyota corolla
+26.5,4,140,72,2565,13.6,76,1,ford pinto
+20,4,130,102,3150,15.7,76,2,volvo 245
+13,8,318,150,3940,13.2,76,1,plymouth volare premier v8
+19,4,120,88,3270,21.9,76,2,peugeot 504
+19,6,156,108,2930,15.5,76,3,toyota mark ii
+16.5,6,168,120,3820,16.7,76,2,mercedes-benz 280s
+16.5,8,350,180,4380,12.1,76,1,cadillac seville
+13,8,350,145,4055,12,76,1,chevy c10
+13,8,302,130,3870,15,76,1,ford f108
+13,8,318,150,3755,14,76,1,dodge d100
+31.5,4,98,68,2045,18.5,77,3,honda accord cvcc
+30,4,111,80,2155,14.8,77,1,buick opel isuzu deluxe
+36,4,79,58,1825,18.6,77,2,renault 5 gtl
+25.5,4,122,96,2300,15.5,77,1,plymouth arrow gs
+33.5,4,85,70,1945,16.8,77,3,datsun f-10 hatchback
+17.5,8,305,145,3880,12.5,77,1,chevrolet caprice classic
+17,8,260,110,4060,19,77,1,oldsmobile cutlass supreme
+15.5,8,318,145,4140,13.7,77,1,dodge monaco brougham
+15,8,302,130,4295,14.9,77,1,mercury cougar brougham
+17.5,6,250,110,3520,16.4,77,1,chevrolet concours
+20.5,6,231,105,3425,16.9,77,1,buick skylark
+19,6,225,100,3630,17.7,77,1,plymouth volare custom
+18.5,6,250,98,3525,19,77,1,ford granada
+16,8,400,180,4220,11.1,77,1,pontiac grand prix lj
+15.5,8,350,170,4165,11.4,77,1,chevrolet monte carlo landau
+15.5,8,400,190,4325,12.2,77,1,chrysler cordoba
+16,8,351,149,4335,14.5,77,1,ford thunderbird
+29,4,97,78,1940,14.5,77,2,volkswagen rabbit custom
+24.5,4,151,88,2740,16,77,1,pontiac sunbird coupe
+26,4,97,75,2265,18.2,77,3,toyota corolla liftback
+25.5,4,140,89,2755,15.8,77,1,ford mustang ii 2+2
+30.5,4,98,63,2051,17,77,1,chevrolet chevette
+33.5,4,98,83,2075,15.9,77,1,dodge colt m/m
+30,4,97,67,1985,16.4,77,3,subaru dl
+30.5,4,97,78,2190,14.1,77,2,volkswagen dasher
+22,6,146,97,2815,14.5,77,3,datsun 810
+21.5,4,121,110,2600,12.8,77,2,bmw 320i
+21.5,3,80,110,2720,13.5,77,3,mazda rx-4
+43.1,4,90,48,1985,21.5,78,2,volkswagen rabbit custom diesel
+36.1,4,98,66,1800,14.4,78,1,ford fiesta
+32.8,4,78,52,1985,19.4,78,3,mazda glc deluxe
+39.4,4,85,70,2070,18.6,78,3,datsun b210 gx
+36.1,4,91,60,1800,16.4,78,3,honda civic cvcc
+19.9,8,260,110,3365,15.5,78,1,oldsmobile cutlass salon brougham
+19.4,8,318,140,3735,13.2,78,1,dodge diplomat
+20.2,8,302,139,3570,12.8,78,1,mercury monarch ghia
+19.2,6,231,105,3535,19.2,78,1,pontiac phoenix lj
+20.5,6,200,95,3155,18.2,78,1,chevrolet malibu
+20.2,6,200,85,2965,15.8,78,1,ford fairmont (auto)
+25.1,4,140,88,2720,15.4,78,1,ford fairmont (man)
+20.5,6,225,100,3430,17.2,78,1,plymouth volare
+19.4,6,232,90,3210,17.2,78,1,amc concord
+20.6,6,231,105,3380,15.8,78,1,buick century special
+20.8,6,200,85,3070,16.7,78,1,mercury zephyr
+18.6,6,225,110,3620,18.7,78,1,dodge aspen
+18.1,6,258,120,3410,15.1,78,1,amc concord d/l
+19.2,8,305,145,3425,13.2,78,1,chevrolet monte carlo landau
+17.7,6,231,165,3445,13.4,78,1,buick regal sport coupe (turbo)
+18.1,8,302,139,3205,11.2,78,1,ford futura
+17.5,8,318,140,4080,13.7,78,1,dodge magnum xe
+30,4,98,68,2155,16.5,78,1,chevrolet chevette
+27.5,4,134,95,2560,14.2,78,3,toyota corona
+27.2,4,119,97,2300,14.7,78,3,datsun 510
+30.9,4,105,75,2230,14.5,78,1,dodge omni
+21.1,4,134,95,2515,14.8,78,3,toyota celica gt liftback
+23.2,4,156,105,2745,16.7,78,1,plymouth sapporo
+23.8,4,151,85,2855,17.6,78,1,oldsmobile starfire sx
+23.9,4,119,97,2405,14.9,78,3,datsun 200-sx
+20.3,5,131,103,2830,15.9,78,2,audi 5000
+17,6,163,125,3140,13.6,78,2,volvo 264gl
+21.6,4,121,115,2795,15.7,78,2,saab 99gle
+16.2,6,163,133,3410,15.8,78,2,peugeot 604sl
+31.5,4,89,71,1990,14.9,78,2,volkswagen scirocco
+29.5,4,98,68,2135,16.6,78,3,honda accord lx
+21.5,6,231,115,3245,15.4,79,1,pontiac lemans v6
+19.8,6,200,85,2990,18.2,79,1,mercury zephyr 6
+22.3,4,140,88,2890,17.3,79,1,ford fairmont 4
+20.2,6,232,90,3265,18.2,79,1,amc concord dl 6
+20.6,6,225,110,3360,16.6,79,1,dodge aspen 6
+17,8,305,130,3840,15.4,79,1,chevrolet caprice classic
+17.6,8,302,129,3725,13.4,79,1,ford ltd landau
+16.5,8,351,138,3955,13.2,79,1,mercury grand marquis
+18.2,8,318,135,3830,15.2,79,1,dodge st. regis
+16.9,8,350,155,4360,14.9,79,1,buick estate wagon (sw)
+15.5,8,351,142,4054,14.3,79,1,ford country squire (sw)
+19.2,8,267,125,3605,15,79,1,chevrolet malibu classic (sw)
+18.5,8,360,150,3940,13,79,1,chrysler lebaron town @ country (sw)
+31.9,4,89,71,1925,14,79,2,vw rabbit custom
+34.1,4,86,65,1975,15.2,79,3,maxda glc deluxe
+35.7,4,98,80,1915,14.4,79,1,dodge colt hatchback custom
+27.4,4,121,80,2670,15,79,1,amc spirit dl
+25.4,5,183,77,3530,20.1,79,2,mercedes benz 300d
+23,8,350,125,3900,17.4,79,1,cadillac eldorado
+27.2,4,141,71,3190,24.8,79,2,peugeot 504
+23.9,8,260,90,3420,22.2,79,1,oldsmobile cutlass salon brougham
+34.2,4,105,70,2200,13.2,79,1,plymouth horizon
+34.5,4,105,70,2150,14.9,79,1,plymouth horizon tc3
+31.8,4,85,65,2020,19.2,79,3,datsun 210
+37.3,4,91,69,2130,14.7,79,2,fiat strada custom
+28.4,4,151,90,2670,16,79,1,buick skylark limited
+28.8,6,173,115,2595,11.3,79,1,chevrolet citation
+26.8,6,173,115,2700,12.9,79,1,oldsmobile omega brougham
+33.5,4,151,90,2556,13.2,79,1,pontiac phoenix
+41.5,4,98,76,2144,14.7,80,2,vw rabbit
+38.1,4,89,60,1968,18.8,80,3,toyota corolla tercel
+32.1,4,98,70,2120,15.5,80,1,chevrolet chevette
+37.2,4,86,65,2019,16.4,80,3,datsun 310
+28,4,151,90,2678,16.5,80,1,chevrolet citation
+26.4,4,140,88,2870,18.1,80,1,ford fairmont
+24.3,4,151,90,3003,20.1,80,1,amc concord
+19.1,6,225,90,3381,18.7,80,1,dodge aspen
+34.3,4,97,78,2188,15.8,80,2,audi 4000
+29.8,4,134,90,2711,15.5,80,3,toyota corona liftback
+31.3,4,120,75,2542,17.5,80,3,mazda 626
+37,4,119,92,2434,15,80,3,datsun 510 hatchback
+32.2,4,108,75,2265,15.2,80,3,toyota corolla
+46.6,4,86,65,2110,17.9,80,3,mazda glc
+27.9,4,156,105,2800,14.4,80,1,dodge colt
+40.8,4,85,65,2110,19.2,80,3,datsun 210
+44.3,4,90,48,2085,21.7,80,2,vw rabbit c (diesel)
+43.4,4,90,48,2335,23.7,80,2,vw dasher (diesel)
+36.4,5,121,67,2950,19.9,80,2,audi 5000s (diesel)
+30,4,146,67,3250,21.8,80,2,mercedes-benz 240d
+44.6,4,91,67,1850,13.8,80,3,honda civic 1500 gl
+40.9,4,85,?,1835,17.3,80,2,renault lecar deluxe
+33.8,4,97,67,2145,18,80,3,subaru dl
+29.8,4,89,62,1845,15.3,80,2,vokswagen rabbit
+32.7,6,168,132,2910,11.4,80,3,datsun 280-zx
+23.7,3,70,100,2420,12.5,80,3,mazda rx-7 gs
+35,4,122,88,2500,15.1,80,2,triumph tr7 coupe
+23.6,4,140,?,2905,14.3,80,1,ford mustang cobra
+32.4,4,107,72,2290,17,80,3,honda accord
+27.2,4,135,84,2490,15.7,81,1,plymouth reliant
+26.6,4,151,84,2635,16.4,81,1,buick skylark
+25.8,4,156,92,2620,14.4,81,1,dodge aries wagon (sw)
+23.5,6,173,110,2725,12.6,81,1,chevrolet citation
+30,4,135,84,2385,12.9,81,1,plymouth reliant
+39.1,4,79,58,1755,16.9,81,3,toyota starlet
+39,4,86,64,1875,16.4,81,1,plymouth champ
+35.1,4,81,60,1760,16.1,81,3,honda civic 1300
+32.3,4,97,67,2065,17.8,81,3,subaru
+37,4,85,65,1975,19.4,81,3,datsun 210 mpg
+37.7,4,89,62,2050,17.3,81,3,toyota tercel
+34.1,4,91,68,1985,16,81,3,mazda glc 4
+34.7,4,105,63,2215,14.9,81,1,plymouth horizon 4
+34.4,4,98,65,2045,16.2,81,1,ford escort 4w
+29.9,4,98,65,2380,20.7,81,1,ford escort 2h
+33,4,105,74,2190,14.2,81,2,volkswagen jetta
+34.5,4,100,?,2320,15.8,81,2,renault 18i
+33.7,4,107,75,2210,14.4,81,3,honda prelude
+32.4,4,108,75,2350,16.8,81,3,toyota corolla
+32.9,4,119,100,2615,14.8,81,3,datsun 200sx
+31.6,4,120,74,2635,18.3,81,3,mazda 626
+28.1,4,141,80,3230,20.4,81,2,peugeot 505s turbo diesel
+30.7,6,145,76,3160,19.6,81,2,volvo diesel
+25.4,6,168,116,2900,12.6,81,3,toyota cressida
+24.2,6,146,120,2930,13.8,81,3,datsun 810 maxima
+22.4,6,231,110,3415,15.8,81,1,buick century
+26.6,8,350,105,3725,19,81,1,oldsmobile cutlass ls
+20.2,6,200,88,3060,17.1,81,1,ford granada gl
+17.6,6,225,85,3465,16.6,81,1,chrysler lebaron salon
+28,4,112,88,2605,19.6,82,1,chevrolet cavalier
+27,4,112,88,2640,18.6,82,1,chevrolet cavalier wagon
+34,4,112,88,2395,18,82,1,chevrolet cavalier 2-door
+31,4,112,85,2575,16.2,82,1,pontiac j2000 se hatchback
+29,4,135,84,2525,16,82,1,dodge aries se
+27,4,151,90,2735,18,82,1,pontiac phoenix
+24,4,140,92,2865,16.4,82,1,ford fairmont futura
+36,4,105,74,1980,15.3,82,2,volkswagen rabbit l
+37,4,91,68,2025,18.2,82,3,mazda glc custom l
+31,4,91,68,1970,17.6,82,3,mazda glc custom
+38,4,105,63,2125,14.7,82,1,plymouth horizon miser
+36,4,98,70,2125,17.3,82,1,mercury lynx l
+36,4,120,88,2160,14.5,82,3,nissan stanza xe
+36,4,107,75,2205,14.5,82,3,honda accord
+34,4,108,70,2245,16.9,82,3,toyota corolla
+38,4,91,67,1965,15,82,3,honda civic
+32,4,91,67,1965,15.7,82,3,honda civic (auto)
+38,4,91,67,1995,16.2,82,3,datsun 310 gx
+25,6,181,110,2945,16.4,82,1,buick century limited
+38,6,262,85,3015,17,82,1,oldsmobile cutlass ciera (diesel)
+26,4,156,92,2585,14.5,82,1,chrysler lebaron medallion
+22,6,232,112,2835,14.7,82,1,ford granada l
+32,4,144,96,2665,13.9,82,3,toyota celica gt
+36,4,135,84,2370,13,82,1,dodge charger 2.2
+27,4,151,90,2950,17.3,82,1,chevrolet camaro
+27,4,140,86,2790,15.6,82,1,ford mustang gl
+44,4,97,52,2130,24.6,82,2,vw pickup
+32,4,135,84,2295,11.6,82,1,dodge rampage
+28,4,120,79,2625,18.6,82,1,ford ranger
+31,4,119,82,2720,19.4,82,1,chevy s-10
+</pre>
+</div>
+<a class="external" href="external/data/Auto.csv" target="_blank"><code class="code-inline tex2jax_ignore">Auto.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Data 6: Auto: Auto Data Set"><a tabindex="-1" href="#day01-Auto-csv" title="Copy heading and permalink for Data 6: Auto: Auto Data Set" aria-label="Copy heading and permalink for Data 6: Auto: Auto Data Set">🔗</a></div>
+</article>
+<section class="exercises" id="exercises-day01">
+<h3 class="heading hide-type">
+<span class="type">Exercises</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day01 Coding Exercises</span>
+</h3>
+<div class="exercisegroup" id="exercises-day01-2">
+<h4 class="heading"><span class="title">Python Review.</span></h4>
+<div class="introduction" id="exercises-day01-2-2">
+<div class="para" id="exercises-day01-2-2-1">Answer the following questions<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="day01-load-data"><h5 class="heading"><span class="codenumber">1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<div class="introduction" id="day01-load-data-1">
+<div class="para" id="day01-load-data-1-1">Start by loading the data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-load-data-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="day01-load-data-2"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="day01-load-data-2-1-1">Load the data set and view the top part of the data, the column labels, its shape.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-load-data-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-part1" class="language-py"># As always, we start with our favorite standard imports.
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+%matplotlib inline            
+
+# Now load the data
+auto = pd.read_csv('../../DataSets/Auto.csv')
+  # the following command should show you the top of your data frame.
+auto.head()
+
+# and the following command show show you the column labels.
+auto.columns
+
+# The
+</code></pre></div>
+<div class="solutions">
+<details id="day01-load-data-2-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-load-data-2-2-1">If you are pulling straight from the course’s git repo, this command will open the file already on your system. However, if you are doing something else to access the notebook, such as downloading from the github website, you might need to modify this command to point to the right place.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-load-data-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.a.1"><a tabindex="-1" href="#day01-load-data-2-2" title="Copy heading and permalink for Hint 1.a.1" aria-label="Copy heading and permalink for Hint 1.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.a"><a tabindex="-1" href="#day01-load-data-2" title="Copy heading and permalink for Task 1.a" aria-label="Copy heading and permalink for Task 1.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-load-data-3"><h6 class="heading"><span class="codenumber">(b)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="day01-load-data-3-1-1">How many data points do we have? How many variables do we have?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-load-data-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.b"><a tabindex="-1" href="#day01-load-data-3" title="Copy heading and permalink for Task 1.b" aria-label="Copy heading and permalink for Task 1.b">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 1"><a tabindex="-1" href="#day01-load-data" title="Copy heading and permalink for Exercise 1" aria-label="Copy heading and permalink for Exercise 1">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="day01-clean-data"><h5 class="heading"><span class="codenumber">2<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<div class="introduction" id="day01-clean-data-1">
+<div class="para" id="day01-clean-data-1-1">Here’s one thing this class won’t really show you..... real data is MESSY. You almost never are handed a data set that’s ready to go for analysis off the bat. You’ll have to spend a bit of time cleaning up your data before you can use the awesome tools we have in this class. So, to that end, let’s do some careful checking of this data set before we get started. My favorite place to start with any data set is the ‘describe’ command.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-clean-data-1-2">Run the <code class="code-inline tex2jax_ignore language-none">auto.describe()</code> command.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="day01-clean-data-2"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="day01-clean-data-2-1-1">What columns are missing from the <code class="code-inline tex2jax_ignore">describe</code> output?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="solutions">
+<details id="day01-clean-data-2-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day01-clean-data-2-3-1">It’s missing the <code class="code-inline tex2jax_ignore">name</code> column, which makes sense since that’s object data, but is also missing the <code class="code-inline tex2jax_ignore">horsepower</code> column.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.a.1"><a tabindex="-1" href="#day01-clean-data-2-3" title="Copy heading and permalink for Answer 2.a.1" aria-label="Copy heading and permalink for Answer 2.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.a"><a tabindex="-1" href="#day01-clean-data-2" title="Copy heading and permalink for Task 2.a" aria-label="Copy heading and permalink for Task 2.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-3"><h6 class="heading"><span class="codenumber">(b)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section"><ul data-component="multiplechoice" data-multipleanswers="false">
+<div class="para" id="day01-clean-data-3-1-1">The next thing to check is to see if there is any missing data. Usually, this is an entry in your dataframe that shows up as ‘np.nan’, which is a special value from numpy that just means the data is missing from that cell.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="day01-clean-data-3-1-2">Use the <code class="code-inline tex2jax_ignore language-none">isna()</code> command to see if there are any null values around. Did you find any NaN values?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-3-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<li data-component="answer" id="_opt_t"><p>True.</p></li>
+<li data-component="feedback" id="_opt_t">
+<div class="para" id="day01-clean-data-3-2-1">Correct! There are no NaNs!</div>
+</li>
+<li data-component="answer" id="_opt_f" data-correct=""><p>False.</p></li>
+<li data-component="feedback" id="_opt_f">
+<div class="para" id="day01-clean-data-3-2-1">Correct! There are no NaNs!</div>
+</li>
+</ul></div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.b"><a tabindex="-1" href="#day01-clean-data-3" title="Copy heading and permalink for Task 2.b" aria-label="Copy heading and permalink for Task 2.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-4"><h6 class="heading"><span class="codenumber">(c)</span></h6>
+<div class="para" id="day01-clean-data-4-1-1">Check out the first 40 rows of the data. Do you remember how to do that?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day01-clean-data-4-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-clean-data-4-2-1">See <a href="day01-notebook.html#day01-load-data" class="xref" data-knowl="./knowl/xref/day01-load-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Exercise 1">above 1</a> for the function you need to use.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.c.1"><a tabindex="-1" href="#day01-clean-data-4-2" title="Copy heading and permalink for Hint 2.c.1" aria-label="Copy heading and permalink for Hint 2.c.1">🔗</a></div>
+</div></details>
+<details id="day01-clean-data-4-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-clean-data-4-3-1">You will need to pass another argument to that function to get the first 40 rows.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.c.2"><a tabindex="-1" href="#day01-clean-data-4-3" title="Copy heading and permalink for Hint 2.c.2" aria-label="Copy heading and permalink for Hint 2.c.2">🔗</a></div>
+</div></details>
+<details id="day01-clean-data-4-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day01-clean-data-4-4-1">
+<code class="code-inline tex2jax_ignore language-none">auto.head(40)</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-4-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.c.1"><a tabindex="-1" href="#day01-clean-data-4-4" title="Copy heading and permalink for Answer 2.c.1" aria-label="Copy heading and permalink for Answer 2.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.c"><a tabindex="-1" href="#day01-clean-data-4" title="Copy heading and permalink for Task 2.c" aria-label="Copy heading and permalink for Task 2.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-5"><h6 class="heading"><span class="codenumber">(d)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="day01-clean-data-5-1-1">What symbol(s) is this data set using to represent missing data?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="solutions">
+<details id="day01-clean-data-5-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day01-clean-data-5-3-1">Missing values are <code class="code-inline tex2jax_ignore">?</code> in this set. Run <code class="code-inline tex2jax_ignore language-none">auto.loc[auto['horsepower'] == '?']</code> to see some example rows.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.d.1"><a tabindex="-1" href="#day01-clean-data-5-3" title="Copy heading and permalink for Answer 2.d.1" aria-label="Copy heading and permalink for Answer 2.d.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.d"><a tabindex="-1" href="#day01-clean-data-5" title="Copy heading and permalink for Task 2.d" aria-label="Copy heading and permalink for Task 2.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-6"><h6 class="heading"><span class="codenumber">(e)</span></h6>
+<div class="para" id="day01-clean-data-6-1-1">Well, it’s not the end of the world, but there are lots of built in commands in pandas that make life easier when we have `np.nan` used as the missing value entry.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="day01-clean-data-6-1-2">Use the <code class="code-inline tex2jax_ignore">replace</code> command to swap out the missing value they used for <code class="code-inline tex2jax_ignore">np.nan</code> everywhere it shows up.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-6-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-nan-swap" class="language-py"># Your code goes here
+
+
+
+# this command should show NaNs somewhere
+auto[auto.isna().any(axis=1)]
+</code></pre></div>
+<div class="solutions">
+<details id="day01-clean-data-6-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-clean-data-6-2-1">Look up <code class="code-inline tex2jax_ignore">pandas.DataFrame.replace</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.e.1"><a tabindex="-1" href="#day01-clean-data-6-2" title="Copy heading and permalink for Hint 2.e.1" aria-label="Copy heading and permalink for Hint 2.e.1">🔗</a></div>
+</div></details>
+<details id="day01-clean-data-6-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-clean-data-6-3-1">note that <code class="code-inline tex2jax_ignore">inplace=False</code> is the default for the <code class="code-inline tex2jax_ignore">replace</code> command.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.e.2"><a tabindex="-1" href="#day01-clean-data-6-3" title="Copy heading and permalink for Hint 2.e.2" aria-label="Copy heading and permalink for Hint 2.e.2">🔗</a></div>
+</div></details>
+<details id="day01-clean-data-6-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code data-filename="day01-nan-swap-answer" class="language-py"># We'll take one example and show its values before/after the replacement
+# print the entry before the replacement of the '?' with NaN
+print('---Before---')                  
+print(auto.loc[32])
+
+# Replace the question marks with nan
+auto = auto.replace('?', np.nan)
+
+# see the same entry after the replacement
+print('---After---')
+print(auto.loc[32])
+
+# this command should show NaNs somewhere
+auto[auto.isna().any(axis=1)]
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.e.1"><a tabindex="-1" href="#day01-clean-data-6-4" title="Copy heading and permalink for Answer 2.e.1" aria-label="Copy heading and permalink for Answer 2.e.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.e"><a tabindex="-1" href="#day01-clean-data-6" title="Copy heading and permalink for Task 2.e" aria-label="Copy heading and permalink for Task 2.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-7"><h6 class="heading"><span class="codenumber">(f)</span></h6>
+<div class="para" id="day01-clean-data-7-1-1">Finally, let’s just get rid of those rows from the data set entirely.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="day01-clean-data-7-1-2">Overwrite the ‘data’ frame with the version that deletes those 5 rows using the <code class="code-inline tex2jax_ignore">dropna</code> command.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-7-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-drop-nan-rows" class="language-py"># Your code goes here                  
+
+
+# If that worked, you now have 392 rows
+auto.shape
+</code></pre></div>
+<div class="solutions">
+<details id="day01-clean-data-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day01-clean-data-7-2-1">
+<code class="code-inline tex2jax_ignore language-none">auto = auto.dropna()</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-7-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.f.1"><a tabindex="-1" href="#day01-clean-data-7-2" title="Copy heading and permalink for Answer 2.f.1" aria-label="Copy heading and permalink for Answer 2.f.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.f"><a tabindex="-1" href="#day01-clean-data-7" title="Copy heading and permalink for Task 2.f" aria-label="Copy heading and permalink for Task 2.f">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-8"><h6 class="heading"><span class="codenumber">(g)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="day01-clean-data-8-1-1">Fixing horsepower: One last weird data cleanup for us to do on this data set. Check out the ‘horsepower’ column.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="day01-clean-data-8-1-2">Run <code class="code-inline tex2jax_ignore language-none">auto['horsepower']</code> and compare the output to the ‘weight’ and ‘name’ columns. What differene(s) did you notice?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-8-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="solutions">
+<details id="day01-clean-data-8-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day01-clean-data-8-2-1">Check the ‘dtype’ for these columns.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.g.1"><a tabindex="-1" href="#day01-clean-data-8-2" title="Copy heading and permalink for Hint 2.g.1" aria-label="Copy heading and permalink for Hint 2.g.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.g"><a tabindex="-1" href="#day01-clean-data-8" title="Copy heading and permalink for Task 2.g" aria-label="Copy heading and permalink for Task 2.g">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day01-clean-data-9"><h6 class="heading"><span class="codenumber">(h)</span></h6>
+<div class="para" id="day01-clean-data-9-1-1">The ‘dtype’ tells us what kind of data pandas thinks is contained in there. ‘int64’ is for numbers, like horsepower, but for some <a href="day01-notebook.html#day01-null-as-q-mark" class="xref" data-knowl="./knowl/xref/day01-null-as-q-mark.html" data-reveal-label="Reveal" data-close-label="Close" title="Aside">reason</a> pandas is treating it like object data, which is what pandas uses for basically anything else, like data inputs that are strings. This makes sense for the ‘name’ column, but we’d like to fix it for the ‘horsepower’ column now that we’ve fixed the ‘np.nan’ issue. The command <code class="code-inline tex2jax_ignore language-none">auto['horsepower'].astype('int')</code> returns the ‘horsepower’ column with ‘dtype: int64’.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-9-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<details id="day01-null-as-q-mark" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Aside</span></h6></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="day01-null-as-q-mark-1">The reason is related to the weird choice of null entry for this data set. It’s also why ‘describe’ above didn’t have the ‘horsepower’ column.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-null-as-q-mark-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details> 
+<div class="para" id="day01-clean-data-9-1-3">Overwrite the `horsepower` column in the `auto` data frame with this fixed version.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-clean-data-9-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-overwite-horsepower" class="language-py"># Your code goes here
+</code></pre></div>
+<div class="solutions">
+<details id="day01-clean-data-9-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code data-filename="day01-overwite-horsepower-answer" class="language-py"># Replace that column with the integer version
+auto['horsepower'] = auto['horsepower'].astype('int')
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.h.1"><a tabindex="-1" href="#day01-clean-data-9-2" title="Copy heading and permalink for Answer 2.h.1" aria-label="Copy heading and permalink for Answer 2.h.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.h"><a tabindex="-1" href="#day01-clean-data-9" title="Copy heading and permalink for Task 2.h" aria-label="Copy heading and permalink for Task 2.h">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 2"><a tabindex="-1" href="#day01-clean-data" title="Copy heading and permalink for Exercise 2" aria-label="Copy heading and permalink for Exercise 2">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="exercises-day01-2-5"><h5 class="heading">
+<span class="codenumber">3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Extracting data from a frame.</span>
+</h5>
+<div class="introduction" id="exercises-day01-2-5-2">
+<div class="para" id="exercises-day01-2-5-2-1">Ok, I know everyone needs a reminder on this (It’s me. I can never remember any of this without googling it.....), let’s just do a quick refresh on how to get out portions of your data table.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="exercises-day01-2-5-2-2">First, you can get a whole column (which is known as a pandas `Series`) using <code class="code-inline tex2jax_ignore language-none">auto['weight']</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="exercises-day01-2-5-2-3">For more fine-grained control, there are two commands that are used: `loc`, and `iloc`.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code data-filename="day01-loc-and-iloc" class="language-py">auto.head()
+
+# `loc` takes the labels as inputs to find a particular point
+auto.loc[3,'weight']
+
+# 'iloc' takex the indices. Here's how to get the same number
+auto.iloc[3,4]
+</code></pre></div>
+<div class="para" id="exercises-day01-2-5-2-5">In this case, the row entry is the same for both (`3`) because the rows happen to be labeled with their number. However, for `.loc`, we need the name of the column we want (`weight`), while for `.iloc` we need the number of the column (`4` because we count from zero...).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-2-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="exercises-day01-2-5-3"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="exercises-day01-2-5-3-1-1">Extract a data frame with rows 3,4,5, and 6, and with information on displacement, horsepower, and weight.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-loc-and-iloc-challenge" class="language-py"># Your code goes here
+</code></pre></div>
+<div class="solutions">
+<details id="exercises-day01-2-5-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="exercises-day01-2-5-3-2-1">
+<code class="code-inline tex2jax_ignore language-none">auto.loc[range(3,7), ['displacement','horsepower','weight']]</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-5-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 3.a.1"><a tabindex="-1" href="#exercises-day01-2-5-3-2" title="Copy heading and permalink for Answer 3.a.1" aria-label="Copy heading and permalink for Answer 3.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 3.a"><a tabindex="-1" href="#exercises-day01-2-5-3" title="Copy heading and permalink for Task 3.a" aria-label="Copy heading and permalink for Task 3.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 3: Extracting data from a frame"><a tabindex="-1" href="#exercises-day01-2-5" title="Copy heading and permalink for Exercise 3: Extracting data from a frame" aria-label="Copy heading and permalink for Exercise 3: Extracting data from a frame">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="exercises-day01-2-6"><h5 class="heading">
+<span class="codenumber">4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Plotting.</span>
+</h5>
+<div class="introduction" id="exercises-day01-2-6-2">
+<div class="para logical" id="exercises-day01-2-6-2-1">
+<div class="para">The third-ish thing I do with a new data set that I’m trying to understand is to just start plotting random things. This is great for getting a sense of ranges for values, as well as to start looking for simple correlations. In this class, we will use two python modules for plotting, depending on which has the tools we want:</div>
+<ul class="disc" id="exercises-day01-2-6-2-1-1">
+<li id="exercises-day01-2-6-2-1-1-1">
+<div class="para" id="exercises-day01-2-6-2-1-1-1-1">‘matplotlib’. This is basically the standard plotting tool. It does basically anything you want (albeit with a bit of pain and suffering and a few choice four letter words along the way). You’ve already seen this package in CMSE 201 at least.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#exercises-day01-2-6-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="exercises-day01-2-6-2-1-1-2">
+<div class="para" id="exercises-day01-2-6-2-1-1-2-1">‘seaborn’. This is helpful for some prepackaged figure generation that we will make use of. It’s actually built on top of matplotlib, but has often simplified syntax.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#exercises-day01-2-6-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code data-filename="day01-import-seaborn" class="language-py"># Make sure you run this to import seaborn. If this doesn't run
+# for some reason, check that it's installed.
+import seaborn as sns
+# let's examine the first few rows of the data again
+auto.head()
+</code></pre></div>
+</div>
+<article class="task exercise-like" id="exercises-day01-2-6-3"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="exercises-day01-2-6-3-1-1">First, use matplotlib’s <code class="code-inline tex2jax_ignore">hist</code> command to show a histogram of the ‘weight’ data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code data-filename="day01-hist-for-weight" class="language-py"># your code here
+</code></pre></div>
+<div class="solutions">
+<details id="exercises-day01-2-6-3-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-3-2-1">if you ever forget how to use a command, you can of course google it, but you can also type ‘?’ before the name of the command to see the help info from inside the jupyter notebook, e.g.: <code class="code-inline tex2jax_ignore language-none">?plt.hist</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 4.a.1"><a tabindex="-1" href="#exercises-day01-2-6-3-2" title="Copy heading and permalink for Hint 4.a.1" aria-label="Copy heading and permalink for Hint 4.a.1">🔗</a></div>
+</div></details>
+<details id="exercises-day01-2-6-3-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-3-3-1">
+<code class="code-inline tex2jax_ignore language-none">plt.hist(auto['weight'])</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 4.a.1"><a tabindex="-1" href="#exercises-day01-2-6-3-3" title="Copy heading and permalink for Answer 4.a.1" aria-label="Copy heading and permalink for Answer 4.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 4.a"><a tabindex="-1" href="#exercises-day01-2-6-3" title="Copy heading and permalink for Task 4.a" aria-label="Copy heading and permalink for Task 4.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="exercises-day01-2-6-4"><h6 class="heading"><span class="codenumber">(b)</span></h6>
+<div class="para" id="exercises-day01-2-6-4-1-1">Plot the same histogram using seaborn’s <code class="code-inline tex2jax_ignore">histplot</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="exercises-day01-2-6-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-4-2-1">
+<code class="code-inline tex2jax_ignore language-none">sns.histplot(auto['weight'])</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 4.b.1"><a tabindex="-1" href="#exercises-day01-2-6-4-2" title="Copy heading and permalink for Answer 4.b.1" aria-label="Copy heading and permalink for Answer 4.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 4.b"><a tabindex="-1" href="#exercises-day01-2-6-4" title="Copy heading and permalink for Task 4.b" aria-label="Copy heading and permalink for Task 4.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="exercises-day01-2-6-5"><h6 class="heading"><span class="codenumber">(c)</span></h6>
+<div class="para" id="exercises-day01-2-6-5-1-1">The next useful tool is to see data points scattered with each other in 2 dimensions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="exercises-day01-2-6-5-1-2">Draw a scatter plot of the ‘weight’ variable vs ‘mpg’ variable.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="exercises-day01-2-6-5-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-5-2-1">Check the command <code class="code-inline tex2jax_ignore">plt.scatter</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 4.c.1"><a tabindex="-1" href="#exercises-day01-2-6-5-2" title="Copy heading and permalink for Hint 4.c.1" aria-label="Copy heading and permalink for Hint 4.c.1">🔗</a></div>
+</div></details>
+<details id="exercises-day01-2-6-5-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-5-3-1">
+<code class="code-inline tex2jax_ignore language-none">plt.scatter(auto['weight'],auto['mpg'])</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 4.c.1"><a tabindex="-1" href="#exercises-day01-2-6-5-3" title="Copy heading and permalink for Answer 4.c.1" aria-label="Copy heading and permalink for Answer 4.c.1">🔗</a></div>
+</div></details>
+<details id="exercises-day01-2-6-5-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="exercises-day01-2-6-5-4-1">This command should get you approximately the same thing, but with the added perk of automatically labeling axes<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="exercises-day01-2-6-5-4-2">
+<code class="code-inline tex2jax_ignore language-none">sns.relplot(x="weight", y="mpg", data=auto);</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-5-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 4.c.2"><a tabindex="-1" href="#exercises-day01-2-6-5-4" title="Copy heading and permalink for Answer 4.c.2" aria-label="Copy heading and permalink for Answer 4.c.2">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 4.c"><a tabindex="-1" href="#exercises-day01-2-6-5" title="Copy heading and permalink for Task 4.c" aria-label="Copy heading and permalink for Task 4.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="exercises-day01-2-6-6"><h6 class="heading"><span class="codenumber">(d)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="exercises-day01-2-6-6-1-1">Now here is what I think is one of the most useful tools in seaborn for use when you’re starting to understand a dataset....<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="exercises-day01-2-6-6-1-2">
+<code class="code-inline tex2jax_ignore language-none">sns.pairplot(auto)</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-6-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="exercises-day01-2-6-6-1-3">Run the above command. What is each graph on this giant grid showing you?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exercises-day01-2-6-6-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 4.d"><a tabindex="-1" href="#exercises-day01-2-6-6" title="Copy heading and permalink for Task 4.d" aria-label="Copy heading and permalink for Task 4.d">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 4: Plotting"><a tabindex="-1" href="#exercises-day01-2-6" title="Copy heading and permalink for Exercise 4: Plotting" aria-label="Copy heading and permalink for Exercise 4: Plotting">🔗</a></div>
+</article>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercise Group 1–4: Python Review"><a tabindex="-1" href="#exercises-day01-2" title="Copy heading and permalink for Exercise Group 1–4: Python Review" aria-label="Copy heading and permalink for Exercise Group 1–4: Python Review">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercises: Day01 Coding Exercises"><a tabindex="-1" href="#exercises-day01" title="Copy heading and permalink for Exercises: Day01 Coding Exercises" aria-label="Copy heading and permalink for Exercises: Day01 Coding Exercises">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Subsection: The Dataset"><a tabindex="-1" href="#day01-subsec-the-data-set" title="Copy heading and permalink for Subsection: The Dataset" aria-label="Copy heading and permalink for Subsection: The Dataset">🔗</a></div>
+</section>
+<section class="conclusion" id="day01-notebook-4">
+<div class="para logical" id="day01-notebook-4-1">
+<div class="para">The new version of the textbook has been setup in python, and with it they have setup a python package with the stuff needed for the labs.</div>
+<ul class="disc" id="day01-notebook-4-1-1">
+<li id="day01-notebook-4-1-1-1">
+<div class="para" id="day01-notebook-4-1-1-1-1">
+<a class="external" href="https://islp.readthedocs.io/en/latest/" target="_blank">Documentation of ISLP</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day01-notebook-4-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day01-notebook-4-1-1-2">
+<div class="para" id="day01-notebook-4-1-1-2-1">
+<a class="external" href="https://islp.readthedocs.io/en/latest/installation.html" target="_blank">Installation Instructions</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day01-notebook-4-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-notebook-4-2">In theory, you should be able to get it running using the command <code class="code-inline tex2jax_ignore language-none">pip install ISLP</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-notebook-4-3">however this caused a bunch of headaches when I tried to do it on my machine.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-notebook-4-4">For the moment, I’m not going to try to set up all labs without using this package. The issue is that their package is VERY restrictive about versions of dependent packages ( ‘numpy’, ‘matplotlib’, etc), which means you would need to downgrade many standard packages on your system, or be comfortable with using conda environments. If that is something you are comfortable with, you can still follow the <a class="external" href="https://islp.readthedocs.io/en/latest/installation.html" target="_blank">Installation Instructions</a> to install the package.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day01-notebook-4-5">Congratulations, we’re done!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-notebook-4-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section><div class="autopermalink" aria-hidden="true" data-description="Section: Day01 Worksheet"><a tabindex="-1" href="#day01-notebook" title="Copy heading and permalink for Section: Day01 Worksheet" aria-label="Copy heading and permalink for Section: Day01 Worksheet">🔗</a></div>
+</section>
+</div>
+<div id="ptx-content-footer" class="ptx-content-footer">
+<a class="previous-button button" href="activities.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="338 3000 8772 6866" role="img"><title>PreTeXt logo</title><g style="stroke-width:.025in; stroke:currentColor; fill:none"><polyline points="472,3590 472,9732 " style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png" alt="Runstone Academy logo"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png" alt="MathJax logo"></a>
+</div>
+</body>
+</html>

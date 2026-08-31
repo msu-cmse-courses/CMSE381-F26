@@ -1,0 +1,248 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381_Lec04-Ch3_1.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381_Lec04-Ch3_1.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381_Lec04-Ch3_12.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381_Lec04-Ch3_10x.png' />
+<img alt='picture' src='CMSE381_Lec04-Ch3_12x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       3.1:
+                                      Linear
+                                   Regression</span></h1>
+                                      Lecture
+                                         4
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Wed
+                                        Jan
+                                        21,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 101 --><p class='noindent'>Last time: </p>
+      <ul class='itemize1'>
+      <li class='itemize'>2.2
+      Assessing
+      Model
+      Accuracy</li></ul>                                    </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>Covered
+  in
+  this
+  lecture</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Least
+      squares
+      coefficient
+      estimates
+      for
+      linear
+      regression
+      </li><li class='itemize'>Residual
+      sum
+      of
+      squares
+      (RSS)</li></ul>                                  </div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 122 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381_Lec04-Ch3_13x.png' />
+<img alt='picture' src='CMSE381_Lec04-Ch3_15x.png' /></p><div class='minipage'>                                                      <a href='#Navigation5'><span class='cmss-12x-x-120'>Simple
+                                          Linear
+                                        Regression</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Setup</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 141 --><p class='noindent'>Predict <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      on a single predictor variable
+      <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 141 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi>
+</mrow></math></td></tr></table>
+      <!-- l. 141 --><p class='noindent'><g visibility='hidden'>
+ 
+  <object data='CMSE381_Lec04-Ch3_1-21.svg' height='7.87814 ' type='image/svg+xml' width='7.87814 '><p>SVG-Viewer needed.</p></object> ”<!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-rel' stretchy='false'>≈</mo></mrow></math>”
+      .... “is approximately modeled
+      as”</g>                                      </p></li></ul></div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'>
+                                                                                   
+                                                                                   
+<span class='colorbox' id='colorbox22'><tspan font-family='\cmss' font-size='\12'>Setup</tspan>                                                                               </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 141 --><p class='noindent'>Predict <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      on a single predictor variable
+      <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 141 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi>
+</mrow></math></td></tr></table>
+  <object data='CMSE381_Lec04-Ch3_1-23.svg' height='7.87814 ' type='image/svg+xml' width='7.87814 '><p>SVG-Viewer needed.</p></object> ”<!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-rel' stretchy='false'>≈</mo></mrow></math>”
+      .... “is approximately modeled
+      as”                                     </li></ul></div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   
+                                                                                   
+</div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox26'> <tspan font-family='\cmss' font-size='\12'>Example</tspan>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='screenshot of the
+advertising data set' src='../../Figures/AdvertisingDataSet-Screenshot.png' style='max-width:100%' />           </div>              <div class='minipage'>                                               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox30'> <tspan font-family='\cmss' font-size='\12'>Least</tspan>
+  <tspan font-family='\cmss' font-size='\12'>squares</tspan>
+  <tspan font-family='\cmss' font-size='\12'>criterion:</tspan>
+  <tspan font-family='\cmss' font-size='\12'>Setup</tspan>
+  <tspan font-family='\cmss' font-size='\9'>How</tspan>
+   <tspan font-family='\cmss' font-size='\9'>do</tspan>
+   <tspan font-family='\cmss' font-size='\9'>we</tspan>
+   <tspan font-family='\cmss' font-size='\9'>estimate</tspan>
+   <tspan font-family='\cmss' font-size='\9'>the</tspan>
+   <tspan font-family='\cmss' font-size='\9'>coefficients?</tspan>                                                                                                                                  </span>
+<h2 class='frametitle'></h2> <table class='columns'><tr>
+        <div class='minipage'>                                                        </div>            <div class='minipage'><img alt='scatter plot with linear fit and
+residuals' src='../../Figures/Fig3-1.png' style='max-width:100%' />                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox34'> <tspan font-family='\cmss' font-size='\12'>Least</tspan>
+  <tspan font-family='\cmss' font-size='\12'>squares</tspan>
+  <tspan font-family='\cmss' font-size='\12'>criterion:</tspan>
+  <tspan font-family='\cmss' font-size='\12'>RSS</tspan>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='left: contour plots of residual sum of squares in beta0-beta1
+plane. Right: Three dimensional plot of RSS versus beta0 and
+beta1.' src='../../Figures/Fig3-2.png' style='max-width:100%' /> <table class='equation-star'><tr><td>
+<!-- l. 213 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                       <mstyle class='text'><mtext class='textrm' mathvariant='normal'>sales</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mstyle class='text'><mtext class='textrm' mathvariant='normal'>TV</mtext></mstyle>
+</mrow></math></td></tr></table></div>    <div class='minipage'>Residual sum of squares RSS is
+<!-- tex4ht:inline --><!-- l. 213 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+  <mtr><mtd class='align-odd' columnalign='right'><mi mathvariant='italic'>𝑅𝑆𝑆</mi></mtd>  <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msubsup><mrow><mi>e</mi></mrow><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msubsup><mrow><mi>e</mi></mrow><mrow>
+<mi>n</mi></mrow><mrow><mn>2</mn></mrow></msubsup><mspace width='2em'></mspace></mtd>                     <mtd class='align-label' columnalign='right'></mtd>   <mtd class='align-label'>
+   <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>          <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo><munder class='msub'><mrow><mo> ∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup><mspace width='2em'></mspace></mtd>   <mtd class='align-label' columnalign='right'></mtd>   <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+</tr></table>
+<table class='columns'><tr>
+                               <div class='minipage'><div class='block'>
+<img alt='picture' src='CMSE381_Lec04-Ch3_16x.png' /><div class='minipage'><tspan font-family='\cmss' font-size='\12'>Least</tspan>
+<tspan font-family='\cmss' font-size='\12'>squares</tspan>
+<tspan font-family='\cmss' font-size='\12'>criterion</tspan>                                             </div>
+<img alt='picture' src='CMSE381_Lec04-Ch3_17x.png' />
+<img alt='picture' src='CMSE381_Lec04-Ch3_19x.png' /><div class='minipage'>Find
+<!-- l. 213 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+and
+<!-- l. 213 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+that
+minimize
+the
+RSS.                                                     </div>
+</div>                                                                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox38'> <tspan font-family='\cmss' font-size='\12'>Least</tspan>
+  <tspan font-family='\cmss' font-size='\12'>squares</tspan>
+  <tspan font-family='\cmss' font-size='\12'>coefficient</tspan>
+  <tspan font-family='\cmss' font-size='\12'>estimates</tspan>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 250 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+  <munder class='msub'><mrow><mtext class='qopname'>min</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></mrow></munder><munder class='msub'><mrow><mo> ∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table>
+<!-- l. 250 --><p class='noindent'>
+</p><!-- tex4ht:inline --><!-- l. 250 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+<mtr><mtd class='align-odd' columnalign='right'><mfrac><mrow><mi mathvariant='italic'>∂𝑅𝑆𝑆</mi></mrow>
+<mrow><mi>∂</mi><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac> </mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>2</mn><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn><mspace width='2em'></mspace></mtd>   <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mfrac><mrow><mi mathvariant='italic'>∂𝑅𝑆𝑆</mi></mrow>
+<mrow><mi>∂</mi><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub></mrow></mfrac> </mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>2</mn><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><mi>i</mi></mrow></munder><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn><mspace width='2em'></mspace></mtd><mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>      <div class='minipage'><!-- l. 250 --><p class='noindent'>
+</p><!-- tex4ht:inline --><!-- l. 250 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
+      <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub></mtd>        <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>y</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
+     <mrow><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></mfrac>      <mspace width='2em'></mspace></mtd>        <mtd class='align-label' columnalign='right'></mtd>        <mtd class='align-label'>
+        <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub></mtd>        <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='false' class='mml-overline'><mrow><mi>y</mi></mrow><mo accent='true'>¯</mo></mover> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover><mspace width='2em'></mspace></mtd>                         <mtd class='align-label' columnalign='right'></mtd>      <mtd class='align-label'>
+<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox42'> <tspan font-family='\cmss' font-size='\12'>Coding</tspan>
+  <tspan font-family='\cmss' font-size='\12'>group</tspan>
+  <tspan font-family='\cmss' font-size='\12'>work</tspan>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

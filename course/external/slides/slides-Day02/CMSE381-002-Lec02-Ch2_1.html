@@ -1,0 +1,1076 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec02-Ch2_1.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec02-Ch2_1.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec02-Ch2_12.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_10x.png' />
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_12x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       2.1:
+                                      What
+                                        is
+                                    Statistical
+                                    Learning?</span></h1>
+                                      Lecture
+                                         2
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Weds,
+                                        Jan
+                                        14
+                                         ,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+     <div class='minipage'><!-- l. 114 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 114 --><p class='noindent'>Discussed where to find everything
+      </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Course
+             webpage</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>D2L</span></li></ul>
+       </li>
+       <li class='itemize'>Check out the syllabus!</li></ul>
+<!-- l. 114 --><p class='noindent'><img alt='PIC' src='../../Figures/Schedule-S26-1.png' style='max-width:100%' />                                           </p></div>          <div class='minipage'><!-- l. 114 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>First
+      homework
+      due
+      Sun
+      Jan
+      25
+      </li><li class='itemize'>First
+      office
+      hours
+      next
+      week</li></ul>                                   </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>Covered
+  in
+  this
+  class</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Input/output
+      variables
+      </li><li class='itemize'>Prediction
+      vs
+      inference
+      </li><li class='itemize'>Reduceable
+      vs
+      irreduceable
+      error
+      </li><li class='itemize'>Overfitting
+      </li><li class='itemize'>Classification
+      vs
+      regression
+      </li><li class='itemize'>Supervised
+      vs
+      Unsupervised
+      learning
+</li></ul>                                         </div>          <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Please
+      note:
+      no
+      jupyter
+      notebook
+      for
+      today’s
+      class,
+      slides
+      only</li></ul>                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox18'> <span class='cmss-12x-x-120'>An
+  example
+  data
+  set:
+  </span><span class='cmtt-12x-x-120'>Advertising</span>                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='PIC' src='Figures/AdvertisingDataSet-Screenshot.png' style='max-width:100%' />                             </div>       <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Sales
+      of
+      a
+      product
+      in
+      200
+      markets,
+      along
+      with
+      amount
+      spent
+      on
+      three
+      differnt
+      types
+      of
+      advertising
+      </li><li class='itemize'>Goal:
+      Predict
+      Sales
+      based
+      on
+      amount
+      spent
+      in
+      each
+      type
+      of
+      advertising
+      </li><li class='itemize'>Input
+      variables:
+      TV,
+      Radio,
+      Newspaper
+      </li><li class='itemize'>Output
+      variable:
+      Sales</li></ul>                                                           </div>
+</tr></table>
+<!-- l. 161 --><p class='noindent'>Data available at <a href='https://msu-cmse-courses.github.io/CMSE381-S26/DataSets/DataSets.html'>msu-cmse-courses.github.io/CMSE381-S26/DataSets/DataSets.html</a>       </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox22'> <span class='cmss-12x-x-120'>Notation
+  and
+  Big
+  Assumption</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>Input
+variables:
+<!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub></mrow></math>
+<!-- l. 189 --><p class='noindent'>Output
+variable:
+<!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math></p></div>          <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 189 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-bin' stretchy='false'>+</mo>
+</mrow></math></td></tr></table>
+     <ul class='itemize1'>
+     <li class='itemize'><!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>
+      is
+      the
+      systemic
+      information
+      that
+      <!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      provides
+      about
+      <!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>.
+      </li><li class='itemize'>It
+      is
+      the
+      ground
+      truth
+      that
+      we
+      want
+      but
+      can’t
+      access
+      </li><li class='itemize'>So
+      our
+      goal
+      is
+      to
+      come
+      up
+      with
+      an
+      estimated
+      model
+      <!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>.
+      </li><li class='itemize'><!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'></math>
+      is
+      a
+      random
+      error
+      term
+      which
+      is
+      independent
+      of
+      <!-- l. 189 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      and
+      has
+      mean
+      0</li></ul>                                        </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox26'> <span class='cmtt-12x-x-120'>Advertising
+ </span><span class='cmss-12x-x-120'>Example</span>                                                                                    </span>
+<h2 class='frametitle'></h2><img alt='PIC' src='Figures/Fig2-1.png' style='max-width:100%' />
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox30'> <span class='cmss-12x-x-120'>More
+  examples</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='PIC' src='Figures/Fig2-2.png' style='max-width:100%' />                                                             </div>    <div class='minipage'><img alt='PIC' src='Figures/Fig2-3.png' style='max-width:100%' />                                           </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 209 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_13x.png' />
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_15x.png' /></p><div class='minipage'>                                                   <a href='#Navigation9'><span class='cmss-12x-x-120'>Prediction
+                                             vs
+                                         Inference</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>Prediction</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><!-- l. 236 --><p class='noindent'>Given
+a
+value
+<!-- l. 236 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>,
+try
+to
+provide
+an
+estimate
+for
+<!-- l. 236 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>.
+</p><!-- l. 236 --><p class='noindent'>Build a model: </p><table class='equation-star'><tr><td>
+<!-- l. 236 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>Ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+     <ul class='itemize1'>
+     <li class='itemize'>Want
+      to
+      get
+      a
+      good
+      guess
+      for
+      <!-- l. 236 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>,
+      which
+      is
+      unknown
+      blue
+      </li><li class='itemize'>Model
+      is
+      <!-- l. 236 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>
+      is
+      green
+      dashed
+      lines</li></ul>                                    </div>          <div class='minipage'>Example:
+If
+we
+spend
+<span class='tcss-1095'>$</span>250
+on
+TV
+advertising,
+what
+do
+we
+predict
+we
+will
+we
+make
+in
+sales?
+<!-- l. 236 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-1-WithHatF.png' style='max-width:70%' />                                           </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox41'> <span class='cmss-12x-x-120'>Group
+  question:</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+        <div class='minipage'><!-- l. 269 --><p class='noindent'><img alt='PIC' src='Figures/AdvertisingDataSet-Screenshot.png' style='max-width:100%' />
+</p><!-- l. 269 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-1-WithHatF.png' style='max-width:100%' />                         </p></div>              <div class='minipage'>The blue solid line is
+<!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>. The green
+dashed line is <!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>.
+      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 269 --><p class='noindent'>What is the predicted sales for the first three
+      data points using the green dashed line
+      <!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>
+      shown in the graph?  </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Note
+             all
+             values
+             approximate</span>
+             </li>
+             <li class='itemize'><!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mn>230</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>19</mn></mrow></math><span class='cmss-10'>,</span>
+             </li>
+             <li class='itemize'><!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mn>44</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>5</mn><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>7</mn></mrow></math><span class='cmss-10'>,</span>
+             </li>
+             <li class='itemize'><!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mn>17</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>2</mn><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>5</mn></mrow></math><span class='cmss-10'>,</span></li></ul>
+       </li>
+       <li class='itemize'>Using the dashed green line as the predicted
+      model <!-- l. 269 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>,
+      what is the error in each of the three
+      predicions?</li></ul>                                  </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox45'> <span class='cmss-12x-x-120'>Reduceable
+  vs
+  irreducable
+  error
+  </span><span class='cmss-9'>All
+   models
+   are
+   wrong,
+   some
+   are
+   useful.</span>
+                                                                                                                                                    </span>
+<h2 class='frametitle'></h2>
+<!-- l. 304 --><p class='noindent'><!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>Ŷ</mi></mrow></math>
+</p>
+<table class='columns'><tr>
+       <div class='minipage'><span class='cmssbx-10x-x-109'>Reducible Error</span>
+     <ul class='itemize1'>
+     <li class='itemize'><!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>
+      will
+      not
+      be
+      a
+      perfect
+      estimate
+      for
+      <!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>.
+      </li><li class='itemize'>We
+      can
+      potentially
+      improve
+      the
+      irreducible
+      accuracy
+      of
+      <!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>
+      by
+      using
+      the
+      most
+      appropriate
+      statistical
+      learning
+      technique</li></ul>                             </div>          <div class='minipage'><!-- l. 304 --><p class='noindent'><span class='cmssbx-10x-x-109'>Irreducible Error</span>
+</p>
+     <ul class='itemize1'>
+     <li class='itemize'>Model
+      was
+      <!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-bin' stretchy='false'>+</mo></mrow></math>,
+      </li><li class='itemize'>Variability
+      of
+      <!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'></math>
+      also
+      affects
+      predictions
+      </li><li class='itemize'>Not
+      matter
+      how
+      well
+      we
+      estimate
+      <!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>,
+      we
+      can’t
+      get
+      rid
+      of
+      this
+      error.
+      </li><li class='itemize'>Would
+      expect
+      this
+      in
+      real
+      life
+      though:</li></ul>                                </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox49'> <span class='cmss-12x-x-120'>More
+  on
+  error</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>Given
+      estimate
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></math>
+      (fixed)
+      </li><li class='itemize'>Set
+      of
+      predictors
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      (fixed)
+      </li><li class='itemize'>Prediction
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math></li></ul>
+<!-- l. 329 --><p class='noindent'>
+</p><!-- l. 329 --><p class='noindent'><!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>E</mi><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>Ŷ</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>E</mi><msup><mrow><mo class='MathClass-open' stretchy='false'>[</mo><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>]</mo></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <msup><mrow><mo class='MathClass-open' stretchy='false'>[</mo><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>]</mo></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi mathvariant='italic'>𝑉𝑎𝑟</mi><mo class='MathClass-open' stretchy='false'>(</mo><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+</p><!-- l. 329 --><p class='noindent'><!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mo class='MathClass-open' stretchy='false'>[</mo><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>]</mo></mrow><mrow><mn>2</mn></mrow></msup></math> is
+reducible, <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi mathvariant='italic'>𝑉𝑎𝑟</mi><mo class='MathClass-open' stretchy='false'>(</mo><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+is irreducible                                                                        </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox53'> <span class='cmss-12x-x-120'>Inference</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>Want
+<!-- l. 355 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math>,
+but
+not
+for
+prediction
+<!-- l. 355 --><p class='noindent'>(or
+possibly
+combined
+with
+prediction)                                  </p></div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Which
+      predictors
+      are
+      associated
+      with
+      the
+      response?
+      </li><li class='itemize'>What
+      is
+      the
+      relationship
+      between
+      the
+      response
+      and
+      each
+      predictor?
+      </li><li class='itemize'>Can
+      the
+      relationship
+      between
+      <!-- l. 355 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      and
+      each
+      predictor
+      be
+      adequately
+      summarized
+      using
+      a
+      linear
+      equation?
+      Is
+      it
+      more
+      complicated?
+</li></ul>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <!-- l. 402 --><p class='noindent'>Determine whether each scenario is prediction, inference, or both.
+ </p>
+ <div class='tabular'> <table class='tabular' id='TBL-1' rules='groups'><colgroup id='TBL-1-1g'><col id='TBL-1-1' /></colgroup><colgroup id='TBL-1-2g'><col id='TBL-1-2' /><col id='TBL-1-3' /></colgroup><tr id='TBL-1-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-1-1' style='text-align:center; white-space:nowrap;'>            <span class='cmssbx-10x-x-109'>Application                 </span></td><td class='td11' id='TBL-1-1-2' style='text-align:center; white-space:nowrap;'><span class='cmssbx-10x-x-109'>Prediction</span></td><td class='td11' id='TBL-1-1-3' style='text-align:center; white-space:nowrap;'><span class='cmssbx-10x-x-109'>Inference</span></td>
+</tr><tr class='array-hline'><td></td><td></td><td></td></tr><tr id='TBL-1-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-2-1' style='text-align:center; white-space:nowrap;'>     Predict effectiveness of vaccine        </td></tr><tr id='TBL-1-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-4-1' style='text-align:center; white-space:nowrap;'>    Determine the address written on      </td></tr><tr id='TBL-1-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-5-1' style='text-align:center; white-space:nowrap;'> the image of an envelope.</td>
+</tr><tr id='TBL-1-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-7-1' style='text-align:center; white-space:nowrap;'> Identify risk factors for getting long covid.</td>
+</tr><tr id='TBL-1-9-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-9-1' style='text-align:center; white-space:nowrap;'>Transcribe an audio file of a person talking.</td>
+</tr><tr id='TBL-1-11-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-11-1' style='text-align:center; white-space:nowrap;'> Predict stock prices.</td>
+</tr></table>                                                                                                                       </div>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 410 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_16x.png' />
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_18x.png' /></p><div class='minipage'>                                                        <a href='#Navigation17'><span class='cmss-12x-x-120'>How
+                                             to
+                                         estimate</span>
+   <!-- l. 410 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> </mrow></math><span class='cmss-12x-x-120'>?</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>Input:
+  Training
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'><!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>n</mi></math>
+      data
+      points
+      observed
+      </li><li class='itemize'><!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></math>
+        is
+      the
+      <!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>th
+      predictor
+      for
+      observation
+      <!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>
+      </li><li class='itemize'><!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        is
+      the
+      response
+      variable
+      for
+      the
+      <!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      observation
+      </li><li class='itemize'>
+      <!-- l. 430 --><p class='noindent'>Training data: </p>
+            <ul class='itemize2'>
+            <li class='itemize'><!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+             </li>
+             <li class='itemize'><!-- l. 430 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mi>T</mi> </mrow></msup></mrow></math></li></ul>
+         </li></ul>                                                                               </div>               <div class='minipage'><img alt='PIC' src='Figures/AdvertisingDataSet-Screenshot.png' style='max-width:100%' />                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>Parametric
+  methods</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 463 --><p class='noindent'>Select
+      a
+      model
+      </p><!-- l. 463 --><p class='noindent'>
+      </p><!-- l. 463 --><p class='noindent'>Example: </p><table class='equation-star'><tr><td>
+      <!-- l. 463 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table>
+        </li>
+        <li class='itemize'>
+        <!-- l. 463 --><p class='noindent'>Train the model
+      </p><!-- l. 463 --><p class='noindent'>
+      </p><!-- l. 463 --><p class='noindent'>Example:
+      </p><!-- l. 463 --><p class='noindent'>Find <!-- l. 463 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msubsup><mrow><mi>β</mi></mrow><mrow><mi>i</mi></mrow><mrow><mi>′</mi></mrow></msubsup><mi>s</mi></mrow></math>
+      so that </p><table class='equation-star'><tr><td>
+      <!-- l. 463 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table>
+        </li></ul>                                                     </div>             <div class='minipage'><!-- l. 463 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-4.png' style='max-width:100%' />                                           </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>How
+  do
+  you
+  decide
+  on
+  the
+  coefficients?</span>                                                                                </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 479 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+             <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub>
+</mrow></math></td></tr></table></div>        <div class='minipage'><img alt='PIC' src='Figures/ExampleScatter.png' style='max-width:100%' />                                                 </div>
+</tr></table>
+<!-- l. 479 --><p class='noindent'>Desmos toy: <a class='url' href='https://www.desmos.com/calculator/skvt8c73l7'><span class='cmtt-10x-x-109'>https://www.desmos.com/calculator/skvt8c73l7</span></a>                       </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Example
+  Non-parametric
+  method:
+  Nearest
+  Neighbors</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 501 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+<mi>N</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext>Set of </mtext><mstyle class='math'><mi>k</mi></mstyle><mtext> nearest neighbors of </mtext><mstyle class='math'><mi>x</mi></mstyle><mtext></mtext></mstyle>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 501 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+        <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>k</mi></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
+   </mrow><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi> </mrow></msub><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>N</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></munder><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>             <div class='minipage'><img alt='PIC' src='Figures/ESLR-Fig2-2.png' style='max-width:100%' />
+<!-- l. 501 --><p class='noindent'><!-- l. 501 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>15</mn></mrow></math></p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>Parametric
+  methods:
+  Pros
+  and
+  Cons</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><span class='cmssbx-10x-x-109'>Pros  </span>
+     <ul class='itemize1'>
+     <li class='itemize'>Easier
+      to
+      estimate
+      paramters
+      than
+      to
+      figure
+      out
+      a
+      completely
+      arbitrary
+      function</li></ul>                               </div>          <div class='minipage'><span class='cmssbx-10x-x-109'>Cons  </span>
+     <ul class='itemize1'>
+     <li class='itemize'>You
+      might
+      have
+      chosen
+      the
+      wrong
+      function
+      type</li></ul>                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>Overfitting</span>                                                                                  </span>
+<h2 class='frametitle'></h2>Possible fix: Find more <span class='cmssbx-10x-x-109'>Flexible </span>models, which means braider functional form
+<!-- l. 540 --><p class='noindent'>Problem: needs more variables, could lead to overfitting
+</p><!-- l. 540 --><p class='noindent'>Overfitting: Following the noise too closely
+</p>
+<table class='columns'><tr>
+       <div class='minipage'><img alt='PIC' src='Figures/Fig2-5.png' style='max-width:100%' />                                           </div>          <div class='minipage'><img alt='PIC' src='Figures/Fig2-6.png' style='max-width:100%' />                                           </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox87'> <span class='cmss-12x-x-120'>Prediction
+  Accuracy
+  vs
+  Model
+  Interpretability</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><!-- l. 560 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-7.png' style='max-width:100%' />                                                                              </p></div>  <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>More
+      flexible
+      allows
+      for
+      greater
+      accuracy,
+      but
+      potential
+      for
+      overfitting
+      </li><li class='itemize'>Also
+      more
+      restrictive
+      makes
+      it
+      easier
+      to
+      understand
+      and
+      interpret
+      the
+      results</li></ul>                      </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <table class='columns'><tr>
+      <div class='minipage'><span class='cmssbx-10x-x-109'>Supervised
+learning:</span><br />
+Training
+data
+has
+response
+variable
+<!-- l. 584 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>
+for
+every
+input
+<!-- l. 584 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+<!-- l. 584 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-1.png' style='max-width:-1169.47%' />                                           </p></div>          <div class='minipage'><span class='cmssbx-10x-x-109'>Unsupervised
+Learning:</span><br />
+Training
+data
+does
+not
+have
+response
+variable
+<!-- l. 584 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>
+for
+every
+input
+<!-- l. 584 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+<!-- l. 584 --><p class='noindent'><img alt='PIC' src='Figures/Fig2-8a.png' style='max-width:95.9%' />                                           </p></div>
+ </tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox94'> <span class='cmss-12x-x-120'>Regression
+  vs
+  Classification</span>                                                                               </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><span class='cmssbx-10x-x-109'>Types
+of
+variables:</span>
+Emphasize
+this
+is
+output
+variable,
+and
+which
+it
+is
+determines
+regression
+vs
+classification
+      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 613 --><p class='noindent'>Quantitative
+      </p><!-- l. 613 --><p class='noindent'>Ex:
+      Blood
+      pressure,
+      temperature,
+      volume,
+      height,
+      income
+      </p>
+      </li><li class='itemize'>
+      <!-- l. 613 --><p class='noindent'>Qualitative
+      /
+      Categorical
+      </p><!-- l. 613 --><p class='noindent'>Purchased
+      a
+      ticket,
+      owns
+      a
+      house,
+      Job,
+      Digit
+      in
+      MNIST,
+</p>
+      </li></ul>                                         </div>          <div class='minipage'>                                               </div>
+</tr></table>
+<!-- l. 613 --><p class='noindent'>Emphasize that this has to do with the output variable type                              </p></div>
+                                                                                   
+                                                                                   
+<p><a id='x1-4r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 616 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_19x.png' />
+<img alt='picture' src='CMSE381-002-Lec02-Ch2_111x.png' /></p><div class='minipage'>                                                      <a href='#Navigation28'><span class='cmss-12x-x-120'>Group
+                                           work</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <table class='columns'><tr>
+   <div class='minipage'>(a)
+We
+collect
+a
+set
+of
+data
+on
+the
+top
+500
+firms
+in
+the
+US.
+For
+each
+firm
+we
+record
+profit,
+number
+of
+employees,
+industry
+and
+the
+CEO
+salary.
+We
+are
+interested
+in
+understanding
+which
+factors
+affect
+CEO
+salary.                                        </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Is
+      this
+      classification
+      or
+      regression?
+      regression
+      </li><li class='itemize'>Do
+      we
+      want
+      inference
+      or
+      prediction?
+      Inference
+      </li><li class='itemize'>What
+      is
+      <!-- l. 642 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>n</mi></math>,
+      the
+      number
+      of
+      data
+      points?
+      500
+      </li><li class='itemize'>What
+      is
+      <!-- l. 642 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>,
+      the
+      number
+      of
+      variables?
+      3</li></ul>                                                    </div>
+ </tr></table>
+<!-- l. 642 --><p class='noindent'>From Ex 2.4.2                                                                      </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <table class='columns'><tr>
+   <div class='minipage'>(b)
+We
+are
+considering
+launching
+a
+new
+product
+and
+wish
+to
+know
+whether
+it
+will
+be
+a
+success
+or
+a
+failure.
+We
+collect
+data
+on
+20
+similar
+products
+that
+were
+previously
+launched.
+For
+each
+product
+we
+have
+recorded
+whether
+it
+was
+a
+success
+or
+failure,
+price
+charged
+for
+the
+product,
+marketing
+budget,
+competition
+price,
+and
+ten
+other
+variables.                                    </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Is
+      this
+      classification
+      or
+      regression?
+      classification
+      </li><li class='itemize'>Do
+      we
+      want
+      inference
+      or
+      prediction?
+      Prediction
+      </li><li class='itemize'>What
+      is
+      <!-- l. 666 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>n</mi></math>,
+      the
+      number
+      of
+      data
+      points?
+      20
+      </li><li class='itemize'>What
+      is
+      <!-- l. 666 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>,
+      the
+      number
+      of
+      variables?
+      13</li></ul>                                                  </div>
+ </tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox107'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Input/output
+      variables
+      </li><li class='itemize'>Prediction
+      vs
+      inference
+      </li><li class='itemize'>Reduceable
+      vs
+      irreduceable
+      error
+      </li><li class='itemize'>Overfitting
+      </li><li class='itemize'>Classification
+      vs
+      regression
+      </li><li class='itemize'>Supervised
+      vs
+      Unsupervised
+      learning</li></ul>                                      </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox111'> <span class='cmss-12x-x-120'>Wrap
+  up</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 732 --><p class='noindent'><span class='cmssbx-10x-x-109'>Next time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 732 --><p class='noindent'>Friday 1/16 </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Bring
+             Laptop!</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>First
+             homework
+             due
+             Sun
+             Jan
+             25</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>There
+             will
+             be
+             a
+             quiz
+             this
+             Friday</span></li></ul>
+       </li></ul>
+<!-- l. 732 --><p class='noindent'><img alt='PIC' src='../../Figures/Schedule-S26-1.png' style='max-width:70%' />                                           </p></div>      <div class='minipage'><!-- l. 732 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 732 --><p class='noindent'>Office hours! </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Dr. Bao:
+             Tue
+             9
+             am-11
+             am
+             (EB
+             2507
+             L)</span><br />
+             </li>
+             <li class='itemize'><span class='cmss-10'>Dr. 
+             Khasawneh:
+             MWF
+             13:40
+             pm-2:00
+             pm
+             (EB
+             2400),
+             Tue
+             1:30
+             pm-2:30
+             pm
+             (Zoom)</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Siyu
+             :
+             Wed
+             2:00
+             pm-3:00
+             pm
+             (EB
+             2504)</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Haishen:
+             WF
+             2:00
+             pm-3:00
+             pm
+             (EB2504)</span></li></ul>
+       </li></ul>                                                          </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

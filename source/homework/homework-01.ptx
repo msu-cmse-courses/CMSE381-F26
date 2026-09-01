@@ -16,7 +16,7 @@
   </introduction>
 
   <page>
-    <exercise xml:id="hw01-P2-9-a">
+    <exercise xml:id="hw01-P2-9">
 
     <introduction>
     <p>
@@ -24,67 +24,82 @@
     </p>
     </introduction>
   
+
     <task>
-    <statement>
-    <p>
-    Which of the predictors are quantitative, and which are qualitative?
-    </p>
-    </statement
+      <statement>
+        <p workspace="1in">
+          Which of the predictors are quantitative, and which are qualitative?
+        </p>
+      </statement>
     </task>
-    <task> 
-
-
-    <ol cols="1" marker="lower">
-      <li>
+    <task>
+      <statement>
         <p>
-          
+          What is the range of each quantitative predictor? 
         </p>
-      </li>
+</statement>
+<hint>
+  <p>
+    You can asnwer this using <c>min()</c> and <c>max()</c> methods in <c>numpy</c>. 
+  </p>
+</hint>
 
-      <li>
-        <p>
-          What is the range of each quantitative predictor? You can answer
-          this using the <c>min()</c> and <c>max()</c> methods in
-          <c>numpy</c>.
-        </p>
-      </li>
-
-      <li>
+    </task>
+    <task>
+      <statement>
         <p>
           What are the mean and standard deviation of each quantitative
           predictor?
         </p>
-      </li>
-
-      <li>
+      </statement>
+    </task>
+    <task>
+      <statement>
         <p>
-          Now remove the 10th through 85th observations. What are the range,
-          mean, and standard deviation of each predictor in the subset of the
-          data that remains?
+          Now remove the 10th through 85th observations. What are the range, mean, and standard deviation of each predictor in the subset of the data that remains?
         </p>
-      </li>
-
-      <li>
+      </statement>
+    </task>
+    <task>
+      <statement>
         <p>
           Using the full data set, investigate the predictors graphically
           using scatterplots or other tools of your choice. Create some plots
           highlighting the relationships among the predictors. Comment on
           your findings.
         </p>
-      </li>
-
-      <li>
+      </statement>
+    </task>
+    <task>
+      <statement>
         <p>
           Suppose that we wish to predict gas mileage
-          (<m>mpg</m>) on the basis of the other variables. Do your plots
+          (<sq>mpg</sq>) on the basis of the other variables. Do your plots
           suggest that any of the other variables might be useful in
-          predicting <m>mpg</m>? Justify your answer.
+          predicting <sq>mpg</sq>? Justify your answer.
         </p>
-      </li>
-    </ol>
-  </statement>
+      </statement>
+    </task>
+
 </exercise>
 
 
+  </page>
+  <page>
+    <exercise xml:id="hw01-P-2">
+      <introduction>
+        <p>
+          s
+        </p>
+      </introduction>
+      <task>
+        <statement>
+          <p>
+            d
+          </p>
+        </statement>
+      </task>
+      
+    </exercise>
   </page>
 </worksheet>

@@ -173,10 +173,10 @@
     <p> 
       
       <ul>
-        <li>
+        <li xml:id="syllabus-hw-policy">
           <p>
-            <term>Homework</term>: All homework must be submitted directly D2L as a Jupyter Notebook (.ipynb) file. 
-            Students are responsible for ensuring that submitted notebooks run from top to bottom without errors and that all required code, outputs, and explanations are clearly visible. A clear and well-organized solution pathway is expected. 
+            <term>Homework</term>: All homework must be submitted per its specific instructions. 
+            Students are responsible for ensuring that submitted output corresponds to notebooks/code that run from top to bottom without errors and that all required code, outputs, and explanations are clearly visible. A clear and well-organized solution pathway is expected. 
             <ul>
             <li><p>Homeworks are due by midnight on the days marked in the schedule.</p></li>
             <li><p>Homeworks submitted before midnight the following day will still be graded with a 5% penalty. </p></li>

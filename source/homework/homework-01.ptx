@@ -1,105 +1,433 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<worksheet>
+
+
+
+
+<worksheet component="hw01">
   <title>Homework 01</title>
+
   <introduction>
     <p>
-      <alert>Instructions:</alert> Complete all the exercises below and submit your work by the due date.
+      <alert>The Homework is due Friday, Sep 11, 2026, at 11:59 p.m. and must be submitted to Crowdmark</alert>. See <xref ref="syllabus-hw-policy" text="custom">late homework policy</xref> in the syllabus.
     </p>
-      <p>
-      <c>{admonition} Deadline Homework is due Friday, Sep 11, 2026, at 11:59 p.m. and must be submitted to Crowdmark.</c>
-    </p>
+
     <p>
-      This homework covers two classes. Problems listed below are from
+      <alert>All homework must be submitted to Crowdmark. </alert>
+      <ul>
+        <li>
+          <p>
+            For coding problems, you will only submit screenshots of your code and output to Crowdmark (no Python code to submit). For non-coding problems, you wil submit a scan or image of your handwritten work. 
+          </p>
+        </li>
+        <li>
+          <p>
+            Submit individual pdfs/screenshots for each problem to the corresponding prompt in Crowdmark. Please do not submit one pdf containing all the solutions to each prompt. Each problem will be graded separately.
+          </p>
+        </li>
+        <li>
+          <p>
+            The instructional team has the right to request the original code for any problem.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The problems listed below are from
       <url href="https://www.statlearning.com/">the textbook</url>.
     </p>
   </introduction>
 
   <page>
-    <exercise xml:id="hw01-P2-9">
-
-    <introduction>
-    <p>
-      This exercise involves the <xref ref="day01-Auto-csv" text="custom">Auto data set</xref>. Make sure that the missing values have been removed from the data.
-    </p>
-    </introduction>
-  
-
-    <task>
-      <statement>
-        <p workspace="1in">
-          Which of the predictors are quantitative, and which are qualitative?
-        </p>
-      </statement>
-    </task>
-    <task>
-      <statement>
-        <p>
-          What is the range of each quantitative predictor? 
-        </p>
-</statement>
-<hint>
-  <p>
-    You can asnwer this using <c>min()</c> and <c>max()</c> methods in <c>numpy</c>. 
-  </p>
-</hint>
-
-    </task>
-    <task>
-      <statement>
-        <p>
-          What are the mean and standard deviation of each quantitative
-          predictor?
-        </p>
-      </statement>
-    </task>
-    <task>
-      <statement>
-        <p>
-          Now remove the 10th through 85th observations. What are the range, mean, and standard deviation of each predictor in the subset of the data that remains?
-        </p>
-      </statement>
-    </task>
-    <task>
-      <statement>
-        <p>
-          Using the full data set, investigate the predictors graphically
-          using scatterplots or other tools of your choice. Create some plots
-          highlighting the relationships among the predictors. Comment on
-          your findings.
-        </p>
-      </statement>
-    </task>
-    <task>
-      <statement>
-        <p>
-          Suppose that we wish to predict gas mileage
-          (<sq>mpg</sq>) on the basis of the other variables. Do your plots
-          suggest that any of the other variables might be useful in
-          predicting <sq>mpg</sq>? Justify your answer.
-        </p>
-      </statement>
-    </task>
-
-</exercise>
-
-
-  </page>
-  <page>
-    <exercise xml:id="hw01-P-2">
+    <exercise xml:id="hw01-P2-4-9">
       <introduction>
         <p>
-          s
+          This exercise involves the
+          <xref ref="day01-Auto-csv" text="custom">Auto data set</xref>.
+          Make sure that the missing values have been removed from the data
+          (Problem 2.4.9 in the textbook).
         </p>
       </introduction>
-      <task>
+
+      <task workspace="1in">
         <statement>
           <p>
-            d
+            Which of the predictors are quantitative, and which are qualitative?
           </p>
         </statement>
       </task>
-      
+
+      <task>
+        <statement>
+          <p>
+            What is the range of each quantitative predictor?
+          </p>
+        </statement>
+
+        <hint>
+          <p>
+            You can asnwer this using <c>min()</c> and <c>max()</c> methods in
+            <c>numpy</c>.
+          </p>
+        </hint>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            What are the mean and standard deviation of each quantitative
+            predictor?
+          </p>
+        </statement>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            Now remove the 10th through 85th observations.
+            What are the range, mean, and standard deviation of each predictor
+            in the subset of the data that remains?
+          </p>
+        </statement>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            Using the full data set, investigate the predictors graphically
+            using scatterplots or other tools of your choice.
+            Create some plots highlighting the relationships among the
+            predictors.
+            Comment on your findings.
+          </p>
+
+          <note>
+            <p>
+              Include images with your Crowdmark submission.
+            </p>
+          </note>
+        </statement>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            Suppose that we wish to predict gas mileage ( <sq>mpg</sq> ) on the
+            basis of the other variables.
+            Do your plots suggest that any of the other variables might be
+            useful in predicting <sq>mpg</sq>?
+            Justify your answer.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw01-P2-4-2">
+      <introduction>
+        <p>
+          Explain whether each scenario is a classification or regression
+          problem, and indicate whether we are most interested in inference or
+          prediction.
+          Finally, provide <m>n</m> and <m>p</m> (Problem 2.4.2 in the textbook).
+        </p>
+      </introduction>
+
+      <task>
+        <statement>
+          <p>
+            We collect a set of data on the top 500 firms in the US.
+            For each firm we record profit, number of employees, industry and
+            the CEO salary.
+            We are interested in understanding which factors affect CEO salary.
+          </p>
+        </statement>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            We are considering launching a new product and wish to know whether
+            it will be a success or a failure.
+            We collect data on 20 similar products that were previously
+            launched.
+            For each product we have recorded whether it was a success or
+            failure, price charged for the product, marketing budget,
+            competition price, and ten other variables.
+          </p>
+        </statement>
+      </task>
+
+      <task>
+        <statement>
+          <p>
+            We are interested in predicting the % change in the USD/Euro
+            exchange rate in relation to the weekly changes in the world stock
+            markets.
+            Hence we collect weekly data for all of 2012.
+            For each week we record the % change in the USD/Euro, the % change
+            in the US market, the % change in the British market, and the %
+            change in the German market.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw01-P-2-4-3">
+      <introduction>
+        <p>
+          We now revisit the bias-variance decomposition (Problem 2.4.3 in the textbook).
+        </p>
+      </introduction>
+
+      <task>
+        <statement>
+          <p>
+            Provide a sketch of typical (squared) bias, variance, training
+            error, test error, and Bayes (or irreducible) error curves, on a
+            single plot, as we go from less flexible statistical learning
+            methods towards more flexible approaches.
+            The x-axis should represent the amount of flexibility in the method,
+            and the y-axis should represent the values for each curve.
+            There should be five curves.
+            Make sure to label each one
+          </p>
+      <note>
+        <p>
+          We have only done irreducible error, not Bayes error since that
+          has to do with classification.
+        </p>
+      </note>
+        </statement>
+      </task>
+
+
+      <task>
+        <statement>
+          <p>
+            Explain why each of the five curves has the shape displayed in part
+            (a).
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw01-P-2-4-4">
+      <introduction>
+        <p>
+          You will now think of some real-life applications for statistical
+          learning (Problem 2.4.4(a)-(b) in the textbook).
+        </p>
+      </introduction>
+
+      <task workspace="1in">
+        <statement>
+          <p>
+            Describe three real-life applications in which classification might
+            be useful.
+            Describe the response, as well as the predictors.
+            Is the goal of each application inference or prediction?
+            Explain your answer.
+          </p>
+        </statement>
+      </task>
+
+      <task workspace="1in">
+        <statement>
+          <p>
+            Describe three real-life applications in which regression might be
+            useful.
+            Describe the response, as well as the predictors.
+            Is the goal of each application inference or prediction?
+            Explain your answer.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw01-P2-4-8">
+      <introduction>
+        <p>
+          This exercise relates to the College data set, which can be found in
+          the file College.csv on the book website.
+          It contains a number of variables for 777 different universities and
+          colleges in the US (Problem 2.4.8c-h in the textbook).
+          The variables are
+
+        <data xml:id="day01-college-csv">
+      <title>College: College Data Set</title>
+
+      <p>
+        <dl>
+  <li>
+    <title>Private</title>
+    <p>Public/private indicator</p>
+  </li>
+  <li>
+    <title>Apps</title>
+    <p>Number of applications received</p>
+  </li>
+  <li>
+    <title>Accept</title>
+    <p>Number of applicants accepted</p>
+  </li>
+  <li>
+    <title>Enroll</title>
+    <p>Number of new students enrolled</p>
+  </li>
+  <li>
+    <title>Top10perc</title>
+    <p>New students from top 10% of high school class</p>
+  </li>
+  <li>
+    <title>Top25perc</title>
+    <p>New students from top 25% of high school class</p>
+  </li>
+  <li>
+    <title>F.Undergrad</title>
+    <p>Number of full-time undergraduates</p>
+  </li>
+  <li>
+    <title>P.Undergrad</title>
+    <p>Number of part-time undergraduates</p>
+  </li>
+  <li>
+    <title>Outstate</title>
+    <p>Out-of-state tuition</p>
+  </li>
+  <li>
+    <title>Room.Board</title>
+    <p>Room and board costs</p>
+  </li>
+  <li>
+    <title>Books</title>
+    <p>Estimated book costs</p>
+  </li>
+  <li>
+    <title>Personal</title>
+    <p>Estimated personal spending</p>
+  </li>
+  <li>
+    <title>PhD</title>
+    <p>Percent of faculty with Ph.D.s</p>
+  </li>
+  <li>
+    <title>Terminal</title>
+    <p>Percent of faculty with terminal degree</p>
+  </li>
+  <li>
+    <title>S.F.Ratio</title>
+    <p>Student/faculty ratio</p>
+  </li>
+  <li>
+    <title>perc.alumni</title>
+    <p>Percent of alumni who donate</p>
+  </li>
+  <li>
+    <title>Expend</title>
+    <p>Instructional expenditure per student</p>
+  </li>
+  <li>
+    <title>Grad.Rate</title>
+    <p>Graduation rate</p>
+  </li>
+</dl>
+        </p>
+        <!-- <datafile source="data/College.csv" label="College-dataset" filename="College.csv" visual="College.csv data file">
+        <pre source="data/College.csv"/>
+        </datafile> -->
+ 
+      <dataurl source="data/College.csv" visual="College.csv data file"/>
+    </data>
+
+      <note>
+        <p>
+          There is a typo in 2.4.8f, at least with respect to the
+          version of the data set we have.
+          The information in the <c>Top10perc</c> column is a percentage 0-100
+          rather than a value between 0 and 1.
+          So use the following replacement code instead.
+          <program language="python3">
+            <code>
+              college['Elite'] = pd.cut(college['Top10perc'],
+              [0,50,100],
+              labels=['No', 'Yes'])
+            </code>
+          </program>
+        </p>
+      </note>
+      </p>
+      <hint>
+        <p>
+          Use the <c>pd.read_csv()</c> function to read the data into Python. Make sure that you have the directory set to the correct location for the data.
+        </p>
+      </hint>
+      </introduction>
+
+
+      <task>
+        <statement>
+          <p>
+            Use the <c>describe()</c> method of to produce a numerical summary of the variables in the data set.
+          </p>
+        </statement>
+      </task>
+      <task>
+        <statement>
+          <p>
+             Use the <c>pd.plotting.scatter_matrix()</c> function to produce a scatterplot matrix of the first columns <c>[Top10perc, Apps, Enroll]</c>. Recall that you can reference a list C of columns of a data frame A using A[C].
+          </p>
+        </statement>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Use the <c>boxplot()</c> method of college to produce side-by-side boxplots of <sq>Outstate</sq> versus <sq>Private</sq>.
+          </p>
+        </statement>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Create a new qualitative variable, called <sq>Elite</sq>, by binning the <sq>Top10perc</sq> variable into two groups based on whether or not the proportion of students coming from the top 10% of their high school classes exceeds 50%.
+            <program language="python3">
+              <code>
+                college['Elite'] = pd.cut(college['Top10perc'],
+                                        [0,50,100],
+                                        labels=['No', 'Yes'])
+              </code>
+              </program>
+            Use the <c>value_counts()</c> method to determine how many elite universities there are. Finally, use <c>boxplot()</c> method again to produce side-by-side boxplots of <sq>Outstate</sq> versus <sq>Elite</sq>.
+          </p>
+        </statement>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Use the <c>plot.hist()</c> method of college to produce some histograms with differing numbers of bins for a few of the quantitative variables. 
+            <hint>
+              <p>
+                The command <c>plt.subplots(2, 2)</c> may be useful: it will divide the plot window into four regions so that four plots can be made simultaneously. By changing the arguments you can divide the screen up in other combinations.
+              </p>
+            </hint>
+          </p>
+        </statement>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Continue exploring the data, and provide a brief summary of what you discover.
+          </p>
+        </statement>
+      </task>
     </exercise>
   </page>
 </worksheet>

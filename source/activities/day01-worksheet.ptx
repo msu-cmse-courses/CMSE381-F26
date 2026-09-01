@@ -3,7 +3,7 @@
 <!-- When creating a new activity, make a copy of this file with appropriate name -->
 <!-- <worksheet xml:id="day01-worksheet">
   <title>Day01 - Python Review</title> -->
-<section xml:id="day01-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="day01">
+<section xml:id="day01-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="ws01">
   <title>Day01 Worksheet</title>
 
   <!-- Optional introduction -->
@@ -142,9 +142,9 @@
         The dataset was used in the 1983 American Statistical Association
         Exposition.
       </p>
-      <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
+      <!-- <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
         <pre source="data/Auto.csv"/>
-      </datafile>
+      </datafile> -->
       <dataurl source="data/Auto.csv" visual="Auto.csv data file"/>
     </data>
     <exercises xml:id="exercises-day01">

@@ -6,16 +6,85 @@
     <p>
       <alert>Instructions:</alert> Complete all the exercises below and submit your work by the due date.
     </p>
+      <p>
+      <c>{admonition} Deadline Homework is due Friday, Sep 11, 2026, at 11:59 p.m. and must be submitted to Crowdmark.</c>
+    </p>
+    <p>
+      This homework covers two classes. Problems listed below are from
+      <url href="https://www.statlearning.com/">the textbook</url>.
+    </p>
   </introduction>
 
   <page>
-    <exercise>
-      <statement>
+    <exercise xml:id="hw01-P2-9-a">
+
+    <introduction>
+    <p>
+      This exercise involves the <xref ref="day01-Auto-csv" text="custom">Auto data set</xref>. Make sure that the missing values have been removed from the data.
+    </p>
+    </introduction>
+  
+    <task>
+    <statement>
+    <p>
+    Which of the predictors are quantitative, and which are qualitative?
+    </p>
+    </statement
+    </task>
+    <task> 
+
+
+    <ol cols="1" marker="lower">
+      <li>
         <p>
-          This is the first homework exercise.
+          
         </p>
-      </statement>
-    </exercise>
+      </li>
+
+      <li>
+        <p>
+          What is the range of each quantitative predictor? You can answer
+          this using the <c>min()</c> and <c>max()</c> methods in
+          <c>numpy</c>.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          What are the mean and standard deviation of each quantitative
+          predictor?
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Now remove the 10th through 85th observations. What are the range,
+          mean, and standard deviation of each predictor in the subset of the
+          data that remains?
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Using the full data set, investigate the predictors graphically
+          using scatterplots or other tools of your choice. Create some plots
+          highlighting the relationships among the predictors. Comment on
+          your findings.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Suppose that we wish to predict gas mileage
+          (<m>mpg</m>) on the basis of the other variables. Do your plots
+          suggest that any of the other variables might be useful in
+          predicting <m>mpg</m>? Justify your answer.
+        </p>
+      </li>
+    </ol>
+  </statement>
+</exercise>
+
 
   </page>
 </worksheet>

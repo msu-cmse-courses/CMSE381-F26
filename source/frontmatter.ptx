@@ -88,14 +88,13 @@
     </row>
     <row valign="top">
       <cell>Dr. Khasawneh</cell>
-      <cell><line>TBD</line><line>TBD </line></cell>
-      <cell>Modality/Location (TBD)</cell>      
-      <!-- <cell><line>Modality (TBD) </line><line><url href="https://msu.zoom.us/j/98717159065"/></line></cell>       -->
+      <cell><line>MWF 4:40-5:00</line><line>Mon 10:00-11:00</line></cell>      
+      <cell><line>Olds Hall 109</line><line><url href="https://www.zoom.com/">Zoom</url></line></cell>      
     </row>
     <row>
       <cell>Dr. Bao</cell>
-      <cell>TBD</cell>
-      <cell>Modality/Location (TBD)</cell>      
+      <cell><line>Tue 9:00-10:00</line><line>Wed 10:00-11:00</line></cell>      
+      <cell><line>EB 2507L      </line><line>EB 2507L</line></cell>   
     </row>
     <row>
     <cell>Siyu Guo</cell>

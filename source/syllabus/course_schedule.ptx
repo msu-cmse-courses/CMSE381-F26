@@ -110,7 +110,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>12</cell>
+          <cell></cell>
           <cell>M</cell>
           <cell>9/28</cell>
           <cell>Midterm #1 review</cell>
@@ -118,7 +118,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>13</cell>
+          <cell></cell>
           <cell>W</cell>
           <cell>9/30</cell>
           <cell>Midterm #1</cell>
@@ -126,7 +126,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>14</cell>
+          <cell>12</cell>
           <cell>F</cell>
           <cell>10/2</cell>
           <cell>Leave one out and k-fold CV</cell>
@@ -134,7 +134,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>15</cell>
+          <cell>13</cell>
           <cell>M</cell>
           <cell>10/5</cell>
           <cell>More k-fold CV</cell>
@@ -142,7 +142,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>16</cell>
+          <cell>14</cell>
           <cell>W</cell>
           <cell>10/7</cell>
           <cell>k-fold CV for classification</cell>
@@ -150,7 +150,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>17</cell>
+          <cell>15</cell>
           <cell>F</cell>
           <cell>10/9</cell>
           <cell>Subset selection</cell>
@@ -158,7 +158,7 @@
           <cell>HW #3 assigned</cell>
         </row>
         <row>
-          <cell>18</cell>
+          <cell>16</cell>
           <cell>M</cell>
           <cell>10/12</cell>
           <cell>Shrinkage: Ridge</cell>
@@ -166,7 +166,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>19</cell>
+          <cell>17</cell>
           <cell>W</cell>
           <cell>10/14</cell>
           <cell>Shrinkage: Lasso</cell>
@@ -174,7 +174,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>20</cell>
+          <cell>18</cell>
           <cell>F</cell>
           <cell>10/16</cell>
           <cell>PCA</cell>
@@ -182,7 +182,7 @@
           <cell>HW #3 due</cell>
         </row>
         <row>
-          <cell>21</cell>
+          <cell>19</cell>
           <cell>M</cell>
           <cell>10/19</cell>
           <cell>PCR</cell>
@@ -190,7 +190,7 @@
           <cell>HW#4 assigned</cell>
         </row>
         <row>
-          <cell>22</cell>
+          <cell></cell>
           <cell>W</cell>
           <cell>10/21</cell>
           <cell>Midterm #2 review</cell>
@@ -198,7 +198,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>23</cell>
+          <cell></cell>
           <cell>F</cell>
           <cell>10/23</cell>
           <cell>Midterm #2</cell>
@@ -214,7 +214,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>24</cell>
+          <cell>20</cell>
           <cell>W</cell>
           <cell>10/28</cell>
           <cell>Polynomial &amp; Step functions</cell>
@@ -222,7 +222,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>25</cell>
+          <cell>21</cell>
           <cell>F</cell>
           <cell>10/30</cell>
           <cell>Step functions; Basis functions; start splines</cell>
@@ -230,7 +230,7 @@
           <cell>HW#4 due</cell>
         </row>
         <row>
-          <cell>26</cell>
+          <cell>22</cell>
           <cell>M</cell>
           <cell>11/02</cell>
           <cell>Regression splines</cell>
@@ -238,7 +238,7 @@
           <cell>HW#5 assigned</cell>
         </row>
         <row>
-          <cell>27</cell>
+          <cell>23</cell>
           <cell>W</cell>
           <cell>11/04</cell>
           <cell>Decision trees</cell>
@@ -246,7 +246,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>28</cell>
+          <cell>24</cell>
           <cell>F</cell>
           <cell>11/06</cell>
           <cell>Random forests</cell>
@@ -254,14 +254,14 @@
           <cell></cell>
         </row>
         <row>
-          <cell>29</cell>
+          <cell>25</cell>
           <cell>M</cell>
           <cell>11/09</cell>
           <cell>Catch up day/Practice Problems</cell>
           <cell>HW#5 due</cell>
         </row>
         <row>
-          <cell>30</cell>
+          <cell>26</cell>
           <cell>W</cell>
           <cell>11/11</cell>
           <cell>Maximal margin classifier</cell>
@@ -269,7 +269,7 @@
           <cell>HW#6 assigned</cell>
         </row>
         <row>
-          <cell>31</cell>
+          <cell>27</cell>
           <cell>F</cell>
           <cell>11/13</cell>
           <cell>SVC</cell>
@@ -277,7 +277,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>32</cell>
+          <cell>28</cell>
           <cell>M</cell>
           <cell>11/16</cell>
           <cell>SVM</cell>
@@ -285,7 +285,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>33</cell>
+          <cell>29</cell>
           <cell>W</cell>
           <cell>11/18</cell>
           <cell>Single layer NN</cell>
@@ -293,7 +293,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>34</cell>
+          <cell>30</cell>
           <cell>F</cell>
           <cell>11/20</cell>
           <cell>Multi layer NN</cell>
@@ -301,7 +301,7 @@
           <cell>HW#6 due</cell>
         </row>
         <row>
-          <cell>35</cell>
+          <cell>31</cell>
           <cell>M</cell>
           <cell>11/23</cell>
           <cell>CNN</cell>
@@ -309,7 +309,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>36</cell>
+          <cell></cell>
           <cell>W</cell>
           <cell>11/25</cell>
           <cell>Catch up day/Practice Problems</cell>
@@ -325,7 +325,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>37</cell>
+          <cell>32</cell>
           <cell>M</cell>
           <cell>11/30</cell>
           <cell>Unsupervised learning/clustering Part 1</cell>
@@ -333,7 +333,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>38</cell>
+          <cell>33</cell>
           <cell>W</cell>
           <cell>12/02</cell>
           <cell>Unsupervised learning/clustering Part 2</cell>
@@ -341,7 +341,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>39</cell>
+          <cell></cell>
           <cell>F</cell>
           <cell>12/04</cell>
           <cell>Catch up day/Practice Problems</cell>
@@ -349,7 +349,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>40</cell>
+          <cell></cell>
           <cell>M</cell>
           <cell>12/07</cell>
           <cell>Midterm #3 review</cell>
@@ -357,7 +357,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>41</cell>
+          <cell></cell>
           <cell>W</cell>
           <cell>12/09</cell>
           <cell>Midterm #3</cell>
@@ -365,10 +365,10 @@
           <cell></cell>
         </row>
         <row>
-          <cell>42</cell>
+          <cell></cell>
           <cell>F</cell>
           <cell>12/11</cell>
-          <cell>Project work</cell>
+          <cell>Wrap up</cell>
           <cell></cell>
           <cell></cell>
         </row>

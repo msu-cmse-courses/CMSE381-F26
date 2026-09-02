@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<handout xml:id="day-04-lecture" component="day04">
+<section xml:id="day-04-lecture" component="day04">
     <title>Day 04</title>
 
     <p>
        <dataurl source="slides/slides-Day04/CMSE381_Lec04-Ch3_1.html" visual="Day04 slides"/>    
     </p>
-</handout>
+</section>

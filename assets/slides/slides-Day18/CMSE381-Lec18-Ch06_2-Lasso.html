@@ -1,0 +1,636 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec18-Ch06_2-Lasso.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec18-Ch06_2-Lasso.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec18-Ch06_2-Lasso2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso0x.png' />
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       6.2:
+                                    Shrinkage
+                                         -
+                                       The
+                                      Lasso</span></h1>
+                                      Lecture
+                                        18
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                        <div class='date'>Fri,
+                                        Feb
+                                        27,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 108 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Ridge
+      Regression</li></ul>
+<!-- l. 108 --><p class='noindent'><span class='cmssbx-10x-x-109'>This time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>The
+      Lasso</li></ul>
+<!-- l. 108 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>HW3
+      due
+      Sunday
+      3/8
+      </li><li class='itemize'>HW4
+      due
+      Sunday
+      3/15
+      </li><li class='itemize'>Think
+      about
+      the
+      project,
+      choose
+      a
+      partner</li></ul>                                       </div>      <div class='minipage'><img alt='Screenshot of the course schedule forlectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:100%' />       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>What
+  should
+  you
+  learn
+  from
+  the
+  previous
+  and
+  this
+  lecture?</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>What
+      is
+      regularization?
+      Why
+      do
+      we
+      need
+      it?
+      </li><li class='itemize'>What
+      are
+      the
+      two
+      basic
+      types
+      of
+      regularization
+      methods?
+      How
+      are
+      they
+      implemented
+      mathematically
+      in
+      linear
+      regression?
+      Why
+      are
+      they
+      also
+      called
+      Shrinkage
+      methods?
+      </li><li class='itemize'>How
+      do
+      you
+      fit
+      a
+      Lasso
+      regression
+      model
+      in
+      python?
+      </li><li class='itemize'>How
+      do
+      you
+      control
+      the
+      model
+      flexibility
+      &amp;      bias-variance
+      tradeoff
+      when
+      using
+      regularization?
+      </li><li class='itemize'>How
+      do
+      you
+      find
+      the
+      right
+      amount
+      of
+      regularization
+      using
+      cross-validation?
+      How
+      do
+      you
+      do
+      this
+      in
+      python?
+      </li><li class='itemize'>What
+      additional
+      precautions
+      do
+      you
+      need
+      to
+      take
+      when
+      using
+      regularization
+      (compared
+      to
+      least
+      squares)?
+      </li><li class='itemize'>When
+      do
+      you
+      choose
+      one
+      Shrinkage
+      method
+      over
+      another?</li></ul>                                                                       </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 125 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso3x.png' />
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation5'><span class='cmss-12x-x-120'>Last
+                                           time
+                                              -
+                                           Ridge
+                                        Regression</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Goal</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      model
+      using
+      all
+      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>
+      predictors
+      </li><li class='itemize'>Aim
+      to
+      constrain
+      (regularize)
+      coefficient
+      estimates
+      </li><li class='itemize'>Shrink
+      the
+      coefficient
+      estimates
+      towards
+      0</li></ul>                                              </div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 150 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+ <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>4</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Ridge
+  regression</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Before: </span><table class='equation-star'><tr><td>
+<!-- l. 203 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>              <div class='minipage'><span class='cmssbx-10x-x-109'>After: </span><table class='equation-star'><tr><td>
+<!-- l. 203 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+</mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<table class='columns'><tr>
+                   <div class='minipage'><!-- l. 203 --><p class='noindent'><img alt='Plot of ridge regression
+coefficient paths for the
+Credit data, showing how
+the coefficient estimates
+shrink toward zero as
+lambda increases.' src='../../Figures/Fig6-4a.png' style='max-width:100%' />              </p></div>                  <div class='minipage'><img alt='Plot of ridge regression
+coefficient paths for the
+Credit data, showing how
+coefficient estimates shrink
+as the relative L2 norm
+decreases from left to right.' src='../../Figures/Fig6-4b.png' style='max-width:100%' /> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Scale
+  equivariance
+  (or
+  lack
+  thereof)</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Scale equivariant: </span>Multiplying a variable
+by
+<!-- l. 235 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>c</mi></math>
+(<!-- l. 235 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>c</mi><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>)
+just returns a coefficient multiplied by
+<!-- l. 235 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mi>c</mi></mrow></math>
+(<!-- l. 235 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mi>c</mi><msub><mrow><mi>β</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>)
+      <ul class='itemize1'>
+      <li class='itemize'>Least
+      squares
+      is
+      scale
+      equivariant
+      </li><li class='itemize'>Ridge
+      regression
+      is
+      not</li></ul>                                           </div>      <div class='minipage'><span class='cmssbx-10x-x-109'>Solution: standardize predictors </span><table class='equation-star'><tr><td>
+<!-- l. 235 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+        <mover accent='true'><mrow><mi>x</mi></mrow><mo accent='true'>~</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>             <mfrac><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow> 
+<mrow><msqrt><mrow><mstyle displaystyle='false'><mfrac><mrow><mn>1</mn></mrow><mrow><mi>n</mi> </mrow></mfrac></mstyle> <munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></msqrt></mrow></mfrac>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 317 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso6x.png' />
+<img alt='picture' src='CMSE381-Lec18-Ch06_2-Lasso8x.png' /></p><div class='minipage'>                                                        <a href='#Navigation10'><span class='cmss-12x-x-120'>The
+                                           Lasso</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Same
+  goal
+  as
+  before</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      model
+      using
+      all
+      <!-- l. 342 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>
+      predictors
+      </li><li class='itemize'>Aim
+      to
+      constrain
+      (regularize)
+      coefficient
+      estimates
+      </li><li class='itemize'>Shrink
+      the
+      coefficient
+      estimates
+      towards
+      0</li></ul>                                              </div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 342 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+ <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>4</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>The
+  lasso</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Least Squares: </span><table class='equation-star'><tr><td>
+<!-- l. 395 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>              <div class='minipage'><span class='cmssbx-10x-x-90'>Ridge: </span><table class='equation-star'><tr><td>
+<!-- l. 395 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mtext>∑</mtext></mrow><mrow>
+<mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mtext>∑</mtext></mrow><mrow>
+<mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<!-- l. 395 --><p class='noindent'><span class='cmssbx-10x-x-109'>The Lasso:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 395 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+            <munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+ <div class='minipage'>                       </div>   <div class='minipage'>                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Subsets
+  with
+  lasso</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='equation-star'><tr><td>
+<!-- l. 417 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+          <munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+ <div class='minipage'>                       </div>   <div class='minipage'>                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>An
+  example
+  on
+  </span><span class='cmtt-12x-x-120'>Credit
+ </span><span class='cmss-12x-x-120'>data
+  set</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>Lasso <img alt='Plot of lasso coefficient paths
+for the Credit data, showing how
+some coefficient estimates shrink
+exactly to zero as lambda increases.' src='../../Figures/Fig6-6a.png' style='max-width:100%' />  </div>          <div class='minipage'>Ridge <img alt='Plot of ridge regression
+coefficient paths for the Credit data,
+showing how the coefficient estimates
+shrink toward zero as lambda
+increases.' src='../../Figures/Fig6-4a.png' style='max-width:100%' />                                    </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>More
+  example
+  on
+  </span><span class='cmtt-12x-x-120'>Credit
+ </span><span class='cmss-12x-x-120'>data
+  set</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'>Lasso <img alt='Plot of lasso coefficient paths
+for the Credit data, showing how
+some coefficient estimates shrink
+exactly to zero and produce variable
+subsets.' src='../../Figures/Fig6-6b.png' style='max-width:100%' />                                      </div>          <div class='minipage'><!-- l. 462 --><p class='noindent'>Ridge <img alt='Plot of ridge regression
+coefficient paths for the Credit data,
+showing how coefficient estimates
+shrink as the relative L2 norm
+decreases from left to right.' src='../../Figures/Fig6-4b.png' style='max-width:100%' />             </p></div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Why
+  the
+  hell
+  lasso
+  can
+  select
+  variable
+  (while
+  ridge
+  cannot)?</span>                                                                                    </span>
+<h2 class='frametitle'></h2>Alternative formulation of lasso &amp;ridge regression (<a href='https://www.geogebra.org/graphing/euymx5b9'>play more with
+<!-- l. 482 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>p</mi></mrow></msub></math></a>)
+<table class='equation-star'><tr><td>
+<!-- l. 482 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                  <munder class='msub'><mrow><mrow class='qopname'>min</mrow><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>β</mi></mrow></munder><mo> ∑</mo>
+  <msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup><mstyle class='text'><mtext> where </mtext></mstyle><mo>∑</mo>
+   <mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo><mo class='MathClass-rel' stretchy='false'>≤</mo><mi>s</mi>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 482 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                  <munder class='msub'><mrow><mrow class='qopname'>min</mrow><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>β</mi></mrow></munder><mo> ∑</mo>
+  <msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup><mstyle class='text'><mtext> where </mtext></mstyle><mo>∑</mo>
+   <mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>j</mi></mrow></msub><msup><mrow><mo class='MathClass-rel' stretchy='false'>|</mo></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>≤</mo><mi>s</mi>
+</mrow></math></td></tr></table>
+<!-- l. 482 --><p class='noindent'><img alt='Contour plot illustrating the geometric difference between lasso and ridge constraints, showing
+why lasso can set coefficients exactly to zero while ridge generally cannot.' src='../../Figures/lasso_ridge_contour.png' style='max-width:50%' />                  </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Bias-Variance
+  tradeoff</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+                <div class='minipage'><img alt='Plot illustrating the bias-variance tradeoff for simulated data, showing
+squared bias, variance, and test mean squared error.' src='../../Figures/Fig6-5.png' style='max-width:100%' /> <span class='cmss-9'>Squared bias
+(black), variance (green), and test mean squared error (purple) for
+simulated data.</span>                                                                        </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Using
+  Cross-Validation
+  to
+  find</span>
+  <!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>    <ul class='itemize1'>
+    <li class='itemize'>Choose
+      a
+      grid
+      of
+      <!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     values
+      </li><li class='itemize'>Compute
+      the
+      (<!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-fold)
+      cross-validation
+      error
+      for
+      each
+      value
+      of
+      <!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     </li><li class='itemize'>Select
+      the
+      tuning
+      parameter
+      value
+      <!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     for
+      which
+      the
+      CV
+      error
+      is
+      smallest.
+      </li><li class='itemize'>The
+      model
+      is
+      re-fit
+      using
+      all
+      of
+      the
+      available
+      observations
+      and
+      the
+      selected
+      value
+      of
+      the
+      tuning
+      parameter.</li></ul>                                  </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>10-fold
+  CV
+  choice
+  of</span>
+  <!-- l. 581 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+  <span class='cmss-12x-x-120'>for
+  lasso
+  and
+  simulated
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+            <div class='minipage'><img alt='Plot of 10-fold cross-validation error and lasso coefficient behavior for
+simulated data, with dashed vertical lines indicating the selected
+lambda and only the signal variables remaining nonzero near the
+chosen model.' src='../../Figures/Fig6-13.png' style='max-width:100%' />                                                                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>Coding
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox76'> <span class='cmss-12x-x-120'>Ridge
+  vs
+  Lasso</span>                                                                                        </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge Regression:</span>                          </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Lasso:</span>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox80'> <span class='cmss-12x-x-120'>TL;DR
+  -
+  Original
+  forumlation</span>                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Least Squares: </span><table class='equation-star'><tr><td>
+<!-- l. 811 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>              <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge: </span><table class='equation-star'><tr><td>
+<!-- l. 811 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mtext>∑</mtext></mrow><mrow>
+<mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mtext>∑</mtext></mrow><mrow>
+<mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<!-- l. 811 --><p class='noindent'><span class='cmssbx-10x-x-109'>The Lasso:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 811 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                   <munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mtext>∑</mtext></mrow><mrow>
+<mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo><mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo>
+</mrow></math></td></tr></table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox84'> <span class='cmss-12x-x-120'>Next
+  time</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<!-- l. 858 --><p class='noindent'><img alt='Screenshot of the course schedule for lectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:65%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

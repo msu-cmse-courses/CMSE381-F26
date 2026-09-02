@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-16-lecture" component="day16">
+        <title>Day 16</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day16/CMSE381-Lec16-Ch06_1-SubsetSelection.html" visual="Day16 slides"/>
+        </p>
+    
+        </section>

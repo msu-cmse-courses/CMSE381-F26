@@ -49,6 +49,14 @@
       <!-- Remove the example and replace with your own activities -->
       <xi:include href="./activities/day01-worksheet.ptx"/>
       <xi:include href="./activities/day02-worksheet.ptx"/>
+      <xi:include href="./activities/day03-worksheet.ptx"/>
+      <xi:include href="./activities/day04-worksheet.ptx"/>
+      <xi:include href="./activities/day05-worksheet.ptx"/>
+      <xi:include href="./activities/day06-worksheet.ptx"/>
+      <xi:include href="./activities/day07-worksheet.ptx"/>
+      <xi:include href="./activities/day08-worksheet.ptx"/>
+      <xi:include href="./activities/day09-worksheet.ptx"/>
+      <xi:include href="./activities/day10-worksheet.ptx"/>
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 
@@ -56,7 +64,7 @@
       <title>Lectures</title>
 
       <!-- Include handouts -->
-      <section xml:id="sec-exam1-material0">
+      <section xml:id="sec-exam1-material">
         <title>Exam 1 material</title>
 
         <introduction>
@@ -114,6 +122,11 @@
                   <xref ref="day-10-lecture" text="custom">Day 10</xref>
                 </p>
               </li>
+              <li component="day11">
+                <p>
+                  <xref ref="day-11-lecture" text="custom">Day 11</xref>
+                </p>
+              </li>
             </ul>
           </p>
         </introduction>
@@ -127,10 +140,169 @@
         <xi:include href="./handouts/Day07.ptx"/>
         <xi:include href="./handouts/Day08.ptx"/>
         <xi:include href="./handouts/Day09.ptx"/>
-        <xi:include href="./handouts/Day10.ptx"/>        
-
-
+        <xi:include href="./handouts/Day10.ptx"/>       
+        <xi:include href="./handouts/Day11.ptx"/>
       </section>
+    <section xml:id="sec-exam2-material" component="exam2-material">
+      <title>Exam 2 Material</title>
+        <introduction>
+          <p>
+            <ul>
+              <li component="day12">
+                <p>
+                  <xref ref="day-12-lecture" text="custom">Day 12</xref>
+                </p>
+              </li>
+
+              <li component="day13">
+                <p>
+                  <xref ref="day-13-lecture" text="custom">Day 13</xref>
+                </p>
+              </li>
+
+              <li component="day14">
+                <p>
+                  <xref ref="day-14-lecture" text="custom">Day 14</xref>
+                </p>
+              </li>
+              <li component="day15">
+                <p>
+                  <xref ref="day-15-lecture" text="custom">Day 15</xref>
+                </p>
+              </li>
+              <li component="day16">
+                <p>
+                  <xref ref="day-16-lecture" text="custom">Day 16</xref>
+                </p>
+              </li>
+              <li component="day17">
+                <p>
+                  <xref ref="day-17-lecture" text="custom">Day 17</xref>
+                </p>
+              </li>
+              <li component="day18">
+                <p>
+                  <xref ref="day-18-lecture" text="custom">Day 18</xref>
+                </p>
+              </li>
+              <li component="day19">
+                <p>
+                  <xref ref="day-19-lecture" text="custom">Day 19</xref>
+                </p>
+              </li>
+            </ul>
+          </p>
+        </introduction>
+
+        <xi:include href="./handouts/Day12.ptx"/>        
+        <xi:include href="./handouts/Day13.ptx"/>
+        <xi:include href="./handouts/Day14.ptx"/>
+        <xi:include href="./handouts/Day15.ptx"/>
+        <xi:include href="./handouts/Day16.ptx"/>        
+        <xi:include href="./handouts/Day17.ptx"/>
+        <xi:include href="./handouts/Day18.ptx"/>
+        <xi:include href="./handouts/Day19.ptx"/>
+
+
+      
+    </section>
+      <section xml:id="sec-exam3-material" component="exam3-material">
+      <title>Exam 3 Material</title>
+        <introduction>
+          <p>
+            <ul>
+              <li component="day20">
+                <p>
+                  <xref ref="day-20-lecture" text="custom">Day 20</xref>
+                </p>
+              </li>
+
+              <li component="day21">
+                <p>
+                  <xref ref="day-21-lecture" text="custom">Day 21</xref>
+                </p>
+              </li>
+
+              <li component="day22">
+                <p>
+                  <xref ref="day-22-lecture" text="custom">Day 22</xref>
+                </p>
+              </li>
+              <li component="day23">
+                <p>
+                  <xref ref="day-23-lecture" text="custom">Day 23</xref>
+                </p>
+              </li>
+              <li component="day24">
+                <p>
+                  <xref ref="day-24-lecture" text="custom">Day 24</xref>
+                </p>
+              </li>
+              <li component="day25">
+                <p>
+                  <xref ref="day-25-lecture" text="custom">Day 25</xref>
+                </p>
+              </li>
+              <li component="day26">
+                <p>
+                  <xref ref="day-26-lecture" text="custom">Day 26</xref>
+                </p>
+              </li>
+              <li component="day27">
+                <p>
+                  <xref ref="day-27-lecture" text="custom">Day 27</xref>
+                </p>
+              </li>
+              <li component="day28">
+                <p>
+                  <xref ref="day-28-lecture" text="custom">Day 28</xref>
+                </p>
+              </li>
+              <li component="day29">
+                <p>
+                  <xref ref="day-29-lecture" text="custom">Day 29</xref>
+                </p>
+              </li>
+              <li component="day30">
+                <p>
+                  <xref ref="day-30-lecture" text="custom">Day 30</xref>
+                </p>
+              </li>
+              <li component="day31">
+                <p>
+                  <xref ref="day-31-lecture" text="custom">Day 31</xref>
+                </p>
+              </li>
+              <li component="day32">
+                <p>
+                  <xref ref="day-32-lecture" text="custom">Day 32</xref>
+                </p>
+              </li>
+              <li component="day33">
+                <p>
+                  <xref ref="day-33-lecture" text="custom">Day 33</xref>
+                </p>
+              </li>
+            </ul>
+          </p>
+        </introduction>
+
+        <xi:include href="./handouts/Day20.ptx"/>        
+        <xi:include href="./handouts/Day21.ptx"/>
+        <xi:include href="./handouts/Day22.ptx"/>
+        <xi:include href="./handouts/Day23.ptx"/>
+        <xi:include href="./handouts/Day24.ptx"/>        
+        <xi:include href="./handouts/Day25.ptx"/>
+        <xi:include href="./handouts/Day26.ptx"/>
+        <xi:include href="./handouts/Day27.ptx"/>
+        <xi:include href="./handouts/Day28.ptx"/>
+        <xi:include href="./handouts/Day29.ptx"/>
+        <xi:include href="./handouts/Day30.ptx"/>
+        <xi:include href="./handouts/Day31.ptx"/>
+        <xi:include href="./handouts/Day32.ptx"/>
+        <xi:include href="./handouts/Day33.ptx"/>
+      
+    </section>
     </chapter>
 
     <chapter xml:id="homework">

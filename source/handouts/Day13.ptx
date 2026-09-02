@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-13-lecture" component="day13">
+        <title>Day 13</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day13/CMSE381-Lec13-KFoldCV2.html" visual="Day13 slides"/>
+        </p>
+    
+        </section>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  
+    <section xml:id="day-11-lecture" component="day11">
+        <title>Day 11</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day11/CMSE381-Lec11-MoreLogisticRegression.html" visual="Day11 slides"/>
+        </p>
+    
+        </section>

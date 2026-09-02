@@ -3,11 +3,11 @@
 
 
     
-    <handout xml:id="day-10-lecture" component="day10">
+    <section xml:id="day-10-lecture" component="day10">
         <title>Day 10</title>
     
         <p>
             <dataurl source="slides/slides-Day10/CMSE381-Lec10-LogisticRegression.html" visual="Day10 slides"/>
         </p>
     
-        </handout>
+        </section>

@@ -3,7 +3,7 @@
 
     
     
-<handout component="day06" xml:id="day-06-lecture">
+<section component="day06" xml:id="day-06-lecture">
     <title>Day 06</title>
 
         <p>
@@ -12,4 +12,4 @@
     
 
 
-</handout>
+</section>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-19-lecture" component="day19">
+        <title>Day 19</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day19/CMSE381-Lec19-Ch6_3-PCA.html" visual="Day19 slides"/>
+        </p>
+    
+        </section>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-17-lecture" component="day17">
+        <title>Day 17</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day17/CMSE381-Lec17-Ch6_2-Ridge.html" visual="Day17 slides"/>
+        </p>
+    
+        </section>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-18-lecture" component="day18">
+        <title>Day 18</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day18/CMSE381-Lec18-Ch06_2-Lasso.html" visual="Day18 slides"/>
+        </p>
+    
+        </section>

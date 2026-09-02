@@ -89,26 +89,41 @@
     <row valign="top">
       <cell>Dr. Khasawneh</cell>
       <cell><line>MWF 4:40-5:00</line><line>Mon 10:00-11:00</line></cell>      
-      <cell><line>Olds Hall 109</line><line><url href="https://www.zoom.com/">Zoom</url></line></cell>      
+      <cell><line>Olds Hall 109</line><line><url href="https://msu.zoom.us/j/98073167947">Zoom Link</url></line></cell>      
     </row>
-    <row>
+    <row valign="top">
       <cell>Dr. Bao</cell>
       <cell><line>Tue 9:00-10:00</line><line>Wed 10:00-11:00</line></cell>      
       <cell><line>EB 2507L      </line><line>EB 2507L</line></cell>   
     </row>
-    <row>
-    <cell>Siyu Guo</cell>
-    <cell>TBD</cell>
-    <cell>Modality/Location (TBD)</cell>      
-  </row>            
-  <row>
-    <cell>Christy Lu</cell>
-    <cell>TBD</cell>
-    <cell>Modality/Location (TBD)</cell>      
-  </row>
+    <row valign="top">
+      <cell>Siyu Guo</cell> 
+      <cell>Mon &amp; Wed 1:00-2:00</cell>            
+      <cell>EB 2504</cell>
+    </row>        
+    <row valign="top">
+      <cell>Christy Lu</cell> 
+      <cell><line>Tue 11:00-noon</line><line>Wed 2:00-3:00</line></cell>      
+      <cell><line>TBD</line><line>TBD</line></cell>      
+    </row>
   </tabular>
-
-
+  <note>
+  <p>
+  <ul>
+    <li>
+      <p>
+        Office hours will not be held during university holidays.
+      </p>
+    </li>
+    <li>
+      <p>
+        Office hours are subject to change. Any changes will be communicated in class and/or on D2L.        
+      </p>
+    </li>
+    </ul>
+    </p>
+  </note>
+  
   </section>
 
   <section>
@@ -144,11 +159,11 @@
   <section xml:id="subsec-D2L">
     <title>D2L and where to find grades</title>
     <p>
-      <url href="https://d2l.msu.edu/d2l/home/2387930"/>      
+      <url href="https://d2l.msu.edu/d2l/home/2523952" visual="d2l.msu.edu"/>      
     </p>
 
-      <image source="course_screenshots/D2L_s26_001.png" width="70%">
-        <shortdescription>screenshot of course page on D2L</shortdescription>
+      <image source="course_screenshots/D2L_F26_001.png" width="70%">
+        <shortdescription>screenshot of course page on D2L for section 1</shortdescription>
       </image>
 
 
@@ -157,14 +172,9 @@
   <section xml:id="subsec-course-website">
     <title>Course website, Slides, and jupyter notebooks</title>
       <p>
-      <url href="https://cmse.msu.edu/CMSE381/"/> 
-      or 
-      <url href="https://msu-cmse-courses.github.io/CMSE381-F26/"/> 
+      <url href="https://msu-cmse-courses.github.io/CMSE381-F26/course/frontmatter.html" visual="msu-cmse-courses.github.io/CMSE381-F26/"/> 
     </p>
 
-      <image source="course_screenshots/coursewebsite_s26.png" width="80%">
-        <shortdescription>screenshot of course website</shortdescription>
-      </image>  
 
       <p>
         The syllabus can be found <xref ref="syllabus" text="custom">here.</xref>

@@ -1,0 +1,654 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec19-Ch6_3-PCA.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec19-Ch6_3-PCA.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec19-Ch6_3-PCA2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA0x.png' />
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       6.3:
+                                   Dimension
+                                    Reduction
+                                         -
+                                       PCA</span></h1>
+                                      Lecture
+                                        19
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Mon,
+                                       March
+                                        9,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><!-- l. 121 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Shrinkage:
+      Ridge
+      and
+      Lasso</li></ul>
+<!-- l. 121 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>PCA</li></ul>
+<!-- l. 121 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 121 --><p class='noindent'>Exam #2 next week (Monday 3/16)! </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Bring
+             8.5x11
+             sheet
+             of
+             paper</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Handwritten
+             both
+             sides</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Anything
+             you
+             want
+             on
+             it,
+             but
+             must
+             be
+             your
+             work</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Write
+             your
+             name
+             and
+             your
+             group
+             number</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>You
+             will
+             turn
+             it
+             in</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Non-internet
+             calculator</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 121 --><p class='noindent'>Project: by Exam # 2 </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>project
+             partner,
+             ideas
+             about
+             what
+             method
+             to
+             use</span></li></ul>
+       </li></ul>                                                                       </div><div class='minipage'><img alt='Screenshot of the course schedule for lectures
+11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:80%' />                                                </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 125 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA3x.png' />
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation4'><span class='cmss-12x-x-120'>Last
+                                           time</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Goal</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      model
+      using
+      all
+      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>
+      predictors
+      </li><li class='itemize'>Aim
+      to
+      constrain
+      (regularize)
+      coefficient
+      estimates
+      </li><li class='itemize'>Shrink
+      the
+      coefficient
+      estimates
+      towards
+      0</li></ul>                                              </div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 150 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+ <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>4</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Shrinkage</span>                                                                                   </span>
+<h2 class='frametitle'></h2>Find <!-- l. 204 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>β</mi></math> to
+minimize:
+<table class='columns'><tr>
+ <div class='minipage'><span class='cmssbx-10x-x-109'>Least Squares:</span><br />
+<table class='equation-star'><tr><td>
+<!-- l. 204 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+    <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi> </mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>        <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge: </span><table class='equation-star'><tr><td>
+<!-- l. 204 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+       <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table></div>        <div class='minipage'><!-- l. 204 --><p class='noindent'><span class='cmssbx-10x-x-109'>The Lasso:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 204 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Diagram illustrating the geometric
+constraint used in ridge regression.' src='../../Figures/Fig6-4.png' style='max-width:100%' />    </div>          <div class='minipage'><!-- l. 204 --><p class='noindent'><img alt='Diagram illustrating the geometric
+constraint used in lasso regression.' src='../../Figures/Fig6-6.png' style='max-width:100%' />    </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  from
+  this
+  lecture?</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>How
+      to
+      create
+      new
+      variables
+      as
+      linear
+      combinations
+      of
+      the
+      original
+      predictors?
+      </li><li class='itemize'>Why
+      do
+      we
+      need
+      Principal
+      Component
+      Analysis
+      (PCA)?
+      What
+      is
+      the
+      main
+      purpose
+      of
+      using
+      it?
+      </li><li class='itemize'>What
+      is
+      a
+      principal
+      component
+      (PC)?
+      </li><li class='itemize'>What
+      does
+      the
+      first
+      PC
+      maximize?
+      You
+      should
+      be
+      able
+      to
+      explain
+      this
+      both
+      geometrically
+      in
+      a
+      plot
+      and
+      mathematically.
+      </li><li class='itemize'>Similarly,
+      what
+      do
+      the
+      subsequent
+      PCs
+      maximize?
+      </li><li class='itemize'>How
+      do
+      you
+      compute
+      the
+      PCs
+      in
+      Python,
+      given
+      a
+      dataset?
+      </li><li class='itemize'>How
+      do
+      you
+      project
+      data
+      points
+      on
+      each
+      PC?
+      You
+      should
+      also
+      be
+      able
+      to
+      plot
+      the
+      data
+      points
+      in
+      the
+      PC
+      space.
+      </li><li class='itemize'>How
+      do
+      you
+      find
+      out
+      how
+      much
+      variance
+      each
+      PC
+      explains?</li></ul>                                                                       </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 222 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA6x.png' />
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA8x.png' /></p><div class='minipage'>                                                   <a href='#Navigation9'><span class='cmss-12x-x-120'>Dimension
+                                        Reduction</span>
+                                              </a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Linear
+  transformation
+  of
+  predictors</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>Original Predictors: <table class='equation-star'><tr><td>
+<!-- l. 250 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                     <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table></div>        <div class='minipage'>New Predictors: <table class='equation-star'><tr><td>
+<!-- l. 250 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                     <msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>Z</mi></mrow><mrow><mi>M</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 250 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                 <msub><mrow><mi>Z</mi></mrow><mrow><mi>m</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>φ</mi></mrow><mrow>
+<mi mathvariant='italic'>𝑗𝑚</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>An
+  example
+  or
+  two</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Geometric
+  interpretation</span>                                                                              </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'> 
+     <ul class='itemize1'>
+     <li class='itemize'><a href='https://www.geogebra.org/graphing/gucrrevt'>projection
+      on
+      a
+      line</a></li></ul>                                           </div>      <div class='minipage'><img alt='Diagram illustrating projection of a point
+onto a line as a geometric interpretation
+of dimensionality reduction.' src='../../Figures/DimReduction_Projection.png' style='max-width:100%' />                   </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Different
+  projections</span>                                                                                  </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+    <div class='minipage'><img alt='Diagram showing different
+projections of data points
+onto a line in a
+dimensionality reduction
+example.' src='../../Figures/DimReduction_Projection_Example2.png' style='max-width:100%' />                         </div>        <div class='minipage'><img alt='First projection example in a dimensionality
+reduction illustration.' src='../../Figures/DimReduction_Projection_Example2_157.png' style='max-width:49%' /> <img alt='Second projection example in
+a dimensionality reduction illustration.' src='../../Figures/DimReduction_Projection_Example2_235.png' style='max-width:49%' /> <img alt='Third
+projection example in a dimensionality reduction
+illustration.' src='../../Figures/DimReduction_Projection_Example2_78.png' style='max-width:49%' /> <img alt='Fourth projection example in a
+dimensionality reduction illustration.' src='../../Figures/DimReduction_Projection_Example2_0.png' style='max-width:49%' />                    </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Histograms
+  of</span>
+  <!-- l. 373 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>Z</mi></math>
+  <span class='cmss-12x-x-120'>values</span>                                                                                        </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+<div class='minipage'><img alt='First
+projection
+example
+in
+a
+dimensionality
+reduction
+illustration.' src='../../Figures/DimReduction_Projection_Example2_157.png' style='max-width:100%' />
+<img alt='Histogram
+of
+projected
+z
+values
+for
+the
+first
+projection
+example.' src='../../Figures/DimReduction_Projection_Example2_hist157.png' style='max-width:100%' />                  </div>  <div class='minipage'><img alt='Second
+projection
+example
+in
+a
+dimensionality
+reduction
+illustration.' src='../../Figures/DimReduction_Projection_Example2_235.png' style='max-width:100%' />
+<img alt='Histogram
+of
+projected
+z
+values
+for
+the
+second
+projection
+example.' src='../../Figures/DimReduction_Projection_Example2_hist235.png' style='max-width:100%' />                  </div>  <div class='minipage'><img alt='Third
+projection
+example
+in
+a
+dimensionality
+reduction
+illustration.' src='../../Figures/DimReduction_Projection_Example2_78.png' style='max-width:100%' />
+<img alt='Histogram
+of
+projected
+z
+values
+for
+the
+third
+projection
+example.' src='../../Figures/DimReduction_Projection_Example2_hist78.png' style='max-width:100%' />                  </div>  <div class='minipage'><img alt='Fourth
+projection
+example
+in
+a
+dimensionality
+reduction
+illustration.' src='../../Figures/DimReduction_Projection_Example2_0.png' style='max-width:100%' />
+<img alt='Histogram
+of
+projected
+z
+values
+for
+the
+fourth
+projection
+example.' src='../../Figures/DimReduction_Projection_Example2_hist0.png' style='max-width:100%' />                  </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>The
+  goal</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Find
+      good
+      <!-- l. 400 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>φ</mi></math>’s
+      for
+      some
+      <!-- l. 400 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>M</mi> <mo class='MathClass-rel' stretchy='false'>≪</mo><mi>p</mi></mrow></math>
+      </li><li class='itemize'>
+      <!-- l. 400 --><p class='noindent'>Fit regression model on
+      <!-- l. 400 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mi>i</mi></mrow></msub></math>’s
+      using least squares </p><table class='equation-star'><tr><td>
+      <!-- l. 400 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+       <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>𝜃</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>m</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>M</mi></mrow></munderover><msub><mrow><mi>𝜃</mi></mrow><mrow>
+<mi>m</mi></mrow></msub><msub><mrow><mi>z</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑚</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+        </li></ul>                                                             </div>        <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-4r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 404 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA9x.png' />
+<img alt='picture' src='CMSE381-Lec19-Ch6_3-PCA11x.png' /></p><div class='minipage'>                                                        <a href='#Navigation17'><span class='cmss-12x-x-120'>PCA</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox59'> <span class='cmss-12x-x-120'>An
+  example
+  dataset</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Scatter plot of an example dataset with
+two input variables and a line showing the
+principal component direction of greatest
+variability.' src='../../Figures/Fig6-14.png' style='max-width:100%' />                                         </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>Projection
+  onto
+  first
+  PC</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<!-- l. 444 --><p class='noindent'><img alt='Scatter plot showing an example dataset projected onto the first principal component, with the
+principal component direction and the mean point indicated.' src='../../Figures/Fig6-15a.png' style='max-width:60%' />
+</p>
+<table class='equation-star'><tr><td>
+<!-- l. 444 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                               <msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.839</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>0.544</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>What
+  does
+  it
+  mean
+  to
+  have
+  the
+  highest
+  variance</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Scatter plot showing an example dataset
+projected onto the first principal
+component, with the principal component
+direction and the mean point indicated.' src='../../Figures/Fig6-15a.png' style='max-width:100%' />    </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>Toy
+  for
+  learning
+  PCA</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><a class='url' href='https://www.desmos.com/calculator/gvmq07pg1k'><span class='cmtt-10x-x-109'>https://www.desmos.com/calculator/gvmq07pg1k</span></a> </div> <div class='minipage'>                            </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Principal
+  component
+  scores</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<!-- l. 497 --><p class='noindent'><img alt='Diagram illustrating principal component scores obtained by projecting observations onto the first
+principal component direction.' src='../../Figures/Fig6-16.png' style='max-width:100%' /> </p><table class='columns'><tr>
+   <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 497 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+<mi>z</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.839</mn><mo class='MathClass-bin' stretchy='false'>⋅</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-bin' stretchy='false'>+</mo><mn>0.544</mn><mo class='MathClass-bin' stretchy='false'>⋅</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>Another
+  view</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<!-- l. 520 --><p class='noindent'><img alt='Rotated view of the example dataset showing observations in relation to the first principal component
+and their principal component scores.' src='../../Figures/Fig6-15.png' style='max-width:80%' /> </p><table class='columns'><tr>
+   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>The
+  other
+  principal
+  components</span>                                                                                </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox87'> <span class='cmss-12x-x-120'>Do
+  PCA
+  with
+  Penguins</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox91'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>PCA </span>
+     <ul class='itemize1'>
+     <li class='itemize'>Unsupervised
+      dimensionality
+      reduction
+      </li><li class='itemize'>Choose
+      component
+      <!-- l. 598 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        in
+      the
+      direction
+      of
+      most
+      variance
+      using
+      only
+      <!-- l. 598 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub></math>’s
+      information
+      </li><li class='itemize'>Choose
+      <!-- l. 598 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        and
+      beyond
+      by
+      the
+      same
+      method
+      after
+      “getting
+      rid”
+      of
+      info
+      in
+      the
+      directions
+      already
+      explained</li></ul>
+<!-- l. 598 --><p class='noindent'><img alt='Scatter plot showing an example dataset
+projected onto the first principal component,
+with the principal component direction and
+the mean point indicated.' src='../../Figures/Fig6-15a.png' style='max-width:50%' />                     </p></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox95'> <span class='cmss-12x-x-120'>Next
+  time</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<!-- l. 635 --><p class='noindent'><img alt='Screenshot of the course schedule for lectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:65%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

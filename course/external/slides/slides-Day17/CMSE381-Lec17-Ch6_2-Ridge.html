@@ -1,0 +1,634 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec17-Ch6_2-Ridge.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec17-Ch6_2-Ridge.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec17-Ch6_2-Ridge2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge0x.png' />
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       6.2:
+                                    Shrinkage
+                                         -
+                                      Ridge
+                                    regression</span></h1>
+                                      Lecture
+                                        17
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Wed,
+                                        Feb
+                                        25,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 100 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Subset
+      selection</li></ul>
+<!-- l. 100 --><p class='noindent'><span class='cmssbx-10x-x-109'>This time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Ridge
+      regression</li></ul>
+<!-- l. 100 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>HW
+      #3
+      due
+      Sunday
+      3/8</li></ul>                                           </div>      <div class='minipage'><!-- l. 100 --><p class='noindent'><img alt='Screenshot of the course schedule for
+lectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:100%' />                               </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 103 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge3x.png' />
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation4'><span class='cmss-12x-x-120'>Last
+                                           time</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Subset
+  selection</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Algorithm diagram showing one way to
+break up the subset selection procedure
+into steps for choosing models based on
+training and testing scores.' src='../../Figures/Alg6-1.png' style='max-width:100%' />                    </div>      <div class='minipage'><img alt='Algorithm
+diagram
+showing
+the
+forward
+stepwise
+selection
+procedure
+for
+building
+a
+model
+by
+adding
+variables
+one
+at
+a
+time.' src='../../Figures/Alg6-2.png' style='max-width:100%' />
+<img alt='Algorithm
+diagram
+showing
+the
+backward
+stepwise
+selection
+procedure
+for
+building
+a
+model
+by
+removing
+variables
+one
+at
+a
+time.' src='../../Figures/Alg6-3.png' style='max-width:100%' />                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>What
+  should
+  you
+  learn
+  from
+  this
+  lecture?</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>What
+      is
+      regularization?
+      Why
+      do
+      we
+      need
+      it?
+      </li><li class='itemize'>What
+      are
+      the
+      two
+      basic
+      types
+      of
+      regularization
+      methods?
+      How
+      are
+      they
+      implemented
+      mathematically
+      in
+      linear
+      regression?
+      </li><li class='itemize'>How
+      do
+      you
+      fit
+      a
+      ridge
+      regression
+      model
+      in
+      python?
+      </li><li class='itemize'>How
+      do
+      you
+      control
+      the
+      model
+      flexibility
+      &amp;      bias-variance
+      tradeoff
+      when
+      using
+      regularization?
+      </li><li class='itemize'>How
+      do
+      you
+      find
+      the
+      right
+      amount
+      of
+      regularization
+      using
+      cross-validation?
+      How
+      do
+      you
+      do
+      this
+      in
+      python?
+      </li><li class='itemize'>What
+      additional
+      precautions
+      do
+      you
+      need
+      to
+      take
+      when
+      using
+      regularization
+      (compared
+      to
+      least
+      squares)?
+      </li><li class='itemize'>What
+      are
+      the
+      advantages
+      of
+      regularization
+      compared
+      to
+      Least
+      Squares?
+      </li><li class='itemize'>What
+      are
+      the
+      advantages
+      of
+      regularization
+      compared
+      to
+      subset
+      selection?</li></ul>                                                                      </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 136 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge6x.png' />
+<img alt='picture' src='CMSE381-Lec17-Ch6_2-Ridge8x.png' /></p><div class='minipage'>                                                       <a href='#Navigation8'><span class='cmss-12x-x-120'>Ridge
+                                        Regression</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox28'> <span class='cmss-12x-x-120'>Goal</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      model
+      using
+      all
+      <!-- l. 160 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>
+      predictors
+      </li><li class='itemize'>Aim
+      to
+      constrain
+      (regularize)
+      coefficient
+      estimates
+      </li><li class='itemize'>Shrink
+      the
+      coefficient
+      estimates
+      towards
+      0</li></ul>                                              </div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 160 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+ <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>4</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Ridge
+  regression</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Before: </span><table class='equation-star'><tr><td>
+<!-- l. 206 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> </mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></div>              <div class='minipage'><span class='cmssbx-10x-x-109'>After: </span><table class='equation-star'><tr><td>
+<!-- l. 206 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi mathvariant='italic'>𝑅𝑆𝑆</mi><mo class='MathClass-bin' stretchy='false'>+</mo><mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+</mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<table class='columns'><tr>
+    <div class='minipage'>                                                                     </div>        <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Example
+  from
+  the
+  </span><span class='cmtt-12x-x-120'>Credit
+ </span><span class='cmss-12x-x-120'>data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='equation-star'><tr><td>
+<!-- l. 227 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                    <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+         <div class='minipage'><img alt='Plot of ridge regression coefficient
+paths for the Credit data, showing
+how the coefficient estimates shrink
+toward zero as lambda increases.' src='../../Figures/Fig6-4a.png' style='max-width:100%' />      </div>          <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Same
+  Setting,
+  Different
+  Plot</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='equation-star'><tr><td>
+<!-- l. 256 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                         <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>λ</mi><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup><mspace class='qquad' width='2em'></mspace><mo class='MathClass-rel' stretchy='false'>∥</mo><mi>β</mi><msub><mrow><mo class='MathClass-rel' stretchy='false'>∥</mo></mrow><mrow>
+<mn>2</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msqrt><mrow><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow><mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup></mrow></msqrt>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+      <div class='minipage'><!-- l. 256 --><p class='noindent'><img alt='Plot of ridge regression coefficient
+paths for the Credit data, showing
+how coefficient estimates shrink as
+the relative L2 norm decreases from
+left to right.' src='../../Figures/Fig6-4b.png' style='max-width:100%' />                                </p></div>        <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Scale
+  equivavariance
+  (or
+  lack
+  thereof)</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Scale equivariant: </span>Multiplying a variable
+by
+<!-- l. 276 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>c</mi></math>
+(<!-- l. 276 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>c</mi><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>)
+just returns a coefficient multiplied by
+<!-- l. 276 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mi>c</mi></mrow></math>
+(<!-- l. 276 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mi>c</mi><msub><mrow><mi>β</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>) </div>    <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Solution:
+  Standardize
+  predictors</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='equation-star'><tr><td>
+<!-- l. 298 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+                                <mover accent='true'><mrow><mi>x</mi></mrow><mo accent='true'>~</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>             <mfrac><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow> 
+<mrow><msqrt><mrow><mstyle displaystyle='false'><mfrac><mrow><mn>1</mn></mrow><mrow><mi>n</mi> </mrow></mfrac></mstyle> <munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='false' class='mml-overline'><mrow><mi>x</mi></mrow><mo accent='true'>¯</mo></mover></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></msqrt></mrow></mfrac>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+    <div class='minipage'>                                                                     </div>        <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Using
+  Cross-Validation
+  to
+  find</span>
+  <!-- l. 318 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>    <ul class='itemize1'>
+    <li class='itemize'>Choose
+      a
+      grid
+      of
+      <!-- l. 318 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     values
+      </li><li class='itemize'>Compute
+      the
+      (<!-- l. 318 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-fold)
+      cross-validation
+      error
+      for
+      each
+      value
+      of
+      <!-- l. 318 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     </li><li class='itemize'>Select
+      the
+      tuning
+      parameter
+      value
+      <!-- l. 318 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+     for
+      which
+      the
+      CV
+      error
+      is
+      smallest.
+      </li><li class='itemize'>The
+      model
+      is
+      re-fit
+      using
+      all
+      of
+      the
+      available
+      observations
+      and
+      the
+      selected
+      value
+      of
+      the
+      tuning
+      parameter.</li></ul>                                  </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>LOOCV
+  choice
+  of</span>
+  <!-- l. 336 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>λ</mi></math>
+  <span class='cmss-12x-x-120'>for
+  ridge
+  regression
+  and
+  </span><span class='cmtt-12x-x-120'>Credit
+ </span><span class='cmss-12x-x-120'>data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+            <div class='minipage'><img alt='Plot of LOOCV error versus lambda for ridge regression on the Credit
+data, with dashed vertical lines indicating the selected lambda value.' src='../../Figures/Fig6-12.png' style='max-width:100%' />   </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Coding</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Bias-Variance
+  tradeoff</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Plot illustrating the bias-variance tradeoff for
+simulated data, showing squared bias, variance,
+and test mean squared error.' src='../../Figures/Fig6-5a.png' style='max-width:100%' /> <span class='cmss-9'>Squared bias (black),
+variance (green), and test mean squared error
+(purple) for simulated data.</span>                             </div>       <div class='minipage'>                                                               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>More
+  Bias-Variance
+  Tradeoff</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Second plot illustrating the bias-variance tradeoff
+for simulated data, showing squared bias,
+variance, and test mean squared error.' src='../../Figures/Fig6-5b.png' style='max-width:100%' /> <span class='cmss-9'>Squared
+bias (black), variance (green), and test mean
+squared error (purple) for simulated data.</span>           </div>       <div class='minipage'>                                                               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>Advantages
+  of
+  Ridge</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge vs. Least Squares:</span>                  </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge vs. Subset Selection:</span>               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox76'> <span class='cmss-12x-x-120'>Look
+  back
+  and
+  look
+  ahead</span>                                                                                        </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+<td class='column'><img alt='Screenshot
+of
+the
+course
+schedule
+for
+lectures
+11
+to
+20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:100%' />                                              </td><td class='column'>      <ul class='itemize1'>
+      <li class='itemize'><span class='cmss-10'>What
+       is
+       regularization?
+       Why
+       do
+       we
+       need
+       it?</span>
+       </li><li class='itemize'><span class='cmss-10'>What
+       are
+       the
+       two
+       basic
+       types
+       of
+       regularization
+       methods?
+       How
+       are
+       they
+       implemented
+       mathematically
+       in
+       linear
+       regression?</span>
+       </li><li class='itemize'><span class='cmss-10'>How
+       do
+       you
+       fit
+       a
+       ridge
+       regression
+       model
+       in
+       python?</span>
+       </li><li class='itemize'>
+       <!-- l. 613 --><p class='noindent'><span class='cmss-10'>How
+       do
+       you
+       control
+       the
+       model
+       flexibility
+       /span&gt;
+       <span class='cmss-10'>bias-variance
+       tradeoff
+       when
+       using
+       regularization?</span>
+       </span>
+       </p><li class='itemize'><span class='cmss-10'>How
+       do
+       you
+       find
+       the
+       right
+       amount
+       of
+       regularization
+       using
+       cross-validation?
+       How
+       do
+       you
+       do
+       this
+       in
+       python?</span>
+       </li><li class='itemize'><span class='cmss-10'>What
+       additional
+       precautions
+       do
+       you
+       need
+       to
+       take
+       when
+       using
+       regularization
+       (compared
+       to
+       least
+       squares)?</span>
+       </li><li class='itemize'><span class='cmss-10'>What
+       are
+       the
+       advantages
+       of
+       regularization
+       compared
+       to
+       Least
+       Squares?</span>
+       </li><li class='itemize'><span class='cmss-10'>What
+       are
+       the
+       advantages
+       of
+       regularization
+       compared
+       to
+       subset
+       selection?</span></li></li></ul>                                                             </td>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

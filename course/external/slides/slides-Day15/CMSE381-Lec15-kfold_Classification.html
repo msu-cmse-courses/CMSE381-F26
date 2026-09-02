@@ -1,0 +1,540 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec15-kfold_Classification.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec15-kfold_Classification.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec15-kfold_Classification2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification0x.png' />
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                      5.1.5:</span>
+  <!-- l. 79 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math><span class='cmss-12x-x-120'>-fold
+                                Cross-Validation
+                                        for
+                                  Classification</span></h1>
+                                      Lecture
+                                        15
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                        <div class='date'>Fri,
+                                        Feb
+                                        20,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 107 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>k-fold
+      CV</li></ul>
+<!-- l. 107 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>CV
+      for
+      classification</li></ul>                                </div>      <div class='minipage'><!-- l. 107 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Homework
+      #3
+      is
+      due
+      Sunday
+      3/8</li></ul>                                           </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 111 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification3x.png' />
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation4'><span class='cmss-12x-x-120'>Last
+                                           time</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Approximations
+  of
+  Test
+  Error</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><span class='cmssbx-10x-x-109'>Validation Set </span><img alt='Diagram
+showing the first validation
+set split.' src='../../Figures/CV-subset0.png' style='max-width:100%' /> <img alt='Diagram showing
+the second validation set
+split.' src='../../Figures/CV-subset1.png' style='max-width:100%' /> <img alt='Diagram showing the
+third validation set split.' src='../../Figures/CV-subset2.png' style='max-width:100%' />
+<img alt='Diagram showing the fourth
+validation set split.' src='../../Figures/CV-subset3.png' style='max-width:100%' /> <img alt='Diagram
+showing the fifth validation
+set split.' src='../../Figures/CV-subset4.png' style='max-width:100%' /> <img alt='Figure labeled
+validation set for
+comparison.' src='../../Figures/Fig5-2b.png' style='max-width:80%' />                     </div>    <div class='minipage'><span class='cmssbx-10x-x-109'>LOOCV </span><img alt='Diagram showing
+the first leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset0.png' style='max-width:100%' />
+<img alt='Diagram showing the
+second leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset1.png' style='max-width:100%' />
+<img alt='Diagram showing the third
+leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset2.png' style='max-width:100%' />
+<!-- l. 147 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>⋮</mi></math>
+<img alt='Diagram showing the final
+leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset29.png' style='max-width:100%' /> <img alt='Figure
+using the auto data example
+to show a fixed result with
+no randomness across
+repeated runs.' src='../../Figures/Fig5-4a.png' style='max-width:80%' />                  </div>    <div class='minipage'><span class='cmssbx-10x-x-109'>K-fold CV </span><img alt='Diagram
+showing the first split in
+five-fold cross-validation.' src='../../Figures/CV-Kfold-subset0.png' style='max-width:100%' />
+<img alt='Diagram showing the
+second split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset1.png' style='max-width:100%' /> <img alt='Diagram
+showing the third split in
+five-fold cross-validation.' src='../../Figures/CV-Kfold-subset2.png' style='max-width:100%' />
+<img alt='Diagram showing the fourth
+split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset3.png' style='max-width:100%' /> <img alt='Diagram
+showing the fifth split in
+five-fold cross-validation.' src='../../Figures/CV-Kfold-subset4.png' style='max-width:100%' />
+<img alt='Second figure from the auto
+data example.' src='../../Figures/Fig5-4b.png' style='max-width:80%' />                  </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Definition
+  of</span>
+  <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math><span class='cmss-12x-x-120'>-fold
+  CV</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Randomly
+      split
+      data
+      into
+      <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-groups
+      (folds)
+      </li><li class='itemize'>Approximately
+      equal
+      sized.
+      For
+      the
+      sake
+      of
+      notation,
+      say
+      each
+      set
+      has
+      <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ℓ</mi></math>
+     points
+      </li>
+      <li class='itemize'>
+      </li><li class='itemize'>Remove
+      <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      fold
+      <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>U</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        and
+      reserve
+      for
+      testing.
+      </li><li class='itemize'>Train
+      the
+      model
+      on
+      remaining
+      points
+      </li><li class='itemize'>Calculate
+      <!-- l. 181 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mstyle mathvariant='normal'><mi>MSE</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> <mrow><mi>ℓ</mi></mrow></mfrac><msub><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>U</mi></mrow><mrow><mi>i</mi> </mrow></msub></mrow></msub><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></math>
+        </li>
+        <li class='itemize'>
+        </li><li class='itemize'>Rinse
+      and
+      repeat</li></ul>                                        </div>      <div class='minipage'><img alt='Diagram showing the first split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset0.png' style='max-width:100%' /> <img alt='Diagram showing the
+second split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset1.png' style='max-width:100%' />
+<img alt='Diagram showing the third split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset2.png' style='max-width:100%' /> <img alt='Diagram showing the
+fourth split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset3.png' style='max-width:100%' />
+<img alt='Diagram showing the fifth split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset4.png' style='max-width:100%' /> Return <table class='equation-star'><tr><td>
+<!-- l. 181 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+           <mi>C</mi><msub><mrow><mi>V</mi></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>k</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>k</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>k</mi></mrow></munderover><msub><mrow><mstyle mathvariant='normal'><mi>MSE</mi></mstyle></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 186 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification6x.png' />
+<img alt='picture' src='CMSE381-Lec15-kfold_Classification8x.png' /></p><div class='minipage'>                                                         <a href='#Navigation8'><span class='cmss-12x-x-120'>CV
+                                            for
+                                      Classification</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox28'> <span class='cmss-12x-x-120'>Setup:
+  LOOCV</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Remove
+      <!-- l. 216 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      point
+      <!-- l. 216 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      and
+      reserve
+      for
+      testing.
+      </li><li class='itemize'>Train
+      the
+      model
+      on
+      remaining
+      points
+      </li><li class='itemize'>Calculate
+      <!-- l. 216 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li>
+      <li class='itemize'>
+      </li><li class='itemize'>Rinse
+      and
+      repeat</li></ul>                                        </div>      <div class='minipage'><img alt='Diagram showing the first leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset0.png' style='max-width:100%' /> <img alt='Diagram showing the
+second leave-one-out cross-validation split.' src='../../Figures/LOOCV-subset1.png' style='max-width:100%' />
+<img alt='Diagram showing the third leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset2.png' style='max-width:100%' /> <img alt='Diagram showing the fourth
+leave-one-out cross-validation split.' src='../../Figures/LOOCV-subset3.png' style='max-width:100%' /> <img alt='Diagram
+showing the fifth leave-one-out cross-validation
+split.' src='../../Figures/LOOCV-subset4.png' style='max-width:100%' /> <!-- l. 216 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>⋮</mi></math>
+<img alt='Diagram showing the final leave-one-out
+cross-validation split.' src='../../Figures/LOOCV-subset29.png' style='max-width:100%' /> Return <table class='equation-star'><tr><td>
+<!-- l. 216 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+            <mi>C</mi><msub><mrow><mi>V</mi></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>n</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>n</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Setup:</span>
+  <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math><span class='cmss-12x-x-120'>-fold</span>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Randomly
+      split
+      data
+      into
+      <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-groups
+      (folds)
+      </li><li class='itemize'>Approximately
+      equal
+      sized.
+      For
+      the
+      sake
+      of
+      notation,
+      say
+      each
+      set
+      has
+      <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ℓ</mi></math>
+     points
+      </li>
+      <li class='itemize'>
+      </li><li class='itemize'>Remove
+      <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      fold
+      <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>U</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        and
+      reserve
+      for
+      testing.
+      </li><li class='itemize'>Train
+      the
+      model
+      on
+      remaining
+      points
+      </li><li class='itemize'>Calculate
+      <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> <mrow><mi>ℓ</mi></mrow></mfrac><msub><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>U</mi></mrow><mrow><mi>i</mi> </mrow></msub></mrow></msub><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li>
+      <li class='itemize'>
+      </li><li class='itemize'>Rinse
+      and
+      repeat</li></ul>                                        </div>      <div class='minipage'><img alt='Diagram showing the first split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset0.png' style='max-width:100%' /> <img alt='Diagram showing the
+second split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset1.png' style='max-width:100%' />
+<img alt='Diagram showing the third split in
+five-fold cross-validation.' src='../../Figures/CV-Kfold-subset2.png' style='max-width:100%' /> <img alt='Diagram
+showing the fourth split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset3.png' style='max-width:100%' /> <img alt='Diagram showing the
+fifth split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset4.png' style='max-width:100%' />
+<!-- l. 247 --><p class='noindent'>Return </p><table class='equation-star'><tr><td>
+<!-- l. 247 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+            <mi>C</mi><msub><mrow><mi>V</mi></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>k</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>k</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>k</mi></mrow></munderover><msub><mrow><mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Example
+  on
+  simulated
+  data:
+  Linear</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Classification plot illustrating data
+points and the Bayes decision
+boundary.' src='../../Figures/Fig5-7a.png' style='max-width:100%' />                                   </div>        <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 276 --><p class='noindent'>Purple: Bayes decision boundary. </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Error
+             rate:
+             0.133</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 276 --><p class='noindent'>Black: Logistic regression </p>
+            <ul class='itemize2'>
+            <li class='itemize'><!-- l. 276 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>log</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><mi>p</mi><mo class='MathClass-bin' stretchy='false'>∕</mo><mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></mrow></math>
+                  </li>
+                  <li class='itemize'><span class='cmss-10'>Error
+             rate:
+             0.201</span></li></ul>
+       </li></ul>                                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Example
+  on
+  simulated
+  data:
+  Quadratic
+  logistic
+  regression</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Classification plot showing data
+points and the Bayes decision
+boundary for a second example.' src='../../Figures/Fig5-7b.png' style='max-width:100%' />        </div>        <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 304 --><p class='noindent'>Purple: Bayes decision boundary. </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Error
+             rate:
+             0.133</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 304 --><p class='noindent'>Black: Logistic regression </p>
+            <ul class='itemize2'>
+            <li class='itemize'><!-- l. 304 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>log</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><mi>p</mi><mo class='MathClass-bin' stretchy='false'>∕</mo><mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn><mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msubsup><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></msubsup><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>4</mn></mrow></msub><msubsup><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow><mrow><mn>2</mn></mrow></msubsup></mrow></math>
+                  </li>
+                  <li class='itemize'><span class='cmss-10'>Error
+             rate:
+             0.197</span></li></ul>
+       </li></ul>                                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Example
+  on
+  simulated
+  data:
+  all
+  the
+  polynomials!</span>                                                                               </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><img alt='Classification plot comparing the Bayes
+decision boundary and logistic regression
+fits with different polynomial degrees.' src='../../Figures/Fig5-7.png' style='max-width:100%' />      </div>          <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 333 --><p class='noindent'>Purple: Bayes decision boundary.
+      </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Error
+             rate:
+             0.133</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 333 --><p class='noindent'>Black: Logistic regression </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Deg
+             1
+             Error
+             rate:
+             0.201</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Deg
+             2
+             Error
+             rate:
+             0.197</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Deg
+             3
+             Error
+             rate:
+             0.160</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Deg
+             4
+             Error
+             rate:
+             0.162</span></li></ul>
+       </li></ul>                                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Decide
+  degree
+  based
+  on
+  CV</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='Plot of training error, test error, and
+10-fold cross-validation error versus model
+degree, used to choose the degree.' src='../../Figures/Fig5-8a.png' style='max-width:100%' />          </div>    <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Test
+      error
+      (brown)
+      </li><li class='itemize'>Training
+      error
+      (blue)
+      </li><li class='itemize'>10-fold
+      CV
+      error
+      (black)</li></ul>                                             </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Similar
+  game
+  for
+  KNN</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Plot of training error, test error, and
+10-fold cross-validation error used to
+choose the value of K in classification.' src='../../Figures/Fig5-8b.png' style='max-width:100%' />     </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Test
+      error
+      (brown)
+      </li><li class='itemize'>Training
+      error
+      (blue)
+      </li><li class='itemize'>10-fold
+      CV
+      error
+      (black)</li></ul>                                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Coding
+  -
+  k-fold
+  for
+  penguin
+  classification
+  section</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 423 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-fold
+CV <img alt='Diagram showing the first split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset0.png' style='max-width:100%' /> <img alt='Diagram showing the
+second split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset1.png' style='max-width:100%' />
+<img alt='Diagram showing the third split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset2.png' style='max-width:100%' /> <img alt='Diagram showing the
+fourth split in five-fold cross-validation.' src='../../Figures/CV-Kfold-subset3.png' style='max-width:100%' />
+<img alt='Diagram showing the fifth split in five-fold
+cross-validation.' src='../../Figures/CV-Kfold-subset4.png' style='max-width:100%' /> <table class='equation-star'><tr><td>
+<!-- l. 423 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+           <mi>C</mi><msub><mrow><mi>V</mi></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>k</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>k</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>k</mi></mrow></munderover><msub><mrow><mstyle mathvariant='normal'><mi>MSE</mi></mstyle></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<!-- l. 423 --><p class='noindent'>Use <!-- l. 423 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>5</mn></mrow></math>
+or 10 usually                                     </p></div>      <div class='minipage'><!-- l. 423 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-fold
+CV for classification <table class='equation-star'><tr><td>
+<!-- l. 423 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+                <mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 423 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+            <mi>C</mi><msub><mrow><mi>V</mi></mrow><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>k</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>k</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>k</mi></mrow></munderover><msub><mrow><mstyle mathvariant='normal'><mi>Err</mi></mstyle></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Next
+  time</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<!-- l. 437 --><p class='noindent'><img alt='Screenshot of the course schedule for lectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:65%' /> </p><table class='columns'><tr>
+   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

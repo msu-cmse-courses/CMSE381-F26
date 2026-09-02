@@ -1,0 +1,723 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec16-Ch06_1-SubsetSelection.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec16-Ch06_1-SubsetSelection.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec16-Ch06_1-SubsetSelection2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection0x.png' />
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       6.1:
+                                      Subset
+                                    Selection</span></h1>
+                                      Lecture
+                                        16
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Mon,
+                                        Feb
+                                        23,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 112 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'><!-- l. 112 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>-fold
+      CV
+      for
+      Classification</li></ul>
+<!-- l. 112 --><p class='noindent'><span class='cmssbx-10x-x-109'>Covered in this lecture</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Subset
+      selection
+      </li><li class='itemize'>Forward
+      and
+      Backward
+      Selection
+</li></ul>
+<!-- l. 112 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>HW
+      #4
+      due
+      Sunday
+      3/8
+      </li><li class='itemize'>HW
+      #5
+      due
+      Sunday
+      3/15</li></ul>                                         </div>      <div class='minipage'><img alt='Screenshot of the course schedule forlectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:100%' />       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>What
+  should
+  you
+  learn
+  from
+  this
+  lecture?</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>Why
+      shouldn’t
+      you
+      have
+      as
+      many
+      predictors
+      in
+      your
+      model
+      as
+      possible?
+      </li><li class='itemize'>What
+      are
+      the
+      three
+      basic
+      methods
+      could
+      be
+      used
+      to
+      select
+      the
+      appropriate
+      predictors
+      (feature
+      selection)?
+      </li><li class='itemize'>What
+      are
+      the
+      steps/procedures
+      in
+      the
+      algorithm
+      for
+      each
+      of
+      these
+      methods?
+      </li><li class='itemize'>How
+      to
+      implement
+      these
+      procedures
+      by
+      hand
+      given
+      the
+      training
+      and
+      CV
+      test
+      error
+      for
+      each
+      combo
+      of
+      predictors?
+      </li><li class='itemize'>What
+      are
+      the
+      pros
+      and
+      cons
+      for
+      choosing
+      each
+      of
+      these
+      feature
+      selection
+      methods?
+      When
+      you
+      can
+      or
+      cannot
+      use
+      them?
+      </li><li class='itemize'>How
+      do
+      you
+      implement
+      the
+      feature
+      selection
+      algorithm
+      in
+      Python?</li></ul>                                                                       </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 145 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection3x.png' />
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection5x.png' /></p><div class='minipage'>                                                   <a href='#Navigation5'><span class='cmss-12x-x-120'>Previously
+                                             on
+                                           linear
+                                        regression
+                                             ...</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>The
+  problem
+  of
+  many
+  features
+  (p)
+  relative
+  to
+  samples
+  (n)</span>                                                                                           </span>
+<h2 class='frametitle'></h2>Up to now, we’ve focused on standard linear model:
+<!-- l. 179 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi></mrow></math> and
+done least squares estimation.  <table class='columns'><tr>
+   <div class='minipage'><span class='cmssbx-10x-x-109'>Prediction accuracy</span>                        </div>     <div class='minipage'>                                                 </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>The
+  problem
+  of
+  many
+  features
+  (p)
+  relative
+  to
+  samples
+  (n)</span>                                                                                           </span>
+<h2 class='frametitle'></h2>Up to now, we’ve focused on standard linear model:
+<!-- l. 205 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi></mrow></math> and
+done least squares estimation.  <table class='columns'><tr>
+   <div class='minipage'><!-- l. 205 --><p class='noindent'><span class='cmssbx-10x-x-109'>Model Interpretability</span>                     </p></div>     <div class='minipage'>                                                 </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 232 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection6x.png' />
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection8x.png' /></p><div class='minipage'>                                                        <a href='#Navigation9'><span class='cmss-12x-x-120'>Best
+                                          Subset
+                                         Selection</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Go
+  through
+  each
+  combo
+  of
+  variables
+  exhaustively
+  (exhausting?)</span>                                                                              </span>
+<h2 class='frametitle'></h2>
+<!-- l. 285 --><p class='noindent'>All subsets of 4 variables
+(<!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mn>2</mn></mrow><mrow><mn>4</mn></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>16</mn></mrow></math>)
+</p>
+<table class='columns'><tr>
+<div class='minipage'>    <ul class='itemize1'>
+      <li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>∅</mi></math></li></ul> </div> <div class='minipage'><ul class='itemize1'>
+   <li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 285 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>One
+  way
+  of
+  breaking
+  this
+  up</span>                                                                                            </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+                <div class='minipage'><img alt='Algorithm diagram showing one way to break up the subset
+selection procedure into steps for choosing models based on
+training and testing scores.' src='../../Figures/Alg6-1.png' style='max-width:100%' />                                           </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Calculate
+  by
+  hand</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>We train a model using four variables, <!-- l. 334 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></mrow></math>.
+We’re interested in getting a subset of the variables to use. The following table shows the mean
+squared error and the MSE value computed for the model learned using each possible subset of
+variables. <table class='columns'><tr>
+   <div class='minipage'><div class='center'>
+<!-- l. 334 --><p class='noindent'>
+</p><!-- l. 334 --><p class='noindent'><img alt='Table showing mean squared error values
+for models fit using all possible subsets of
+four variables in a subset selection
+example.' src='../../Figures/FakeData-SubsetSelection.png' style='max-width:50%' /></p></div>                                          </div>      <div class='minipage'>      <dl class='enumerate'><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection9x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 334 --><p class='noindent'>What
+      subset
+      of
+      variables
+      is
+      found
+      for
+      each
+      of
+      the
+      sets
+      <!-- l. 334 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>4</mn></mrow></msub></mrow></math>
+        when
+      using
+      best
+      subset
+      selection?
+      </p></dd><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection10x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 334 --><p class='noindent'>What
+      subset
+      of
+      variables
+      is
+      returned
+      using
+      best
+      subset
+      selection?
+</p>
+      </dd></dl>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Extra
+  work
+  space
+  if
+  it
+  helps</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+<div class='minipage'><img alt='Table
+showing
+mean
+squared
+error
+values
+for
+models
+fit
+using
+all
+possible
+subsets
+of
+four
+variables
+in
+a
+subset
+selection
+example.' src='../../Figures/FakeData-SubsetSelection.png' style='max-width:100%' />                   </div>  <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>∅</mi></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+   <li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Code
+  to
+  do
+  this</span>                                                                                           </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-6r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 403 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection11x.png' />
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection13x.png' /></p><div class='minipage'>                                                     <a href='#Navigation16'><span class='cmss-12x-x-120'>Forward
+                                         Selection</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox55'> <span class='cmss-12x-x-120'>What’s
+  the
+  problem
+  with
+  best
+  subset
+  selection?</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox59'> <span class='cmss-12x-x-120'>Forward
+  Stepwise
+  Selection</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+                <div class='minipage'><img alt='Algorithm diagram showing the forward stepwise selection
+procedure for building a model by adding variables one at a
+time.' src='../../Figures/Alg6-2.png' style='max-width:100%' />                                                                       </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>An
+  example
+  for
+  Forward
+  Stepwise
+  Selection</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'>   <ul class='itemize1'>
+     <li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>∅</mi></math></li></ul> </div> <div class='minipage'><ul class='itemize1'>
+   <li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+        <li class='itemize'><!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 484 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>Group
+  work:
+  by
+  hand
+  same
+  example
+  with
+  forward
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>We train a model using four variables, <!-- l. 515 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></mrow></math>.
+We’re interested in getting a subset of the variables to use. The following table shows the mean squared error
+and the <!-- l. 515 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msup></math>
+value computed for the model learned using each possible subset of variables. <table class='columns'><tr>
+   <div class='minipage'><div class='center'>
+<!-- l. 515 --><p class='noindent'>
+</p><!-- l. 515 --><p class='noindent'><img alt='Table showing mean squared error values
+for models fit using all possible subsets of
+four variables in a subset selection
+example.' src='../../Figures/FakeData-SubsetSelection.png' style='max-width:50%' /></p></div>                                          </div>      <div class='minipage'>      <dl class='enumerate'><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection14x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 515 --><p class='noindent'>What
+      subset
+      of
+      variables
+      is
+      found
+      for
+      each
+      of
+      the
+      sets
+      <!-- l. 515 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mstyle mathvariant='script'><mi>M</mi></mstyle></mrow><mrow><mn>4</mn></mrow></msub></mrow></math>
+        when
+      using
+      forward
+      selection?
+      </p></dd><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection15x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 515 --><p class='noindent'>What
+      subset
+      of
+      variables
+      is
+      returned
+      using
+      forward
+      subset
+      selection?
+</p>
+      </dd></dl>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>Extra
+  work
+  space
+  if
+  it
+  helps</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+<div class='minipage'><img alt='Table
+showing
+mean
+squared
+error
+values
+for
+models
+fit
+using
+all
+possible
+subsets
+of
+four
+variables
+in
+a
+subset
+selection
+example.' src='../../Figures/FakeData-SubsetSelection.png' style='max-width:100%' />                   </div>  <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>∅</mi></math></li></ul> </div> <div class='minipage'> <ul class='itemize1'>
+   <li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math>
+        </li><li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div> <div class='minipage'>  <ul class='itemize1'>
+        <li class='itemize'><!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub></math>
+        <!-- l. 573 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mn>4</mn></mrow></msub></math></li></ul> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Pros
+  and
+  Cons
+  of
+  Forward
+  Stepwise</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Pros:</span>                                          </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Cons:</span>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-9r4'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.4'></a>  </p><p></p><div class='slide'> <!-- l. 624 --><p class='noindent'><span class='cmss-12x-x-120'>Section 4</span>
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection16x.png' />
+<img alt='picture' src='CMSE381-Lec16-Ch06_1-SubsetSelection18x.png' /></p><div class='minipage'>                                                    <a href='#Navigation24'><span class='cmss-12x-x-120'>Backward
+                                         Selection</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox82'> <span class='cmss-12x-x-120'>Backward
+  stepwise
+  selection</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+                <div class='minipage'><img alt='Algorithm diagram showing the backward stepwise selection
+procedure for building a model by removing variables one at a
+time.' src='../../Figures/Alg6-3.png' style='max-width:100%' />                                                                       </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox86'> <span class='cmss-12x-x-120'>Pros
+  and
+  Cons
+  of
+  Backward
+  Stepwise</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Pros:</span>                                          </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Cons:</span>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox90'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Algorithm diagram showing one way to break up the
+subset selection procedure into steps for choosing
+models based on training and testing scores.' src='../../Figures/Alg6-1.png' style='max-width:100%' />          </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Modify
+      step
+      2
+      with
+      forward
+      or
+      backward
+      selection
+      </li><li class='itemize'>Choose
+      best
+      model
+      in
+      step
+      3
+      using
+      one
+      of
+      our
+      adjusted
+      training
+      scores
+      or
+      CV</li></ul>                                </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox94'> <span class='cmss-12x-x-120'>Next
+  time</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<!-- l. 1009 --><p class='noindent'><img alt='Screenshot of the course schedule for lectures 11 to 20.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:65%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

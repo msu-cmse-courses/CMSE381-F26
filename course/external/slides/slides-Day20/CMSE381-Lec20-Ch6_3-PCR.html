@@ -1,0 +1,614 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec20-Ch6_3-PCR.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec20-Ch6_3-PCR.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec20-Ch6_3-PCR2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR0x.png' />
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       6.3:
+                                       PCR</span></h1>
+                                      Lecture
+                                        20
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Wed,
+                                        Mar
+                                        11,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 119 --><p class='noindent'><span class='cmssbx-10x-x-109'>Last time:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>PCA</li></ul>
+<!-- l. 119 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>PCR</li></ul>
+<!-- l. 119 --><p class='noindent'><span class='cmssbx-10x-x-109'>Announcements:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>HW4
+      due
+      Sunday
+      3/15.
+      </li><li class='itemize'>
+      <!-- l. 119 --><p class='noindent'>Exam #2 on Monday 3/16! </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Bring
+             8.5x11
+             sheet
+             of
+             paper</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Handwritten
+             both
+             sides</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Anything
+             you
+             want
+             on
+             it,
+             but
+             must
+             be
+             your
+             work</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Write
+             your
+             name
+             and
+             group
+             number</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>You
+             will
+             turn
+             it
+             in</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Non-internet
+             calculator</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>questions
+             about
+             project</span></li></ul>
+       </li></ul>                                                    </div>       <div class='minipage'><img alt='Course schedule for weeks 11-20, listing
+topics like Logistic Regression, PCA, and
+key dates including Midterm and Spring
+Break' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:100%' />                                              </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 123 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR3x.png' />
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR5x.png' /></p><div class='minipage'>                                                  <a href='#Navigation4'><span class='cmss-12x-x-120'>Previously…</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Shrinkage</span>                                                                                   </span>
+<h2 class='frametitle'></h2>Find <!-- l. 175 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>β</mi></math> to
+minimize <table class='equation-star'><tr><td>
+<!-- l. 175 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                 <mi mathvariant='italic'>𝑅𝑆𝑆</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mrow> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑗</mi></mrow></msub></mrow><mo fence='true' form='postfix'>)</mo></mrow> </mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table>
+<!-- l. 175 --><p class='noindent'>subject to:
+</p>
+<table class='columns'><tr>
+ <div class='minipage'><span class='cmssbx-10x-x-109'>Least Squares:</span><br /><span class='cmss-9'>No constraints</span>                   </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Ridge: </span><table class='equation-star'><tr><td>
+<!-- l. 175 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+         <munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msubsup><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-rel' stretchy='false'>≤</mo><mi>s</mi>
+</mrow></math></td></tr></table></div>     <div class='minipage'><!-- l. 175 --><p class='noindent'><span class='cmssbx-10x-x-109'>The Lasso:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 175 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+         <munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><mo class='MathClass-rel' stretchy='false'>|</mo><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>j</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>|</mo><mo class='MathClass-rel' stretchy='false'>≤</mo><mi>s</mi>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Two plots showing standardized ridge
+regression coefficients shrinking to
+zero as You may provide a definition
+with increases (left) or norm ratio
+decreases (right)' src='../../Figures/Fig6-4.png' style='max-width:100%' />                           </div>          <div class='minipage'><!-- l. 175 --><p class='noindent'><img alt='Two plots showing standardized
+Lasso regression coefficients shrinking
+to exactly zero as lambda increases
+(left) or norm ratio decreases (right)' src='../../Figures/Fig6-6.png' style='max-width:100%' />  </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Linear
+  transformation
+  of
+  predictors</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Original Predictors: </span><table class='equation-star'><tr><td>
+<!-- l. 209 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                   <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<!-- l. 209 --><p class='noindent'><span class='cmssbx-10x-x-109'>New Predictors:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 209 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                   <msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>Z</mi></mrow><mrow><mi>M</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 209 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                 <msub><mrow><mi>Z</mi></mrow><mrow><mi>m</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>φ</mi></mrow><mrow>
+<mi mathvariant='italic'>𝑗𝑚</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub>
+</mrow></math></td></tr></table></div>        <div class='minipage'><span class='cmssbx-10x-x-109'>The goal: </span>
+     <ul class='itemize1'>
+     <li class='itemize'>Find
+      good
+      <!-- l. 209 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>φ</mi></math>’s
+      (PCA)
+      </li><li class='itemize'>
+      <!-- l. 209 --><p class='noindent'>Fit regression model on
+      <!-- l. 209 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mi>i</mi></mrow></msub></math>’s
+      using least squares (PLS) </p><table class='equation-star'><tr><td>
+      <!-- l. 209 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+       <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>𝜃</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>m</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>M</mi></mrow></munderover><msub><mrow><mi>𝜃</mi></mrow><mrow>
+<mi>m</mi></mrow></msub><msub><mrow><mi>z</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑚</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+        </li>
+        <li class='itemize'>Hope that lower dimensions means less
+      overfitting</li></ul>                                   </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>PCA
+  -
+  First
+  PC</span>                                                                                           </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+<div class='minipage'><img alt='Scatter
+plot
+of
+2D
+data
+with
+projection
+line
+at
+45
+degrees.' src='../../Figures/DimReduction_Projection_Example2_78.png' style='max-width:100%' />
+<img alt='Histogram
+of
+the
+2D
+data
+projected
+onto
+the
+line
+at
+45
+degrees.' src='../../Figures/DimReduction_Projection_Example2_hist78.png' style='max-width:100%' />                  </div>  <div class='minipage'><img alt='Scatter
+plot
+of
+2D
+data
+with
+projection
+line
+at
+90
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_157.png' style='max-width:100%' />
+<img alt='Histogram
+of
+the
+2D
+data
+projected
+onto
+the
+line
+at
+90
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_hist157.png' style='max-width:100%' />             </div>  <div class='minipage'><img alt='Scatter
+plot
+of
+2D
+data
+with
+projection
+line
+at
+180
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_0.png' style='max-width:100%' />
+<img alt='Histogram
+of
+the
+2D
+data
+projected
+onto
+the
+line
+at
+180
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_hist0.png' style='max-width:100%' />             </div>  <div class='minipage'><img alt='Scatter
+plot
+of
+2D
+data
+with
+projection
+line
+at
+45
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_235.png' style='max-width:100%' />
+<img alt='Histogram
+of
+the
+2D
+data
+projected
+onto
+the
+line
+at
+135
+degrees.align' src='../../Figures/DimReduction_Projection_Example2_hist235.png' style='max-width:100%' />             </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Projection
+  onto
+  first
+  PC</span>                                                                                           </span>
+<h2 class='frametitle'></h2>
+<!-- l. 262 --><p class='noindent'><img alt='Scatter plot of Ad Spending versus Population with a first principal component line and
+dashed lines showing data projections.' src='../../Figures/Fig6-15a.png' style='max-width:60%' />
+</p>
+<table class='equation-star'><tr><td>
+<!-- l. 262 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                               <msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.839</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚙𝚘𝚙</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>0.544</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle><mo class='MathClass-bin' stretchy='false'>−</mo><mover accent='false' class='mml-overline'><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚊𝚍</mtext></mstyle></mrow><mo accent='true'>¯</mo></mover><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox33'> <span class='cmss-12x-x-120'>Drawing
+  points
+  in
+  PC
+  space</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<!-- l. 280 --><p class='noindent'><img alt='Two plots illustrating PCA: data projected onto the first principal component line (left) and the
+resulting PC scores (right).' src='../../Figures/Fig6-15.png' style='max-width:80%' /> </p><table class='columns'><tr>
+   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  from
+  this
+  lecture?</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 298 --><p class='noindent'>Why do you want to use the PCs in regression models? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>What
+             assumptions
+             do
+             you
+             have
+             to
+             make
+             for
+             it
+             to
+             be
+             a
+             good
+             idea
+             to
+             use
+             </span><span class='cmssbx-10'>principal
+            component
+            regression
+            (PCR)</span><span class='cmss-10'>?</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Or
+             conversely,
+             what
+             is
+             a
+             typical
+             bad
+             scenario
+             to
+             use
+             PCR?</span></li></ul>
+       </li>
+       <li class='itemize'>How do you implement PCR in Python?
+      </li><li class='itemize'>How do you interpret the model coefficients when using PCR?
+      </li><li class='itemize'>
+      <!-- l. 298 --><p class='noindent'>How do you choose the number of PC to use in PCR? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Given
+             a
+             figure
+             of,
+             e.g.,
+             cross-validation
+             score
+             as
+             a
+             function
+             of
+             the
+             number
+             of
+             PCs,
+             you
+             should
+             be
+             able
+             to
+             choose
+             appropriately
+             and
+             provide
+             rationales
+             in
+             terms
+             of
+             bias-variance
+             tradeoff.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             generate
+             such
+             figures
+             in
+             Python.</span></li></ul>
+       </li>
+       <li class='itemize'>What is the relationship/differences between PCR and feature selection and regularization
+      methods that you learned in this part of the course?</li></ul>                                 </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 301 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR6x.png' />
+<img alt='picture' src='CMSE381-Lec20-Ch6_3-PCR8x.png' /></p><div class='minipage'>                                                    <a href='#Navigation12'><span class='cmss-12x-x-120'>Principal
+                                      Components
+                                        Regression</span>
+                                              </a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>So
+  you’ve
+  found
+  your
+  PCA
+  coefficients</span>                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>Now what?                                       </div>      <div class='minipage'>What are we assuming?                        </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Interpretation
+  of
+  PCR
+  coefficients</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Original Predictors: </span><table class='equation-star'><tr><td>
+<!-- l. 370 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+             <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<!-- l. 370 --><p class='noindent'><span class='cmssbx-10x-x-109'>New Predictors:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 370 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+             <msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>Z</mi></mrow><mrow><mi>M</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 370 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+          <msub><mrow><mi>Z</mi></mrow><mrow><mi>m</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>p</mi></mrow></munderover><msub><mrow><mi>φ</mi></mrow><mrow>
+<mi mathvariant='italic'>𝑗𝑚</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<!-- l. 370 --><p class='noindent'><span class='cmssbx-10x-x-109'>Learned model:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 370 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+   <mi>y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>𝜃</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜃</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜃</mi></mrow><mrow><mi>M</mi></mrow></msub><msub><mrow><mi>Z</mi></mrow><mrow><mi>M</mi></mrow></msub>
+</mrow></math></td></tr></table></div>        <div class='minipage'>                                                                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Picking</span>
+  <!-- l. 388 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>M</mi></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+            <div class='minipage'><img alt='Two plots showing standardized PCR coefficients (left) and
+cross-validation MSE (right) versus the number of principal
+components.' src='../../Figures/Fig6-20.png' style='max-width:100%' />                                                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Do
+  PCR
+  with
+  hitters
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Bias-Variance
+  Trade-off</span>                                                                                    </span>
+<h2 class='frametitle'></h2>Example with simulated data: <!-- l. 424 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>n</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>50</mn></mrow></math>
+observations of <!-- l. 424 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>45</mn></mrow></math>
+predictors
+<table class='columns'><tr>
+   <div class='minipage'><!-- l. 424 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+is a function of <span class='cmssbx-10x-x-109'>all predictors </span><img alt='Plot of
+training and test Mean Squared Error
+versus number of components, illustrating
+the bias-variance tradeoff.' src='../../Figures/Fig6-18a.png' style='max-width:80%' />                     </div>      <div class='minipage'><!-- l. 424 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+is a function of <span class='cmssbx-10x-x-109'>2 predictors </span><img alt='Plot of
+Squared Bias, Variance, and Test MSE
+versus number of components,
+demonstrating the bias-variance
+decomposition.' src='../../Figures/Fig6-18b.png' style='max-width:80%' />                                   </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Comparison
+  to
+  results
+  on
+  shrinkage</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 460 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+is a function of all predictors <img alt='Plot of
+training and test Mean Squared Error
+versus number of components, illustrating
+the bias-variance tradeoff.' src='../../Figures/Fig6-18a.png' style='max-width:50%' /> <img alt='Two plots
+showing MSE, squared bias, and variance
+versus lambda (left) and training
+R-squared (right), illustrating the
+bias-variance tradeoff.' src='../../Figures/Fig6-8.png' style='max-width:100%' />                          </div>      <div class='minipage'><!-- l. 460 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+is a function of 2 predictors <img alt='Plot of
+Squared Bias, Variance, and Test MSE
+versus number of components,
+demonstrating the bias-variance
+decomposition.' src='../../Figures/Fig6-18b.png' style='max-width:50%' /> <img alt='Two plots showing MSE,
+squared bias, and variance for Lasso versus
+lambda (left) and training R-squared
+(right).' src='../../Figures/Fig6-9.png' style='max-width:100%' />                                            </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>Properties
+  of
+  PCR</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>PCR </span>
+     <ul class='itemize1'>
+     <li class='itemize'>Unsupervised
+      dimensionality
+      reduction
+      <!-- l. 732 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mo class='MathClass-bin' stretchy='false'>+</mo></math>
+      linear
+      regression
+      </li><li class='itemize'>Choose
+      component
+      <!-- l. 732 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        in
+      the
+      direction
+      of
+      most
+      variance
+      using
+      only
+      <!-- l. 732 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>X</mi></mrow><mrow><mi>i</mi></mrow></msub></math>’s
+      information
+      </li><li class='itemize'>Choose
+      <!-- l. 732 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>Z</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        and
+      beyond
+      by
+      the
+      same
+      method
+      after
+      “getting
+      rid”
+      of
+      info
+      in
+      the
+      directions
+      already
+      explained</li></ul>
+<!-- l. 732 --><p class='noindent'><img alt='Scatter plot of Ad Spending versus Population
+with a first principal component line and
+dashed lines showing data projections.' src='../../Figures/Fig6-15a.png' style='max-width:50%' />      </p></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox76'> <span class='cmss-12x-x-120'>Next
+  time</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<!-- l. 742 --><p class='noindent'><img alt='Course schedule for weeks 11-20, listing topics like Logistic Regression, PCA, and key dates including
+Midterm and Spring Break.' src='../../Figures/Schedule-S26-Lecs11_to_20.png' style='max-width:50%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

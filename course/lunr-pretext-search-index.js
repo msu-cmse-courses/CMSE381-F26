@@ -34,7 +34,16 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Office Hours",
-  "body": " Office Hours    Person  Time  Location    Dr. Khasawneh  MWF 4:40-5:00 Mon 10:00-11:00  Olds Hall 109 Zoom    Dr. Bao  Tue 9:00-10:00 Wed 10:00-11:00  EB 2507L EB 2507L    Siyu Guo  TBD  Modality\/Location (TBD)    Christy Lu  TBD  Modality\/Location (TBD)    "
+  "body": " Office Hours    Person  Time  Location    Dr. Khasawneh  MWF 4:40-5:00 Mon 10:00-11:00  Olds Hall 109 Zoom Link    Dr. Bao  Tue 9:00-10:00 Wed 10:00-11:00  EB 2507L EB 2507L    Siyu Guo  Mon & Wed 1:00-2:00  EB 2504    Christy Lu  Tue 11:00-noon Wed 2:00-3:00  TBD TBD        Office hours will not be held during university holidays.    Office hours are subject to change. Any changes will be communicated in class and\/or on D2L.      "
+},
+{
+  "id": "subsec-Office-Hours-3",
+  "level": "2",
+  "url": "subsec-Office-Hours.html#subsec-Office-Hours-3",
+  "type": "Note",
+  "number": "3",
+  "title": "",
+  "body": "    Office hours will not be held during university holidays.    Office hours are subject to change. Any changes will be communicated in class and\/or on D2L.     "
 },
 {
   "id": "ch-course-info-4",
@@ -52,7 +61,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "D2L and where to find grades",
-  "body": " D2L and where to find grades      screenshot of course page on D2L   "
+  "body": " D2L and where to find grades      screenshot of course page on D2L for section 1   "
 },
 {
   "id": "subsec-course-website",
@@ -61,7 +70,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Course website, Slides, and jupyter notebooks",
-  "body": " Course website, Slides, and jupyter notebooks   or    screenshot of course website   The syllabus can be found here.   "
+  "body": " Course website, Slides, and jupyter notebooks     The syllabus can be found here.   "
 },
 {
   "id": "subsubsec-crowdmark-info",
@@ -113,7 +122,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "syllabus.html#sec-assessments-7-2",
   "type": "Table",
-  "number": "3",
+  "number": "4",
   "title": "Assignments’ Weights",
   "body": " Assignments' Weights    Homework  (Drop lowest 1)  Quizzes (Drop lowest 3)  Midterms   Total    24%  16%  60%   100%    "
 },
@@ -122,7 +131,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "syllabus.html#sec-assessments-7-4",
   "type": "Table",
-  "number": "4",
+  "number": "5",
   "title": "Final Grade Scale",
   "body": " Final Grade Scale    4.0   90    3.5   85    3.0  80    2.5  75    2.0  70    1.5  65    1.0  60    0.0   60    "
 },
@@ -133,16 +142,16 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Course Schedule",
-  "body": " Course Schedule   Course Schedule    Lecture #  Date  Topic  Reading  Homework    1  M  8\/31  Intro\/Python review  1     2  W  9\/2  What is statistical learning?  2.1     3  F  9\/4  Assessing model accuracy  2.2.1, 2.2.2  HW#1 assigned     M  9\/7  Labor Day - No Class      4  W  9\/9  Linear regression Part 1\/5  3.1     5  F  9\/11  Linear regression Part 2\/5  3.1  HW#1 due    6  M  9\/14  Linear regression Part 3\/5 (multi-linear regression)  3.2  HW#2 assigned    7  W  9\/16  Linear regression Part 4\/5  3.3     8  F  9\/18  Linear regression Part 5\/5      9  M  9\/21  Intro to classification, Bayes classifier, KNN classifier  2.2.3  HW#2 due    10  W  9\/23  Logistic regression  4.1, 4.2, 4.3.1-3     11  F  9\/25  Multiple logistic regression, multinomial logistic regression  4.3-4.5     12  M  9\/28  Midterm #1 review      13  W  9\/30  Midterm #1      14  F  10\/2  Leave one out and k-fold CV  5.1.1-3     15  M  10\/5  More k-fold CV  5.1.4-5     16  W  10\/7  k-fold CV for classification  5.1.5     17  F  10\/9  Subset selection  6.1  HW #3 assigned    18  M  10\/12  Shrinkage: Ridge  6.2.1     19  W  10\/14  Shrinkage: Lasso  6.2.2     20  F  10\/16  PCA  6.3  HW #3 due    21  M  10\/19  PCR  6.3  HW#4 assigned    22  W  10\/21  Midterm #2 review      23  F  10\/23  Midterm #2       M  10\/26  No Class - Fall Break      24  W  10\/28  Polynomial & Step functions  7.1-7.2     25  F  10\/30  Step functions; Basis functions; start splines  7.2-7.4  HW#4 due    26  M  11\/02  Regression splines  7.4  HW#5 assigned    27  W  11\/04  Decision trees  8.1     28  F  11\/06  Random forests  8.2.1, 8.2.2     29  M  11\/09  Catch up day\/Practice Problems  HW#5 due    30  W  11\/11  Maximal margin classifier  9.1  HW#6 assigned    31  F  11\/13  SVC  9.2     32  M  11\/16  SVM  9.3, 9.4     33  W  11\/18  Single layer NN  10.1     34  F  11\/20  Multi layer NN  10.2  HW#6 due    35  M  11\/23  CNN  10.3     36  W  11\/25  Catch up day\/Practice Problems       F  11\/27  No Class. Thanksgiving.      37  M  11\/30  Unsupervised learning\/clustering Part 1  12.1, 12.4     38  W  12\/02  Unsupervised learning\/clustering Part 2  12.1, 12.4     39  F  12\/04  Catch up day\/Practice Problems      40  M  12\/07  Midterm #3 review      41  W  12\/09  Midterm #3      42  F  12\/11  Project work        "
+  "body": " Course Schedule   Course Schedule    Lecture #  Date  Topic  Reading  Homework    1  M  8\/31  Intro\/Python review  1     2  W  9\/2  What is statistical learning?  2.1     3  F  9\/4  Assessing model accuracy  2.2.1, 2.2.2  HW#1 assigned     M  9\/7  Labor Day - No Class      4  W  9\/9  Linear regression Part 1\/5  3.1     5  F  9\/11  Linear regression Part 2\/5  3.1  HW#1 due    6  M  9\/14  Linear regression Part 3\/5 (multi-linear regression)  3.2  HW#2 assigned    7  W  9\/16  Linear regression Part 4\/5  3.3     8  F  9\/18  Linear regression Part 5\/5      9  M  9\/21  Intro to classification, Bayes classifier, KNN classifier  2.2.3  HW#2 due    10  W  9\/23  Logistic regression  4.1, 4.2, 4.3.1-3     11  F  9\/25  Multiple logistic regression, multinomial logistic regression  4.3-4.5      M  9\/28  Midterm #1 review       W  9\/30  Midterm #1      12  F  10\/2  Leave one out and k-fold CV  5.1.1-3     13  M  10\/5  More k-fold CV  5.1.4-5     14  W  10\/7  k-fold CV for classification  5.1.5     15  F  10\/9  Subset selection  6.1  HW #3 assigned    16  M  10\/12  Shrinkage: Ridge  6.2.1     17  W  10\/14  Shrinkage: Lasso  6.2.2     18  F  10\/16  PCA  6.3  HW #3 due    19  M  10\/19  PCR  6.3  HW#4 assigned     W  10\/21  Midterm #2 review       F  10\/23  Midterm #2       M  10\/26  No Class - Fall Break      20  W  10\/28  Polynomial & Step functions  7.1-7.2     21  F  10\/30  Step functions; Basis functions; start splines  7.2-7.4  HW#4 due    22  M  11\/02  Regression splines  7.4  HW#5 assigned    23  W  11\/04  Decision trees  8.1     24  F  11\/06  Random forests  8.2.1, 8.2.2     25  M  11\/09  Catch up day\/Practice Problems  HW#5 due    26  W  11\/11  Maximal margin classifier  9.1  HW#6 assigned    27  F  11\/13  SVC  9.2     28  M  11\/16  SVM  9.3, 9.4     29  W  11\/18  Single layer NN  10.1     30  F  11\/20  Multi layer NN  10.2  HW#6 due    31  M  11\/23  CNN  10.3      W  11\/25  Catch up day\/Practice Problems       F  11\/27  No Class. Thanksgiving.      32  M  11\/30  Unsupervised learning\/clustering Part 1  12.1, 12.4     33  W  12\/02  Unsupervised learning\/clustering Part 2  12.1, 12.4      F  12\/04  Catch up day\/Practice Problems       M  12\/07  Midterm #3 review       W  12\/09  Midterm #3       F  12\/11  Wrap up        "
 },
 {
   "id": "schedule-2",
   "level": "2",
   "url": "schedule.html#schedule-2",
   "type": "Table",
-  "number": "5",
+  "number": "6",
   "title": "Course Schedule",
-  "body": " Course Schedule    Lecture #  Date  Topic  Reading  Homework    1  M  8\/31  Intro\/Python review  1     2  W  9\/2  What is statistical learning?  2.1     3  F  9\/4  Assessing model accuracy  2.2.1, 2.2.2  HW#1 assigned     M  9\/7  Labor Day - No Class      4  W  9\/9  Linear regression Part 1\/5  3.1     5  F  9\/11  Linear regression Part 2\/5  3.1  HW#1 due    6  M  9\/14  Linear regression Part 3\/5 (multi-linear regression)  3.2  HW#2 assigned    7  W  9\/16  Linear regression Part 4\/5  3.3     8  F  9\/18  Linear regression Part 5\/5      9  M  9\/21  Intro to classification, Bayes classifier, KNN classifier  2.2.3  HW#2 due    10  W  9\/23  Logistic regression  4.1, 4.2, 4.3.1-3     11  F  9\/25  Multiple logistic regression, multinomial logistic regression  4.3-4.5     12  M  9\/28  Midterm #1 review      13  W  9\/30  Midterm #1      14  F  10\/2  Leave one out and k-fold CV  5.1.1-3     15  M  10\/5  More k-fold CV  5.1.4-5     16  W  10\/7  k-fold CV for classification  5.1.5     17  F  10\/9  Subset selection  6.1  HW #3 assigned    18  M  10\/12  Shrinkage: Ridge  6.2.1     19  W  10\/14  Shrinkage: Lasso  6.2.2     20  F  10\/16  PCA  6.3  HW #3 due    21  M  10\/19  PCR  6.3  HW#4 assigned    22  W  10\/21  Midterm #2 review      23  F  10\/23  Midterm #2       M  10\/26  No Class - Fall Break      24  W  10\/28  Polynomial & Step functions  7.1-7.2     25  F  10\/30  Step functions; Basis functions; start splines  7.2-7.4  HW#4 due    26  M  11\/02  Regression splines  7.4  HW#5 assigned    27  W  11\/04  Decision trees  8.1     28  F  11\/06  Random forests  8.2.1, 8.2.2     29  M  11\/09  Catch up day\/Practice Problems  HW#5 due    30  W  11\/11  Maximal margin classifier  9.1  HW#6 assigned    31  F  11\/13  SVC  9.2     32  M  11\/16  SVM  9.3, 9.4     33  W  11\/18  Single layer NN  10.1     34  F  11\/20  Multi layer NN  10.2  HW#6 due    35  M  11\/23  CNN  10.3     36  W  11\/25  Catch up day\/Practice Problems       F  11\/27  No Class. Thanksgiving.      37  M  11\/30  Unsupervised learning\/clustering Part 1  12.1, 12.4     38  W  12\/02  Unsupervised learning\/clustering Part 2  12.1, 12.4     39  F  12\/04  Catch up day\/Practice Problems      40  M  12\/07  Midterm #3 review      41  W  12\/09  Midterm #3      42  F  12\/11  Project work       "
+  "body": " Course Schedule    Lecture #  Date  Topic  Reading  Homework    1  M  8\/31  Intro\/Python review  1     2  W  9\/2  What is statistical learning?  2.1     3  F  9\/4  Assessing model accuracy  2.2.1, 2.2.2  HW#1 assigned     M  9\/7  Labor Day - No Class      4  W  9\/9  Linear regression Part 1\/5  3.1     5  F  9\/11  Linear regression Part 2\/5  3.1  HW#1 due    6  M  9\/14  Linear regression Part 3\/5 (multi-linear regression)  3.2  HW#2 assigned    7  W  9\/16  Linear regression Part 4\/5  3.3     8  F  9\/18  Linear regression Part 5\/5      9  M  9\/21  Intro to classification, Bayes classifier, KNN classifier  2.2.3  HW#2 due    10  W  9\/23  Logistic regression  4.1, 4.2, 4.3.1-3     11  F  9\/25  Multiple logistic regression, multinomial logistic regression  4.3-4.5      M  9\/28  Midterm #1 review       W  9\/30  Midterm #1      12  F  10\/2  Leave one out and k-fold CV  5.1.1-3     13  M  10\/5  More k-fold CV  5.1.4-5     14  W  10\/7  k-fold CV for classification  5.1.5     15  F  10\/9  Subset selection  6.1  HW #3 assigned    16  M  10\/12  Shrinkage: Ridge  6.2.1     17  W  10\/14  Shrinkage: Lasso  6.2.2     18  F  10\/16  PCA  6.3  HW #3 due    19  M  10\/19  PCR  6.3  HW#4 assigned     W  10\/21  Midterm #2 review       F  10\/23  Midterm #2       M  10\/26  No Class - Fall Break      20  W  10\/28  Polynomial & Step functions  7.1-7.2     21  F  10\/30  Step functions; Basis functions; start splines  7.2-7.4  HW#4 due    22  M  11\/02  Regression splines  7.4  HW#5 assigned    23  W  11\/04  Decision trees  8.1     24  F  11\/06  Random forests  8.2.1, 8.2.2     25  M  11\/09  Catch up day\/Practice Problems  HW#5 due    26  W  11\/11  Maximal margin classifier  9.1  HW#6 assigned    27  F  11\/13  SVC  9.2     28  M  11\/16  SVM  9.3, 9.4     29  W  11\/18  Single layer NN  10.1     30  F  11\/20  Multi layer NN  10.2  HW#6 due    31  M  11\/23  CNN  10.3      W  11\/25  Catch up day\/Practice Problems       F  11\/27  No Class. Thanksgiving.      32  M  11\/30  Unsupervised learning\/clustering Part 1  12.1, 12.4     33  W  12\/02  Unsupervised learning\/clustering Part 2  12.1, 12.4      F  12\/04  Catch up day\/Practice Problems       M  12\/07  Midterm #3 review       W  12\/09  Midterm #3       F  12\/11  Wrap up       "
 },
 {
   "id": "day01-notebook",
@@ -158,7 +167,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "day01-notebook.html#day01-Auto-csv",
   "type": "Data",
-  "number": "6",
+  "number": "7",
   "title": "Auto: Auto Data Set.",
   "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The orginal data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.    "
 },
@@ -199,9 +208,36 @@ var ptx_lunr_docs = [
   "body": " Plotting   The third-ish thing I do with a new data set that I'm trying to understand is to just start plotting random things. This is great for getting a sense of ranges for values, as well as to start looking for simple correlations. In this class, we will use two python modules for plotting, depending on which has the tools we want:    matplotlib . This is basically the standard plotting tool. It does basically anything you want (albeit with a bit of pain and suffering and a few choice four letter words along the way). You've already seen this package in CMSE 201 at least.     seaborn . This is helpful for some prepackaged figure generation that we will make use of. It's actually built on top of matplotlib, but has often simplified syntax.      # Make sure you run this to import seaborn. If this doesn't run # for some reason, check that it's installed. import seaborn as sns  # let's examine the first few rows of the data again auto.head()      First, use matplotlib's hist command to show a histogram of the weight data.   # your code here     if you ever forget how to use a command, you can of course google it, but you can also type ? before the name of the command to see the help info from inside the jupyter notebook, e.g.: ?plt.hist .     plt.hist(auto['weight'])       Plot the same histogram using seaborn's histplot .     sns.histplot(auto['weight'])       The next useful tool is to see data points scattered with each other in 2 dimensions.  Draw a scatter plot of the weight variable vs mpg variable.    Check the command plt.scatter .     plt.scatter(auto['weight'],auto['mpg'])     This command should get you approximately the same thing, but with the added perk of automatically labeling axes   sns.relplot(x=\"weight\", y=\"mpg\", data=auto);       Now here is what I think is one of the most useful tools in seaborn for use when you're starting to understand a dataset....   sns.pairplot(auto)   Run the above command. What is each graph on this giant grid showing you?     "
 },
 {
-  "id": "sec-exam1-material0",
+  "id": "day02-worksheet",
   "level": "1",
-  "url": "sec-exam1-material0.html",
+  "url": "day02-worksheet.html",
+  "type": "Worksheet",
+  "number": "",
+  "title": "Day 02 Worksheet",
+  "body": " Day 02 Worksheet    Work with your group to answer the following questions.     Group Work   We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.     Is this classification or regression?      Regression    Nice!      Classification    Is the outcome variable quantitative or qualitative?        Do we want inference or prediction?      Inference    Nice!      Prediction    Are we interested merely in the output, or no how the predictors influence the output?        What is , the number of data points?            What is , the number of variables?            Group Work   We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.     Is this classification or regression?      Classification    Nice!      Regression    Is the outcome variable quantitative or qualitative?        Do we want inference or prediction?      Prediction    Nice!      Inference    Are we interested merely in the output, or no how the predictors influence the output?        What is , the number of data points?            What is , the number of variables?           "
+},
+{
+  "id": "day02-WS1",
+  "level": "2",
+  "url": "day02-worksheet.html#day02-WS1",
+  "type": "Worksheet Exercise",
+  "number": "1",
+  "title": "Group Work.",
+  "body": " Group Work   We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.     Is this classification or regression?      Regression    Nice!      Classification    Is the outcome variable quantitative or qualitative?        Do we want inference or prediction?      Inference    Nice!      Prediction    Are we interested merely in the output, or no how the predictors influence the output?        What is , the number of data points?            What is , the number of variables?          "
+},
+{
+  "id": "day02-WS2",
+  "level": "2",
+  "url": "day02-worksheet.html#day02-WS2",
+  "type": "Worksheet Exercise",
+  "number": "2",
+  "title": "Group Work.",
+  "body": " Group Work   We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.     Is this classification or regression?      Classification    Nice!      Regression    Is the outcome variable quantitative or qualitative?        Do we want inference or prediction?      Prediction    Nice!      Inference    Are we interested merely in the output, or no how the predictors influence the output?        What is , the number of data points?            What is , the number of variables?          "
+},
+{
+  "id": "sec-exam1-material",
+  "level": "1",
+  "url": "sec-exam1-material.html",
   "type": "Section",
   "number": "",
   "title": "Exam 1 material",
@@ -210,43 +246,43 @@ var ptx_lunr_docs = [
 {
   "id": "day-01-lecture-3-2-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-01-lecture-3-2-1",
+  "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "7",
+  "number": "8",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
 {
   "id": "day-01-lecture-3-2-2",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-01-lecture-3-2-2",
+  "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "8",
+  "number": "9",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
 {
   "id": "day-01-lecture-6",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-01-lecture-6",
+  "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "9",
+  "number": "10",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
 {
   "id": "genAI-discussion",
   "level": "2",
-  "url": "sec-exam1-material0.html#genAI-discussion",
+  "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "10",
+  "number": "11",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
 {
   "id": "day-02-lecture-3",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-3",
+  "url": "sec-exam1-material.html#day-02-lecture-3",
   "type": "Objectives",
   "number": "",
   "title": "Covered in this class",
@@ -255,61 +291,61 @@ var ptx_lunr_docs = [
 {
   "id": "day-02-lecture-5-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-5-1",
+  "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "11",
+  "number": "12",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
 {
   "id": "day02-ad-data-ex1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-ad-data-ex1",
+  "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "12",
+  "number": "13",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
 {
   "id": "day02-ad-data-ex2",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-ad-data-ex2",
+  "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "13",
+  "number": "14",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
 {
   "id": "day02-GW1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW1",
-  "type": "Checkpoint",
-  "number": "14",
-  "title": "",
-  "body": "  What is ?         "
-},
-{
-  "id": "day02-GW2",
-  "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW2",
+  "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
   "number": "15",
   "title": "",
   "body": "  What is ?         "
 },
 {
-  "id": "day02-GW3",
+  "id": "day02-GW2",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW3",
+  "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
   "number": "16",
   "title": "",
   "body": "  What is ?         "
 },
 {
+  "id": "day02-GW3",
+  "level": "2",
+  "url": "sec-exam1-material.html#day02-GW3",
+  "type": "Checkpoint",
+  "number": "17",
+  "title": "",
+  "body": "  What is ?         "
+},
+{
   "id": "day-02-lecture-17-3-1-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-17-3-1-1",
+  "url": "sec-exam1-material.html#day-02-lecture-17-3-1-1",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -318,7 +354,7 @@ var ptx_lunr_docs = [
 {
   "id": "day-02-lecture-17-3-2-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-17-3-2-1",
+  "url": "sec-exam1-material.html#day-02-lecture-17-3-2-1",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -327,61 +363,61 @@ var ptx_lunr_docs = [
 {
   "id": "day02-GW4",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW4",
+  "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "17",
+  "number": "18",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
 {
   "id": "day02-GW5",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW5",
+  "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "18",
+  "number": "19",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
 {
   "id": "day02-GW6",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW6",
+  "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "19",
+  "number": "20",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
 {
   "id": "day02-GW7",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW7",
+  "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "21",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
 {
   "id": "day02-GW8",
   "level": "2",
-  "url": "sec-exam1-material0.html#day02-GW8",
+  "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "22",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
 {
   "id": "day-02-lecture-30",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-30",
+  "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "22",
+  "number": "23",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons      "
 },
 {
   "id": "day-02-lecture-33-2-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-33-2-1",
+  "url": "sec-exam1-material.html#day-02-lecture-33-2-1",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -390,20 +426,65 @@ var ptx_lunr_docs = [
 {
   "id": "day-02-lecture-33-3-1",
   "level": "2",
-  "url": "sec-exam1-material0.html#day-02-lecture-33-3-1",
+  "url": "sec-exam1-material.html#day-02-lecture-33-3-1",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Unsupervised learning "
 },
 {
-  "id": "homework",
+  "id": "homework-2",
   "level": "1",
-  "url": "homework.html",
-  "type": "Chapter",
+  "url": "homework-2.html",
+  "type": "Worksheet",
   "number": "",
-  "title": "Homework",
-  "body": " Homework   "
+  "title": "Homework 01",
+  "body": " Homework 01    The Homework is due Friday, Sep 11, 2026, at 11:59 p.m. and must be submitted to Crowdmark . See late homework policy in the syllabus.   All homework must be submitted to Crowdmark.    For coding problems, you will only submit screenshots of your code and output to Crowdmark (no Python code to submit). For non-coding problems, you wil submit a scan or image of your handwritten work.    Submit individual pdfs\/screenshots for each problem to the corresponding prompt in Crowdmark. Please do not submit one pdf containing all the solutions to each prompt. Each problem will be graded separately.    The instructional team has the right to request the original code for any problem.     The problems listed below are from the textbook .      This exercise involves the Auto data set . Make sure that the missing values have been removed from the data (Problem 2.4.9 in the textbook).     Which of the predictors are quantitative, and which are qualitative?      What is the range of each quantitative predictor?    You can asnwer this using min() and max() methods in numpy .      What are the mean and standard deviation of each quantitative predictor?      Now remove the 10th through 85th observations. What are the range, mean, and standard deviation of each predictor in the subset of the data that remains?      Using the full data set, investigate the predictors graphically using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.   Include images with your Crowdmark submission.       Suppose that we wish to predict gas mileage ( mpg ) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg ? Justify your answer.         Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide and (Problem 2.4.2 in the textbook).     We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.      We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.      We are interested in predicting the % change in the USD\/Euro exchange rate in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the USD\/Euro, the % change in the US market, the % change in the British market, and the % change in the German market.         We now revisit the bias-variance decomposition (Problem 2.4.3 in the textbook).     Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one   We have only done irreducible error, not Bayes error since that has to do with classification.       Explain why each of the five curves has the shape displayed in part (a).         You will now think of some real-life applications for statistical learning (Problem 2.4.4(a)-(b) in the textbook).     Describe three real-life applications in which classification might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.      Describe three real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.         This exercise relates to the College data set, which can be found in the file College.csv on the book website. It contains a number of variables for 777 different universities and colleges in the US (Problem 2.4.8c-h in the textbook). The variables are  College: College Data Set     Private  Public\/private indicator    Apps  Number of applications received    Accept  Number of applicants accepted    Enroll  Number of new students enrolled    Top10perc  New students from top 10% of high school class    Top25perc  New students from top 25% of high school class    F.Undergrad  Number of full-time undergraduates    P.Undergrad  Number of part-time undergraduates    Outstate  Out-of-state tuition    Room.Board  Room and board costs    Books  Estimated book costs    Personal  Estimated personal spending    PhD  Percent of faculty with Ph.D.s    Terminal  Percent of faculty with terminal degree    S.F.Ratio  Student\/faculty ratio    perc.alumni  Percent of alumni who donate    Expend  Instructional expenditure per student    Grad.Rate  Graduation rate         There is a typo in 2.4.8f, at least with respect to the version of the data set we have. The information in the Top10perc column is a percentage 0-100 rather than a value between 0 and 1. So use the following replacement code instead.  college['Elite'] = pd.cut(college['Top10perc'], [0,50,100], labels=['No', 'Yes'])       Use the pd.read_csv() function to read the data into Python. Make sure that you have the directory set to the correct location for the data.      Use the describe() method of to produce a numerical summary of the variables in the data set.      Use the pd.plotting.scatter_matrix() function to produce a scatterplot matrix of the first columns [Top10perc, Apps, Enroll] . Recall that you can reference a list C of columns of a data frame A using A[C].      Use the boxplot() method of college to produce side-by-side boxplots of Outstate versus Private .      Create a new qualitative variable, called Elite , by binning the Top10perc variable into two groups based on whether or not the proportion of students coming from the top 10% of their high school classes exceeds 50%.  college['Elite'] = pd.cut(college['Top10perc'], [0,50,100], labels=['No', 'Yes'])  Use the value_counts() method to determine how many elite universities there are. Finally, use boxplot() method again to produce side-by-side boxplots of Outstate versus Elite .      Use the plot.hist() method of college to produce some histograms with differing numbers of bins for a few of the quantitative variables.  The command plt.subplots(2, 2) may be useful: it will divide the plot window into four regions so that four plots can be made simultaneously. By changing the arguments you can divide the screen up in other combinations.        Continue exploring the data, and provide a brief summary of what you discover.      "
+},
+{
+  "id": "hw01-P2-4-9",
+  "level": "2",
+  "url": "homework-2.html#hw01-P2-4-9",
+  "type": "Worksheet Exercise",
+  "number": "1",
+  "title": "",
+  "body": "  This exercise involves the Auto data set . Make sure that the missing values have been removed from the data (Problem 2.4.9 in the textbook).     Which of the predictors are quantitative, and which are qualitative?      What is the range of each quantitative predictor?    You can asnwer this using min() and max() methods in numpy .      What are the mean and standard deviation of each quantitative predictor?      Now remove the 10th through 85th observations. What are the range, mean, and standard deviation of each predictor in the subset of the data that remains?      Using the full data set, investigate the predictors graphically using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.   Include images with your Crowdmark submission.       Suppose that we wish to predict gas mileage ( mpg ) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg ? Justify your answer.    "
+},
+{
+  "id": "hw01-P2-4-2",
+  "level": "2",
+  "url": "homework-2.html#hw01-P2-4-2",
+  "type": "Worksheet Exercise",
+  "number": "2",
+  "title": "",
+  "body": "  Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide and (Problem 2.4.2 in the textbook).     We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.      We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.      We are interested in predicting the % change in the USD\/Euro exchange rate in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the USD\/Euro, the % change in the US market, the % change in the British market, and the % change in the German market.    "
+},
+{
+  "id": "hw01-P-2-4-3",
+  "level": "2",
+  "url": "homework-2.html#hw01-P-2-4-3",
+  "type": "Worksheet Exercise",
+  "number": "3",
+  "title": "",
+  "body": "  We now revisit the bias-variance decomposition (Problem 2.4.3 in the textbook).     Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one   We have only done irreducible error, not Bayes error since that has to do with classification.       Explain why each of the five curves has the shape displayed in part (a).    "
+},
+{
+  "id": "hw01-P-2-4-4",
+  "level": "2",
+  "url": "homework-2.html#hw01-P-2-4-4",
+  "type": "Worksheet Exercise",
+  "number": "4",
+  "title": "",
+  "body": "  You will now think of some real-life applications for statistical learning (Problem 2.4.4(a)-(b) in the textbook).     Describe three real-life applications in which classification might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.      Describe three real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.    "
+},
+{
+  "id": "hw01-P2-4-8",
+  "level": "2",
+  "url": "homework-2.html#hw01-P2-4-8",
+  "type": "Worksheet Exercise",
+  "number": "5",
+  "title": "",
+  "body": "  This exercise relates to the College data set, which can be found in the file College.csv on the book website. It contains a number of variables for 777 different universities and colleges in the US (Problem 2.4.8c-h in the textbook). The variables are  College: College Data Set     Private  Public\/private indicator    Apps  Number of applications received    Accept  Number of applicants accepted    Enroll  Number of new students enrolled    Top10perc  New students from top 10% of high school class    Top25perc  New students from top 25% of high school class    F.Undergrad  Number of full-time undergraduates    P.Undergrad  Number of part-time undergraduates    Outstate  Out-of-state tuition    Room.Board  Room and board costs    Books  Estimated book costs    Personal  Estimated personal spending    PhD  Percent of faculty with Ph.D.s    Terminal  Percent of faculty with terminal degree    S.F.Ratio  Student\/faculty ratio    perc.alumni  Percent of alumni who donate    Expend  Instructional expenditure per student    Grad.Rate  Graduation rate         There is a typo in 2.4.8f, at least with respect to the version of the data set we have. The information in the Top10perc column is a percentage 0-100 rather than a value between 0 and 1. So use the following replacement code instead.  college['Elite'] = pd.cut(college['Top10perc'], [0,50,100], labels=['No', 'Yes'])       Use the pd.read_csv() function to read the data into Python. Make sure that you have the directory set to the correct location for the data.      Use the describe() method of to produce a numerical summary of the variables in the data set.      Use the pd.plotting.scatter_matrix() function to produce a scatterplot matrix of the first columns [Top10perc, Apps, Enroll] . Recall that you can reference a list C of columns of a data frame A using A[C].      Use the boxplot() method of college to produce side-by-side boxplots of Outstate versus Private .      Create a new qualitative variable, called Elite , by binning the Top10perc variable into two groups based on whether or not the proportion of students coming from the top 10% of their high school classes exceeds 50%.  college['Elite'] = pd.cut(college['Top10perc'], [0,50,100], labels=['No', 'Yes'])  Use the value_counts() method to determine how many elite universities there are. Finally, use boxplot() method again to produce side-by-side boxplots of Outstate versus Elite .      Use the plot.hist() method of college to produce some histograms with differing numbers of bins for a few of the quantitative variables.  The command plt.subplots(2, 2) may be useful: it will divide the plot window into four regions so that four plots can be made simultaneously. By changing the arguments you can divide the screen up in other combinations.        Continue exploring the data, and provide a brief summary of what you discover.    "
 }
 ]
 

@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-001-lec09-introclassification-worksheet" component="ws09">
+  <title>Jupyter Day 9 - Section 001: Lec 9 - Intro to Classification</title>
+  <introduction>
+    <program language="python">
+      # Standard imports
+      import numpy as np 
+      import matplotlib.pyplot as plt
+      import pandas as pd 
+      %matplotlib inline
+      import seaborn as sns
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data">
+    <title>Reading in the chicken or egg data</title>
+    <p>In this lab, we are going to try out the KNN classification described in class. First, we're going to load up our data. This data is 100% made up by Dr. Munch and the code can generate it can be found on the <url href="../../../DataSets/DataSets.md">DataSets page</url>. Based on two inputs <m>x_1</m> and <m>x_2</m>, we get to predict whether we have a <c>chicken</c> or an <c>egg</c>.</p>
+    <!-- unsupported HTML omitted from source cell 4 -->
+    <p>Go get the data from <url href="../../../DataSets/DataSets.md">the class website</url> then run the following.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/bfae9d1905fec60d2deb1e6affcecf8a/ChickenEgg.csv"
+      Chick_df = pd.read_csv('../../../DataSets/ChickenEgg.csv')
+      Chick_df.head(10)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>The first step is always to do some data exploration.</p>
+              <p>Draw a scatter plot of your data with the relevant labels.</p>
+            </statement>
+            <hint>
+              <p>There are many ways to do this, but <c>sns.scatterplot</c> often works the fastest, and if you set <c>hue</c> and/or <c>style</c> to the <c>Label</c> column, you should get the labels drawn as color and/or symbol.</p>
+            </hint>
+            <hint>
+              <p>Map <c>x1</c> to the horizontal axis and <c>x2</c> to the vertical axis, then use the <c>Label</c> column to distinguish the classes.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A plot without class-dependent color or marker information cannot show how chickens and eggs are separated.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  sns.scatterplot(
+                      data=Chick_df, x='x1', y='x2',
+                      hue='Label', style='Label'
+                  ).set(title='Chicken or Egg?')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on your scatter plot, what you expect a KNN classifer with <m>k=1</m> to predict for a data point at <m>(-4,4)</m>? What about at <m>(6,0)</m>?</p>
+            </statement>
+            <hint>
+              <p>For <m>k=1</m>, locate the single closest plotted observation to each requested point.</p>
+            </hint>
+            <hint>
+              <p>Assign each point the class label of that nearest observation.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> These are visual predictions from the scatter plot, so treat them as informed estimates rather than exact calculations.</p>
+            </hint>
+            <answer>
+              <p>From the plot, <m>(-4,4)</m> is expected to be classified as <c>chicken</c>, while <m>(6,0)</m> is expected to be classified as <c>egg</c>.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn">
+    <title>KNN with <c>sklearn</c></title>
+    <p>Ok, but let's be honest, no one is going to do this by hand everytime. Let's make <c>sklearn</c> do it for us!</p>
+    <program language="python">
+      from sklearn.neighbors import KNeighborsClassifier
+    </program>
+    <p>First, we're going to split our data into two pieces. The <m>X</m> input variables, and the <m>Y</m> output variable.</p>
+    <program language="python">
+      X = Chick_df.drop('Label', axis =1)
+      y = Chick_df['Label']
+    </program>
+    <program language="python">
+      X.head()
+    </program>
+    <program language="python">
+      y.head(10)
+    </program>
+    <p>Then the following code trains our classifier.</p>
+    <program language="python">
+      knn = KNeighborsClassifier(n_neighbors=1)
+      knn.fit(X,y)
+    </program>
+    <p>...and this command provides a prediction for an input of <m>(-2,3)</m> input.</p>
+    <program language="python">
+      knn.predict(pd.DataFrame([[-2, 3]], columns=X.columns))
+    </program>
+    <p>This predict function is pretty powerful. If I want to get all predictions for all of my inputs, I can just pass my <m>X</m> dataframe.</p>
+    <program language="python">
+      knn.predict(X)
+    </program>
+    <p>Remember what all the actual labels were?</p>
+    <program language="python">
+      np.array(y)
+    </program>
+    <p>Now, I could sit here and go through one by one to see if they have the same predicted value as the label to decide on my accuracy. But, as usual, <c>sklearn</c> comes to the rescue.</p>
+    <program language="python">
+      from sklearn.metrics import accuracy_score
+
+      accuracy_score(knn.predict(X),y)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What does your classifier predict for <m>(-4,4)</m>? What about at <m>(6,0)</m>? Are these the same that you guessed above?</p>
+              <program language="python">
+                <code>
+                  # Use the same feature names and order as X.
+                  new_points = pd.DataFrame(
+                      [[-4, 4], [6, 0]],
+                      columns=X.columns
+                  )
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Create a two-row DataFrame whose columns match <c>X.columns</c>.</p>
+            </hint>
+            <hint>
+              <p>Pass the complete DataFrame to <c>knn.predict</c> to classify both points at once.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Scikit-learn expects two features per observation here; keep each point as one row rather than flattening both points into a single row.</p>
+            </hint>
+            <answer>
+              <p>The fitted <m>k=1</m> classifier predicts <c>chicken</c> for <m>(-4,4)</m> and <c>egg</c> for <m>(6,0)</m>, agreeing with the visual guesses.</p>
+              <program language="python">
+                <code>
+                  new_points = pd.DataFrame([[-4, 4], [6, 0]], columns=X.columns)
+                  knn.predict(new_points)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-train-test-splits">
+    <title>Train test splits</title>
+    <p>Ok, so you got 100% accuracy! You're done, right????</p>
+    <p><alert>Wrong!</alert></p>
+    <p>We know better than to report our training accuracy as our actual accuracy! So, let's set up some basic train/test splits!</p>
+    <program language="python">
+      from sklearn.model_selection import train_test_split
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+    </program>
+    <p>In this case, the <c>X_train</c> data frame has the inputs we'll use for training...</p>
+    <program language="python">
+      print(X_train.shape)
+      X_train.head()
+    </program>
+    <p>..., and the <c>y_train</c> has the outputs for those same data points.</p>
+    <program language="python">
+      print(y_train.shape)
+      y_train.head()
+    </program>
+    <p>The <c>X_test</c> data frame has the rest of the inputs which we'll use for testing, and the <c>y_test</c> has the outputs for those same data points. We don't get to touch these until after the training is all done! Otherwise we are data-snooping!</p>
+    <program language="python">
+      print(X_test.shape)
+      X_test.head(10)
+    </program>
+    <program language="python">
+      print(y_test.shape)
+      y_test.head(10)
+    </program>
+    <p>I want to show you one more nice command in here. Remember that KNNs work by returning the label of the most frequently seen label among the <m>k</m> numbers, but that doesn't mean every neighbor had that label.</p>
+    <p>The <c>predict_proba</c> function will tell you the percentage of each that was seen.</p>
+    <program language="python">
+      knn.predict_proba(X_test)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Build a KNN classifier using <m>k=3</m> neighbors, train it on <c>X_train</c> and <c>y_train</c>, and call the fitted classifier <c>knn</c>.</p>
+              <program language="python">
+                <code>
+                  knn = KNeighborsClassifier(n_neighbors=...)
+                  knn.fit(..., ...)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Set <c>n_neighbors=3</c> when constructing <c>KNeighborsClassifier</c>.</p>
+            </hint>
+            <hint>
+              <p>Fit only on <c>X_train</c> and <c>y_train</c>; the test data must remain untouched until evaluation.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not train on <c>X_test</c> or <c>y_test</c>; doing so leaks test information into the model.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  knn = KNeighborsClassifier(n_neighbors=3)
+                  knn.fit(X_train, y_train)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on the KNN classifier above.</p>
+              <p><ul>
+                <li>
+                  <p>What is your training accuracy?</p>
+                </li>
+                <li>
+                  <p>What is your testing accuracy?</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  train_predictions = knn.predict(...)
+                  test_predictions = knn.predict(...)
+
+                  print('Train:', accuracy_score(..., ...))
+                  print('Test:', accuracy_score(..., ...))
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Generate predictions for <c>X_train</c> and compare them with <c>y_train</c>; repeat with the two test objects.</p>
+            </hint>
+            <hint>
+              <p>Use <c>accuracy_score(true_labels, predicted_labels)</c> for each split.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep training predictions paired with training labels and test predictions paired with test labels; crossing the splits gives a meaningless comparison.</p>
+            </hint>
+            <answer>
+              <p>The exact values depend on the random train/test split. For the split stored in the instructor notebook, the training accuracy is about 0.975 and the testing accuracy is about 0.889.</p>
+              <program language="python">
+                <code>
+                  train_predictions = knn.predict(X_train)
+                  test_predictions = knn.predict(X_test)
+                  print('Train:', accuracy_score(y_train, train_predictions))
+                  print('Test:', accuracy_score(y_test, test_predictions))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-bayes-classifier">
+    <title>Bayes classifier</title>
+    <p>Now, because I generated our data so I know the real Bayes decision boundary, we can take a look at how our results match up with the Bayes classifier.</p>
+    <p>First, I am going to set up some code that will figure out what your model, named <c>knn</c> above hopfully, will predict for a grid of numbers covering our <m>[-7,7] \times [-7,7]</m> box.</p>
+    <program language="python">
+      # Run this cell, we just need to generate some inputs 
+      # to be able to draw figures in a moment. 
+      t = np.linspace(-7,7,28)
+      X_mesh,Y_mesh = np.meshgrid(t,t)
+      X_mesh_flat = X_mesh.flatten()
+      Y_mesh_flat = Y_mesh.flatten()
+
+      # The test_all_df is a dataframe with all the possible inputs of x1 and x2, so if we predict on all of them we can see the decision boundary.
+      test_all_df = pd.DataFrame({'x1':X_mesh_flat,'x2':Y_mesh_flat})
+    </program>
+    <program language="python">
+      pred_all = knn.predict(test_all_df)
+      def to_int(chickegg):
+          if chickegg == 'egg':
+              return -1
+          else:
+              return 1
+
+      pred_all = np.array([to_int(x) for x in pred_all])
+      pred_all.shape
+      pred_all = pred_all.reshape([28,28])
+    </program>
+    <p>Then this will plot these predictions on our 2D plane.</p>
+    <program language="python">
+      plt.pcolor(X_mesh,Y_mesh,pred_all)
+
+      cbar = plt.colorbar(ticks=[-1, 1])
+      cbar.ax.set_yticklabels(['egg','chicken'])
+
+      # Just for comparison, I can also plot my original data points on top. Uncomment the line below to see that.
+      # sns.scatterplot(data = Chick_df, x = 'x1', y = 'x2', style = 'Label').set(title = 'Chicken or Egg?')
+    </program>
+    <program language="python">
+      # This command tries to draw a line between the two regions 
+      plt.pcolor(X_mesh,Y_mesh,pred_all)
+
+      cbar = plt.colorbar(ticks=[-1, 1])
+      cbar.ax.set_yticklabels(['egg','chicken'])
+
+      # This draws the line I used to generate the data 
+      ty = np.linspace(-2.1,2.1,100)
+      tx = ty**3 - ty
+      plt.plot(tx,ty, color = 'grey')
+
+      # Again, you can uncomment the line below to the original data overlaid.
+      # sns.scatterplot(data = Chick_df, x = 'x1', y = 'x2', style = 'Label').set(title = 'Chicken or Egg?')
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Using this plot, what is your model going to predict for a data point at <m>(-4,6)</m>?</p>
+            </statement>
+            <response/>
+            <hint>
+              <p>Locate <m>x_1=-4</m> and <m>x_2=6</m> on the colored decision-region plot.</p>
+            </hint>
+            <hint>
+              <p>Use the colorbar to translate that region's color into a class label.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Read the background decision-region color, not merely the label of a nearby overlaid training point.</p>
+            </hint>
+            <answer>
+              <p>The point <m>(-4,6)</m> lies in the region labeled <c>chicken</c>, so the model predicts <c>chicken</c>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Note that since I generated this data, I know where the line was between the two regions used to generate it. In my case, I happened to use the function</p>
+              <p><md>
+              f(x_1,x_2) = (x_2)^3 - x_2 -x_1
+              </md></p>
+              <p>and labeled a new data point based on whether <m>f(x_1,x_2) + \varepsilon</m> was positive or negative.</p>
+              <p>Below, you can see <m>f(x_1,x_2)</m> (in this case, the Bayes classifier) drawn on top of your model's predictions. How similar did your KNN get?</p>
+              <p>Where are the regions that your model predicts something different than the Bayes classifier?</p>
+            </statement>
+            <hint>
+              <p>Compare the KNN background-color boundary with the gray curve representing the Bayes decision boundary.</p>
+            </hint>
+            <hint>
+              <p>Look especially near the boundary, near isolated noisy observations, and in areas with few observations.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not expect an exact match: finite noisy training data make a local classifier's boundary irregular, especially in sparse regions.</p>
+            </hint>
+            <answer>
+              <p>Disagreements are concentrated near the true decision boundary and in noisy or sparsely sampled regions. Away from the boundary where observations are dense, KNN approximates the Bayes classifier reasonably well.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-messing-with-k">
+    <title>Messing with <m>k</m></title>
+    <p>Finally, we're going to generate plots like Fig 2.17 in the book, where we look at the training and testing errors vs the flexibility (in this case, <m>1/k</m>) of the model used.</p>
+    <program language="python">
+      # Our choices of $K$
+      # Note that the graph will use $1/k$ for flexibility
+      Kinv = np.array([0.04, 0.05,0.2,0.5,1])
+      Ks = 1/Kinv
+      Ks = Ks.astype(int)
+      print(Ks)
+
+      Accuracies = []
+      TrainAccuracies = []
+
+
+      # I'm going to run this model for all my choices of k
+      for k in Ks:
+          thisruntest = []
+          thisruntrain = []
+
+          # For each choice of k, i'll do this 10 times and average
+          for runNum in range(50):
+              X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+              knn = KNeighborsClassifier(n_neighbors=k)
+              knn.fit(X_train,y_train)
+
+              # Figure out my training error rate 
+              acctrain = accuracy_score(knn.predict(X_train),y_train)
+              thisruntrain.append(1-acctrain)
+
+              # Figure out my testing error rate
+              acctest = accuracy_score(knn.predict(X_test),y_test)
+              thisruntest.append(1-acctest)
+
+          # Keep the average over the 10 runs
+          TrainAccuracies.append(np.average(thisruntrain))
+          Accuracies.append(np.average(thisruntest))
+
+
+      # Plot train and test with x-axis on a log scale
+      plt.semilogx(1/Ks,Accuracies, label = 'Test', marker = 'x')
+      plt.semilogx(1/Ks,TrainAccuracies, label = 'Train', marker = 'o')
+      plt.xlabel('1/k')
+      plt.ylabel('Error rate')
+      plt.legend()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on your graph above</p>
+              <p><ul>
+                <li>
+                  <p>What do you notice about the shape of the train and test error plots?</p>
+                </li>
+                <li>
+                  <p>What would you choose for <m>k</m> based on this data?</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Remember that larger <m>1/k</m> means smaller <m>k</m> and therefore a more flexible classifier.</p>
+            </hint>
+            <hint>
+              <p>Look for the test-error minimum rather than simply choosing the most flexible model or the model with the smallest training error.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The smallest training error does not identify the best value of <m>k</m> for new data; very small <m>k</m> can overfit.</p>
+            </hint>
+            <answer>
+              <p>Training error generally falls as the model becomes more flexible (smaller <m>k</m>), while test error is typically U-shaped: large <m>k</m> underfits and very small <m>k</m> overfits. Choose the intermediate tested <m>k</m> with the lowest test error; the exact winner can vary because the splits are random.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

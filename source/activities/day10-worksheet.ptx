@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-001-lec10-logisticregression-worksheet" component="ws10">
+  <title>Jupyter - Day 10 - Section 001: Lec 10: Logistic Regression</title>
+  <introduction>
+    <program language="python">
+      import numpy as np 
+      import matplotlib.pyplot as plt
+      import pandas as pd 
+      %matplotlib inline
+      import seaborn as sns
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-001-lec10-logisticregression-worksheet-getting-a-feel-for-the-data">
+    <title>Getting a feel for the data</title>
+    <p>We're going to use the <c>Default</c> data set from the ISLR book as included in their R package. I've included a csv on the <url href="../../DataSets/DataSets.md">DataSets page</url> for you to use.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/0bf0b0b65f603971cd33a04ad934449c/Default.csv"
+      Default = pd.read_csv(url)
+      Default.head()
+    </program>
+    <program language="python">
+      # Here's all the entries in the "default" column
+      list(Default['default'].unique())
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression">
+    <title>Classification using Logistic Regression</title>
+    <p>Our goal is to predict <c>default</c>, a categorical variable taking as values the strings <c>No</c> and <c>Yes</c>.</p>
+    <p>For this module, we will largely use the tools from <c>sklearn</c> for classification. One of the big perks of the <c>sklearn</c> module is that there is a great deal of uniformity in the classes. So once we have a handle on how to interact with one kind of classification tool, very minor tweaks in the code will allow for the use of a new model. In fact, many of the things we'll do today should look very similar in terms of the syntax to the linear regression lab from a few weeks ago.</p>
+    <p>For our first try doing classification, we'll use <c>LogisticRegression</c> from the <c>sklearn.linear_model</c> module. I'm a huge fan of the <c>sklean</c> documentaiton since it includes a great deal of info on the math behind what we're doing as well as explanations on the code:</p>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"><c>sklearn</c> mathematical description of logistic regression</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression"><c>LogisticRegression</c> class documentation</url></p>
+      </li>
+    </ul></p>
+    <program language="python">
+      from sklearn.linear_model import LogisticRegression
+    </program>
+    <p>Lets first predict <c>default</c> using <c>balance</c>.
+    Our first job is to extract the portion of the dataframe that we want to use.</p>
+    <program language="python">
+      X = Default[['balance']] 
+      Y = Default['default']
+    </program>
+    <program language="python">
+      print(X.shape)
+      print(Y.shape)
+    </program>
+    <p>Once we have our data, we create an instance of the model class we want, in this case <c>LogisticRegression</c>, and fit the model to the data. Note the <c>random_state=0</c> code ensures that rerunning the following box will return the same answer every time.</p>
+    <program language="python">
+      clf = LogisticRegression(random_state=0)
+      clf.fit(X,Y)
+    </program>
+    <p>One thing that is helpful for later is the <c>.classes_</c> variable which stores the possible values of <m>Y</m> being predicted. Take note of the order of these things, it will matter later!</p>
+    <program language="python">
+      clf.classes_
+    </program>
+    <p>Great, that was easy! Once we've fit the model, the main task is to understand how to extract information from it.</p>
+    <program language="python">
+      # Checking up on the order of classes 
+
+      clf.classes_
+    </program>
+    <p><alert>Confusion matrix</alert></p>
+    <p>As we saw in class, the percent error is a rather limited way of evaluating the classification model. Luckily <c>sklearn</c> provides commands for computing the confusion matrix for a given model easily. The <c>confusion_matrix</c> command computes the confusion matrix, and <c>ConfusionMatrixDisplay</c> gives a nice visual representation.</p>
+    <program language="python">
+      from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+    </program>
+    <program language="python">
+      # This code gives the confusion matrix, assuming you stored the predicted values as `Yhat`.
+      C = confusion_matrix(Y,Yhat)
+
+      C
+    </program>
+    <program language="python">
+      # This code gives a visual representation 
+      ConfusionMatrixDisplay(C).plot()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Extract the coefficient and intercept from the trained logistic-regression model. What is the fitted <alert>log-odds</alert> equation in terms of <c>balance</c>?</p>
+            </statement>
+            <hint>
+              <p>Scikit-learn stores the intercept in <c>clf.intercept_</c> and the slope coefficients in <c>clf.coef_</c>.</p>
+            </hint>
+            <hint>
+              <p>For the positive class, write <m>\log(p/(1-p))=\beta_0+\beta_1\,balance</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the intercept and slope in the correct order: the scalar near -10.65 is the intercept, while the value near 0.0055 multiplies <c>balance</c>.</p>
+            </hint>
+            <answer>
+              <p>The fitted log-odds equation for the positive class (<c>Yes</c>) is <md>\log\left(\frac{p(X)}{1-p(X)}\right)=-10.6513+0.005499\,balance,</md> where <m>p(X)=Pr(default=Yes\mid balance)</m>.</p>
+              <program language="python">
+                <code>
+                  print('Intercept:', clf.intercept_[0])
+                  print('Balance coefficient:', clf.coef_[0, 0])
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Extract the coefficients and intercept from the trained model.</p>
+              <p><ul>
+                <li>
+                  <p>Be specific about what probability you are modeling!</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Check <c>clf.classes_</c>; for binary logistic regression, <c>coef_</c> describes the log odds of <c>classes_[1]</c>.</p>
+            </hint>
+            <hint>
+              <p>Convert the linear predictor <m>\eta</m> to a probability using <m>p=\exp(\eta)/(1+\exp(\eta))</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not say that the fitted coefficient models the first class (<c>No</c>); scikit-learn's binary coefficient corresponds to the second class (<c>Yes</c>).</p>
+            </hint>
+            <answer>
+              <p>Let <m>\eta=-10.6513+0.005499\,balance</m>. The fitted probability is <md>Pr(default=Yes\mid balance)=\frac{e^{\eta}}{1+e^{\eta}}.</md> The probability of <c>No</c> is <m>1-p(X)</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use <c>predict_proba</c> to determine the fitted class probabilities for every row in <c>X</c>. What is the output shape, and what does each column represent?</p>
+              <program language="python">
+                <code>
+                  probabilities = clf.predict_proba(X)
+                  print(probabilities.shape)
+                  print(clf.classes_)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>The output has one row per observation and one column per entry of <c>clf.classes_</c>.</p>
+            </hint>
+            <hint>
+              <p>Use <c>clf.classes_</c> rather than guessing the column order; each row of probabilities should sum to 1.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The second column is the probability of <c>Yes</c>, not a separate prediction; <c>predict</c> chooses the class with the larger probability.</p>
+            </hint>
+            <answer>
+              <p>The result has shape <c>(10000, 2)</c>: one row for each observation and two columns. Since <c>clf.classes_</c> is <c>['No', 'Yes']</c>, column 0 is <m>Pr(No\mid X)</m> and column 1 is <m>Pr(Yes\mid X)</m>.</p>
+              <program language="python">
+                <code>
+                  probabilities = clf.predict_proba(X)
+                  print(probabilities.shape)
+                  print(clf.classes_)
+                  print(probabilities[:5])
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Of course this gives us the probability of each each label for a given data, but we really would like to have the prediction itself.</p>
+              <p>(a). Use the <c>predict</c> function to determine the predictions for each input data point in the original <m>X</m> matrix and store the output as <c>Yhat</c>.</p>
+              <program language="python">
+                <code>
+                  Yhat = clf.predict(...)
+                  Yhat
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Pass the same feature matrix <c>X</c> used for fitting to <c>clf.predict</c>.</p>
+            </hint>
+            <hint>
+              <p>The returned array contains class labels, whereas <c>predict_proba</c> returns probabilities.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use <c>argmax</c> on the feature matrix; let the fitted classifier convert the observations to labels.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  Yhat = clf.predict(X)
+                  Yhat
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>(b). How many predictions are different than the actual <c>Direction</c> value? Whats the percent error for the model?</p>
+            </statement>
+            <hint>
+              <p>A Boolean comparison such as <c>Yhat != Y</c> identifies every misclassified row.</p>
+            </hint>
+            <hint>
+              <p>The error rate is the number of mismatches divided by the total number of observations; multiply by 100 for a percentage.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Accuracy and error rate are complements: error rate is <c>1 - accuracy</c>, not the accuracy itself.</p>
+            </hint>
+            <answer>
+              <p>There are 275 incorrect predictions out of 10,000 observations, so the training error is <m>275/10000=0.0275</m>, or 2.75%.</p>
+              <program language="python">
+                <code>
+                  incorrect = np.sum(Yhat != Y)
+                  error_rate = incorrect / len(Y)
+                  print('Incorrect:', incorrect)
+                  print('Percent error:', 100 * error_rate)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>An even easier way of figuring out the error rate is through the score. What does the output of <c>clf.score(X,Y)</c> mean and how is it related to the number you determined above?</p>
+            </statement>
+            <hint>
+              <p>For a scikit-learn classifier, <c>.score(X, Y)</c> returns mean classification accuracy.</p>
+            </hint>
+            <hint>
+              <p>Subtract the score from 1 to recover the error proportion calculated in the previous exercise.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Classifier <c>.score</c> is accuracy, but a regressor's <c>.score</c> is usually <m>R^2</m>; interpret the method in the context of the estimator type.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Another way to get the answer is to just use the score function which gives the percent correct.
+                  print('Score:', clf.score(X,Y))
+                  print('1-Score is error:', round(1-clf.score(X,Y),4))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>The makers of <c>sklearn</c> made a strange choice when it comes to the confusion matrix representation. What is different about the <c>sklearn</c> confusion matrix from how we saw it in class?</p>
+            </statement>
+            <hint>
+              <p>Read the scikit-learn confusion-matrix convention as <m>C_{i,j}</m>.</p>
+            </hint>
+            <hint>
+              <p>Identify whether index <m>i</m> denotes the true class or the predicted class, then compare with the classroom convention.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Always verify the axis labels before naming false positives and false negatives; transposing the convention swaps their locations.</p>
+            </hint>
+            <answer>
+              <p>Scikit-learn places true labels on the rows and predicted labels on the columns. The convention used in class was the transpose: predicted labels on rows and true labels on columns.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec10-logisticregression-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

@@ -54,7 +54,7 @@
     https://pretextbook.org/doc/guide/html/publication-file-source.html#publication-file-source-version -->
     <!-- In this example, we include the w1s components from the sample activity to show solutions. -->
       <!-- <version include="w1s"/> -->
-      <version include="day01 day02 ws01 ws02 hw01"/>
+      <version include="day01 day02 day03 ws01 ws02 ws03 ws04 ws05 ws06 ws07 ws08 ws09 ws10 ws11 ws12 hw01"/>
 
 
 

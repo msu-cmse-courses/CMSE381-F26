@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- When creating a new activity, make a copy of this file with appropriate name -->
+<section xml:id="day05-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="ws05">
+  <title>Day05 Worksheet</title>
+
+  <introduction>
+    <p>
+      In today's lecture, we are focusing on simple linear
+      regression, that is, fitting models of the form
+      <md>Y =  \beta_0 +  \beta_1 X_1 + \varepsilon</md>
+    </p>
+
+    <p>
+      In this worksheet, we will use two different tools for linear
+      regression.
+      <ul>
+        <li>
+          <p>
+            <url href="https://scikit-learn.org/stable/index.html">Scikit
+            learn</url> is arguably the most used tool for machine learning in python. 
+          </p>
+        </li>
+        <li>
+          <p>
+            <url href="https://www.statsmodels.org">Statsmodels</url> provides many of the statistical models we've been learning in class.
+          </p>
+        </li>
+      </ul>
+    </p>
+          <p>
+      As always, we start with our favorite standard imports. 
+
+    <program language="python">
+    <code>
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+%matplotlib inline
+import seaborn as sns
+
+# Importing the Linear Regression we learned last time from sklearn
+from sklearn.linear_model import LinearRegression
+    </code>
+    </program>    
+    </p>
+    
+    </introduction>
+
+  <subsection xml:id="subsec-ws05-assessing-coefficient-accuracy">
+    <title>Assessing Coefficient Accuracy</title>
+
+<exercises xml:id="ws05-exercises">
+<exercisegroup>
+<introduction>
+    <p>
+      Ok, let's run an example like was shown in class where we see the
+      distribution of possible values.
+    </p>
+<p>
+  Here's code that decides on my function
+</p>
+    <program language="python">
+    <code> 
+def myFunc(x, b0=2, b1=5): 
+    return b0 + b1*x
+        </code>
+    </program>
+
+
+<p>Here's a command that generates 100 random data points from <m>f(x) + epsilon</m></p>
+    <program language="python">
+    <code>
+def makeData(n = 100):
+    X = np.random.uniform(-2,2,n)
+    y = myFunc(X) + np.random.normal(size = n)
+    return X,y
+    </code>
+    </program>
+
+<p>Every time you run this cell, you get slightly different data</p>
+    <program language="python">
+        <code>
+X,y = makeData()
+
+plt.scatter(X,y)
+    </code>
+    </program>
+    <p>Which means that every time you run this cell, you get a slightly different choice of coefficients for the learned model</p>
+        <program language="python">
+    <code>
+X,y = makeData()
+X = X.reshape([len(X),1])
+y = y.reshape([len(y),1])
+reg = LinearRegression()
+reg.fit(X,y)
+print( 'y = '+ str(round(reg.intercept_[0],4)) +' + ' + str(round(reg.coef_[0,0],4)) +  " * x_1"  )
+    </code>
+    </program>
+</introduction>
+
+  <exercise>
+  <label >Simulating data</label>    
+    <task>
+      <p>
+        If we assume that our data is coming from the setting
+        <md>Y = f(X) + \varepsilon</md>, what is <m>\mathrm{Var}(\varepsilon)</m>?
+      </p>
+      <hint>
+        <p>
+          The noise is drawn from a normal distribution which has default setting.
+        </p>
+      </hint>
+      <hint>
+        <p>
+          The default setting of the normal distribution is mean=0 and std=1.  
+        </p>
+      </hint>
+      <answer>
+        <p>
+          Because the noise is drawn from a normal distribution which has a
+          default setting of std = 1, this means
+          <m>\mathrm{Var}(\varepsilon) = 1^2 = 1</m>.
+        </p>
+      </answer>
+      </task>
+      <task>
+      <introduction>
+        <p>
+          So now, lets just train our linear model lots of times, and collect the resulting coefficients
+          </p>
+          <program language="python">
+            
+    <code>
+beta0_list = []
+beta1_list = []
+for i in range(100):
+    X,y = makeData()
+    X = X.reshape([len(X),1])
+    y = y.reshape([len(y),1])
+    reg = LinearRegression()
+    reg.fit(X,y)
+    beta1_list.append(reg.coef_[0,0])
+    beta0_list.append(reg.intercept_[0])
+
+print(beta1_list)
+    </code>
+    </program>        
+      </introduction>
+        <statement>
+          <p>
+            Make a histogram of <c>beta0_list</c>.          
+          </p>
+        </statement>
+        <answer>
+          <p>
+            <pf>plt.hist(beta0_list)</pf>
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Make a histogram of <c>beta1_list</c>.
+          </p>
+        </statement>
+        <answer>
+          <p>
+            <pf>plt.hist(beta1_list)</pf>
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            What is the mean of each list?
+          </p>
+        </statement>
+        <answer>
+          <p>
+            <pf>print('The mean of beta0_list is:', np.mean(beta0_list))</pf>
+            <pf>print('The mean of beta1_list is:', np.mean(beta1_list))</pf>
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            How does these means compare to the acutal line we used to generate the data?
+          </p>
+        </statement>
+        <answer>
+          <p>
+            The means of the estimated coefficients are close to the true values of <m>beta_0</m> and <m>beta_1</m> used to generate the data.
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            What is the standard deviation of each list?
+          </p>
+        </statement>
+        <answer>
+          <p>
+            <pf>print('std dev of beta0:', np.std(beta0_list))</pf>
+            <pf>print('std dev of beta1:', np.std(beta1_list))</pf>
+          </p>
+        </answer>
+        </task>
+      </exercise>
+      <exercise>
+      <label>Variance in estimation</label>      
+    <introduction>
+      <p>
+        Now let's figure out the variance of the linear regression
+        estimates. First off, we know that
+        <m>\sigma^2 = \mathrm{Var}(\varepsilon) = 1</m>, but let's
+        pretend we didn't make up our own fake data.
+      </p>
+      <p>
+        Start with a single linear regression model
+      </p>
+      <program language="python">
+      <code>
+reg = LinearRegression()
+reg.fit(X,y)
+print( 'y = '+ str(round(reg.intercept_[0],4)) +' + ' + str(round(reg.coef_[0,0],4)) +  " * x_1"  )
+      </code>
+      </program>
+
+
+      <p>
+        We can estimate <m>\sigma</m> using residual standard error:
+        <md>\mathrm{RSE} = \sqrt{\mathrm{RSS}/(n-2)}</md>
+      </p>
+
+      <program language="python">
+      <code>
+predicted = reg.predict(X)
+residuals = y - predicted
+
+RSS = np.sum(residuals**2)
+RSE = np.sqrt(RSS/(len(y)-2))
+      </code>
+      </program>
+
+      <p>
+        Then the following code can compute the standard error of each
+        coefficient
+      </p>
+
+      <program language="python">
+      <code>
+# We're estimating sigma^2 by RSE^2
+sigma_sq = RSE**2
+
+# We have n = 100 data points
+n = 100
+
+# We can calculate the standard error of beta_0 and beta_1 using the formulas we learned in class
+x_bar = np.mean(X)
+denom = np.sum((X - x_bar)**2)
+beta0_var = sigma_sq * (1/n + x_bar**2/denom)
+SE_beta0 = np.sqrt(beta0_var)
+print(f"Standard error of beta0: {SE_beta0}")
+
+
+beta1_var = sigma_sq/denom
+SE_beta1 = np.sqrt(beta1_var)
+print(f"Standard error of beta1: {SE_beta1}")
+      </code>
+      </program>
+
+
+
+      <p>
+        While we had to work a bit to get this to write out the standard
+        errors, we can use the <c>statsmodels</c> library instead of
+        <c>sklearn</c> to get these values directly.
+      </p>
+
+      <program language="python">
+      <code>
+import statsmodels.formula.api as smf
+mydata = pd.DataFrame({'X':X.flatten(), 'y':y.flatten()})
+linreg_smf = smf.ols('y ~ X', data = mydata).fit()
+linreg_smf.summary()
+linreg_smf.summary().tables[1]
+      </code>
+      </program>
+      </introduction>
+      <task>
+        <statement>
+          <p>
+            What is <m>SE(\hat \beta_0)</m> and
+        <m>SE(\hat \beta_1)</m>? Are they the same as what we calculated
+        above?
+          </p>
+        </statement>
+        <answer>
+          <p>
+            Check the <c>std err</c> column. There are
+        almost the same as we calculated.
+          </p>
+        </answer>
+      </task>
+      </exercise>
+      <exercise>
+        <label>Assessing Coefficient Estimate Accuracy</label>
+        <introduction>
+          <p>
+            We will be using the <c>Diabetes</c> data set again, which you looked into from the last class. In case you've forgotten, there is information about the data set <url href="https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset">in the documentation</url>.
+          </p>
+          <program language="python">
+            <code>
+from sklearn.datasets import load_diabetes
+diabetes = load_diabetes(as_frame=True)
+diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
+diabetes_df['target'] = pd.Series(diabetes.target)
+
+diabetes_df
+            </code>            
+          </program>
+          <p>
+            Like last time, we're now going to fit to a simple linear regression to the models
+            <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s1}</md> and
+            <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s5}</md>
+            where the variables are
+            <ul>
+              <li>
+                <p>
+                  <m>\texttt{s1}</m>: tc, total serum cholesterol
+                </p>
+              </li>
+              <li>
+                <p>
+                  <m>\texttt{s5}</m>: ltg, possibly log of serum triglycerides level.
+                </p>
+              </li>
+            </ul>
+            </p>
+            <p>
+            Let's start by looking at using <c>s5</c> to predict <c>target</c>.
+            </p>
+            <p>              
+            Just for completeness, here's our code to do linear regression from last time using <c>sklearn</c>.
+            </p>
+            <program language="python">
+            <code>
+from sklearn.linear_model import LinearRegression
+# sklearn actually likes being handed numpy arrays more than
+# pandas dataframes, so we'll extract the bits we want and just pass it that.
+X = diabetes_df['s5'].values
+X = X.reshape([len(X),1])
+y = diabetes_df['target'].values
+y = y.reshape([len(y),1])
+# This code works by first creating an instance of the linear regression class
+reg = LinearRegression()
+# Then we pass in the data we want it to use to fit.
+reg.fit(X,y)
+
+# and we can get the coefficients we want out of the model from the following code.
+print(reg.coef_)
+print(reg.intercept_)
+
+# We can print
+lineString = str(round(reg.coef_[0,0],4)) + <q>x_1 +</q> + str(round(reg.intercept_[0],4)) 
+print( 'y =',lineString)
+</code>
+</program>
+<p>
+  However today we're interested in statistical tests so
+          we'll be using the <c>statsmodel</c> package. It has more
+          options for statistical tests when available, however it has
+          fewer models available which is why we will using a bit of
+          both in this class.
+</p>
+<program language="python"> 
+  <code>
+import statsmodels.formula.api as smf
+  </code>
+  </program>
+  <note>
+    <p>
+      There is a difference in here where the book uses      
+    </p>
+    <program language="python">
+      <code>
+import statsmodels.api as sm
+model = sm.OLS(y, X)
+      </code>
+    </program>
+    <p>
+      which has some weird stuff with needing to include an intercept column and such. On homework problems and the like you can use this code or follow the book, either is acceptable.
+    </p>
+  </note>
+  <note>
+    <p>
+      Notice that the code is intentially written to look more like R than like python, but it still works! Double check..... the coefficients here should be about the same as those found by scikit-learn 
+    </p>
+    <program language="python">
+      <code>
+est = smf.ols('target ~ s5', diabetes_df).fit()
+est.summary().tables[1]      
+      </code>
+    </program>
+  </note>          
+        </introduction>
+        <task>
+          <statement>
+            <p>
+              What is <m>SE(\hat \beta_0)</m> and <m>SE(\hat \beta_1)</m>?
+            </p>
+          </statement>
+          <answer>
+            <p>
+              <m>SE(\hat \beta_0) = 3.027</m> and <m>SE(\hat \beta_1) = 63.634</m>. They're in the <c>std err</c> column
+            </p>
+          </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              If we instead use <c>s1</c> to predict the target, are <m>SE(\hat \beta_0)</m> and <m>SE(\hat \beta_1)</m> higher or lower than what you found for the <c>s5</c> prediction? Is this reasonable?
+            </p>
+          </statement>
+          <answer>
+            <program language="python">
+              <code>
+est2 = smf.ols(<sq>target ~ s1</sq>, diabetes_df).fit()
+est2.summary().tables[1]
+              </code>
+            </program>
+          </answer>
+          <answer>
+            <p>
+              The error is a bit higher for both, more so for <m>\hat \beta_1</m>. This is reasonable, because better predictors → tighter scatter → smaller uncertainty in coefficients.
+            </p>
+          </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              Try plotting your predictions as a function of <m>s_5</m> alongside scatter plots of the data for comparison.
+            </p>
+          </statement>
+          <answer>
+            <pf>sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)</pf>
+          </answer>
+          <note>
+            <p>
+              Higher error for the slope makes sense because we're looking at less linear data.
+            </p>
+          </note>
+        </task>
+        <task>
+          <statement>
+            <p>
+              What are the confidence intervals for <m>\hat \beta_1</m> in the two cases (the prediction using <c>s1</c> and the prediction using <c>s5</c>)? Which is wider?
+          and why?
+            </p>
+          </statement>
+          <hint>
+            <p>
+              Check out the <c>est.conf_int</c> command or
+          you can find this in the summary tables you've been using
+          earlier.
+            </p>
+          </hint>
+          <answer>
+            <program language="python">
+              <code>
+est = smf.ols('target ~ s5', diabetes_df).fit()
+print(est.conf_int(alpha=0.05))
+
+print('\n')
+
+# print('s1')
+est2 = smf.ols('target ~ s1', diabetes_df).fit()
+print(est2.conf_int(alpha=0.05))            
+              </code>
+            </program>
+          </answer>
+          <answer>
+            <p>
+              The confidence interval for <m>\hat{\beta}_1</m> is wider when using <m>\texttt{s1}</m> because the <m>\texttt{s1}</m> model has larger residual variance, leading to a larger standard error of the slope estimate compared to the <m>\texttt{s5}</m> model.
+            </p>
+          </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              What is the conclusion of the hypothesis test
+              <md>H_0: \text{ There is no relationship between $X$ and $Y$}</md>
+              <md>H_a: \text{ There is some relationship between $X$ and $Y$}</md>
+              at a confidence level of <m>\alpha = 0.05</m>?
+            </p>
+          </statement>
+          <answer>
+            <p>
+              answer is in the table given as the p-value. In this case, it's so small it's basically 0 in all cases. This means we reject the null hypothesis
+              <pf>est.summary().tables[1]</pf>
+            </p>
+          </answer>
+        </task>
+        <task>
+        <introduction>
+          <p>
+            Oh hey look, there's another table with information stored by the statsmodel class.
+          </p>
+          <pf>est.summary().tables[0]</pf>
+        </introduction>
+          <statement>
+            <p>
+              What is <m>R^2</m> for the two models?
+            </p>
+          </statement>
+          <answer>
+            <p>
+              We can get the <m>R^2</m> value in the top right of this table <pf>est2.summary().tables[0]</pf>
+            </p>
+          </answer>
+        </task>
+      </exercise>
+  </exercisegroup>
+</exercises>
+
+
+
+  </subsection>
+<conclusion>
+  <p>
+    Congratulations, we're done!
+  </p>
+  </conclusion>
+</section>
+
+

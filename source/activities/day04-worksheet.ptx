@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- When creating a new activity, make a copy of this file with appropriate name -->
+<section xml:id="day04-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="ws04">
+  <title>Day04 Worksheet</title>
+
+  <introduction>
+    <p>
+      In the today's lecture, we are focused on simple linear
+      regression, that is, fitting models of the form
+      <md>Y =  \beta_0 +  \beta_1 X_1 + \varepsilon</md>
+    </p>  
+
+    <p>
+      In this worksheet, we will use two different tools for linear
+      regression.
+      <ul>
+        <li>
+          <p>
+            <url href="https://scikit-learn.org/stable/index.html">Scikit
+            learn</url> is arguably the most used tool for machine learning in python. 
+          </p>
+        </li>
+        <li>
+          <p>
+            <url href="https://www.statsmodels.org">Statsmodels</url> provides many of the statistical models we've been learning in class.
+          </p>
+        </li>
+      </ul>
+    </p>
+          <p>
+      As always, we start with our favorite standard imports. 
+      </p>
+    <program language="python">
+    <preamble visible="yes">
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+%matplotlib inline
+import seaborn as sns
+    </preamble>
+    </program>    
+    
+    </introduction>
+
+
+<subsection xml:id="subsec-ws04-simple-linear-regression">
+  <title>Simple linear regression</title>
+  <introduction>
+    <p>
+      In this module, we will be using the <c>Diabetes</c> data set.
+      While we could download a csv to put in the correct folder etc., because this is a commonly used test data set, it's
+      available in <c>scikit-learn</c> for us to use without any 
+      cleanup. Yay!
+      </p>
+      <program language="python3">
+      <preamble visible="yes">
+from sklearn.datasets import load_diabetes
+diabetes = load_diabetes(as_frame=True)
+      </preamble>
+      </program>
+      <note>
+        <p>
+          Notice that this loads the data into a large dictionary. Check it out using <pf>print(type(diabetes))</pf>
+        </p>
+      </note>
+      <p>
+        We can get the data immediately into a pandas data frame for ease of use as follows:
+        <program language="python3">
+          <preamble visible="yes">
+diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
+diabetes_df['target'] = pd.Series(diabetes.target)
+          </preamble>
+          <code>
+diabetes_df
+          </code>
+        </program>
+      </p>
+
+  </introduction>    
+
+<exercises xml:id="ws04-exercises">
+<exercisegroup>
+
+  <introduction>
+    <p>
+      Look up the documentation about the dataset here:
+      <url href="https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset" short="scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset">Scikit-learn Diabetes Dataset</url>
+    </p>
+  </introduction>
+
+  <exercise>
+  <task>
+    <statement>
+      <p>
+        Write a brief description of the dataset, including the number of rows and columns, and the names of the columns.
+      </p>
+    </statement>
+    <response />    
+      <note>
+        <p>Note that because the data has been mean centered, sex shows up as two values:
+      <c>0.050680</c> and <c>-0.044642</c>.
+      </p>
+      </note>
+    <answer>
+         <p>
+      <ul>
+        <li>age age in years</li>
+        <li>sex</li>
+        <li>bmi body mass index</li>
+        <li>bp average blood pressure</li>
+        <li>s1 tc, total serum cholesterol</li>
+        <li>s2 ldl, low-density lipoproteins</li>
+        <li>s3 hdl, high-density lipoproteins</li>
+        <li>s4 tch, total cholesterol / HDL</li>
+        <li>s5 ltg, possibly log of serum triglycerides level</li>
+        <li>s6 glu, blood sugar level</li>
+      </ul>
+    </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        What do the columns <c>s1</c> through <c>s6</c> represent?
+      </p>
+    </statement>
+    <response />    
+    <answer>
+         <p>
+      <ul>
+        <li>s1 tc, total serum cholesterol</li>
+        <li>s2 ldl, low-density lipoproteins</li>
+        <li>s3 hdl, high-density lipoproteins</li>
+        <li>s4 tch, total cholesterol / HDL</li>
+        <li>s5 ltg, possibly log of serum triglycerides level</li>
+        <li>s6 glu, blood sugar level</li>
+      </ul>
+    </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        Which of the available variables are quantitative and which are categorical? 
+      </p>
+    </statement>
+    <response />    
+    <answer>
+          <p>
+      Categorical: sex, all others are quantitative. 
+    </p>
+    </answer>
+  </task>
+    <task>
+      <statement>
+        <p>
+          What is the target we are trying to predict?
+        </p>
+      </statement>
+      <response />
+      <hint>
+        <p>
+          You'll need to check the documentation of the data set.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          The target is a quantitative measure of disease progression one year after baseline.
+        </p>
+        </answer>
+    </task>
+  </exercise>
+
+  <exercise>
+  <label>Data Exploration</label>
+  <introduction>
+    <p>
+      The following command should show you the top of your data frame.
+      <pf language="python3">diabetes_df.head()</pf>.
+    </p>
+    <p>
+      You will do some basic data exploration. 
+    </p>
+  </introduction>
+    <task>
+      <statement>
+        <p>
+          How many data points do we have? 
+        </p>
+      </statement>
+      <response />
+      <hint>
+        <p>
+          Each row in the data frame is a data point. 
+        </p>
+      </hint>
+      <hint>
+        <p>
+          You can use the <c>shape</c> attribute of the data frame to get the number of rows and columns.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          442 data points (rows).
+        </p>
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          How many predictors do we have? 
+        </p>
+      </statement>
+      <hint>
+        <p>
+          The total number of variables (input + output) are the columns in the data frame. You can use the <c>shape</c> attribute of the data frame to get the number of rows and columns.
+        </p>
+      </hint>
+      <hint>
+        <p>
+          Predictors are the columns in the data frame that are used to predict the target variable (which is also included in the data). Make sure you subtract the target variable from the total number of columns to get the number of predictors.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          10
+        </p>
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Are there any data points with missing data?
+        </p>
+      </statement>
+      <hint>
+        <p>
+          Check for any NaN or NA values. 
+        </p>
+      </hint>
+      <hint>
+        <p>
+          The <c>info()</c> method of the data frame can be used to check for missing values. If any column has fewer non-null values than the total number of rows, then there are missing data points.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          No. The dataset if fully populated.
+        </p>
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Use the seaborn <c>sns.pairplot</c> command to look at relationships between the variables. 
+        </p>
+      </statement>
+      <hint>
+        <p>
+          The <c>sns.pairplot</c> command creates a grid of scatter plots for each pair of variables in the data frame.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          <pf>sns.pairplot(diabetes_df)</pf> 
+        </p>
+      </answer>
+
+    </task>
+    <task>
+      <statement>
+        <p>
+          Are there pairs of variables that appear to be related?
+        </p>
+      </statement>
+      <hint>
+        <p>
+          Look for patterns in the scatter plots generated by <c>sns.pairplot</c>. Positive or negative correlations will be visible as linear trends.
+        </p>
+      </hint>
+      <answer>
+        <p>
+          Yes, there appear to be some relationships between the variables. For example, there seems to be a positive correlation between age and BMI, and between BMI and blood pressure.
+        </p>      
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Obtain pair plots for the variables with the strongest relationships.
+        </p>
+      </statement>
+      <hint>
+        <p>
+          Based on the previous analysis, focus on the pairs of variables that showed the strongest correlations: <c>bmi</c>, <c>bp</c>, <c>s1</c>, and <c>s2</c>.
+        </p>
+      </hint>
+      <hint>
+        <p>
+          You can pass a subset of the data frame to <c>sns.pairplot</c> to generate pair plots for specific variables.       
+        </p>
+      </hint>
+      <answer>
+        <p>
+          <pf>sns.pairplot(diabetes_df[['bmi','bp','s1','s2']])</pf>
+        </p>
+      </answer>
+    </task>
+    </exercise>
+    <exercise>
+    <label>Simple Linear Regression</label>
+    <introduction>
+      <p>
+        We're now going to fit a simple linear regression to the models
+        <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s1}</md> and
+        <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s5}</md>
+        where the variables are
+        <ul>
+          <li>
+            <p>
+              <m>\texttt{s1}</m>: tc, total serum cholesterol
+            </p>
+          </li>
+          <li>
+            <p>
+              <m>\texttt{s5}</m>: ltg, possibly log of serum triglycerides
+            </p>
+          </li>
+        </ul> 
+        
+      </p>
+     
+
+      <p>
+        Let's start by looking at using <c>s5</c> to predict
+        <c>target</c>.
+      </p>
+          <program language="python">
+    <code>
+from sklearn.linear_model import LinearRegression
+
+
+# sklearn actually likes being handed numpy arrays more than 
+# pandas dataframes, so we'll extract the bits we want and just pass it that. 
+X = diabetes_df['s5'].values
+X = X.reshape([len(X),1])
+y = diabetes_df['target'].values
+y = y.reshape([len(y),1])
+
+# This code works by first creating an instance of 
+# the linear regression class
+reg = LinearRegression()
+# Then we pass in the data we want it to use to fit.
+reg.fit(X,y)
+    </code>
+    </program>
+        <p>
+      Hmmm, nothing seems to have happened? Well actually, we
+      first created an instance of the regression class, which is just a
+      collection of the model functionality waiting to be trained. When
+      we run the <c>fit</c> command with data handed in, it actually
+      figures out the best choice of coefficients for our particular
+      data. Once they're found, we can extract them from the class as
+      follows.
+    </p>
+
+    <program language="python">
+    <code>
+# We can find the intercept and coefficient information 
+# from the regression class as follows.
+
+print(reg.coef_)
+print(reg.intercept_)
+    </code>
+    </program>
+      </introduction>
+      <task>
+        <statement>
+                <p>
+      What is the model using these coefficients?
+      That is, write down the function <m>\hat f</m> explicitly. 
+          </p>
+        </statement>
+        <response />
+        <answer>
+          <p>
+            
+            <m>\hat f(s_5) = 916.1374 s_5 + 152.1335</m>
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            What is the prediction by the model for <m>\texttt{s5} = 0.05</m>?
+          </p>
+        </statement>
+        <response />
+        <answer>
+          <p>
+            The prediction by the model for <m>\texttt{s5} = 0.05</m> is
+            <m>\hat f(0.05) = 916.1374 \cdot 0.05 + 152.1335 = 197.94035</m>.
+          </p>
+        </answer>
+        <answer>
+          <p>
+            It can be obtained using <pf>print('prediction for s5 = 0.05: ', reg.coef_[0,0]*0.05 + reg.intercept_[0])</pf>
+          </p>
+        </answer>
+        <answer>
+          <p>
+            Can also be done with <pf>reg.predict([[0.05]])</pf>
+          </p>
+        </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            Overlay a plot of your predicted model (your line) on a scatter
+            plot of the data used. Does linear seem like a good assumption?
+          </p>
+        </statement>
+        <answer>
+    <program language="python3">
+    <code>
+
+t = np.linspace(-.15,.15)
+
+plt.scatter(X.T,y.T)
+plt.plot(t.T,reg.coef_[0,0]*t.T + reg.intercept_[0], c = 'red', label = lineString)
+plt.legend(loc='best')
+plt.xlabel('s1')
+plt.ylabel('s5')
+    </code>
+    </program>
+        </answer>
+      </task>
+
+    </exercise>
+    <conclusion>
+    <note>      
+    <p>
+      It turns out there is a bit of a cheap trick for plotting linear
+      regression using seaborn. This command will actually both run the
+      linear regression (that is, find the required <m>\beta_i</m>'s)
+      and plot it for you. The tradeoff is that this will only work for
+      single variable linear regression; we'll have to work harder when
+      we're doing multi-variable linear regression. They also do not
+      provide any easy way to get the equation of the line out, so this
+      isn't really the best tool to use for anything other than quick
+      and dirty visualization.
+    </p>
+        <program language="python">
+    <code>
+# First easy version, but hard to get out the parameters....
+sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)
+    </code>
+    </program>
+    </note>
+          <p>
+      Congratulations, we're done!
+    </p>
+    </conclusion>
+ 
+</exercisegroup>  
+</exercises>
+
+</subsection>
+</section>

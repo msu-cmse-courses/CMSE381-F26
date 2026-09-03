@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec11-morelogisticregression-worksheet" component="ws11">
+  <title>Jupyter - Day 11 - Section 001: Lec 11: More Logistic Regression</title>
+  <introduction>
+    <p>In this module we are going to test out the logistic regression classification method we discussed in class, but now we have:</p>
+    <p><ul>
+      <li>
+        <p>more than one input variable (multiple logistic regression) and,</p>
+      </li>
+      <li>
+        <p>more than one level for the output variable (multinomial logistic regression).</p>
+      </li>
+    </ul></p>
+    <program language="python">
+      import numpy as np 
+      import matplotlib.pyplot as plt
+      import pandas as pd 
+      %matplotlib inline
+      import seaborn as sns
+
+      from sklearn.model_selection import train_test_split
+      from sklearn.linear_model import LogisticRegression
+      from sklearn.metrics import accuracy_score
+      from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+    </program>
+    <p>Same as last time, we're going to use the <c>Default</c> data set from the ISLR book as included in their R package. I've included a csv on the <url href="../../DataSets/DataSets.md">DataSets page</url> for you to use.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/0bf0b0b65f603971cd33a04ad934449c/Default.csv"
+      Default = pd.read_csv(url)
+      Default.head(10)
+    </program>
+    <program language="python">
+      # Here's all the entries in the "default" column
+      list(Default['default'].unique())
+    </program>
+    <program language="python">
+      # Check to see if you did that right!
+      # If your data frame is updated properly, this should print out True
+      list(Default.columns) == ['default', 'balance', 'income', 'student_Yes']
+    </program>
+    <p>If you did all that right, the following should get us our train/test split of our inputs and outputs.</p>
+    <program language="python">
+      X = Default[['balance', 'income', 'student_Yes']]
+      y = Default['default']
+
+
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    </program>
+    <program language="python">
+      ## Note this data is imbalanced, so accuracy is not the best metric
+      C = confusion_matrix(y_test, Y_pred)
+      ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+
+      # In this case, 
+      #   75 people who defaulted were predicted to not default, and (company loses money)
+      #   20 people who didn't default were predicted to default (they don't get a loan).
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression">
+    <title>Multinomial Logistic Regression</title>
+    <p>Now we've got both multiple inputs and multiple levels. In this case we're going to use the <c>iris</c> data set but we're just going to use the version from <c>sklearn</c>.</p>
+    <p>Take a moment to look at the <url href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html">documentation</url> or the <url href="https://en.wikipedia.org/wiki/Iris_flower_data_set">wikipedia page</url> so you know what's going on in this data set.</p>
+    <program language="python">
+      from sklearn.datasets import load_iris
+    </program>
+    <program language="python">
+      # I'm going to load in the data set and do a bit of processing so that it's in a nice format
+      iris_df = load_iris(as_frame=True)['frame']
+      target_names = load_iris()['target_names']
+      iris_df['species'] = target_names[load_iris()['target']]
+      iris_df.drop('target', axis=1, inplace=True)
+      iris_df.head()
+    </program>
+    <p>I've done all the hard work for you. The cell below does everything:</p>
+    <p><ul>
+      <li>
+        <p>Splits the data into X and y matrices.</p>
+      </li>
+      <li>
+        <p>Does a train/test split</p>
+      </li>
+      <li>
+        <p>Sets up the logistic regression classifier</p>
+      </li>
+      <li>
+        <p>Predicts the outputs for the test data</p>
+      </li>
+      <li>
+        <p>Reports an accuracy.</p>
+      </li>
+    </ul></p>
+    <p><em>It might spit out a convergence warning for you, don't worry about it.</em></p>
+    <program language="python">
+      X = iris_df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']]
+      y = iris_df['species']
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10, random_state=11)
+
+      logreg = LogisticRegression()
+      logreg.fit(X_train, y_train)
+
+      Y_pred = logreg.predict(X_test)
+      err = 1-accuracy_score(y_test, Y_pred)
+      print(f'Error rate: {err*100:.2f}%')
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Create a dummy-variable column named <c>student_Yes</c>, then remove the original categorical <c>student</c> column from <c>Default</c>. Verify the resulting data frame before continuing.</p>
+              <program language="python">
+                <code>
+                  # Create the indicator for student == 'Yes'.
+                  Default['student_Yes'] = ...
+
+                  # Remove the original string-valued column.
+                  Default = ...
+                  Default.head()
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use <c>pd.get_dummies</c> with <c>drop_first=True</c>, or compare the <c>student</c> column directly with the string <c>'Yes'</c>.</p>
+            </hint>
+            <hint>
+              <p>Drop the original <c>student</c> column along <c>axis=1</c>; the target <c>default</c> column should remain.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not keep both the original string column and the dummy column in the numeric feature matrix.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  Default['student_Yes'] = pd.get_dummies(Default['student'], drop_first = True, prefix='student')
+                  Default.drop('student', axis=1, inplace=True)
+                  Default.head()
+
+                  # pd.get_dummies(Default['student'], drop_first = True, prefix='student').head()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Set up a logistic regression model using inputs <c>balance</c>, <c>income</c>, and <c>student_Yes</c>.</p>
+              <p><ul>
+                <li>
+                  <p>Train this model on the training set above.</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  logreg = LogisticRegression(max_iter=...)
+                  logreg.fit(X_train, y_train)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Construct <c>X</c> from <c>balance</c>, <c>income</c>, and <c>student_Yes</c>, and use <c>default</c> as <c>y</c> before making the split.</p>
+            </hint>
+            <hint>
+              <p>Fit the estimator only on <c>X_train</c> and <c>y_train</c>; reserve the test set for evaluation.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Training on the full data set before evaluating <c>X_test</c> leaks test information and makes the reported error optimistic.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  logreg = LogisticRegression()
+                  logreg.fit(X_train, y_train)
+
+                  print(f'Coefs: {logreg.coef_}')
+                  print(f'Intercept: {logreg.intercept_}')
+
+                  # Just for printing the equation
+                  short_coefs = [str(round(logreg.coef_[0, i], 4)) for i in range(3)]
+                  cols = ['balance', 'income', 'student_Yes']
+                  eqn_linear = f'{round(logreg.intercept_[0],4)} + {short_coefs[0]} * {cols[0]} + {short_coefs[1]} * {cols[1]} + {short_coefs[2]} * {cols[2]} ' 
+                  print(f'Linear part: {eqn_linear}')
+                  print(f'Full equation: p(default) = exp({eqn_linear}) / (1 + exp({eqn_linear}))')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the equation of your model?</p>
+            </statement>
+            <response/>
+            <hint>
+              <p>Read the intercept from <c>logreg.intercept_</c> and match the entries of <c>logreg.coef_[0]</c> to <c>X.columns</c>.</p>
+            </hint>
+            <hint>
+              <p>First write the linear predictor, then place it inside the logistic function <m>e^{\eta}/(1+e^{\eta})</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The exact numbers can vary with the random split; keep every coefficient paired with the correct feature rather than copying an old run blindly.</p>
+            </hint>
+            <answer>
+              <p>The model is (may be slightly different b/c train-test split)</p>
+              <p><md>
+              p(X) = \frac{\exp(-2.9227 + 0.0041 * balance + -0.0001 * income + -3.8077 * student\_Yes)}{1+\exp(-2.9227 + 0.0041 * balance + -0.0001 * income + -3.8077 * student\_Yes )}
+              </md></p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use the test set to evaluate your model. What is the error?</p>
+              <program language="python">
+                <code>
+                  Y_pred = logreg.predict(X_test)
+                  accuracy = ...
+                  error = ...
+                  print(error)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Generate labels with <c>logreg.predict(X_test)</c> and compare them with <c>y_test</c>.</p>
+            </hint>
+            <hint>
+              <p>Convert accuracy to error using <c>1 - accuracy_score(y_test, Y_pred)</c> or <c>1 - logreg.score(X_test, y_test)</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Report test error, not training error, and distinguish a proportion such as 0.03 from a percentage such as 3%.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  Y_pred = logreg.predict(X_test)
+                  err = 1-accuracy_score(y_test, Y_pred)
+                  print(f'Error rate: {err*100:.2f}%')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Take a look at the confusion matrix for this model. What do you notice?</p>
+              <program language="python">
+                <code>
+                  C = confusion_matrix(y_test, Y_pred, labels=logreg.classes_)
+                  ConfusionMatrixDisplay(C, display_labels=logreg.classes_).plot()
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use the class order printed by <c>logreg.classes_</c> when interpreting rows and columns.</p>
+            </hint>
+            <hint>
+              <p>Compare false negatives (actual default predicted as no default) with false positives and relate them to the class imbalance.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> High overall accuracy can hide poor detection of the rare default class; inspect the off-diagonal counts rather than accuracy alone.</p>
+            </hint>
+            <answer>
+              <p>The data are highly imbalanced and the model predicts the majority <c>No</c> class much more reliably. In the stored run, 75 actual defaults were missed (false negatives), while 20 non-defaults were incorrectly labeled as defaults. Accuracy alone therefore understates the weakness on the rare class.</p>
+              <program language="python">
+                <code>
+                  C = confusion_matrix(y_test, Y_pred, labels=logreg.classes_)
+                  ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p><ul>
+                <li>
+                  <p>What do the columns of <c>predict_proba</c> function below correspond to?</p>
+                </li>
+                <li>
+                  <p>Check your answer on the first few entries.</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  probabilities = logreg.predict_proba(X_test)
+                  print(logreg.classes_)
+                  print(probabilities[:5])
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>The probability columns follow the exact order in <c>logreg.classes_</c>.</p>
+            </hint>
+            <hint>
+              <p>For each row, the predicted label should match the class associated with the largest probability.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not assume alphabetical or numeric order without checking <c>classes_</c>; the estimator records the authoritative order.</p>
+            </hint>
+            <answer>
+              <p>The three columns correspond, in <c>logreg.classes_</c> order, to <c>setosa</c>, <c>versicolor</c>, and <c>virginica</c>. Each row sums to 1, and its largest entry determines the label returned by <c>predict</c>.</p>
+              <program language="python">
+                <code>
+                  probabilities = logreg.predict_proba(X_test)
+                  print('Classes:', logreg.classes_)
+                  for i in range(5):
+                      print(i, probabilities[i], 'prediction:', Y_pred[i])
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Which of the classes is most often misclassified?</p>
+              <program language="python">
+                <code>
+                  # Your code here
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Build a confusion matrix using a fixed label order and sum each row's off-diagonal entries.</p>
+            </hint>
+            <hint>
+              <p>Alternatively, compare <c>y_test</c> and <c>Y_pred</c>, then count the true labels only where the prediction is wrong.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Use the actual class when answering which class is misclassified most often; counting predicted labels answers a different question.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  C = confusion_matrix(y_test, Y_pred)
+                  ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+                  # In this case, the only error was predicting versicolor for two virginica data points
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

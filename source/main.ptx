@@ -49,14 +49,15 @@
       <!-- Remove the example and replace with your own activities -->
       <xi:include href="./activities/day01-worksheet.ptx"/>
       <xi:include href="./activities/day02-worksheet.ptx"/> 
-      <!-- <xi:include href="./activities/day03-worksheet.ptx"/>
+      <xi:include href="./activities/day03-worksheet.ptx"/>
       <xi:include href="./activities/day04-worksheet.ptx"/>
       <xi:include href="./activities/day05-worksheet.ptx"/>
       <xi:include href="./activities/day06-worksheet.ptx"/>
       <xi:include href="./activities/day07-worksheet.ptx"/>
       <xi:include href="./activities/day08-worksheet.ptx"/>
       <xi:include href="./activities/day09-worksheet.ptx"/>
-      <xi:include href="./activities/day10-worksheet.ptx"/> -->
+      <xi:include href="./activities/day11-worksheet.ptx"/> 
+      <xi:include href="./activities/day12-worksheet.ptx"/> 
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 

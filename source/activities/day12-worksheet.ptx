@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec13-loocv-worksheet" component="ws12">
+  <title>Jupyter Notebook: Lecture 13-section 1: Validation set and Cross-Validation</title>
+  <introduction>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+
+      # Train test splits for today 
+      from sklearn.model_selection import train_test_split
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec13-loocv-worksheet-ptx-1-validation-set">
+    <title>1. Validation set</title>
+    <p>The first thing we will do is try out the validation set approach. We've already used this some in class so this should be review.</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-loocv-worksheet-validation-set-on-toy-data">
+    <title>Validation set on toy data</title>
+    <p>First off, let's generate some toy data just to mess around.</p>
+    <program language="python">
+      # Set the seed so everyone has the same numbers
+      np.random.seed(42)
+
+      def f(t, m = -3, b = 2):
+          return m*t+b
+
+      n = 300
+      X_toy = np.random.uniform(0,5,n)
+      y_toy = f(X_toy) + np.random.normal(0,2,n)
+
+      # reshaping to deal with cranky code later
+      X_toy = X_toy.reshape(-1,1)
+      y_toy = y_toy.reshape(-1,1)
+
+      plt.scatter(X_toy,y_toy)
+      plt.plot(X_toy,f(X_toy),c = 'red')
+    </program>
+    <p>Ok, so now we have our fake data set up. Extracting training and testing sets is as simple as the following single line. Note that I set the <c>random_state</c> variable which means that every time you run this, you (and your neighbor) will have the same train/test split.</p>
+    <program language="python">
+      randomseed = 48824
+
+      X_train, X_test, y_train, y_test = train_test_split(X_toy,y_toy, 
+                                                          test_size=0.2, 
+                                                          random_state=randomseed)
+    </program>
+    <p>What this does is extracts two pairs of input/output variables <m>X</m> and <m>y</m>. The train we will use to train our models, and then we will test (or validate) them on the test data.</p>
+    <p>One way to see what these sets are is to plot them, although usually we have much higher <m>p</m> (a.k.a. way more input variables) so we can't really visualize like this normally.</p>
+    <program language="python">
+      plt.scatter(X_train,y_train, marker = '+', label = "Training")
+      plt.scatter(X_test,y_test, marker = '*', label = "Testing")
+      plt.legend()
+    </program>
+    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
+    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Set up a linear regression model using <c>sklearn</c>, train it on the training set, and test it on the test set. What is your mean squared error?</p>
+              <program language="python">
+                <code>
+                  model = LinearRegression()
+                  model.fit(..., ...)
+                  y_hat = model.predict(...)
+                  mse = mean_squared_error(..., ...)
+                  print(mse)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Fit on the training pair and generate predictions only for <c>X_test</c>.</p>
+            </hint>
+            <hint>
+              <p>Pass the true test responses and test predictions to <c>mean_squared_error</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not compute MSE on the training data when the question asks for test performance.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  from sklearn.linear_model import LinearRegression
+                  from sklearn.metrics import mean_squared_error
+
+                  model = LinearRegression()
+                  model.fit(X_train,y_train)
+
+                  y_hat = model.predict(X_test)
+
+                  mean_squared_error(y_hat,y_test)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now that we can see what happens in one case, let's try doing this many times. The code below changes our random seed.</p>
+              <p>The <c>randomseed += 1</c> command below changes the seed every time you run the cell. Use this to generate a train/test split with a new seed and compute the MSE.</p>
+              <p><ul>
+                <li>
+                  <p>What happens to the MSE?</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Repeat the same split-fit-predict-MSE sequence after changing only <c>random_state</c>.</p>
+            </hint>
+            <hint>
+              <p>Compare several results; a single train/test split depends on which observations happen to enter the test set.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Changing the seed does not change the underlying data or model class; it changes the sampled split and therefore the error estimate.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Changing the random seed to get a new split of the data
+                  randomseed +=1
+
+                  X_train, X_test, y_train, y_test = train_test_split(X_toy,y_toy, 
+                                                                      test_size=0.2, 
+                                                                      random_state=randomseed)
+
+
+                  model = LinearRegression()
+                  model.fit(X_train,y_train)
+                  y_hat = model.predict(X_test)
+
+                  myMSE = mean_squared_error(y_hat,y_test)
+
+
+                  #plotting just for the visual
+                  plt.scatter(X_train,y_train, marker = '+', label = "Training")
+                  plt.scatter(X_test,y_test, marker = '*', label = "Testing")
+                  plt.legend()
+                  plt.title(f"MSE: {round(myMSE,2)}")
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Below, create a loop, repeating what you did the in the last cell <m>k=30</m> times. Keep track of the MSE in a list and draw a histogram of the results. What do you notice? If you want to see more pattern, set <m>k</m> to be something larger like 100.</p>
+              <program language="python">
+                <code>
+                  MSEs = []
+                  for seed in range(30):
+                      X_train, X_test, y_train, y_test = train_test_split(..., random_state=seed)
+                      model = LinearRegression().fit(..., ...)
+                      MSEs.append(...)
+
+                  plt.hist(MSEs)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Append one test MSE per seed to a list; create a fresh split and refit inside every loop iteration.</p>
+            </hint>
+            <hint>
+              <p>Use a histogram to examine the spread, center, and any unusually large errors across splits.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not fit the model once outside the loop and reuse it; each split requires fitting on its own training subset.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Note should be something about a wide spread
+
+                  MSE = []
+                  for k in range(200):
+                      randomseed +=1
+
+                      X_train, X_test, y_train, y_test = train_test_split(X_toy,y_toy, test_size=0.2, random_state=randomseed)
+
+                      model = LinearRegression()
+                      model.fit(X_train,y_train)
+                      y_hat = model.predict(X_test)
+
+                      MSE.append(mean_squared_error(y_hat,y_test))
+
+                  plt.hist(MSE)
+                  print('mean:', np.mean(MSE))
+                  print('sd:', np.std(MSE))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-loocv-worksheet-ptx-2-leave-one-out-cross-validation-loocv">
+    <title>2. Leave One Out Cross Validation (LOOCV)</title>
+    <p>Luckily, <c>sklearn</c> has a simple built in procedure to extract your LOOCV splits for easily passing to your models. However, these work a bit differently than before. As always, the <c>sklearn</c> documentation and user guide is an excellent place to start.</p>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.LeaveOneOut.html">LOOCV Documentation</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/cross_validation.html#leave-one-out">LOOCV User guide</url></p>
+      </li>
+    </ul></p>
+    <p>Let's start with a very tiny version of our data set.</p>
+    <program language="python">
+      X_tiny_toy = X_toy[:6]
+      y_tiny_toy = y_toy[:6]
+
+      plt.scatter(X_tiny_toy,y_tiny_toy)
+      plt.title("Tiny Toy Data")
+    </program>
+    <p>The following code gets us the LOOCV splits for this <m>n=10</m> data set. Notice that trying to print <c>loo</c> doesn't give us much that's useful</p>
+    <program language="python">
+      from sklearn.model_selection import LeaveOneOut
+
+      loo = LeaveOneOut()
+      loo.get_n_splits(X_tiny_toy)
+
+
+      print(loo)
+    </program>
+    <p>The power of the function shows up when we use it in a for loop:</p>
+    <program language="python">
+      for train_index, test_index in loo.split(X_tiny_toy):
+          print("TRAIN:", train_index, "TEST:", test_index)
+          print("\n")
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>The major difference between the <c>LOO.split</c> output and the <c>train_test_split</c> from before is that <c>LOO.split</c> spits out indices while <c>train_test_split</c> gives the data points themselves.</p>
+              <p>Finish the code below go get out the training and testing sets for each LOOCV split.</p>
+              <program language="python">
+                <code>
+                  for train_index, test_index in LOO.split(X_tiny_toy):
+                      X_train = X_tiny_toy[train_index]
+                      X_test = X_tiny_toy[test_index]
+                      y_train = ...
+                      y_test = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use the arrays of indices returned by <c>LOO.split</c> to index both <c>X</c> and <c>y</c>.</p>
+            </hint>
+            <hint>
+              <p>Each test index contains exactly one observation; every other observation belongs to that iteration's training set.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Apply the same train/test indices to <c>X</c> and <c>y</c>; mismatched indices break the observation-response pairing.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  for train_index, test_index in loo.split(X_tiny_toy):
+
+                      X_train = X_tiny_toy[train_index]
+                      X_test = X_tiny_toy[test_index]
+                      y_train = y_tiny_toy[train_index]
+                      y_test = y_tiny_toy[test_index]
+
+                  # Example for class to show drawing the last train/test split
+
+                  countPrint = 0
+                  maxPrint = 4 # If you change this number, a different point will be drawn. 
+                  for train_index, test_index in loo.split(X_toy):
+                      countPrint +=1 
+                      if countPrint &gt;= maxPrint:
+                          X_train, X_test = X_toy[train_index], X_toy[test_index]
+                          y_train, y_test = y_toy[train_index], y_toy[test_index]
+                          plt.scatter(X_train,y_train, marker = '+', label = "Training")
+                          plt.scatter(X_test,y_test, marker = '*', label = "Testing")
+                          plt.legend()
+                          break
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now go back to using the full data set (<c>X_toy</c> instead of <c>X_tiny_toy</c>). Use the leave one out splits to perform a linear regression on each one, return the mean squared error, and then average over all the values to get the LOOCV error estimation.</p>
+              <p>What do you notice about this error estimation vs. the validation set version above?</p>
+              <program language="python">
+                <code>
+                  LOO = LeaveOneOut()
+                  MSEs = []
+                  for train_index, test_index in LOO.split(X_toy):
+                      ...
+                  print(np.mean(MSEs))
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>For every left-out observation, fit a new linear regression on the remaining observations and predict the single test response.</p>
+            </hint>
+            <hint>
+              <p>Store one squared error per split and average all <m>n</m> values to obtain the LOOCV estimate.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> LOOCV uses <m>n</m> separate fitted models; predicting all points from one full-data fit is training error, not LOOCV.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  MSE = []
+                  for train_index, test_index in loo.split(X_toy):
+
+                      X_train, X_test = X_toy[train_index], X_toy[test_index]
+                      y_train, y_test = y_toy[train_index], y_toy[test_index]
+
+                      model = LinearRegression()
+                      model.fit(X_train,y_train)
+                      y_hat = model.predict(X_test)
+
+                      mse = mean_squared_error(y_hat,y_test)
+                  #     print(mse)
+                      MSE.append(mse)
+
+                  print(np.average(MSE))
+                  print(np.std(MSE))
+                  print('Note the stdev is higher, but this process has no randomness so this is not comparable')
+                  # Note that the average value is close to the average from the validation set list above.
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-loocv-worksheet-the-easier-version">
+    <title>The easier version</title>
+    <p>Ok I lied to you a bit. There's an even easier version of this whole LOO-CV thing.</p>
+    <program language="python">
+      # This command does all your work for you
+      from sklearn.model_selection import cross_val_score
+
+
+      #define cross-validation method to use
+      cv = LeaveOneOut()
+
+      #build linear regression model
+      model = LinearRegression()
+
+      #use LOOCV to evaluate model
+      scores = cross_val_score(model, X_toy, y_toy, 
+                               scoring='neg_mean_squared_error',
+                               cv=cv)
+
+      #view mean absolute error
+      np.average(np.absolute(scores))
+    </program>
+    <p>Check out this number. Remember LOO-CV has no randomness in it so you should have the same number here as you calculated previously.</p>
+    <!-- horizontal rule in source notebook -->
+  </subsection>
+  <subsection xml:id="cmse381-lec13-loocv-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Written by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

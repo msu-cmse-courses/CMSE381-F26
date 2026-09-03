@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- When creating a new activity, make a copy of this file with appropriate name -->
+<section xml:id="day03-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="ws03">
+  <title>Day03 Worksheet</title>
+
+  <introduction>
+    <p>
+      This is the worksheet for day 3 of CMSE 381.
+      It contains some code to go along with lecture 3 on Mean Squared Error.
+    </p>
+
+    <p>
+      The dataset we're using is the <c>Auto</c> dataset from the ISLR book.
+      See <xref ref="day01-Auto-csv"/>.
+    </p>
+  </introduction>
+  <subsection xml:id="subsec-ws03-mean-squared-error">
+    <title>Mean Squared Error</title>
+
+  <p>
+    <program language="python3">
+      <preamble visible="yes">
+    # As always, we start with our favorite standard imports. 
+
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt 
+    import seaborn as sns
+    %matplotlib inline
+      </preamble>
+      <code>
+    # First, we're going to do all the data loading and cleanup we figured out last time.
+    url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/d75c3811a83a66f8c261e5b599ef9e44/Auto.csv"
+    auto = pd.read_csv(url)
+    auto = auto.replace('?', np.nan)
+    auto = auto.dropna()
+    auto.horsepower = auto.horsepower.astype('int')
+    auto.shape
+      </code>
+    </program>
+
+    <note>
+      <p>
+        Check that the shape of data is (392, 9) and that the horsepower column
+        is of type <c>int</c>.
+      </p>
+    </note>
+  </p>
+
+<exercises xml:id="ws03-exercises-">
+<exercisegroup xml:id="ws03-MSE-coding" xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+
+      <exercise xml:id="ws03-acc-scatter-plot" xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+        <introduction>
+        <p>
+          We want to just predict acceleration using horsepower. Answer the following questions. 
+        </p>
+        </introduction>
+
+        <task>
+        <statement>
+          <p>
+            Make a scatter plot of acceleration (the output variable) vs
+            horsepower (the input variable).
+            Does it look like there's a relationship between the two variables?            
+          </p>
+
+        </statement>
+          <hint>
+            <p>
+              Use the <c>plt.scatter</c> or <c>sns.regplot</c> function to make
+              a scatter plot.
+            </p>
+          </hint>
+
+          <answer>
+            <pf language="python3">plt.scatter(auto.horsepower, auto.acceleration)</pf>
+          </answer>
+
+          <answer>
+            <pf language="python3">sns.regplot(auto.horsepower, auto.acceleration)</pf>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              I've decided to use the model
+              <m>\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}</m>
+            </p>
+
+            <p>
+              Make a panda Series with entries
+              <m>\hat f(\texttt{horsepower})</m> for each entry in
+              <c>auto.horsepower</c>.
+            </p>
+          </statement>
+
+          <answer>
+            <p>
+              <pf language="python3">predicted = 23-(0.05)*auto.horsepower</pf>
+            </p>
+          </answer>
+
+          <answer>
+            <program language="python3">
+              <code>
+        0    16.50
+        1    14.75
+        2    15.50
+        3    15.50
+        4    16.00
+        5    13.10
+        6    12.00
+        7    12.25
+        8    11.75
+        9    13.50
+        Name: horsepower, dtype: float64
+              </code>
+            </program>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              Plot the function
+              <m>\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}</m>
+              on top of the data's scatter plot.
+            </p>
+          </statement>
+
+          <answer>
+            <p>
+              <pf language="python3">plt.scatter(auto.horsepower,auto.acceleration)</pf>
+              <pf language="python3">t = np.array([0, 225])</pf> <pf language="python3">liney = -.05*t+23</pf>
+              <pf language="python3">plt.plot(t,liney)</pf>
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              Using the series you just built, calculate the mean squared error,
+              <md>
+                MSE=\frac{1}{n}\sum\limits_{i=1}^{n}{(y_i-\hat{y}_i)^2}
+              </md>
+            </p>
+          </statement>
+
+          <hint>
+            <p>
+              Recall that the predicted values are in the series
+              <c>predicted</c> you just built, and the actual values are in
+              <c>auto.acceleration</c>.
+            </p>
+          </hint>
+
+          <hint>
+            <p>
+              Use the MSE formula above to calculate the mean squared error.
+              You can use <c>np.sum</c> to sum up the squared errors and divide
+              by the number of entries in the series.
+            </p>
+          </hint>
+
+          <answer>
+            <p>
+              <pf language="python3">sq_error = (auto.acceleration-predicted)**2</pf>
+              <pf language="python3">MSE = np.sum(sq_error)/len(sq_error)</pf>
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              Print the first 10 entries of the predicted series, and of the
+              squared errors.
+            </p>
+          </statement>
+
+          <answer>
+            <p>
+              <pf language="python3">print(predicted[:10])</pf> <pf language="python3">print(sq_error[:10])</pf>
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              What is the mean squared error?
+            </p>
+          </statement>
+
+          <answer>
+            <p>
+              MSE= 8.982500000000002
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              What is the length of the squared error series?
+            </p>
+          </statement>
+
+          <hint>
+            <p>
+              Use the <c>len</c> function to get the length of the squared error
+              series <c>sq_error</c>.
+            </p>
+          </hint>
+
+          <answer>
+            <p>
+              The length of the squared error series is 392.
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>
+              Have some spare time?
+              Can you mess around with the coefficients in your model to
+              decrease the MSE?
+            </p>
+          </statement>
+
+          <hint>
+            <p>
+              Check out the model.
+              What parameters can we modify to change the model?
+              Try changing the intercept and slope to see if you can get a lower
+              MSE.
+            </p>
+          </hint>
+
+          <answer>
+            <p>
+              Since the model is
+              <m>\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}</m>
+              we can experiment with different intercepts and slopes to see if
+              the MSE decreases.
+            </p>
+          </answer>
+        </task>
+      </exercise>
+    </exercisegroup>
+  </exercises>
+  </subsection>
+  <conclusion>
+      <p>
+      Congratulations, we're done!
+    </p>
+  </conclusion>
+</section>

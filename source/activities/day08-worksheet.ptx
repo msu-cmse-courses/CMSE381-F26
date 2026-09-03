@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec08-worksheet" component="ws08">
+  <title>Jupyter Notebook: Lecture 8: The Last of the Linear Regression</title>
+  <introduction>
+    <p>In the last few lectures, we have focused on linear regression, that is, fitting models of the form</p>
+    <p><md>
+    Y =  \beta_0 +  \beta_1 X_1 +  \beta_2 X_2 + \cdots +  \beta_pX_p + \varepsilon
+    </md></p>
+    <p>In this lab, we will continue to use two different tools for linear regression.</p>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/index.html">Scikit learn</url> is arguably the most used tool for machine learning in python</p>
+      </li>
+      <li>
+        <p><url href="https://www.statsmodels.org">Statsmodels</url> provides many of the statisitcial tests we've been learning in class</p>
+      </li>
+    </ul></p>
+    <program language="python">
+      # As always, we start with our favorite standard imports. 
+
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt 
+      %matplotlib inline
+      import seaborn as sns
+      import statsmodels.formula.api as smf
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec08-worksheet-dummy-variables-for-multi-level-categorical-inputs">
+    <title>Dummy Variables for Multi-level Categorical Inputs</title>
+  </subsection>
+  <subsection xml:id="cmse381-lec08-worksheet-the-wrong-way">
+    <title>The wrong way</title>
+    <p>Ok, we're going to do this incorrectly to start. You pull in the <c>Auto</c> data set. You were so proud of yourself for remembering to fix the problems with the <c>horsepower</c> column that you conveniently forgot that the column with information about country of origin (<c>origin</c>) has a bunch of integers in it, representing:</p>
+    <p><ul>
+      <li>
+        <p>1: <c>American</c></p>
+      </li>
+      <li>
+        <p>2: <c>European</c></p>
+      </li>
+      <li>
+        <p>3: <c>Japanese</c>.</p>
+      </li>
+    </ul></p>
+    <program language="python">
+      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/d75c3811a83a66f8c261e5b599ef9e44/Auto.csv"
+      Auto_df = pd.read_csv(url)
+      Auto_df = Auto_df.replace('?', np.nan)
+      Auto_df = Auto_df.dropna()
+      Auto_df.horsepower = Auto_df.horsepower.astype('int')
+
+
+      Auto_df.head()
+
+      # Take a look at the origin column below. It's currently numbers.
+    </program>
+    <p>You then go on your merry way building the model
+    <md>
+    \texttt{mpg} = \beta_0 + \beta_1 \cdot \texttt{origin}. 
+    </md></p>
+    <program language="python">
+      from sklearn.linear_model import LinearRegression
+
+      X = Auto_df.origin.values
+      X = X.reshape(-1, 1)
+      y = Auto_df.mpg.values
+
+      regr = LinearRegression()
+
+      regr.fit(X,y)
+
+      print('beta_1 = ', regr.coef_[0])
+      print('beta_0 = ', regr.intercept_)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What does your model predict for each of the three types of cars?</p>
+              <program language="python">
+                <code>
+                  # Predict mpg for origin codes 1, 2, and 3.
+                  origin_codes = np.array([[1], [2], [3]])
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use the fitted line <m>\widehat{mpg}=\widehat{\beta}_0+\widehat{\beta}_1\,origin</m> from the preceding cell.</p>
+            </hint>
+            <hint>
+              <p>Substitute 1, 2, and 3, or pass those codes as a two-dimensional array to <c>regr.predict</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The calculation treats the category codes as ordered numerical measurements; the next exercises show why that modeling choice is restrictive.</p>
+            </hint>
+            <answer>
+              <p>Using the fitted coefficients, the predictions are approximately 20.29 mpg for American cars, 25.77 mpg for European cars, and 31.24 mpg for Japanese cars.</p>
+              <program language="python">
+                <code>
+                  origin_codes = np.array([[1], [2], [3]])
+                  for name, prediction in zip(['American', 'European', 'Japanese'], regr.predict(origin_codes)):
+                      print(f'{name}: {prediction:.2f} mpg')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Is it possible for your model to predict that both American and Japanese cars have <c>mpg</c> below European cars?</p>
+            </statement>
+            <hint>
+              <p>The fitted value is a straight-line function of the numeric code <c>origin</c>.</p>
+            </hint>
+            <hint>
+              <p>Consider separately what a positive, negative, or zero slope permits as the code moves from 1 to 2 to 3.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The order assigned to category codes is arbitrary, so a trend across those codes is not a valid way to model an unordered categorical variable.</p>
+            </hint>
+            <answer>
+              <p>No. A single straight line makes the predictions monotone across codes 1, 2, and 3 (or all equal if the slope is zero), so the middle category cannot be above both endpoints.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec08-worksheet-the-right-way">
+    <title>The right way</title>
+    <p>Ok, so you figure out your problem and decide to load in your data and fix the <c>origin</c> column to have names as entries.</p>
+    <program language="python">
+      convertOrigin= {1: 'American', 2:'European', 3:'Japanese'}
+
+      # This command swaps out each number n for convertOrigin[n], making it one of
+      # the three strings instead of an integer now.
+      Auto_df.origin = Auto_df.origin.apply(lambda n: convertOrigin[n])
+      Auto_df.head()
+
+      # Check to see this in the origin column below
+    </program>
+    <p>Below is a quick code that automatically generates our dummy variables. Yay for not having to code that mess ourselves!</p>
+    <program language="python">
+      origin_dummies_df = pd.get_dummies(Auto_df.origin, prefix='origin')
+      origin_dummies_df
+    </program>
+    <p>Just for fun let's check this on a data point:</p>
+    <program language="python">
+      # Here's the original data row 393. What is the origin of the car?
+      Auto_df.loc[393,:]
+    </program>
+    <program language="python">
+      # Here's the entry in the dummy variable data frame. Check that this matches above!
+      origin_dummies_df.loc[393,:]
+    </program>
+    <p>We mentioned in class that you really only need 2 dummy variables to encode a 3 level categorical variable. It turns out it is also easy to do this with the <c>get_dummies</c> command.</p>
+    <program language="python">
+      # All I'm adding is the drop_first=True argument. This will drop the first column
+      origin_dummies_df = pd.get_dummies(Auto_df.origin, prefix='origin', drop_first=True)
+      origin_dummies_df
+    </program>
+    <program language="python">
+      # Check a few rows to make sure you understand how to interpret the entires for the dummy variables. 
+      row_no = 12
+
+      print('Dummy variables:')
+      print(origin_dummies_df.loc[row_no,:])
+      print('\nOriginal data:')
+      print(Auto_df.loc[row_no,:])
+    </program>
+    <p>I pass these new dummy variables into my <c>scikit-learn</c> linear regression model and get the following coefficients</p>
+    <program language="python">
+      X = origin_dummies_df.values
+      y = Auto_df.mpg
+
+      regr = LinearRegression()
+
+      regr.fit(X,y)
+
+      print('Coefs = ', regr.coef_)
+      print('Intercept = ', regr.intercept_)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the interpretation of each column in the <c>origin_dummies_df</c> data frame?</p>
+            </statement>
+            <hint>
+              <p>Compare a row of <c>origin_dummies_df</c> with the same row of <c>Auto_df.origin</c>.</p>
+            </hint>
+            <hint>
+              <p>Each column records membership in one category using <c>True</c>/<c>False</c> (equivalently 1/0).</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The generated column names use the category labels (<c>American</c>, <c>European</c>, <c>Japanese</c>), not the old numeric codes 1, 2, and 3.</p>
+            </hint>
+            <answer>
+              <p><c>origin_American</c>, <c>origin_European</c>, and <c>origin_Japanese</c> are indicator variables. A column is <c>True</c> exactly when that car belongs to the named origin and <c>False</c> otherwise; exactly one is <c>True</c> in each row.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What model is learned? Be specific about what the input variables are in your model.</p>
+            </statement>
+            <hint>
+              <p>Because <c>drop_first=True</c> removed the American column, American is represented by <c>(0, 0)</c>.</p>
+            </hint>
+            <hint>
+              <p>Match the two entries of <c>regr.coef_</c> to the remaining column order: European first and Japanese second.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The slopes are differences from the American reference mean, not the European and Japanese mean mpg values themselves.</p>
+            </hint>
+            <answer>
+              <p>Let <m>X_{Euro}=1</m> for a European car and <m>X_{Japan}=1</m> for a Japanese car, with American as the reference. The fitted model is <md>\widehat{mpg}=20.03+7.57X_{Euro}+10.42X_{Japan}.</md></p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now what does your model predict for each of the three types of cars?</p>
+              <program language="python">
+                <code>
+                  # Rows represent American, European, and Japanese cars.
+                  new_origins = np.array([[0, 0],
+                                          [1, 0],
+                                          [0, 1]])
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use <c>(0, 0)</c> for the omitted American reference category, <c>(1, 0)</c> for European, and <c>(0, 1)</c> for Japanese.</p>
+            </hint>
+            <hint>
+              <p>You can obtain all three fitted values with one call to <c>regr.predict</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the row entries aligned with the actual dummy-column order; swapping the columns swaps the European and Japanese interpretations.</p>
+            </hint>
+            <answer>
+              <p>The model predicts approximately 20.03 mpg for American cars, 27.60 mpg for European cars, and 30.45 mpg for Japanese cars.</p>
+              <program language="python">
+                <code>
+                  new_origins = np.array([[0, 0], [1, 0], [0, 1]])
+                  for name, prediction in zip(['American', 'European', 'Japanese'], regr.predict(new_origins)):
+                      print(f'{name}: {prediction:.2f} mpg')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec08-worksheet-another-right-way">
+    <title>Another right way</title>
+    <p>Ok, fine, I'll cave, I made you do it the hard way but you got to see how the innards worked, so maybe it's not all bad ;)</p>
+    <p>In <c>statsmodels</c>, it can automatically split up the categorical variables in a data frame, so it does the hard work for you. Note that here I'm plugging in the original <c>Auto_df</c> data frame, no processing of the categorical variables on my end at all. Just a warning, though. If we didn't do that preprocessing at the beginning and the entries of origin were still 1's, 2's, and 3's, <c>statsmodels</c> still wouldn't know any better and would just treat the column like a quantitative input.</p>
+    <program language="python">
+      est = smf.ols('mpg ~ origin', Auto_df).fit()
+      est.summary().tables[1]
+    </program>
+    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
+    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the model learned from the above printout? Be specific in terms of your dummy variables.</p>
+            </statement>
+            <hint>
+              <p>In the statsmodels table, the <c>Intercept</c> corresponds to the alphabetically chosen reference category.</p>
+            </hint>
+            <hint>
+              <p>Terms such as <c>origin[T.European]</c> are indicator coefficients measured relative to the reference.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not add an American indicator term when American is the reference category; American is represented when both displayed indicators are zero.</p>
+            </hint>
+            <answer>
+              <p>With American as the reference category, the fitted model is <md>\widehat{mpg}=20.03+7.57\,I(origin=European)+10.42\,I(origin=Japanese).</md></p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec08-worksheet-interaction-terms">
+    <title>Interaction Terms</title>
+    <p>We're going to use the auto data set to train the model</p>
+    <p><md>
+    \texttt{mpg} = \beta_0 + \beta_1\cdot \texttt{weight} + \beta_2\cdot \texttt{horsepower} + \beta_3\cdot \texttt{weight x horsepower}.
+    </md></p>
+    <program language="python">
+      # Reloading teh data set just in case. 
+      Auto_df = pd.read_csv(url)
+      Auto_df = Auto_df.replace('?', np.nan)
+      Auto_df = Auto_df.dropna()
+      Auto_df.horsepower = Auto_df.horsepower.astype('int')
+
+      # We only need the horsepower, weight, and mpg columns so I'm dropping everything else.
+      Auto_df = Auto_df[['horsepower', 'weight', 'mpg']]
+
+      Auto_df.head()
+    </program>
+    <p>First, I'm going to generate a column that is weight times horsepower and add it to the data frame.</p>
+    <program language="python">
+      Auto_df['horse_x_wt'] = Auto_df.horsepower * Auto_df.weight
+      Auto_df.head()
+    </program>
+    <program language="python">
+      regr = LinearRegression()
+      X = Auto_df[['horsepower', 'weight', 'horse_x_wt']]
+      y = Auto_df.mpg
+      regr.fit(X,y)
+
+      print('Coefs = ', regr.coef_)
+      print('Intercept = ', regr.intercept_)
+    </program>
+    <p>Let's do this with stats models now instead. One option, is I can pass in the data frame that I build above and it already has my multiplied column in it.</p>
+    <program language="python">
+      # train the model
+      est = smf.ols('mpg ~ weight + horsepower + horse_x_wt', Auto_df).fit()
+      est.summary().tables[1]
+    </program>
+    <p>However, it will also let me tell the model to build the interaction term without having to build the column myself.</p>
+    <program language="python">
+      # Taking the interaction column out of the data frame
+      Auto_df_no_interact = Auto_df[['horsepower', 'weight', 'mpg']]
+      Auto_df_no_interact.head()
+    </program>
+    <program language="python">
+      est = smf.ols('mpg ~ weight + horsepower + weight*horsepower', Auto_df_no_interact).fit()
+      est.summary().tables[1]
+    </program>
+    <p>I'm going to reload the data for you and keep the acceleration column too.</p>
+    <program language="python">
+      # Reloading the data set again. 
+      Auto_df = pd.read_csv(url)
+      Auto_df = Auto_df.replace('?', np.nan)
+      Auto_df = Auto_df.dropna()
+      Auto_df.horsepower = Auto_df.horsepower.astype('int')
+
+      # We only need the horsepower, weight, and mpg columns so I'm dropping everything else.
+      Auto_df = Auto_df[['horsepower', 'weight', 'acceleration', 'mpg']]
+
+      Auto_df.head()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the model learned? Be specific about your variables in the equation.</p>
+            </statement>
+            <hint>
+              <p>Use the order of columns in <c>X</c>: <c>horsepower</c>, <c>weight</c>, and <c>horse_x_wt</c>.</p>
+            </hint>
+            <hint>
+              <p>Write the interaction term as the product <c>horsepower × weight</c>, keeping the signs and the intercept from the printed output.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The interaction coefficient is small because it multiplies two numerically large variables; do not round it to zero before writing the equation.</p>
+            </hint>
+            <answer>
+              <p>The fitted model is <md>\widehat{mpg}=63.5579-0.25084\,horsepower-0.010772\,weight+0.000053554\,(horsepower\times weight).</md></p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now use stats models to build the model</p>
+              <p>$$
+              \texttt{mpg} = \beta_0 + \beta_1\cdot \texttt{wt}</p>
+              <p><ul>
+                <li>
+                  <p>\beta_2\cdot \texttt{horse}</p>
+                </li>
+                <li>
+                  <p>\beta_3 \cdot \texttt{accel}</p>
+                </li>
+                <li>
+                  <p>\beta_3\cdot \texttt{wt x horse}</p>
+                </li>
+                <li>
+                  <p>\beta 5 \cdot \texttt{wt x accel}.
+                  $$</p>
+                </li>
+              </ul></p>
+              <p>Which interaction terms are adding value to the model?</p>
+              <program language="python">
+                <code>
+                  # Fit all requested main effects and interactions.
+                  est = smf.ols(
+                      'mpg ~ weight + horsepower + acceleration + ...',
+                      data=Auto_df
+                  ).fit()
+                  est.summary().tables[1]
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>In a statsmodels formula, <c>weight*horsepower</c> expands to both main effects plus their interaction; do the same for <c>weight*acceleration</c>.</p>
+            </hint>
+            <hint>
+              <p>Use the <c>P&gt;|t|</c> values for the two interaction rows to judge their evidence after the included main effects are controlled for.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Follow the hierarchy principle: keep the corresponding main effects when an interaction is included, even if one main-effect p-value is not small.</p>
+            </hint>
+            <answer>
+              <p>The <c>weight:horsepower</c> interaction adds evidence to the model (<m>p&lt;0.001</m>), while <c>weight:acceleration</c> does not (<m>p=0.578</m>). In this fit the acceleration main effect is also not significant (<m>p=0.325</m>), but the main effects should remain when retaining an interaction.</p>
+              <program language="python">
+                <code>
+                  est = smf.ols(
+                      'mpg ~ weight + horsepower + acceleration + weight*horsepower + weight*acceleration',
+                      data=Auto_df
+                  ).fit()
+                  est.summary().tables[1]
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec08-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University
+    [Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

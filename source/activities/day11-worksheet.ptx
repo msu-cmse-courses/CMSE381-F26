@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-lec11-morelogisticregression-worksheet" component="ws11">
-  <title>Jupyter - Day 11 - Section 001: Lec 11: More Logistic Regression</title>
+  <title>Day 11 Worksheet</title>
   <introduction>
     <p>In this module we are going to test out the logistic regression classification method we discussed in class, but now we have:</p>
     <p><ul>

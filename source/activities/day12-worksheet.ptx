@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-lec13-loocv-worksheet" component="ws12">
-  <title>Jupyter Notebook: Lecture 13-section 1: Validation set and Cross-Validation</title>
+  <title>Day 12 Worksheet</title>
   <introduction>
     <program language="python">
       # Everyone's favorite standard imports

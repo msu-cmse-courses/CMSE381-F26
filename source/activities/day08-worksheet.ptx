@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-lec08-worksheet" component="ws08">
-  <title>Jupyter Notebook: Lecture 8: The Last of the Linear Regression</title>
+  <title>Day 08 Worksheet</title>
   <introduction>
     <p>In the last few lectures, we have focused on linear regression, that is, fitting models of the form</p>
     <p><md>

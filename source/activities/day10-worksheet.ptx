@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-001-lec10-logisticregression-worksheet" component="ws10">
-  <title>Jupyter - Day 10 - Section 001: Lec 10: Logistic Regression</title>
+  <title>Day 10 Worksheet</title>
   <introduction>
     <program language="python">
       import numpy as np 

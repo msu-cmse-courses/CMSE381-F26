@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-lec07-evenmorelinreg-worksheet" component="ws07">
-  <title>Jupyter - Lecture 7: Even More Linear Regression</title>
+  <title>Day 07 Worksheet</title>
   <introduction>
     <p>In the last few lectures, we have focused on linear regression, that is, fitting models of the form</p>
     <p><md>

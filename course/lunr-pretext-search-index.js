@@ -34,7 +34,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Office Hours",
-  "body": " Office Hours    Person  Time  Location    Dr. Khasawneh  MWF 4:40-5:00 Mon 10:00-11:00  Olds Hall 109 Zoom Link    Dr. Bao  Tue 9:00-10:00 Wed 10:00-11:00  EB 2507L EB 2507L    Siyu Guo  Mon & Wed 1:00-2:00  EB 2504    Christy Lu  Tue 11:00-noon Wed 2:00-3:00  TBD TBD        Office hours will not be held during university holidays.    Office hours are subject to change. Any changes will be communicated in class and\/or on D2L.      "
+  "body": " Office Hours    Person  Time  Location    Dr. Khasawneh  MWF 4:40-5:00 Mon 10:00-11:00  Olds Hall 109 Zoom Link    Dr. Bao  Tue 9:00-10:00 Wed 10:00-11:00  EB 2507L EB 2507L    Siyu Guo  Mon & Wed 1:00-2:00  EB 2504    Christy Lu  Tue 11:00-noon Wed 2:00-3:00  2504 2504        Office hours will not be held during university holidays.    Office hours are subject to change. Any changes will be communicated in class and\/or on D2L.      "
 },
 {
   "id": "subsec-Office-Hours-3",
@@ -235,20 +235,47 @@ var ptx_lunr_docs = [
   "body": " Group Work   We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.     Is this classification or regression?      Classification    Nice!      Regression    Is the outcome variable quantitative or qualitative?        Do we want inference or prediction?      Prediction    Nice!      Inference    Are we interested merely in the output, or no how the predictors influence the output?        What is , the number of data points?            What is , the number of variables?          "
 },
 {
+  "id": "day03-notebook",
+  "level": "1",
+  "url": "day03-notebook.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 03 Worksheet",
+  "body": " Day 03 Worksheet   This is the worksheet for day 3 of CMSE 381. It contains some code to go along with lecture 3 on Mean Squared Error.  The dataset we're using is the Auto dataset from the ISLR book. See .    Mean Squared Error    # As always, we start with our favorite standard imports. import numpy as np import pandas as pd import matplotlib.pyplot as plt import seaborn as sns %matplotlib inline  # First, we're going to do all the data loading and cleanup we figured out last time. url = \"https:\/\/msu-cmse-courses.github.io\/CMSE381-S26\/_downloads\/d75c3811a83a66f8c261e5b599ef9e44\/Auto.csv\" auto = pd.read_csv(url) auto = auto.replace('?', np.nan) auto = auto.dropna() auto.horsepower = auto.horsepower.astype('int') auto.shape    Check that the shape of data is (392, 9) and that the horsepower column is of type int .        We want to just predict acceleration using horsepower. Answer the following questions.     Make a scatter plot of acceleration (the output variable) vs horsepower (the input variable). Does it look like there's a relationship between the two variables?    Use the plt.scatter or sns.regplot function to make a scatter plot.    plt.scatter(auto.horsepower, auto.acceleration)    sns.regplot(auto.horsepower, auto.acceleration)      I've decided to use the model   Make a panda Series with entries for each entry in auto.horsepower .     predicted = 23-(0.05)*auto.horsepower      0 16.50 1 14.75 2 15.50 3 15.50 4 16.00 5 13.10 6 12.00 7 12.25 8 11.75 9 13.50 Name: horsepower, dtype: float64       Plot the function on top of the data's scatter plot.     plt.scatter(auto.horsepower,auto.acceleration)  t = np.array([0, 225])  liney = -.05*t+23  plt.plot(t,liney)       Using the series you just built, calculate the mean squared error,     Recall that the predicted values are in the series predicted you just built, and the actual values are in auto.acceleration .    Use the MSE formula above to calculate the mean squared error. You can use np.sum to sum up the squared errors and divide by the number of entries in the series.     sq_error = (auto.acceleration-predicted)**2  MSE = np.sum(sq_error)\/len(sq_error)       Print the first 10 entries of the predicted series, and of the squared errors.     print(predicted[:10])  print(sq_error[:10])       What is the mean squared error?    MSE= 8.982500000000002      What is the length of the squared error series?    Use the len function to get the length of the squared error series sq_error .    The length of the squared error series is 392.      Have some spare time? Can you mess around with the coefficients in your model to decrease the MSE?    Check out the model. What parameters can we modify to change the model? Try changing the intercept and slope to see if you can get a lower MSE.    Since the model is we can experiment with different intercepts and slopes to see if the MSE decreases.         Congratulations, we're done!   "
+},
+{
+  "id": "subsec-ws03-mean-squared-error-2-2",
+  "level": "2",
+  "url": "day03-notebook.html#subsec-ws03-mean-squared-error-2-2",
+  "type": "Note",
+  "number": "8",
+  "title": "",
+  "body": " Check that the shape of data is (392, 9) and that the horsepower column is of type int .  "
+},
+{
+  "id": "ws03-acc-scatter-plot",
+  "level": "2",
+  "url": "day03-notebook.html#ws03-acc-scatter-plot",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "  We want to just predict acceleration using horsepower. Answer the following questions.     Make a scatter plot of acceleration (the output variable) vs horsepower (the input variable). Does it look like there's a relationship between the two variables?    Use the plt.scatter or sns.regplot function to make a scatter plot.    plt.scatter(auto.horsepower, auto.acceleration)    sns.regplot(auto.horsepower, auto.acceleration)      I've decided to use the model   Make a panda Series with entries for each entry in auto.horsepower .     predicted = 23-(0.05)*auto.horsepower      0 16.50 1 14.75 2 15.50 3 15.50 4 16.00 5 13.10 6 12.00 7 12.25 8 11.75 9 13.50 Name: horsepower, dtype: float64       Plot the function on top of the data's scatter plot.     plt.scatter(auto.horsepower,auto.acceleration)  t = np.array([0, 225])  liney = -.05*t+23  plt.plot(t,liney)       Using the series you just built, calculate the mean squared error,     Recall that the predicted values are in the series predicted you just built, and the actual values are in auto.acceleration .    Use the MSE formula above to calculate the mean squared error. You can use np.sum to sum up the squared errors and divide by the number of entries in the series.     sq_error = (auto.acceleration-predicted)**2  MSE = np.sum(sq_error)\/len(sq_error)       Print the first 10 entries of the predicted series, and of the squared errors.     print(predicted[:10])  print(sq_error[:10])       What is the mean squared error?    MSE= 8.982500000000002      What is the length of the squared error series?    Use the len function to get the length of the squared error series sq_error .    The length of the squared error series is 392.      Have some spare time? Can you mess around with the coefficients in your model to decrease the MSE?    Check out the model. What parameters can we modify to change the model? Try changing the intercept and slope to see if you can get a lower MSE.    Since the model is we can experiment with different intercepts and slopes to see if the MSE decreases.    "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
   "type": "Section",
   "number": "",
   "title": "Exam 1 material",
-  "body": " Exam 1 material       Day 01      Day 02        Day 01   Intro to class    What is statistical learning?    Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty      Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.        Why should you care?    Data is everywhere, getting more complicated and useful. Learning how to analyze data is critical.    Web data, e-commerce (Amazon, JD, Alibaba)    Car sales (Tesla, Ford, and GM)    Sports team (MSU, Lions, etc)    Politics and government    Image, videos, text    even fancier data in biomedicine      Learning tools as black boxes?    Need to understand the machinery enough to    know what tool to use    know how to interpret output of the tool      Don't need to rebuild the entire box from scratch      Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.     Supervised learning    Outcome measurement (also called dependent variable, response, target, label).    Vector of predictor measurements (also called inputs, regressors, covariates, features, independent variables).    In the regression problem, is quantitative (e.g price, blood pressure).    In the classification problem, takes values in a set of distinct categories (survived\/died, cancer class of tissue sample, types of language).      Unsupervised learning    No outcome variable, just a set of predictors (features) measured on a set of samples.    Objective is fuzzier: often explore the intrinsic relation between samples (e.g.,clustering) or features (e.g. dimensionality reduction)    Difficult to know how well you are are doing    Different from supervised learning but can be useful as a pre-processing step for supervised learning.      Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.     Get started on Day01 Worksheet !    Day 02   Intro to class    Covered in this class    Input\/output variables    Prediction vs inference.    Reduceable vs irreduceable error.    Overfitting    Classification vs regression    Supervised vs Unsupervised learning     Please note: no jupyter notebook for today's class, slides only    Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set      Sales of a product in 200 markets, along with amount spent on three different types of advertising. Data available at      Goal: Predict Sales based on amount spent in each type of advertising       Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.     Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.     Notation and Big Assumption      Input variables:     Output variable:             Advertising Example   Sales versus TV, radio, and newspaper advertising spending all in units of 1000     More examples    Data points for income in units of 1000 versus years of education and a nonlinear curve fit to the data    Data points for income in units of 1000 versus years of education and seniority along with a surface fit to data      Prediction vs Inference   Prediction    Given a value , try to provide an estimate for .  Build a model     Example: If we spend $250 on TV advertising, what do we predict we will we make in sales?   Sales versus TV advertising spending in units of 1000 along with two different linear fits           The blue solid line is . The green dashed line is . What is the predicted sales for the first three data points using the green dashed line shown in the graph? Note all values are approximate.     What is ?            What is ?            What is ?            Using the dashed green line as the predicted model , how can we quantify the error in each of the three predictions? This is what we will learn next.   Reducible vs irreducible error      Reducible error      Irreducible error       More on error    Given estimate (fixed)    Set of predictors (fixed)    Prediction        Inference   Want , but not for prediction (or possibly combined with prediction)    Which predictors are associated with the response?    What is the relationship between the response and each predictor?    Can the relationship between and each predictor be adequately summarized using a linear equation? Is it more complicated?        Predict effectiveness of vaccine      Prediction      Inference        Determine the address written on the image of an envelope.      Prediction      Inference        Identify risk factors for getting long covid.      Prediction      Inference        Transcribe an audio file of a person talking.      Prediction      Inference        Predict stock prices.      Prediction      Inference       How to estimate     Input: training data      data points observed   is the th predictor for observation    is the response variable for the th observation   Training data:            screenshot of the advertising data set      Parametric methods    Step1: Select a model  EXample:     Step 2: Train the model  Example: Find $ s so that      income in units of 1000 versus years of education and seniority   Data points for income in units of 1000 versus years of education and seniority along with a planar surface fit to data      How do you decide on the coefficients?     A 2D scatter plot    Change the values of the coefficients and observe how the fit changes.     Example Non-parametric method: Nearest Neighbors      Nearest neighbors with two classes   A picture of data with two classes separated by a non-linear boundary obtained using nearest neighbors with .      Parametric methods: Pros and Cons    Pros  Cons        Overfitting    Income versus years of education and seniority and less flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a non-planar surface fit to data     Income versus years of education and seniority and more flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a more flexible non-planar surface fit to data       Prediction Accuracy vs Model Interpretability   Interpretability and flexibility of common machine learning methods   A figure that plots common methods for machine learning with low and high levels for interpretability on the y-axis versus flexibility on the x-axis      Supervised and unsupervised learning:    Supervised learning : Training data has response variable for every input    Sales versus TV, radio, and newspaper advertising spending all in units of 1000      Unsupervised learning : Training data does not have response variable for every input    Plot of 3 different classes separately grouped versus two predictors X1 and X2      Regression vs Classification  Types of variables    Quantitative    Qualitative or Categorical      TL;DR      Input\/output variables    Prediction vs inference    Reducible vs irreducible error    Overfitting    Classification vs regression    Supervised vs Unsupervised learning       Group work: Work in groups to complete Day02 in-class activity .   "
+  "body": " Exam 1 material       Day 01      Day 02      Day 03        Day 01   Intro to class    What is statistical learning?    Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty      Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.        Why should you care?    Data is everywhere, getting more complicated and useful. Learning how to analyze data is critical.    Web data, e-commerce (Amazon, JD, Alibaba)    Car sales (Tesla, Ford, and GM)    Sports team (MSU, Lions, etc)    Politics and government    Image, videos, text    even fancier data in biomedicine      Learning tools as black boxes?    Need to understand the machinery enough to    know what tool to use    know how to interpret output of the tool      Don't need to rebuild the entire box from scratch      Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.     Supervised learning    Outcome measurement (also called dependent variable, response, target, label).    Vector of predictor measurements (also called inputs, regressors, covariates, features, independent variables).    In the regression problem, is quantitative (e.g price, blood pressure).    In the classification problem, takes values in a set of distinct categories (survived\/died, cancer class of tissue sample, types of language).      Unsupervised learning    No outcome variable, just a set of predictors (features) measured on a set of samples.    Objective is fuzzier: often explore the intrinsic relation between samples (e.g.,clustering) or features (e.g. dimensionality reduction)    Difficult to know how well you are are doing    Different from supervised learning but can be useful as a pre-processing step for supervised learning.      Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.     Get started on Day01 Worksheet !    Day 02   Intro to class    Covered in this class    Input\/output variables    Prediction vs inference.    Reduceable vs irreduceable error.    Overfitting    Classification vs regression    Supervised vs Unsupervised learning     Please note: no jupyter notebook for today's class, slides only    Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set      Sales of a product in 200 markets, along with amount spent on three different types of advertising. Data available at      Goal: Predict Sales based on amount spent in each type of advertising       Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.     Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.     Notation and Big Assumption      Input variables:     Output variable:             Advertising Example   Sales versus TV, radio, and newspaper advertising spending all in units of 1000     More examples    Data points for income in units of 1000 versus years of education and a nonlinear curve fit to the data    Data points for income in units of 1000 versus years of education and seniority along with a surface fit to data      Prediction vs Inference   Prediction    Given a value , try to provide an estimate for .  Build a model     Example: If we spend $250 on TV advertising, what do we predict we will we make in sales?   Sales versus TV advertising spending in units of 1000 along with two different linear fits           The blue solid line is . The green dashed line is . What is the predicted sales for the first three data points using the green dashed line shown in the graph? Note all values are approximate.     What is ?            What is ?            What is ?            Using the dashed green line as the predicted model , how can we quantify the error in each of the three predictions? This is what we will learn next.   Reducible vs irreducible error      Reducible error      Irreducible error       More on error    Given estimate (fixed)    Set of predictors (fixed)    Prediction        Inference   Want , but not for prediction (or possibly combined with prediction)    Which predictors are associated with the response?    What is the relationship between the response and each predictor?    Can the relationship between and each predictor be adequately summarized using a linear equation? Is it more complicated?        Predict effectiveness of vaccine      Prediction      Inference        Determine the address written on the image of an envelope.      Prediction      Inference        Identify risk factors for getting long covid.      Prediction      Inference        Transcribe an audio file of a person talking.      Prediction      Inference        Predict stock prices.      Prediction      Inference       How to estimate     Input: training data      data points observed   is the th predictor for observation    is the response variable for the th observation   Training data:            screenshot of the advertising data set      Parametric methods    Step1: Select a model  EXample:     Step 2: Train the model  Example: Find $ s so that      income in units of 1000 versus years of education and seniority   Data points for income in units of 1000 versus years of education and seniority along with a planar surface fit to data      How do you decide on the coefficients?     A 2D scatter plot    Change the values of the coefficients and observe how the fit changes.     Example Non-parametric method: Nearest Neighbors      Nearest neighbors with two classes   A picture of data with two classes separated by a non-linear boundary obtained using nearest neighbors with .      Parametric methods: Pros and Cons    Pros  Cons        Overfitting    Income versus years of education and seniority and less flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a non-planar surface fit to data     Income versus years of education and seniority and more flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a more flexible non-planar surface fit to data       Prediction Accuracy vs Model Interpretability   Interpretability and flexibility of common machine learning methods   A figure that plots common methods for machine learning with low and high levels for interpretability on the y-axis versus flexibility on the x-axis      Supervised and unsupervised learning:    Supervised learning : Training data has response variable for every input    Sales versus TV, radio, and newspaper advertising spending all in units of 1000      Unsupervised learning : Training data does not have response variable for every input    Plot of 3 different classes separately grouped versus two predictors X1 and X2      Regression vs Classification  Types of variables    Quantitative    Qualitative or Categorical      TL;DR      Input\/output variables    Prediction vs inference    Reducible vs irreducible error    Overfitting    Classification vs regression    Supervised vs Unsupervised learning       Group work: Work in groups to complete Day02 in-class activity .    Day 03      "
 },
 {
   "id": "day-01-lecture-3-2-1",
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "8",
+  "number": "9",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
@@ -257,7 +284,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "9",
+  "number": "10",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
@@ -266,7 +293,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "10",
+  "number": "11",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
@@ -275,7 +302,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "11",
+  "number": "12",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
@@ -293,7 +320,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "12",
+  "number": "13",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
@@ -302,7 +329,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "13",
+  "number": "14",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
@@ -311,7 +338,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "14",
+  "number": "15",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
@@ -320,7 +347,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
-  "number": "15",
+  "number": "16",
   "title": "",
   "body": "  What is ?         "
 },
@@ -329,7 +356,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
-  "number": "16",
+  "number": "17",
   "title": "",
   "body": "  What is ?         "
 },
@@ -338,7 +365,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW3",
   "type": "Checkpoint",
-  "number": "17",
+  "number": "18",
   "title": "",
   "body": "  What is ?         "
 },
@@ -365,7 +392,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "18",
+  "number": "19",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
@@ -374,7 +401,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "19",
+  "number": "20",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
@@ -383,7 +410,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "21",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
@@ -392,7 +419,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "22",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
@@ -401,7 +428,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "22",
+  "number": "23",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
@@ -410,7 +437,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "23",
+  "number": "24",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons      "
 },

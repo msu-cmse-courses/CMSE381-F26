@@ -131,7 +131,7 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth3 focused" data-preexpanded-levels="0" data-max-levels="3"><ul class="structural toc-item-list contains-active">
+<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural toc-item-list contains-active">
 <li class="toc-item toc-frontmatter">
 <div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul id="ptx-toc-group-frontmatter" class="structural toc-item-list"><li class="toc-item toc-chapter">
@@ -174,6 +174,13 @@ eBookConfig.enable_chatcodes =  false;
 </li></ul>
 </li>
 <li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="day02-worksheet.html" class="internal"><span class="title">Day 02 Worksheet</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day03-notebook.html" class="internal"><span class="title">Day 03 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day03-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day03-notebook.html#subsec-ws03-mean-squared-error" class="internal"><span class="title">Mean Squared Error</span></a></div>
+<ul id="ptx-toc-group-subsec-ws03-mean-squared-error" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day03-notebook.html#ws03-exercises-" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -183,6 +190,7 @@ eBookConfig.enable_chatcodes =  false;
 <ul id="ptx-toc-group-sec-exam1-material" class="structural toc-item-list">
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-01-lecture" class="internal"><span class="title">Day 01</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-02-lecture" class="internal"><span class="title">Day 02</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-03-lecture" class="internal"><span class="title">Day 03</span></a></div></li>
 </ul>
 </li></ul>
 </li>
@@ -288,11 +296,11 @@ eBookConfig.enable_chatcodes =  false;
 <div class="para" id="hw01-P2-4-9-6-1-1">Using the full data set, investigate the predictors graphically using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P2-4-9-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
 <article class="note remark-like" id="hw01-P2-4-9-6-1-2"><h4 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">24</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">25</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h4>
 <div class="para" id="hw01-P2-4-9-6-1-2-1">Include images with your Crowdmark submission.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P2-4-9-6-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 24"><a tabindex="-1" href="#hw01-P2-4-9-6-1-2" title="Copy heading and permalink for Note 24" aria-label="Copy heading and permalink for Note 24">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 25"><a tabindex="-1" href="#hw01-P2-4-9-6-1-2" title="Copy heading and permalink for Note 25" aria-label="Copy heading and permalink for Note 25">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Task 1.e"><a tabindex="-1" href="#hw01-P2-4-9-6" title="Copy heading and permalink for Task 1.e" aria-label="Copy heading and permalink for Task 1.e">🔗</a></div>
 </article>
 <article class="task exercise-like" id="hw01-P2-4-9-7"><h3 class="heading"><span class="codenumber">(f)</span></h3>
@@ -331,11 +339,11 @@ eBookConfig.enable_chatcodes =  false;
 <div class="para" id="hw01-P-2-4-3-2-1-1">Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P-2-4-3-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
 <article class="note remark-like" id="hw01-P-2-4-3-2-1-2"><h4 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">25</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">26</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h4>
 <div class="para" id="hw01-P-2-4-3-2-1-2-1">We have only done irreducible error, not Bayes error since that has to do with classification.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P-2-4-3-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 25"><a tabindex="-1" href="#hw01-P-2-4-3-2-1-2" title="Copy heading and permalink for Note 25" aria-label="Copy heading and permalink for Note 25">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 26"><a tabindex="-1" href="#hw01-P-2-4-3-2-1-2" title="Copy heading and permalink for Note 26" aria-label="Copy heading and permalink for Note 26">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Task 3.a"><a tabindex="-1" href="#hw01-P-2-4-3-2" title="Copy heading and permalink for Task 3.a" aria-label="Copy heading and permalink for Task 3.a">🔗</a></div>
 </article>
 <article class="task exercise-like" id="hw01-P-2-4-3-3"><h3 class="heading"><span class="codenumber">(b)</span></h3>
@@ -366,7 +374,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="introduction" id="hw01-P2-4-8-1">
 <div class="para" id="hw01-P2-4-8-1-1">This exercise relates to the College data set, which can be found in the file College.csv on the book website. It contains a number of variables for 777 different universities and colleges in the US (Problem 2.4.8c-h in the textbook). The variables are 
 <article class="data computation-like" id="day01-college-csv"><h3 class="heading">
-<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">26</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">College: College Data Set.</span>
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">27</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">College: College Data Set.</span>
 </h3>
 <div class="para logical" id="day01-college-csv-2">
 <dl class="description-list">
@@ -481,10 +489,10 @@ eBookConfig.enable_chatcodes =  false;
 </dl>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day01-college-csv-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<a class="external" href="external/data/College.csv" target="_blank"><code class="code-inline tex2jax_ignore">College.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Data 26: College: College Data Set"><a tabindex="-1" href="#day01-college-csv" title="Copy heading and permalink for Data 26: College: College Data Set" aria-label="Copy heading and permalink for Data 26: College: College Data Set">🔗</a></div>
+<a class="external" href="external/data/College.csv" target="_blank"><code class="code-inline tex2jax_ignore">College.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Data 27: College: College Data Set"><a tabindex="-1" href="#day01-college-csv" title="Copy heading and permalink for Data 27: College: College Data Set" aria-label="Copy heading and permalink for Data 27: College: College Data Set">🔗</a></div>
 </article> 
 <article class="note remark-like" id="hw01-P2-4-8-1-1-2"><h3 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">27</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">28</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3>
 <div class="para" id="hw01-P2-4-8-1-1-2-1">There is a typo in 2.4.8f, at least with respect to the version of the data set we have. The information in the <code class="code-inline tex2jax_ignore">Top10perc</code> column is a percentage 0-100 rather than a value between 0 and 1. So use the following replacement code instead. <div class="code-box"><pre class="program clipboardable"><code class="language-py">college['Elite'] = pd.cut(college['Top10perc'],
 [0,50,100],
@@ -492,7 +500,7 @@ labels=['No', 'Yes'])
 </code></pre></div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P2-4-8-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 27"><a tabindex="-1" href="#hw01-P2-4-8-1-1-2" title="Copy heading and permalink for Note 27" aria-label="Copy heading and permalink for Note 27">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 28"><a tabindex="-1" href="#hw01-P2-4-8-1-1-2" title="Copy heading and permalink for Note 28" aria-label="Copy heading and permalink for Note 28">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw01-P2-4-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="hw01-P2-4-8-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>

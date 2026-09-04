@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Day 03 Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
+<script type="module">import { startMathJax } from './_static/pretext/js/dist/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: false,
+isReact: false,
+htmlPresentation: false,
+lang: "en-US",
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta name="twitter:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="og:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="book:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta name="twitter:description" content="Fall 2026">
+<meta property="og:description" content="Fall 2026">
+<meta name="twitter:card" content="summary">
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.52"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.52"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '8.2.10';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script src="_static/prefix-runtime.e3f9706509fcf6f7.bundle.js"></script><script src="_static/prefix-926.5c7038c8ef173faf.bundle.js"></script><script src="_static/prefix-runestone.c5ba0ffa5f963084.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-926.229729d09512acc9.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.efe427683fc41f98.css">
+<script src="_static/pretext/js/dist/lti_iframe_resizer.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha512-dubtf8xMHSQlExGRQ5R7toxHLgSDZ0K7AunqPWHXmJQ8XyVIG19S1T95gBxlAeGOK02P4Da2RTnQz0Za0H0ebQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-highlight/prism-line-highlight.min.js" integrity="sha512-93uCmm0q+qO5Lb1huDqr7tywS8A2TFA+1/WHvyiWaK6/pvsFl6USnILagntBx8JnVbQH5s3n0vQZY6xNthNfKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/dist/pretext_search.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script>
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead" role="banner"><div class="ptx-banner"><div class="title-container">
+<div class="heading ptx-banner-heading"><a href="root-1-2.html"><span class="title">CMSE 381: Fundamentals of Data Science Methods</span> <span class="subtitle">Fall 2026</span></a></div>
+<p class="byline">CMSE faculty</p>
+</div></div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><div class="ptx-navbar-contents">
+<button id="ptx-toc-toggle" type="button" aria-controls="ptx-sidebar" class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="ptx-search-box">
+<div class="ptx-search-widget"><button id="ptx-search-button" type="button" class="ptx-search-button button" title="Search Book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<dialog id="ptx-search-dialog" class="ptx-dialog ptx-search-dialog"><div class="ptx-search-dialog-controls">
+<input aria-label="Search term" id="ptx-search-terms" class="ptx-search-terms" type="text" name="terms" placeholder="Search terms"><button aria-label="Close" id="ptx-search-close" class="ptx-search-close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div id="ptx-search-status" class="ptx-search-status" aria-live="polite" aria-atomic="true"></div>
+<h2 class="heading ptx-search-results-heading">Search Results: </h2>
+<div id="ptx-search-empty" class="ptx-search-empty"><span>No results.</span></div>
+<ol id="ptx-search-results" class="ptx-search-results"></ol></dialog>
+</div>
+<span class="nav-other-controls"><button id="ptx-embed-button" class="ptx-embed-button button" title="Embed this page"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe86f;</span><span class="name">Embed</span></button><dialog class="ptx-dialog ptx-embed-popup" id="ptx-embed-popup"><div class="ptx-embed-popup-controls">
+<p>Copy the code below to embed this page in your own website or LMS page.</p>
+<button class="ptx-embed-close-button button" id="ptx-embed-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-embed-code-container">
+<textarea class="ptx-embed-code-textbox" id="ptx-embed-code-textbox" readonly aria-label="Embed"><iframe src="https://example.com/embed" width="100%" height="1000"></iframe></textarea><button autofocus="autofocus" class="ptx-embed-copy-button button" id="ptx-embed-copy-button" title="Copy"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe14d;</span><span class="name">Copy</span></button>
+</div></dialog><button id="ptx-read-aloud-button" class="ptx-read-aloud-button button" title="Read aloud" aria-expanded="false"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf1bc;</span><span class="name">Read aloud</span></button><div id="ptx-read-aloud-player" class="ptx-read-aloud-player" hidden="hidden" role="group" aria-label="Read aloud">
+<button id="ptx-read-aloud-prev" class="button" title="Previous sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe045;</span></button><button id="ptx-read-aloud-toggle" class="ptx-read-aloud-toggle button" title="Play"><span class="ptx-read-aloud-icon-play"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></span><span class="ptx-read-aloud-icon-pause"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe034;</span></span></button><button id="ptx-read-aloud-next" class="button" title="Next sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe044;</span></button><a id="ptx-read-aloud-continue" class="ptx-read-aloud-continue button" hidden="hidden">Continue<span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></a><button id="ptx-read-aloud-settings-button" class="ptx-read-aloud-settings-button button" title="Reading settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe429;</span></button>
+</div>
+<dialog class="ptx-dialog ptx-read-aloud-settings-popup" id="ptx-read-aloud-settings-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Read aloud settings</h2>
+<button class="ptx-read-aloud-settings-close-button button" id="ptx-read-aloud-settings-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label for="ptx-read-aloud-voice"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe91f;</span><span>Voice</span></label><select id="ptx-read-aloud-voice"></select><label class="ptx-readability-slider-label" for="ptx-read-aloud-rate"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe9e4;</span><span>Reading speed</span><output id="ptx-read-aloud-rate-value" for="ptx-read-aloud-rate">1×</output></label><input type="range" id="ptx-read-aloud-rate" min="0.5" max="2" step="0.1" value="1"><label for="ptx-read-aloud-asides"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d7;</span><span>Collapsed content</span></label><select id="ptx-read-aloud-asides"><option value="skip">Announce, do not read</option>
+<option value="read">Read automatically</option></select><label for="ptx-read-aloud-autoscroll"><input type="checkbox" id="ptx-read-aloud-autoscroll" checked><span>Follow along (auto-scroll)</span></label><label for="ptx-read-aloud-autocontinue"><input type="checkbox" id="ptx-read-aloud-autocontinue"><span>Continue to the next page automatically</span></label>
+</div></dialog><button id="ptx-readability-options-button" class="ptx-readability-options-button button" title="Readability settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf6f1;</span><span class="name">Readability settings</span></button><dialog class="ptx-dialog ptx-readability-options-popup" id="ptx-readability-options-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Readability settings</h2>
+<button class="ptx-readability-options-close-button button" id="ptx-readability-options-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-line-height"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe240;</span><span>Line height</span><output id="ptx-readability-line-height-value" for="ptx-readability-line-height">1.35</output></label><input type="range" id="ptx-readability-line-height" min="1.10" max="3" step="0.05" value="1.35">
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-font-size"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe245;</span><span>Content font size</span><output id="ptx-readability-font-size-value" for="ptx-readability-font-size">100%</output></label><input type="range" id="ptx-readability-font-size" min="0.8" max="1.5" step="0.05" value="1">
+</div>
+<fieldset class="ptx-readability-options-group ptx-readability-options-group-theme">
+<legend>Theme</legend>
+<label for="ptx-readability-theme-system"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-system" value="system"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe1ab;</span><span>System</span></label><label for="ptx-readability-theme-light"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-light" value="light"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe518;</span><span>Light</span></label><label for="ptx-readability-theme-dark"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-dark" value="dark"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span>Dark</span></label>
+</fieldset>
+<fieldset class="ptx-readability-options-group">
+<legend>Assistive technologies</legend>
+<label for="ptx-readability-accessible-permalinks"><input type="checkbox" id="ptx-readability-accessible-permalinks"><span>🔗</span><span>Expose permalinks</span></label>
+</fieldset>
+<div class="ptx-readability-options-group"><button type="button" class="ptx-readability-reset-button button" id="ptx-readability-reset-button"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf053;</span><span class="name">Reset All</span></button></div></dialog></span><span class="treebuttons"><a class="previous-button button" href="day02-worksheet.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="activities.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+</div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul id="ptx-toc-group-frontmatter" class="structural toc-item-list"><li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-course-info.html" class="internal"><span class="title">Course Information and Office Hours</span></a></div>
+<ul id="ptx-toc-group-ch-course-info" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-2.html" class="internal"><span class="title">Instructional Team</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-Office-Hours.html" class="internal"><span class="title">Office Hours</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-4.html" class="internal"><span class="title">What is this course about?</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-D2L.html" class="internal"><span class="title">D2L and where to find grades</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-course-website.html" class="internal"><span class="title">Course website, Slides, and jupyter notebooks</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsubsec-crowdmark-info.html" class="internal"><span class="title">Crowdmark and where we grade your quizzes/midterms</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="subsec-class-structure.html" class="internal"><span class="title">Class Structure</span></a></div>
+<ul id="ptx-toc-group-subsec-class-structure" class="structural toc-item-list"><li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-class-structure.html#subsec-Basic-Expectations" class="internal"><span class="title">Basic Expectations</span></a></div></li></ul>
+</li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="course-documents.html" class="internal"><span class="title">Syllabus and Course Schedule</span></a></div>
+<ul id="ptx-toc-group-course-documents" class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="syllabus.html" class="internal"><span class="title">Syllabus</span></a></div>
+<ul id="ptx-toc-group-syllabus" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-course-info" class="internal"><span class="title">Policy Sheet</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-assessments" class="internal"><span class="title">Assessments and Grades</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="schedule.html" class="internal"><span class="title">Course Schedule</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="activities.html" class="internal"><span class="title">In-Class Activities</span></a></div>
+<ul class="structural toc-item-list contains-active" id="ptx-toc-group-activities">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day01-notebook.html" class="internal"><span class="title">Day01 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day01-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day01-notebook.html#day01-subsec-the-data-set" class="internal"><span class="title">The Dataset</span></a></div>
+<ul id="ptx-toc-group-day01-subsec-the-data-set" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day01-notebook.html#exercises-day01" class="internal"><span class="title">Day01 Coding Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="day02-worksheet.html" class="internal"><span class="title">Day 02 Worksheet</span></a></div></li>
+<li class="toc-item toc-section contains-active">
+<div class="toc-title-box"><a href="day03-notebook.html" class="internal"><span class="title">Day 03 Worksheet</span></a></div>
+<ul class="structural toc-item-list active" id="ptx-toc-group-day03-notebook"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day03-notebook.html#subsec-ws03-mean-squared-error" class="internal"><span class="title">Mean Squared Error</span></a></div>
+<ul id="ptx-toc-group-subsec-ws03-mean-squared-error" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day03-notebook.html#ws03-exercises-" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="lectures.html" class="internal"><span class="title">Lectures</span></a></div>
+<ul id="ptx-toc-group-lectures" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="sec-exam1-material.html" class="internal"><span class="title">Exam 1 material</span></a></div>
+<ul id="ptx-toc-group-sec-exam1-material" class="structural toc-item-list">
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-01-lecture" class="internal"><span class="title">Day 01</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-02-lecture" class="internal"><span class="title">Day 02</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-03-lecture" class="internal"><span class="title">Day 03</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="homework.html" class="internal"><span class="title">Homework</span></a></div>
+<ul id="ptx-toc-group-homework" class="structural toc-item-list"><li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-2.html" class="internal"><span class="title">Homework 01</span></a></div></li></ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="day03-notebook">
+<h1 class="heading hide-type">
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 03 Worksheet</span>
+</h1>
+<section class="introduction" id="day03-notebook-2">
+<div class="para" id="day03-notebook-2-1">This is the worksheet for day 3 of CMSE 381. It contains some code to go along with lecture 3 on Mean Squared Error.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day03-notebook-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day03-notebook-2-2">The dataset we’re using is the <code class="code-inline tex2jax_ignore">Auto</code> dataset from the ISLR book. See <a href="day01-notebook.html#day01-Auto-csv" class="xref" data-knowl="./knowl/xref/day01-Auto-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 7: Auto: Auto Data Set">Data 7</a>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day03-notebook-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<section class="subsection" id="subsec-ws03-mean-squared-error">
+<h2 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Mean Squared Error</span>
+</h2>
+<div class="para" id="subsec-ws03-mean-squared-error-2">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># As always, we start with our favorite standard imports. 
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+%matplotlib inline
+# First, we're going to do all the data loading and cleanup we figured out last time.
+url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/d75c3811a83a66f8c261e5b599ef9e44/Auto.csv"
+auto = pd.read_csv(url)
+auto = auto.replace('?', np.nan)
+auto = auto.dropna()
+auto.horsepower = auto.horsepower.astype('int')
+auto.shape
+</code></pre></div> 
+<article class="note remark-like" id="subsec-ws03-mean-squared-error-2-2"><h3 class="heading">
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">8</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h3>
+<div class="para" id="subsec-ws03-mean-squared-error-2-2-1">Check that the shape of data is (392, 9) and that the horsepower column is of type <code class="code-inline tex2jax_ignore">int</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws03-mean-squared-error-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 8"><a tabindex="-1" href="#subsec-ws03-mean-squared-error-2-2" title="Copy heading and permalink for Note 8" aria-label="Copy heading and permalink for Note 8">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws03-mean-squared-error-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<section class="exercises" id="ws03-exercises-">
+<h3 class="heading hide-type">
+<span class="type">Exercises</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="ws03-MSE-coding">
+<h4 class="heading"><span class="title">Exercise Group.</span></h4>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="ws03-acc-scatter-plot"><h5 class="heading"><span class="codenumber">1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<div class="introduction" id="ws03-acc-scatter-plot-1">
+<div class="para" id="ws03-acc-scatter-plot-1-1">We want to just predict acceleration using horsepower. Answer the following questions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-2"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-2-1-1">Make a scatter plot of acceleration (the output variable) vs horsepower (the input variable). Does it look like there’s a relationship between the two variables?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-2-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-2-2-1">Use the <code class="code-inline tex2jax_ignore">plt.scatter</code> or <code class="code-inline tex2jax_ignore">sns.regplot</code> function to make a scatter plot.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.a.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-2-2" title="Copy heading and permalink for Hint 1.a.1" aria-label="Copy heading and permalink for Hint 1.a.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-2-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<code class="code-inline tex2jax_ignore language-py">plt.scatter(auto.horsepower, auto.acceleration)</code><div class="autopermalink" aria-hidden="true" data-description="Answer 1.a.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-2-3" title="Copy heading and permalink for Answer 1.a.1" aria-label="Copy heading and permalink for Answer 1.a.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-2-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<code class="code-inline tex2jax_ignore language-py">sns.regplot(auto.horsepower, auto.acceleration)</code><div class="autopermalink" aria-hidden="true" data-description="Answer 1.a.2"><a tabindex="-1" href="#ws03-acc-scatter-plot-2-4" title="Copy heading and permalink for Answer 1.a.2" aria-label="Copy heading and permalink for Answer 1.a.2">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.a"><a tabindex="-1" href="#ws03-acc-scatter-plot-2" title="Copy heading and permalink for Task 1.a" aria-label="Copy heading and permalink for Task 1.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-3"><h6 class="heading"><span class="codenumber">(b)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-3-1-1">I’ve decided to use the model <span class="process-math">\(\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="ws03-acc-scatter-plot-3-1-2">Make a panda Series with entries <span class="process-math">\(\hat f(\texttt{horsepower})\)</span> for each entry in <code class="code-inline tex2jax_ignore">auto.horsepower</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-3-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-3-2-1">
+<code class="code-inline tex2jax_ignore language-py">predicted = 23-(0.05)*auto.horsepower</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.b.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-3-2" title="Copy heading and permalink for Answer 1.b.1" aria-label="Copy heading and permalink for Answer 1.b.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-3-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">0    16.50
+1    14.75
+2    15.50
+3    15.50
+4    16.00
+5    13.10
+6    12.00
+7    12.25
+8    11.75
+9    13.50
+Name: horsepower, dtype: float64
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.b.2"><a tabindex="-1" href="#ws03-acc-scatter-plot-3-3" title="Copy heading and permalink for Answer 1.b.2" aria-label="Copy heading and permalink for Answer 1.b.2">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.b"><a tabindex="-1" href="#ws03-acc-scatter-plot-3" title="Copy heading and permalink for Task 1.b" aria-label="Copy heading and permalink for Task 1.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-4"><h6 class="heading"><span class="codenumber">(c)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-4-1-1">Plot the function <span class="process-math">\(\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}\)</span> on top of the data’s scatter plot.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-4-2-1">
+<code class="code-inline tex2jax_ignore language-py">plt.scatter(auto.horsepower,auto.acceleration)</code> <code class="code-inline tex2jax_ignore language-py">t = np.array([0, 225])</code> <code class="code-inline tex2jax_ignore language-py">liney = -.05*t+23</code> <code class="code-inline tex2jax_ignore language-py">plt.plot(t,liney)</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.c.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-4-2" title="Copy heading and permalink for Answer 1.c.1" aria-label="Copy heading and permalink for Answer 1.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.c"><a tabindex="-1" href="#ws03-acc-scatter-plot-4" title="Copy heading and permalink for Task 1.c" aria-label="Copy heading and permalink for Task 1.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-5"><h6 class="heading"><span class="codenumber">(d)</span></h6>
+<div class="para logical" id="ws03-acc-scatter-plot-5-1-1">
+<div class="para">Using the series you just built, calculate the mean squared error,</div>
+<div class="displaymath process-math" id="ws03-acc-scatter-plot-5-1-1-1">
+\begin{equation*}
+MSE=\frac{1}{n}\sum\limits_{i=1}^{n}{(y_i-\hat{y}_i)^2}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-5-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-5-2-1">Recall that the predicted values are in the series <code class="code-inline tex2jax_ignore">predicted</code> you just built, and the actual values are in <code class="code-inline tex2jax_ignore">auto.acceleration</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.d.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-2" title="Copy heading and permalink for Hint 1.d.1" aria-label="Copy heading and permalink for Hint 1.d.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-5-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-5-3-1">Use the MSE formula above to calculate the mean squared error. You can use <code class="code-inline tex2jax_ignore">np.sum</code> to sum up the squared errors and divide by the number of entries in the series.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.d.2"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-3" title="Copy heading and permalink for Hint 1.d.2" aria-label="Copy heading and permalink for Hint 1.d.2">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-5-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-5-4-1">
+<code class="code-inline tex2jax_ignore language-py">sq_error = (auto.acceleration-predicted)**2</code> <code class="code-inline tex2jax_ignore language-py">MSE = np.sum(sq_error)/len(sq_error)</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.d.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-5-4" title="Copy heading and permalink for Answer 1.d.1" aria-label="Copy heading and permalink for Answer 1.d.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.d"><a tabindex="-1" href="#ws03-acc-scatter-plot-5" title="Copy heading and permalink for Task 1.d" aria-label="Copy heading and permalink for Task 1.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-6"><h6 class="heading"><span class="codenumber">(e)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-6-1-1">Print the first 10 entries of the predicted series, and of the squared errors.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-6-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-6-2-1">
+<code class="code-inline tex2jax_ignore language-py">print(predicted[:10])</code> <code class="code-inline tex2jax_ignore language-py">print(sq_error[:10])</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.e.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-6-2" title="Copy heading and permalink for Answer 1.e.1" aria-label="Copy heading and permalink for Answer 1.e.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.e"><a tabindex="-1" href="#ws03-acc-scatter-plot-6" title="Copy heading and permalink for Task 1.e" aria-label="Copy heading and permalink for Task 1.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-7"><h6 class="heading"><span class="codenumber">(f)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-7-1-1">What is the mean squared error?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-7-2-1">MSE= 8.982500000000002<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-7-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.f.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-7-2" title="Copy heading and permalink for Answer 1.f.1" aria-label="Copy heading and permalink for Answer 1.f.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.f"><a tabindex="-1" href="#ws03-acc-scatter-plot-7" title="Copy heading and permalink for Task 1.f" aria-label="Copy heading and permalink for Task 1.f">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-8"><h6 class="heading"><span class="codenumber">(g)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-8-1-1">What is the length of the squared error series?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-8-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-8-2-1">Use the <code class="code-inline tex2jax_ignore">len</code> function to get the length of the squared error series <code class="code-inline tex2jax_ignore">sq_error</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.g.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-8-2" title="Copy heading and permalink for Hint 1.g.1" aria-label="Copy heading and permalink for Hint 1.g.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-8-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-8-3-1">The length of the squared error series is 392.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-8-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.g.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-8-3" title="Copy heading and permalink for Answer 1.g.1" aria-label="Copy heading and permalink for Answer 1.g.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.g"><a tabindex="-1" href="#ws03-acc-scatter-plot-8" title="Copy heading and permalink for Task 1.g" aria-label="Copy heading and permalink for Task 1.g">🔗</a></div>
+</article>
+<article class="task exercise-like" id="ws03-acc-scatter-plot-9"><h6 class="heading"><span class="codenumber">(h)</span></h6>
+<div class="para" id="ws03-acc-scatter-plot-9-1-1">Have some spare time? Can you mess around with the coefficients in your model to decrease the MSE?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-9-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="ws03-acc-scatter-plot-9-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-9-2-1">Check out the model. What parameters can we modify to change the model? Try changing the intercept and slope to see if you can get a lower MSE.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-9-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.h.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-9-2" title="Copy heading and permalink for Hint 1.h.1" aria-label="Copy heading and permalink for Hint 1.h.1">🔗</a></div>
+</div></details>
+<details id="ws03-acc-scatter-plot-9-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="ws03-acc-scatter-plot-9-3-1">Since the model is <span class="process-math">\(\hat{f}(\texttt{horsepower}) = 23-0.05\,\texttt{horsepower}\)</span> we can experiment with different intercepts and slopes to see if the MSE decreases.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws03-acc-scatter-plot-9-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.h.1"><a tabindex="-1" href="#ws03-acc-scatter-plot-9-3" title="Copy heading and permalink for Answer 1.h.1" aria-label="Copy heading and permalink for Answer 1.h.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.h"><a tabindex="-1" href="#ws03-acc-scatter-plot-9" title="Copy heading and permalink for Task 1.h" aria-label="Copy heading and permalink for Task 1.h">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 1"><a tabindex="-1" href="#ws03-acc-scatter-plot" title="Copy heading and permalink for Exercise 1" aria-label="Copy heading and permalink for Exercise 1">🔗</a></div>
+</article>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercise Group 1–1"><a tabindex="-1" href="#ws03-MSE-coding" title="Copy heading and permalink for Exercise Group 1–1" aria-label="Copy heading and permalink for Exercise Group 1–1">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercises"><a tabindex="-1" href="#ws03-exercises-" title="Copy heading and permalink for Exercises" aria-label="Copy heading and permalink for Exercises">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Subsection: Mean Squared Error"><a tabindex="-1" href="#subsec-ws03-mean-squared-error" title="Copy heading and permalink for Subsection: Mean Squared Error" aria-label="Copy heading and permalink for Subsection: Mean Squared Error">🔗</a></div>
+</section>
+<section class="conclusion" id="day03-notebook-4">
+<div class="para" id="day03-notebook-4-1">Congratulations, we’re done!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day03-notebook-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section><div class="autopermalink" aria-hidden="true" data-description="Section: Day 03 Worksheet"><a tabindex="-1" href="#day03-notebook" title="Copy heading and permalink for Section: Day 03 Worksheet" aria-label="Copy heading and permalink for Section: Day 03 Worksheet">🔗</a></div>
+</section>
+</div>
+<div id="ptx-content-footer" class="ptx-content-footer">
+<a class="previous-button button" href="day02-worksheet.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="338 3000 8772 6866" role="img"><title>PreTeXt logo</title><g style="stroke-width:.025in; stroke:currentColor; fill:none"><polyline points="472,3590 472,9732 " style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png" alt="Runstone Academy logo"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png" alt="MathJax logo"></a>
+</div>
+</body>
+</html>

@@ -314,7 +314,7 @@
       <xi:include href="./homework/homework-01.ptx"/>
     </chapter>
     <!-- Include additional chapters for other categories -->
-    <!-- <chapter xml:id="slides">
+  <chapter xml:id="slides">
       <title>Slides</title>
 
       <section xml:id="sec-exam1-material">
@@ -352,6 +352,7 @@
       </section>
       <xi:include href="./slides/Day01-slides.ptx"/>
       <xi:include href="./slides/Day02-slides.ptx"/>
-    </chapter> -->
+      <xi:include href="./slides/Day04-slides.ptx" />
+    </chapter>
   </book>
 </pretext>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is a sample slide deck to get started with.  If you want the slides to be built, -->
+<!-- you must go to `project.ptx` and uncomment the slides targets (starting on line 12)   -->
+<pretext xmlns:xi="http://www.w3.org/2001/XInclude">
+    <!-- Include the docinfo common to the course, in the parent folder (..) -->
+    <xi:include href="../docinfo.ptx"/>
+    <slideshow xml:id="Day04-slides">
+
+        <title>Day 04 Slides</title>
+        <subtitle>Simple Linear Regression</subtitle>
+
+        <frontmatter>
+            <bibinfo>
+                <!-- <author>
+                    <personname>CMSE</personname>
+                </author> -->
+                <event>CMSE 381</event>
+            </bibinfo>
+            
+            <titlepage>
+                <titlepage-items/>
+            </titlepage>
+        </frontmatter>
+        <section xml:id="day04-objectives">
+            <title>Objectives</title>
+            
+            
+        <slide>
+            <title>
+                Objectives:
+            </title>
+                <ul>
+                    <li>
+                        <p>
+                            Explain Least squares coefficient estimates for linear
+                            regression
+                        </p>
+                    </li>
+    
+                    <li>
+                        <p>
+                            Define esidual sum of squares (RSS)
+                        </p>
+                    </li>
+                </ul>
+
+            </slide>
+        </section>
+            <section xml:id="day04-simple-linear-regression">
+                <title>Simple Linear Regression</title>
+
+        <!-- This assumes you want to structure your entire slide deck by sections -->
+        <!-- RevealJS will use 2-d navigation: move left-right to switch between sections, up-down to switch between slides in a section -->
+        
+        <slide>
+                <title>Setup</title>
+
+
+
+                        <ul>
+                            <li>
+                                Predict <m>Y</m> on a single predictor variable
+                                <m>X</m>
+                                <md>
+                                    Y \approx \beta_0 + \beta_1 X
+                                </md>
+                            </li>
+                            
+                            <li>
+                                <q>\(\approx\)</q> is
+                                <q>approximately modeled as</q>
+                            </li>
+                        </ul>
+
+            </slide>
+
+<slide>
+  <title>Example</title>
+
+  <sidebyside widths="30% 40%">
+    <image source="figures/AdvertisingDataSet-Screenshot.png">
+        <shortdescription>screenshot of the advertising data set</shortdescription>
+    </image>
+
+    <p>
+
+    <ul component="slides-inst-notes">
+      <li>
+        <md>
+          \textrm{sales} \approx \beta_0 + \beta_1 \textrm{TV}
+        </md>
+      </li>
+      <li>
+        <m>\beta_0</m> intercept; <m>\beta_1</m> slope
+      </li>
+      <li>
+        Coefficients or parameters:
+        <m>\{\beta_0, \beta_1\}</m>
+      </li>
+      <li>
+        Once we have good guesses for
+        <m>\hat{\beta}_i</m>, model is
+        <md>
+          \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x
+        </md>
+      </li>
+    </ul>
+    <ul pause="yes">
+        <li>
+            <p>
+                1
+            </p>
+        </li>
+        <li>
+            <p>
+                2
+            </p>
+        </li>
+    </ul>
+
+</p>
+  </sidebyside>
+</slide>
+
+<slide>
+  <title>Least squares criterion: Setup</title>
+  <p>
+    How do we estimate the coefficients?
+  </p>
+
+  <sidebyside widths="40% 40%">
+    <p>
+    <ul component="slides-inst-notes">
+      <li>
+        Given <m>(x_1,y_1),\ldots,(x_n,y_n)</m>
+      </li>
+      <li>
+        Let
+        <m>
+          \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i
+        </m>
+        be prediction for <m>Y</m> on the <m>i</m>th value of <m>X</m>.
+      </li>
+      <li>
+        <m>e_i = y_i - \hat{y}_i</m> is the <m>i</m>th residual
+      </li>
+    </ul>
+</p>
+
+    <image source="figures/Fig3-1.png" width="100%">
+        <shortdescription>scatter plot with linear fit and residuals</shortdescription>
+    </image>
+  </sidebyside>
+</slide>
+
+    <slide>
+      <title>Least squares criterion: RSS</title>
+    
+      <sidebyside widths="60% 34%">
+        <image source="figures/Fig3-2.png" width="100%">
+          <shortdescription>
+            Illustration of the residuals between observed data points and
+            their predicted values from a fitted regression line.
+          </shortdescription>
+        </image>
+    
+        <p>
+          Residual sum of squares RSS is
+          <md>
+            \begin{aligned}
+            RSS &amp;= e_1^2 + \cdots + e_n^2 \\
+                &amp;= \sum_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
+            \end{aligned}
+          </md>
+        </p>
+      </sidebyside>
+      <note>
+        <title>Least squares criterion</title>
+        <p>
+          Find <m>\beta_0</m> and <m>\beta_1</m> that minimize the RSS.
+        </p>
+</note>
+    </slide>
+
+        <slide>
+          <title>Least squares coefficient estimates</title>
+          
+          <sidebyside widths="40% 40%">
+                <stack>
+                <p component="slides-inst-notes">
+                    
+                </p>
+                
+                <p>
+                    <md>
+                        \min_{\beta_0,\beta_1}
+                        \sum_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
+                    </md>
+                </p>
+                
+                <p component="slides-inst-notes">
+                    There's a typo on old versions textbook?
+                </p>
+                
+                <p>
+                    <md>
+                        \begin{aligned}
+                        \frac{\partial RSS}{\partial \hat{\beta}_0}
+                        &amp;= -2 \sum_i
+                        (y_i - \hat{\beta}_0 - \hat{\beta}_1x_i) = 0 \\
+                        \frac{\partial RSS}{\partial \hat{\beta}_1}
+                        &amp;= -2 \sum_i x_i
+                        (y_i - \hat{\beta}_0 - \hat{\beta}_1x_i) = 0
+                        \end{aligned}
+                    </md>
+                </p>
+                
+                <p>
+                    <md>
+                        \begin{aligned}
+                        \hat{\beta}_1 &amp;=
+                        \frac{\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})}
+                        {\sum_{i=1}^n(x_i-\overline{x})^2} \\
+                        \hat{\beta}_0 &amp;=
+                        \overline{y}-\hat{\beta}_1\overline{x}
+                        \end{aligned}
+                    </md>
+                </p>
+            </stack>
+            <p>
+        
+            <ul component="slides-inst-notes">
+              <li>
+                <p>Closed form!</p>
+              </li>
+              <li>
+                <p>
+                  Though iterative methods (e.g. gradient descent) are often used
+                  for larger problems
+                </p>
+              </li>
+            </ul>
+        </p>
+          </sidebyside>
+        </slide>
+
+<slide>
+  <title>Coding group work</title>
+
+
+    <p>
+        group work
+    </p>
+
+</slide>
+
+
+        
+
+        
+        
+    
+
+
+
+
+
+        </section>
+    </slideshow>
+</pretext>

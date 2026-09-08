@@ -4,7 +4,7 @@
 <!-- <worksheet xml:id="day01-worksheet">
   <title>Day01 - Python Review</title> -->
 <section xml:id="day01-notebook" xmlns:xi="http://www.w3.org/2001/XInclude" component="ws01">
-  <title>Day01 Worksheet</title>
+  <title>Day 01 Worksheet</title>
 
   <!-- Optional introduction -->
   <introduction>

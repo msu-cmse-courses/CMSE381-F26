@@ -314,10 +314,10 @@
       <xi:include href="./homework/homework-01.ptx"/>
     </chapter>
     <!-- Include additional chapters for other categories -->
-  <chapter xml:id="slides">
+  <!-- <chapter xml:id="slides">
       <title>Slides</title>
 
-      <section xml:id="sec-exam1-material">
+      <section xml:id="sec-exam1-material-slides">
         <title>Exam 1 material</title>
 
         <p>
@@ -333,11 +333,16 @@
                 <dataurl source="slides/slides-Day02/CMSE381-002-Lec02-Ch2_1.html" visual="Day02 slides"/>
               </p>
             </li>
+            <li>
+              <p>
+                <dataurl source="slides/Day04-slides/index.html" visual="Day04 slides"/>
+              </p>
+            </li>
           </ul>
         </p>
       </section>
 
-      <section xml:id="sec-exam2-material">
+      <section xml:id="sec-exam2-material-slides">
         <title>Exam2 material</title>
 
         <p>
@@ -350,9 +355,6 @@
           </ul>
         </p>
       </section>
-      <xi:include href="./slides/Day01-slides.ptx"/>
-      <xi:include href="./slides/Day02-slides.ptx"/>
-      <xi:include href="./slides/Day04-slides.ptx" />
-    </chapter>
+    </chapter> -->
   </book>
 </pretext>

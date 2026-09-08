@@ -12,8 +12,8 @@
     <title>Policy Sheet</title>
 
     <p>
-      This is the syllabus for <term>Fundamentals of Data Science Methods (CMSE 381)</term> for [Fall] 2026.
-      It is a [4] credit course.
+      This is the syllabus for <term>Fundamentals of Data Science Methods (CMSE 381)</term> for Fall 2026.
+      It is a 4 credit course.
       <!-- use a description list (dl) for short items -->
       <dl>
         <li>
@@ -36,7 +36,7 @@
           <title>Office hours</title>
 
           <p>
-            TBD
+            <xref ref="subsec-Office-Hours" text="custom">Office hours</xref>
           </p>
         </li>
 

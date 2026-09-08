@@ -20,9 +20,9 @@
     publication="publication-slides.ptx" deploy-dir="slides/Day02"
     output-filename="index.html"/> -->
     <!-- Day 04 slides -->
-    <target name="Day04-slides" source="slides/Day04-slides.ptx" format="revealjs"
+    <!-- <target name="Day04-slides" source="slides/Day04-slides.ptx" format="revealjs"
                     publication="publication-slides.ptx" deploy-dir="slides/Day04-slides"
-                    output-filename="index.html"/>
+                    output-filename="index.html"/> -->
    
     <!-- 
     <target name="slides-annotated" source="slides/slides.ptx" format="reveal.js"

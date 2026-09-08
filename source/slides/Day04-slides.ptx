@@ -4,7 +4,7 @@
 <!-- you must go to `project.ptx` and uncomment the slides targets (starting on line 12)   -->
 <pretext xmlns:xi="http://www.w3.org/2001/XInclude">
     <!-- Include the docinfo common to the course, in the parent folder (..) -->
-    <xi:include href="../docinfo.ptx"/>
+    <!-- <xi:include href="../docinfo.ptx"/> -->
     <slideshow xml:id="Day04-slides">
 
         <title>Day 04 Slides</title>

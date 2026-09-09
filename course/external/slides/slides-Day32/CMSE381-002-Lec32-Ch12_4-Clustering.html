@@ -1,0 +1,357 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec32-Ch12_4-Clustering.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec32-Ch12_4-Clustering.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec32-Ch12_4-Clustering2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering0x.png' />
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       12.1,
+                                       12.4:
+                                  Unsupervised
+                                     Learning
+                                        /span&gt;
+                                    <span class='cmss-12x-x-120'>Clustering</span></span></h1>
+                                      Lecture
+                                        32
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                       <div class='date'>Mon,
+                                        Apr
+                                        13,
+                                       2026</div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 112 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Clustering
+      (Just
+      hierarchical
+      clustering)</li></ul>                                              </div>      <div class='minipage'>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>What
+      is
+      the
+      difference
+      between
+      supervised
+      vs
+      unsupervised
+      learning?
+      </li><li class='itemize'>What
+      do
+      clustering
+      methods
+      aim
+      to
+      accomplish?
+      </li><li class='itemize'>How
+      to
+      interpret
+      a
+      dendrogram
+      of
+      hierarchical
+      clustering?
+      </li><li class='itemize'>How
+      are
+      different
+      linkage
+      methods
+      defined?
+      </li><li class='itemize'>How
+      to
+      perform
+      hierarchical
+      clustering
+      in
+      Python?</li></ul>                                                                       </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 128 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering3x.png' />
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering5x.png' /></p><div class='minipage'>                                                 <a href='#Navigation5'><span class='cmss-12x-x-120'>Unsupervised
+                                         learning</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Supervised
+  vs
+  Unsupervised
+  Learning</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Supervised</span>                                   </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Unsupervised</span>                                </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Some
+  examples
+  of
+  unsupervised
+  problems</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Assay
+      gene
+      expression
+      levels
+      in
+      100
+      patients
+      with
+      breast
+      cancer,
+      looking
+      for
+      subgroups
+      with
+      similar
+      qualities
+      </li><li class='itemize'>Online
+      shopping:
+      find
+      groups
+      of
+      shoppers
+      with
+      similar
+      browsing
+      and
+      purchase
+      histories
+      and
+      show
+      relevant
+      related
+      products.
+      </li><li class='itemize'>Search
+      engine
+      picking
+      results
+      to
+      show</li></ul>                                         </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 193 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering6x.png' />
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering8x.png' /></p><div class='minipage'>                                                   <a href='#Navigation9'><span class='cmss-12x-x-120'>Clustering</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Big
+  idea</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'>Clustering: relation between
+samples                          </div>    <div class='minipage'><img alt='Cluster comparison' src='../../Figures/sphx_glr_plot_cluster_comparison_001.png' style='max-width:100%' />                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-4r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 431 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering9x.png' />
+<img alt='picture' src='CMSE381-002-Lec32-Ch12_4-Clustering11x.png' /></p><div class='minipage'>                                                  <a href='#Navigation12'><span class='cmss-12x-x-120'>Hierarchical
+                                        Clustering</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox39'> <span class='cmss-12x-x-120'>Dendrogram</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<!-- l. 450 --><p class='noindent'><img alt='Dendrogram' src='../../Figures/Fig12-12.png' style='max-width:80%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox43'> <span class='cmss-12x-x-120'>A
+  bigger
+  example</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Bigger example' src='../../Figures/Fig12-10.png' style='max-width:100%' />                                  </div>             <div class='minipage'><img alt='Cluster visualization' src='../../Figures/Fig12-11a.png' style='max-width:100%' />        </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox47'> <span class='cmss-12x-x-120'>Single
+  linkage</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<!-- l. 499 --><p class='noindent'>Distance between cluster
+<!-- l. 499 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+and cluster
+<!-- l. 499 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math>:<br />
+Smallest distance between the points </p><table class='equation-star'><tr><td>
+<!-- l. 499 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                        <mi>L</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>A</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>B</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo><munder class='msub'><mrow><mtext class='qopname'> min</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>a</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>A</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>b</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>B</mi></mrow></munder><mo class='MathClass-rel' stretchy='false'>∥</mo><mi>a</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>b</mi><mo class='MathClass-rel' stretchy='false'>∥</mo>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+      <div class='minipage'><!-- l. 499 --><p class='noindent'>
+<img alt='Single
+linkage' src='../../Figures/SingleLink-0p0-.png' style='max-width:100%' />                           </p></div>                  <div class='minipage'> <img alt='Single linkage distance' src='../../Figures/SingleLink-Distance-.png' style='max-width:100%' />      </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox51'> <span class='cmss-12x-x-120'>Building
+  the
+  dendrogram</span>                                                                                </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><!-- l. 518 --><p class='noindent'> <img alt='Single linkage' src='../../Figures/SingleLink-0p0-.png' style='max-width:100%' />  <img alt='Single
+linkage 2' src='../../Figures/SingleLink-0p10-.png' style='max-width:100%' />                        </p></div>    <div class='minipage'> <img alt='Single linkage 3' src='../../Figures/SingleLink-0p15-.png' style='max-width:100%' />  <img alt='Single
+linkage 4' src='../../Figures/SingleLink-0p20-.png' style='max-width:100%' />                        </div>    <div class='minipage'> <img alt='Single linkage 5' src='../../Figures/SingleLink-0p25-.png' style='max-width:100%' />  <img alt='Single
+linkage dendrogram' src='../../Figures/SingleLink-Dendrogram-.png' style='max-width:100%' />           </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox55'> <span class='cmss-12x-x-120'>How
+  to
+  get
+  clusters</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Cluster example' src='../../Figures/Fig12-10-BW.png' style='max-width:100%' />                                  </div>             <div class='minipage'><img alt='Cluster examplevisualization' src='../../Figures/Fig12-11b.png' style='max-width:100%' />             </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox59'> <span class='cmss-12x-x-120'>How
+  to
+  get
+  different
+  clusters</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Cluster example' src='../../Figures/Fig12-10-BW.png' style='max-width:100%' />                                  </div>             <div class='minipage'><img alt='Cluster examplevisualization 2' src='../../Figures/Fig12-11c.png' style='max-width:100%' />             </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>Can
+  get
+  any
+  number
+  of
+  clusters</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Cluster example' src='../../Figures/Fig12-10-BW.png' style='max-width:100%' />                                  </div>             <div class='minipage'><img alt='Cluster visualization' src='../../Figures/Fig12-11a.png' style='max-width:100%' />        </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>Linkage</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Linkage comparison' src='../../Figures/Table12-3.png' style='max-width:100%' />                             </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>Example
+  with
+  complete
+  linkage</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Complete linkage example' src='../../Figures/Fig12-12a.png' style='max-width:50%' />
+<!-- l. 661 --><p class='noindent'>Distance between cluster
+<!-- l. 661 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+and cluster
+<!-- l. 661 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math>:<br />
+<span class='cmssbx-10x-x-109'>Largest </span>distance between the points </p><table class='equation-star'><tr><td>
+<!-- l. 661 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+       <mi>L</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>A</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>B</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo><munder class='msub'><mrow><mtext class='qopname'> max</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>a</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>A</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>b</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>B</mi></mrow></munder><mo class='MathClass-rel' stretchy='false'>∥</mo><mi>a</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>b</mi><mo class='MathClass-rel' stretchy='false'>∥</mo>
+</mrow></math></td></tr></table></div>   <div class='minipage'><img alt='Complete linkage dendrogram' src='../../Figures/Fig12-13.png' style='max-width:100%' />                </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Examples
+  of
+  different
+  linkage</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<!-- l. 670 --><p class='noindent'><img alt='Different linkage examples' src='../../Figures/Fig12-14.png' style='max-width:70%' />
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>Dependence
+  on
+  dissimilarity
+  measure</span>                                                                                     </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'><!-- l. 691 --><p class='noindent'><img alt='Different dissimilarity measure norms' src='../../Figures/Clustering-DistanceTweet-JustFig.jpeg' style='max-width:100%' />
+<a href='https://twitter.com/UsmanKayaniPhD/status/1518243229832994818'>Photo Credit Link</a>                               </p></div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>Coding</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

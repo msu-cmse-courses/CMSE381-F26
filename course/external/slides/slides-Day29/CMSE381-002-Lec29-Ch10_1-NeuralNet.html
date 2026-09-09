@@ -1,0 +1,405 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec29-Ch10_1-NeuralNet.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec29-Ch10_1-NeuralNet.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec29-Ch10_1-NeuralNet2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec29-Ch10_1-NeuralNet0x.png' />
+<img alt='picture' src='CMSE381-002-Lec29-Ch10_1-NeuralNet2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       10.1:
+                                      Neural
+                                       Nets</span></h1>
+                                      Lecture
+                                        29
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                         <div class='date'></div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><!-- l. 105 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Feed
+      Forward
+      Neural
+      Nets</li></ul>                                          </div>        <div class='minipage'>                                               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 124 --><p class='noindent'>What is the architecture of simple feed-forward neural network? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             describe
+             what
+             happens
+             at
+             each
+             layer
+             (e.g.,
+             input
+             layer,
+             hidden
+             layer,
+             output
+             layer)
+             conceptually
+             and
+             mathematically.</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 124 --><p class='noindent'>What is activation? What types of activation functions are there? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             explain
+             it
+             mathematically.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Given
+             example
+             inputs
+             and
+             weights
+             from
+             the
+             previous
+             matrix,
+             you
+             should
+             be
+             able
+             to
+             calculate
+             the
+             activation</span>
+             <!-- l. 124 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+             <span class='cmss-10'>by
+             hand
+             (with
+             the
+             help
+             of
+             a
+             calculator).</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 124 --><p class='noindent'>How does a simple feed-forward neural network produce an output? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Given
+             a</span>
+             <!-- l. 124 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>β</mi></math>
+           <span class='cmss-10'>matrix
+             and
+             activation
+             from
+             the
+             previous
+             layer,
+             you
+             should
+             be
+             able
+             to
+             calculate
+             the
+             output
+             by
+             hand.</span></li></ul>
+       </li>
+       <li class='itemize'>What do the fitted parameters minimize in a simple feed-forward neural network?</li></ul>       </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 128 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec29-Ch10_1-NeuralNet3x.png' />
+<img alt='picture' src='CMSE381-002-Lec29-Ch10_1-NeuralNet5x.png' /></p><div class='minipage'>                                                      <a href='#Navigation5'><span class='cmss-12x-x-120'>Neural
+                                           Nets</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>The
+  idea</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Feed
+  Forward
+  Neural
+  Network:
+  The
+  cartoon</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Feed forward neural network diagram' src='../../Figures/Fig10-1.png' style='max-width:100%' />       </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>What
+  is
+  activation?
+  Neuroscience
+  101.</span>                                                                                          </span>
+<h2 class='frametitle'></h2><img alt='Neuron transfer function' src='../../Figures/Neuron_TransferFunction.png' style='max-width:55%' />
+<!-- l. 178 --><p class='noindent'>Figure adapted from Fig 1 of Arsiero et al. 2007 (J of Neurosci.)
+                                                                                    </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox33'> <span class='cmss-12x-x-120'>A
+  very
+  simple
+  example
+  </span><span class='cmss-9'>Computing</span>
+   <!-- l. 204 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>A</mi></mrow><mrow><mi>k</mi></mrow></msub></math>
+    <span class='cmss-9'>for</span>
+   <!-- l. 204 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>0</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Equation
+for
+computing
+activations' src='../../Figures/Eq10-2.png' style='max-width:90%' />
+<!-- l. 204 --><p class='noindent'><img alt='Simple neural network example' src='../../Figures/DL-simple-ex.jpg' style='max-width:100%' />               </p></div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>A
+  very
+  simple
+  example
+  </span><span class='cmss-9'>Computing</span>
+   <!-- l. 227 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+   <span class='cmss-9'>for</span>
+   <!-- l. 227 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>0</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><!-- l. 227 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><msubsup><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mi>k</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>K</mi> </mrow></msubsup><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>k</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>
+<img alt='PIC' src='../../Figures/DL-simple-ex.jpg' style='max-width:100%' />                                                 </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox41'> <span class='cmss-12x-x-120'>A
+  very
+  simple
+  example
+  </span><span class='cmss-9'>Computing</span>
+   <!-- l. 253 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+   <span class='cmss-9'>for</span>
+   <!-- l. 253 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mn>0</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>  </span>
+<h2 class='frametitle'></h2>
+<!-- l. 253 --><p class='noindent'><img alt='Equation for computing activations' src='../../Figures/Eq10-2.png' style='max-width:40%' />       <!-- l. 253 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><msubsup><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mi>k</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>K</mi> </mrow></msubsup><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>k</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>
+</p>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Simple neural network example' src='../../Figures/DL-simple-ex.jpg' style='max-width:100%' />               </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox45'> <span class='cmss-12x-x-120'>A
+  different
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Draw
+      the
+      diagram
+      for
+      a
+      neural
+      net
+      with
+      input
+      data
+      points
+      with
+      <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math>
+      (i.e.,
+      <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>)
+      and
+      two
+      units
+      in
+      the
+      hidden
+      layer.
+      </li><li class='itemize'>
+      <!-- l. 291 --><p class='noindent'>Using the <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ω</mi></math>
+     and <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>β</mi></math>
+     matrices, what is the output predicted
+      <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math> for the
+      point <!-- l. 291 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mn>2</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>0</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>?
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 291 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>ω</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'> <mn>1</mn> </mtd><mtd class='array-td' columnalign='center'><mn>0</mn></mtd><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>2</mn></mtd><mtd class='array-td' columnalign='center'> <mn>2</mn> </mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>3</mn></mtd> <mtd class='array-td' columnalign='center'><mn>1</mn></mtd> <mtd class='array-td' columnalign='center'> <mn>0</mn> </mtd> <mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                 </mrow><mo fence='true' form='postfix'>)</mo></mrow><mspace class='qquad' width='2em'></mspace><mi>β</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'>
+<mo class='MathClass-bin' stretchy='false'>−</mo><mn>2</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'> <mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                          </mrow><mo fence='true' form='postfix'>)</mo></mrow>
+</mrow></math></td></tr></table>
+      </li>
+      <li class='itemize'>
+      <!-- l. 291 --><p class='noindent'>Use the activation function </p><table class='equation-star'><tr><td>
+      <!-- l. 291 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>z</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>z</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mo class='MathClass-bin' stretchy='false'>+</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext></mstyle><mi>z</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn></mstyle></mtd>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mi>z</mi><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>else.</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtr>                                                    </mtable><mo fence='true' form='postfix'></mo></mrow>
+</mrow></mrow></math></td></tr>
+      </table></li></ul>                                                           </div>      <div class='minipage'>                                          </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox49'> <span class='cmss-12x-x-120'>Extra
+  space</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox53'> <span class='cmss-12x-x-120'>What
+  if
+  there’s
+  no
+  activation
+  function?</span>                                                                                   </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><!-- l. 333 --><p class='noindent'><img alt='Neural network example 2' src='../../Figures/NN-Example2-Architecture.jpeg' style='max-width:100%' /> </p><table class='equation-star'><tr><td>
+<!-- l. 333 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>ω</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd><mtd class='array-td' columnalign='center'><mn>2</mn></mtd><mtd class='array-td' columnalign='center'><mn>3</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>4</mn></mtd> <mtd class='array-td' columnalign='center'><mn>5</mn></mtd> <mtd class='array-td' columnalign='center'><mn>6</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                              </mrow><mo fence='true' form='postfix'>)</mo></mrow><mspace class='qquad' width='2em'></mspace><mi>β</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'>
+<mo class='MathClass-bin' stretchy='false'>−</mo><mn>2</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'> <mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                               </mrow><mo fence='true' form='postfix'>)</mo></mrow>
+</mrow></math></td></tr></table></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox57'> <span class='cmss-12x-x-120'>Choices
+  for
+  activation
+  function</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>Sigmoid: <table class='equation-star'><tr><td>
+<!-- l. 365 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+          <mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>z</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><mi>z</mi></mrow></msup></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><mi>z</mi></mrow></msup></mrow></mfrac> <mo class='MathClass-rel' stretchy='false'>=</mo>     <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>−</mo><mi>z</mi></mrow></msup></mrow></mfrac>
+</mrow></math></td></tr></table>
+<!-- l. 365 --><p class='noindent'><img alt='Sigmoid activation function' src='../../Figures/Sigmoid-pytorch.png' style='max-width:100%' />                   </p></div>      <div class='minipage'>ReLU: Rectified linear unit <table class='equation-star'><tr><td>
+<!-- l. 365 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>z</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>z</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mo class='MathClass-bin' stretchy='false'>+</mo></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext></mstyle><mi>z</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn></mstyle></mtd>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mi>z</mi><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>else.</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtr>                                        </mtable><mo fence='true' form='postfix'></mo></mrow>
+</mrow></mrow></math></td></tr>
+<!-- l. 365 --><p class='noindent'><img alt='ReLU activation function' src='../../Figures/ReLU-pytorch.png' style='max-width:100%' />                      </p></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox61'> <span class='cmss-12x-x-120'>Matrix
+  version:
+  First
+  layer</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='Simple neural network
+example' src='../../Figures/DL-simple-ex.jpg' style='max-width:100%' />                    </div>      <div class='minipage'><img alt='Equation for computing activations' src='../../Figures/Eq10-2.png' style='max-width:60%' /> <table class='equation-star'><tr><td>
+<!-- l. 385 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                 <mi>A</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>W</mi> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo><mspace class='qquad' width='2em'></mspace><msup><mrow><mi>X</mi></mrow><mrow><mi>T</mi> </mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>X</mi></mrow><mrow>
+<mn>1</mn></mrow></msub><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mspace class='thickpace' width='0.28em'></mspace><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 385 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+</math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox65'> <span class='cmss-12x-x-120'>Matrix
+  version:
+  Output</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='Simple neural network
+example' src='../../Figures/DL-simple-ex.jpg' style='max-width:100%' />                    </div>      <div class='minipage'><!-- l. 406 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><msubsup><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mi>k</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>K</mi> </mrow></msubsup><msub><mrow><mi>β</mi></mrow><mrow>
+<mi>k</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>
+<table class='equation-star'><tr><td>
+<!-- l. 406 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                          <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>β</mi> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mstyle class='text'><mtext class='textbf' mathvariant='bold'>𝐀</mtext></mstyle><mspace class='qquad' width='2em'></mspace><msup><mrow><mi>A</mi></mrow><mrow><mi>T</mi> </mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>A</mi></mrow><mrow>
+<mn>1</mn></mrow></msub><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>A</mi></mrow><mrow><mn>2</mn></mrow></msub><mspace class='thickpace' width='0.28em'></mspace><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thickpace' width='0.28em'></mspace><msub><mrow><mi>A</mi></mrow><mrow><mi>K</mi> </mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 406 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+</math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox69'> <span class='cmss-12x-x-120'>Now
+  what?</span>                                                                                        </span>
+<h2 class='frametitle'></h2>Choose parameters by minimizing RSS, <!-- l. 432 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msubsup><mrow><mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
+  <!-- nolimits --></mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></math>
+<table class='columns'><tr>
+    <div class='minipage'><span class='cmssbx-10x-x-109'>Chosen in advance:</span>                        </div>     <div class='minipage'><span class='cmssbx-10x-x-109'>Tuned by the model:</span>                       </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox73'> <span class='cmss-12x-x-120'>Coding</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

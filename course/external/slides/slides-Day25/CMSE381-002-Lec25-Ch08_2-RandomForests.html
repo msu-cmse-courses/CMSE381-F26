@@ -1,0 +1,731 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec25-Ch08_2-RandomForests.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec25-Ch08_2-RandomForests.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec25-Ch08_2-RandomForests2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests0x.png' />
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                      8.2.1,
+                                      8.2.2:
+                                     Bagging
+                                       and
+                                     Random
+                                     Forests</span></h1>
+                                      Lecture
+                                        25
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                         <div class='date'></div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 117 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>8.2.1
+      Bagging
+      </li><li class='itemize'>8.2.2
+      Random
+      forest</li></ul>                                         </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 123 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests3x.png' />
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests5x.png' /></p><div class='minipage'>                                                   <a href='#Navigation4'><span class='cmss-12x-x-120'>Previously</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>First
+  decision
+  tree
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><img alt='Table displaying
+baseball hitter data
+with columns for Hits,
+Years, and LogSalary' src='../../Figures/Hitters-TreeSlides-OnlyLog.png' style='max-width:100%' />   </div>   <div class='minipage'>                                          </div>   <div class='minipage'><img alt='Regression tree for baseball
+player salaries splitting on Years
+and Hits to produce three leaf
+nodes' src='../../Figures/Fig8-1.png' style='max-width:100%' />                                  </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Viewing
+  Regions
+  Defined
+  by
+  Tree</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><img alt='Regression tree for baseball
+player salaries splitting on Years
+and Hits to produce three leaf
+nodes' src='../../Figures/Fig8-1.png' style='max-width:100%' />                                  </div>          <div class='minipage'><!-- l. 165 --><p class='noindent'><img alt='Scatter plot of Hits versus Years
+partitioned into three regions R1, R2, and
+R3 by a regression tree.' src='../../Figures/Fig8-2.png' style='max-width:100%' />                        </p></div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>How
+  do
+  we
+  actually
+  get
+  the
+  tree?
+  Two
+  steps</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <dl class='enumerate'><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests6x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 184 --><p class='noindent'>We
+      divide
+      the
+      predictor
+      space
+      –
+      that
+      is,
+      the
+      set
+      of
+      possible
+      values
+      for
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub></mrow></math>
+        —
+      into
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>J</mi></math>
+      distinct
+      and
+      non-overlapping
+      regions,
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>R</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>R</mi></mrow><mrow><mi>J</mi></mrow></msub></mrow></math>.
+      </p></dd><dt class='enumerate'>
+ <img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests7x.png' />   </dt><dd class='enumerate'>
+          <!-- l. 184 --><p class='noindent'>For
+      every
+      observation
+      that
+      falls
+      into
+      the
+      region
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>R</mi></mrow><mrow><mi>j</mi></mrow></msub></math>,
+      we
+      make
+      the
+      same
+      prediction
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
+      the
+      mean
+      of
+      the
+      response
+      values
+      for
+      the
+      training
+      observations
+      in
+      <!-- l. 184 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>R</mi></mrow><mrow><mi>j</mi></mrow></msub></math>.</p></dd></dl> </div> <div class='minipage'><img alt='A two-dimensional feature space
+partitioned into five rectangular regions
+R1 through R5 by vertical and horizontal
+splits' src='../../Figures/Fig8-3b.png' style='max-width:100%' />                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Recursive
+  binary
+  splitting</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><span class='cmssbx-10x-x-109'>Goal:</span>
+<!-- l. 223 --><p class='noindent'>Find boxes
+<!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>R</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>R</mi></mrow><mrow><mi>J</mi></mrow></msub></mrow></math>
+that minimize
+</p>
+<table class='equation-star'><tr><td>
+<!-- l. 223 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>J</mi></mrow></munderover><munder class='msub'><mrow><mo> ∑</mo>
+   </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>R</mi></mrow><mrow><mi>j</mi></mrow></msub></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><msub><mrow><mi>R</mi></mrow><mrow><mi>j</mi></mrow></msub></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table>
+<!-- l. 223 --><p class='noindent'><!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>ŷ</mi></mrow><mrow><msub><mrow><mi>R</mi></mrow><mrow><mi>j</mi></mrow></msub></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math> mean
+response for training observations
+in <!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>th
+box                               </p></div>   <div class='minipage'><!-- l. 223 --><p class='noindent'>Pick <!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>s</mi></math> so that
+splitting into <!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mi>X</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mi>s</mi><mo class='MathClass-close' stretchy='false'>}</mo></mstyle>
+and <!-- l. 223 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mo class='MathClass-open' stretchy='false'>{</mo><mi>X</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>≥</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>}</mo></math>
+results in largest possible reduction in RSS:
+</mrow></math></p><!-- tex4ht:inline --><!-- l. 223 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none' style=''>
+            <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>R</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>j</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>{</mo><mi>X</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mi>s</mi><mo class='MathClass-close' stretchy='false'>}</mo></mstyle>     <mtd class='align-even'><mspace width='2em'></mspace></mtd>     <mtd class='align-label' columnalign='right'>
+     </mtd></mtd><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>j</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>{</mo><mi>X</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>j</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>≥</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>}</mo></mtd>     <mtd class='align-even'><mspace width='2em'></mspace></mtd>     <mtd class='align-label' columnalign='right'>
+     </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>                  <mtd class='align-even'><mspace width='2em'></mspace></mtd>     <mtd class='align-label' columnalign='right'>
+</mtd></mtr></mtr></mtable>
+<table class='equation-star'><tr><td>
+<!-- l. 223 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<munder class='msub'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi> </mrow></msub><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>R</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>j</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><msub><mrow><mi>R</mi></mrow><mrow><mn>1</mn></mrow></msub></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup><mo class='MathClass-bin' stretchy='false'>+</mo><munder class='msub'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi> </mrow></msub><mo class='MathClass-rel' stretchy='false'>∈</mo><msub><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>j</mi><mo class='MathClass-punc' stretchy='false'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></munder><msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><msub><mrow><mi>R</mi></mrow><mrow><mn>2</mn></mrow></msub></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table></mrow></math></div>    <div class='minipage'><img alt='Decision
+tree
+diagram
+illustrating
+the
+sequence
+of
+binary
+splits
+on
+X1
+and
+X2
+resulting
+in
+regions
+R1
+through
+R5.' src='../../Figures/Fig8-3c.png' style='max-width:100%' />
+<img alt='A
+two-dimensional
+feature
+space
+partitioned
+into
+five
+rectangular
+regions
+R1
+through
+R5
+by
+vertical
+and
+horizontal
+splits' src='../../Figures/Fig8-3b.png' style='max-width:100%' />                 </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox33'> <span class='cmss-12x-x-120'>Pruning</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><img alt='Complex regression tree for
+baseball player salaries
+featuring multiple splits on
+Years, Hits, RBI, Walks,
+Runs, and Putouts' src='../../Figures/Fig8-4.png' style='max-width:100%' />            </div>   <div class='minipage'><img alt='Regression
+tree
+for
+baseball
+player
+salaries
+splitting
+on
+Years
+and
+Hits
+to
+produce
+three
+leaf
+nodes' src='../../Figures/Fig8-1.png' style='max-width:100%' />                            </div>   <div class='minipage'>                                          </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>Classification
+  version</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 329 --><p class='noindent'><img alt='Large, complex classification tree for heart
+disease predicting Yes or No based on
+numerous clinical features and splits' src='../../Figures/Fig8-6a.png' style='max-width:100%' />
+</p><!-- l. 329 --><p class='noindent'><img alt='Plot of classification error versus tree size
+for Training, Cross-Validation, and Test
+sets, with error bars for each' src='../../Figures/Fig8-6b.png' style='max-width:49%' /> <img alt='Classification
+tree for heart disease predicting Yes or No
+based on splits of Thal, Ca, MaxHR, and
+ChestPain' src='../../Figures/Fig8-6c.png' style='max-width:49%' />                                         </p></div>      <div class='minipage'><span class='cmssbx-10x-x-109'>Evaluating the splits: </span>
+     <ul class='itemize1'>
+     <li class='itemize'><!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mover accent='true'><mrow><mi>p</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑚𝑘</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
+      proportion
+      of
+      training
+      observations
+      in
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>R</mi></mrow><mrow><mi>m</mi></mrow></msub></math>
+        from
+      the
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>th
+      class
+      </li><li class='itemize'>Error:
+      <!-- l. 329 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>E</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><munder class='msub'><mrow><mtext class='qopname'> max</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>k</mi></mrow></munder><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mover accent='true'><mrow><mi>p</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑚𝑘</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li><li class='itemize'>
+      <!-- l. 329 --><p class='noindent'>Gini index: </p><table class='equation-star'><tr><td>
+      <!-- l. 329 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+        <mi>G</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>k</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>K</mi> </mrow></munderover><msub><mrow><mover accent='true'><mrow><mi>p</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow>
+<mi mathvariant='italic'>𝑚𝑘</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mover accent='true'><mrow><mi>p</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑚𝑘</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+      </li></ul>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox41'> <span class='cmss-12x-x-120'>Linear
+  models
+  vs
+  trees</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Two plots comparing a linear decision
+boundary with a decision tree
+approximation using axis-aligned
+rectangular splits in feature space' src='../../Figures/Fig8-7-top.png' style='max-width:100%' />           </div>      <div class='minipage'><img alt='Two plots showing a decision tree
+perfectly capturing a rectangular boundary
+with axis-aligned splits, compared to a
+linear boundary' src='../../Figures/Fig8-7-bottom.png' style='max-width:100%' />                                  </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox45'> <span class='cmss-12x-x-120'>What
+  will
+  your
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>What
+      does
+      bagging
+      of
+      decision
+      trees
+      accomplish?
+      </li><li class='itemize'>
+      <!-- l. 365 --><p class='noindent'>How do you use out of bag error estimation for decision trees? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             describe
+             this
+             for
+             both
+             regression
+             and
+             classification
+             trees.</span></li></ul>
+       </li>
+       <li class='itemize'>What problem of bagging does using random forest address?
+      </li><li class='itemize'>What is the relationship between random forest and bagging?</li></ul>                         </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-5r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 369 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests8x.png' />
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests10x.png' /></p><div class='minipage'>                                                       <a href='#Navigation14'><span class='cmss-12x-x-120'>8.2.1
+                                         Bagging</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Use
+  ensemble
+  of
+  trees
+  to
+  reduce
+  variance</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><!-- l. 416 --><p class='noindent'><span class='cmssbx-10x-x-109'>Want
+to
+do
+(but
+can’t):</span><br />
+Build separate models from independent
+training sets, and average resulting predictions:
+</p>
+      <ul class='itemize1'>
+      <li class='itemize'><!-- l. 416 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msup><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msup><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi>B</mi></mrow></msup><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      for
+      <!-- l. 416 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math>
+      separate
+      training
+      sets
+      </li><li class='itemize'>
+      <!-- l. 416 --><p class='noindent'>Return the average </p><table class='equation-star'><tr><td>
+      <!-- l. 416 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+        <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑎𝑣𝑔</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>B</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>b</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>B</mi></mrow></munderover><msup><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi>b</mi></mrow></msup><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+      </li></ul>                                               </div>      <div class='minipage'><!-- l. 416 --><p class='noindent'><span class='cmssbx-10x-x-109'>Boostrap modification:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Work
+      with
+      fixed
+      data
+      set
+      </li><li class='itemize'>Take
+      <!-- l. 416 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math>
+      samples
+      from
+      this
+      data
+      set
+      (with
+      replacement)
+      </li><li class='itemize'>Train
+      method
+      on
+      <!-- l. 416 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>b</mi></math>th
+      sample
+      to
+      get
+      <!-- l. 416 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo><mi>b</mi></mrow></msup><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li><li class='itemize'>
+      <!-- l. 416 --><p class='noindent'>Return average of predictions (regression)
+      </p><table class='equation-star'><tr><td>
+      <!-- l. 416 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+       <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi mathvariant='italic'>𝑏𝑎𝑔</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><mi>B</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>b</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>B</mi></mrow></munderover><msup><mrow><mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo><mi>b</mi></mrow></msup><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo>
+</mrow></math></td></tr></table>
+      <!-- l. 416 --><p class='noindent'>or majority vote (classification)</p></li></ul>        </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Tree
+  version</span>                                                                                      </span>
+<h2 class='frametitle'></h2><img alt='Visual representation of bagging showing a blue data block leading to multiple red sample
+blocks and green trees.' src='../../Figures/TreeBaggingCartoon.svg' style='max-width:60%' />
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Prediction
+  on
+  new
+  data
+  point</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>  <img alt='Cartoon illustration of multiple green trees, representing an ensemble of decision trees.' src='../../Figures/TreeBaggingCartoon-OnlyTrees-.png' style='max-width:60%' />
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Example:
+  Heart
+  classification
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Line plot comparing Test and OOB error
+for Bagging and Random Forest models as
+the number of trees increases.' src='../../Figures/Fig8-8.png' style='max-width:100%' />                </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>Out
+  of
+  Bag
+  Error
+  Estimation</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>On
+      average,
+      bootstrap
+      sample
+      uses
+      about
+      2/3
+      of
+      the
+      data
+      </li><li class='itemize'>Remaining
+      observations
+      not
+      used
+      are
+      called
+      <span class='cmssi-10x-x-109'>out-of-bag</span>
+      (OOB)
+      observations
+      </li><li class='itemize'>For
+      each
+      observation,
+      run
+      through
+      all
+      the
+      trees
+      where
+      it
+      wasn’t
+      used
+      for
+      building
+      </li><li class='itemize'>Return
+      the
+      average
+      (or
+      majority
+      vote)
+      of
+      those
+      as
+      test
+      prediction!
+      rather
+      law
+      of
+      large
+      number
+      </li><li class='itemize'>Bootstraped
+      version
+      of
+      LOOCV.</li></ul>                                     </div>      <div class='minipage'> <img alt='Diagram showing several red data
+samples, each corresponding to an
+individual green decision tree, representing
+a bagging ensemble process.' src='../../Figures/TreeBaggingCartoon-MoreTrees-.png' style='max-width:100%' />                  </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>Error
+  using
+  OOB</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Line plot comparing Test and OOB error
+for Bagging and Random Forest models as
+the number of trees increases' src='../../Figures/Fig8-8.png' style='max-width:100%' />                 </div>      <div class='minipage'><!-- l. 531 --><p class='noindent'>Test your understanding: <a href='https://PollEv.com/multiple_choice_polls/Ml8a7cfP8JC1EUABn4cSU/respond'>PollEv</a>             </p></div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-6r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 548 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests11x.png' />
+<img alt='picture' src='CMSE381-002-Lec25-Ch08_2-RandomForests13x.png' /></p><div class='minipage'>                                                     <a href='#Navigation22'><span class='cmss-12x-x-120'>Random
+                                          Forests</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>The
+  idea</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 580 --><p class='noindent'>Goal is to decorrelate the bagged trees:
+      </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>If
+             there
+             is
+             a
+             strong
+             predictor,
+             the
+             first
+             split
+             of
+             most
+             trees
+             will
+             be
+             the
+             same</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Most
+             or
+             all
+             trees
+             will
+             be
+             highly
+             correlated</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Averaging
+             highly
+             correlated
+             quantities
+             doesn’t
+             decrease
+             variance
+             as
+             much
+             as
+             uncorrelated</span></li></ul>
+       </li></ul>                                                    </div>       <div class='minipage'>       <ul class='itemize1'>
+       <li class='itemize'>
+       <!-- l. 580 --><p class='noindent'>The random forest fix: </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Each
+             time
+             a
+             split
+             is
+             considered,
+             only
+             use
+             a
+             random
+             subset
+             of</span>
+             <!-- l. 580 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>m</mi></math>
+             <span class='cmss-10'>the
+             predictors</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Fresh
+             sample
+             taken
+             every
+             time</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Typically</span>
+             <!-- l. 580 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>m</mi> <mo class='MathClass-rel' stretchy='false'>≈</mo><msqrt><mrow><mi>p</mi></mrow></msqrt></mrow></math>
+             </li>
+             <li class='itemize'><span class='cmss-10'>On
+             average,</span>
+             <!-- l. 580 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>(</mo><mi>p</mi> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>m</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-bin' stretchy='false'>∕</mo><mi>p</mi></mrow></math>
+             <span class='cmss-10'>of
+             splits
+             won’t
+             consider
+             strong
+             predictor</span>
+             </li>
+             <li class='itemize'><!-- l. 580 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>m</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>p</mi></mrow></math>
+             <span class='cmss-10'>gives
+             back
+             bagging</span></li></ul>
+       </li></ul>                                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>Example
+  on
+  gene
+  expression</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Plot of test classification error versus
+number of trees comparing m=p, m=p/2,
+and m=sqrt(p) for random forests.' src='../../Figures/Fig8-10.png' style='max-width:100%' />          </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox87'> <span class='cmss-12x-x-120'>Coding
+  time!</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox91'> <span class='cmss-12x-x-120'>TL:DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Bagging:
+      trees
+      grown
+      independently
+      on
+      random
+      samples.
+      Trees
+      tend
+      to
+      be
+      similar
+      to
+      each
+      other,
+      can
+      result
+      in
+      getting
+      caught
+      in
+      local
+      optima
+      </li><li class='itemize'>Random
+      forest:
+      trees
+      independently
+      on
+      samples,
+      but
+      split
+      is
+      done
+      using
+      random
+      subset
+      of
+      features
+</li></ul>                                               </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

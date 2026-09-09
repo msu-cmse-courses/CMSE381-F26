@@ -1,0 +1,504 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec31-Ch10_3-CNN.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec31-Ch10_3-CNN.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec31-Ch10_3-CNN2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN0x.png' />
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       10.3:
+                                  Convolutional
+                                      Neural
+                                       Nets</span></h1>
+                                      Lecture
+                                        31
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                         <div class='date'></div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><!-- l. 108 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>CNNs</li></ul>                            </div>          <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 113 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN3x.png' />
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation4'><span class='cmss-12x-x-120'>Last
+                                           time:
+                                          Neural
+                                           Nets</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>MNIST</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='MNIST dataset example' src='../../Figures/Fig10-3.png' style='max-width:100%' />                       </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Goal:
+      Build
+      a
+      model
+      to
+      classify
+      images
+      into
+      their
+      correct
+      digit
+      class
+      </li><li class='itemize'>Each
+      image
+      has
+      <!-- l. 136 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>28</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo> <mn>28</mn> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>784</mn></mrow></math>
+      pixels
+      </li><li class='itemize'>Each
+      pixel
+      is
+      grayscale
+      value
+      in
+      [0,255]
+      </li><li class='itemize'>Data
+      converted
+      into
+      column
+      order
+      </li><li class='itemize'>Output
+      represented
+      by
+      one-hot
+      vector
+      <!-- l. 136 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>Y</mi> </mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>Y</mi> </mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>Y</mi> </mrow><mrow><mn>9</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      </li><li class='itemize'>60K
+      training
+      images,
+      10K
+      test
+      images</li></ul>                                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Neural
+  network
+  architecture
+  for
+  MNIST</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+       <div class='minipage'><img alt='Multiple layers neural
+network diagram' src='../../Figures/Fig10-4.png' style='max-width:60%' /> <img alt='Equation
+for computing hidden layer
+activations' src='../../Figures/Eq10-10.png' style='max-width:100%' /> <img alt='Equation for
+computing second hidden
+layer activations' src='../../Figures/Eq10-11.png' style='max-width:100%' /> <img alt='Equation
+for computing output layer
+activations' src='../../Figures/Eq10-12.png' style='max-width:100%' /> <img alt='Equation for
+computing softmax
+activations' src='../../Figures/Eq10-13.png' style='max-width:100%' />                      </div>            <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Two
+      hidden
+      layers.
+      </li><li class='itemize'>Softmax
+      for
+      classification
+      output
+      </li><li class='itemize'>We
+      used
+      <!-- l. 160 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>L</mi></mrow><mrow><mn>1</mn></mrow></msub></math>
+        has
+      128
+      units;
+      <!-- l. 160 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>L</mi></mrow><mrow><mn>2</mn></mrow></msub></math>
+        has
+      64
+      </li><li class='itemize'>10
+      output
+      variables
+      due
+      to
+      class
+      labeling
+      </li><li class='itemize'>Result
+      is
+      we
+      are
+      training
+      approx
+      110K
+      weights</li></ul>                                      </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>MNIST
+  learning</span>                                                                                     </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><img alt='MNIST example
+prediction' src='../../Figures/MNIST-ExamplePrediction.png' style='max-width:100%' />           </div>    <div class='minipage'><img alt='Multiple layers neural network diagram' src='../../Figures/Fig10-4.png' style='max-width:100%' />           </div>    <div class='minipage'><img alt='MNIST example
+prediction' src='../../Figures/MNIST-ExamplePrediction.png' style='max-width:100%' />           </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 191 --><p class='noindent'>What is the architecture of a convolutional neural network? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             describe
+             the
+             types
+             of
+             layers,
+             how
+             they
+             are
+             arranged,
+             and
+             the
+             purpose
+             of
+             each
+             of
+             them.</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 191 --><p class='noindent'>How does convolution work? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             compute
+             the
+             result
+             of
+             the
+             convolution
+             between
+             a
+             simple
+             matrix
+             and
+             a
+             simple
+             filter
+             by
+             hand.</span></li></ul>
+       </li>
+       <li class='itemize'>What information does Convolutional Neural Network capture through convolution?</li></ul>     </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 195 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN6x.png' />
+<img alt='picture' src='CMSE381-002-Lec31-Ch10_3-CNN8x.png' /></p><div class='minipage'>                                                <a href='#Navigation10'><span class='cmss-12x-x-120'>Convolutional
+                                          Neural
+                                         Network</span>
+                                              </a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Last
+  time:
+  Flattening
+  the
+  image
+  –
+  why
+  is
+  it
+  not
+  great?</span>                                                                                       </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 228 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+ <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''><mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd><mtd class='array-td' columnalign='center'><mn>1</mn></mtd><mtd class='array-td' columnalign='center'><mn>0</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>4</mn></mtd> <mtd class='array-td' columnalign='center'><mn>2</mn></mtd> <mtd class='array-td' columnalign='center'><mn>1</mn></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd><mtd class='array-td' columnalign='center'><mn>2</mn></mtd><mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                              </mrow><mo fence='true' form='postfix'>)</mo></mrow><mo class='MathClass-rel' stretchy='false'>→</mo> <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none none none none none none none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>4</mn></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>2</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>2</mn></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                 </mrow><mo fence='true' form='postfix'>)</mo></mrow>
+</mrow></math></td></tr></table></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Example
+  data
+  set:
+  CIFAR100
+  Data</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<!-- l. 252 --><p class='noindent'><img alt='CIFAR100 dataset example' src='../../Figures/Fig10-5.png' style='max-width:60%' /> </p><table class='columns'><tr>
+   <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>60,000
+      images:
+      50K
+      training,
+      10K
+      test
+      </li><li class='itemize'>Labels
+      with
+      20
+      super
+      classes
+      (e.g. aquatic
+      mammals)
+      </li><li class='itemize'>5
+      classes
+      per
+      super
+      class
+      (beaver,
+      dolphin,
+      otter,
+      seal,
+      whale)
+      </li><li class='itemize'>Images
+      are
+      32x32</li></ul>                                        </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Image
+  channel
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'><img alt='Image channel data' src='../../Figures/Fig10-8-onlychannels.png' style='max-width:50%' />                             </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>How
+  does
+  your
+  brain
+  do
+  it?
+  The
+  visual
+  hierarchy</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<!-- l. 282 --><p class='noindent'><img alt='Visual hierarchy' src='../../Figures/Visual_Hierarchy.jpeg' style='max-width:90%' />
+</p><!-- l. 282 --><p class='noindent'>Mauro Manassi, Bilge Sayim, Michael H. Herzog; When crowding of crowding leads to
+uncrowding. Journal of Vision 2013;13(13):10. <a class='url' href='https://doi.org/10.1167/13.13.10'><span class='cmtt-10x-x-109'>https://doi.org/10.1167/13.13.10</span></a>.      </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>CNNs</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'><img alt='CNN architecture' src='../../Figures/Fig10-6.png' style='max-width:100%' />                                </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Convolution
+  layer
+  </span><span class='cmss-9'>Convolution
+   Filter</span>                                                                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'>Original Image: <table class='equation-star'><tr><td>
+<!-- l. 336 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+ <mrow><mo fence='true' form='prefix'> [</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>a</mi></mtd><mtd class='array-td' columnalign='center'><mi>b</mi></mtd><mtd class='array-td' columnalign='center'><mi>c</mi></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>d</mi></mtd> <mtd class='array-td' columnalign='center'><mi>e</mi></mtd> <mtd class='array-td' columnalign='center'><mi>f</mi></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>g</mi></mtd><mtd class='array-td' columnalign='center'><mi>h</mi></mtd><mtd class='array-td' columnalign='center'><mi>i</mi> </mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>j</mi> </mtd><mtd class='array-td' columnalign='center'><mi>k</mi></mtd><mtd class='array-td' columnalign='center'><mi>l</mi> </mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                             </mrow><mo fence='true' form='postfix'>]</mo></mrow>
+</math></td></tr></table>
+<!-- l. 336 --><p class='noindent'>Convolution filter: </p><table class='equation-star'><tr><td>
+<!-- l. 336 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+ <mrow><mo fence='true' form='prefix'> [</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>α</mi></mtd><mtd class='array-td' columnalign='center'><mi>β</mi></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mi>γ</mi></mtd> <mtd class='array-td' columnalign='center'><mi>δ</mi></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                        </mrow><mo fence='true' form='postfix'>]</mo></mrow>
+</math></td></tr></table></div>     <div class='minipage'>Convolved Image <img alt='Convolved image' src='../../Figures/CNN-ConvolvedImage.png' style='max-width:100%' />          </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Convolution
+  Filter
+  Example</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+        <div class='minipage'><img alt='Convolution filter
+example' src='../../Figures/CNN-examplematrix.png' style='max-width:100%' />
+<!-- l. 367 --><p class='noindent'>Filter: </p><table class='equation-star'><tr><td>
+<!-- l. 367 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+ <mrow><mo fence='true' form='prefix'> [</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd><mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd> <mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                        </mrow><mo fence='true' form='postfix'>]</mo></mrow>
+</math></td></tr></table></div>              <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Same
+  example,
+  different
+  filter</span>                                                                                         </span>
+<h2 class='frametitle'></h2>What is the convolved image? <table class='columns'><tr>
+           <div class='minipage'><img alt='Convolution filter
+example' src='../../Figures/CNN-examplematrix.png' style='max-width:100%' />
+<!-- l. 397 --><p class='noindent'>Filter: </p><table class='equation-star'><tr><td>
+<!-- l. 397 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+ <mrow><mo fence='true' form='prefix'> [</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>1</mn></mtd><mtd class='array-td' columnalign='center'><mn>1</mn></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mn>0</mn></mtd> <mtd class='array-td' columnalign='center'><mn>0</mn></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                        </mrow><mo fence='true' form='postfix'>]</mo></mrow>
+</math></td></tr></table></div>              <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>Convolution
+  filter:
+  Bigger
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+ <div class='minipage'><img alt='Tiger image' src='../../Figures/Fig10-7.png' style='max-width:100%' />                                                        </div>    <div class='minipage'>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox72'> <span class='cmss-12x-x-120'>Convolution
+  layer</span>                                                                                         </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='Convolution layer' src='../../Figures/Fig10-8.png' style='max-width:100%' />                                </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox76'> <span class='cmss-12x-x-120'>More
+  notes
+  on
+  convolution</span>                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox80'> <span class='cmss-12x-x-120'>Pooling
+  layers</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'><img alt='Pooling layer' src='../../Figures/Eq10-3-2.png' style='max-width:100%' />                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox84'> <span class='cmss-12x-x-120'>Putting
+  it
+  together
+  to
+  make
+  a
+  CNN</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<!-- l. 509 --><p class='noindent'><img alt='Convolution layer' src='../../Figures/Fig10-8.png' style='max-width:100%' /> </p><table class='columns'><tr>
+   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+<!-- l. 509 --><p class='noindent'><a class='url' href='https://poloclub.github.io/cnn-explainer/'><span class='cmtt-10x-x-109'>https://poloclub.github.io/cnn-explainer/</span></a>                                      </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox88'> <span class='cmss-12x-x-120'>Coding</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox92'> <span class='cmss-12x-x-120'>TL;DR</span>                                                                                      </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><span class='cmssbx-10x-x-109'>Feed Forward Neural Net </span><img alt='Feed forward
+neural network diagram' src='../../Figures/Fig10-4.png' style='max-width:50%' /> <img alt='Equation for
+computing activations' src='../../Figures/Eq10-2.png' style='max-width:100%' />
+      <ul class='itemize1'>
+      <li class='itemize'>Combines
+      input
+      data
+      using
+      learned
+      weights
+      </li><li class='itemize'>Linear
+      combo
+      of
+      those
+      to
+      get
+      output
+      </li><li class='itemize'>Sometimes
+      softmax
+      to
+      get
+      probability
+      of
+      classification</li></ul>                                </div>      <div class='minipage'><span class='cmssbx-10x-x-109'>CNN </span><img alt='Convolution layer' src='../../Figures/Fig10-8.png' style='max-width:100%' />
+      <ul class='itemize1'>
+      <li class='itemize'>Specialized
+      NN
+      </li><li class='itemize'>
+      <!-- l. 603 --><p class='noindent'>Gets next layer via </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>Convolution
+             layer</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Pooling
+             Layer</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Fully
+             connected
+             layer</span></li></ul>
+       </li></ul>                                                    </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

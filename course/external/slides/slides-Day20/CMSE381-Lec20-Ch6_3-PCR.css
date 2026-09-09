@@ -70,14 +70,6 @@
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
 .cmss-9{font-size:90%;  font-family: sans-serif;}
 .cmss-9{  font-family: sans-serif;}
 .cmss-9{  font-family: sans-serif;}
@@ -91,6 +83,14 @@
 .cmex-9{font-size:90%;}
 .mathkerncmssi-9{font-size:90%; font-family: 'Computer Modern', serif;}
 .cmtt-10x-x-109{font-size:109%;font-family: monospace,monospace;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
+.cmss-10{  font-family: sans-serif;}
 .cmssbx-10{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10{ font-family: sans-serif; font-weight: bold;}
@@ -256,6 +256,5 @@ span#colorbox60{background-color:#E5F0EB;}
 span#colorbox64{background-color:#E5F0EB;}
 span#colorbox68{background-color:#E5F0EB;}
 span#colorbox72{background-color:#E5F0EB;}
-span#colorbox76{background-color:#E5F0EB;}
 /* end css.sty */
 

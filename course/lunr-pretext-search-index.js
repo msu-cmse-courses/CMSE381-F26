@@ -262,6 +262,60 @@ var ptx_lunr_docs = [
   "body": "  We want to just predict acceleration using horsepower. Answer the following questions.     Make a scatter plot of acceleration (the output variable) vs horsepower (the input variable). Does it look like there's a relationship between the two variables?    Use the plt.scatter or sns.regplot function to make a scatter plot.    plt.scatter(auto.horsepower, auto.acceleration)    sns.regplot(auto.horsepower, auto.acceleration)      I've decided to use the model   Make a panda Series with entries for each entry in auto.horsepower .     predicted = 23-(0.05)*auto.horsepower      0 16.50 1 14.75 2 15.50 3 15.50 4 16.00 5 13.10 6 12.00 7 12.25 8 11.75 9 13.50 Name: horsepower, dtype: float64       Plot the function on top of the data's scatter plot.     plt.scatter(auto.horsepower,auto.acceleration)  t = np.array([0, 225])  liney = -.05*t+23  plt.plot(t,liney)       Using the series you just built, calculate the mean squared error,     Recall that the predicted values are in the series predicted you just built, and the actual values are in auto.acceleration .    Use the MSE formula above to calculate the mean squared error. You can use np.sum to sum up the squared errors and divide by the number of entries in the series.     sq_error = (auto.acceleration-predicted)**2  MSE = np.sum(sq_error)\/len(sq_error)       Print the first 10 entries of the predicted series, and of the squared errors.     print(predicted[:10])  print(sq_error[:10])       What is the mean squared error?    MSE= 8.982500000000002      What is the length of the squared error series?    Use the len function to get the length of the squared error series sq_error .    The length of the squared error series is 392.      Have some spare time? Can you mess around with the coefficients in your model to decrease the MSE?    Check out the model. What parameters can we modify to change the model? Try changing the intercept and slope to see if you can get a lower MSE.    Since the model is we can experiment with different intercepts and slopes to see if the MSE decreases.    "
 },
 {
+  "id": "day04-notebook",
+  "level": "1",
+  "url": "day04-notebook.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 04 Worksheet",
+  "body": " Day 04 Worksheet   In the today's lecture, we are focused on simple linear regression, that is, fitting models of the form   In this worksheet, we will use two different tools for linear regression.    Scikit learn is arguably the most used tool for machine learning in python.     Statsmodels provides many of the statistical models we've been learning in class.     As always, we start with our favorite standard imports.      Simple linear regression   In this module, we will be using the Diabetes data set. While we could download a csv to put in the correct folder etc., because this is a commonly used test data set, it's available in scikit-learn for us to use without any cleanup. Yay!     Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target)  diabetes_df        Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset       Write a brief description of the dataset, including the number of rows and columns, and the names of the columns.     Note that because the data has been mean centered, sex shows up as two values: 0.050680 and -0.044642 .      age age in years  sex  bmi body mass index  bp average blood pressure  s1 tc, total serum cholesterol  s2 ldl, low-density lipoproteins  s3 hdl, high-density lipoproteins  s4 tch, total cholesterol \/ HDL  s5 ltg, possibly log of serum triglycerides level  s6 glu, blood sugar level        What do the columns s1 through s6 represent?       s1 tc, total serum cholesterol  s2 ldl, low-density lipoproteins  s3 hdl, high-density lipoproteins  s4 tch, total cholesterol \/ HDL  s5 ltg, possibly log of serum triglycerides level  s6 glu, blood sugar level        Which of the available variables are quantitative and which are categorical?     Categorical: sex, all others are quantitative.      What is the target we are trying to predict?     You'll need to check the documentation of the data set.    The target is a quantitative measure of disease progression one year after baseline.      Data Exploration   The following command should show you the top of your data frame. diabetes_df.head() .  You will do some basic data exploration.     How many data points do we have?     Each row in the data frame is a data point.    You can use the shape attribute of the data frame to get the number of rows and columns.    442 data points (rows).      How many predictors do we have?    The total number of variables (input + output) are the columns in the data frame. You can use the shape attribute of the data frame to get the number of rows and columns.    Predictors are the columns in the data frame that are used to predict the target variable (which is also included in the data). Make sure you subtract the target variable from the total number of columns to get the number of predictors.    10      Are there any data points with missing data?    Check for any NaN or NA values.    The info() method of the data frame can be used to check for missing values. If any column has fewer non-null values than the total number of rows, then there are missing data points.    No. The dataset if fully populated.      Use the seaborn sns.pairplot command to look at relationships between the variables.    The sns.pairplot command creates a grid of scatter plots for each pair of variables in the data frame.     sns.pairplot(diabetes_df)       Are there pairs of variables that appear to be related?    Look for patterns in the scatter plots generated by sns.pairplot . Positive or negative correlations will be visible as linear trends.    Yes, there appear to be some relationships between the variables. For example, there seems to be a positive correlation between age and BMI, and between BMI and blood pressure.      Obtain pair plots for the variables with the strongest relationships.    Based on the previous analysis, focus on the pairs of variables that showed the strongest correlations: bmi , bp , s1 , and s2 .    You can pass a subset of the data frame to sns.pairplot to generate pair plots for specific variables.     sns.pairplot(diabetes_df[['bmi','bp','s1','s2']])       Simple Linear Regression   We're now going to fit a simple linear regression to the models and where the variables are    : tc, total serum cholesterol     : ltg, possibly log of serum triglycerides     Let's start by looking at using s5 to predict target .   from sklearn.linear_model import LinearRegression # sklearn actually likes being handed numpy arrays more than # pandas dataframes, so we'll extract the bits we want and just pass it that. X = diabetes_df['s5'].values X = X.reshape([len(X),1]) y = diabetes_df['target'].values y = y.reshape([len(y),1]) # This code works by first creating an instance of # the linear regression class reg = LinearRegression() # Then we pass in the data we want it to use to fit. reg.fit(X,y)   Hmmm, nothing seems to have happened? Well actually, we first created an instance of the regression class, which is just a collection of the model functionality waiting to be trained. When we run the fit command with data handed in, it actually figures out the best choice of coefficients for our particular data. Once they're found, we can extract them from the class as follows.   # We can find the intercept and coefficient information # from the regression class as follows. print(reg.coef_) print(reg.intercept_)      What is the model using these coefficients? That is, write down the function explicitly.            What is the prediction by the model for ?     The prediction by the model for is .    It can be obtained using print('prediction for s5 = 0.05: ', reg.coef_[0,0]*0.05 + reg.intercept_[0])     Can also be done with reg.predict([[0.05]])       Overlay a plot of your predicted model (your line) on a scatter plot of the data used. Does linear seem like a good assumption?     t = np.linspace(-.15,.15) plt.scatter(X.T,y.T) plt.plot(t.T,reg.coef_[0,0]*t.T + reg.intercept_[0], c = 'red', label = lineString) plt.legend(loc='best') plt.xlabel('s1') plt.ylabel('s5')        It turns out there is a bit of a cheap trick for plotting linear regression using seaborn. This command will actually both run the linear regression (that is, find the required 's) and plot it for you. The tradeoff is that this will only work for single variable linear regression; we'll have to work harder when we're doing multi-variable linear regression. They also do not provide any easy way to get the equation of the line out, so this isn't really the best tool to use for anything other than quick and dirty visualization.   # First easy version, but hard to get out the parameters.... sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)    Congratulations, we're done!      "
+},
+{
+  "id": "subsec-ws04-simple-linear-regression-2-3",
+  "level": "2",
+  "url": "day04-notebook.html#subsec-ws04-simple-linear-regression-2-3",
+  "type": "Note",
+  "number": "9",
+  "title": "",
+  "body": " Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))   "
+},
+{
+  "id": "ws04-exercises-1-2",
+  "level": "2",
+  "url": "day04-notebook.html#ws04-exercises-1-2",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   Write a brief description of the dataset, including the number of rows and columns, and the names of the columns.     Note that because the data has been mean centered, sex shows up as two values: 0.050680 and -0.044642 .      age age in years  sex  bmi body mass index  bp average blood pressure  s1 tc, total serum cholesterol  s2 ldl, low-density lipoproteins  s3 hdl, high-density lipoproteins  s4 tch, total cholesterol \/ HDL  s5 ltg, possibly log of serum triglycerides level  s6 glu, blood sugar level        What do the columns s1 through s6 represent?       s1 tc, total serum cholesterol  s2 ldl, low-density lipoproteins  s3 hdl, high-density lipoproteins  s4 tch, total cholesterol \/ HDL  s5 ltg, possibly log of serum triglycerides level  s6 glu, blood sugar level        Which of the available variables are quantitative and which are categorical?     Categorical: sex, all others are quantitative.      What is the target we are trying to predict?     You'll need to check the documentation of the data set.    The target is a quantitative measure of disease progression one year after baseline.    "
+},
+{
+  "id": "ws04-exercises-1-3",
+  "level": "2",
+  "url": "day04-notebook.html#ws04-exercises-1-3",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": " Data Exploration   The following command should show you the top of your data frame. diabetes_df.head() .  You will do some basic data exploration.     How many data points do we have?     Each row in the data frame is a data point.    You can use the shape attribute of the data frame to get the number of rows and columns.    442 data points (rows).      How many predictors do we have?    The total number of variables (input + output) are the columns in the data frame. You can use the shape attribute of the data frame to get the number of rows and columns.    Predictors are the columns in the data frame that are used to predict the target variable (which is also included in the data). Make sure you subtract the target variable from the total number of columns to get the number of predictors.    10      Are there any data points with missing data?    Check for any NaN or NA values.    The info() method of the data frame can be used to check for missing values. If any column has fewer non-null values than the total number of rows, then there are missing data points.    No. The dataset if fully populated.      Use the seaborn sns.pairplot command to look at relationships between the variables.    The sns.pairplot command creates a grid of scatter plots for each pair of variables in the data frame.     sns.pairplot(diabetes_df)       Are there pairs of variables that appear to be related?    Look for patterns in the scatter plots generated by sns.pairplot . Positive or negative correlations will be visible as linear trends.    Yes, there appear to be some relationships between the variables. For example, there seems to be a positive correlation between age and BMI, and between BMI and blood pressure.      Obtain pair plots for the variables with the strongest relationships.    Based on the previous analysis, focus on the pairs of variables that showed the strongest correlations: bmi , bp , s1 , and s2 .    You can pass a subset of the data frame to sns.pairplot to generate pair plots for specific variables.     sns.pairplot(diabetes_df[['bmi','bp','s1','s2']])     "
+},
+{
+  "id": "ws04-exercises-1-4",
+  "level": "2",
+  "url": "day04-notebook.html#ws04-exercises-1-4",
+  "type": "Exercise",
+  "number": "3",
+  "title": "",
+  "body": " Simple Linear Regression   We're now going to fit a simple linear regression to the models and where the variables are    : tc, total serum cholesterol     : ltg, possibly log of serum triglycerides     Let's start by looking at using s5 to predict target .   from sklearn.linear_model import LinearRegression # sklearn actually likes being handed numpy arrays more than # pandas dataframes, so we'll extract the bits we want and just pass it that. X = diabetes_df['s5'].values X = X.reshape([len(X),1]) y = diabetes_df['target'].values y = y.reshape([len(y),1]) # This code works by first creating an instance of # the linear regression class reg = LinearRegression() # Then we pass in the data we want it to use to fit. reg.fit(X,y)   Hmmm, nothing seems to have happened? Well actually, we first created an instance of the regression class, which is just a collection of the model functionality waiting to be trained. When we run the fit command with data handed in, it actually figures out the best choice of coefficients for our particular data. Once they're found, we can extract them from the class as follows.   # We can find the intercept and coefficient information # from the regression class as follows. print(reg.coef_) print(reg.intercept_)      What is the model using these coefficients? That is, write down the function explicitly.            What is the prediction by the model for ?     The prediction by the model for is .    It can be obtained using print('prediction for s5 = 0.05: ', reg.coef_[0,0]*0.05 + reg.intercept_[0])     Can also be done with reg.predict([[0.05]])       Overlay a plot of your predicted model (your line) on a scatter plot of the data used. Does linear seem like a good assumption?     t = np.linspace(-.15,.15) plt.scatter(X.T,y.T) plt.plot(t.T,reg.coef_[0,0]*t.T + reg.intercept_[0], c = 'red', label = lineString) plt.legend(loc='best') plt.xlabel('s1') plt.ylabel('s5')     "
+},
+{
+  "id": "ws04-exercises-1-5-1",
+  "level": "2",
+  "url": "day04-notebook.html#ws04-exercises-1-5-1",
+  "type": "Note",
+  "number": "11",
+  "title": "",
+  "body": " It turns out there is a bit of a cheap trick for plotting linear regression using seaborn. This command will actually both run the linear regression (that is, find the required 's) and plot it for you. The tradeoff is that this will only work for single variable linear regression; we'll have to work harder when we're doing multi-variable linear regression. They also do not provide any easy way to get the equation of the line out, so this isn't really the best tool to use for anything other than quick and dirty visualization.   # First easy version, but hard to get out the parameters.... sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)   "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
@@ -275,7 +329,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "9",
+  "number": "12",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
@@ -284,7 +338,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "10",
+  "number": "13",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
@@ -293,7 +347,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "11",
+  "number": "14",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
@@ -302,7 +356,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "12",
+  "number": "15",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
@@ -320,7 +374,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "13",
+  "number": "16",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
@@ -329,7 +383,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "14",
+  "number": "17",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
@@ -338,7 +392,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "15",
+  "number": "18",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
@@ -347,7 +401,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
-  "number": "16",
+  "number": "19",
   "title": "",
   "body": "  What is ?         "
 },
@@ -356,7 +410,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
-  "number": "17",
+  "number": "20",
   "title": "",
   "body": "  What is ?         "
 },
@@ -365,7 +419,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW3",
   "type": "Checkpoint",
-  "number": "18",
+  "number": "21",
   "title": "",
   "body": "  What is ?         "
 },
@@ -392,7 +446,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "19",
+  "number": "22",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
@@ -401,7 +455,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "23",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
@@ -410,7 +464,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "24",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
@@ -419,7 +473,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "22",
+  "number": "25",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
@@ -428,7 +482,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "23",
+  "number": "26",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
@@ -437,7 +491,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "24",
+  "number": "27",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons      "
 },

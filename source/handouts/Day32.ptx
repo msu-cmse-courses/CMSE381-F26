@@ -7,8 +7,7 @@
         <title>Day 32</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day32/CMSE381-Lec32-Ch7_8-AdvancedTopics.html" visual="Day32 slides"/> -->
-            This is a placeholder for the Day 32 lecture content.
+            <dataurl source="slides/slides-Day32/CMSE381-002-Lec32-Ch12_4-Clustering.html" visual="Day32 slides"/>
         </p>
     
         </section>

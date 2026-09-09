@@ -37,23 +37,12 @@
                                          /span&gt;
                                      <span class='cmss-8'>Engineering</span></span></div>
                                                                                    
-                                       <div class='date'>Wed,
-                                        Feb
-                                        4,
-                                       2026</div>
+                                         <div class='date'></div>
                                                                                    
 </div>                                                                                            </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-    <div class='minipage'>                                         </div>      <div class='minipage'>                                     </div>
-</tr></table>
-                                                                                    </div>
-                                                                                   
-                                                                                   
-<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>Covered
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Covered
   in
   this
   lecture</span>
@@ -77,9 +66,9 @@
 <p><a id='x1-2r1'></a>
                                                                                    
                                                                                    
-<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 143 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 144 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
 <img alt='picture' src='CMSE381-Lec10-LogisticRegression3x.png' />
-<img alt='picture' src='CMSE381-Lec10-LogisticRegression5x.png' /></p><div class='minipage'>                                                      <a href='#Navigation5'><span class='cmss-12x-x-120'>Review
+<img alt='picture' src='CMSE381-Lec10-LogisticRegression5x.png' /></p><div class='minipage'>                                                      <a href='#Navigation4'><span class='cmss-12x-x-120'>Review
                                            from
                                             last
                                            time</span></a>
@@ -87,38 +76,38 @@
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Error
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Error
   rate</span>                                                                                          </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
   <div class='minipage'>     <ul class='itemize1'>
      <li class='itemize'>
-     <!-- l. 185 --><p class='noindent'>Training
+     <!-- l. 186 --><p class='noindent'>Training
       data:
-      </p><!-- l. 185 --><p class='noindent'><!-- l. 185 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
+      </p><!-- l. 186 --><p class='noindent'><!-- l. 186 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
    with
-      <!-- l. 185 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+      <!-- l. 186 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
         qualitative
       </p>
       </li><li class='itemize'>Estimate
-      <!-- l. 185 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      <!-- l. 186 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
       </li><li class='itemize'>Indicator
       variable
 </li></ul>                                                     </div>      <div class='minipage'>Training error rate: <table class='equation-star'><tr><td>
-<!-- l. 185 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 186 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
             <mfrac><mrow><mn>1</mn></mrow> 
 <mrow><mi>n</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
   </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow>
 <mi>i</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
-<!-- l. 185 --><p class='noindent'>Test error rate: </p><table class='equation-star'><tr><td>
-<!-- l. 185 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 186 --><p class='noindent'>Test error rate: </p><table class='equation-star'><tr><td>
+<!-- l. 186 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
               <mstyle mathvariant='normal'><mi>Ave</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Best
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Best
   ever
   classifier
   </span><span class='cmss-9'>We
@@ -130,10 +119,10 @@
 <table class='columns'><tr>
         <div class='minipage'><span class='cmssbx-10x-x-109'>Bayes
 Classifier:</span>
-<!-- l. 214 --><p class='noindent'>Give every observation the highest
+<!-- l. 215 --><p class='noindent'>Give every observation the highest
 probability class given its predictor
 variables </p><table class='equation-star'><tr><td>
-<!-- l. 214 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 215 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
             <mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table></div>          <div class='minipage'>Bayes Decision Boundary <img alt='Data points
 belonging to two classes (yellow
@@ -143,22 +132,22 @@ decision boundary is also shown.' src='Figures/Fig2-13.png' style='max-width:100
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Bayes
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Bayes
   error
   rate</span>                                                                                          </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
   <div class='minipage'>     <ul class='itemize1'>
      <li class='itemize'>
-     <!-- l. 246 --><p class='noindent'>Error at <!-- l. 246 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>
+     <!-- l. 247 --><p class='noindent'>Error at <!-- l. 247 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>
         </p><table class='equation-star'><tr><td>
-        <!-- l. 246 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+        <!-- l. 247 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
                <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><munder class='msub'><mrow><mtext class='qopname'> max</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>j</mi></mrow></munder><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
       </li>
       <li class='itemize'>
-      <!-- l. 246 --><p class='noindent'>Overall Bayes error: </p><table class='equation-star'><tr><td>
-      <!-- l. 246 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <!-- l. 247 --><p class='noindent'>Overall Bayes error: </p><table class='equation-star'><tr><td>
+      <!-- l. 247 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
           <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>E</mi> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mtext class='qopname'>max</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo></mrow><mrow><mi>j</mi></mrow></msub><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mo fence='true' form='postfix'>)</mo></mrow>
 </mrow></math></td></tr></table>
       </li></ul>                                                     </div>      <div class='minipage'><img alt='Data points belonging to two classes
@@ -169,7 +158,7 @@ shown.' src='Figures/Fig2-13.png' style='max-width:100%' />                     
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox33'> <!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
+<div class='slide'> <span class='colorbox' id='colorbox29'> <!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
   Neighbors</span>                                                                                   </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
@@ -184,36 +173,36 @@ neares neighbors
 (K=3) are
 encolosed in a
 green disk.' src='Figures/Fig2-14a.png' style='max-width:100%' />
-<!-- l. 289 --><p class='noindent'><!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>K</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></p></div>    <div class='minipage'><img alt='A plot of two
+<!-- l. 290 --><p class='noindent'><!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>K</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></p></div>    <div class='minipage'><img alt='A plot of two
 classes (yellow
 circles and blue
 circles) in the
 plane, and the
 KNN decision
 boundary.' src='Figures/Fig2-14b.png' style='max-width:100%' />
-<!-- l. 289 --><p class='noindent'>decision boundary </p></div>    <div class='minipage'>      <ul class='itemize1'>
+<!-- l. 290 --><p class='noindent'>decision boundary </p></div>    <div class='minipage'>      <ul class='itemize1'>
       <li class='itemize'>Fix
-      <!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
+      <!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
       positive
       integer
-      </li><li class='itemize'><!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
+      </li><li class='itemize'><!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
       the
       set
       of
-      <!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
+      <!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
       closest
       neighbors
       to
-      <!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+      <!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
       </li><li class='itemize'>
-      <!-- l. 289 --><p class='noindent'>Estimate conditional proability </p><table class='equation-star'><tr><td>
-      <!-- l. 289 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <!-- l. 290 --><p class='noindent'>Estimate conditional proability </p><table class='equation-star'><tr><td>
+      <!-- l. 290 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
   <mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mfrac><mrow><mn>1</mn></mrow> 
 <mrow><mi>K</mi></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
    </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></munder><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
       </li>
-      <li class='itemize'>Pick <!-- l. 289 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>
+      <li class='itemize'>Pick <!-- l. 290 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>
       with highest value</li></ul>                               </div>
 </tr></table>
 <table class='columns'><tr>
@@ -233,21 +222,21 @@ orange) versus 1/K.' src='Figures/Fig2-17.png' style='max-width:100%' />        
 <p><a id='x1-3r2'></a>
                                                                                    
                                                                                    
-<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 292 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 293 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
 <img alt='picture' src='CMSE381-Lec10-LogisticRegression6x.png' />
-<img alt='picture' src='CMSE381-Lec10-LogisticRegression8x.png' /></p><div class='minipage'>                                                     <a href='#Navigation11'><span class='cmss-12x-x-120'>Logistic
+<img alt='picture' src='CMSE381-Lec10-LogisticRegression8x.png' /></p><div class='minipage'>                                                     <a href='#Navigation10'><span class='cmss-12x-x-120'>Logistic
                                         Regression</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Simulated
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Simulated
   </span><span class='cmtt-12x-x-120'>Default
  </span><span class='cmss-12x-x-120'>data
   set</span>                                                                                           </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
-  <div class='minipage'><!-- l. 312 --><p class='noindent'><img alt='A plot of two classes (yellow circles and
+  <div class='minipage'><!-- l. 313 --><p class='noindent'><img alt='A plot of two classes (yellow circles and
 blue circles) in the plane. A test point is
 marked with X, and its three neares
 neighbors (K=3) are encolosed in a green
@@ -258,7 +247,7 @@ decision boundary.' src='Figures/Fig4-1b.png' style='max-width:80%' />          
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>What
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>What
   is
   classification</span>
                                                                                                  </span>
@@ -277,18 +266,18 @@ decision boundary.' src='Figures/Fig4-1b.png' style='max-width:80%' />          
       the
       probability
       that
-      <!-- l. 336 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      <!-- l. 337 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
       belongs
       to
       a
       particular
       category
 </li></ul>
-<!-- l. 336 --><p class='noindent'>
-<!-- tex4ht:inline --></p><!-- l. 336 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 337 --><p class='noindent'>
+<!-- tex4ht:inline --></p><!-- l. 337 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
  <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo><mtext class='qopname'> Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math>
-<!-- l. 336 --><p class='nopar'>                                                           </p></div>        <div class='minipage'><!-- l. 336 --><p class='noindent'><img alt='Scatter
+<!-- l. 337 --><p class='nopar'>                                                           </p></div>        <div class='minipage'><!-- l. 337 --><p class='noindent'><img alt='Scatter
 plot
 of
 two
@@ -306,32 +295,32 @@ plane.' src='Figures/Fig4-1a.png' style='max-width:100%' />                     
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Goal
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Goal
   for
   </span><span class='cmtt-12x-x-120'>Balance
  </span><span class='cmss-12x-x-120'>data
   set</span>                                                                                           </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
-     <div class='minipage'><!-- l. 358 --><p class='noindent'><img alt='Scatter plot of two classes (blue
+     <div class='minipage'><!-- l. 359 --><p class='noindent'><img alt='Scatter plot of two classes (blue
 circles and orange pluses) on
 income versus balance plane.' src='Figures/Fig4-1a.png' style='max-width:100%' />     </p></div>          <div class='minipage'>Goal:
 Model
 the
 probability
 that
-<!-- l. 358 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+<!-- l. 359 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
 belongs
 to
 a
 particular
 category
-<!-- l. 358 --><p class='noindent'>Ex.<br />
-<!-- l. 358 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math></p></div>
+<!-- l. 359 --><p class='noindent'>Ex.<br />
+<!-- l. 359 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math></p></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Let’s
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Let’s
   just
   use
   linear
@@ -346,7 +335,7 @@ category
     <div class='minipage'><span class='cmssbx-10x-x-109'>Bad idea: </span>
      <ul class='itemize1'>
      <li class='itemize'>Set
-      <!-- l. 395 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      <!-- l. 396 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
       to
       be
       a
@@ -355,34 +344,34 @@ category
       taking
       values
       in
-      <!-- l. 395 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mn>1</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>2</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>3</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
+      <!-- l. 396 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mn>1</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>2</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>3</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
    </li><li class='itemize'>Run
       regression,
       and
       choose
-      <!-- l. 395 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>
+      <!-- l. 396 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>k</mi></math>
       based
       on
       what
       integer
       value
-      <!-- l. 395 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ŷ</mi></math>
+      <!-- l. 396 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ŷ</mi></math>
       is
       closest
-      to</li></ul>                                             </div>      <div class='minipage'><!-- l. 395 --><p class='noindent'>Ex. </p><table class='equation-star'><tr><td>
-<!-- l. 395 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      to</li></ul>                                             </div>      <div class='minipage'><!-- l. 396 --><p class='noindent'>Ex. </p><table class='equation-star'><tr><td>
+<!-- l. 396 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
 <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if stroke </mtext></mstyle>           </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>2</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if drug overdose </mtext></mstyle></mtd>
 </mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>3</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if epileptic seizure</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                            </mrow><mo fence='true' form='postfix'></mo></mrow>
 </mrow></math></td></tr></table>
-<!-- l. 395 --><p class='noindent'>vs. </p><table class='equation-star'><tr><td>
-<!-- l. 395 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 396 --><p class='noindent'>vs. </p><table class='equation-star'><tr><td>
+<!-- l. 396 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
 <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if mild </mtext></mstyle>      </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>2</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if moderate</mtext></mstyle></mtd>
 </mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>3</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if severe</mtext></mstyle>     </mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                                   </mrow><mo fence='true' form='postfix'></mo></mrow>
 </mrow></math></td></tr></table></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Bad
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Bad
   idea
   is
   still
@@ -395,11 +384,11 @@ category
   levels</span>                                                                                        </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
-  <div class='minipage'><!-- tex4ht:inline --><!-- l. 433 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+  <div class='minipage'><!-- tex4ht:inline --><!-- l. 434 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
 <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo><mtext class='qopname'> Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math>
-<!-- l. 433 --><p class='nopar'> </p><table class='equation-star'><tr><td>
-<!-- l. 433 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 434 --><p class='nopar'> </p><table class='equation-star'><tr><td>
+<!-- l. 434 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
 <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if not default</mtext></mstyle></mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if default</mtext></mstyle></mtd></mtr>  <!-- @{}l@{\quad }l@{} --></mtable>                                  </mrow><mo fence='true' form='postfix'></mo></mrow>
 </mrow></math></td></tr></table>
       <ul class='itemize1'>
@@ -409,60 +398,60 @@ category
       </li><li class='itemize'>Predict
       default
       if
-      <!-- l. 433 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ŷ</mi></math>
+      <!-- l. 434 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>ŷ</mi></math>
       <span class='cmmi-10x-x-109'>/span&gt;
-     <!-- l. 433 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>0.5</mn></mrow></math>;
+     <!-- l. 434 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>0.5</mn></mrow></math>;
       not
       default
-      otherwise</span></li></ul>                                    </div>      <div class='minipage'><!-- l. 433 --><p class='noindent'><img alt='Probability of default versus balance.' src='Figures/Fig4-2.png' style='max-width:100%' />
-<!-- tex4ht:inline --></p><!-- l. 433 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      otherwise</span></li></ul>                                    </div>      <div class='minipage'><!-- l. 434 --><p class='noindent'><img alt='Probability of default versus balance.' src='Figures/Fig4-2.png' style='max-width:100%' />
+<!-- tex4ht:inline --></p><!-- l. 434 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
        <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle>
 </mrow></math>
-<!-- l. 433 --><p class='nopar'>                                  </p></div>
+<!-- l. 434 --><p class='nopar'>                                  </p></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Approximating
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Approximating
   the
   probability</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
-     <div class='minipage'><!-- l. 479 --><p class='noindent'><!-- l. 479 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
-</p><!-- l. 479 --><p class='noindent'><img alt='Probability of default versus balance.' src='Figures/Fig4-2-NoLine.png' style='max-width:100%' /> </p></div>          <div class='minipage'>                                               </div>
+     <div class='minipage'><!-- l. 480 --><p class='noindent'><!-- l. 480 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+</p><!-- l. 480 --><p class='noindent'><img alt='Probability of default versus balance.' src='Figures/Fig4-2-NoLine.png' style='max-width:100%' /> </p></div>          <div class='minipage'>                                               </div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Logistic
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>Logistic
   function</span>                                                                                     </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
-  <div class='minipage'><!-- l. 503 --><p class='noindent'><img alt='A plot of the logistic function.' src='Figures/LogisticFunction.png' style='max-width:100%' />               </p></div>      <div class='minipage'><table class='equation-star'><tr><td>
-<!-- l. 503 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+  <div class='minipage'><!-- l. 504 --><p class='noindent'><img alt='A plot of the logistic function.' src='Figures/LogisticFunction.png' style='max-width:100%' />               </p></div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 504 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
               <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi> </mrow></msup></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi> </mrow></msup></mrow></mfrac>
 </mrow></math></td></tr></table>
-<!-- l. 503 --><p class='noindent'><span class='cmssbx-10x-x-109'>Try it out:</span>
-</p><!-- l. 503 --><p class='noindent'><a href='https://www.desmos.com/calculator/cw1pyzzqci'>desmos.com/calculator/cw1pyzzqci</a>         </p></div>
+<!-- l. 504 --><p class='noindent'><span class='cmssbx-10x-x-109'>Try it out:</span>
+</p><!-- l. 504 --><p class='noindent'><a href='https://www.desmos.com/calculator/cw1pyzzqci'>desmos.com/calculator/cw1pyzzqci</a>         </p></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox68'> <span class='cmss-12x-x-120'>Logistic
+<div class='slide'> <span class='colorbox' id='colorbox64'> <span class='cmss-12x-x-120'>Logistic
   Regression</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2>
-<!-- l. 553 --><p class='noindent'>
-<!-- tex4ht:inline --></p><!-- l. 553 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 554 --><p class='noindent'>
+<!-- tex4ht:inline --></p><!-- l. 554 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
                     <mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚢𝚎𝚜</mtext></mstyle><mo class='MathClass-rel' stretchy='false'>∣</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle></mrow></msup></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle></mrow></msup></mrow></mfrac>
 </mrow></math>
-<!-- l. 553 --><p class='nopar'> <img alt='Probability of default versus balance.' src='Figures/Fig4-2.png' style='max-width:45%' />
-</p><!-- l. 553 --><p class='noindent'>Linear Regression                               Logistic Regression                            </p></div>
+<!-- l. 554 --><p class='nopar'> <img alt='Probability of default versus balance.' src='Figures/Fig4-2.png' style='max-width:45%' />
+</p><!-- l. 554 --><p class='noindent'>Linear Regression                               Logistic Regression                            </p></div>
                                                                                    
                                                                                    
 <div class='slide'> <h2 class='frametitle'></h2>
- <!-- l. 586 --><p class='noindent'>What will the drawn logistic regression classifer predict for each of the following values of <span class='cmtt-10x-x-109'>Balance</span>
+ <!-- l. 587 --><p class='noindent'>What will the drawn logistic regression classifer predict for each of the following values of <span class='cmtt-10x-x-109'>Balance</span>
  </p><table class='columns'><tr>
    <div class='minipage'><img alt='Probability of default versus balance. A
 sigmoid function is also shown on the
@@ -478,9 +467,9 @@ same plot.' src='Figures/Fig4-2b.png' style='max-width:100%' />                 
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Odds</span>                                                                                         </span>
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>Odds</span>                                                                                         </span>
 <h2 class='frametitle'></h2><table class='equation-star'><tr><td>
-<!-- l. 630 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 631 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
                     <mfrac><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac> <mo class='MathClass-rel' stretchy='false'>=</mo>   <mfrac><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mtext class='qopname'> Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac> <mo class='MathClass-rel' stretchy='false'>=</mo> <mfrac><mrow><mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
@@ -491,31 +480,31 @@ same plot.' src='Figures/Fig4-2b.png' style='max-width:100%' />                 
 between probability and odds.' src='Figures/1024px-Probability_vs_odds.png' style='max-width:60%' />          </div>          <div class='minipage'>Examples: 
       <ul class='itemize1'>
       <li class='itemize'>
-      <!-- l. 630 --><p class='noindent'>If the probability of default is 90%
+      <!-- l. 631 --><p class='noindent'>If the probability of default is 90%
       what are the odds? </p>
             <ul class='itemize2'>
-            <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.9</mn></mrow></math>
+            <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0.9</mn></mrow></math>
              </li>
-             <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>  <mfrac><mrow><mn>0.9</mn></mrow>
+             <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>  <mfrac><mrow><mn>0.9</mn></mrow>
 <mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>−</mo><mn>0.9</mn></mrow></mfrac>  <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>9</mn></mrow></math></li></ul>
        </li>
        <li class='itemize'>
-       <!-- l. 630 --><p class='noindent'>If the odds are 1/3, what is the
+       <!-- l. 631 --><p class='noindent'>If the odds are 1/3, what is the
       probability of default? </p>
             <ul class='itemize2'>
-            <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>  <mfrac><mrow><mi>p</mi></mrow>
+            <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>  <mfrac><mrow><mi>p</mi></mrow>
 <mrow><mn>1</mn><mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi></mrow></mfrac>  <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mn>3</mn></mrow></math>
              </li>
-             <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>3</mn><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi></mrow></math>
+             <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>3</mn><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi></mrow></math>
              </li>
-             <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>4</mn><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
+             <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>4</mn><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
              </li>
-             <li class='itemize'><!-- l. 630 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mn>4</mn></mrow></math></li></ul>
+             <li class='itemize'><!-- l. 631 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mo class='MathClass-bin' stretchy='false'>∕</mo><mn>4</mn></mrow></math></li></ul>
        </li></ul>                                             </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>Making
+<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Making
   the
   nonlinear
   linear</span>                                                                                        </span>
@@ -524,51 +513,51 @@ between probability and odds.' src='Figures/1024px-Probability_vs_odds.png' styl
      <div class='minipage'>Assume the (natural) log odds
 (logits) follow a linear model
 <table class='equation-star'><tr><td>
-<!-- l. 688 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 689 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
         <mtext class='qopname'>log</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --> <mrow><mo fence='true' form='prefix'> (</mo><mrow>   <mfrac><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow>
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac> </mrow><mo fence='true' form='postfix'>)</mo></mrow> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi>
 </mrow></math></td></tr></table>
-<!-- l. 688 --><p class='noindent'>Do some algebra and get
-<!-- l. 688 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>:
+<!-- l. 689 --><p class='noindent'>Do some algebra and get
+<!-- l. 689 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>:
 </p><table class='equation-star'><tr><td>
-<!-- l. 688 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 689 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
            <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi></mrow></msup></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi></mrow></msup></mrow></mfrac>
 </mrow></math></td></tr></table></div>             <div class='minipage'> <img alt='A 2 by 2 tile of plots. The first
 column shows a scatter plot of 10 and
 20 points. The second column shows
 a scatter plot of 110 and 120 points.' src='Figures/WebersLaw.png' style='max-width:60%' />
-<!-- l. 688 --><p class='noindent'><a href='https://commons.wikimedia.org/wiki/File:Weber-Fechner_law_demo_-_dots.svg'>(wiki image link)</a>                          </p></div>
+<!-- l. 689 --><p class='noindent'><a href='https://commons.wikimedia.org/wiki/File:Weber-Fechner_law_demo_-_dots.svg'>(wiki image link)</a>                          </p></div>
 </tr></table>
-<!-- l. 688 --><p class='noindent'>Playing with the logistic function: <a href='https://www.desmos.com/calculator/cw1pyzzqci'>desmos.com/calculator/cw1pyzzqci</a>                      </p></div>
+<!-- l. 689 --><p class='noindent'>Playing with the logistic function: <a href='https://www.desmos.com/calculator/cw1pyzzqci'>desmos.com/calculator/cw1pyzzqci</a>                      </p></div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>Using
+<div class='slide'> <span class='colorbox' id='colorbox79'> <span class='cmss-12x-x-120'>Using
   coefficients
   to
   make
   predictions</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2>
-<!-- l. 705 --><p class='noindent'><img alt='Coefficients, Standard error, z-statistic, and p-values for a logistic regression model with balance as a
+<!-- l. 706 --><p class='noindent'><img alt='Coefficients, Standard error, z-statistic, and p-values for a logistic regression model with balance as a
 predictor for defaulting on credit card balance.' src='Figures/Table4-1.png' style='max-width:60%' />
-</p><!-- l. 705 --><p class='noindent'>What is the estimated probability of default for someone with a balance of <span class='tcss-1095'>$</span>1,000?
-</p><!-- l. 705 --><p class='noindent'>What is the estimated probability of default for someone with a balance of <span class='tcss-1095'>$</span>2,000:
+</p><!-- l. 706 --><p class='noindent'>What is the estimated probability of default for someone with a balance of <span class='tcss-1095'>$</span>1,000?
+</p><!-- l. 706 --><p class='noindent'>What is the estimated probability of default for someone with a balance of <span class='tcss-1095'>$</span>2,000:
                                                                                     </p></div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox87'> <span class='cmss-12x-x-120'>Interpreting
+<div class='slide'> <span class='colorbox' id='colorbox83'> <span class='cmss-12x-x-120'>Interpreting
   the
   coefficients</span>                                                                                 </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
   <div class='minipage'><table class='equation-star'><tr><td>
-<!-- l. 732 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 733 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
          <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi></mrow></msup></mrow> 
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi></mrow></msup></mrow></mfrac>
 </mrow></math></td></tr></table>
 <table class='equation-star'><tr><td>
-<!-- l. 732 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 733 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
           <mtext class='qopname'>log</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --> <mrow><mo fence='true' form='prefix'> (</mo><mrow>   <mfrac><mrow><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow>
 <mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac> </mrow><mo fence='true' form='postfix'>)</mo></mrow> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi>
 </mrow></math></td></tr></table></div>      <div class='minipage'><img alt='Coefficients, Standard error, z-statistic, and
@@ -578,22 +567,22 @@ card balance.' src='Figures/Table4-1.png' style='max-width:100%' />             
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox91'> <span class='cmss-12x-x-120'>Confusion
+<div class='slide'> <span class='colorbox' id='colorbox87'> <span class='cmss-12x-x-120'>Confusion
   Matrix:
   Predicting</span>
-  <!-- l. 826 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle></math>
+  <!-- l. 827 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚍𝚎𝚏𝚊𝚞𝚕𝚝</mtext></mstyle></math>
  <span class='cmss-12x-x-120'>from</span>
-  <!-- l. 826 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle></math>  </span>
+  <!-- l. 827 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚋𝚊𝚕𝚊𝚗𝚌𝚎</mtext></mstyle></math>  </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
- <div class='minipage'><!-- l. 826 --><p class='noindent'><img alt='Confusion matrix for predicting default on
+ <div class='minipage'><!-- l. 827 --><p class='noindent'><img alt='Confusion matrix for predicting default on
 credit card from balance.' src='Figures/Table4-4.png' style='max-width:100%' />                      </p></div>      <div class='minipage'><img alt='General onfusion matrix structure with
 arbitrary entries.' src='Figures/ConfusionMatrixEx.png' style='max-width:100%' />                                 </div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox95'> <span class='cmss-12x-x-120'>Do
+<div class='slide'> <span class='colorbox' id='colorbox91'> <span class='cmss-12x-x-120'>Do
   coding
   in
   jupyter

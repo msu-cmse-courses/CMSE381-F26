@@ -7,8 +7,7 @@
         <title>Day 25</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day25/CMSE381-Lec25-Ch7_1-TreeBasedMethods.html" visual="Day25 slides"/> -->
-            This is a placeholder for the Day 25 lecture content.
+            <dataurl source="slides/slides-Day25/CMSE381-002-Lec25-Ch08_2-RandomForests.html" visual="Day25 slides"/>
         </p>
     
         </section>

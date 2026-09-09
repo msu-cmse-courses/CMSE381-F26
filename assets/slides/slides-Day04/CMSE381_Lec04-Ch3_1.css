@@ -207,17 +207,16 @@ span.dotuline, .dotuline-math {text-decoration:underline dotted;}
 .dotuline-math {border-bottom: 1px dotted black;}
 span.Xy span.Y{ position:relative; top:0.35ex;left:-0.25em;}
 span#colorbox10{background-color:#E5F0EB;}
-span#colorbox14{background-color:#E5F0EB;}
-span#colorbox21{background-color:#E5F0EB;}
+span#colorbox17{background-color:#E5F0EB;}
+ .foreignobject {line-height:100%; font-size:120%; font-family:STIXgeneral,Times,Symbol,cmr10,CMSY10,CMEX10;padding:0; margin:0; text-align:center; } 
+math {vertical-align:baseline; line-height:100%; font-size:100%; font-family:STIXGeneral,Times,Symbol, cmr10,cmsy10,cmex10,cmmi10; font-style: normal; margin:0; padding:0; }
+span#colorbox18{background-color:#E5F0EB;}
  .foreignobject {line-height:100%; font-size:120%; font-family:STIXgeneral,Times,Symbol,cmr10,CMSY10,CMEX10;padding:0; margin:0; text-align:center; } 
 math {vertical-align:baseline; line-height:100%; font-size:100%; font-family:STIXGeneral,Times,Symbol, cmr10,cmsy10,cmex10,cmmi10; font-style: normal; margin:0; padding:0; }
 span#colorbox22{background-color:#E5F0EB;}
- .foreignobject {line-height:100%; font-size:120%; font-family:STIXgeneral,Times,Symbol,cmr10,CMSY10,CMEX10;padding:0; margin:0; text-align:center; } 
-math {vertical-align:baseline; line-height:100%; font-size:100%; font-family:STIXGeneral,Times,Symbol, cmr10,cmsy10,cmex10,cmmi10; font-style: normal; margin:0; padding:0; }
 span#colorbox26{background-color:#E5F0EB;}
 span#colorbox30{background-color:#E5F0EB;}
 span#colorbox34{background-color:#E5F0EB;}
 span#colorbox38{background-color:#E5F0EB;}
-span#colorbox42{background-color:#E5F0EB;}
 /* end css.sty */
 

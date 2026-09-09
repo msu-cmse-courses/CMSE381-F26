@@ -7,8 +7,7 @@
         <title>Day 24</title>
     
         <p>
-            <!-- <dataurl source="" visual="Day24 slides"/>   -->
-            This is a placeholder for the Day 24 lecture content.
+            <dataurl source="slides/slides-Day24/CMSE381-002-Lec24-Ch8_1-DecisionTrees.html" visual="Day24 slides"/>
         </p>
     
         </section>

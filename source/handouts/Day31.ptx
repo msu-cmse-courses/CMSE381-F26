@@ -7,8 +7,7 @@
         <title>Day 31</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day31/CMSE381-Lec31-Ch7_7-ComputerVision.html" visual="Day31 slides"/> -->
-            This is a placeholder for the Day 31 lecture content.
+            <dataurl source="slides/slides-Day31/CMSE381-002-Lec31-Ch10_3-CNN.html" visual="Day31 slides"/>
         </p>
     
         </section>

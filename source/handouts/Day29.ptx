@@ -7,9 +7,7 @@
         <title>Day 29</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day29/CMSE381-Lec29-Ch7_5-NaturalLanguageProcessing.html" visual="Day29 slides"/>
-             -->
-            This is a placeholder for the Day 29 lecture content.
+            <dataurl source="slides/slides-Day29/CMSE381-002-Lec29-Ch10_1-NeuralNet.html" visual="Day29 slides"/>
         </p>
     
         </section>

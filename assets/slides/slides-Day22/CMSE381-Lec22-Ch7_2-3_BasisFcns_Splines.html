@@ -1,0 +1,568 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines0x.png' />
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                     7.2-7.4:
+                                       Step
+                                    Functions,
+                                      Basis
+                                    Functions,
+                                      Start
+                                     Splines</span>
+                                         </h1>
+                                      Lecture
+                                        22
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                         <div class='date'></div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><!-- l. 115 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>7.2
+      Step
+      functions
+      </li><li class='itemize'>7.3
+      Basis
+      functions
+      </li><li class='itemize'>7.4
+      Regression
+      Splines
+      (Finish
+      next
+      lecture)</li></ul>                                      </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 121 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines3x.png' />
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines5x.png' /></p><div class='minipage'>                                                        <a href='#Navigation4'><span class='cmss-12x-x-120'>Last
+                                           time</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Polynomial
+  regression</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>Replace linear model <table class='equation-star'><tr><td>
+<!-- l. 148 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<!-- l. 148 --><p class='noindent'>with </p><table class='equation-star'><tr><td>
+<!-- l. 148 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow>
+<mi>d</mi></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mi>d</mi></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>        <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Example
+  with
+  wage
+  data</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><img alt='Scatter plot of Wage versus Age
+showing a non-linear polynomial fit
+with dashed standard error bands' src='../../Figures/Fig7-1a.png' style='max-width:100%' />      </div>        <div class='minipage'>                                                     </div>
+</tr></table>
+<!-- tex4ht:inline --><!-- l. 175 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <mo class='MathClass-bin' stretchy='false'>−</mo><mn>184</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>1542</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>21</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>24552</mn> <mo class='MathClass-bin' stretchy='false'>∗</mo><mi mathvariant='italic'>𝑎𝑔𝑒</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>0.56386</mn> <mo class='MathClass-bin' stretchy='false'>∗</mo><mi mathvariant='italic'>𝑎𝑔</mi><msup><mrow><mi>e</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>0.00681</mn> <mo class='MathClass-bin' stretchy='false'>∗</mo><mi mathvariant='italic'>𝑎𝑔</mi><msup><mrow><mi>e</mi></mrow><mrow><mn>3</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>3</mn><mi>e</mi> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>05</mn> <mo class='MathClass-bin' stretchy='false'>∗</mo><mi mathvariant='italic'>𝑎𝑔</mi><msup><mrow><mi>e</mi></mrow><mrow><mn>4</mn></mrow></msup>
+</mrow></math>
+<!-- l. 175 --><p class='nopar'>                                                                                   </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Step
+  functions</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+        <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 207 --><p class='noindent'><!-- l. 207 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mi>c</mi><mo class='MathClass-close' stretchy='false'>)</mo></mstyle>
+      </mrow></math>
+      </p><li class='itemize'>
+      <!-- l. 207 --><p class='noindent'><!-- l. 207 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>c</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>≤</mo><mi>X</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <msub><mrow><mi>c</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mstyle>
+      </mrow></math>
+      </p><li class='itemize'><!-- l. 207 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>c</mi> <mo class='MathClass-rel' stretchy='false'>≤</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math></li></li></li></ul> </div>        <div class='minipage'><img alt='Set of equations defining indicator
+functions for K plus one intervals
+partitioned by constants c1 through cK' src='../../Figures/Eq7-4.png' style='max-width:100%' />    </div>
+</tr></table>
+<!-- l. 207 --><p class='noindent'>Learned model: </p><table class='equation-star'><tr><td>
+<!-- l. 207 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                         <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>K</mi> </mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mi>K</mi> </mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Example:
+  Cut
+  points
+  at
+  -4,
+  -1,
+  3,
+  6</span>                                                                                              </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><!-- l. 242 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>C</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+<img alt='Graph of indicator function
+C0(X) which equals one for
+X less than negative four
+and zero otherwise.' src='../../Figures/StepFunctionExample-C0.png' style='max-width:100%' />           </div>    <div class='minipage'><!-- l. 242 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>C</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+<img alt='Graph of indicator function
+C1(X) which equals one for
+X between negative four
+and negative one, and zero
+otherwise.' src='../../Figures/StepFunctionExample-C1.png' style='max-width:100%' />
+<!-- l. 242 --><p class='noindent'><!-- l. 242 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>C</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+<img alt='Graph of indicator function
+C2(X) which equals one for
+X between negative one and
+three, and zero otherwise.' src='../../Figures/StepFunctionExample-C2.png' style='max-width:100%' />
+</p><!-- l. 242 --><p class='noindent'><!-- l. 242 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>C</mi></mrow><mrow><mn>3</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+<img alt='Graph of indicator function
+C3(X) which equals one for
+X between three and six,
+and zero otherwise.' src='../../Figures/StepFunctionExample-C3.png' style='max-width:100%' />           </p></div>    <div class='minipage'><!-- l. 242 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>C</mi></mrow><mrow><mn>4</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+<img alt='Graph of indicator function
+C4(X) which equals one for
+X greater than six and zero
+otherwise.' src='../../Figures/StepFunctionExample-C4.png' style='max-width:100%' />                       </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox33'> <span class='cmss-12x-x-120'>Step
+  function
+  example</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Scatter plot of Wage versus Age with a
+green step function fit and dashed
+standard error bands' src='../../Figures/Fig7-2a.png' style='max-width:100%' />                            </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 300 --><p class='noindent'>How to fit step function models for classification problems? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             also
+             be
+             able
+             to
+             implement
+             them
+             in
+             </span><span class='cmtt-10'>Python</span><span class='cmss-10'>.</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 300 --><p class='noindent'>What are basis functions? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             articulate
+             what
+             the
+             basis
+             functions</span>
+             <!-- l. 300 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>b</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+                  <span class='cmss-10'>are
+             for
+             different
+             models
+             that
+             we
+             have
+             covered.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Examples
+             include
+             polynomial,
+             step
+             functions,
+             and
+             cubic
+             splines.</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 300 --><p class='noindent'>What is the purpose of using basis functions? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>How
+             do
+             they
+             influence
+             model
+             flexibility?</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>How
+             does
+             this
+             purpose
+             manifest
+             in
+             different
+             models,
+             such
+             as
+             regression
+             splines?</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 300 --><p class='noindent'>How to define cubic splines mathematically? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             write
+             down
+             the
+             equations
+             for
+             the
+             model
+             between
+             knots.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>And
+             the
+             equations
+             for
+             constraints
+             at
+             the
+             knots.</span></li></ul>
+       </li>
+       <li class='itemize'>How to calculate the cubic spline coefficients by hand by applying the above mathematical
+      definitions?</li></ul>                                                                     </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 303 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines6x.png' />
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines8x.png' /></p><div class='minipage'>                                                 <a href='#Navigation12'><span class='cmss-12x-x-120'>Classification
+                                         versions</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Remember
+  logisitic
+  regression?</span>                                                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><!-- l. 327 --><p class='noindent'><img alt='Graph and formula of the logistic function
+y equals e to the x over one plus e to the
+x, showing its characteristic S-curve from
+zero to one.' src='../../Figures/LogisticFunction.png' style='max-width:100%' />                                      </p></div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 327 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi> </mrow></msup></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>X</mi> </mrow></msup></mrow></mfrac>
+</mrow></math></td></tr></table>
+<!-- l. 327 --><p class='noindent'><span class='cmssbx-10x-x-109'>Multiple features:</span> </p><table class='equation-star'><tr><td>
+<!-- l. 327 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+       <mi>p</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>    <mfrac><mrow><msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub></mrow></msup></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>e</mi></mrow><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-bin' stretchy='false'>+</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub></mrow></msup></mrow></mfrac>
+</mrow></math></td></tr></table></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Classification
+  version:
+  Polynomial
+  regression</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='equation-star'><tr><td>
+<!-- l. 354 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                    <mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>2</mn><mn>5</mn><mn>0</mn><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>   <mfrac><mrow><mtext class='qopname'>exp</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>d</mi></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mi>d</mi></mrow></msubsup><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo><mtext class='qopname'> exp</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>d</mi></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mi>d</mi></mrow></msubsup><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac>
+</mstyle></mrow></math></td></tr>
+<table class='columns'><tr>
+       <div class='minipage'><img alt='Plot showing the probability of
+high wage versus age using a
+non-linear fit with confidence
+bands.' src='../../Figures/Fig7-1b.png' style='max-width:100%' />                                 </div>          <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>Classification
+  version:
+  Step
+  functions</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2><table class='equation-star'><tr><td>
+<!-- l. 375 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+          <mtext class='qopname'>Pr</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>2</mn><mn>5</mn><mn>0</mn><mo class='MathClass-rel' stretchy='false'>∣</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>   <mfrac><mrow><mtext class='qopname'>exp</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>K</mi> </mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mi>K</mi> </mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo></mrow> 
+<mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo><mtext class='qopname'> exp</mtext><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>K</mi> </mrow></msub><msub><mrow><mi>C</mi></mrow><mrow><mi>K</mi> </mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo></mrow></mfrac>
+</mstyle></mrow></math></td></tr>
+<table class='columns'><tr>
+       <div class='minipage'><img alt='Plot showing the probability of
+high wage versus age using a
+green step function fit with
+dashed confidence bands.' src='../../Figures/Fig7-2b.png' style='max-width:100%' />          </div>          <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox56'> <span class='cmss-12x-x-120'>Coding
+  bit:
+  classification
+  version</span>                                                                                      </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='Scatter plot of wage data with points
+colored and separated by a 250 threshold.' src='../../Figures/WageColoredBy250.png' style='max-width:100%' /> </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox60'> <span class='cmss-12x-x-120'>A
+  few
+  more
+  comments
+  on
+  step
+  functions</span>                                                                                    </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Gives
+      the
+      chance
+      to
+      break
+      up
+      the
+      domain,
+      avoid
+      forcing
+      global
+      structure
+      </li><li class='itemize'>Need
+      to
+      make
+      decisions
+      about
+      the
+      <!-- l. 422 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>c</mi></mrow><mrow><mi>i</mi></mrow></msub></math>.
+      A
+      bit
+      arbitrary
+      unless
+      your
+      data
+      has
+      natural
+      breakpoints.
+      </li><li class='itemize'>Popular
+      in
+      biostats
+      and
+      epidemiology</li></ul>                               </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-4r3'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 426 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines9x.png' />
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines11x.png' /></p><div class='minipage'>                                                       <a href='#Navigation19'><span class='cmss-12x-x-120'>Basis
+                                        functions</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>Basis
+  Functions
+  Setup</span>                                                                                        </span>
+<h2 class='frametitle'></h2>Polynomial and piecewise-constant regression models are special cases of a <span class='cmssi-10x-x-109'>basis function</span>
+approach.
+<table class='equation-star'><tr><td>
+<!-- l. 463 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                          <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>K</mi> </mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>K</mi> </mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+    <div class='minipage'>                                                                     </div>        <div class='minipage'>                                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-5r4'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.4'></a>  </p><p></p><div class='slide'> <!-- l. 468 --><p class='noindent'><span class='cmss-12x-x-120'>Section 4</span>
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines12x.png' />
+<img alt='picture' src='CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines14x.png' /></p><div class='minipage'>                                                   <a href='#Navigation22'><span class='cmss-12x-x-120'>Regression
+                                          Splines</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox74'> <span class='cmss-12x-x-120'>Piecewise
+  polynomials</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 495 --><p class='noindent'>Fit a polynomial regression </p><table class='equation-star'><tr><td>
+      <!-- l. 495 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mn>2</mn></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow>
+<mi>d</mi></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow><mrow><mi>d</mi></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow>
+<mi>i</mi></mrow></msub>
+</mrow></math></td></tr></table>
+        </li>
+        <li class='itemize'>Let the <!-- l. 495 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>β</mi></mrow><mrow><mi>i</mi></mrow></msub></math>’s
+      be different at different locations of the
+      range.</li></ul>                                        </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox78'> <span class='cmss-12x-x-120'>Example
+  of
+  piecewise
+  polynomial</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Scatter plot of Wage versus Age with a
+discontinuous piecewise cubic regression
+line split at age fifty.' src='../../Figures/Fig7-3a.png' style='max-width:100%' />                            </div>      <div class='minipage'><!-- l. 518 --><p class='noindent'>Example: <img alt='Piecewise cubic regression model
+defined by two third-order polynomials
+split at a constant c.' src='../../Figures/Eq7-8b.png' style='max-width:100%' />                           </p></div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox82'> <span class='cmss-12x-x-120'>The
+  fix</span>                                                                                            </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      piecewise
+      polynomial
+      </li><li class='itemize'>Require
+      continuity
+      at
+      knots</li></ul>                                         </div>      <div class='minipage'><img alt='Scatter plot of Wage versus Age with a
+continuous piecewise cubic regression line
+joined at age fifty.' src='../../Figures/Fig7-3b.png' style='max-width:100%' />                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox86'> <span class='cmss-12x-x-120'>The
+  better
+  fix:
+  Cubic
+  splines</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>     <ul class='itemize1'>
+     <li class='itemize'>Fit
+      piecewise
+      polynomial
+      </li><li class='itemize'>Require
+      continuity
+      at
+      knots
+      </li><li class='itemize'>Require
+      the
+      first
+      and
+      second
+      derivatives
+      to
+      be
+      continuous
+      at
+      knots</li></ul>                                         </div>      <div class='minipage'><img alt='Scatter plot of Wage versus Age with a
+smooth red cubic spline regression line
+joined at age fifty.' src='../../Figures/Fig7-3c.png' style='max-width:100%' />
+<!-- l. 562 --><p class='noindent'>Test your understanding: <a href='https://PollEv.com/multiple_choice_polls/bkj0zshpQHzhiwM3UXroS/respond'>PollEv</a>             </p></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox90'> <span class='cmss-12x-x-120'>Example</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'>We have the following piecewise cubic
+polynomial: <table class='equation-star'><tr><td>
+<!-- l. 588 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>2</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>x</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>0.1</mn><msup><mrow><mi>x</mi></mrow><mrow><mn>3</mn></mrow></msup>     <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mi>x</mi> <mo class='MathClass-rel' stretchy='false'>≤</mo> <mn>1</mn></mtd>
+</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>b</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mn>2</mn></mrow></msub><msup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>−</mo><msup><mrow><mi>x</mi></mrow><mrow><mn>3</mn></mrow></msup><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mi>x</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>1</mn></mstyle></mtd><!-- @{}l@{\quad }l@{} --></mtr>                 </mtable><mo fence='true' form='postfix'></mo></mrow>
+</mrow></mrow></math></td></tr>
+<!-- l. 588 --><p class='noindent'>What are <!-- l. 588 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub></math>,
+<!-- l. 588 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub></math>, and
+<!-- l. 588 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>b</mi></mrow><mrow><mn>2</mn></mrow></msub></math> to
+make this a cubic spline?                      </p></table></div>      <div class='minipage'><img alt='Polynomial curve on a coordinate grid
+ending at point (1, 4.1).' src='../../Figures/SplineMatchingExample.png' style='max-width:100%' />                       </div>
+</tr></table>
+<!-- l. 588 --><p class='noindent'>Check your answers: <a href='https://www.desmos.com/calculator/kbm0zivqco'>www.desmos.com/calculator/kbm0zivqco</a>                            </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox94'> <span class='cmss-12x-x-120'>More
+  space
+  for
+  work</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 623 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>2</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>x</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <msup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>0.1</mn><msup><mrow><mi>x</mi></mrow><mrow><mn>3</mn></mrow></msup>     <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mi>x</mi> <mo class='MathClass-rel' stretchy='false'>≤</mo> <mn>1</mn></mtd>
+</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>b</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub><mi>x</mi> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mn>2</mn></mrow></msub><msup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>−</mo><msup><mrow><mi>x</mi></mrow><mrow><mn>3</mn></mrow></msup><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mi>x</mi> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>1</mn></mstyle></mtd><!-- @{}l@{\quad }l@{} --></mtr>                 </mtable><mo fence='true' form='postfix'></mo></mrow>
+</mrow></mrow></math></td></tr></table></div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

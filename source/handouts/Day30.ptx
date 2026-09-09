@@ -7,8 +7,7 @@
         <title>Day 30</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day30/CMSE381-Lec30-Ch7_6-ReinforcementLearning.html" visual="Day30 slides"/> -->
-            This is a placeholder for the Day 30 lecture content.
+            <dataurl source="slides/slides-Day30/CMSE381-Lec30-Ch10_2-MultiLayerNeuralNet.html" visual="Day30 slides"/>
         </p>
     
         </section>

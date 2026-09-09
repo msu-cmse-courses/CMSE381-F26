@@ -37,27 +37,12 @@
                                          /span&gt;
                                      <span class='cmss-8'>Engineering</span></span></div>
                                                                                    
-                                       <div class='date'>Mon,
-                                        Feb
-                                        2,
-                                       2026</div>
+                                         <div class='date'></div>
                                                                                    
 </div>                                                                                            </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>                                                                           </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
- <div class='minipage'>                                         </div>   <div class='minipage'><span class='cmssbx-10x-x-109'>Last Time:</span>
-     <ul class='itemize1'>
-     <li class='itemize'>Finished
-      Linear
-      Regression</li></ul>                                        </div>
-</tr></table>
-                                                                                    </div>
-                                                                                   
-                                                                                   
-<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>Covered
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Covered
   in
   this
   lecture</span>
@@ -72,7 +57,7 @@
       (classification)
       </li><li class='itemize'>Bayes
       Classifier
-      </li><li class='itemize'><!-- l. 126 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>-NN
+      </li><li class='itemize'><!-- l. 127 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>-NN
       classification</li></ul>                          </div>          <div class='minipage'>                                               </div>
 </tr></table>                                                                                   </div>
                                                                                    
@@ -80,15 +65,15 @@
 <p><a id='x1-2r1'></a>
                                                                                    
                                                                                    
-<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 129 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 130 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
 <img alt='picture' src='CMSE381-Lec09-Classification3x.png' />
-<img alt='picture' src='CMSE381-Lec09-Classification5x.png' /></p><div class='minipage'>                                                 <a href='#Navigation5'><span class='cmss-12x-x-120'>Classification
+<img alt='picture' src='CMSE381-Lec09-Classification5x.png' /></p><div class='minipage'>                                                 <a href='#Navigation4'><span class='cmss-12x-x-120'>Classification
                                         Overview</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>What
+<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>What
   is
   classification</span>
                                                                                                  </span>
@@ -104,15 +89,15 @@ qualitative                                        </div>      <div class='minip
       <li class='itemize'>Given
       feature
       vector
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
       and
       qualitative
       response
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
       in
       the
       set
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>S</mi></math>,
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>S</mi></math>,
       the
       goal
       is
@@ -121,9 +106,9 @@ qualitative                                        </div>      <div class='minip
       a
       function
       (classifier)
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>C</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>C</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
       taking
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
       as
       input
       and
@@ -131,7 +116,7 @@ qualitative                                        </div>      <div class='minip
       its
       value
       for
-      <!-- l. 158 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>.
+      <!-- l. 159 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>.
       </li><li class='itemize'>We
       are
       more
@@ -149,7 +134,7 @@ qualitative                                        </div>      <div class='minip
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>Some
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>Some
   examples</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2>
@@ -200,47 +185,47 @@ qualitative                                        </div>      <div class='minip
 <p><a id='x1-3r2'></a>
                                                                                    
                                                                                    
-<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 182 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 183 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
 <img alt='picture' src='CMSE381-Lec09-Classification6x.png' />
-<img alt='picture' src='CMSE381-Lec09-Classification8x.png' /></p><div class='minipage'>                                                         <a href='#Navigation9'><span class='cmss-12x-x-120'>Ch
+<img alt='picture' src='CMSE381-Lec09-Classification8x.png' /></p><div class='minipage'>                                                         <a href='#Navigation8'><span class='cmss-12x-x-120'>Ch
                                            2.2.3:
                                       Classification</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Error
+<div class='slide'> <span class='colorbox' id='colorbox28'> <span class='cmss-12x-x-120'>Error
   rate</span>                                                                                          </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
   <div class='minipage'>     <ul class='itemize1'>
      <li class='itemize'>
-     <!-- l. 220 --><p class='noindent'>Training
+     <!-- l. 221 --><p class='noindent'>Training
       data:
-      </p><!-- l. 220 --><p class='noindent'><!-- l. 220 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
+      </p><!-- l. 221 --><p class='noindent'><!-- l. 221 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
    with
-      <!-- l. 220 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+      <!-- l. 221 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
         qualitative
       </p>
       </li><li class='itemize'>Estimate
-      <!-- l. 220 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+      <!-- l. 221 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mover accent='true'><mrow><mi>f</mi> </mrow><mo accent='true'>^</mo></mover><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
       </li><li class='itemize'>Indicator
       variable
 </li></ul>                                                     </div>      <div class='minipage'>Training error rate: <table class='equation-star'><tr><td>
-<!-- l. 220 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 221 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
             <mfrac><mrow><mn>1</mn></mrow> 
 <mrow><mi>n</mi></mrow></mfrac><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
   </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow>
 <mi>i</mi></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
-<!-- l. 220 --><p class='noindent'>Test error rate: </p><table class='equation-star'><tr><td>
-<!-- l. 220 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 221 --><p class='noindent'>Test error rate: </p><table class='equation-star'><tr><td>
+<!-- l. 221 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
               <mstyle mathvariant='normal'><mi>Ave</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-rel' stretchy='false'>≠</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>Best
+<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>Best
   ever
   classifier
   </span><span class='cmss-9'>We
@@ -252,7 +237,7 @@ qualitative                                        </div>      <div class='minip
 <table class='columns'><tr>
         <div class='minipage'><span class='cmssbx-10x-x-109'>Bayes
 Classifier:</span>
-<!-- l. 252 --><p class='noindent'>Give
+<!-- l. 253 --><p class='noindent'>Give
 every
 observation
 the
@@ -265,13 +250,13 @@ predictor
 variables
 </p>
 <table class='equation-star'><tr><td>
-<!-- l. 252 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<!-- l. 253 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
             <mstyle class='text'><mtext>Pr</mtext></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table></div>          <div class='minipage'>                                               </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>An
+<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>An
   example</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2>
@@ -323,7 +308,7 @@ variables
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Bayes
+<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Bayes
   decision
   boundary</span>                                                                                    </span>
 <h2 class='frametitle'></h2>
@@ -336,22 +321,22 @@ is also shown.' src='Figures/Fig2-13.png' style='max-width:100%' />             
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Bayes
+<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Bayes
   error
   rate</span>                                                                                          </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
   <div class='minipage'>     <ul class='itemize1'>
      <li class='itemize'>
-     <!-- l. 327 --><p class='noindent'>Error at <!-- l. 327 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>
+     <!-- l. 328 --><p class='noindent'>Error at <!-- l. 328 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>
         </p><table class='equation-star'><tr><td>
-        <!-- l. 327 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+        <!-- l. 328 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
                 <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mstyle class='text'><mtext>max</mtext></mstyle></mrow><mrow><mi>j</mi></mrow></msub><mstyle class='text'><mtext>Pr</mtext></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
       </li>
       <li class='itemize'>
-      <!-- l. 327 --><p class='noindent'>Overall Bayes error:  </p><table class='equation-star'><tr><td>
-      <!-- l. 327 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <!-- l. 328 --><p class='noindent'>Overall Bayes error:  </p><table class='equation-star'><tr><td>
+      <!-- l. 328 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
           <mn>1</mn> <mo class='MathClass-bin' stretchy='false'>−</mo><mi>E</mi> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msub><mrow><mstyle class='text'><mtext>max</mtext></mstyle></mrow><mrow><mi>j</mi></mrow></msub><mstyle class='text'><mtext>Pr</mtext></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mo fence='true' form='postfix'>)</mo></mrow>
 </mrow></math></td></tr></table>
       </li></ul>                                                     </div>      <div class='minipage'><img alt='Data points belonging to two classes
@@ -362,7 +347,7 @@ shown.' src='Figures/Fig2-13.png' style='max-width:100%' />                     
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>The
+<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>The
   game</span>
                                                                                                  </span>
 <h2 class='frametitle'></h2><table class='columns'><tr>
@@ -378,16 +363,16 @@ shown.' src='Figures/Fig2-13.png' style='max-width:100%' />                     
 <p><a id='x1-4r3'></a>
                                                                                    
                                                                                    
-<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 348 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
+<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 349 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
 <img alt='picture' src='CMSE381-Lec09-Classification9x.png' />
-<img alt='picture' src='CMSE381-Lec09-Classification11x.png' /></p><div class='minipage'>   <a href='#Navigation17'><!-- l. 348 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
+<img alt='picture' src='CMSE381-Lec09-Classification11x.png' /></p><div class='minipage'>   <a href='#Navigation16'><!-- l. 349 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
                                         Neighbors
                                          Classifier</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox59'> <!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
+<div class='slide'> <span class='colorbox' id='colorbox55'> <!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math><span class='cmss-12x-x-120'>-Nearest
   Neighbors</span>                                                                                   </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
@@ -402,29 +387,29 @@ neares neighbors
 (K=3) are
 encolosed in a
 green disk.' src='Figures/Fig2-14a.png' style='max-width:100%' />
-<!-- l. 382 --><p class='noindent'><!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>K</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></p></div>    <div class='minipage'>      <ul class='itemize1'>
+<!-- l. 383 --><p class='noindent'><!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>K</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></p></div>    <div class='minipage'>      <ul class='itemize1'>
       <li class='itemize'>Fix
-      <!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
+      <!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
       positive
       integer
-      </li><li class='itemize'><!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
+      </li><li class='itemize'><!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo></mrow></math>
       the
       set
       of
-      <!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
+      <!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>K</mi></math>
       closest
       neighbors
       to
-      <!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+      <!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
       </li><li class='itemize'>
-      <!-- l. 382 --><p class='noindent'>Estimate conditional proability </p><table class='equation-star'><tr><td>
-      <!-- l. 382 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+      <!-- l. 383 --><p class='noindent'>Estimate conditional proability </p><table class='equation-star'><tr><td>
+      <!-- l. 383 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
   <mstyle class='text'><mtext>Pr</mtext></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-rel' stretchy='false'>∣</mo><mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mfrac><mrow><mn>1</mn></mrow> 
 <mrow><mi>K</mi></mrow></mfrac><munder class='msub'><mrow><mo>∑</mo>
    </mrow><mrow><mi>i</mi><mo class='MathClass-rel' stretchy='false'>∈</mo><mi>N</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></munder><mstyle mathvariant='normal'><mi>I</mi></mstyle><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mi>j</mi><mo class='MathClass-close' stretchy='false'>)</mo>
 </mrow></math></td></tr></table>
       </li>
-      <li class='itemize'>Pick <!-- l. 382 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>
+      <li class='itemize'>Pick <!-- l. 383 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>j</mi></math>
       with highest value</li></ul>                               </div>    <div class='minipage'><img alt='A plot of two
 classes (yellow
 circles and blue
@@ -432,22 +417,22 @@ circles) in the
 plane, and the
 KNN decision
 boundary.' src='Figures/Fig2-14b.png' style='max-width:100%' />
-<!-- l. 382 --><p class='noindent'>Black line: KNN
+<!-- l. 383 --><p class='noindent'>Black line: KNN
 decision boundary </p></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>Example</span>                                                                                    </span>
+<div class='slide'> <span class='colorbox' id='colorbox59'> <span class='cmss-12x-x-120'>Example</span>                                                                                    </span>
 <h2 class='frametitle'></h2>Here label is shown by O vs X. What are the knn predictions for points
-<!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>,
-<!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math> and
-<!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>C</mi></math> for
-<!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math> or
-<!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math>?
+<!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>,
+<!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>B</mi></math> and
+<!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>C</mi></math> for
+<!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math> or
+<!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math>?
 <table class='columns'><tr>
-     <div class='minipage'><!-- l. 413 --><p class='noindent'><img alt='A 2D plot of two classes (blue circles
+     <div class='minipage'><!-- l. 414 --><p class='noindent'><img alt='A 2D plot of two classes (blue circles
 and yellow xs). Three test points are
-labeled as A, B, and C.' src='Figures/KNN-Example.png' style='max-width:100%' />                  </p></div>        <div class='minipage'><!-- tex4ht:inline --><div class='tabular'> <table class='tabular' id='TBL-1' rules='groups'><colgroup id='TBL-1-1g'><col id='TBL-1-1' /></colgroup><colgroup id='TBL-1-2g'><col id='TBL-1-2' /></colgroup><colgroup id='TBL-1-3g'><col id='TBL-1-3' /></colgroup><tr id='TBL-1-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-1-1' style='text-align:center; white-space:nowrap;'>    </td><td class='td11' id='TBL-1-1-2' style='text-align:center; white-space:nowrap;'><!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math></td><td class='td11' id='TBL-1-1-3' style='text-align:center; white-space:nowrap;'><!-- l. 413 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></td></tr><tr id='TBL-1-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-2-1' style='text-align:center; white-space:nowrap;'><span class='cmssbx-10x-x-109'>Point</span></td> <td class='td11' id='TBL-1-2-2' style='text-align:center; white-space:nowrap;'> Prediction </td> <td class='td11' id='TBL-1-2-3' style='text-align:center; white-space:nowrap;'> Prediction</td>
+labeled as A, B, and C.' src='Figures/KNN-Example.png' style='max-width:100%' />                  </p></div>        <div class='minipage'><!-- tex4ht:inline --><div class='tabular'> <table class='tabular' id='TBL-1' rules='groups'><colgroup id='TBL-1-1g'><col id='TBL-1-1' /></colgroup><colgroup id='TBL-1-2g'><col id='TBL-1-2' /></colgroup><colgroup id='TBL-1-3g'><col id='TBL-1-3' /></colgroup><tr id='TBL-1-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-1-1' style='text-align:center; white-space:nowrap;'>    </td><td class='td11' id='TBL-1-1-2' style='text-align:center; white-space:nowrap;'><!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math></td><td class='td11' id='TBL-1-1-3' style='text-align:center; white-space:nowrap;'><!-- l. 414 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>k</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>3</mn></mrow></math></td></tr><tr id='TBL-1-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-2-1' style='text-align:center; white-space:nowrap;'><span class='cmssbx-10x-x-109'>Point</span></td> <td class='td11' id='TBL-1-2-2' style='text-align:center; white-space:nowrap;'> Prediction </td> <td class='td11' id='TBL-1-2-3' style='text-align:center; white-space:nowrap;'> Prediction</td>
 </tr><tr class='array-hline'><td></td><td></td><td></td></tr><tr id='TBL-1-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-3-1' style='text-align:center; white-space:nowrap;'>     </td><td class='td11' id='TBL-1-3-2' style='text-align:center; white-space:nowrap;'>                                  </td><td class='td11' id='TBL-1-3-3' style='text-align:center; white-space:nowrap;'>                                  </td></tr><tr id='TBL-1-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-4-1' style='text-align:center; white-space:nowrap;'> A </td> <td class='td11' id='TBL-1-4-2' style='text-align:center; white-space:nowrap;'> </td> <td class='td11' id='TBL-1-4-3' style='text-align:center; white-space:nowrap;'></td>
 </tr><tr id='TBL-1-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-5-1' style='text-align:center; white-space:nowrap;'>     </td><td class='td11' id='TBL-1-5-2' style='text-align:center; white-space:nowrap;'>                                  </td><td class='td11' id='TBL-1-5-3' style='text-align:center; white-space:nowrap;'>                                  </td></tr><tr id='TBL-1-6-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-6-1' style='text-align:center; white-space:nowrap;'> B </td> <td class='td11' id='TBL-1-6-2' style='text-align:center; white-space:nowrap;'> </td> <td class='td11' id='TBL-1-6-3' style='text-align:center; white-space:nowrap;'></td>
 </tr><tr id='TBL-1-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-7-1' style='text-align:center; white-space:nowrap;'>     </td><td class='td11' id='TBL-1-7-2' style='text-align:center; white-space:nowrap;'>                                  </td><td class='td11' id='TBL-1-7-3' style='text-align:center; white-space:nowrap;'>                                  </td></tr><tr id='TBL-1-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-1-8-1' style='text-align:center; white-space:nowrap;'> C </td> <td class='td11' id='TBL-1-8-2' style='text-align:center; white-space:nowrap;'> </td> <td class='td11' id='TBL-1-8-3' style='text-align:center; white-space:nowrap;'></td>
@@ -456,7 +441,7 @@ labeled as A, B, and C.' src='Figures/KNN-Example.png' style='max-width:100%' />
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>Tradeoff</span>                                                                                     </span>
+<div class='slide'> <span class='colorbox' id='colorbox63'> <span class='cmss-12x-x-120'>Tradeoff</span>                                                                                     </span>
 <h2 class='frametitle'></h2>
 <table class='columns'><tr>
 <div class='minipage'><img alt='A plot of two classes (yellow
@@ -481,7 +466,7 @@ purple.' src='Figures/Fig2-16.png' style='max-width:100%' />                    
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>More
+<div class='slide'> <span class='colorbox' id='colorbox67'> <span class='cmss-12x-x-120'>More
   on
   tradeoff</span>                                                                                     </span>
 <h2 class='frametitle'></h2>
@@ -492,7 +477,7 @@ rate (plotted in solid orange) versus 1/K.' src='Figures/Fig2-17.png' style='max
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox75'> <span class='cmss-12x-x-120'>Jupyter
+<div class='slide'> <span class='colorbox' id='colorbox71'> <span class='cmss-12x-x-120'>Jupyter
   notebook</span>                                                                                   </span>
 <h2 class='frametitle'></h2><table class='columns'><tr>
   <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>

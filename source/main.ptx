@@ -280,11 +280,6 @@
                   <xref ref="day-32-lecture" text="custom">Day 32</xref>
                 </p>
               </li>
-              <li component="day33">
-                <p>
-                  <xref ref="day-33-lecture" text="custom">Day 33</xref>
-                </p>
-              </li>
             </ul>
           </p>
         </introduction>
@@ -302,7 +297,6 @@
         <xi:include href="./handouts/Day30.ptx"/>
         <xi:include href="./handouts/Day31.ptx"/>
         <xi:include href="./handouts/Day32.ptx"/>
-        <xi:include href="./handouts/Day33.ptx"/>
       
     </section>
     </chapter>

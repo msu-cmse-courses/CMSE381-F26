@@ -1,0 +1,636 @@
+<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head> <title></title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier.css' rel='stylesheet' type='text/css' /> 
+<meta content='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier.tex' name='src' /> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
+</head><body>
+                                                                                   
+                                                                                   
+<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier2.html#bookmark' target='tex4ht-menu'>toc</a></p>
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier0x.png' />
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier2x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
+                                       9.1:
+                                    Maximum
+                                     Margin
+                                    Classifier</span>
+                                         </h1>
+                                      Lecture
+                                        26
+                                         -
+                                      CMSE
+                                        381                                        </div>
+                                         <div class='author'></div>
+                                                                                   
+                                      <div class='institute'><span class='cmss-8'>Michigan
+                                       State
+                                      University</span><br />
+                                         <span class='cmss-8'>::</span><br />
+                                        <span class='cmss-8'>Dept
+                                         of
+                                    Computational
+                                     Mathematics,
+                                       Science
+                                         /span&gt;
+                                     <span class='cmss-8'>Engineering</span></span></div>
+                                                                                   
+                                         <div class='date'></div>
+                                                                                   
+</div>                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Announcements</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+    <div class='minipage'><!-- l. 120 --><p class='noindent'><span class='cmssbx-10x-x-109'>This lecture:</span> </p>
+     <ul class='itemize1'>
+     <li class='itemize'>Maximal
+      Margin
+      Classifier
+      </li><li class='itemize'>No
+      jupyter
+      notebook
+      for
+      this
+      class</li></ul>                                          </div>        <div class='minipage'>                                               </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox14'> <span class='cmss-12x-x-120'>What
+  will
+  you
+  learn
+  today?</span>                                                                                       </span>
+<h2 class='frametitle'></h2>
+     <ul class='itemize1'>
+     <li class='itemize'>
+     <!-- l. 146 --><p class='noindent'>What is hyperplane? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>How
+             do
+             you
+             mathematically
+             describe
+             this
+             hyperplane?</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>How
+             do
+             you
+             mathematically
+             describe
+             the
+             two
+             sides
+             of
+             the
+             hyperplane?</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Given
+             the
+             equation
+             of
+             the
+             hyperplane
+             and
+             the
+             coordinates
+             for
+             a
+             point,
+             you
+             should
+             be
+             able
+             to
+             tell
+             which
+             side
+             of
+             the
+             plane
+             the
+             point
+             is
+             on.</span></li></ul>
+       </li>
+       <li class='itemize'>
+       <!-- l. 146 --><p class='noindent'>What qualify a hyperplane as a separating hyperplane? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>You
+             should
+             be
+             able
+             to
+             describe
+             this
+             mathematically
+             using
+             an
+             inequality.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>You
+             should
+             also
+             be
+             able
+             to
+             determine
+             whether
+             a
+             hyperplane
+             is
+             a
+             separating
+             hyperplane
+             given
+             a
+             graph,
+             or
+             given
+             the
+             equation
+             of
+             the
+             plane
+             and
+             the
+             coordinates
+             and
+             class
+             of
+             a
+             few
+             points.</span></li></ul>
+       </li>
+       <li class='itemize'>How to use a separating hyperplane as a classifier?
+      </li><li class='itemize'>
+      <!-- l. 146 --><p class='noindent'>What makes a hyperplane a maximal margin hyperplane? </p>
+            <ul class='itemize2'>
+            <li class='itemize'><span class='cmss-10'>What
+             are
+             its
+             margin
+             and
+             support
+             vectors?</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Given
+             a
+             graph,
+             you
+             should
+             be
+             able
+             to
+             clearly
+             label
+             the
+             margin
+             and
+             support
+             vectors.
+             You
+             should
+             also
+             be
+             able
+             to
+             infer
+             the
+             size
+             of
+             the
+             margin
+             from
+             reading
+             the
+             graph.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>You
+             should
+             also
+             be
+             able
+             to
+             describe
+             the
+             optimization
+             problem
+             mathematically.</span>
+             </li>
+             <li class='itemize'><span class='cmss-10'>Given
+             the
+             equation
+             of
+             the
+             maximal
+             margin
+             hyperplane
+             and
+             the
+             coordinates
+             of
+             support
+             vectors,
+             you
+             should
+             be
+             able
+             to
+             calculate
+             the
+             size
+             of
+             the
+             margin
+             by
+             hand.</span></li></ul>
+       </li></ul>                                                                              </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-2r1'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 150 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier3x.png' />
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier5x.png' /></p><div class='minipage'>                                                     <a href='#Navigation5'><span class='cmss-12x-x-120'>Maximal
+                                          Margin
+                                         Classifier</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox21'> <span class='cmss-12x-x-120'>The
+  goal</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='A example of SVM for classification' src='../../Figures/SVM-Example.svg' style='max-width:100%' />        </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox25'> <span class='cmss-12x-x-120'>What
+  is
+  a
+  hyperplane?</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>                                         </div>     <div class='minipage'>                                         </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox29'> <span class='cmss-12x-x-120'>Mathematical
+  definition
+  of
+  a
+  hyperplane</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='equation-star'><tr><td>
+<!-- l. 223 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                            <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn>
+</mrow></math></td></tr></table>
+<table class='columns'><tr>
+   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox33'> <span class='cmss-12x-x-120'>Hyperplane
+  for</span>
+  <!-- l. 244 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>2</mn></mrow></math>  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='A hyperplane separate two regions with
+blue and purple colors.' src='../../Figures/Fig9-1.png' style='max-width:100%' />
+<!-- l. 244 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mn>1</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>2</mn><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>3</mn><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn></mrow></math></div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox37'> <span class='cmss-12x-x-120'>There
+  are
+  two
+  sides
+  to
+  every
+  hyperplane</span>                                                                                  </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 264 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+   <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn>
+</mstyle></mrow></math></td></tr></table></div>      <div class='minipage'><table class='equation-star'><tr><td>
+<!-- l. 264 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+    <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi>p</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn>
+</mstyle></mrow></math></td></tr></table></div>
+</tr></table>
+<!-- l. 264 --><p class='noindent'><img alt='A hyperplane separate two regions with blue and purple colors.' src='../../Figures/Fig9-1.png' style='max-width:40%' />                            </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox41'> <span class='cmss-12x-x-120'>Classification
+  Setup</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>Data matrix: <table class='equation-star'><tr><td>
+<!-- l. 324 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>X</mi> <mo class='MathClass-rel' stretchy='false'>=</mo><msub><mrow>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd><mtd class='array-td' columnalign='center'><msubsup><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow><mrow><mi>T</mi> </mrow></msubsup></mtd><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd>
+</mtr><mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd><mtd class='array-td' columnalign='center'><msubsup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow><mrow><mi>T</mi> </mrow></msubsup></mtd><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'> </mtd> <mtd class='array-td' columnalign='center'> <mi>⋮</mi> </mtd> <mtd class='array-td' columnalign='center'></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd><mtd class='array-td' columnalign='center'><msubsup><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow><mrow><mi>T</mi> </mrow></msubsup></mtd><mtd class='array-td' columnalign='center'><mo class='MathClass-bin' stretchy='false'>−</mo></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                  </mrow><mo fence='true' form='postfix'>)</mo></mrow></mrow><mrow><mi>n</mi><mo class='MathClass-bin' stretchy='false'>×</mo><mi>p</mi></mrow></msub>
+</mrow></math></td></tr></table>
+<table class='equation-star'><tr><td>
+<!-- l. 324 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
+<mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>x</mi></mrow><mrow><mn>11</mn></mrow></msub></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'>  <mi>⋮</mi>  </mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>x</mi></mrow><mrow>
+<mn>1</mn><mi>p</mi></mrow></msub></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                           </mrow><mo fence='true' form='postfix'>)</mo></mrow> <mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace><mo class='MathClass-punc' stretchy='false'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>x</mi></mrow><mrow><mi>n</mi><mn>1</mn></mrow></msub></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'>  <mi>⋮</mi>  </mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>x</mi></mrow><mrow>
+<mi mathvariant='italic'>𝑛𝑝</mi></mrow></msub></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                           </mrow><mo fence='true' form='postfix'>)</mo></mrow>
+</mrow></math></td></tr></table></div>        <div class='minipage'>Observations in one of two classes,
+<!-- l. 324 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>∈</mo><mo class='MathClass-open' stretchy='false'>{</mo><mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
+<table class='equation-star'><tr><td>
+<!-- l. 324 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> (</mo><mrow><mtable align='axis' class='array' columnlines='none none none none none none none none none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>y</mi></mrow><mrow><mn>2</mn></mrow></msub></mtd>
+</mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'> <mi>⋮</mi> </mtd></mtr> <mtr class='array-row'><mtd class='array-td' columnalign='center'><msub><mrow><mi>y</mi></mrow><mrow>
+<mi>n</mi></mrow></msub></mtd></mtr><!-- *\c@MaxMatrixCols c --></mtable>                                                             </mrow><mo fence='true' form='postfix'>)</mo></mrow>
+</mrow></math></td></tr></table></div>
+</tr></table>
+<!-- l. 324 --><p class='noindent'>Separate out a test observation </p><table class='equation-star'><tr><td>
+<!-- l. 324 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                                 <msup><mrow><mi>x</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msup> <mo class='MathClass-rel' stretchy='false'>=</mo> <msup><mrow><mo class='MathClass-open' stretchy='false'>(</mo><msubsup><mrow><mi>x</mi></mrow><mrow>
+<mn>1</mn></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msubsup><mspace class='thickpace' width='0.28em'></mspace><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thickpace' width='0.28em'></mspace><msubsup><mrow><mi>x</mi></mrow><mrow>
+<mi>p</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msubsup><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mrow><mi>T</mi> </mrow></msup>
+</mrow></math></td></tr></table></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox45'> <span class='cmss-12x-x-120'>Separating
+  Hyperplane</span>                                                                                 </span>
+<h2 class='frametitle'></h2><!-- l. 349 --><p class='noindent'>
+</p><!-- tex4ht:inline --><!-- l. 349 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none' style=''>
+                       <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn><mstyle class='text'><mtext> if </mtext></mstyle><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mstyle>                                      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mspace width='2em'></mspace></mtd>                                <mtd class='align-label' columnalign='right'></mtd>                             <mtd class='align-label'>
+                             <mspace width='2em'></mspace></mtd></mtd><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn><mstyle class='text'><mtext> if </mtext></mstyle><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mstyle>                                      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn><mspace width='2em'></mspace></mtd>                             <mtd class='align-label' columnalign='right'></mtd>                             <mtd class='align-label'>
+                             <mspace width='2em'></mspace></mtd></mtd><mtr><mtd class='align-odd' columnalign='right'></mtd>                                                                                 <mtd class='align-even'><mspace width='2em'></mspace></mtd>                                     <mtd class='align-label' columnalign='right'>
+</mtd></mtr></mtr></mtr>
+ <table class='columns'><tr>    <div class='minipage'><img alt='Three separating hyperplanes
+separate for two classes of
+observations.' src='../../Figures/Fig9-2a.png' style='max-width:100%' />                               </div>        <div class='minipage'>                                                     </div>
+</tr></table>                                                                                   </mtable></math></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox49'> <span class='cmss-12x-x-120'>Another
+  way
+  to
+  say
+  it</span>                                                                                             </span>
+<h2 class='frametitle'></h2>
+<!-- l. 366 --><p class='noindent'>
+</p><!-- tex4ht:inline --><!-- l. 366 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none' style=''>
+                       <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn><mstyle class='text'><mtext> if </mtext></mstyle><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mstyle>                                      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn><mspace width='2em'></mspace></mtd>                                <mtd class='align-label' columnalign='right'></mtd>                             <mtd class='align-label'>
+                             <mspace width='2em'></mspace></mtd></mtd><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn><mstyle class='text'><mtext> if </mtext></mstyle><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mstyle>                                      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn><mspace width='2em'></mspace></mtd>                             <mtd class='align-label' columnalign='right'></mtd>                             <mtd class='align-label'>
+                             <mspace width='2em'></mspace></mtd></mtd><mtr><mtd class='align-odd' columnalign='right'></mtd>                                                                                 <mtd class='align-even'><mspace width='2em'></mspace></mtd>                                     <mtd class='align-label' columnalign='right'>
+</mtd></mtr></mtr></mtr>
+<!-- l. 366 --><p class='noindent'>For all <!-- l. 366 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>:
+</p><table class='equation-star'><tr><td>
+<!-- l. 366 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                  <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑖𝑝</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mstyle class='MathClass-rel' stretchy='false'>/mo&gt; <mn>0</mn>
+</mstyle></mrow></math></td></tr></table></mtable></math></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox53'> <span class='cmss-12x-x-120'>Separating
+  hyperplane
+  becomes
+  a
+  classifier</span>
+                                                                                                 </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'>If you have a separating hyperplane: 
+      <ul class='itemize1'>
+      <li class='itemize'>
+      <!-- l. 387 --><p class='noindent'>Check </p><table class='equation-star'><tr><td>
+      <!-- l. 387 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+<mi>f</mi> <mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow>
+<mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow>
+<mn>2</mn></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msubsup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow>
+<mi>p</mi></mrow></msub><msubsup><mrow><mi>x</mi></mrow><mrow><mi>p</mi></mrow><mrow><mo class='MathClass-bin' stretchy='false'>∗</mo></mrow></msubsup>
+</mrow></math></td></tr></table>
+   </li>
+   <li class='itemize'>If positive, assign
+      <!-- l. 387 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
+      </li><li class='itemize'>If negative, assign
+      <!-- l. 387 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>ŷ</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mrow></math></li></ul> </div> <div class='minipage'><img alt='A separating hyperplane becomes aclassifier' src='../../Figures/Fig9-2b.png' style='max-width:100%' />         </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox57'> <span class='cmss-12x-x-120'>How
+  do
+  we
+  pick?</span>                                                                                         </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Three separating hyperplanes separate fortwo classes of observations.' src='../../Figures/Fig9-2a.png' style='max-width:100%' /> </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox61'> <span class='cmss-12x-x-120'>Distance
+  from
+  an
+  observation
+  to
+  a
+  hyperplane</span>                                                                                  </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+     <div class='minipage'> <img alt='SVM example with line 1' src='../../Figures/SVM-example-WithLine1-.png' style='max-width:100%' />               </div>          <div class='minipage'> <img alt='SVM example with line 2' src='../../Figures/SVM-example-WithLine2-.png' style='max-width:100%' />               </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox65'> <span class='cmss-12x-x-120'>Maximal
+  margin
+  classifier</span>                                                                                     </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='Maximal margin classifier' src='../../Figures/Fig9-3.png' style='max-width:100%' />                      </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox69'> <span class='cmss-12x-x-120'>Example</span>                                                                                    </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='SVM demonstration example' src='../../Figures/SVM-DesmosExample.png' style='max-width:100%' />                 </div>      <div class='minipage'>      <ul class='itemize1'>
+      <li class='itemize'>Sketch
+      the
+      maximal
+      margin
+      hyperplane.
+      </li><li class='itemize'>What
+      is
+      the
+      equation
+      of
+      this
+      line
+      in
+      the
+      form
+      <!-- l. 460 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn></mrow></math>?
+      </li><li class='itemize'>Circle
+      the
+      support
+      vectors.
+      What
+      is
+      their
+      distance
+      from
+      the
+      line?</li></ul>                                          </div>
+</tr></table>
+<!-- l. 460 --><p class='noindent'><a class='url' href='https://www.desmos.com/calculator/tklbommiwz'><span class='cmtt-10x-x-109'>https://www.desmos.com/calculator/tklbommiwz</span></a>                                  </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox73'> <span class='cmss-12x-x-120'>Extra
+  work
+  space</span>                                                                                        </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+  <div class='minipage'><img alt='SVM demonstration example' src='../../Figures/SVM-DesmosExample.png' style='max-width:100%' />                 </div>      <div class='minipage'>Respond to <a href='https://PollEv.com/multiple_choice_polls/2q6UsD3rYTqB3c0z2IiNF/respond'>PollEv question</a>.                  </div>
+</tr></table>
+<!-- l. 487 --><p class='noindent'><a class='url' href='https://www.desmos.com/calculator/tklbommiwz'><span class='cmtt-10x-x-109'>https://www.desmos.com/calculator/tklbommiwz</span></a>                                  </p></div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox77'> <span class='cmss-12x-x-120'>Mathematical
+  Formulation</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><img alt='SVM Formulation' src='../../Figures/Eq9-9.png' style='max-width:100%' />                                                       </div>  <div class='minipage'>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox81'> <span class='cmss-12x-x-120'>First
+  constraint</span>                                                                                   </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><img alt='SVM demo example withline' src='../../Figures/SVM-DesmosExample-WithLine.png' style='max-width:100%' />    </div>    <div class='minipage'>                                                                             </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox85'> <span class='cmss-12x-x-120'>Second
+  constraint</span>                                                                                   </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><img alt='SVM demo example with line width' src='../../Figures/SVM-DesmosExample-WithLine.png' />
+      <ul class='itemize1'>
+      <li class='itemize'>Blue
+      circles:
+      <!-- l. 576 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mrow></math>
+      </li><li class='itemize'>Red
+      Xs:
+      <!-- l. 576 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
+      </li><li class='itemize'><!-- l. 576 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn><msqrt><mrow><mn>2</mn></mrow></msqrt> <mo class='MathClass-bin' stretchy='false'>+</mo> <mfrac><mrow><msqrt><mrow><mn>2</mn></mrow></msqrt></mrow> 
+ <mrow><mn>2</mn></mrow></mfrac>  <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mfrac><mrow><msqrt><mrow><mn>2</mn></mrow></msqrt></mrow> 
+ <mrow><mn>2</mn></mrow></mfrac>  <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn></mrow></math></li></ul> </div> <div class='minipage'><!-- l. 576 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi> </mrow> </msub> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>≥</mo><mi>M</mi></mrow></math></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox89'> <span class='cmss-12x-x-120'>An
+  example
+  with
+  a
+  bad
+  choice
+  of
+  hyperplane</span>                                                                                  </span>
+<h2 class='frametitle'></h2><table class='columns'><tr>
+ <div class='minipage'><img alt='SVM demo example with bad line' src='../../Figures/SVM-DesmosExample-WithBadLine.png' style='max-width:100%' />
+      <ul class='itemize1'>
+      <li class='itemize'>Blue
+      circles:
+      <!-- l. 608 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mrow></math>
+      </li><li class='itemize'>Red
+      Xs:
+      <!-- l. 608 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
+      </li><li class='itemize'><!-- l. 608 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-bin' stretchy='false'>−</mo> <mfrac><mrow><mn>4</mn></mrow> <mrow><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow></mfrac> <mo class='MathClass-bin' stretchy='false'>+</mo>  <mfrac><mrow><mn>1</mn></mrow> <mrow><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow></mfrac><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo>  <mfrac><mrow><mn>2</mn></mrow> <mrow><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow></mfrac><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn></mrow></math></li></ul> </div> <div class='minipage'><!-- l. 608 --><p class='noindent'>What is
+<!-- l. 608 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+for the point
+<!-- l. 608 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mn>0</mn><mo class='MathClass-punc' stretchy='false'>,</mo><mn>3</mn><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>? </p> </div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox93'> <span class='cmss-12x-x-120'>Second
+  constraint
+  extra
+  space</span>                                                                                        </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+     <div class='minipage'><img alt='SVM demo example with line' src='../../Figures/SVM-DesmosExample-WithLine.png' style='max-width:100%' /> 
+      <ul class='itemize1'>
+      <li class='itemize'>Blue
+      circles:
+      <!-- l. 639 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn></mrow></math>
+      </li><li class='itemize'>Red
+      Xs:
+      <!-- l. 639 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>1</mn></mrow></math>
+      </li><li class='itemize'><!-- l. 639 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-bin' stretchy='false'>−</mo> <mn>2</mn><msqrt><mrow><mn>2</mn></mrow></msqrt> <mo class='MathClass-bin' stretchy='false'>+</mo> <mfrac><mrow><msqrt><mrow><mn>2</mn></mrow></msqrt></mrow> 
+ <mrow><mn>2</mn></mrow></mfrac>  <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mfrac><mrow><msqrt><mrow><mn>2</mn></mrow></msqrt></mrow> 
+ <mrow><mn>2</mn></mrow></mfrac>  <msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>0</mn></mrow></math></li></ul> </div>    <div class='minipage'><!-- l. 639 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel' stretchy='false'>≥</mo><mi>M</mi></mrow></math></div>
+</tr></table>                                                                                   </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox97'> <span class='cmss-12x-x-120'>Mathematical
+  Formulation</span>                                                                                </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+<div class='minipage'><img alt='SVM Formulation' src='../../Figures/Eq9-9.png' style='max-width:100%' />                                                       </div>  <div class='minipage'>                                          </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<p><a id='x1-3r2'></a>
+                                                                                   
+                                                                                   
+<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 663 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier6x.png' />
+<img alt='picture' src='CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier8x.png' /></p><div class='minipage'>                                                       <a href='#Navigation27'><span class='cmss-12x-x-120'>Issues
+                                           with
+                                         Maximal
+                                          Margin
+                                         Classifier</span></a>
+                                                                                            </div>
+                                                                                            </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox104'> <span class='cmss-12x-x-120'>But
+  what
+  if....</span>                                                                                          </span>
+<h2 class='frametitle'></h2>
+<table class='columns'><tr>
+  <div class='minipage'><img alt='bad example for SVM classificationwidth' src='../../Figures/Fig9-4.png' />  </div>      <div class='minipage'>                                                     </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+<div class='slide'> <span class='colorbox' id='colorbox108'> <span class='cmss-12x-x-120'>Sensitivity
+  to
+  new
+  points</span>                                                                                       </span>
+<h2 class='frametitle'></h2> <table class='columns'><tr>
+     <div class='minipage'><img alt='sensitive points to MMC 1width' src='../../Figures/Fig9-5a.png' />       </div>          <div class='minipage'><img alt='sensitive points to MMC 2width' src='../../Figures/Fig9-5b.png' />       </div>
+</tr></table>
+                                                                                    </div>
+                                                                                   
+                                                                                   
+                                                                                   
+                                                                                   
+ 
+</body>  
+</html>
+                                                                                   
+
+

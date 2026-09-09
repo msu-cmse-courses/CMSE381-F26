@@ -7,8 +7,7 @@
         <title>Day 26</title>
     
         <p>
-            <!-- <dataurl source="slides/slides-Day26/CMSE381-Lec26-Ch7_2-EnsembleMethods.html" visual="Day26 slides"/> -->
-            This is a placeholder for the Day 26 lecture content.
+            <dataurl source="slides/slides-Day26/CMSE381-002-Lec26-Ch9_1-MaximalMarginClassifier.html" visual="Day26 slides"/>
         </p>
     
         </section>

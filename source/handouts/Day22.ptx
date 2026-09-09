@@ -7,8 +7,7 @@
         <title>Day 22</title>
     
         <p>
-            <!-- <dataurl source="" visual="Day22 slides"/> -->
-            This is a placeholder for the Day 22 lecture content.
+            <dataurl source="slides/slides-Day22/CMSE381-Lec22-Ch7_2-3_BasisFcns_Splines.html" visual="Day22 slides"/>
         </p>
     
         </section>

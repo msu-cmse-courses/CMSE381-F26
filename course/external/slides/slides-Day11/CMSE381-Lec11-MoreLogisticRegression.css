@@ -8,8 +8,6 @@
 .cmss-10x-x-109{  font-family: sans-serif;}
 .cmss-10x-x-109{  font-family: sans-serif;}
 .cmss-10x-x-109{  font-family: sans-serif;}
-.cmss-10x-x-109{  font-family: sans-serif;}
-.cmss-10x-x-109{  font-family: sans-serif;}
 .cmbsy-10x-x-109{font-size:109%;font-weight: bold;}
 .cmbsy-10x-x-109{font-weight: bold;}
 .cmbsy-10x-x-109{font-weight: bold;}
@@ -46,11 +44,7 @@
 .cmss-8x-x-75{  font-family: sans-serif;}
 .cmss-8x-x-75{  font-family: sans-serif;}
 .cmss-8x-x-75{  font-family: sans-serif;}
-.cmss-8x-x-75{  font-family: sans-serif;}
-.cmss-8x-x-75{  font-family: sans-serif;}
 .cmss-12x-x-120{font-size:144%;  font-family: sans-serif;}
-.cmss-12x-x-120{  font-family: sans-serif;}
-.cmss-12x-x-120{  font-family: sans-serif;}
 .cmss-12x-x-120{  font-family: sans-serif;}
 .cmss-12x-x-120{  font-family: sans-serif;}
 .cmss-12x-x-120{  font-family: sans-serif;}
@@ -64,8 +58,6 @@
 .cmss-8{  font-family: sans-serif;}
 .cmss-8{  font-family: sans-serif;}
 .cmss-8{  font-family: sans-serif;}
-.cmss-8{  font-family: sans-serif;}
-.cmss-8{  font-family: sans-serif;}
 .cmssbx-10x-x-109{font-size:109%; font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
@@ -73,26 +65,6 @@
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
 .cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10x-x-109{ font-family: sans-serif; font-weight: bold;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmss-10{  font-family: sans-serif;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
-.cmssbx-10{ font-family: sans-serif; font-weight: bold;}
 .cmtt-10x-x-109{font-size:109%;font-family: monospace,monospace;}
 .cmss-9{font-size:90%;  font-family: sans-serif;}
 .cmss-9{  font-family: sans-serif;}
@@ -101,11 +73,7 @@
 .cmss-9{  font-family: sans-serif;}
 .cmss-9{  font-family: sans-serif;}
 .cmss-9{  font-family: sans-serif;}
-.cmss-9{  font-family: sans-serif;}
-.cmss-9{  font-family: sans-serif;}
 .cmssi-10x-x-109{font-size:109%; font-family: sans-serif; font-style: oblique;}
-.cmssi-10x-x-109{ font-family: sans-serif; font-style: oblique;}
-.cmssi-10x-x-109{ font-family: sans-serif; font-style: oblique;}
 .cmssi-10x-x-109{ font-family: sans-serif; font-style: oblique;}
 .cmssi-10x-x-109{ font-family: sans-serif; font-style: oblique;}
 .cmssi-10x-x-109{ font-family: sans-serif; font-style: oblique;}
@@ -254,12 +222,12 @@ span.dotuline, .dotuline-math {text-decoration:underline dotted;}
 .dotuline-math {border-bottom: 1px dotted black;}
 span.Xy span.Y{ position:relative; top:0.35ex;left:-0.25em;}
 span#colorbox10{background-color:#E5F0EB;}
-span#colorbox14{background-color:#E5F0EB;}
+span#colorbox17{background-color:#E5F0EB;}
 span#colorbox21{background-color:#E5F0EB;}
-span#colorbox25{background-color:#E5F0EB;}
+span#colorbox28{background-color:#E5F0EB;}
 span#colorbox32{background-color:#E5F0EB;}
 span#colorbox36{background-color:#E5F0EB;}
-span#colorbox40{background-color:#E5F0EB;}
+span#colorbox43{background-color:#E5F0EB;}
 span#colorbox47{background-color:#E5F0EB;}
 span#colorbox51{background-color:#E5F0EB;}
 span#colorbox55{background-color:#E5F0EB;}
@@ -268,7 +236,5 @@ span#colorbox63{background-color:#E5F0EB;}
 span#colorbox67{background-color:#E5F0EB;}
 span#colorbox71{background-color:#E5F0EB;}
 span#colorbox75{background-color:#E5F0EB;}
-span#colorbox79{background-color:#E5F0EB;}
-span#colorbox83{background-color:#E5F0EB;}
 /* end css.sty */
 

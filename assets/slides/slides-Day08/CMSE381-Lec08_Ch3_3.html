@@ -1,196 +1,455 @@
-<a name='Navigation1'>black</a><a name='page.1'>black</a>
+<a name="Navigation1">black</a><a name="page.1">black</a>
 <!DOCTYPE html> 
-<html lang='en-US' xml:lang='en-US'> 
+<html lang="en-US" xml:lang="en-US" > 
 <head> <title></title> 
-<meta charset='utf-8' /> 
-<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
-<meta content='width=device-width,initial-scale=1' name='viewport' /> 
-<link href='CMSE381-Lec08_Ch3_3.css' rel='stylesheet' type='text/css' /> 
-<meta content='CMSE381-Lec08_Ch3_3.tex' name='src' /> 
- <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js' type='text/javascript'></script>  
-</head><body>
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="CMSE381-Lec08_Ch3_3.css" /> 
+<meta name="src" content="CMSE381-Lec08_Ch3_3.tex" /> 
+ <script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"></script>  
+</head><body 
+>
                                                                                    
                                                                                    
-<div class='slide'> <div class='titlepage'><a id='sl1'></a><p class='links'><a href='CMSE381-Lec08_Ch3_32.html#bookmark' target='tex4ht-menu'>toc</a></p>
-<img alt='picture' src='CMSE381-Lec08_Ch3_30x.png' />
-<img alt='picture' src='CMSE381-Lec08_Ch3_32x.png' /><div class='minipage'>                                        <h1 class='title'><span class='cmss-12x-x-120'>Ch
-                                       3.3:
-                                       The
-                                       Last
-                                        of
-                                        the
-                                      Linear
-                                   Regression</span></h1>
+<div class="slide"> <div class="titlepage"><a 
+ id="sl1"></a><p class="links"><a 
+href="CMSE381-Lec08_Ch3_32.html#bookmark" target="tex4ht-menu" >toc</a></p>
+<img 
+src="CMSE381-Lec08_Ch3_30x.png" alt="picture"  />
+<img 
+src="CMSE381-Lec08_Ch3_32x.png" alt="picture"  /><div class="minipage">                                        <h1 class="title"><span 
+class="cmss-12x-x-120">Ch</span>
+                                       <span 
+class="cmss-12x-x-120">3.3:</span>
+                                       <span 
+class="cmss-12x-x-120">The</span>
+                                       <span 
+class="cmss-12x-x-120">Last</span>
+                                        <span 
+class="cmss-12x-x-120">of</span>
+                                        <span 
+class="cmss-12x-x-120">the</span>
+                                      <span 
+class="cmss-12x-x-120">Linear</span>
+                                   <span 
+class="cmss-12x-x-120">Regression</span></h1>
                                       Lecture
                                          8
                                          -
                                       CMSE
                                         381                                        </div>
-                                         <div class='author'></div>
+                                         <div class="author"></div>
                                                                                    
-                                      <div class='institute'><span class='cmss-8'>Michigan
-                                       State
-                                      University</span><br />
-                                         <span class='cmss-8'>::</span><br />
-                                        <span class='cmss-8'>Dept
-                                         of
-                                    Computational
-                                     Mathematics,
-                                       Science
-                                         /span&gt;
-                                     <span class='cmss-8'>Engineering</span></span></div>
+                                      <div class="institute"><span 
+class="cmss-8">Michigan</span>
+                                       <span 
+class="cmss-8">State</span>
+                                      <span 
+class="cmss-8">University</span><br />
+                                         <span 
+class="cmss-8">::</span><br />
+                                        <span 
+class="cmss-8">Dept</span>
+                                         <span 
+class="cmss-8">of</span>
+                                    <span 
+class="cmss-8">Computational</span>
+                                     <span 
+class="cmss-8">Mathematics,</span>
+                                       <span 
+class="cmss-8">Science</span>
+                                         <span 
+class="cmss-8">&amp;</span>
+                                     <span 
+class="cmss-8">Engineering</span></div>
                                                                                    
-                                         <div class='date'></div>
+                                         <div class="date" ></div>
                                                                                    
 </div>                                                                                            </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox10'> <span class='cmss-12x-x-120'>Covered
-  in
-  this
-  lecture</span>
+<div class="slide"> <span 
+class="colorbox" id="colorbox10"> <span 
+class="cmss-12x-x-120">Covered</span>
+  <span 
+class="cmss-12x-x-120">in</span>
+  <span 
+class="cmss-12x-x-120">this</span>
+  <span 
+class="cmss-12x-x-120">lecture</span>
                                                                                                  </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-     <div class='minipage'>     <ul class='itemize1'>
-     <li class='itemize'>Extending
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+     <div class="minipage">     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 120--><p class="noindent" >Extending
       the
       linear
       model
       with
       interaction
       terms
-      </li><li class='itemize'>Hierarchy
+      </li>
+      <li class="itemize">
+      <!--l. 120--><p class="noindent" >Hierarchy
       principle
-      </li><li class='itemize'>Polynomial
-      regression</li></ul>                             </div>          <div class='minipage'>                                               </div>
+      </li>
+      <li class="itemize">
+      <!--l. 120--><p class="noindent" >Polynomial
+      regression</p></li></ul>                             </div>          <div class="minipage">                                               </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<p><a id='x1-2r1'></a>
+<a 
+ id="x1-2r1"></a>
                                                                                    
                                                                                    
-<a id='Outline0.1'></a>  </p><p></p><div class='slide'> <!-- l. 123 --><p class='noindent'><span class='cmss-12x-x-120'>Section 1</span>
-<img alt='picture' src='CMSE381-Lec08_Ch3_33x.png' />
-<img alt='picture' src='CMSE381-Lec08_Ch3_35x.png' /></p><div class='minipage'>                                                      <a href='#Navigation4'><span class='cmss-12x-x-120'>Review
-                                           from
-                                            last
-                                           time</span>
+<a 
+ id="Outline0.1"></a>  </p><div class="slide"> <!--l. 123--><p class="noindent" ><span 
+class="cmss-12x-x-120">Section</span><span 
+class="cmss-12x-x-120">&#x00A0;1</span>
+<img 
+src="CMSE381-Lec08_Ch3_33x.png" alt="picture"  />
+<img 
+src="CMSE381-Lec08_Ch3_35x.png" alt="picture"  /><div class="minipage">                                                      <a 
+href="#Navigation4"><span 
+class="cmss-12x-x-120">Review</span>
+                                           <span 
+class="cmss-12x-x-120">from</span>
+                                            <span 
+class="cmss-12x-x-120">last</span>
+                                           <span 
+class="cmss-12x-x-120">time</span>
                                               </a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox17'> <span class='cmss-12x-x-120'>Linear
-  Regression
-  with
-  Multiple
-  Variables</span>                                                                                    </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-    <div class='minipage'><img alt='scatter plot in 3D of Y versus X1 and X2. A
+<div class="slide"> <span 
+class="colorbox" id="colorbox17"> <span 
+class="cmss-12x-x-120">Linear</span>
+  <span 
+class="cmss-12x-x-120">Regression</span>
+  <span 
+class="cmss-12x-x-120">with</span>
+  <span 
+class="cmss-12x-x-120">Multiple</span>
+  <span 
+class="cmss-12x-x-120">Variables</span>                                                                                    </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+    <div class="minipage"><img 
+src="../../Figures/Fig3-4.png" alt="scatter plot in 3D of Y versus X1 and X2. A
 planar fit is shown with residuals for each
-data point.' src='../Figures/Fig3-4.png' style='max-width:50%' /> 
-      <ul class='itemize1'>
-      <li class='itemize'>
-      <!-- l. 150 --><p class='noindent'>Predict <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>Y</mi> </mrow></math>
+data point."  
+style="max-width:50%" /> 
+      <ul class="itemize1">
+      <li class="itemize">
+      <!--l. 150--><p class="noindent" >Predict <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>Y</mi> </math>
       on a multiple variables
-      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math>
-      </p><table class='equation-star'><tr><td>
-      <!-- l. 150 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-   <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo><msub><mrow><mi>β</mi></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>p</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi>
-</mrow></math></td></tr></table>
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>X</mi></math>
+      </p><table class="equation-star"><tr><td>
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+   <mi 
+>Y</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mo 
+class="MathClass-rel" stretchy="false">&#x22EF;</mo><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mi 
+>p</mi></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>p</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi>
+</math></td></tr></table>
      </li>
-     <li class='itemize'>Find good guesses for
-      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub></math>,
-      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><mo class='MathClass-punc' stretchy='false'>,</mo><mo class='MathClass-rel' stretchy='false'>⋯</mo><mspace class='thinspace' width='0.17em'></mspace></mrow></math>.
-      </li><li class='itemize'><!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo><msub><mrow> <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow> <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-rel' stretchy='false'>⋯</mo> <mo class='MathClass-bin' stretchy='false'>+</mo><msub><mrow> <mover accent='true'><mrow><mi>β</mi></mrow><mo accent='true'>^</mo></mover></mrow><mrow><mi>p</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>p</mi></mrow></msub></mrow></math></li></ul> </div>  <div class='minipage'>        <ul class='itemize1'>
-        <li class='itemize'><!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>e</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>ŷ</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>
+     <li class="itemize">
+     <!--l. 150--><p class="noindent" >Find good guesses for
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>0</mn></mrow></msub 
+></math>,
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mover 
+accent="true"><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><mo 
+class="MathClass-punc" stretchy="false">,</mo><mo 
+class="MathClass-rel" stretchy="false">&#x22EF;</mo><mspace width="0.17em" class="thinspace"/></math>.
+      </li>
+      <li class="itemize">
+      <!--l. 150--><p class="noindent" ><!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>&#x0177;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo><msub><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo><msub><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mo 
+class="MathClass-rel" stretchy="false">&#x22EF;</mo> <mo 
+class="MathClass-bin" stretchy="false">+</mo><msub><mrow 
+> <mover 
+accent="true"><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mo accent="true">^</mo></mover></mrow><mrow 
+><mi 
+>p</mi></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>p</mi></mrow></msub 
+></math></p></li></ul> </div>  <div class="minipage">        <ul class="itemize1">
+        <li class="itemize">
+        <!--l. 150--><p class="noindent" ><!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>e</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>y</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">-</mo><msub><mrow 
+><mi 
+>&#x0177;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+></math>
         is
       the
-      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>i</mi></math>th
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>i</mi></math>th
       residual
-      </li><li class='itemize'>RSS
-      <!-- l. 150 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-rel' stretchy='false'>=</mo><msub><mrow> <mi class='MathClass-op'>∑</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo>
-  <!-- nolimits --></mrow><mrow><mi>i</mi></mrow></msub><msubsup><mrow><mi>e</mi></mrow><mrow><mi>i</mi></mrow><mrow><mn>2</mn></mrow></msubsup></mrow></math>
-        </li><li class='itemize'>RSS
+      </li>
+      <li class="itemize">
+      <!--l. 150--><p class="noindent" >RSS
+      <!--l. 150--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel" stretchy="false">=</mo><msub><mrow 
+> <mi 
+class="MathClass-op">&#x2211;</mi><mo> &#x2061;<!--FUNCTION APPLICATION--></mo>
+  <!--nolimits--></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><msubsup><mrow 
+><mi 
+>e</mi></mrow><mrow 
+><mi 
+>i</mi></mrow><mrow 
+><mn>2</mn></mrow></msubsup 
+></math>
+        </li>
+        <li class="itemize">
+        <!--l. 150--><p class="noindent" >RSS
       is
       minimized
       at
-      <span class='cmssi-10x-x-109'>least
-      squares
-      coefficient
-      estimates</span></li></ul>                              </div>
+      <span 
+class="cmssi-10x-x-109">least</span>
+      <span 
+class="cmssi-10x-x-109">squares</span>
+      <span 
+class="cmssi-10x-x-109">coefficient</span>
+      <span 
+class="cmssi-10x-x-109">estimates</span></p></li></ul>                              </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<p><a id='x1-3r2'></a>
+<a 
+ id="x1-3r2"></a>
                                                                                    
                                                                                    
-<a id='Outline0.2'></a>  </p><p></p><div class='slide'> <!-- l. 153 --><p class='noindent'><span class='cmss-12x-x-120'>Section 2</span>
-<img alt='picture' src='CMSE381-Lec08_Ch3_36x.png' />
-<img alt='picture' src='CMSE381-Lec08_Ch3_38x.png' /></p><div class='minipage'>                                                  <a href='#Navigation7'><span class='cmss-12x-x-120'>Categorical
-                                           Input
-                                         Variables</span></a>
+<a 
+ id="Outline0.2"></a>  </p><div class="slide"> <!--l. 153--><p class="noindent" ><span 
+class="cmss-12x-x-120">Section</span><span 
+class="cmss-12x-x-120">&#x00A0;2</span>
+<img 
+src="CMSE381-Lec08_Ch3_36x.png" alt="picture"  />
+<img 
+src="CMSE381-Lec08_Ch3_38x.png" alt="picture"  /><div class="minipage">                                                  <a 
+href="#Navigation7"><span 
+class="cmss-12x-x-120">Categorical</span>
+                                           <span 
+class="cmss-12x-x-120">Input</span>
+                                         <span 
+class="cmss-12x-x-120">Variables</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox24'> <span class='cmss-12x-x-120'>Reminder:
-  Qualitative
-  vs
-  Quantitative
-  predictors</span>                                                                                   </span>
-<h2 class='frametitle'></h2> <table class='columns'><tr>
-  <div class='minipage'><span class='cmssbx-10x-x-109'>Quantitative:</span>                                </div>     <div class='minipage'><!-- l. 180 --><p class='noindent'><span class='cmssbx-10x-x-109'>Qualitative/Categorical:</span>                   </p></div>
+<div class="slide"> <span 
+class="colorbox" id="colorbox24"> <span 
+class="cmss-12x-x-120">Reminder:</span>
+  <span 
+class="cmss-12x-x-120">Qualitative</span>
+  <span 
+class="cmss-12x-x-120">vs</span>
+  <span 
+class="cmss-12x-x-120">Quantitative</span>
+  <span 
+class="cmss-12x-x-120">predictors</span>                                                                                   </span>
+<h2 class="frametitle"></h2> <table class="columns"><tr>
+  <div class="minipage"><span 
+class="cmssbx-10x-x-109">Quantitative:</span>                                </div>     <div class="minipage"><!--l. 180--><p class="noindent" ><span 
+class="cmssbx-10x-x-109">Qualitative/Categorical:</span>                   </p></div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox28'> <span class='cmss-12x-x-120'>Credit
-  card
-  balance</span>                                                                                      </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-  <div class='minipage'><!-- l. 205 --><p class='noindent'><img alt='A tile plot showing scatter plots of credit
+<div class="slide"> <span 
+class="colorbox" id="colorbox28"> <span 
+class="cmss-12x-x-120">Credit</span>
+  <span 
+class="cmss-12x-x-120">card</span>
+  <span 
+class="cmss-12x-x-120">balance</span>                                                                                      </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+  <div class="minipage"><!--l. 205--><p class="noindent" ><img 
+src="../../Figures/Figure3-6.png" alt="A tile plot showing scatter plots of credit
 card balance versus several variables
 including balance, age, education, income,
-limit, and rating.' src='../Figures/Figure3-6.png' style='max-width:100%' />                                </p></div>      <div class='minipage'>      <ul class='itemize1'>
-      <li class='itemize'><span class='cmtt-10x-x-109'>own</span>:
+limit, and rating."  
+style="max-width:100%" />                                </p></div>      <div class="minipage">      <ul class="itemize1">
+      <li class="itemize">
+      <!--l. 205--><p class="noindent" ><span 
+class="cmtt-10x-x-109">own</span>:
       house
       ownership
-      </li><li class='itemize'><span class='cmtt-10x-x-109'>student</span>:
+      </li>
+      <li class="itemize">
+      <!--l. 205--><p class="noindent" ><span 
+class="cmtt-10x-x-109">student</span>:
       student
       status
-      </li><li class='itemize'><span class='cmtt-10x-x-109'>status</span>:
+      </li>
+      <li class="itemize">
+      <!--l. 205--><p class="noindent" ><span 
+class="cmtt-10x-x-109">status</span>:
       marital
       status
-      </li><li class='itemize'><span class='cmtt-10x-x-109'>region</span>:
+      </li>
+      <li class="itemize">
+      <!--l. 205--><p class="noindent" ><span 
+class="cmtt-10x-x-109">region</span>:
       East,
       West,
       or
-      South</li></ul>                                        </div>
+      South</p></li></ul>                                        </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox32'> <span class='cmss-12x-x-120'>What
-  if....</span>                                                                                          </span>
-<h2 class='frametitle'></h2> <table class='columns'><tr>
-<div class='minipage'>... your variables aren’t quantitative?
-      <ul class='itemize1'>
-      <li class='itemize'>Home
+<div class="slide"> <span 
+class="colorbox" id="colorbox32"> <span 
+class="cmss-12x-x-120">What</span>
+  <span 
+class="cmss-12x-x-120">if....</span>                                                                                          </span>
+<h2 class="frametitle"></h2> <table class="columns"><tr>
+<div class="minipage">... your variables aren&#8217;t quantitative?
+      <ul class="itemize1">
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Home
       ownership
-      </li><li class='itemize'>Student
+      </li>
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Student
       status
-      </li><li class='itemize'>Major
-      </li><li class='itemize'>Gender
-      </li><li class='itemize'>Ethnicity
-      </li><li class='itemize'>Country
+      </li>
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Major
+      </li>
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Gender
+      </li>
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Ethnicity
+      </li>
+      <li class="itemize">
+      <!--l. 231--><p class="noindent" >Country
       of
-      origin</li></ul>                                         </div>  <div class='minipage'><div class='block'>
-<img alt='picture' src='CMSE381-Lec08_Ch3_39x.png' /><div class='minipage'><span class='cmss-12'>Example</span>                                       </div><img alt='
-picture' src='CMSE381-Lec08_Ch3_310x.png' />
-<img alt='picture' src='CMSE381-Lec08_Ch3_312x.png' /><div class='minipage'>Investigate
+      origin</p></li></ul>                                         </div>  <div class="minipage"><div class="block">
+<img 
+src="CMSE381-Lec08_Ch3_39x.png" alt="picture"  /><div class="minipage"><span 
+class="cmss-12">Example</span>                                       </div><img 
+src="CMSE381-Lec08_Ch3_310x.png" alt="
+picture"  />
+<img 
+src="CMSE381-Lec08_Ch3_312x.png" alt="picture"  /><div class="minipage">Investigate
 differences
 in
 credit
@@ -205,7 +464,7 @@ house
 and
 those
 who
-don’t,
+don&#8217;t,
 ignoring
 the
 other
@@ -214,234 +473,1265 @@ variables.                                          </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox36'> <span class='cmss-12x-x-120'>One-hot
-  encoding
-  of
-  categorical
-  input
-  variable</span>
+<div class="slide"> <span 
+class="colorbox" id="colorbox36"> <span 
+class="cmss-12x-x-120">One-hot</span>
+  <span 
+class="cmss-12x-x-120">encoding</span>
+  <span 
+class="cmss-12x-x-120">of</span>
+  <span 
+class="cmss-12x-x-120">categorical</span>
+  <span 
+class="cmss-12x-x-120">input</span>
+  <span 
+class="cmss-12x-x-120">variable</span>
                                                                                                  </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
- <div class='minipage'>Create a new variable <table class='equation-star'><tr><td>
-<!-- l. 266 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
-<mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is a student</mtext></mstyle>     </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is not a student</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                                </mrow><mo fence='true' form='postfix'></mo></mrow>
-</mrow></math></td></tr></table>
-<!-- l. 266 --><p class='noindent'>Model:
-</p><!-- tex4ht:inline --><!-- l. 266 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none none' style=''>
-       <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mtd>          <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                                                                <mtd class='align-label' columnalign='right'></mtd>          <mtd class='align-label'>
-          <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>             <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is student</mtext></mstyle></mtd>
-</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>         <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person isn’t</mtext></mstyle>       </mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                         </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd>       <mtd class='align-label' columnalign='right'></mtd>       <mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div> <div class='minipage'>       </div>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+ <div class="minipage">Create a new variable <table class="equation-star"><tr><td>
+<!--l. 266--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation"><msub><mrow 
+>
+<mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>1</mn><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;a&#x00A0;student</mtext></mstyle>     </mtd></mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>0</mn><mspace width="1em" class="quad"/></mtd> <mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;not&#x00A0;a&#x00A0;student</mtext></mstyle></mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>                                </mrow><mo fence="true" form="postfix"></mo></mrow>
+</math></td></tr></table>
+<!--l. 266--><p class="noindent" >Model:
+</p><!--tex4ht:inline--><!--l. 266--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+       <mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>y</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+></mtd>          <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="2em"/></mtd>                                                                                <mtd 
+columnalign="right" class="align-label"></mtd>          <mtd 
+class="align-label">
+          <mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>             <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;student</mtext></mstyle></mtd>
+</mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+>         <mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;isn&#8217;t</mtext></mstyle>       </mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>                         </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd>       <mtd 
+columnalign="right" class="align-label"></mtd>       <mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div> <div class="minipage">       </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox40'> <span class='cmss-12x-x-120'>Interpretation</span>
+<div class="slide"> <span 
+class="colorbox" id="colorbox40"> <span 
+class="cmss-12x-x-120">Interpretation</span>
                                                                                                  </span>
-<h2 class='frametitle'></h2> <table class='columns'><tr>
-  <div class='minipage'><img alt='Table showing the coefficients for a linear
+<h2 class="frametitle"></h2> <table class="columns"><tr>
+  <div class="minipage"><img 
+src="../../Figures/Table3-7_ReplaceWithStudent.png" alt="Table showing the coefficients for a linear
 fit of credit card balance versus student
-status (yes/no).' src='../Figures/Table3-7_ReplaceWithStudent.png' style='max-width:100%' />                                 </div>      <div class='minipage'>Model:
-<table class='equation-star'><tr><td>
-<!-- l. 289 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-        <mi>y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <mn>480</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>36</mn> <mo class='MathClass-bin' stretchy='false'>+</mo> <mn>396</mn><mo class='MathClass-punc' stretchy='false'>.</mo><mn>46</mn> <mo class='MathClass-bin' stretchy='false'>⋅</mo><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>𝑠𝑡𝑢𝑑𝑒𝑛𝑡</mi></mrow></msub>
-</mrow></math></td></tr></table></div>
+status (yes/no)."  
+style="max-width:100%" />                                 </div>      <div class="minipage">Model:
+<table class="equation-star"><tr><td>
+<!--l. 289--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+        <mi 
+>y</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <mn>4</mn><mn>8</mn><mn>0</mn><mo 
+class="MathClass-punc" stretchy="false">.</mo><mn>3</mn><mn>6</mn> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mn>3</mn><mn>9</mn><mn>6</mn><mo 
+class="MathClass-punc" stretchy="false">.</mo><mn>4</mn><mn>6</mn> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>s</mi><mi 
+>t</mi><mi 
+>u</mi><mi 
+>d</mi><mi 
+>e</mi><mi 
+>n</mi><mi 
+>t</mi></mrow></msub 
+>
+</math></td></tr></table></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox44'> <span class='cmss-12x-x-120'>Who
-  cares
-  about
-  0/1?</span>                                                                                         </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-  <div class='minipage'><span class='cmssbx-10x-x-109'>Old version: 0/1 </span><table class='equation-star'><tr><td>
-<!-- l. 342 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
-<mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is a student</mtext></mstyle>     </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is not a student</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>              </mrow><mo fence='true' form='postfix'></mo></mrow>
-</mrow></math></td></tr></table>
-<!-- l. 342 --><p class='noindent'>Model:
-</p><!-- tex4ht:inline --><!-- l. 342 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none none' style=''>
-<mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                               <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>   <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is student</mtext></mstyle></mtd>
-</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>         <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person isn’t</mtext></mstyle>       </mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>       </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd><mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div><div class='minipage'><span class='cmssbx-10x-x-109'>Alternative version:</span>
-<!-- l. 342 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow> <mo class='MathClass-bin' stretchy='false'>±</mo> <mn>1</mn></mrow></math>
-<table class='equation-star'><tr><td>
-<!-- l. 342 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
-<mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn>  <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is a student</mtext></mstyle>     </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mo class='MathClass-bin' stretchy='false'>−</mo><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is not a student</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>            </mrow><mo fence='true' form='postfix'></mo></mrow>
-</mrow></math></td></tr></table>
-<!-- l. 342 --><p class='noindent'>Model:
-</p><!-- tex4ht:inline --><!-- l. 342 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none none' style=''>
-<mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                               <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>   <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person is student</mtext></mstyle></mtd>
-</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>−</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person isn’t</mtext></mstyle>       </mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>       </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd><mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+<div class="slide"> <span 
+class="colorbox" id="colorbox44"> <span 
+class="cmss-12x-x-120">Who</span>
+  <span 
+class="cmss-12x-x-120">cares</span>
+  <span 
+class="cmss-12x-x-120">about</span>
+  <span 
+class="cmss-12x-x-120">0/1?</span>                                                                                         </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+  <div class="minipage"><span 
+class="cmssbx-10x-x-109">Old version: 0/1 </span><table class="equation-star"><tr><td>
+<!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation"><msub><mrow 
+>
+<mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>1</mn><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;a&#x00A0;student</mtext></mstyle>     </mtd></mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>0</mn><mspace width="1em" class="quad"/></mtd> <mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;not&#x00A0;a&#x00A0;student</mtext></mstyle></mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>              </mrow><mo fence="true" form="postfix"></mo></mrow>
+</math></td></tr></table>
+<!--l. 342--><p class="noindent" >Model:
+</p><!--tex4ht:inline--><!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+<mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>y</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+></mtd><mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="2em"/></mtd>                                               <mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>   <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;student</mtext></mstyle></mtd>
+</mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+>         <mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;isn&#8217;t</mtext></mstyle>       </mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>       </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd><mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div><div class="minipage"><span 
+class="cmssbx-10x-x-109">Alternative version:</span>
+<!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-bin" stretchy="false">�</mo> <mn>1</mn></math>
+<table class="equation-star"><tr><td>
+<!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation"><msub><mrow 
+>
+<mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>1</mn>  <mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;a&#x00A0;student</mtext></mstyle>     </mtd></mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mo 
+class="MathClass-bin" stretchy="false">-</mo><mn>1</mn><mspace width="1em" class="quad"/></mtd> <mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;not&#x00A0;a&#x00A0;student</mtext></mstyle></mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>            </mrow><mo fence="true" form="postfix"></mo></mrow>
+</math></td></tr></table>
+<!--l. 342--><p class="noindent" >Model:
+</p><!--tex4ht:inline--><!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+<mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>y</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+></mtd><mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="2em"/></mtd>                                               <mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>   <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;is&#x00A0;student</mtext></mstyle></mtd>
+</mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">-</mo><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;isn&#8217;t</mtext></mstyle>       </mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>       </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd><mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox48'> <span class='cmss-12x-x-120'>Qualitiative
-  Predictor
-  with
-  More
-  than
-  Two
-  Levels</span>                                                                                        </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-       <div class='minipage'><span class='cmtt-10x-x-109'>Region</span>:
-<!-- l. 397 --><p class='noindent'>
+<div class="slide"> <span 
+class="colorbox" id="colorbox48"> <span 
+class="cmss-12x-x-120">Qualitiative</span>
+  <span 
+class="cmss-12x-x-120">Predictor</span>
+  <span 
+class="cmss-12x-x-120">with</span>
+  <span 
+class="cmss-12x-x-120">More</span>
+  <span 
+class="cmss-12x-x-120">than</span>
+  <span 
+class="cmss-12x-x-120">Two</span>
+  <span 
+class="cmss-12x-x-120">Levels</span>                                                                                        </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+       <div class="minipage"><span 
+class="cmtt-10x-x-109">Region</span>:
+<!--l. 397--><p class="noindent" >
 </p>
-<div class='tabular'> <table class='tabular' id='TBL-7' rules='groups'><colgroup id='TBL-7-1g'><col id='TBL-7-1' /></colgroup><colgroup id='TBL-7-2g'><col id='TBL-7-2' /><col id='TBL-7-3' /></colgroup><tr id='TBL-7-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-1-1' style='text-align:right; white-space:nowrap;'>    </td><td class='td11' id='TBL-7-1-2' style='text-align:center; white-space:nowrap;'><!-- l. 397 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub></math></td><td class='td11' id='TBL-7-1-3' style='text-align:center; white-space:nowrap;'><!-- l. 397 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub></math></td>
-</tr><tr class='array-hline'><td></td><td></td><td></td></tr><tr id='TBL-7-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-2-1' style='text-align:right; white-space:nowrap;'>     </td><td class='td11' id='TBL-7-2-2' style='text-align:center; white-space:nowrap;'>                       </td></tr><tr id='TBL-7-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-3-1' style='text-align:right; white-space:nowrap;'>South</td> <td class='td11' id='TBL-7-3-2' style='text-align:center; white-space:nowrap;'></td><td class='td11' id='TBL-7-3-3' style='text-align:center; white-space:nowrap;'>                       </td>
-</tr><tr id='TBL-7-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-5-1' style='text-align:right; white-space:nowrap;'> West</td><td class='td11' id='TBL-7-5-2' style='text-align:center; white-space:nowrap;'>                       </td><td class='td11' id='TBL-7-5-3' style='text-align:center; white-space:nowrap;'>                       </td>
-</tr><tr id='TBL-7-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-7-1' style='text-align:right; white-space:nowrap;'> East</td><td class='td11' id='TBL-7-7-2' style='text-align:center; white-space:nowrap;'>                       </td><td class='td11' id='TBL-7-7-3' style='text-align:center; white-space:nowrap;'>                       </td>
-</tr><tr id='TBL-7-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-7-8-1' style='text-align:right; white-space:nowrap;'>     </td><td class='td11' id='TBL-7-8-2' style='text-align:center; white-space:nowrap;'>                       </td></tr></table>                         </div> </div> <div class='minipage'>Create spare dummy variables:
-<!-- l. 397 --><p class='noindent'>
-</p><!-- tex4ht:inline --><!-- l. 397 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none none none none' style=''>
- <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub></mtd>  <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person from South</mtext></mstyle>     </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person not from South</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>              </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd> <mtd class='align-label' columnalign='right'></mtd> <mtd class='align-label'>
- <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub></mtd>  <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>1</mn><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person from West</mtext></mstyle>     </mtd></mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><mn>0</mn><mspace class='quad' width='1em'></mspace></mtd> <mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person not from West</mtext></mstyle></mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd> <mtd class='align-label' columnalign='right'></mtd> <mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>
+<div class="tabular"> <table id="TBL-7" class="tabular" 
+rules="groups" 
+><colgroup id="TBL-7-1g"><col 
+id="TBL-7-1" /></colgroup><colgroup id="TBL-7-2g"><col 
+id="TBL-7-2" /><col 
+id="TBL-7-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-7-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-1-1"  
+class="td11">    </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-1-2"  
+class="td11"><!--l. 397--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>1</mn></mrow></msub 
+></math></td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-1-3"  
+class="td11"><!--l. 397--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>2</mn></mrow></msub 
+></math></td>
+</tr><tr 
+class="array-hline"><td></td><td></td><td></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-2-1"  
+class="td11">     </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-2-2"  
+class="td11">                       </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-3-1"  
+class="td11">South</td> <td  style="text-align:center; white-space:nowrap;" id="TBL-7-3-2"  
+class="td11"></td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-3-3"  
+class="td11">                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-4-1"  
+class="td11">     </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-5-1"  
+class="td11"> West</td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-5-2"  
+class="td11">                       </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-5-3"  
+class="td11">                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-6-1"  
+class="td11">     </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-7-1"  
+class="td11"> East</td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-7-2"  
+class="td11">                       </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-7-3"  
+class="td11">                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-7-8-1"  
+class="td11">     </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-8-2"  
+class="td11">                       </td></tr></table>                         </div> </div> <div class="minipage">Create spare dummy variables:
+<!--l. 397--><p class="noindent" >
+</p><!--tex4ht:inline--><!--l. 397--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+ <mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>1</mn></mrow></msub 
+></mtd>  <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>1</mn><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;from&#x00A0;South</mtext></mstyle>     </mtd></mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>0</mn><mspace width="1em" class="quad"/></mtd> <mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;not&#x00A0;from&#x00A0;South</mtext></mstyle></mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>              </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd> <mtd 
+columnalign="right" class="align-label"></mtd> <mtd 
+class="align-label">
+ <mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>2</mn></mrow></msub 
+></mtd>  <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>1</mn><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;from&#x00A0;West</mtext></mstyle>     </mtd></mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><mn>0</mn><mspace width="1em" class="quad"/></mtd> <mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;not&#x00A0;from&#x00A0;West</mtext></mstyle></mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>                </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd> <mtd 
+columnalign="right" class="align-label"></mtd> <mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div>
 </tr></table>
-<!-- l. 397 --><p class='noindent'>
-</p><!-- tex4ht:inline --><!-- l. 397 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none none none' style=''>
-                              <mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mtd>                                       <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                                                                                                                                           <mtd class='align-label' columnalign='right'></mtd>                                       <mtd class='align-label'>
-                                       <mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>                                          <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo>  <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' columnlines='none' displaystyle='true' equalcolumns='false' equalrows='false' rowlines='none' style=''> <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person from South</mtext></mstyle></mtd>
-</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person from West</mtext></mstyle> </mtd>
-</mtr>  <mtr class='array-row'><mtd class='array-td' columnalign='left'><msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>𝜀</mi></mrow><mrow><mi>i</mi></mrow></msub>         <mspace class='quad' width='1em'></mspace></mtd><mtd class='array-td' columnalign='left'><mstyle class='text'><mtext>if </mtext><mstyle class='math'><mi>i</mi></mstyle><mtext>th person from East</mtext></mstyle>  </mtd></mtr><!-- @{}l@{\quad }l@{} --></mtable>                                                                      </mrow><mo fence='true' form='postfix'></mo></mrow><mspace width='2em'></mspace></mtd>                              <mtd class='align-label' columnalign='right'></mtd>                              <mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math></div>
+<!--l. 397--><p class="noindent" >
+</p><!--tex4ht:inline--><!--l. 397--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+                              <mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>y</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+></mtd>                                       <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mi 
+>i</mi><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="2em"/></mtd>                                                                                                                                                           <mtd 
+columnalign="right" class="align-label"></mtd>                                       <mtd 
+class="align-label">
+                                       <mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>                                          <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo>  <mrow><mo fence="true" form="prefix"> {</mo><mrow> <mtable  align="axis" style=""  
+equalrows="false" columnlines="none" equalcolumns="false" class="array" displaystyle="true"> <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;from&#x00A0;South</mtext></mstyle></mtd>
+</mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+><mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;from&#x00A0;West</mtext></mstyle> </mtd>
+</mtr>  <mtr class="array-row"><mtd 
+class="array-td"  columnalign="left"><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B5;</mi></mrow><mrow 
+><mi 
+>i</mi></mrow></msub 
+>         <mspace width="1em" class="quad"/></mtd><mtd 
+class="array-td"  columnalign="left"><mstyle 
+class="text"><mtext  >if&#x00A0;</mtext><mstyle 
+class="math"><mi 
+>i</mi></mstyle><mtext  >th&#x00A0;person&#x00A0;from&#x00A0;East</mtext></mstyle>  </mtd></mtr><!--@{}l@{\quad }l@{}--></mtable>                                                                      </mrow><mo fence="true" form="postfix"></mo></mrow><mspace width="2em"/></mtd>                              <mtd 
+columnalign="right" class="align-label"></mtd>                              <mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math></div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox52'> <span class='cmss-12x-x-120'>More
-  on
-  multiple
-  levels</span>                                                                                        </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
- <div class='minipage'>                                </div>   <div class='minipage'><img alt='Coefficients, t-statistic, and p-value for a linear model
-for credit card balance versus region (south/west).' src='../Figures/Table3-8.png' style='max-width:100%' />        </div>
+<div class="slide"> <span 
+class="colorbox" id="colorbox52"> <span 
+class="cmss-12x-x-120">More</span>
+  <span 
+class="cmss-12x-x-120">on</span>
+  <span 
+class="cmss-12x-x-120">multiple</span>
+  <span 
+class="cmss-12x-x-120">levels</span>                                                                                        </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+ <div class="minipage">                                </div>   <div class="minipage"><img 
+src="../../Figures/Table3-8.png" alt="Coefficients, t-statistic, and p-value for a linear model
+for credit card balance versus region (south/west)."  
+style="max-width:100%" />        </div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <h2 class='frametitle'></h2>Do code section on ”Dummy Variables for Multi-level Categorical Inputs” <table class='columns'><tr>
-   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+<div class="slide"> <h2 class="frametitle"></h2>Do code section on &#8221;Dummy Variables for Multi-level Categorical Inputs&#8221; <table class="columns"><tr>
+   <div class="minipage">                                                     </div>      <div class="minipage">                                                     </div>
  </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<p><a id='x1-4r3'></a>
+<a 
+ id="x1-4r3"></a>
                                                                                    
                                                                                    
-<a id='Outline0.3'></a>  </p><p></p><div class='slide'> <!-- l. 437 --><p class='noindent'><span class='cmss-12x-x-120'>Section 3</span>
-<img alt='picture' src='CMSE381-Lec08_Ch3_313x.png' />
-<img alt='picture' src='CMSE381-Lec08_Ch3_315x.png' /></p><div class='minipage'>                                                   <a href='#Navigation18'><span class='cmss-12x-x-120'>Extending
-                                            the
-                                           linear
-                                          model</span></a>
+<a 
+ id="Outline0.3"></a>  </p><div class="slide"> <!--l. 437--><p class="noindent" ><span 
+class="cmss-12x-x-120">Section</span><span 
+class="cmss-12x-x-120">&#x00A0;3</span>
+<img 
+src="CMSE381-Lec08_Ch3_313x.png" alt="picture"  />
+<img 
+src="CMSE381-Lec08_Ch3_315x.png" alt="picture"  /><div class="minipage">                                                   <a 
+href="#Navigation18"><span 
+class="cmss-12x-x-120">Extending</span>
+                                            <span 
+class="cmss-12x-x-120">the</span>
+                                           <span 
+class="cmss-12x-x-120">linear</span>
+                                          <span 
+class="cmss-12x-x-120">model</span></a>
                                                                                             </div>
                                                                                             </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox62'> <span class='cmss-12x-x-120'>Assumptions
-  so
-  far
-  </span><span class='cmss-9'>Back
-   to
-   our
-   Advertising
-   data
-   set</span>
+<div class="slide"> <span 
+class="colorbox" id="colorbox62"> <span 
+class="cmss-12x-x-120">Assumptions</span>
+  <span 
+class="cmss-12x-x-120">so</span>
+  <span 
+class="cmss-12x-x-120">far</span>
+  <span 
+class="cmss-9">Back</span>
+   <span 
+class="cmss-9">to</span>
+   <span 
+class="cmss-9">our</span>
+   <span 
+class="cmss-9">Advertising</span>
+   <span 
+class="cmss-9">data</span>
+   <span 
+class="cmss-9">set</span>
                                                                                                                                                     </span>
-<h2 class='frametitle'></h2>
-<table class='equation-star'><tr><td>
-<!-- l. 459 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow>
-                              <mi>Ŷ</mi></mrow><mrow><mi mathvariant='italic'>𝑠𝑎𝑙𝑒𝑠</mi></mrow></msub> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>⋅</mo><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>⋅</mo><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>⋅</mo><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑛𝑒𝑤𝑠𝑝𝑎𝑝𝑒𝑟</mi></mrow></msub>
-</mrow></math></td></tr></table>
-<table class='columns'><tr>
-    <div class='minipage'>Assumed (implicitly) that the effect on
+<h2 class="frametitle"></h2>
+<table class="equation-star"><tr><td>
+<!--l. 459--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation"><msub><mrow 
+>
+                              <mi 
+>&#x0176;</mi></mrow><mrow 
+><mi 
+>s</mi><mi 
+>a</mi><mi 
+>l</mi><mi 
+>e</mi><mi 
+>s</mi></mrow></msub 
+> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>n</mi><mi 
+>e</mi><mi 
+>w</mi><mi 
+>s</mi><mi 
+>p</mi><mi 
+>a</mi><mi 
+>p</mi><mi 
+>e</mi><mi 
+>r</mi></mrow></msub 
+>
+</math></td></tr></table>
+<table class="columns"><tr>
+    <div class="minipage">Assumed (implicitly) that the effect on
 sales by increasing one medium is
-independent of the others.                    </div>      <div class='minipage'>What if spending money on radio
+independent of the others.                    </div>      <div class="minipage">What if spending money on radio
 advertising increases the effectiveness of
 TV advertising? How do we model it?      </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox66'> <span class='cmss-12x-x-120'>Interaction
-  Term</span>                                                                                         </span>
-<h2 class='frametitle'></h2><table class='columns'><tr>
-    <div class='minipage'><table class='equation-star'><tr><td>
-<!-- l. 484 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-    <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi>
-</mrow></math></td></tr></table>
-<!-- l. 484 --><p class='noindent'>
-</p><!-- tex4ht:inline --><!-- l. 484 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='none' style=''>
-<mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>Y</mi> </mrow><mrow><mi mathvariant='italic'>𝑠𝑎𝑙𝑒𝑠</mi></mrow></msub></mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi><mspace width='2em'></mspace></mtd><mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi><mspace width='2em'></mspace></mtd>   <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mover accent='true'><mrow><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub></mrow><mo accent='true'>~</mo></mover><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi><mspace width='2em'></mspace></mtd>                <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div>  <div class='minipage'>                                   </div>
+<div class="slide"> <span 
+class="colorbox" id="colorbox66"> <span 
+class="cmss-12x-x-120">Interaction</span>
+  <span 
+class="cmss-12x-x-120">Term</span>                                                                                         </span>
+<h2 class="frametitle"></h2><table class="columns"><tr>
+    <div class="minipage"><table class="equation-star"><tr><td>
+<!--l. 484--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+    <mi 
+>Y</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi>
+</math></td></tr></table>
+<!--l. 484--><p class="noindent" >
+</p><!--tex4ht:inline--><!--l. 484--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+<mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>Y</mi> </mrow><mrow 
+><mi 
+>s</mi><mi 
+>a</mi><mi 
+>l</mi><mi 
+>e</mi><mi 
+>s</mi></mrow></msub 
+></mtd><mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi><mspace width="2em"/></mtd><mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>      <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mo 
+class="MathClass-open" stretchy="false">(</mo><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+><mo 
+class="MathClass-close" stretchy="false">)</mo><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi><mspace width="2em"/></mtd>   <mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>      <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mover 
+accent="true"><mrow 
+><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+></mrow><mo accent="true">~</mo></mover><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi><mspace width="2em"/></mtd>                <mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div>  <div class="minipage">                                   </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox70'> <span class='cmss-12x-x-120'>Interaction
-  term</span>                                                                                         </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-  <div class='minipage'><table class='equation-star'><tr><td>
-<!-- l. 513 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
- <mi>Y</mi> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi>
-</mrow></math></td></tr></table>
-<!-- l. 513 --><p class='noindent'>
-</p><!-- tex4ht:inline --><!-- l. 513 --><math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align-star' columnalign='left' displaystyle='true' rowlines='' style=''>
-<mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>Y</mi> </mrow><mrow><mi mathvariant='italic'>𝑠𝑎𝑙𝑒𝑠</mi></mrow></msub></mtd><mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi><mspace width='2em'></mspace></mtd><mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>      <mtd class='align-even'> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>3</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑇𝑉</mi> </mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub><msub><mrow><mi>X</mi></mrow><mrow><mi mathvariant='italic'>𝑟𝑎𝑑𝑖𝑜</mi></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi><mspace width='2em'></mspace></mtd>   <mtd class='align-label' columnalign='right'></mtd><mtd class='align-label'>
-<mspace width='2em'></mspace></mtd></mtr></mtable></math> </div> <div class='minipage'><img alt='Coefficients, standard error, t-statistic,
+<div class="slide"> <span 
+class="colorbox" id="colorbox70"> <span 
+class="cmss-12x-x-120">Interaction</span>
+  <span 
+class="cmss-12x-x-120">term</span>                                                                                         </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+  <div class="minipage"><table class="equation-star"><tr><td>
+<!--l. 513--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+ <mi 
+>Y</mi> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi>
+</math></td></tr></table>
+<!--l. 513--><p class="noindent" >
+</p><!--tex4ht:inline--><!--l. 513--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" ><mtable 
+displaystyle="true" columnalign="left" class="align-star">
+<mtr><mtd 
+columnalign="right" class="align-odd"><msub><mrow 
+><mi 
+>Y</mi> </mrow><mrow 
+><mi 
+>s</mi><mi 
+>a</mi><mi 
+>l</mi><mi 
+>e</mi><mi 
+>s</mi></mrow></msub 
+></mtd><mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi><mspace width="2em"/></mtd><mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr><mtr><mtd 
+columnalign="right" class="align-odd"></mtd>      <mtd 
+class="align-even"> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mo 
+class="MathClass-open" stretchy="false">(</mo><msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>3</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+><mo 
+class="MathClass-close" stretchy="false">)</mo><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>T</mi><mi 
+>V</mi> </mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+><msub><mrow 
+><mi 
+>X</mi></mrow><mrow 
+><mi 
+>r</mi><mi 
+>a</mi><mi 
+>d</mi><mi 
+>i</mi><mi 
+>o</mi></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi><mspace width="2em"/></mtd>   <mtd 
+columnalign="right" class="align-label"></mtd><mtd 
+class="align-label">
+<mspace width="2em"/></mtd></mtr></mtable></math> </div> <div class="minipage"><img 
+src="../../Figures/Table3-9.png" alt="Coefficients, standard error, t-statistic,
 and p-value for Sales versus TV, radio, TV
-times radio, all in 1000s of dollars.' src='../Figures/Table3-9.png' style='max-width:100%' />          </div>
+times radio, all in 1000s of dollars."  
+style="max-width:100%" />          </div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox74'> <span class='cmss-12x-x-120'>Interpretation</span>                                                                              </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-  <div class='minipage'><!-- l. 539 --><p class='noindent'><img alt='Coefficients, standard error, t-statistic,
+<div class="slide"> <span 
+class="colorbox" id="colorbox74"> <span 
+class="cmss-12x-x-120">Interpretation</span>                                                                              </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+  <div class="minipage"><!--l. 539--><p class="noindent" ><img 
+src="../../Figures/Table3-9.png" alt="Coefficients, standard error, t-statistic,
 and p-value for Sales versus TV, radio, TV
-times radio, all in 1000s of dollars.' src='../Figures/Table3-9.png' style='max-width:100%' />          </p></div>      <div class='minipage'>                                                     </div>
+times radio, all in 1000s of dollars."  
+style="max-width:100%" />          </p></div>      <div class="minipage">                                                     </div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox78'> <span class='cmss-12x-x-120'>Hierarchy
-  principle</span>                                                                                     </span>
-<h2 class='frametitle'></h2>
-<table class='columns'><tr>
-  <div class='minipage'>Sometimes
-<!-- l. 558 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>p</mi></math>-value
+<div class="slide"> <span 
+class="colorbox" id="colorbox78"> <span 
+class="cmss-12x-x-120">Hierarchy</span>
+  <span 
+class="cmss-12x-x-120">principle</span>                                                                                     </span>
+<h2 class="frametitle"></h2>
+<table class="columns"><tr>
+  <div class="minipage">Sometimes
+<!--l. 558--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>p</mi></math>-value
 for interaction term is very small, but
-associated main effects are not.              </div>      <div class='minipage'>The hierarchy principle:                        </div>
+associated main effects are not.              </div>      <div class="minipage">The hierarchy principle:                        </div>
 </tr></table>
                                                                                     </div>
                                                                                    
                                                                                    
-<div class='slide'> <span class='colorbox' id='colorbox82'> <span class='cmss-12x-x-120'>Nonlinear
-  relationships</span>
+<div class="slide"> <span 
+class="colorbox" id="colorbox82"> <span 
+class="cmss-12x-x-120">Nonlinear</span>
+  <span 
+class="cmss-12x-x-120">relationships</span>
                                                                                                  </span>
-<h2 class='frametitle'></h2>
-<table class='equation-star'><tr><td>
-<!-- l. 647 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-                    <mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚖𝚙𝚐</mtext></mstyle> <mo class='MathClass-rel' stretchy='false'>=</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>1</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>⋅</mo><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚑𝚘𝚛𝚜𝚎𝚙𝚘𝚠𝚎𝚛</mtext></mstyle> <mo class='MathClass-bin' stretchy='false'>+</mo> <msub><mrow><mi>β</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin' stretchy='false'>⋅</mo><msup><mrow><mstyle class='text'><mtext class='texttt' mathvariant='monospace'>𝚑𝚘𝚛𝚜𝚎𝚙𝚘𝚠𝚎𝚛</mtext></mstyle></mrow><mrow><mn>2</mn></mrow></msup> <mo class='MathClass-bin' stretchy='false'>+</mo> <mi>𝜀</mi>
-</mrow></math></td></tr></table>
-<table class='columns'><tr>
-   <div class='minipage'>                                             </div>     <div class='minipage'><img alt='Scatter plot of miles per gallon versus
+<h2 class="frametitle"></h2>
+<table class="equation-star"><tr><td>
+<!--l. 647--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                    <mstyle 
+class="text"><mtext class="texttt" mathvariant="monospace" >mpg</mtext></mstyle> <mo 
+class="MathClass-rel" stretchy="false">=</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>0</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>1</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><mstyle 
+class="text"><mtext class="texttt" mathvariant="monospace" >horsepower</mtext></mstyle> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <msub><mrow 
+><mi 
+>&#x03B2;</mi></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin" stretchy="false">&#x22C5;</mo><msup><mrow 
+><mstyle 
+class="text"><mtext class="texttt" mathvariant="monospace" >horsepower</mtext></mstyle></mrow><mrow 
+><mn>2</mn></mrow></msup 
+> <mo 
+class="MathClass-bin" stretchy="false">+</mo> <mi 
+>&#x03B5;</mi>
+</math></td></tr></table>
+<table class="columns"><tr>
+   <div class="minipage">                                             </div>     <div class="minipage"><img 
+src="../../Figures/Fig3-8.png" alt="Scatter plot of miles per gallon versus
 horsepower with linear, degree 2, and
-degree 5 fits.' src='../Figures/Fig3-8.png' style='max-width:100%' />
-<!-- l. 647 --><p class='noindent'><img alt='Coefficients, standard error, t-statistic,
+degree 5 fits."  
+style="max-width:100%" />
+<!--l. 647--><p class="noindent" ><img 
+src="../../Figures/Table3-10.png" alt="Coefficients, standard error, t-statistic,
 and p-value for a quadratic polynomial fit
-of miles per gallon versus horse power.' src='../Figures/Table3-10.png' style='max-width:100%' />     </p></div>
+of miles per gallon versus horse power."  
+style="max-width:100%" />     </p></div>
 </tr></table>                                                                                   </div>
                                                                                    
                                                                                    
-<div class='slide'> <h2 class='frametitle'></h2>Do the section on “Interaction Terms” <table class='columns'><tr>
-   <div class='minipage'>                                                     </div>      <div class='minipage'>                                                     </div>
+<div class="slide"> <h2 class="frametitle"></h2>Do the section on &#8220;Interaction Terms&#8221; <table class="columns"><tr>
+   <div class="minipage">                                                     </div>      <div class="minipage">                                                     </div>
  </tr></table>
                                                                                     </div>
                                                                                    

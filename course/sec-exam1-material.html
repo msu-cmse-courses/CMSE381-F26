@@ -19,6 +19,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
+<style>
+@counter-style ptx-marker-0 { system: extends lower-alpha; prefix: '('; suffix: ') '; }
+</style>
 <script type="module">import { startMathJax } from './_static/pretext/js/dist/mathjax_startup.js';
 startMathJax({
 hasWebworkReps: false,
@@ -188,6 +191,13 @@ eBookConfig.enable_chatcodes =  false;
 <ul id="ptx-toc-group-subsec-ws04-simple-linear-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day04-notebook.html#ws04-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
 </li></ul>
 </li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day05-notebook.html" class="internal"><span class="title">Day 05 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day05-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day05-notebook.html#subsec-ws05-assessing-coefficient-accuracy" class="internal"><span class="title">Assessing Coefficient Accuracy</span></a></div>
+<ul id="ptx-toc-group-subsec-ws05-assessing-coefficient-accuracy" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day05-notebook.html#ws05-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter contains-active">
@@ -199,7 +209,13 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-02-lecture" class="internal"><span class="title">Day 02</span></a></div></li>
 <li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-03-lecture" class="internal"><span class="title">Day 03</span></a></div></li>
 <li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-04-lecture" class="internal"><span class="title">Day 04</span></a></div></li>
-<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-05-lecture" class="internal"><span class="title">Day 05</span></a></div></li>
+<li class="toc-item toc-handout">
+<div class="toc-title-box"><a href="sec-exam1-material.html#day-05-lecture" class="internal"><span class="title">Day 05</span></a></div>
+<ul id="ptx-toc-group-day-05-lecture" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-stat-review" class="internal"><span class="title">Stats Review</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates" class="internal"><span class="title">Assessing Coefficient Estimate Accuracy</span></a></div></li>
+</ul>
+</li>
 <li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-06-lecture" class="internal"><span class="title">Day 06</span></a></div></li>
 </ul>
 </li></ul>
@@ -225,6 +241,9 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 <div class="hide-option">
 <label for="hide-answer-checkbox">Hide answers</label><input type="checkbox" id="hide-answer-checkbox">
+</div>
+<div class="hide-option">
+<label for="hide-solution-checkbox">Hide solutions</label><input type="checkbox" id="hide-solution-checkbox">
 </div>
 </div>
 <div class="header-footer-options">
@@ -275,7 +294,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 <li id="sec-exam1-material-2-1-1-5">
 <div class="para" id="sec-exam1-material-2-1-1-5-1">
-<a href="sec-exam1-material.html#day-05-lecture" class="internal" title="Section: Day 05">Day 05</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam1-material-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<a href="sec-exam1-material.html#day-05-lecture" class="internal" title="Handout: Day 05">Day 05</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam1-material-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-exam1-material-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
@@ -313,7 +332,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul>
 </div>
-<figcaption><span class="type">List</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">12<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Statistical Learning<div class="autopermalink" aria-hidden="true" data-description="List 12: Statistical Learning"><a tabindex="-1" href="#day-01-lecture-3-2-1" title="Copy heading and permalink for List 12: Statistical Learning" aria-label="Copy heading and permalink for List 12: Statistical Learning">🔗</a></div></figcaption>
+<figcaption><span class="type">List</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">15<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Statistical Learning<div class="autopermalink" aria-hidden="true" data-description="List 15: Statistical Learning"><a tabindex="-1" href="#day-01-lecture-3-2-1" title="Copy heading and permalink for List 15: Statistical Learning" aria-label="Copy heading and permalink for List 15: Statistical Learning">🔗</a></div></figcaption>
 </figure>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
@@ -326,7 +345,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul>
 </div>
-<figcaption><span class="type">List</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">13<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Machine Learning<div class="autopermalink" aria-hidden="true" data-description="List 13: Machine Learning"><a tabindex="-1" href="#day-01-lecture-3-2-2" title="Copy heading and permalink for List 13: Machine Learning" aria-label="Copy heading and permalink for List 13: Machine Learning">🔗</a></div></figcaption>
+<figcaption><span class="type">List</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">16<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Machine Learning<div class="autopermalink" aria-hidden="true" data-description="List 16: Machine Learning"><a tabindex="-1" href="#day-01-lecture-3-2-2" title="Copy heading and permalink for List 16: Machine Learning" aria-label="Copy heading and permalink for List 16: Machine Learning">🔗</a></div></figcaption>
 </figure>
 </div>
 </div>
@@ -403,7 +422,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="day-01-lecture-6" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">14</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spam versus non-spam email.</span>
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">17</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spam versus non-spam email.</span>
 </h3></summary>
 <article class="example example-like knowl__content"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/figures/ESLR-Table1-1.png" class="contained" alt="table of distribution of strings in samples of spam versus non-spam emails"></div> 
 <div class="para" id="day-01-lecture-6-2-2">Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-6-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -413,10 +432,10 @@ eBookConfig.enable_chatcodes =  false;
 <div class="answer solution-like knowl__content">
 <div class="para" id="day-01-lecture-6-3-1">One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) &amp; (%you &gt; 1.5) then spam. Another option is if (0.2.%you - 0.3.%george &gt; 0)  then spam.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 14.1"><a tabindex="-1" href="#day-01-lecture-6-3" title="Copy heading and permalink for Answer 14.1" aria-label="Copy heading and permalink for Answer 14.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 17.1"><a tabindex="-1" href="#day-01-lecture-6-3" title="Copy heading and permalink for Answer 17.1" aria-label="Copy heading and permalink for Answer 17.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Example 14: Spam versus non-spam email"><a tabindex="-1" href="#day-01-lecture-6" title="Copy heading and permalink for Example 14: Spam versus non-spam email" aria-label="Copy heading and permalink for Example 14: Spam versus non-spam email">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 17: Spam versus non-spam email"><a tabindex="-1" href="#day-01-lecture-6" title="Copy heading and permalink for Example 17: Spam versus non-spam email" aria-label="Copy heading and permalink for Example 17: Spam versus non-spam email">🔗</a></div>
 </article></details>
 <div class="para logical" id="day-01-lecture-7">
 <div class="para"><em class="emphasis">Supervised learning</em></div>
@@ -471,24 +490,24 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="genAI-discussion" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">15</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Generative AI discussion.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">18</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Generative AI discussion.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content">
 <article class="task exercise-like" id="genAI-discussion-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
 <div class="para" id="genAI-discussion-3-1-1">Get in a group of about 4.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#genAI-discussion-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 15.a"><a tabindex="-1" href="#genAI-discussion-3" title="Copy heading and permalink for Task 15.a" aria-label="Copy heading and permalink for Task 15.a">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 18.a"><a tabindex="-1" href="#genAI-discussion-3" title="Copy heading and permalink for Task 18.a" aria-label="Copy heading and permalink for Task 18.a">🔗</a></div>
 </article>
 <article class="task exercise-like" id="genAI-discussion-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
 <div class="para" id="genAI-discussion-4-1-1">In your group, brainstorm cases where someone might use generative AI in the context of our class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#genAI-discussion-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 15.b"><a tabindex="-1" href="#genAI-discussion-4" title="Copy heading and permalink for Task 15.b" aria-label="Copy heading and permalink for Task 15.b">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 18.b"><a tabindex="-1" href="#genAI-discussion-4" title="Copy heading and permalink for Task 18.b" aria-label="Copy heading and permalink for Task 18.b">🔗</a></div>
 </article>
 <article class="task exercise-like" id="genAI-discussion-5"><h4 class="heading"><span class="codenumber">(c)</span></h4>
 <div class="para" id="genAI-discussion-5-1-1">Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#genAI-discussion-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 15.c"><a tabindex="-1" href="#genAI-discussion-5" title="Copy heading and permalink for Task 15.c" aria-label="Copy heading and permalink for Task 15.c">🔗</a></div>
-</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 15: Generative AI discussion"><a tabindex="-1" href="#genAI-discussion" title="Copy heading and permalink for Checkpoint 15: Generative AI discussion" aria-label="Copy heading and permalink for Checkpoint 15: Generative AI discussion">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 18.c"><a tabindex="-1" href="#genAI-discussion-5" title="Copy heading and permalink for Task 18.c" aria-label="Copy heading and permalink for Task 18.c">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 18: Generative AI discussion"><a tabindex="-1" href="#genAI-discussion" title="Copy heading and permalink for Checkpoint 18: Generative AI discussion" aria-label="Copy heading and permalink for Checkpoint 18: Generative AI discussion">🔗</a></div>
 </article></details>
 <div class="para" id="day-01-lecture-10">Get started on <a href="day01-notebook.html" class="internal" title="Section: Day 01 Worksheet">Day01 Worksheet</a>!<div class="workspace" data-space="0.5in"></div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-10" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -543,7 +562,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="sbsrow" style="margin-left:11%;margin-right:11%;grid-template-columns:35.8974358974359% 35.8974358974359%;column-gap:22%;">
 <div class="sbspanel sbspanel--top top" style="">
 <figure class="figure figure-like" id="day-02-lecture-5-1"><div class="image-box"><img src="external/figures/AdvertisingDataSet-Screenshot.png" class="contained" alt="screenshot of the advertising data set"></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">16<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Sales of a product in 200 markets, along with amount spent on three different types of advertising<div class="autopermalink" aria-hidden="true" data-description="Figure 16"><a tabindex="-1" href="#day-02-lecture-5-1" title="Copy heading and permalink for Figure 16" aria-label="Copy heading and permalink for Figure 16">🔗</a></div></figcaption>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">19<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Sales of a product in 200 markets, along with amount spent on three different types of advertising<div class="autopermalink" aria-hidden="true" data-description="Figure 19"><a tabindex="-1" href="#day-02-lecture-5-1" title="Copy heading and permalink for Figure 19" aria-label="Copy heading and permalink for Figure 19">🔗</a></div></figcaption>
 </figure>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
@@ -564,7 +583,7 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 </div>
 <details id="day02-ad-data-ex1" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">17</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Input Variables.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">20</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Input Variables.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -595,13 +614,13 @@ eBookConfig.enable_chatcodes =  false;
 <div class="hint solution-like knowl__content">
 <div class="para" id="day02-ad-data-ex1-4-1">Those are used to predict the output.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-ad-data-ex1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 17.1"><a tabindex="-1" href="#day02-ad-data-ex1-4" title="Copy heading and permalink for Hint 17.1" aria-label="Copy heading and permalink for Hint 17.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 20.1"><a tabindex="-1" href="#day02-ad-data-ex1-4" title="Copy heading and permalink for Hint 20.1" aria-label="Copy heading and permalink for Hint 20.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 17: Input Variables"><a tabindex="-1" href="#day02-ad-data-ex1" title="Copy heading and permalink for Checkpoint 17: Input Variables" aria-label="Copy heading and permalink for Checkpoint 17: Input Variables">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 20: Input Variables"><a tabindex="-1" href="#day02-ad-data-ex1" title="Copy heading and permalink for Checkpoint 20: Input Variables" aria-label="Copy heading and permalink for Checkpoint 20: Input Variables">🔗</a></div>
 </article></details>
 <details id="day02-ad-data-ex2" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">18</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Output Variables.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">21</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Output Variables.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -632,10 +651,10 @@ eBookConfig.enable_chatcodes =  false;
 <div class="hint solution-like knowl__content">
 <div class="para" id="day02-ad-data-ex2-4-1">Those are what we measure or estimate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-ad-data-ex2-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 18.1"><a tabindex="-1" href="#day02-ad-data-ex2-4" title="Copy heading and permalink for Hint 18.1" aria-label="Copy heading and permalink for Hint 18.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 21.1"><a tabindex="-1" href="#day02-ad-data-ex2-4" title="Copy heading and permalink for Hint 21.1" aria-label="Copy heading and permalink for Hint 21.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 18: Output Variables"><a tabindex="-1" href="#day02-ad-data-ex2" title="Copy heading and permalink for Checkpoint 18: Output Variables" aria-label="Copy heading and permalink for Checkpoint 18: Output Variables">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 21: Output Variables"><a tabindex="-1" href="#day02-ad-data-ex2" title="Copy heading and permalink for Checkpoint 21: Output Variables" aria-label="Copy heading and permalink for Checkpoint 21: Output Variables">🔗</a></div>
 </article></details>
 <section class="paragraphs" id="day-02-lecture-8"><h3 class="heading"><span class="title">Notation and Big Assumption.</span></h3>
 <div class="sidebyside">
@@ -715,7 +734,7 @@ Y = f(X) + \epsilon
 <div class="para" id="day-02-lecture-12-1">The blue solid line is <span class="process-math">\(f\text{.}\)</span> The green dashed line is <span class="process-math">\(\hat f\text{.}\)</span> What is the predicted sales for the first three data points using the green dashed line <span class="process-math">\(\hat f\)</span> shown in the graph? Note all values are approximate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-02-lecture-12-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div></section>
 <details id="day02-GW1" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">19</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">22</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" id="rs-day02-GW1" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
 <div class="para" id="day02-GW1-1-1">What is <span class="process-math">\(\hat f(230.1)\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -727,13 +746,13 @@ Y = f(X) + \epsilon
 <div class="para" id="day02-GW1-3-1">
 <span class="process-math">\(\hat f(230.1) = 19\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 19.1"><a tabindex="-1" href="#day02-GW1-3" title="Copy heading and permalink for Answer 19.1" aria-label="Copy heading and permalink for Answer 19.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 22.1"><a tabindex="-1" href="#day02-GW1-3" title="Copy heading and permalink for Answer 22.1" aria-label="Copy heading and permalink for Answer 22.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 19"><a tabindex="-1" href="#day02-GW1" title="Copy heading and permalink for Checkpoint 19" aria-label="Copy heading and permalink for Checkpoint 19">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 22"><a tabindex="-1" href="#day02-GW1" title="Copy heading and permalink for Checkpoint 22" aria-label="Copy heading and permalink for Checkpoint 22">🔗</a></div>
 </article></details>
 <details id="day02-GW2" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">20</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">23</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" id="rs-day02-GW2" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
 <div class="para" id="day02-GW2-1-1">What is <span class="process-math">\(\hat f(44.5)\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -745,13 +764,13 @@ Y = f(X) + \epsilon
 <div class="para" id="day02-GW2-3-1">
 <span class="process-math">\(\hat f(44.5) = 7\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 20.1"><a tabindex="-1" href="#day02-GW2-3" title="Copy heading and permalink for Answer 20.1" aria-label="Copy heading and permalink for Answer 20.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 23.1"><a tabindex="-1" href="#day02-GW2-3" title="Copy heading and permalink for Answer 23.1" aria-label="Copy heading and permalink for Answer 23.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 20"><a tabindex="-1" href="#day02-GW2" title="Copy heading and permalink for Checkpoint 20" aria-label="Copy heading and permalink for Checkpoint 20">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 23"><a tabindex="-1" href="#day02-GW2" title="Copy heading and permalink for Checkpoint 23" aria-label="Copy heading and permalink for Checkpoint 23">🔗</a></div>
 </article></details>
 <details id="day02-GW3" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">21</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">24</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" id="rs-day02-GW3" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
 <div class="para" id="day02-GW3-1-1">What is <span class="process-math">\(\hat f(17.2)\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -763,10 +782,10 @@ Y = f(X) + \epsilon
 <div class="para" id="day02-GW3-3-1">
 <span class="process-math">\(\hat f(17.2) = 5\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day02-GW3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 21.1"><a tabindex="-1" href="#day02-GW3-3" title="Copy heading and permalink for Answer 21.1" aria-label="Copy heading and permalink for Answer 21.1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 24.1"><a tabindex="-1" href="#day02-GW3-3" title="Copy heading and permalink for Answer 24.1" aria-label="Copy heading and permalink for Answer 24.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 21"><a tabindex="-1" href="#day02-GW3" title="Copy heading and permalink for Checkpoint 21" aria-label="Copy heading and permalink for Checkpoint 21">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 24"><a tabindex="-1" href="#day02-GW3" title="Copy heading and permalink for Checkpoint 24" aria-label="Copy heading and permalink for Checkpoint 24">🔗</a></div>
 </article></details>
 <div class="para" id="day-02-lecture-16">Using the dashed green line as the predicted model <span class="process-math">\(\hat{f}\text{,}\)</span> how can we quantify the error in each of the three predictions? This is what we will learn next.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-02-lecture-16" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -848,7 +867,7 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Inference"><a tabindex="-1" href="#day-02-lecture-19" title="Copy heading and permalink for Paragraphs: Inference" aria-label="Copy heading and permalink for Paragraphs: Inference">🔗</a></div>
 </section>
 <details id="day02-GW4" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">22</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">25</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -866,10 +885,10 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <li data-component="feedback" id="rs-day02-GW4_opt_b">
 </ul>
 </div></div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 22"><a tabindex="-1" href="#day02-GW4" title="Copy heading and permalink for Checkpoint 22" aria-label="Copy heading and permalink for Checkpoint 22">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 25"><a tabindex="-1" href="#day02-GW4" title="Copy heading and permalink for Checkpoint 25" aria-label="Copy heading and permalink for Checkpoint 25">🔗</a></div>
 </article></details>
 <details id="day02-GW5" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">23</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">26</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -887,10 +906,10 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <li data-component="feedback" id="rs-day02-GW5_opt_b">
 </ul>
 </div></div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 23"><a tabindex="-1" href="#day02-GW5" title="Copy heading and permalink for Checkpoint 23" aria-label="Copy heading and permalink for Checkpoint 23">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 26"><a tabindex="-1" href="#day02-GW5" title="Copy heading and permalink for Checkpoint 26" aria-label="Copy heading and permalink for Checkpoint 26">🔗</a></div>
 </article></details>
 <details id="day02-GW6" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">24</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">27</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -908,10 +927,10 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <li data-component="feedback" id="rs-day02-GW6_opt_b">
 </ul>
 </div></div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 24"><a tabindex="-1" href="#day02-GW6" title="Copy heading and permalink for Checkpoint 24" aria-label="Copy heading and permalink for Checkpoint 24">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 27"><a tabindex="-1" href="#day02-GW6" title="Copy heading and permalink for Checkpoint 27" aria-label="Copy heading and permalink for Checkpoint 27">🔗</a></div>
 </article></details>
 <details id="day02-GW7" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">25</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">28</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -929,10 +948,10 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <li data-component="feedback" id="rs-day02-GW7_opt_b">
 </ul>
 </div></div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 25"><a tabindex="-1" href="#day02-GW7" title="Copy heading and permalink for Checkpoint 25" aria-label="Copy heading and permalink for Checkpoint 25">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 28"><a tabindex="-1" href="#day02-GW7" title="Copy heading and permalink for Checkpoint 28" aria-label="Copy heading and permalink for Checkpoint 28">🔗</a></div>
 </article></details>
 <details id="day02-GW8" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">26</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">29</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -950,7 +969,7 @@ E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\e
 <li data-component="feedback" id="rs-day02-GW8_opt_b">
 </ul>
 </div></div>
-<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 26"><a tabindex="-1" href="#day02-GW8" title="Copy heading and permalink for Checkpoint 26" aria-label="Copy heading and permalink for Checkpoint 26">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Checkpoint 29"><a tabindex="-1" href="#day02-GW8" title="Copy heading and permalink for Checkpoint 29" aria-label="Copy heading and permalink for Checkpoint 29">🔗</a></div>
 </article></details>
 <section class="paragraphs" id="day-02-lecture-25"><h3 class="heading"><span class="title">How to estimate <span class="process-math">\(f\)</span>.</span></h3>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: How to estimate f"><a tabindex="-1" href="#day-02-lecture-25" title="Copy heading and permalink for Paragraphs: How to estimate f" aria-label="Copy heading and permalink for Paragraphs: How to estimate f">🔗</a></div>
@@ -1073,7 +1092,7 @@ N_k(x) \amp= \text{Set of $k$ nearest neighbors of $x$} \\
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Example Non-parametric method: Nearest Neighbors"><a tabindex="-1" href="#day-02-lecture-29" title="Copy heading and permalink for Paragraphs: Example Non-parametric method: Nearest Neighbors" aria-label="Copy heading and permalink for Paragraphs: Example Non-parametric method: Nearest Neighbors">🔗</a></div>
 </section>
-<figure class="table table-like" id="day-02-lecture-30"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">27<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Parametric methods: Pros and Cons<div class="autopermalink" aria-hidden="true" data-description="Table 27: Parametric methods: Pros and Cons"><a tabindex="-1" href="#day-02-lecture-30" title="Copy heading and permalink for Table 27: Parametric methods: Pros and Cons" aria-label="Copy heading and permalink for Table 27: Parametric methods: Pros and Cons">🔗</a></div></figcaption><div class="tabular-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><table class="tabular">
+<figure class="table table-like" id="day-02-lecture-30"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">30<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Parametric methods: Pros and Cons<div class="autopermalink" aria-hidden="true" data-description="Table 30: Parametric methods: Pros and Cons"><a tabindex="-1" href="#day-02-lecture-30" title="Copy heading and permalink for Table 30: Parametric methods: Pros and Cons" aria-label="Copy heading and permalink for Table 30: Parametric methods: Pros and Cons">🔗</a></div></figcaption><div class="tabular-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><table class="tabular">
 <tr class="header-horizontal">
 <th scope="col" class="c m b2 r0 l0 t0 lines">Pros</th>
 <th scope="col" class="c m b2 r0 l0 t0 lines">Cons</th>
@@ -1195,14 +1214,933 @@ N_k(x) \amp= \text{Set of $k$ nearest neighbors of $x$} \\
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Section: Day 04"><a tabindex="-1" href="#day-04-lecture" title="Copy heading and permalink for Section: Day 04" aria-label="Copy heading and permalink for Section: Day 04">🔗</a></div>
 </section>
-<section class="section" id="day-05-lecture">
+<section class="handout" id="day-05-lecture" data-margins="0.75in 0.75in 0.75in 0.75in">
 <h2 class="heading hide-type">
-<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 05</span>
+<span class="type">Handout</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 05</span><div class="print-links"><a href="?printpreview=day-05-lecture" class="print-link" title="Print preview"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8ad;</span></a></div>
 </h2>
-<div class="para" id="day-05-lecture-2">
-<a class="external" href="external/slides/slides-Day05/CMSE381-Lec05-Ch3_1.html" target="_blank"><code class="code-inline tex2jax_ignore">Day05 slides</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<section class="paragraphs" id="day-05-lecture-2"><h3 class="heading"><span class="title">More Linear Regression.</span></h3>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: More Linear Regression"><a tabindex="-1" href="#day-05-lecture-2" title="Copy heading and permalink for Paragraphs: More Linear Regression" aria-label="Copy heading and permalink for Paragraphs: More Linear Regression">🔗</a></div>
+</section>
+<article class="objectives goal-like" id="day-05-lecture-3"><h3 class="heading">
+<span class="type">Objectives<span class="colon heading-divison-mark heading-divison-mark__colon">:</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Covered in this class</span>
+</h3>
+<ul class="disc" id="day-05-lecture-3-2">
+<li id="day-05-lecture-3-2-1">
+<div class="para logical" id="day-05-lecture-3-2-1-1">
+<div class="para">Stats review:</div>
+<ul class="circle" id="day-05-lecture-3-2-1-1-1">
+<li id="day-05-lecture-3-2-1-1-1-1">
+<div class="para" id="day-05-lecture-3-2-1-1-1-1-1">Confidence interval<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Section: Day 05"><a tabindex="-1" href="#day-05-lecture" title="Copy heading and permalink for Section: Day 05" aria-label="Copy heading and permalink for Section: Day 05">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-1-1-1-2">
+<div class="para" id="day-05-lecture-3-2-1-1-1-2-1">Hypothesis testing<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-1-1-1-3">
+<div class="para" id="day-05-lecture-3-2-1-1-1-3-1">
+<span class="process-math">\(p\)</span>-value<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-1-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-05-lecture-3-2-1" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2">
+<div class="para logical" id="day-05-lecture-3-2-2-1">
+<div class="para">Linear regression:</div>
+<ul class="circle" id="day-05-lecture-3-2-2-1-1">
+<li id="day-05-lecture-3-2-2-1-1-1">
+<div class="para" id="day-05-lecture-3-2-2-1-1-1-1">Linear regression is an unbiased estimator<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2-1-1-2">
+<div class="para" id="day-05-lecture-3-2-2-1-1-2-1">Standard errors for <span class="process-math">\(\hat{\beta}_0\)</span> and <span class="process-math">\(\hat{\beta}_1\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2-1-1-3">
+<div class="para" id="day-05-lecture-3-2-2-1-1-3-1">CI for <span class="process-math">\(\hat{\beta}_0\)</span> and <span class="process-math">\(\hat{\beta}_1\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2-1-1-4">
+<div class="para" id="day-05-lecture-3-2-2-1-1-4-1">Hypothesis testing and <span class="process-math">\(p\)</span>-value for the relationship between predictor and response in the regression model<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2-1-1-5">
+<div class="para" id="day-05-lecture-3-2-2-1-1-5-1">Assessing model accuracy: Residual Standard Error (RSE)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-05-lecture-3-2-2-1-1-6">
+<div class="para" id="day-05-lecture-3-2-2-1-1-6-1">Assessing model accuracy: <span class="process-math">\(R\)</span> squared<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-05-lecture-3-2-2-1-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-3-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-05-lecture-3-2-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Objectives: Covered in this class"><a tabindex="-1" href="#day-05-lecture-3" title="Copy heading and permalink for Objectives: Covered in this class" aria-label="Copy heading and permalink for Objectives: Covered in this class">🔗</a></div>
+</article>
+<section class="section" id="sec-stat-review">
+<h3 class="heading hide-type">
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Stats Review</span>
+</h3>
+<section class="introduction" id="sec-stat-review-2">
+<div class="para" id="sec-stat-review-2-1">This is intended to be only a brief review of some concepts from stats. If you need a more thorough refresher, please use your stats book or other online resources.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<section class="paragraphs" id="sec-stat-review-3"><h4 class="heading"><span class="title">Sampling distribution.</span></h4>
+<div class="para" id="sec-stat-review-3-2">The objective of statistical inference is to draw conclusions about the population using a sample from that population.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-3-3">A <dfn class="terminology">statistic</dfn> is any quantity whose value can be calculated from sample data. Before the data is obtained, we are uncertain about the value that the statistic will assume. Therefore, a statistic is a random variable. In particular, a sample mean <span class="process-math">\(\bar{X}\)</span> has a probability distribution.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Sampling distribution"><a tabindex="-1" href="#sec-stat-review-3" title="Copy heading and permalink for Paragraphs: Sampling distribution" aria-label="Copy heading and permalink for Paragraphs: Sampling distribution">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-stat-review-4"><h4 class="heading"><span class="title">Hypothesis testing.</span></h4>
+<div class="para" id="sec-stat-review-4-2">Suppose we want to know if exposure to asbestos is associated with lung disease.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-4-3">Procedure:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ul class="disc" id="sec-stat-review-4-4">
+<li id="sec-stat-review-4-4-1">
+<div class="para logical" id="sec-stat-review-4-4-1-1">
+<div class="para">Take some rats and randomly divide them into two groups:</div>
+<ul class="circle" id="sec-stat-review-4-4-1-1-1">
+<li id="sec-stat-review-4-4-1-1-1-1">
+<div class="para" id="p-derived-sec-stat-review-4-4-1-1-1-1">Group 1: expose to asbestos</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-4-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-4-1-1-1-2">
+<div class="para" id="p-derived-sec-stat-review-4-4-1-1-1-2">Group 2: leave unexposed</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-4-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-4-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-4-2">
+<div class="para" id="p-derived-sec-stat-review-4-4-2">Compare the disease rate in the two groups. Consider the following two hypotheses:<div class="displaymath process-math" id="sec-stat-review-4-4-2-1">
+\begin{equation*}
+H_0: \text{The disease rate is the same in the two groups}
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="sec-stat-review-4-4-2-2">
+\begin{equation*}
+H_1: \text{The disease rate is not the same in the two groups}
+\end{equation*}
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-4-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<ul class="disc" id="sec-stat-review-4-5">
+<li id="sec-stat-review-4-5-1">
+<div class="para" id="sec-stat-review-4-5-1-1">Only use hypothesis testing to test well-defined hypotheses.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-5-2">
+<div class="para" id="sec-stat-review-4-5-2-1">In hypothesis testing, we assume <span class="process-math">\(H_0\)</span> is true unless there is strong evidence to reject <span class="process-math">\(H_0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-5-3">We assume that the samples are drawn at random from two independent normal populations. <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/twoNormalDistributions.png" class="contained" alt="
+Two side-by-side normal distributions with means mu 1 and mu 2 and variances sigma 1 squared and sigma 2 squared🔗"></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-5-4">
+<div class="para" id="p-derived-sec-stat-review-4-5-4">A hypothesis of the form <span class="process-math">\(\theta = \theta_0\)</span> is called a simple hypothesis.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-5-5">
+<div class="para" id="p-derived-sec-stat-review-4-5-5">A test of the form <span class="process-math">\(H_0: \theta = \theta_0\)</span> versus <span class="process-math">\(H_1: \theta \ne \theta_0\)</span> is called a two-sided test.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-5-6">
+<div class="para" id="p-derived-sec-stat-review-4-5-6">The most common tests are two-sided.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-stat-review-4-5-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="para" id="sec-stat-review-4-6">Suppose that we have two treatments with samples taken for each treatment such that:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ol class="decimal" id="sec-stat-review-4-7">
+<li id="sec-stat-review-4-7-1">
+<div class="para logical" id="sec-stat-review-4-7-1-1">
+<div class="para">The experiment was performed using a completely randomized design. This means that:</div>
+<ol class="lower-alpha" style="list-style: ptx-marker-0;" id="sec-stat-review-4-7-1-1-1">
+<li id="sec-stat-review-4-7-1-1-1-1">
+<div class="para" id="p-derived-sec-stat-review-4-7-1-1-1-1">The population was randomly sampled.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 1.a"><a tabindex="-1" href="#sec-stat-review-4-7-1-1-1-1" title="Copy heading and permalink for Item 1.a" aria-label="Copy heading and permalink for Item 1.a">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-7-1-1-1-2">
+<div class="para" id="p-derived-sec-stat-review-4-7-1-1-1-2">The data are normally distributed.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 1.b"><a tabindex="-1" href="#sec-stat-review-4-7-1-1-1-2" title="Copy heading and permalink for Item 1.b" aria-label="Copy heading and permalink for Item 1.b">🔗</a></div>
+</li>
+</ol>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 1"><a tabindex="-1" href="#sec-stat-review-4-7-1" title="Copy heading and permalink for Item 1" aria-label="Copy heading and permalink for Item 1">🔗</a></div>
+</li>
+<li id="sec-stat-review-4-7-2">
+<div class="para" id="p-derived-sec-stat-review-4-7-2">The two treatments come from two populations with identical variance.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 2"><a tabindex="-1" href="#sec-stat-review-4-7-2" title="Copy heading and permalink for Item 2" aria-label="Copy heading and permalink for Item 2">🔗</a></div>
+</li>
+</ol>
+<div class="para" id="sec-stat-review-4-8">Depending on whether we know the variance or not, we will use the <span class="process-math">\(Z\)</span>-test and the <span class="process-math">\(t\)</span>-test, respectively. For our class, we will be working only with the <span class="process-math">\(t\)</span>-test.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-4-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Hypothesis testing"><a tabindex="-1" href="#sec-stat-review-4" title="Copy heading and permalink for Paragraphs: Hypothesis testing" aria-label="Copy heading and permalink for Paragraphs: Hypothesis testing">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-stat-review-5"><h4 class="heading"><span class="title"><span class="process-math">\(t\)</span>-test.</span></h4>
+<div class="para" id="sec-stat-review-5-2">In practice, we often do not know the variance. In that case, the test statistic is<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-3">
+\begin{equation*}
+t_0 =
+\frac{\overline{y}_1-\overline{y}_2}
+{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}},
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-5-4">where <span class="process-math">\(S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\)</span> is called the standard error of the difference in the means, abbreviated as <span class="process-math">\(se(\overline{y}_1-\overline{y}_2)\text{,}\)</span> and<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-5">
+\begin{equation*}
+S_p^2 =
+\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}
+{n_1+n_2-2}.
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-5-6">To determine whether to reject <span class="process-math">\(H_0: \mu_1=\mu_2\text{,}\)</span> compare <span class="process-math">\(t_0\)</span> to the <span class="process-math">\(t\)</span>-distribution with <span class="process-math">\(n_1+n_2-2\)</span> degrees of freedom (DOF):<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-7">
+\begin{equation*}
+\text{If } \lvert t_0\rvert &gt; t_{\alpha/2,\,n_1+n_2-2},
+\text{ reject } H_0.
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-5-8">This procedure is called <dfn class="terminology">the two-sample <span class="process-math">\(t\)</span>-test</dfn>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<details id="sec-stat-review-5-9" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">31</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Portland cement formulation experiment.</span>
+</h5></summary>
+<article class="example example-like knowl__content">
+<div class="para" id="sec-stat-review-5-9-2-1">Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="sec-stat-review-5-9-2-2">Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding <span class="process-math">\(t\)</span>-statistic.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="sec-stat-review-5-9-2-3">Choosing <span class="process-math">\(\alpha=0.05\text{,}\)</span> we would reject <span class="process-math">\(H_0\)</span> if <span class="process-math">\(t_0 &gt; t_{0.025,18}=2.101\text{,}\)</span> or if <span class="process-math">\(t_0 &lt; -t_{0.025,18}=-2.101\text{.}\)</span> Do we reject <span class="process-math">\(H_0\)</span> in this case? What is the corresponding conclusion?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<figure class="table table-like" id="sec-stat-review-5-9-2-4"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">32<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Tension strength for modified and unmodified mortar samples.<div class="autopermalink" aria-hidden="true" data-description="Table 32: Tension strength for modified and unmodified mortar samples."><a tabindex="-1" href="#sec-stat-review-5-9-2-4" title="Copy heading and permalink for Table 32: Tension strength for modified and unmodified mortar samples." aria-label="Copy heading and permalink for Table 32: Tension strength for modified and unmodified mortar samples.">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(j\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">Modified mortar</td>
+<td class="l m b0 r0 l0 t0 lines">Unmodified mortar</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines">16.85</td>
+<td class="l m b0 r0 l0 t0 lines">16.62</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines">16.40</td>
+<td class="l m b0 r0 l0 t0 lines">16.75</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">3</td>
+<td class="l m b0 r0 l0 t0 lines">17.21</td>
+<td class="l m b0 r0 l0 t0 lines">17.37</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">4</td>
+<td class="l m b0 r0 l0 t0 lines">16.35</td>
+<td class="l m b0 r0 l0 t0 lines">17.12</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">5</td>
+<td class="l m b0 r0 l0 t0 lines">16.52</td>
+<td class="l m b0 r0 l0 t0 lines">16.98</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">6</td>
+<td class="l m b0 r0 l0 t0 lines">17.04</td>
+<td class="l m b0 r0 l0 t0 lines">16.87</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">7</td>
+<td class="l m b0 r0 l0 t0 lines">16.96</td>
+<td class="l m b0 r0 l0 t0 lines">17.34</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">8</td>
+<td class="l m b0 r0 l0 t0 lines">17.15</td>
+<td class="l m b0 r0 l0 t0 lines">17.02</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">9</td>
+<td class="l m b0 r0 l0 t0 lines">16.59</td>
+<td class="l m b0 r0 l0 t0 lines">17.08</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">10</td>
+<td class="l m b0 r0 l0 t0 lines">16.57</td>
+<td class="l m b0 r0 l0 t0 lines">17.27</td>
+</tr>
+</table></div>
+</figure> 
+<figure class="table table-like" id="sec-stat-review-5-9-2-5"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">33<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.<div class="autopermalink" aria-hidden="true" data-description="Table 33: mean, variance, standard deviation, and number of samples for the modified and unmodified mortar."><a tabindex="-1" href="#sec-stat-review-5-9-2-5" title="Copy heading and permalink for Table 33: mean, variance, standard deviation, and number of samples for the modified and unmodified mortar." aria-label="Copy heading and permalink for Table 33: mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="l m b0 r0 l0 t0 lines">Modified mortar</td>
+<td class="l m b0 r0 l0 t0 lines">Unmodified mortar</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(\overline{y}_1=16.76\text{ kgf/cm}^2\)</span></td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(\overline{y}_2=17.04\text{ kgf/cm}^2\)</span></td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(S_1^2=0.100\)</span></td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(S_2^2=0.061\)</span></td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(S_1=0.316\)</span></td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(S_2=0.248\)</span></td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(n_1=10\)</span></td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(n_2=10\)</span></td>
+</tr>
+</table></div>
+</figure><div class="solutions">
+<details id="sec-stat-review-5-9-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
+<div class="para" id="sec-stat-review-5-9-3-1">The test hypotheses are<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-9-3-2">
+\begin{equation*}
+H_0: \mu_1=\mu_2
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-9-3-3">
+\begin{equation*}
+H_1: \mu_1\ne\mu_2.
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-9-3-4">
+\begin{equation*}
+S_p^2 =
+\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}
+{n_1+n_2-2}
+=0.081,
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-5-9-3-5">so <span class="process-math">\(S_p=0.284\text{.}\)</span> The test statistic is<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-3-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-5-9-3-6">
+\begin{equation*}
+t_0 =
+\frac{\overline{y}_1-\overline{y}_2}
+{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}
+=-2.20.
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-5-9-3-7">Because <span class="process-math">\(t_0=-2.20 &lt; -t_{0.025,18}=-2.101\text{,}\)</span> reject <span class="process-math">\(H_0\)</span> and conclude that the mean tension bond strengths of the two formulations are different.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-3-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<figure class="figure figure-like" id="portland-mortar-rejection-region"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/portlandMortar_rejectionRegion.png" class="contained" alt="Rejection region for the Portland Mortar data set."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">34<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Portland mortar example, rejection region.<div class="autopermalink" aria-hidden="true" data-description="Figure 34"><a tabindex="-1" href="#portland-mortar-rejection-region" title="Copy heading and permalink for Figure 34" aria-label="Copy heading and permalink for Figure 34">🔗</a></div></figcaption>
+</figure><div class="autopermalink" aria-hidden="true" data-description="Solution 31.1"><a tabindex="-1" href="#sec-stat-review-5-9-3" title="Copy heading and permalink for Solution 31.1" aria-label="Copy heading and permalink for Solution 31.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 31: Portland cement formulation experiment"><a tabindex="-1" href="#sec-stat-review-5-9" title="Copy heading and permalink for Example 31: Portland cement formulation experiment" aria-label="Copy heading and permalink for Example 31: Portland cement formulation experiment">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: t-test"><a tabindex="-1" href="#sec-stat-review-5" title="Copy heading and permalink for Paragraphs: t-test" aria-label="Copy heading and permalink for Paragraphs: t-test">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-stat-review-6"><h4 class="heading"><span class="title">The use of <span class="process-math">\(p\)</span>-values in hypothesis testing.</span></h4>
+<div class="para" id="sec-stat-review-6-2">
+<dfn class="terminology"><span class="process-math">\(p\)</span>-value:</dfn> The smallest <span class="process-math">\(\alpha\)</span> value at which <span class="process-math">\(H_0\)</span> is rejected.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-6-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-6-3">The <span class="process-math">\(p\)</span>-value is a measure of the evidence against <span class="process-math">\(H_0\text{:}\)</span> the smaller the <span class="process-math">\(p\)</span>-value, the stronger the evidence against <span class="process-math">\(H_0\text{.}\)</span> Usually, the following scale is used:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-6-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<figure class="table table-like" id="sec-stat-review-6-4"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">35<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Table 35"><a tabindex="-1" href="#sec-stat-review-6-4" title="Copy heading and permalink for Table 35" aria-label="Copy heading and permalink for Table 35">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="l m b0 r0 l0 t0 lines">
+<span class="process-math">\(p\)</span>-value</td>
+<td class="l m b0 r0 l0 t0 lines">Evidence</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(p &lt; 0.01\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">Very strong evidence against <span class="process-math">\(H_0\)</span>
+</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(0.01\text{-}0.05\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">Strong evidence against <span class="process-math">\(H_0\)</span>
+</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(0.05\text{-}0.10\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">Weak evidence against <span class="process-math">\(H_0\)</span>
+</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(p &gt; 0.1\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">Little or no evidence against <span class="process-math">\(H_0\)</span>
+</td>
+</tr>
+</table></div>
+</figure>
+<figure class="figure figure-like" id="p-value-reject"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="external/figures/pvalueReject.png" class="contained" alt="Rejection criteria using a set p-value shown as a horizontal function with two levels: accept and reject with the transition occurring at the p value."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">36<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 36"><a tabindex="-1" href="#p-value-reject" title="Copy heading and permalink for Figure 36" aria-label="Copy heading and permalink for Figure 36">🔗</a></div></figcaption>
+</figure><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: The use of p-values in hypothesis testing"><a tabindex="-1" href="#sec-stat-review-6" title="Copy heading and permalink for Paragraphs: The use of p-values in hypothesis testing" aria-label="Copy heading and permalink for Paragraphs: The use of p-values in hypothesis testing">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-stat-review-7"><h4 class="heading"><span class="title">Confidence intervals.</span></h4>
+<div class="para" id="sec-stat-review-7-2">We are often interested in knowing how much the means differ instead of only whether they differ. The interval within which the parameters would be expected to lie is called a confidence interval.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-7-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-7-3">To obtain an interval estimate of <span class="process-math">\(\theta\text{,}\)</span> we need to find two statistics <span class="process-math">\(L\)</span> and <span class="process-math">\(U\)</span> such that the probability statement<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-7-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="displaymath process-math" id="sec-stat-review-7-4">
+\begin{equation*}
+P(L \leq \theta \leq U) = 1-\alpha
+\end{equation*}
+</div>
+<div class="para" id="sec-stat-review-7-5">is true. The interval <span class="process-math">\(L \leq \theta \leq U\)</span> is called a <span class="process-math">\(100(1-\alpha)\)</span> percent confidence interval for the parameter <span class="process-math">\(\theta\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-7-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-7-6">Interpretation of the confidence interval: A <span class="process-math">\(95\%\)</span> confidence level implies that <span class="process-math">\(95\%\)</span> of all samples would give an interval that includes whatever parameter is being estimated. Specifically, if we take a large number of samples, and for each one construct a confidence interval (CI) of the form <span class="process-math">\(L \leq \theta \leq U\text{,}\)</span> then in the long run, with <span class="process-math">\(95\%\)</span> confidence for example, the constructed interval will contain the parameter <span class="process-math">\(\theta\)</span> <span class="process-math">\(95\%\)</span> of the time.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-7-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="sec-stat-review-7-7">Therefore, the confidence interval is not so much a statement about any specific realization of the CI; instead, it pertains to what would happen if a very large number of like intervals were constructed using the same formula.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-7-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<figure class="figure figure-like" id="confidence-interval-interpretation"><div class="image-box" style="width: 45%; margin-left: 27.5%; margin-right: 27.5%;"><img src="external/figures/CI.png" class="contained" alt="Eleven realizations of the confidence interval on separate lines and one vertical line showing the true mean mu."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">37<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Interpretation of the confidence interval.<div class="autopermalink" aria-hidden="true" data-description="Figure 37"><a tabindex="-1" href="#confidence-interval-interpretation" title="Copy heading and permalink for Figure 37" aria-label="Copy heading and permalink for Figure 37">🔗</a></div></figcaption>
+</figure><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Confidence intervals"><a tabindex="-1" href="#sec-stat-review-7" title="Copy heading and permalink for Paragraphs: Confidence intervals" aria-label="Copy heading and permalink for Paragraphs: Confidence intervals">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Section: Stats Review"><a tabindex="-1" href="#sec-stat-review" title="Copy heading and permalink for Section: Stats Review" aria-label="Copy heading and permalink for Section: Stats Review">🔗</a></div>
+</section>
+<section class="section" id="sec-Assessing-linReg-coefficients-estimates">
+<h3 class="heading hide-type">
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Assessing Coefficient Estimate Accuracy</span>
+</h3>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-2"><h4 class="heading"><span class="title">Bias in estimation.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:42.1052631578947% 52.6315789473684%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-2-2-1">
+<li id="sec-Assessing-linReg-coefficients-estimates-2-2-1-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-2-2-1-1-1">Assume a true value <span class="process-math">\(\mu^*\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-2-2-1-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-2-2-1-2-1">An estimate from training data is <span class="process-math">\(\widehat{\mu}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-2-2-1-3">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-2-2-1-3-1">The estimate is unbiased if <span class="process-math">\(E(\widehat{\mu})=\mu^*\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-2-2-2">
+<li id="sec-Assessing-linReg-coefficients-estimates-2-2-2-1">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-1-1">
+<div class="para">The sample mean is unbiased for the population mean:</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-1-1-1">
+\begin{equation*}
+E(\widehat{\mu}) =
+E\left(\frac{1}{n}\sum_i X_i\right) =
+\mu.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-2-2-2-2">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1">
+<div class="para">The standard variance estimate is biased 
+<article class="note remark-like" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1"><h5 class="heading">
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">38</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h5>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1-1">(underestimation)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 38"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1" title="Copy heading and permalink for Note 38" aria-label="Copy heading and permalink for Note 38">🔗</a></div>
+</article>:</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-2">
+\begin{equation*}
+E(\widehat{\sigma}^2) =
+E\left[\frac{1}{n}\sum_i
+(X_i-\overline{X})^2\right]
+\neq \sigma^2.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2-2-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Bias in estimation"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-2" title="Copy heading and permalink for Paragraphs: Bias in estimation" aria-label="Copy heading and permalink for Paragraphs: Bias in estimation">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-3"><h4 class="heading"><span class="title">Linear regression is unbiased.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:28% 32% 40%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="sec-Assessing-linReg-coefficients-estimates-3-2-1"><div class="image-box"><img src="external/figures/Fig3-3a.png" class="contained" alt="Scatter plot of simulated data with linear relationship plus noise with overalid true line relationship and least squares linear fit."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">39<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 39"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-1" title="Copy heading and permalink for Figure 39" aria-label="Copy heading and permalink for Figure 39">🔗</a></div></figcaption>
+</figure>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="sec-Assessing-linReg-coefficients-estimates-3-2-2"><div class="image-box"><img src="external/figures/Fig3-3b.png" class="contained" alt="10 linear fits for the same data with 10 different noise realizations."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">40<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 40"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-2" title="Copy heading and permalink for Figure 40" aria-label="Copy heading and permalink for Figure 40">🔗</a></div></figcaption>
+</figure>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-3-2-3">
+<li id="sec-Assessing-linReg-coefficients-estimates-3-2-3-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-3-2-3-1-1">100 data points drawn from <span class="process-math">\(Y=2+3X+\epsilon\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-3-2-3-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-3-2-3-2-1">
+<span class="process-math">\(\epsilon\)</span> is drawn from a normal distribution with mean <span class="process-math">\(0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-3-2-3-3">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-3-2-3-3-1">The red line is the true relationship; the blue line is the least-squares estimate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-3-2-3-4">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-3-2-3-4-1">Repeat this 10 times and plot all the resulting lines in variations of blue.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-3-2-3-5">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-3-2-3-5-1">The resulting models are slightly different, but all lie around the true relationship shown in red.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3-2-3-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Linear regression is unbiased"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-3" title="Copy heading and permalink for Paragraphs: Linear regression is unbiased" aria-label="Copy heading and permalink for Paragraphs: Linear regression is unbiased">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-4"><h4 class="heading"><span class="title">Variance in estimation.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:41.025641025641% 56.4102564102564%;column-gap:2.5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-4-2-1">
+<li id="sec-Assessing-linReg-coefficients-estimates-4-2-1-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-2-1-1-1">True value <span class="process-math">\(\mu^*\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-4-2-1-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-2-1-2-1">Estimate from training data <span class="process-math">\(\widehat{\mu}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-4-2-1-3">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-4-2-1-3-1">
+<div class="para">Variance of the sample mean:</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-4-2-1-3-1-1">
+\begin{equation*}
+\operatorname{Var}(\widehat{\mu}) =
+\operatorname{SE}(\widehat{\mu})^2 =
+\frac{\sigma^2}{n}.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-4-2-2">
+<li id="sec-Assessing-linReg-coefficients-estimates-4-2-2-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-2-2-1-1">Standard error measures by how much a sample statistic, e.g, <span class="process-math">\(\hat{\mu}\)</span> differs from the true population value, e.g., <span class="process-math">\(\mu\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-4-2-2-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-2-2-2-1">The more data you have, the smaller the variance and the better the estimate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-2-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<article class="note remark-like" id="sec-Assessing-linReg-coefficients-estimates-4-3"><h5 class="heading">
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">41</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Standard error versus standard variation.</span>
+</h5>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-3-2">
+<dfn class="terminology">Standard deviation</dfn> measures the amount of spread in a sample from the mean. <dfn class="terminology">Standard error</dfn> measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 41: Standard error versus standard variation"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-3" title="Copy heading and permalink for Note 41: Standard error versus standard variation" aria-label="Copy heading and permalink for Note 41: Standard error versus standard variation">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Variance in estimation"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4" title="Copy heading and permalink for Paragraphs: Variance in estimation" aria-label="Copy heading and permalink for Paragraphs: Variance in estimation">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-5"><h4 class="heading"><span class="title">Variance of linear regression estimates.</span></h4>
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-5-2">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-5-2-1">
+<li id="sec-Assessing-linReg-coefficients-estimates-5-2-1-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-5-2-1-1-1">Variance of linear regression estimates: <span class="process-math">\(\operatorname{SE}(\widehat{\beta}_0)^2
+=
+\sigma^2\left[
+\frac{1}{n}
++
+\frac{\overline{x}^2}
+{\sum_{i=1}^n(x_i-\overline{x})^2}
+\right]\)</span> <span class="process-math">\(\operatorname{SE}(\widehat{\beta}_1)^2
+=
+\frac{\sigma^2}
+{\sum_{i=1}^n(x_i-\overline{x})^2},\)</span> where <span class="process-math">\(\sigma^2=\operatorname{Var}(\epsilon)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<details id="sec-Assessing-linReg-coefficients-estimates-5-2-1-1-2" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading"><span class="type">Aside</span></h5></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-5-2-1-1-2-1">If data are more spread out, the standard error is smaller.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-5-2-1-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-5-2-1-2-1">The residual standard error is an estimate of <span class="process-math">\(\sigma\text{:}\)</span> <span class="process-math">\(RSE=\sqrt{RSS/(n-2)}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Variance of linear regression estimates"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-5" title="Copy heading and permalink for Paragraphs: Variance of linear regression estimates" aria-label="Copy heading and permalink for Paragraphs: Variance of linear regression estimates">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-6"><h4 class="heading"><span class="title">Confidence Interval.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:44.4444444444444% 44.4444444444444%;column-gap:10%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-6-2-1">The <span class="process-math">\(95\%\)</span> confidence interval for <span class="process-math">\(\beta_1\)</span> approximately takes the form <span class="process-math">\(\widehat{\beta}_1 \mathbin{\pm}
+2\cdot\operatorname{SE}(\widehat{\beta}_1).\)</span> 
+<article class="note remark-like" id="sec-Assessing-linReg-coefficients-estimates-6-2-1-4"><h5 class="heading">
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">42</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h5>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-6-2-1-4-1">The same form works for <span class="process-math">\(\beta_0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 42"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-2-1-4" title="Copy heading and permalink for Note 42" aria-label="Copy heading and permalink for Note 42">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-6-2-2">
+<dfn class="terminology">Interpretation:</dfn> There is approximately a <span class="process-math">\(95\%\)</span> chance that the interval <span class="process-math">\(\left[
+\widehat{\beta}_1-2\cdot\operatorname{SE}(\widehat{\beta}_1),
+\widehat{\beta}_1+2\cdot\operatorname{SE}(\widehat{\beta}_1)
+\right]\)</span> will contain <span class="process-math">\(\beta_1\)</span> when we repeatedly approximate <span class="process-math">\(\widehat{\beta}_1\)</span> using repeated samples.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<details id="sec-Assessing-linReg-coefficients-estimates-6-3" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">43</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">CI in Advertising Data.</span>
+</h5></summary>
+<article class="example example-like knowl__content">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:56.4102564102564% 41.025641025641%;column-gap:2.5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="sec-Assessing-linReg-coefficients-estimates-6-3-2-1"><div class="image-box"><img src="external/figures/Fig3-1.png" class="contained" alt="scatter plot with linear fit and residuals"></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">44<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 44"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-3-2-1" title="Copy heading and permalink for Figure 44" aria-label="Copy heading and permalink for Figure 44">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 43: CI in Advertising Data"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6-3" title="Copy heading and permalink for Example 43: CI in Advertising Data" aria-label="Copy heading and permalink for Example 43: CI in Advertising Data">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Confidence Interval"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-6" title="Copy heading and permalink for Paragraphs: Confidence Interval" aria-label="Copy heading and permalink for Paragraphs: Confidence Interval">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-7"><h4 class="heading"><span class="title">Hypothesis testing.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:52.6315789473684% 42.1052631578947%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-7-2-1">
+<li id="sec-Assessing-linReg-coefficients-estimates-7-2-1-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-7-2-1-1-1">
+<span class="process-math">\(H_0:\)</span> There is no relationship between <span class="process-math">\(X\)</span> and <span class="process-math">\(Y\text{.}\)</span> 
+<details id="sec-Assessing-linReg-coefficients-estimates-7-2-1-1-1-4" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading"><span class="type">Aside</span></h5></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-7-2-1-1-1-4-1">Null hypothesis.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-7-2-1-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-7-2-1-2-1">
+<span class="process-math">\(H_1:\)</span> There is some relationship between <span class="process-math">\(X\)</span> and <span class="process-math">\(Y\text{.}\)</span> 
+<details id="sec-Assessing-linReg-coefficients-estimates-7-2-1-2-1-4" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading"><span class="type">Aside</span></h5></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-7-2-1-2-1-4-1">Alternative hypothesis.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Hypothesis testing"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-7" title="Copy heading and permalink for Paragraphs: Hypothesis testing" aria-label="Copy heading and permalink for Paragraphs: Hypothesis testing">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-8"><h4 class="heading"><span class="title">Test statistic and <span class="process-math">\(p\)</span>-value.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:44.4444444444444% 44.4444444444444%;column-gap:10%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-8-2-1">
+<div class="para">Test statistic:</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-8-2-1-1">
+\begin{equation*}
+t=\frac{\widehat{\beta}_1-0}
+{\operatorname{SE}(\widehat{\beta}_1)}.
+\end{equation*}
+</div>
+<div class="para">
+<span class="process-math">\(t\)</span>-distribution with <span class="process-math">\(n-2\)</span> degrees of freedom.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Student_t_pdf-wikipedia.png" class="contained" alt="student t-distribution for four different values of nu."></div></div>
+</div>
+</div>
+<article class="note remark-like" id="sec-Assessing-linReg-coefficients-estimates-8-3"><h5 class="heading">
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">45</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h5>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-8-3-1">A small <span class="process-math">\(p\)</span>-value indicates that it is unlikely to observe such a substantial association between the predictor and response by chance, in the absence of a real association between them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 45"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-3" title="Copy heading and permalink for Note 45" aria-label="Copy heading and permalink for Note 45">🔗</a></div>
+</article>
+<details id="sec-Assessing-linReg-coefficients-estimates-8-4" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">46</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Advertising example.</span>
+</h5></summary>
+<article class="example example-like knowl__content">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:44.4444444444444% 44.4444444444444%;column-gap:10%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="sec-Assessing-linReg-coefficients-estimates-8-4-2-1"><div class="image-box"><img src="external/figures/Table3-1.png" class="contained" alt="linear fit table for the sales versus TV advertising in 1000 dollars data."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">47<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 47"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-4-2-1" title="Copy heading and permalink for Figure 47" aria-label="Copy heading and permalink for Figure 47">🔗</a></div></figcaption>
+</figure>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="sec-Assessing-linReg-coefficients-estimates-8-4-2-2"><div class="image-box"><img src="external/figures/Fig3-1.png" class="contained" alt="scatter plot with linear fit and residuals"></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">48<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" aria-hidden="true" data-description="Figure 48"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-4-2-2" title="Copy heading and permalink for Figure 48" aria-label="Copy heading and permalink for Figure 48">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 46: Advertising example"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-4" title="Copy heading and permalink for Example 46: Advertising example" aria-label="Copy heading and permalink for Example 46: Advertising example">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Test statistic and p-value"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8" title="Copy heading and permalink for Paragraphs: Test statistic and p-value" aria-label="Copy heading and permalink for Paragraphs: Test statistic and p-value">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-9"><h4 class="heading"><span class="title">Assessing the accuracy of the module: Residual Standard Error (RSE).</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:3.75%;margin-right:3.75%;grid-template-columns:43.2432432432432% 48.6486486486486%;column-gap:7.5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-9-2-1-1">
+<div class="para">RSE</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-9-2-1-1-1">
+\begin{equation*}
+RSE = \sqrt{\frac{RSS}{n-2}}
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-9-2-1-1-2">
+\begin{equation*}
+= \sqrt{\frac{1}{n-2}\sum_i (y_i - \hat{y}_i)^2}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-9-2-2">
+<li id="sec-Assessing-linReg-coefficients-estimates-9-2-2-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-9-2-2-1-1">Estimate of the standard deviation of <span class="process-math">\(\epsilon\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9-2-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9-2-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-9-2-2-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-9-2-2-2-1">Average amount that the response will deviate from the true regression line.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9-2-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9-2-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Assessing the accuracy of the module: Residual Standard Error (RSE)"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-9" title="Copy heading and permalink for Paragraphs: Assessing the accuracy of the module: Residual Standard Error (RSE)" aria-label="Copy heading and permalink for Paragraphs: Assessing the accuracy of the module: Residual Standard Error (RSE)">🔗</a></div>
+</section>
+<section class="paragraphs" id="sec-Assessing-linReg-coefficients-estimates-10"><h4 class="heading"><span class="title">Assessing the accuracy of the module: $R^2$.</span></h4>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:3.75%;margin-right:3.75%;grid-template-columns:43.2432432432432% 48.6486486486486%;column-gap:7.5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-10-2-1-1">
+<div class="para">R squared:</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-10-2-1-1-2">
+\begin{equation*}
+R^2 = \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-10-2-1-2">
+<div class="para">where total sum of squares is</div>
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-10-2-1-2-1">
+\begin{equation*}
+TSS = \sum_i (y_i - \overline{y})^2
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="sec-Assessing-linReg-coefficients-estimates-10-2-2">
+<li id="sec-Assessing-linReg-coefficients-estimates-10-2-2-1">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-2-2-1-1">TSS is total variance in the response <span class="process-math">\(Y\text{,}\)</span> variability before regression.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-10-2-2-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-2-2-2-1">RSS is the amount of variability after the regression.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-10-2-2-3">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-2-2-3-1">
+<span class="process-math">\(R^2\)</span> is the proportion of variability in <span class="process-math">\(Y\)</span> that can be explained using <span class="process-math">\(X\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-10-2-2-4">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-2-2-4-1">Close to 1: a large proportion of variability is explained by the regression.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-Assessing-linReg-coefficients-estimates-10-2-2-5">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-2-2-5-1">Close to 0: the regression does not explain much of the variability in the response.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-2-2-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<details id="sec-Assessing-linReg-coefficients-estimates-10-3" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">49</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-3-1-1">Advertising example<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>.</span>
+</h5></summary>
+<article class="example example-like knowl__content">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.666666666666667%;margin-right:1.666666666666667%;grid-template-columns:31.0344827586207% 31.0344827586207% 31.0344827586207%;column-gap:3.333333333333333%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="image-box"><img src="external/figures/Advertising-SalesVsTV.png" class="contained" alt="Sales versus TV advertising scatter plot with linear fit line."></div>
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-1-2">
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-1-2-1">
+\begin{equation*}
+R^2 = 0.61
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="image-box"><img src="external/figures/Advertising-SalesVsRadio.png" class="contained" alt="Sales versus radio advertising scatter plot with linear fit line."></div>
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-2-2">
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-2-2-1">
+\begin{equation*}
+R^2 = 0.33
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="image-box"><img src="external/figures/Advertising-SalesVsNewspaper.png" class="contained" alt="Sales versus newspaper advertising scatter plot with linear fit line."></div>
+<div class="para logical" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-3-2">
+<div class="displaymath process-math" id="sec-Assessing-linReg-coefficients-estimates-10-3-2-3-2-1">
+\begin{equation*}
+R^2 = 0.05
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3-2-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 49: 
+Advertising example🔗"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3" title="Copy heading and permalink for Example 49: 
+Advertising example🔗" aria-label="Copy heading and permalink for Example 49: 
+Advertising example🔗">🔗</a></div>
+</article></details>
+<details id="sec-Assessing-linReg-coefficients-estimates-10-4" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">50</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">TSS and RSS.</span>
+</h5></summary>
+<article class="exercise exercise-like knowl__content">
+<div class="introduction" id="sec-Assessing-linReg-coefficients-estimates-10-4-2">
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-4-2-1">For the shown data, answer the following questions<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="day05-TSS-RSS-task1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="day05-TSS-RSS-task1-1-1">Sketch the deviation from the mean <span class="process-math">\(y_i-\bar{y}\)</span> for each data point.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day05-TSS-RSS-task1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/figures/TSS_RSS_example.png" class="contained" alt="Five data points roughly following a linear trend overlaid with their mean line a linear regression line."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.a"><a tabindex="-1" href="#day05-TSS-RSS-task1" title="Copy heading and permalink for Task 50.a" aria-label="Copy heading and permalink for Task 50.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day05-TSS-RSS-task2"><h6 class="heading"><span class="codenumber">(b)</span></h6>
+<div class="para" id="day05-TSS-RSS-task2-1-1">Sketch the residual <span class="process-math">\(y_i-\hat{y}_i\)</span> for each data point.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day05-TSS-RSS-task2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/figures/TSS_RSS_example.png" class="contained" alt="Five data points roughly following a linear trend overlaid with their mean line a linear regression line."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.b"><a tabindex="-1" href="#day05-TSS-RSS-task2" title="Copy heading and permalink for Task 50.b" aria-label="Copy heading and permalink for Task 50.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day05-dev-from-mean"><h6 class="heading"><span class="codenumber">(c)</span></h6>
+<div class="para logical" id="day05-dev-from-mean-1-1">
+<div class="para">If the data points are given by</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/day05-TSS-RSS-task1.html" id="day05-dev-from-mean-1-1-1">
+\begin{equation*}
+(1,1.7), (2,4.9), (3,4.1), (4,7.8), (5,7.5)\text{.}
+\end{equation*}
+</div>
+<div class="para">Find the lengths of the bars you sketched in <a href="sec-exam1-material.html#day05-TSS-RSS-task1" class="xref" data-knowl="./knowl/xref/day05-TSS-RSS-task1.html" data-reveal-label="Reveal" data-close-label="Close" title="Task 50.a">Task 50.a</a>.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day05-dev-from-mean-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.c"><a tabindex="-1" href="#day05-dev-from-mean" title="Copy heading and permalink for Task 50.c" aria-label="Copy heading and permalink for Task 50.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="sec-Assessing-linReg-coefficients-estimates-10-4-6"><h6 class="heading"><span class="codenumber">(d)</span></h6>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-4-6-1-1">Use the answer to <a href="sec-exam1-material.html#day05-dev-from-mean" class="xref" data-knowl="./knowl/xref/day05-dev-from-mean.html" data-reveal-label="Reveal" data-close-label="Close" title="Task 50.c">Task 50.c</a> to find the TSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.d"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4-6" title="Copy heading and permalink for Task 50.d" aria-label="Copy heading and permalink for Task 50.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day05-RSS-pieces"><h6 class="heading"><span class="codenumber">(e)</span></h6>
+<div class="para" id="day05-RSS-pieces-1-1">Assume that the linear regression line is given by <span class="process-math">\(\bar{y}=0.85+1.45x\)</span> and using the data points given in <a href="sec-exam1-material.html#day05-dev-from-mean" class="xref" data-knowl="./knowl/xref/day05-dev-from-mean.html" data-reveal-label="Reveal" data-close-label="Close" title="Task 50.c">Task 50.c</a>, find the lengths of bars you sketched in <a href="sec-exam1-material.html#day05-TSS-RSS-task2" class="xref" data-knowl="./knowl/xref/day05-TSS-RSS-task2.html" data-reveal-label="Reveal" data-close-label="Close" title="Task 50.b">Task 50.b</a>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day05-RSS-pieces-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.e"><a tabindex="-1" href="#day05-RSS-pieces" title="Copy heading and permalink for Task 50.e" aria-label="Copy heading and permalink for Task 50.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="sec-Assessing-linReg-coefficients-estimates-10-4-8"><h6 class="heading"><span class="codenumber">(f)</span></h6>
+<div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-4-8-1-1">Use the answer to <a href="sec-exam1-material.html#day05-RSS-pieces" class="xref" data-knowl="./knowl/xref/day05-RSS-pieces.html" data-reveal-label="Reveal" data-close-label="Close" title="Task 50.e">Task 50.e</a> to find the RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 50.f"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4-8" title="Copy heading and permalink for Task 50.f" aria-label="Copy heading and permalink for Task 50.f">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 50: TSS and RSS"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-4" title="Copy heading and permalink for Checkpoint 50: TSS and RSS" aria-label="Copy heading and permalink for Checkpoint 50: TSS and RSS">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Assessing the accuracy of the module: $R^2$"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10" title="Copy heading and permalink for Paragraphs: Assessing the accuracy of the module: $R^2$" aria-label="Copy heading and permalink for Paragraphs: Assessing the accuracy of the module: $R^2$">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Section: Assessing Coefficient Estimate Accuracy"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates" title="Copy heading and permalink for Section: Assessing Coefficient Estimate Accuracy" aria-label="Copy heading and permalink for Section: Assessing Coefficient Estimate Accuracy">🔗</a></div>
+</section>
+<div class="para" id="day-05-lecture-6">Group work: Work in groups to complete <a href="activities.html" class="internal" title="Chapter: In-Class Activities">Day05 in-class activity</a>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-05-lecture-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Handout: Day 05"><a tabindex="-1" href="#day-05-lecture" title="Copy heading and permalink for Handout: Day 05" aria-label="Copy heading and permalink for Handout: Day 05">🔗</a></div>
 </section>
 <section class="section" id="day-06-lecture">
 <h2 class="heading hide-type">

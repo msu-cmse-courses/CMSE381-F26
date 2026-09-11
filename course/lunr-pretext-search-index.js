@@ -316,20 +316,56 @@ var ptx_lunr_docs = [
   "body": " It turns out there is a bit of a cheap trick for plotting linear regression using seaborn. This command will actually both run the linear regression (that is, find the required 's) and plot it for you. The tradeoff is that this will only work for single variable linear regression; we'll have to work harder when we're doing multi-variable linear regression. They also do not provide any easy way to get the equation of the line out, so this isn't really the best tool to use for anything other than quick and dirty visualization.   # First easy version, but hard to get out the parameters.... sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)   "
 },
 {
+  "id": "day05-notebook",
+  "level": "1",
+  "url": "day05-notebook.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 05 Worksheet",
+  "body": " Day 05 Worksheet   In today's lecture, we are focusing on simple linear regression, that is, fitting models of the form   In this worksheet, we will use two different tools for linear regression.    Scikit learn is arguably the most used tool for machine learning in python.     Statsmodels provides many of the statistical models we've been learning in class.     As always, we start with our favorite standard imports.  import numpy as np import pandas as pd import matplotlib.pyplot as plt %matplotlib inline import seaborn as sns # Importing the Linear Regression we learned last time from sklearn from sklearn.linear_model import LinearRegression      Assessing Coefficient Accuracy     Ok, let's run an example like was shown in class where we see the distribution of possible values.  Here's code that decides on my function   def myFunc(x, b0=2, b1=5): return b0 + b1*x   Here's a command that generates 100 random data points from   def makeData(n = 100): X = np.random.uniform(-2,2,n) y = myFunc(X) + np.random.normal(size = n) return X,y   Every time you run this cell, you get slightly different data   X,y = makeData() plt.scatter(X,y)   Which means that every time you run this cell, you get a slightly different choice of coefficients for the learned model   X,y = makeData() X = X.reshape([len(X),1]) y = y.reshape([len(y),1]) reg = LinearRegression() reg.fit(X,y) print( 'y = '+ str(round(reg.intercept_[0],4)) +' + ' + str(round(reg.coef_[0,0],4)) + \" * x_1\" )     Simulating data   If we assume that our data is coming from the setting , what is ?   The noise is drawn from a normal distribution which has default setting.    The default setting of the normal distribution is mean=0 and std=1.    Because the noise is drawn from a normal distribution which has a default setting of std = 1, this means .      So now, lets just train our linear model lots of times, and collect the resulting coefficients   beta0_list = [] beta1_list = [] for i in range(100): X,y = makeData() X = X.reshape([len(X),1]) y = y.reshape([len(y),1]) reg = LinearRegression() reg.fit(X,y) beta1_list.append(reg.coef_[0,0]) beta0_list.append(reg.intercept_[0]) print(beta1_list)     Make a histogram of beta0_list .     plt.hist(beta0_list)       Make a histogram of beta1_list .     plt.hist(beta1_list)       What is the mean of each list?     print('The mean of beta0_list is:', np.mean(beta0_list))  print('The mean of beta1_list is:', np.mean(beta1_list))       How does these means compare to the acutal line we used to generate the data?    The means of the estimated coefficients are close to the true values of and used to generate the data.      What is the standard deviation of each list?     print('std dev of beta0:', np.std(beta0_list))  print('std dev of beta1:', np.std(beta1_list))       Variance in estimation   Now let's figure out the variance of the linear regression estimates. First off, we know that , but let's pretend we didn't make up our own fake data.  Start with a single linear regression model   reg = LinearRegression() reg.fit(X,y) print( 'y = '+ str(round(reg.intercept_[0],4)) +' + ' + str(round(reg.coef_[0,0],4)) + \" * x_1\" )   We can estimate using residual standard error:    predicted = reg.predict(X) residuals = y - predicted RSS = np.sum(residuals**2) RSE = np.sqrt(RSS\/(len(y)-2))   Then the following code can compute the standard error of each coefficient   # We're estimating sigma^2 by RSE^2 sigma_sq = RSE**2 # We have n = 100 data points n = 100 # We can calculate the standard error of beta_0 and beta_1 using the formulas we learned in class x_bar = np.mean(X) denom = np.sum((X - x_bar)**2) beta0_var = sigma_sq * (1\/n + x_bar**2\/denom) SE_beta0 = np.sqrt(beta0_var) print(f\"Standard error of beta0: {SE_beta0}\") beta1_var = sigma_sq\/denom SE_beta1 = np.sqrt(beta1_var) print(f\"Standard error of beta1: {SE_beta1}\")   While we had to work a bit to get this to write out the standard errors, we can use the statsmodels library instead of sklearn to get these values directly.   import statsmodels.formula.api as smf mydata = pd.DataFrame({'X':X.flatten(), 'y':y.flatten()}) linreg_smf = smf.ols('y ~ X', data = mydata).fit() linreg_smf.summary() linreg_smf.summary().tables[1]      What is and ? Are they the same as what we calculated above?    Check the std err column. There are almost the same as we calculated.      Assessing Coefficient Estimate Accuracy   We will be using the Diabetes data set again, which you looked into from the last class. In case you've forgotten, there is information about the data set in the documentation .   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True) diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) diabetes_df   Like last time, we're now going to fit to a simple linear regression to the models and where the variables are    : tc, total serum cholesterol     : ltg, possibly log of serum triglycerides level.     Let's start by looking at using s5 to predict target .  Just for completeness, here's our code to do linear regression from last time using sklearn .   from sklearn.linear_model import LinearRegression # sklearn actually likes being handed numpy arrays more than # pandas dataframes, so we'll extract the bits we want and just pass it that. X = diabetes_df['s5'].values X = X.reshape([len(X),1]) y = diabetes_df['target'].values y = y.reshape([len(y),1]) # This code works by first creating an instance of the linear regression class reg = LinearRegression() # Then we pass in the data we want it to use to fit. reg.fit(X,y) # and we can get the coefficients we want out of the model from the following code. print(reg.coef_) print(reg.intercept_) # We can print lineString = str(round(reg.coef_[0,0],4)) + x_1 + + str(round(reg.intercept_[0],4)) print( 'y =',lineString)   However today we're interested in statistical tests so we'll be using the statsmodel package. It has more options for statistical tests when available, however it has fewer models available which is why we will using a bit of both in this class.   import statsmodels.formula.api as smf    There is a difference in here where the book uses   import statsmodels.api as sm model = sm.OLS(y, X)   which has some weird stuff with needing to include an intercept column and such. On homework problems and the like you can use this code or follow the book, either is acceptable.    Notice that the code is intentially written to look more like R than like python, but it still works! Double check..... the coefficients here should be about the same as those found by scikit-learn   est = smf.ols('target ~ s5', diabetes_df).fit() est.summary().tables[1]       What is and ?     and . They're in the std err column      If we instead use s1 to predict the target, are and higher or lower than what you found for the s5 prediction? Is this reasonable?     est2 = smf.ols( target ~ s1 , diabetes_df).fit() est2.summary().tables[1]     The error is a bit higher for both, more so for . This is reasonable, because better predictors → tighter scatter → smaller uncertainty in coefficients.      Try plotting your predictions as a function of alongside scatter plots of the data for comparison.    sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)    Higher error for the slope makes sense because we're looking at less linear data.      What are the confidence intervals for in the two cases (the prediction using s1 and the prediction using s5 )? Which is wider? and why?    Check out the est.conf_int command or you can find this in the summary tables you've been using earlier.     est = smf.ols('target ~ s5', diabetes_df).fit() print(est.conf_int(alpha=0.05)) print('\\n') # print('s1') est2 = smf.ols('target ~ s1', diabetes_df).fit() print(est2.conf_int(alpha=0.05))     The confidence interval for is wider when using because the model has larger residual variance, leading to a larger standard error of the slope estimate compared to the model.      What is the conclusion of the hypothesis test  at a confidence level of ?    answer is in the table given as the p-value. In this case, it's so small it's basically 0 in all cases. This means we reject the null hypothesis est.summary().tables[1]       Oh hey look, there's another table with information stored by the statsmodel class.  est.summary().tables[0]    What is for the two models?    We can get the value in the top right of this table est2.summary().tables[0]          Congratulations, we're done!   "
+},
+{
+  "id": "ws05-exercises-1-2",
+  "level": "2",
+  "url": "day05-notebook.html#ws05-exercises-1-2",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": " Simulating data   If we assume that our data is coming from the setting , what is ?   The noise is drawn from a normal distribution which has default setting.    The default setting of the normal distribution is mean=0 and std=1.    Because the noise is drawn from a normal distribution which has a default setting of std = 1, this means .      So now, lets just train our linear model lots of times, and collect the resulting coefficients   beta0_list = [] beta1_list = [] for i in range(100): X,y = makeData() X = X.reshape([len(X),1]) y = y.reshape([len(y),1]) reg = LinearRegression() reg.fit(X,y) beta1_list.append(reg.coef_[0,0]) beta0_list.append(reg.intercept_[0]) print(beta1_list)     Make a histogram of beta0_list .     plt.hist(beta0_list)       Make a histogram of beta1_list .     plt.hist(beta1_list)       What is the mean of each list?     print('The mean of beta0_list is:', np.mean(beta0_list))  print('The mean of beta1_list is:', np.mean(beta1_list))       How does these means compare to the acutal line we used to generate the data?    The means of the estimated coefficients are close to the true values of and used to generate the data.      What is the standard deviation of each list?     print('std dev of beta0:', np.std(beta0_list))  print('std dev of beta1:', np.std(beta1_list))     "
+},
+{
+  "id": "ws05-exercises-1-3",
+  "level": "2",
+  "url": "day05-notebook.html#ws05-exercises-1-3",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": " Variance in estimation   Now let's figure out the variance of the linear regression estimates. First off, we know that , but let's pretend we didn't make up our own fake data.  Start with a single linear regression model   reg = LinearRegression() reg.fit(X,y) print( 'y = '+ str(round(reg.intercept_[0],4)) +' + ' + str(round(reg.coef_[0,0],4)) + \" * x_1\" )   We can estimate using residual standard error:    predicted = reg.predict(X) residuals = y - predicted RSS = np.sum(residuals**2) RSE = np.sqrt(RSS\/(len(y)-2))   Then the following code can compute the standard error of each coefficient   # We're estimating sigma^2 by RSE^2 sigma_sq = RSE**2 # We have n = 100 data points n = 100 # We can calculate the standard error of beta_0 and beta_1 using the formulas we learned in class x_bar = np.mean(X) denom = np.sum((X - x_bar)**2) beta0_var = sigma_sq * (1\/n + x_bar**2\/denom) SE_beta0 = np.sqrt(beta0_var) print(f\"Standard error of beta0: {SE_beta0}\") beta1_var = sigma_sq\/denom SE_beta1 = np.sqrt(beta1_var) print(f\"Standard error of beta1: {SE_beta1}\")   While we had to work a bit to get this to write out the standard errors, we can use the statsmodels library instead of sklearn to get these values directly.   import statsmodels.formula.api as smf mydata = pd.DataFrame({'X':X.flatten(), 'y':y.flatten()}) linreg_smf = smf.ols('y ~ X', data = mydata).fit() linreg_smf.summary() linreg_smf.summary().tables[1]      What is and ? Are they the same as what we calculated above?    Check the std err column. There are almost the same as we calculated.    "
+},
+{
+  "id": "ws05-exercises-1-4",
+  "level": "2",
+  "url": "day05-notebook.html#ws05-exercises-1-4",
+  "type": "Exercise",
+  "number": "3",
+  "title": "",
+  "body": " Assessing Coefficient Estimate Accuracy   We will be using the Diabetes data set again, which you looked into from the last class. In case you've forgotten, there is information about the data set in the documentation .   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True) diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) diabetes_df   Like last time, we're now going to fit to a simple linear regression to the models and where the variables are    : tc, total serum cholesterol     : ltg, possibly log of serum triglycerides level.     Let's start by looking at using s5 to predict target .  Just for completeness, here's our code to do linear regression from last time using sklearn .   from sklearn.linear_model import LinearRegression # sklearn actually likes being handed numpy arrays more than # pandas dataframes, so we'll extract the bits we want and just pass it that. X = diabetes_df['s5'].values X = X.reshape([len(X),1]) y = diabetes_df['target'].values y = y.reshape([len(y),1]) # This code works by first creating an instance of the linear regression class reg = LinearRegression() # Then we pass in the data we want it to use to fit. reg.fit(X,y) # and we can get the coefficients we want out of the model from the following code. print(reg.coef_) print(reg.intercept_) # We can print lineString = str(round(reg.coef_[0,0],4)) + x_1 + + str(round(reg.intercept_[0],4)) print( 'y =',lineString)   However today we're interested in statistical tests so we'll be using the statsmodel package. It has more options for statistical tests when available, however it has fewer models available which is why we will using a bit of both in this class.   import statsmodels.formula.api as smf    There is a difference in here where the book uses   import statsmodels.api as sm model = sm.OLS(y, X)   which has some weird stuff with needing to include an intercept column and such. On homework problems and the like you can use this code or follow the book, either is acceptable.    Notice that the code is intentially written to look more like R than like python, but it still works! Double check..... the coefficients here should be about the same as those found by scikit-learn   est = smf.ols('target ~ s5', diabetes_df).fit() est.summary().tables[1]       What is and ?     and . They're in the std err column      If we instead use s1 to predict the target, are and higher or lower than what you found for the s5 prediction? Is this reasonable?     est2 = smf.ols( target ~ s1 , diabetes_df).fit() est2.summary().tables[1]     The error is a bit higher for both, more so for . This is reasonable, because better predictors → tighter scatter → smaller uncertainty in coefficients.      Try plotting your predictions as a function of alongside scatter plots of the data for comparison.    sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)    Higher error for the slope makes sense because we're looking at less linear data.      What are the confidence intervals for in the two cases (the prediction using s1 and the prediction using s5 )? Which is wider? and why?    Check out the est.conf_int command or you can find this in the summary tables you've been using earlier.     est = smf.ols('target ~ s5', diabetes_df).fit() print(est.conf_int(alpha=0.05)) print('\\n') # print('s1') est2 = smf.ols('target ~ s1', diabetes_df).fit() print(est2.conf_int(alpha=0.05))     The confidence interval for is wider when using because the model has larger residual variance, leading to a larger standard error of the slope estimate compared to the model.      What is the conclusion of the hypothesis test  at a confidence level of ?    answer is in the table given as the p-value. In this case, it's so small it's basically 0 in all cases. This means we reject the null hypothesis est.summary().tables[1]       Oh hey look, there's another table with information stored by the statsmodel class.  est.summary().tables[0]    What is for the two models?    We can get the value in the top right of this table est2.summary().tables[0]     "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
   "type": "Section",
   "number": "",
   "title": "Exam 1 material",
-  "body": " Exam 1 material       Day 01      Day 02      Day 03      Day 04      Day 05      Day 06        Day 01   Intro to class    What is statistical learning?    Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty      Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.        Why should you care?    Data is everywhere, getting more complicated and useful. Learning how to analyze data is critical.    Web data, e-commerce (Amazon, JD, Alibaba)    Car sales (Tesla, Ford, and GM)    Sports team (MSU, Lions, etc)    Politics and government    Image, videos, text    even fancier data in biomedicine      Learning tools as black boxes?    Need to understand the machinery enough to    know what tool to use    know how to interpret output of the tool      Don't need to rebuild the entire box from scratch      Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.     Supervised learning    Outcome measurement (also called dependent variable, response, target, label).    Vector of predictor measurements (also called inputs, regressors, covariates, features, independent variables).    In the regression problem, is quantitative (e.g price, blood pressure).    In the classification problem, takes values in a set of distinct categories (survived\/died, cancer class of tissue sample, types of language).      Unsupervised learning    No outcome variable, just a set of predictors (features) measured on a set of samples.    Objective is fuzzier: often explore the intrinsic relation between samples (e.g.,clustering) or features (e.g. dimensionality reduction)    Difficult to know how well you are are doing    Different from supervised learning but can be useful as a pre-processing step for supervised learning.      Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.     Get started on Day01 Worksheet !    Day 02   Intro to class    Covered in this class    Input\/output variables    Prediction vs inference.    Reduceable vs irreduceable error.    Overfitting    Classification vs regression    Supervised vs Unsupervised learning     Please note: no jupyter notebook for today's class, slides only    Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set      Sales of a product in 200 markets, along with amount spent on three different types of advertising. Data available at      Goal: Predict Sales based on amount spent in each type of advertising       Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.     Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.     Notation and Big Assumption      Input variables:     Output variable:             Advertising Example   Sales versus TV, radio, and newspaper advertising spending all in units of 1000     More examples    Data points for income in units of 1000 versus years of education and a nonlinear curve fit to the data    Data points for income in units of 1000 versus years of education and seniority along with a surface fit to data      Prediction vs Inference   Prediction    Given a value , try to provide an estimate for .  Build a model     Example: If we spend $250 on TV advertising, what do we predict we will we make in sales?   Sales versus TV advertising spending in units of 1000 along with two different linear fits           The blue solid line is . The green dashed line is . What is the predicted sales for the first three data points using the green dashed line shown in the graph? Note all values are approximate.     What is ?            What is ?            What is ?            Using the dashed green line as the predicted model , how can we quantify the error in each of the three predictions? This is what we will learn next.   Reducible vs irreducible error      Reducible error      Irreducible error       More on error    Given estimate (fixed)    Set of predictors (fixed)    Prediction        Inference   Want , but not for prediction (or possibly combined with prediction)    Which predictors are associated with the response?    What is the relationship between the response and each predictor?    Can the relationship between and each predictor be adequately summarized using a linear equation? Is it more complicated?        Predict effectiveness of vaccine      Prediction      Inference        Determine the address written on the image of an envelope.      Prediction      Inference        Identify risk factors for getting long covid.      Prediction      Inference        Transcribe an audio file of a person talking.      Prediction      Inference        Predict stock prices.      Prediction      Inference       How to estimate     Input: training data      data points observed   is the th predictor for observation    is the response variable for the th observation   Training data:            screenshot of the advertising data set      Parametric methods    Step1: Select a model  EXample:     Step 2: Train the model  Example: Find $ s so that      income in units of 1000 versus years of education and seniority   Data points for income in units of 1000 versus years of education and seniority along with a planar surface fit to data      How do you decide on the coefficients?     A 2D scatter plot    Change the values of the coefficients and observe how the fit changes.     Example Non-parametric method: Nearest Neighbors      Nearest neighbors with two classes   A picture of data with two classes separated by a non-linear boundary obtained using nearest neighbors with .      Parametric methods: Pros and Cons    Pros  Cons        Overfitting    Income versus years of education and seniority and less flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a non-planar surface fit to data     Income versus years of education and seniority and more flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a more flexible non-planar surface fit to data       Prediction Accuracy vs Model Interpretability   Interpretability and flexibility of common machine learning methods   A figure that plots common methods for machine learning with low and high levels for interpretability on the y-axis versus flexibility on the x-axis      Supervised and unsupervised learning:    Supervised learning : Training data has response variable for every input    Sales versus TV, radio, and newspaper advertising spending all in units of 1000      Unsupervised learning : Training data does not have response variable for every input    Plot of 3 different classes separately grouped versus two predictors X1 and X2      Regression vs Classification  Types of variables    Quantitative    Qualitative or Categorical      TL;DR      Input\/output variables    Prediction vs inference    Reducible vs irreducible error    Overfitting    Classification vs regression    Supervised vs Unsupervised learning       Group work: Work in groups to complete Day02 in-class activity .    Day 03       Day 04       Day 05       Day 06      "
+  "body": " Exam 1 material       Day 01      Day 02      Day 03      Day 04      Day 05      Day 06        Day 01   Intro to class    What is statistical learning?    Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty      Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.        Why should you care?    Data is everywhere, getting more complicated and useful. Learning how to analyze data is critical.    Web data, e-commerce (Amazon, JD, Alibaba)    Car sales (Tesla, Ford, and GM)    Sports team (MSU, Lions, etc)    Politics and government    Image, videos, text    even fancier data in biomedicine      Learning tools as black boxes?    Need to understand the machinery enough to    know what tool to use    know how to interpret output of the tool      Don't need to rebuild the entire box from scratch      Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.     Supervised learning    Outcome measurement (also called dependent variable, response, target, label).    Vector of predictor measurements (also called inputs, regressors, covariates, features, independent variables).    In the regression problem, is quantitative (e.g price, blood pressure).    In the classification problem, takes values in a set of distinct categories (survived\/died, cancer class of tissue sample, types of language).      Unsupervised learning    No outcome variable, just a set of predictors (features) measured on a set of samples.    Objective is fuzzier: often explore the intrinsic relation between samples (e.g.,clustering) or features (e.g. dimensionality reduction)    Difficult to know how well you are are doing    Different from supervised learning but can be useful as a pre-processing step for supervised learning.      Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.     Get started on Day01 Worksheet !    Day 02   Intro to class    Covered in this class    Input\/output variables    Prediction vs inference.    Reduceable vs irreduceable error.    Overfitting    Classification vs regression    Supervised vs Unsupervised learning     Please note: no jupyter notebook for today's class, slides only    Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set      Sales of a product in 200 markets, along with amount spent on three different types of advertising. Data available at      Goal: Predict Sales based on amount spent in each type of advertising       Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.     Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.     Notation and Big Assumption      Input variables:     Output variable:             Advertising Example   Sales versus TV, radio, and newspaper advertising spending all in units of 1000     More examples    Data points for income in units of 1000 versus years of education and a nonlinear curve fit to the data    Data points for income in units of 1000 versus years of education and seniority along with a surface fit to data      Prediction vs Inference   Prediction    Given a value , try to provide an estimate for .  Build a model     Example: If we spend $250 on TV advertising, what do we predict we will we make in sales?   Sales versus TV advertising spending in units of 1000 along with two different linear fits           The blue solid line is . The green dashed line is . What is the predicted sales for the first three data points using the green dashed line shown in the graph? Note all values are approximate.     What is ?            What is ?            What is ?            Using the dashed green line as the predicted model , how can we quantify the error in each of the three predictions? This is what we will learn next.   Reducible vs irreducible error      Reducible error      Irreducible error       More on error    Given estimate (fixed)    Set of predictors (fixed)    Prediction        Inference   Want , but not for prediction (or possibly combined with prediction)    Which predictors are associated with the response?    What is the relationship between the response and each predictor?    Can the relationship between and each predictor be adequately summarized using a linear equation? Is it more complicated?        Predict effectiveness of vaccine      Prediction      Inference        Determine the address written on the image of an envelope.      Prediction      Inference        Identify risk factors for getting long covid.      Prediction      Inference        Transcribe an audio file of a person talking.      Prediction      Inference        Predict stock prices.      Prediction      Inference       How to estimate     Input: training data      data points observed   is the th predictor for observation    is the response variable for the th observation   Training data:            screenshot of the advertising data set      Parametric methods    Step1: Select a model  EXample:     Step 2: Train the model  Example: Find $ s so that      income in units of 1000 versus years of education and seniority   Data points for income in units of 1000 versus years of education and seniority along with a planar surface fit to data      How do you decide on the coefficients?     A 2D scatter plot    Change the values of the coefficients and observe how the fit changes.     Example Non-parametric method: Nearest Neighbors      Nearest neighbors with two classes   A picture of data with two classes separated by a non-linear boundary obtained using nearest neighbors with .      Parametric methods: Pros and Cons    Pros  Cons        Overfitting    Income versus years of education and seniority and less flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a non-planar surface fit to data     Income versus years of education and seniority and more flexible fit   Data points for income in units of 1000 versus years of education and seniority along with a more flexible non-planar surface fit to data       Prediction Accuracy vs Model Interpretability   Interpretability and flexibility of common machine learning methods   A figure that plots common methods for machine learning with low and high levels for interpretability on the y-axis versus flexibility on the x-axis      Supervised and unsupervised learning:    Supervised learning : Training data has response variable for every input    Sales versus TV, radio, and newspaper advertising spending all in units of 1000      Unsupervised learning : Training data does not have response variable for every input    Plot of 3 different classes separately grouped versus two predictors X1 and X2      Regression vs Classification  Types of variables    Quantitative    Qualitative or Categorical      TL;DR      Input\/output variables    Prediction vs inference    Reducible vs irreducible error    Overfitting    Classification vs regression    Supervised vs Unsupervised learning       Group work: Work in groups to complete Day02 in-class activity .    Day 03       Day 04       Day 05   More Linear Regression    Covered in this class    Stats review:   Confidence interval    Hypothesis testing     -value       Linear regression:   Linear regression is an unbiased estimator    Standard errors for and     CI for and     Hypothesis testing and -value for the relationship between predictor and response in the regression model    Assessing model accuracy: Residual Standard Error (RSE)    Assessing model accuracy: squared         Stats Review   This is intended to be only a brief review of some concepts from stats. If you need a more thorough refresher, please use your stats book or other online resources.    Sampling distribution  The objective of statistical inference is to draw conclusions about the population using a sample from that population.  A statistic is any quantity whose value can be calculated from sample data. Before the data is obtained, we are uncertain about the value that the statistic will assume. Therefore, a statistic is a random variable. In particular, a sample mean has a probability distribution.    Hypothesis testing  Suppose we want to know if exposure to asbestos is associated with lung disease.  Procedure:    Take some rats and randomly divide them into two groups:  Group 1: expose to asbestos  Group 2: leave unexposed     Compare the disease rate in the two groups. Consider the following two hypotheses:       Only use hypothesis testing to test well-defined hypotheses.    In hypothesis testing, we assume is true unless there is strong evidence to reject .    We assume that the samples are drawn at random from two independent normal populations.   Two side-by-side normal distributions with means mu 1 and mu 2 and variances sigma 1 squared and sigma 2 squared      A hypothesis of the form is called a simple hypothesis.   A test of the form versus is called a two-sided test.   The most common tests are two-sided.    Suppose that we have two treatments with samples taken for each treatment such that:    The experiment was performed using a completely randomized design. This means that:  The population was randomly sampled.  The data are normally distributed.     The two treatments come from two populations with identical variance.   Depending on whether we know the variance or not, we will use the -test and the -test, respectively. For our class, we will be working only with the -test.    -test  In practice, we often do not know the variance. In that case, the test statistic is   where is called the standard error of the difference in the means, abbreviated as , and   To determine whether to reject , compare to the -distribution with degrees of freedom (DOF):   This procedure is called the two-sample -test .    Portland cement formulation experiment   Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)  Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding -statistic.  Choosing , we would reject if , or if . Do we reject in this case? What is the corresponding conclusion?   Tension strength for modified and unmodified mortar samples.     Modified mortar  Unmodified mortar    1  16.85  16.62    2  16.40  16.75    3  17.21  17.37    4  16.35  17.12    5  16.52  16.98    6  17.04  16.87    7  16.96  17.34    8  17.15  17.02    9  16.59  17.08    10  16.57  17.27      mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.    Modified mortar  Unmodified mortar                            The test hypotheses are     so . The test statistic is   Because , reject and conclude that the mean tension bond strengths of the two formulations are different.    Rejection region for the Portland Mortar data set.   Portland mortar example, rejection region.       The use of -values in hypothesis testing    -value: The smallest value at which is rejected.   The -value is a measure of the evidence against : the smaller the -value, the stronger the evidence against . Usually, the following scale is used:     -value  Evidence     Very strong evidence against     Strong evidence against     Weak evidence against     Little or no evidence against       Rejection criteria using a set p-value shown as a horizontal function with two levels: accept and reject with the transition occurring at the p value.      Confidence intervals  We are often interested in knowing how much the means differ instead of only whether they differ. The interval within which the parameters would be expected to lie is called a confidence interval.  To obtain an interval estimate of , we need to find two statistics and such that the probability statement   is true. The interval is called a percent confidence interval for the parameter .  Interpretation of the confidence interval: A confidence level implies that of all samples would give an interval that includes whatever parameter is being estimated. Specifically, if we take a large number of samples, and for each one construct a confidence interval (CI) of the form , then in the long run, with confidence for example, the constructed interval will contain the parameter  of the time.  Therefore, the confidence interval is not so much a statement about any specific realization of the CI; instead, it pertains to what would happen if a very large number of like intervals were constructed using the same formula.    Eleven realizations of the confidence interval on separate lines and one vertical line showing the true mean mu.   Interpretation of the confidence interval.       Assessing Coefficient Estimate Accuracy   Bias in estimation     Assume a true value .    An estimate from training data is .    The estimate is unbiased if .      The sample mean is unbiased for the population mean:     The standard variance estimate is biased  (underestimation)  :        Linear regression is unbiased     Scatter plot of simulated data with linear relationship plus noise with overalid true line relationship and least squares linear fit.      10 linear fits for the same data with 10 different noise realizations.      100 data points drawn from .     is drawn from a normal distribution with mean .    The red line is the true relationship; the blue line is the least-squares estimate.    Repeat this 10 times and plot all the resulting lines in variations of blue.    The resulting models are slightly different, but all lie around the true relationship shown in red.       Variance in estimation     True value .    Estimate from training data .    Variance of the sample mean:       Standard error measures by how much a sample statistic, e.g, differs from the true population value, e.g., .    The more data you have, the smaller the variance and the better the estimate.      Standard error versus standard variation  Standard deviation measures the amount of spread in a sample from the mean.  Standard error measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).     Variance of linear regression estimates     Variance of linear regression estimates:  where .   If data are more spread out, the standard error is smaller.     The residual standard error is an estimate of : .       Confidence Interval   The confidence interval for approximately takes the form   The same form works for .     Interpretation: There is approximately a chance that the interval will contain when we repeatedly approximate using repeated samples.    CI in Advertising Data     scatter plot with linear fit and residuals     For the advertising data set, the confidence intervals are:         First line through and .    Second line through and .                Hypothesis testing      There is no relationship between and . Null hypothesis.      There is some relationship between and . Alternative hypothesis.         Since, if , the model reduces to , is not associated with .      Test statistic and -value   Test statistic:  -distribution with degrees of freedom.   student t-distribution for four different values of nu.     A small -value indicates that it is unlikely to observe such a substantial association between the predictor and response by chance, in the absence of a real association between them.    Advertising example     linear fit table for the sales versus TV advertising in 1000 dollars data.      scatter plot with linear fit and residuals        Assessing the accuracy of the module: Residual Standard Error (RSE)    RSE       Estimate of the standard deviation of .    Average amount that the response will deviate from the true regression line.       Assessing the accuracy of the module: $R^2$     R squared:    where total sum of squares is      TSS is total variance in the response , variability before regression.    RSS is the amount of variability after the regression.     is the proportion of variability in that can be explained using .    Close to 1: a large proportion of variability is explained by the regression.    Close to 0: the regression does not explain much of the variability in the response.       Advertising example      Sales versus TV advertising scatter plot with linear fit line.         Sales versus radio advertising scatter plot with linear fit line.         Sales versus newspaper advertising scatter plot with linear fit line.          TSS and RSS   For the shown data, answer the following questions     Sketch the deviation from the mean for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       Sketch the residual for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       If the data points are given by . Find the lengths of the bars you sketched in .      Use the answer to to find the TSS.      Assume that the linear regression line is given by and using the data points given in , find the lengths of bars you sketched in .      Use the answer to to find the RSS.       Group work: Work in groups to complete Day05 in-class activity .    Day 06      "
 },
 {
   "id": "day-01-lecture-3-2-1",
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "12",
+  "number": "15",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
@@ -338,7 +374,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "13",
+  "number": "16",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
@@ -347,7 +383,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "14",
+  "number": "17",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
@@ -356,7 +392,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "15",
+  "number": "18",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
@@ -374,7 +410,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "16",
+  "number": "19",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
@@ -383,7 +419,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "17",
+  "number": "20",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
@@ -392,7 +428,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "18",
+  "number": "21",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
@@ -401,7 +437,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
-  "number": "19",
+  "number": "22",
   "title": "",
   "body": "  What is ?         "
 },
@@ -410,7 +446,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "23",
   "title": "",
   "body": "  What is ?         "
 },
@@ -419,7 +455,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW3",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "24",
   "title": "",
   "body": "  What is ?         "
 },
@@ -446,7 +482,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "22",
+  "number": "25",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
@@ -455,7 +491,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "23",
+  "number": "26",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
@@ -464,7 +500,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "24",
+  "number": "27",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
@@ -473,7 +509,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "25",
+  "number": "28",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
@@ -482,7 +518,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "26",
+  "number": "29",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
@@ -491,7 +527,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "27",
+  "number": "30",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons      "
 },
@@ -512,6 +548,177 @@ var ptx_lunr_docs = [
   "number": "",
   "title": "",
   "body": "Unsupervised learning "
+},
+{
+  "id": "day-05-lecture-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#day-05-lecture-3",
+  "type": "Objectives",
+  "number": "",
+  "title": "Covered in this class",
+  "body": " Covered in this class    Stats review:   Confidence interval    Hypothesis testing     -value       Linear regression:   Linear regression is an unbiased estimator    Standard errors for and     CI for and     Hypothesis testing and -value for the relationship between predictor and response in the regression model    Assessing model accuracy: Residual Standard Error (RSE)    Assessing model accuracy: squared       "
+},
+{
+  "id": "sec-stat-review-3-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-stat-review-3-3",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "statistic "
+},
+{
+  "id": "sec-stat-review-5-8",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-stat-review-5-8",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "the two-sample -test "
+},
+{
+  "id": "sec-stat-review-5-9",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-stat-review-5-9",
+  "type": "Example",
+  "number": "31",
+  "title": "Portland cement formulation experiment.",
+  "body": " Portland cement formulation experiment   Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)  Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding -statistic.  Choosing , we would reject if , or if . Do we reject in this case? What is the corresponding conclusion?   Tension strength for modified and unmodified mortar samples.     Modified mortar  Unmodified mortar    1  16.85  16.62    2  16.40  16.75    3  17.21  17.37    4  16.35  17.12    5  16.52  16.98    6  17.04  16.87    7  16.96  17.34    8  17.15  17.02    9  16.59  17.08    10  16.57  17.27      mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.    Modified mortar  Unmodified mortar                            The test hypotheses are     so . The test statistic is   Because , reject and conclude that the mean tension bond strengths of the two formulations are different.    Rejection region for the Portland Mortar data set.   Portland mortar example, rejection region.    "
+},
+{
+  "id": "sec-stat-review-6-2",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-stat-review-6-2",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "-value: "
+},
+{
+  "id": "sec-stat-review-6-4",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-stat-review-6-4",
+  "type": "Table",
+  "number": "35",
+  "title": "",
+  "body": "   -value  Evidence     Very strong evidence against     Strong evidence against     Weak evidence against     Little or no evidence against    "
+},
+{
+  "id": "p-value-reject",
+  "level": "2",
+  "url": "sec-exam1-material.html#p-value-reject",
+  "type": "Figure",
+  "number": "36",
+  "title": "",
+  "body": "  Rejection criteria using a set p-value shown as a horizontal function with two levels: accept and reject with the transition occurring at the p value.   "
+},
+{
+  "id": "confidence-interval-interpretation",
+  "level": "2",
+  "url": "sec-exam1-material.html#confidence-interval-interpretation",
+  "type": "Figure",
+  "number": "37",
+  "title": "",
+  "body": "  Eleven realizations of the confidence interval on separate lines and one vertical line showing the true mean mu.   Interpretation of the confidence interval.  "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1",
+  "type": "Note",
+  "number": "38",
+  "title": "",
+  "body": " (underestimation)  "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-3-2-1",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-1",
+  "type": "Figure",
+  "number": "39",
+  "title": "",
+  "body": "  Scatter plot of simulated data with linear relationship plus noise with overalid true line relationship and least squares linear fit.   "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-3-2-2",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-2",
+  "type": "Figure",
+  "number": "40",
+  "title": "",
+  "body": "  10 linear fits for the same data with 10 different noise realizations.   "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-4-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-4-3",
+  "type": "Note",
+  "number": "41",
+  "title": "Standard error versus standard variation.",
+  "body": " Standard error versus standard variation  Standard deviation measures the amount of spread in a sample from the mean.  Standard error measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).  "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-6-2-1-4",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-2-1-4",
+  "type": "Note",
+  "number": "42",
+  "title": "",
+  "body": " The same form works for .  "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-6-2-2",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-2-2",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "Interpretation: "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-6-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-3",
+  "type": "Example",
+  "number": "43",
+  "title": "CI in Advertising Data.",
+  "body": " CI in Advertising Data     scatter plot with linear fit and residuals     For the advertising data set, the confidence intervals are:         First line through and .    Second line through and .             "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-8-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-3",
+  "type": "Note",
+  "number": "45",
+  "title": "",
+  "body": " A small -value indicates that it is unlikely to observe such a substantial association between the predictor and response by chance, in the absence of a real association between them.  "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-8-4",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-4",
+  "type": "Example",
+  "number": "46",
+  "title": "Advertising example.",
+  "body": " Advertising example     linear fit table for the sales versus TV advertising in 1000 dollars data.      scatter plot with linear fit and residuals     "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-10-3",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-3",
+  "type": "Example",
+  "number": "49",
+  "title": "\n<div class=\"para\" id=\"sec-Assessing-linReg-coefficients-estimates-10-3-1-1\">Advertising example<div class=\"autopermalink\" aria-hidden=\"true\" data-description=\"Paragraph\"><a tabindex=\"-1\" href=\"#sec-Assessing-linReg-coefficients-estimates-10-3-1-1\" title=\"Copy heading and permalink for Paragraph\" aria-label=\"Copy heading and permalink for Paragraph\">🔗<\/a><\/div><\/div>.",
+  "body": "  Advertising example      Sales versus TV advertising scatter plot with linear fit line.         Sales versus radio advertising scatter plot with linear fit line.         Sales versus newspaper advertising scatter plot with linear fit line.        "
+},
+{
+  "id": "sec-Assessing-linReg-coefficients-estimates-10-4",
+  "level": "2",
+  "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-4",
+  "type": "Checkpoint",
+  "number": "50",
+  "title": "TSS and RSS.",
+  "body": " TSS and RSS   For the shown data, answer the following questions     Sketch the deviation from the mean for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       Sketch the residual for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       If the data points are given by . Find the lengths of the bars you sketched in .      Use the answer to to find the TSS.      Assume that the linear regression line is given by and using the data points given in , find the lengths of bars you sketched in .      Use the answer to to find the RSS.    "
 },
 {
   "id": "homework-2",

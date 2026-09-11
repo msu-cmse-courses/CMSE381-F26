@@ -1,0 +1,1306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day05" xml:id="day-05-lecture">
+    <title>Day 05</title>
+
+    <paragraphs>
+        <title>More Linear Regression</title>
+
+    </paragraphs>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Stats review:
+                    <ul>
+                        <li>
+                            <p>
+                                Confidence interval
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Hypothesis testing
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>p</m>-value
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Linear regression:
+                    <ul>
+                        <li>
+                            <p>
+                                Linear regression is an unbiased estimator
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Standard errors for <m>\hat{\beta}_0</m> and
+                                <m>\hat{\beta}_1</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                CI for <m>\hat{\beta}_0</m> and
+                                <m>\hat{\beta}_1</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Hypothesis testing and <m>p</m>-value for the
+                                relationship between predictor and response in
+                                the regression model
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Assessing model accuracy: Residual Standard
+                                Error (RSE)
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Assessing model accuracy: <m>R</m> squared
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <section xml:id="sec-stat-review">
+        <title>Stats Review</title>
+
+        <introduction>
+            <p>
+                This is intended to be only a brief review of some concepts from
+                stats.
+                If you need a more thorough refresher, please use your stats
+                book or other online resources.
+            </p>
+        </introduction>
+
+        <paragraphs>
+            <title>Sampling distribution</title>
+
+            <p>
+                The objective of statistical inference is to draw conclusions
+                about the population using a sample from that population.
+            </p>
+
+            <p>
+                A <term>statistic</term> is any quantity whose value can be
+                calculated from sample data.
+                Before the data is obtained, we are uncertain about the value
+                that the statistic will assume.
+                Therefore, a statistic is a random variable.
+                In particular, a sample mean <m>\bar{X}</m> has a probability
+                distribution.
+            </p>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Hypothesis testing</title>
+
+            <p>
+                Suppose we want to know if exposure to asbestos is associated
+                with lung disease.
+            </p>
+
+            <p>
+                Procedure:
+            </p>
+
+            <ul>
+                <li>
+                    <p>
+                        Take some rats and randomly divide them into two groups:
+                        <ul>
+                            <li>Group 1: expose to asbestos</li>
+                            <li>Group 2: leave unexposed</li>
+                        </ul>
+                    </p>
+                </li>
+
+                <li>
+                    Compare the disease rate in the two groups.
+                    Consider the following two hypotheses:
+                    <md>
+                        H_0: \text{The disease rate is the same in the two groups}
+                    </md>
+                    <md>
+                        H_1: \text{The disease rate is not the same in the two groups}
+                    </md>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <p>
+                        Only use hypothesis testing to test well-defined
+                        hypotheses.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        In hypothesis testing, we assume <m>H_0</m> is true
+                        unless there is strong evidence to reject <m>H_0</m>.
+                    </p>
+                </li>
+
+                <!-- <li>
+                    <p>
+                        There are two types of errors we can make:
+                        <table>
+                            <tabular>
+                                <row>
+                                    <cell/>
+                                    <cell>Retain null</cell>
+                                    <cell>Reject null</cell>
+                                </row>
+
+                                <row>
+                                    <cell><m>H_0</m> true</cell>
+                                    <cell>✓</cell>
+                                    <cell>Type I error</cell>
+                                </row>
+
+                                <row>
+                                    <cell><m>H_1</m> true</cell>
+                                    <cell>Type II error</cell>
+                                    <cell>✓</cell>
+                                </row>
+                            </tabular>
+                        </table>
+                        where
+                        <md>
+                            \alpha = P(\text{type I error})
+      = P(\text{reject } H_0 \mid \text{\(H_0\) is true}),
+                        </md>
+                        <md>
+                            \beta = P(\text{type II error})
+      = P(\text{fail to reject } H_0 \mid \text{\(H_0\) is false}).
+                        </md>
+                    </p>
+                </li> -->
+
+                <li>
+                    We assume that the samples are drawn at random from two
+                    independent normal populations.
+                    <image source="figures/twoNormalDistributions.png">
+                        <shortdescription>
+                            <p>
+                                Two side-by-side normal distributions with means
+                                mu 1 and mu 2 and variances sigma 1 squared and
+                                sigma 2 squared
+                            </p>
+                        </shortdescription>
+                    </image>
+                </li>
+
+                <!-- <li>
+                    The power of the test is defined as
+                    <md>
+                        \text{Power} = 1 - \beta
+      = P(\text{reject } H_0 \mid \text{\(H_0\) is false}).
+                    </md>
+                </li> -->
+
+                <li>
+                    A hypothesis of the form <m>\theta = \theta_0</m> is called
+                    a simple hypothesis.
+                </li>
+
+                <!-- <li>
+                    A hypothesis of the form <m>\theta &gt; \theta_0</m> or
+                    <m>\theta &lt; \theta_0</m> is called a compound hypothesis.
+                </li> -->
+
+                <li>
+                    A test of the form <m>H_0: \theta = \theta_0</m> versus
+                    <m>H_1: \theta \ne \theta_0</m> is called a two-sided test.
+                </li>
+
+                <!-- <li>
+                    A test of the form
+                    <md>
+                        H_0: \theta \leq \theta_0 \text{ versus } H_1: \theta &gt; \theta_0
+                    </md>
+                    or
+                    <md>
+                        H_0: \theta \geq \theta_0 \text{ versus } H_1: \theta &lt; \theta_0
+                    </md>
+                    is called a one-sided test.
+                </li> -->
+
+                <li>The most common tests are two-sided.</li>
+                <!-- <li>
+                    <p>
+                        To test a hypothesis:
+                        <ol>
+                            <li>Collect a random sample.</li>
+                            <li>Compute an appropriate test statistic.</li>
+                            <li>
+                                Reject or retain the null hypothesis based on
+                                the calculated statistic.
+                                This involves specifying the probability of a
+                                Type I error, <m>\alpha</m>, called the
+                                significance level of the test.
+                            </li>
+                        </ol>
+                    </p>
+                </li> -->
+            </ul>
+
+            <p>
+                Suppose that we have two treatments with samples taken for each
+                treatment such that:
+            </p>
+
+            <ol>
+                <li>
+                    <p>
+                        The experiment was performed using a completely
+                        randomized design.
+                        This means that:
+                        <ol>
+                            <li>The population was randomly sampled.</li>
+                            <li>The data are normally distributed.</li>
+                        </ol>
+                    </p>
+                </li>
+
+                <li>
+                    The two treatments come from two populations with identical
+                    variance.
+                </li>
+            </ol>
+
+            <p>
+                Depending on whether we know the variance or not, we will use
+                the <m>Z</m>-test and the <m>t</m>-test, respectively.
+                For our class, we will be working only with the <m>t</m>-test.
+            </p>
+        </paragraphs>
+
+        <paragraphs>
+            <title><m>t</m>-test</title>
+
+            <p>
+                In practice, we often do not know the variance.
+                In that case, the test statistic is
+            </p>
+            <md>
+                t_0 =
+  \frac{\overline{y}_1-\overline{y}_2}
+  {S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}},
+            </md>
+
+            <p>
+                where <m>S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}</m> is called the
+                standard error of the difference in the means, abbreviated as
+                <m>se(\overline{y}_1-\overline{y}_2)</m>, and
+            </p>
+            <md>
+                S_p^2 =
+  \frac{(n_1-1)S_1^2+(n_2-1)S_2^2}
+  {n_1+n_2-2}.
+            </md>
+
+            <p>
+                To determine whether to reject <m>H_0: \mu_1=\mu_2</m>, compare
+                <m>t_0</m> to the <m>t</m>-distribution with <m>n_1+n_2-2</m>
+                degrees of freedom (DOF):
+            </p>
+            <md>
+                \text{If } \lvert t_0\rvert &gt; t_{\alpha/2,\,n_1+n_2-2},
+  \text{ reject } H_0.
+            </md>
+
+            <p>
+                This procedure is called
+                <term>the two-sample <m>t</m>-test</term>.
+            </p>
+
+            <!-- <ol>
+                <li>
+                    For a one-sided hypothesis, such as
+                    <m>H_0: \mu_1\leq\mu_2</m> versus
+                    <m>H_1: \mu_1 &gt; \mu_2</m>:
+                    <md>
+                        \text{If } t_0 &gt; t_{\alpha,\,n_1+n_2-2}, \text{ reject } H_0.
+                    </md>
+                </li>
+
+                <li>
+                    For a one-sided hypothesis, such as
+                    <m>H_0: \mu_1\geq\mu_2</m> versus
+                    <m>H_1: \mu_1 &lt; \mu_2</m>:
+                    <md>
+                        \text{If } t_0 &lt; -t_{\alpha,\,n_1+n_2-2}, \text{ reject } H_0.
+                    </md>
+                </li>
+            </ol> -->
+
+            <example>
+                <title>Portland cement formulation experiment</title>
+
+                <statement>
+                <p>
+                    Tension bond strength data is given fo the Portland cement
+                    formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)
+                </p>
+                    <p>
+                        Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding <m>t</m>-statistic. 
+                    </p>
+                                        <p>
+                        Choosing <m>\alpha=0.05</m>, we would reject <m>H_0</m>
+                        if <m>t_0 &gt; t_{0.025,18}=2.101</m>, or if
+                        <m>t_0 &lt; -t_{0.025,18}=-2.101</m>. Do we reject <m>H_0</m> in this case? What is the corresponding conclusion?
+                    </p>
+
+                <table>
+               <title>Tension strength for modified and unmodified mortar samples.</title>
+               
+               
+                    <tabular>
+                        <row>
+                            <cell><m>j</m></cell>
+                            <cell>Modified mortar</cell>
+                            <cell>Unmodified mortar</cell>
+                        </row>
+
+                        <row>
+                            <cell>1</cell>
+                            <cell>16.85</cell>
+                            <cell>16.62</cell>
+                        </row>
+
+                        <row>
+                            <cell>2</cell>
+                            <cell>16.40</cell>
+                            <cell>16.75</cell>
+                        </row>
+
+                        <row>
+                            <cell>3</cell>
+                            <cell>17.21</cell>
+                            <cell>17.37</cell>
+                        </row>
+
+                        <row>
+                            <cell>4</cell>
+                            <cell>16.35</cell>
+                            <cell>17.12</cell>
+                        </row>
+
+                        <row>
+                            <cell>5</cell>
+                            <cell>16.52</cell>
+                            <cell>16.98</cell>
+                        </row>
+
+                        <row>
+                            <cell>6</cell>
+                            <cell>17.04</cell>
+                            <cell>16.87</cell>
+                        </row>
+
+                        <row>
+                            <cell>7</cell>
+                            <cell>16.96</cell>
+                            <cell>17.34</cell>
+                        </row>
+
+                        <row>
+                            <cell>8</cell>
+                            <cell>17.15</cell>
+                            <cell>17.02</cell>
+                        </row>
+
+                        <row>
+                            <cell>9</cell>
+                            <cell>16.59</cell>
+                            <cell>17.08</cell>
+                        </row>
+
+                        <row>
+                            <cell>10</cell>
+                            <cell>16.57</cell>
+                            <cell>17.27</cell>
+                        </row>
+                    </tabular>
+                </table>
+
+                <table>
+                <title>mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.</title>
+                    <tabular>
+                        <row>
+                            <cell>Modified mortar</cell>
+                            <cell>Unmodified mortar</cell>
+                        </row>
+
+                        <row>
+                            <cell>
+                                <m>\overline{y}_1=16.76\text{ kgf/cm}^2</m>
+                            </cell>
+                            <cell>
+                                <m>\overline{y}_2=17.04\text{ kgf/cm}^2</m>
+                            </cell>
+                        </row>
+
+                        <row>
+                            <cell><m>S_1^2=0.100</m></cell>
+                            <cell><m>S_2^2=0.061</m></cell>
+                        </row>
+
+                        <row>
+                            <cell><m>S_1=0.316</m></cell>
+                            <cell><m>S_2=0.248</m></cell>
+                        </row>
+
+                        <row>
+                            <cell><m>n_1=10</m></cell>
+                            <cell><m>n_2=10</m></cell>
+                        </row>
+                    </tabular>
+                </table>
+                </statement>
+
+                <solution>
+                    <!-- <p>
+                        Since the standard deviations are reasonably similar, we
+                        conclude that the samples came from populations with
+                        equal variances.                        
+                    </p> -->
+                    <p>
+                        The test hypotheses are
+                    </p>
+                    <md>
+                        H_0: \mu_1=\mu_2
+                    </md>
+                    <md>
+                        H_1: \mu_1\ne\mu_2.
+                    </md>
+
+
+                    <md>
+                        S_p^2 =
+      \frac{(n_1-1)S_1^2+(n_2-1)S_2^2}
+      {n_1+n_2-2}
+      =0.081,
+                    </md>
+
+                    <p>
+                        so <m>S_p=0.284</m>.
+                        The test statistic is
+                    </p>
+                    <md>
+                        t_0 =
+      \frac{\overline{y}_1-\overline{y}_2}
+      {S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}
+      =-2.20.
+                    </md>
+
+                    <p>
+                        Because <m>t_0=-2.20 &lt; -t_{0.025,18}=-2.101</m>,
+                        reject <m>H_0</m> and conclude that the mean tension
+                        bond strengths of the two formulations are different.
+                    </p>
+
+                    <figure xml:id="portland-mortar-rejection-region">
+                        <image source="figures/portlandMortar_rejectionRegion.png">
+                            <shortdescription>
+                                Rejection region for the Portland Mortar data
+                                set.
+                            </shortdescription>
+                        </image>
+                        <caption>
+                            Portland mortar example, rejection region.
+                        </caption>
+                    </figure>
+                </solution>
+            </example>
+        </paragraphs>
+
+        <paragraphs>
+            <title>The use of <m>p</m>-values in hypothesis testing</title>
+
+            <!-- <p>
+                <term>Fixed significance level testing:</term> The result of the
+                hypothesis test is reported at a specified level of significance
+                (the <m>\alpha</m>-value).
+                One disadvantage of fixed significance level testing is that it
+                conveys no idea about the location of the test statistic within
+                the rejection region.
+            </p>
+
+            <p>
+                Reporting “reject <m>H_0</m> ” or “retain <m>H_0</m> ” is not
+                very informative.
+                Instead, we ask the question: for the test statistic that I
+                have, at what level <m>\alpha</m> will we reject <m>H_0</m>?
+                Note that if <m>H_0</m> is rejected at some level <m>\alpha</m>,
+                it will also be rejected at any level <m>\alpha'</m> where
+                <m>\alpha' &gt; \alpha</m>.
+            </p> -->
+
+            <p>
+                <term><m>p</m>-value:</term> The smallest <m>\alpha</m> value at
+                which <m>H_0</m> is rejected.
+            </p>
+
+            <!-- <figure xml:id="p-value">
+                <image source="figures/pValue.png">
+                    <shortdescription>
+                        A two-panel figure demonstrating fixed-significance
+                        level testing (left) versus using the p value (right).
+                    </shortdescription>
+                </image>
+                <caption>
+                    Fixed-significance level testing (left) versus using the
+                    <m>p</m>-value (right).
+                </caption>
+            </figure> -->
+
+            <p>
+                The <m>p</m>-value is a measure of the evidence against
+                <m>H_0</m>: the smaller the <m>p</m>-value, the stronger the
+                evidence against <m>H_0</m>.
+                Usually, the following scale is used:
+            </p>
+
+            <table>
+          
+            
+                <tabular>
+                    <row>
+                        <cell><m>p</m>-value</cell>
+                        <cell>Evidence</cell>
+                    </row>
+
+                    <row>
+                        <cell><m>p &lt; 0.01</m></cell>
+                        <cell>Very strong evidence against <m>H_0</m></cell>
+                    </row>
+
+                    <row>
+                        <cell><m>0.01\text{-}0.05</m></cell>
+                        <cell>Strong evidence against <m>H_0</m></cell>
+                    </row>
+
+                    <row>
+                        <cell><m>0.05\text{-}0.10</m></cell>
+                        <cell>Weak evidence against <m>H_0</m></cell>
+                    </row>
+
+                    <row>
+                        <cell><m>p &gt; 0.1</m></cell>
+                        <cell>Little or no evidence against <m>H_0</m></cell>
+                    </row>
+                </tabular>
+            </table>
+
+            <figure xml:id="p-value-reject">
+                <image source="figures/pvalueReject.png" width="40%">
+                    <shortdescription>
+                        Rejection criteria using a set p-value shown as a
+                        horizontal function with two levels: accept and reject
+                        with the transition occurring at the p value.
+                    </shortdescription>
+                </image>
+            </figure>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Confidence intervals</title>
+
+            <p>
+                We are often interested in knowing how much the means differ
+                instead of only whether they differ.
+                The interval within which the parameters would be expected to
+                lie is called a confidence interval.
+            </p>
+
+            <p>
+                To obtain an interval estimate of <m>\theta</m>, we need to find
+                two statistics <m>L</m> and <m>U</m> such that the probability
+                statement
+            </p>
+            <md>
+                P(L \leq \theta \leq U) = 1-\alpha
+            </md>
+
+            <p>
+                is true.
+                The interval <m>L \leq \theta \leq U</m> is called a
+                <m>100(1-\alpha)</m> percent confidence interval for the
+                parameter <m>\theta</m>.
+            </p>
+
+            <p>
+                Interpretation of the confidence interval: A <m>95\%</m>
+                confidence level implies that <m>95\%</m> of all samples would
+                give an interval that includes whatever parameter is being
+                estimated.
+                Specifically, if we take a large number of samples, and for each
+                one construct a confidence interval (CI) of the form
+                <m>L \leq \theta \leq U</m>, then in the long run, with
+                <m>95\%</m> confidence for example, the constructed interval
+                will contain the parameter <m>\theta</m> <m>95\%</m> of the
+                time.
+            </p>
+
+            <p>
+                Therefore, the confidence interval is not so much a statement
+                about any specific realization of the CI; instead, it pertains
+                to what would happen if a very large number of like intervals
+                were constructed using the same formula.
+            </p>
+
+            <figure xml:id="confidence-interval-interpretation">
+                <image source="figures/CI.png" width="45%">
+                    <shortdescription>
+                        Eleven realizations of the confidence interval on
+                        separate lines and one vertical line showing the true
+                        mean mu.
+                    </shortdescription>
+                </image>
+                <caption>Interpretation of the confidence interval.</caption>
+            </figure>
+
+            <!-- <example>
+                <title>Cast-part length</title>
+
+                <p>
+                    In a sample of <m>n=31</m>, the length of a cast part was
+                    found to have an average of <m>\overline{x}=80</m> cm.
+                    Assuming that the preferred height is normally distributed
+                    with <m>r=2</m> cm, obtain a confidence interval for
+                    <m>\mu</m>, the true average of the population.
+                </p>
+            </example> -->
+        </paragraphs>
+    </section>
+
+    <section xml:id="sec-Assessing-linReg-coefficients-estimates">
+        <title>Assessing Coefficient Estimate Accuracy</title>
+
+        <paragraphs>
+            <title>Bias in estimation</title>
+
+            <sidebyside widths="40% 50%">
+                <ul>
+                    <li>
+                        <p>
+                            Assume a true value <m>\mu^*</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            An estimate from training data is
+                            <m>\widehat{\mu}</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The estimate is unbiased if
+                            <m>E(\widehat{\mu})=\mu^*</m>.
+                        </p>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li>
+                        <p>
+                            The sample mean is unbiased for the population mean:
+                            <md>
+                                E(\widehat{\mu}) =
+          E\left(\frac{1}{n}\sum_i X_i\right) =
+          \mu.
+                            </md>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The standard variance estimate is biased
+                            <note>
+                                <p>
+                                    (underestimation)
+                                </p>
+                            </note>:
+                            <md>
+                                E(\widehat{\sigma}^2) =
+          E\left[\frac{1}{n}\sum_i
+          (X_i-\overline{X})^2\right]
+          \neq \sigma^2.
+                            </md>
+                        </p>
+                    </li>
+                </ul>
+            </sidebyside>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Linear regression is unbiased</title>
+
+            <sidebyside widths="28% 32% 40%">
+                <figure>
+                    <image source="figures/Fig3-3a.png">
+                        <shortdescription>
+                            Scatter plot of simulated data with linear
+                            relationship plus noise with overalid true line
+                            relationship and least squares linear fit.
+                        </shortdescription>
+                    </image>
+                </figure>
+
+                <figure>
+                    <image source="figures/Fig3-3b.png">
+                        <shortdescription>
+                            10 linear fits for the same data with 10 different
+                            noise realizations.
+                        </shortdescription>
+                    </image>
+                </figure>
+
+                <ul>
+                    <li>
+                        <p>
+                            100 data points drawn from <m>Y=2+3X+\epsilon</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>\epsilon</m> is drawn from a normal distribution
+                            with mean <m>0</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The red line is the true relationship; the blue line
+                            is the least-squares estimate.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Repeat this 10 times and plot all the resulting
+                            lines in variations of blue.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The resulting models are slightly different, but all
+                            lie around the true relationship shown in red.
+                        </p>
+                    </li>
+                </ul>
+            </sidebyside>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Variance in estimation</title>
+
+            <sidebyside widths="40% 55%">
+                <ul>
+                    <li>
+                        <p>
+                            True value <m>\mu^*</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Estimate from training data <m>\widehat{\mu}</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Variance of the sample mean:
+                            <md>
+          \operatorname{Var}(\widehat{\mu}) =
+          \operatorname{SE}(\widehat{\mu})^2 =
+          \frac{\sigma^2}{n}.
+        </md>
+                        </p>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li>
+                        <p>
+                            Standard error measures by how much a sample statistic, e.g, <m>\hat{\mu}</m> differs from the true population value, e.g., <m>\mu</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The more data you have, the smaller the variance and
+                            the better the estimate.
+                        </p>
+                    </li>
+                </ul>
+            </sidebyside>
+            <note>
+                <title>Standard error versus standard variation</title>
+                <p><term>Standard deviation</term> measures the amount of spread in a sample from the mean.<line/>
+                <term>Standard error</term> measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).
+                </p>
+            </note>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Variance of linear regression estimates</title>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Variance of linear regression estimates:
+                            <m>
+        \operatorname{SE}(\widehat{\beta}_0)^2
+        =
+        \sigma^2\left[
+        \frac{1}{n}
+        +
+        \frac{\overline{x}^2}
+        {\sum_{i=1}^n(x_i-\overline{x})^2}
+        \right]
+      </m>
+                            <m>
+        \operatorname{SE}(\widehat{\beta}_1)^2
+        =
+        \frac{\sigma^2}
+        {\sum_{i=1}^n(x_i-\overline{x})^2},
+      </m>
+                            where <m>\sigma^2=\operatorname{Var}(\epsilon)</m>.
+                        </p>
+                        <aside>
+    <p>If data are more spread out, the standard error is smaller.</p>
+  </aside>
+                    </li>
+
+                    <li>
+                        <p>
+                            The residual standard error is an estimate of
+                            <m>\sigma</m>: <m>RSE=\sqrt{RSS/(n-2)}</m>.
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Confidence Interval</title>
+
+            <sidebyside widths="40% 40%">
+                <p>
+                    The <m>95\%</m> confidence interval for <m>\beta_1</m>
+                    approximately takes the form
+                    <m>
+      \widehat{\beta}_1 \mathbin{\pm}
+      2\cdot\operatorname{SE}(\widehat{\beta}_1).
+    </m>
+                    <note>
+                        <p>
+                            The same form works for <m>\beta_0</m>.
+                        </p>
+                    </note>
+                </p>
+
+                <p>
+                    <term>Interpretation:</term> There is approximately a
+                    <m>95\%</m> chance that the interval
+                    <m>
+      \left[
+      \widehat{\beta}_1-2\cdot\operatorname{SE}(\widehat{\beta}_1),
+      \widehat{\beta}_1+2\cdot\operatorname{SE}(\widehat{\beta}_1)
+      \right]
+    </m>
+                    will contain <m>\beta_1</m> when we repeatedly approximate
+                    <m>\widehat{\beta}_1</m> using repeated samples.
+                </p>
+            </sidebyside>
+
+            <example>
+                <title>CI in Advertising Data</title>
+
+                <sidebyside widths="55% 40%">
+                    <figure>
+                        <image source="figures/Fig3-1.png">
+                            <shortdescription>
+                                scatter plot with linear fit and residuals
+                            </shortdescription>
+                        </image>
+                    </figure>
+                    <div>
+                        <p>
+                            For the advertising data set, the <m>95\%</m>
+                            confidence intervals are:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <p>
+                                    <m>\beta_1: [0.042, 0.053]</m>
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        <p>
+                                            First line through <m>[0,8]</m> and
+                                            <m>[300,20.6]</m>.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>
+                                            Second line through <m>[0,7]</m> and
+                                            <m>[300,21.9]</m>.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <m>\beta_0: [6.130, 7.935]</m>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </sidebyside>
+            </example>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Hypothesis testing</title>
+
+            <sidebyside widths="50% 40%">
+                <ul>
+                    <li>
+                        <p>
+                            <m>H_0:</m> There is no relationship between
+                            <m>X</m> and <m>Y</m>.
+                            <aside><p>Null hypothesis.</p></aside>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>H_1:</m> There is some relationship between
+                            <m>X</m> and <m>Y</m>.
+                            <aside><p>Alternative hypothesis.</p></aside>
+                        </p>
+                    </li>
+                </ul>
+                <aside>
+                    <m>
+                        H_0: \beta_1=0
+                    </m>
+                    <line/>
+                    <m>
+                        H_A: \beta_1\neq0
+                    </m>
+
+                    <p>
+                        Since, if <m>\beta_1=0</m>, the model reduces to
+                        <m>Y=\beta_0+\epsilon</m>, <m>X</m> is not associated
+                        with <m>Y</m>.
+                    </p>
+                </aside>
+            </sidebyside>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Test statistic and <m>p</m>-value</title>
+
+            <sidebyside widths="40% 40%">
+                <p>
+                    Test statistic:
+                    <md>
+                        t=\frac{\widehat{\beta}_1-0}
+          {\operatorname{SE}(\widehat{\beta}_1)}.
+                    </md>
+                    <m>t</m>-distribution with <m>n-2</m> degrees of freedom.
+                </p>
+
+                <image source="figures/Student_t_pdf-wikipedia.png" width="70%">
+                    <shortdescription>
+                        student t-distribution for four different values of nu.
+                    </shortdescription>
+                </image>
+            </sidebyside>
+
+            <note>
+                <p>
+                    A small <m>p</m>-value indicates that it is unlikely to
+                    observe such a substantial association between the predictor
+                    and response by chance, in the absence of a real association
+                    between them.
+                </p>
+            </note>
+
+            <example>
+                <title>Advertising example</title>
+
+
+
+                <sidebyside widths="40% 40%">
+                    <figure>
+                        <image source="figures/Table3-1.png">
+                            <shortdescription>
+                                linear fit table for the sales versus TV
+                                advertising in 1000 dollars data.
+                            </shortdescription>
+                        </image>
+                    </figure>
+
+                    <figure>
+                        <image source="figures/Fig3-1.png">
+                            <shortdescription>
+                                scatter plot with linear fit and residuals
+                            </shortdescription>
+                        </image>
+                    </figure>
+                </sidebyside>
+            </example>
+        </paragraphs>
+
+        <paragraphs>
+            <title>
+                Assessing the accuracy of the module: Residual Standard Error
+                (RSE)
+            </title>
+
+            <sidebyside widths="40% 45%" valign="top">
+                <stack>
+                    <p>
+                        RSE
+                        <md>
+                            RSE = \sqrt{\frac{RSS}{n-2}}
+                        </md>
+                        <md>
+                            = \sqrt{\frac{1}{n-2}\sum_i (y_i - \hat{y}_i)^2}
+                        </md>
+                    </p>
+                </stack>
+
+                <ul>
+                    <li>
+                        <p>
+                            Estimate of the standard deviation of
+                            <m>\epsilon</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Average amount that the response will deviate from
+                            the true regression line.
+                        </p>
+                    </li>
+                </ul>
+            </sidebyside>
+        </paragraphs>
+
+        <paragraphs>
+            <title>Assessing the accuracy of the module: $R^2$</title>
+
+            <sidebyside widths="40% 45%" valign="top">
+                <stack>
+                    <p>
+                        <emphasis>R squared:</emphasis>
+                        <md>
+                            R^2 = \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}
+                        </md>
+                    </p>
+
+                    <p>
+                        where total sum of squares is
+                        <md>
+                            TSS = \sum_i (y_i - \overline{y})^2
+                        </md>
+                    </p>
+                </stack>
+
+                <ul>
+                    <li>
+                        <p>
+                            TSS is total variance in the response <m>Y</m>,
+                            variability before regression.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            RSS is the amount of variability after the
+                            regression.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>R^2</m> is the proportion of variability in
+                            <m>Y</m> that can be explained using <m>X</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Close to 1: a large proportion of variability is
+                            explained by the regression.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Close to 0: the regression does not explain much of
+                            the variability in the response.
+                        </p>
+                    </li>
+                </ul>
+            </sidebyside>
+
+            <example>
+                <title>
+                    <p>
+                        Advertising example
+                    </p>
+                </title>
+
+                <sidebyside widths="30% 30% 30%" valign="top">
+                    <stack>
+                        <image source="figures/Advertising-SalesVsTV.png">
+                            <shortdescription>
+                                Sales versus TV advertising scatter plot with
+                                linear fit line.
+                            </shortdescription>
+                        </image>
+                        <p>
+                        <md>
+                            R^2 = 0.61
+                        </md>
+                        </p>
+                    </stack>
+
+                    <stack>
+                        <image source="figures/Advertising-SalesVsRadio.png">
+                            <shortdescription>
+                                Sales versus radio advertising scatter plot with
+                                linear fit line.
+                            </shortdescription>
+                        </image>
+                        <p>
+                        <md>
+                            R^2 = 0.33
+                        </md>
+                        </p>
+                    </stack>
+
+                    <stack>
+                        <image source="figures/Advertising-SalesVsNewspaper.png">
+                            <shortdescription>
+                                Sales versus newspaper advertising scatter plot
+                                with linear fit line.
+                            </shortdescription>
+                        </image>
+                        <p>
+                        <md>
+                            R^2 = 0.05
+                        </md>
+                        </p>
+                    </stack>
+                </sidebyside>
+            </example>
+            <exercise>
+                <title>TSS and RSS</title>
+                <introduction>
+                    <p>
+                        For the shown data, answer the following questions
+                    </p>
+                </introduction>
+                <task xml:id="day05-TSS-RSS-task1">
+                    <statement>
+                        <p>
+                            Sketch the deviation from the mean <m>y_i-\bar{y}</m> for each data point.
+                        </p>
+                        <image source="figures/TSS_RSS_example.png" width="70%">
+                            <shortdescription>Five data points roughly following a linear trend overlaid with their mean line a linear regression line.</shortdescription>                            
+                        </image>
+                    </statement>
+                </task>
+                <task  xml:id="day05-TSS-RSS-task2">
+                    <statement>
+                        <p>
+                            Sketch the residual <m>y_i-\hat{y}_i</m> for each data point.
+                        </p>
+                        <image source="figures/TSS_RSS_example.png" width="70%">
+                            <shortdescription>Five data points roughly following a linear trend overlaid with their mean line a linear regression line.</shortdescription>                            
+                        </image>
+                    </statement>
+                </task>
+                <task xml:id="day05-dev-from-mean">
+                    <statement>
+                        <p>
+                            If the data points are given by <md>(1,1.7), (2,4.9), (3,4.1), (4,7.8), (5,7.5)</md>. Find the lengths of the bars you sketched in <xref ref="day05-TSS-RSS-task1"/>.
+                        </p>
+                    </statement>
+                </task>
+                <task>
+                    <statement>
+                        <p>
+                            Use the answer to <xref ref="day05-dev-from-mean"/> to find the TSS.
+                        </p>
+                    </statement>
+                </task>
+                <task xml:id="day05-RSS-pieces">
+                    <statement>
+                        <p>
+                            Assume that the linear regression line is given by <m>\bar{y}=0.85+1.45x</m> and using the data points given in <xref ref="day05-dev-from-mean"/>, find the lengths of bars you sketched in <xref ref="day05-TSS-RSS-task2"/>. 
+                        </p>
+                    </statement>
+                </task>
+                 <task>
+                    <statement>
+                        <p>
+                            Use the answer to <xref ref="day05-RSS-pieces"/> to find the RSS.
+                        </p>
+                    </statement>
+                </task>
+                
+            </exercise>
+        </paragraphs>
+    </section>
+    <p>
+        Group work: Work in groups to complete <xref ref="activities" text="custom">Day05 in-class activity</xref>. 
+    </p>
+</handout>

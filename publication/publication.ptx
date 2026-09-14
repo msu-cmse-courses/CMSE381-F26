@@ -23,7 +23,7 @@
     <!-- project).                                                           -->
       <!--<exercise-inline statement="yes" hint="yes" answer="no" solution="no" />-->
       <!--<exercise-divisional statement="yes" hint="yes" answer="no" solution="yes" />-->
-      <!--<exercise-worksheet statement="yes" hint="yes" answer="no" solution="no" />-->
+      <!-- <exercise-worksheet statement="yes" hint="yes" answer="yes" solution="no" /> -->
       <!--<exercise-reading statement="yes" hint="yes" answer="no" solution="no" />-->
       <!--<exercise-project statement="yes" hint="yes" answer="yes" solution="yes" />-->
 
@@ -45,6 +45,7 @@
   <!-- stored or created.  Directories are relative to the main -->
   <!-- source PreTeXt file                                      -->
   <source>
+  <!-- <source private-solutions="homework/privatesolutions_All_HW.ptx"> -->
     <!-- Paths to folders containing generated assets (external assets folder is specified in publication.ptx)-->
     <!-- relative to your main source file.                               -->
     <directories generated="../generated-assets" />
@@ -54,11 +55,11 @@
     https://pretextbook.org/doc/guide/html/publication-file-source.html#publication-file-source-version -->
     <!-- In this example, we include the w1s components from the sample activity to show solutions. -->
       <!-- <version include="w1s"/> -->
-      <version include="day01 day02 day03 day04 day05 day06 ws01 ws02 ws03 ws04 ws05 hw01"/>
-
+    <version include="day01 day02 day03 day04 day05 day06 ws01 ws02 ws03 ws04 ws05 ws06 hw01"/>
 
 
   </source>
+
 
   <numbering>
     <!-- the divisions element describes the numbering of divisions.  -->

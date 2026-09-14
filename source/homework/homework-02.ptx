@@ -1,22 +1,439 @@
-<worksheet>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<worksheet component="hw02">
   <title>Homework 02</title>
+
   <introduction>
     <p>
-      <alert>Instructions:</alert> Complete all the exercises below and submit your work by the due date.
+      <alert>The Homework is due Monday, Sep 21, 2026, by 11:59 p.m. and must be submitted to Crowdmark</alert>.
+      See
+      <xref ref="syllabus-hw-policy" text="custom">late homework policy</xref>
+      in the syllabus.
+    </p>
+
+    <p>
+      <alert>All homework must be submitted to Crowdmark. </alert>
+      <ul>
+        <li>
+          <p>
+            For coding problems, you will only submit screenshots of your code
+            and output to Crowdmark (no Python code to submit).
+            For non-coding problems, you wil submit a scan or image of your
+            handwritten work.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Submit individual pdfs/screenshots for each problem to the
+            corresponding prompt in Crowdmark.
+            Please do not submit one pdf containing all the solutions to each
+            prompt.
+            Each problem will be graded separately.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            The instructional team has the right to request the original code
+            for any problem.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The problems listed below are from
+      <url href="https://www.statlearning.com/">the textbook</url>.
     </p>
   </introduction>
 
   <page>
-    <program language="python" xml:id="program-example">
-        <code><xi:include parse="text" href="./HW_notebooks/CMSE381-HW2-2026S.ipynb"></code>
-        <!-- Use add-files to connect the program to the data file 
-        <datafile add-files="data-id">
-            <pre source="external-data.txt"/>
-        </datafile>-->
-    </program> 
-    <!-- Define the data file elsewhere in your docinfo or project 
-    <datafile xml:id="data-id" filename="data.txt" source="external-data.txt"/> -->
+    <exercise xml:id="hw02-P3-7-8">
+      <introduction>
+        <p>
+          This exercise involves the
+          <xref ref="day01-Auto-csv" text="custom">Auto data set</xref>.
+          Make sure to use the standard imports, and perform the data cleanup as
+          shown below.
+          (10 points)
+        </p>
 
+        <program language="python">
+          <preamble visible="true">
+# As always, we start with our favorite standard imports. 
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+%matplotlib inline
+
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.linear_model import LinearRegression
+          </preamble>
+          <code>
+# Load data 
+# First, we're going to do all the data loading and cleanup we figured out last time.
+# Load the data. Replace with the folder on your machine where the data was downloaded, or load the data
+# using its url on the course website.
+auto = pd.read_csv('../../DataSets/Auto.csv')
+auto = auto.replace('?', np.nan)
+auto = auto.dropna()
+auto.horsepower = auto.horsepower.astype('int')
+auto.shape
+          </code>
+        </program>
+      </introduction>
+
+      <task xml:id="hw02-P3-7-8-a">
+        <statement>
+          <p>
+            Use the <c>sm.OLS()</c> function to perform a simple linear
+            regression with mpg as the response and horsepower as the predictor.
+            Use the <c>summary()</c> function to print the results.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-a-i" workspace="1in">
+        <statement>
+          <p>
+            Is there a relationship between the predictor and the response?
+            (Problem 2.7.8(a)-i in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-a-ii" workspace="1in">
+        <statement>
+          <p>
+            How strong is the relationship between the predictor and the
+            response?
+            (Problem 2.7.8(a)-ii in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-a-iii" workspace="1in">
+        <statement>
+          <p>
+            Is the relationship between the predictor and the response positive
+            or negative?
+            (Problem 2.7.8(a)-iii in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-a-iv-part1" workspace="1in">
+        <statement>
+          <p>
+            What are the predicted values for the inputs?
+            (Modified version of Problem 2.7.8(a)-iv in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-a-iv-part2" workspace="1in">
+        <statement>
+          <p>
+            Compute the RSS and MSE using these predicted values.
+            (Modified version of Problem 2.7.8(a)-iv in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-8-b">
+        <statement>
+          <p>
+            Plot the response and the predictor in a new set of axes ax.
+            Use the <c>ax.axline()</c> method or the <c>abline()</c> function
+            defined in the lab to display the least squares regression line.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise>
+      <introduction>
+        <p>
+          In this exercise you will create some simulated data and will fit
+          simple linear regression models to it.
+          Make sure to use the default random number generator with seed set to
+          1 prior to starting part (a) to ensure consistent results.
+          (Problem 3.7.13 in the texbook) (30 points)
+        </p>
+
+        <note>
+          <p>
+            A note on code.
+            The book's use of the <sq>statsmodels</sq> package is slightly
+            different from the examples provided in the Jupyter notebooks in
+            class.
+            In particular, in the book's lab examples and in the homework
+            statement they implicitly use <pf>import statsmodels.api as sm</pf>
+            while we use <pf>import statsmodels.formula.api as smf</pf>.
+          </p>
+
+          <p>
+            This results in slight differences in code, in particular whether
+            the function call you use is <sq>OLS</sq> or <sq>ols</sq>.
+            You may use whichever works for you, the answers should be the same.
+          </p>
+        </note>
+      </introduction>
+
+      <task xml:id="hw02-P3-7-13-a">
+        <statement>
+          <p>
+            Using the <c>normal()</c> method of your random number generator,
+            create a vector, <m>x</m>, containing 100 observations drawn from a
+            <m>N(0, 1)</m> distribution.
+            This represents a feature, <m>X</m>.
+            (Problem 2.7.13(a) in the textbook) (2 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-b">
+        <statement>
+          <p>
+            Using the <c>normal()</c> method, create a vector, <c>eps</c>,
+            containing 100 observations drawn from a <m>N(0, 0.25)</m>
+            distribution—a normal distribution with mean zero and variance 0.25.
+            (Problem 2.7.13(b) in the textbook) (points)
+          </p>
+
+          <warning>
+            <p>
+              <sq>np.random.normal</sq> takes standard deviation as input for
+              <sq>scale</sq>, not variance.
+            </p>
+          </warning>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-c">
+        <statement>
+          <p>
+            Using <c>x</c> and <c>eps</c>, generate a vector <c>y</c> according
+            to the model
+            <md xml:id="model-3p39" number="yes">
+              Y = -1 + 0.5X + ϵ.
+            </md>
+          </p>
+
+          <p>
+            What is the length of the vector <c>y</c>?
+            What are the values of <m>\beta_0</m> and <m>\beta_1</m> in this
+            linear model?
+            (Problem 2.7.13(c) in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-d">
+        <statement>
+          <p>
+            Create a scatter plot displaying the relationship between <c>x</c>
+            and <c>y</c>.
+            Comment on what you observe.
+            (Problem 2.7.13(d) in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-e">
+        <statement>
+          <p>
+            Fit a least squares linear model to predict <c>y</c> using <c>x</c>.
+            Comment on the model obtained.
+            How do <m>\hat{\beta}_0</m> and <m>\hat{\beta}_1</m> compare to
+            <m>\beta_0</m> and <m>\beta_1</m>?
+            (Problem 2.7.13(e) in the textbook) (4 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-f">
+        <statement>
+          <p>
+            Display the least squares line on the scatter plot obtained in
+            <xref ref="hw02-P3-7-13-d"/>.
+            Draw the population regression line on the plot, in a different
+            color.
+            Use the <c>legend()</c> method of the axes to create an appropriate
+            legend.
+            (Problem 2.7.13(f) in the textbook) (5 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-g">
+        <statement>
+          <p>
+            Now fit a polynomial regression model that predicts <c>y</c> using
+            <c>x</c> and <m>x^2</m>.
+            Is there evidence that the quadratic term improves the model fit?
+            Explain your answer.
+            (Problem 2.7.13(g) in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-h">
+        <statement>
+          <p>
+            Repeat <xref ref="hw02-P3-7-13-a"/>- <xref ref="hw02-P3-7-13-f"/>
+            after modifying the data generation process in such a way that there
+            is less noise in the data.
+            The model <xref ref="model-3p39"/> should remain the same.
+            You can do this by decreasing the variance of the normal
+            distribution used to generate the error term <m>\epsilon</m> in
+            <xref ref="hw02-P3-7-13-b"/>.
+            Describe your results.
+            (Problem 2.7.13(h) in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-i">
+        <statement>
+          <p>
+            Repeat <xref ref="hw02-P3-7-13-a"/>- <xref ref="hw02-P3-7-13-f"/>
+            after modifying the data generation process in such a way that there
+            is more noise in the data.
+            The model <xref ref="model-3p39"/> should remain the same.
+            You can do this by increasing the variance of the normal
+            distribution used to generate the error term ϵ in
+            <xref ref="hw02-P3-7-13-b"/>.
+            Describe your results.
+            (Problem 2.7.13(i) in the textbook)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-j-1">
+        <statement>
+          <p>
+            What are the confidence intervals for <m>\beta_0</m> and
+            <m>\beta_1</m> based on the original data set?
+            (Problem 2.7.13(j) in the textbook) (2 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-j-2">
+        <statement>
+          <p>
+            What are the confidence intervals for <m>\beta_0</m> and
+            <m>\beta_1</m> based on the noisier data set?
+            (Problem 2.7.13(j) in the textbook) (2 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-j-3">
+        <statement>
+          <p>
+            What are the confidence intervals for <m>\beta_0</m> and
+            <m>\beta_1</m> based on the less noisy data set?
+            (Problem 2.7.13(j) in the textbook) (2 points)
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-13-j-4">
+        <statement>
+          <p>
+            Comment on your results for the above three different confidence
+            intervals.
+            (1 point)
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="P3-7-1">
+      <statement>
+        <p>
+          Describe the null hypotheses to which the <m>p</m>-values given in
+          Table 3.4 correspond.
+          Explain what conclusions you can draw based on these <m>p</m>-values.
+          Your explanation should be phrased in terms of <sq>sales</sq>,
+          <sq>TV</sq>, <sq>radio</sq>, and <sq>newspaper</sq>, rather than in
+          terms of the coefficients of the linear model.
+          (Problem 3.7.1 in the textbook) (2 points)
+        </p>
+      </statement>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise>
+      <title>Section 3.2 - Multiple Linear Regression</title>
+
+      <introduction>
+        <p>
+          This question involves the use of multiple linear regression on the
+          <xref ref="day01-Auto-csv"/>.
+          It is a modified version of Problem 3.7.9 in the textbook.
+          Using the <sq>Auto</sq> data set, we will predict
+          <m>Y = \texttt{mpg}</m> using all other variables except <c>name</c>
+          and <c>origin</c>.
+          (11 points)
+        </p>
+      </introduction>
+
+      <task xml:id="hw02-P3-7-9-a">
+        <statement>
+          <p>
+            Generate the correlation matrix between all variables.
+            Are there any pairs that are particularly highly correlated?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P2-7-9-b">
+        <statement>
+          <p>
+            Using <sq>statsmodel</sq>, create a linear model predicting
+            <c>mpg</c> from all other variables except <c>name</c> and
+            <c>origin</c>.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-9-c" worskpace="1in">
+        <statement>
+          <p>
+            Is there a relationship between the predictors and the response?
+            Justify your answer.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-9-d" worskpace="1in">
+        <statement>
+          <p>
+            Which predictors appear to have a statistically significant
+            relationship to the response?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw02-P3-7-9-e" worskpace="1in">
+        <statement>
+          <p>
+            What does the coefficient for the year variable suggest?
+          </p>
+        </statement>
+      </task>
+    </exercise>
   </page>
 </worksheet>

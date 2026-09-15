@@ -436,4 +436,158 @@ auto.shape
       </task>
     </exercise>
   </page>
+  <page>
+    <paragraphs>
+      <title>Exam practice problems (not part of the HW)</title>
+        <p>
+          These problems are provided as a practice set for the exam. <alert>Do not turn in your solutions for this part</alert>: there is no place to turn them in on Crowdmark, and they will not be graded.
+        </p>
+        <p>
+          However, make sure you do those problems in preparation for the upcoming exam. I recommend that you work in groups, and come to office hours if you get stuck. I expect that you know how to solve these problems by the exam date. 
+        </p>
+
+              <exercise xml:id="exam1-practice-parametric-nonparametric-methods">
+        <statement>
+          <p>What is the difference between parametric and nonparametric methods? Give an example of each.</p>
+        </statement>
+        <hint><p>See Lecture 7, slides 17, 19, and 20.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-bias-variance-tradeoff">
+        <statement>
+          <p>Explain the bias-variance trade-off. Use annotated sketches to explain your answer. Your sketches should show both training and testing errors as functions of model complexity.</p>
+        </statement>
+        <hint><p>See Lecture 3, Section 2.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-portland-cement-bond-strength">
+        <statement>
+          <p>The table gives tension bond-strength data, in <m>\mathrm{kgf}/\mathrm{cm}^2</m>, from a Portland Cement formulation experiment. Answer the following questions.</p>
+          <table xml:id="exam1-practice-cement-bond-strength-data">
+            <title>Tension bond strength</title>
+            <tabular>
+              <col halign="center"/>
+              <col halign="center"/>
+              <col halign="center"/>
+              <row header="yes"><cell>Observation</cell><cell>Modified Mortar</cell><cell>Unmodified Mortar</cell></row>
+              <row><cell>1</cell><cell>16.85</cell><cell>16.62</cell></row>
+              <row><cell>2</cell><cell>16.40</cell><cell>16.75</cell></row>
+              <row><cell>3</cell><cell>17.21</cell><cell>17.37</cell></row>
+              <row><cell>4</cell><cell>16.35</cell><cell>17.12</cell></row>
+              <row><cell>5</cell><cell>16.52</cell><cell>16.98</cell></row>
+              <row><cell>6</cell><cell>17.04</cell><cell>16.87</cell></row>
+              <row><cell>7</cell><cell>16.96</cell><cell>17.34</cell></row>
+              <row><cell>8</cell><cell>17.15</cell><cell>17.02</cell></row>
+              <row><cell>9</cell><cell>16.59</cell><cell>17.08</cell></row>
+              <row><cell>10</cell><cell>16.57</cell><cell>17.27</cell></row>
+            </tabular>
+          </table>
+          <ol>
+            <li><p>Identify the input and output variables, including whether each is quantitative or qualitative. Clearly label each variable as an input or output.</p></li>
+            <li>
+              <p>Compute the mean value for the unmodified mortar. Then:
+              <ol>
+                <li><p>Quantify the error in the computed mean.</p></li>
+                <li><p>Find a <m>95\%</m> confidence interval for the mean.</p></li>
+              </ol>
+              </p>
+            </li>
+            <li>
+              <p>Find the total variability for:
+              <ol>
+                <li><p>the modified mortar; and</p></li>
+                <li><p>the unmodified mortar.</p></li>
+              </ol>
+              </p>
+            </li>
+            <li><p>Write a mathematical linear-regression model for these data, but do <emphasis>not</emphasis> compute its coefficients.</p></li>
+            <li><p>Explain what each coefficient in your model represents.</p></li>
+          </ol>
+        </statement>
+        <hint><p>For parts (a), (b), (c), and (d)--(e), see Lecture 2 slides 4--5; Lecture 5 slides 10 and 13; Lecture 6 slide 7; and Lecture 7, Section 2, respectively.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-plasma-etching-linear-model">
+        <statement>
+          <p>In integrated-circuit manufacturing, silicon wafers are coated with a layer of material. Unwanted material is then selectively removed through plasma etching to create circuit patterns. The table reports an experiment studying the effect of power, in watts (W), on etch rate, in angstroms per second (<m>\text{\AA}/\mathrm{s}</m>). Answer the following questions.</p>
+          <table xml:id="exam1-practice-plasma-etching-data">
+            <title>Plasma etching experiment</title>
+            <tabular>
+              <col halign="center"/>
+              <col halign="center"/>
+              <col halign="center"/>
+              <row header="yes"><cell>Observation</cell><cell>Power (W)</cell><cell>Etch rate (<m>\text{\AA}/\mathrm{s}</m>)</cell></row>
+              <row><cell>1</cell><cell>160</cell><cell>575</cell></row>
+              <row><cell>2</cell><cell>180</cell><cell>565</cell></row>
+              <row><cell>3</cell><cell>200</cell><cell>600</cell></row>
+              <row><cell>4</cell><cell>220</cell><cell>725</cell></row>
+            </tabular>
+          </table>
+          <ol>
+            <li><p>Fit a linear model to the data.</p></li>
+            <li>
+              <p>Assess the model accuracy using:
+              <ol>
+                <li><p>the residual standard error (RSE), including a comment on the quality of fit; and</p></li>
+                <li><p><m>R^2</m>, including a comment on the quality of fit.</p></li>
+              </ol>
+              </p>
+            </li>
+            <li>
+              <p>Determine:
+              <ol>
+                <li><p>the total variability;</p></li>
+                <li><p>the amount of variability explained by the model; and</p></li>
+                <li><p>the amount of variability not explained by the model.</p></li>
+                  <li>
+                    <p>
+                      Write the above quantities using TSS and RSS terminology.
+                    </p>
+                  </li>
+              </ol>
+              </p>
+            </li>
+          </ol>              
+          <p>
+            Sketch:
+            <ol>
+              <li>
+                <p>
+                  The deviation from the mean for each data point. Write this quantity mathematically for the <m>i</m>th data point.
+                </p>
+              </li>
+              <li>
+                <p>
+                  The residual for each data point. Write this quantity mathematically for the <m>i</m>th data point.
+                </p>
+              </li>
+            </ol>
+          </p>      
+        </statement>
+        <hint><p>See Lecture 4, slide 9; Lecture 7, Section 2; and Lecture 6, slide 7.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-lung-health-confounding">
+        <statement>
+          <p>A study measures lung health by air-flow rate. One hundred people were sampled and asked about coffee consumption, smoking status, job, and weekly hours of exercise. A linear model of lung health versus coffee consumption shows a significant relationship between coffee consumption and lung health. As a reviewer, would you accept or decline this study? Justify your decision.</p>
+        </statement>
+        <hint><p>See Lecture 6, slides 12--13.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-classifier-accuracy">
+        <statement>
+          <p>Why should we not expect any single classifier to achieve <m>100\%</m> accuracy? For example, consider classifying whether a CMSE 381 student will earn an A based on prior GPA.</p>
+        </statement>
+        <hint><p>See Lecture 9, slide 10.</p></hint>
+      </exercise>
+      <exercise xml:id="exam1-practice-multinomial-email-classifier">
+        <statement>
+          <p>Suppose that a classifier assigns incoming email to Spam, Personal, or Work folders using the time sent, <m>x_t</m>, converted to a numeric value, and the sender's IP address, <m>x_{\text{IP}}</m>, also converted to a numeric value.</p>
+          <ol>
+            <li><p>For predictors <m>x_t</m> and <m>x_{\text{IP}}</m>, write expressions for the probabilities that an email is Spam, Personal, or Work, using Spam as the baseline category.</p></li>
+            <li><p>In this model, how would you interpret a one-unit increase in the coefficient <m>\beta_{\text{Work},1}</m>?</p></li>
+          </ol>
+        </statement>
+        <hint><p>For parts (a) and (b), see Lecture 11, slide 19, and Lecture 10, slide 22, respectively.</p></hint>    
+          </exercise>
+
+
+
+    </paragraphs>
+  </page>
 </worksheet>

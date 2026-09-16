@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <subsection xml:id="sec-diabetes-data-set">
-    <title>Auto Data Set</title>
+    <title>Diabetes Data Set</title>
 
     <data xml:id="diabetes-data">
       <title>Diabetes data set</title>

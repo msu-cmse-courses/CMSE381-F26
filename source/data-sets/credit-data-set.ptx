@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="sec-credit-data-set">
+    <title>Credit Data Set</title>
+
+    <data xml:id="credit-csv">
+      <title>Credit: Credit Data Set</title>
+
+
+      <p>
+        A csv file with 400 customers on the following 11 variables.
+        <dl>
+          <li>
+            <title>Income</title>
+
+            <p>
+              Income in thousands of dollars.
+            </p>
+          </li>
+
+          <li>
+            <title>Limit</title>
+
+            <p>
+              Credit card limit in dollars.
+            </p>
+          </li>
+
+          <li>
+            <title>Rating</title>
+
+            <p>
+              Credit rating.
+            </p>
+          </li>
+
+          <li>
+            <title>Cards</title>
+
+            <p>
+              Number of credit cards owned.
+            </p>
+          </li>
+
+          <li>
+            <title>Age</title>
+
+            <p>
+              Person's age.
+            </p>
+          </li>
+
+          <li>
+            <title>Education</title>
+
+            <p>
+              the number of years of education completed by each customer.
+            </p>
+          </li>
+
+          <li>
+            <title>Gender</title>
+
+            <p>
+              Male or Female.
+            </p>
+          </li>
+
+          <li>
+            <title>Student</title>
+
+            <p>
+              Student status with values <sq>Yes</sq> or <sq>No</sq>.
+            </p>
+          </li>
+
+          <li>
+            <title>Married</title>
+
+            <p>
+              Marital status with values <sq>Yes</sq> or <sq>No</sq>.
+            </p>
+          </li>
+                    <li>
+            <title>Ethnicity</title>
+
+            <p>
+              Either <sq>Caucasian</sq>, <sq>Asian</sq>, or <sq>African American</sq>.
+            </p>
+          </li>
+
+                    <li>
+            <title>Balance</title>
+
+            <p>
+              Credit card balance in dollars.
+            </p>
+          </li>
+        </dl>
+      </p>
+
+
+
+            <p>
+                The book's website has the data files <url href="https://trevorhastie.github.io/ISLR/data.html" visual="trevorhastie.github.io/ISLR/data.html">here</url>.
+            </p>
+
+      <p>
+        <dataurl source="data/Credit.csv" visual="Credit.csv data file"/>
+      </p>
+      <!-- <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
+        <pre source="data/Auto.csv"/>
+      </datafile> -->
+    </data>
+        
+    </subsection>

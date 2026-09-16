@@ -19,22 +19,7 @@
       <!-- Other documents could go here, like a schedule, project description, etc. -->
       <xi:include href="./syllabus/course_schedule.ptx"/>
     </chapter>
-    <!-- <chapter xml:id="course-notes">
-      <title>Notes</title>
 
-      <introduction>
-        <p>
-          The following slides are provided to facilitate note taking, and to
-          remind you of what we covered each week.
-          They are not a substitute for attending class and not a substitute for
-          reading the textbook.
-        </p>
-      </introduction>
-
-      <xi:include href="./notes/Day01.ptx"/>
-      <xi:include href="./notes/Day02.ptx"/> -->
-    <!-- etc. -->
-    <!-- </chapter> -->
     <chapter xml:id="activities">
       <title>In-Class Activities</title>
 
@@ -316,8 +301,9 @@
         </p>
       </introduction>
       <!-- Include data sets files -->
-      <xi:include href="./data-sets/auto-data-set.ptx"/>
       <xi:include href="./data-sets/advertising-data-set.ptx"/>
+      <xi:include href="./data-sets/auto-data-set.ptx"/>
+      <xi:include href="./data-sets/credit-data-set.ptx"/>
       <xi:include href="./data-sets/diabetes-data-set.ptx"/>
 
       </chapter>

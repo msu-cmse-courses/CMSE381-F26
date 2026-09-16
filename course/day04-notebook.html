@@ -261,6 +261,26 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-3.html" class="internal"><span class="title">Homework 02</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-data-sets.html" class="internal"><span class="title">Data sets</span></a></div>
+<ul id="ptx-toc-group-ch-data-sets" class="structural toc-item-list">
+<li class="toc-item toc-introduction"><div class="toc-title-box"><a href="ch-data-sets-2.html" class="internal"><span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="day01-auto-data-set.html" class="internal"><span class="title">Auto Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="advertising-data-set.html" class="internal"><span class="title">Advertising Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-diabetes-data-set.html" class="internal"><span class="title">Auto Data Set</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-study-guides.html" class="internal"><span class="title">Exams study guides</span></a></div>
+<ul id="ptx-toc-group-ch-study-guides" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="exam1-study-guide.html" class="internal"><span class="title">Exam1 study guide</span></a></div>
+<ul id="ptx-toc-group-exam1-study-guide" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-intro-statistical-learning" class="internal"><span class="title">Introduction to Statistical Learning</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-linear-regression-topics" class="internal"><span class="title">Linear Regression</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-classification-topics" class="internal"><span class="title">Classification</span></a></div></li>
+</ul>
+</li></ul>
+</li>
 </ul></nav></div>
 <main class="ptx-main"><div id="ptx-content" class="ptx-content">
 <section class="section" id="day04-notebook">
@@ -297,27 +317,18 @@ Y =  \beta_0 +  \beta_1 X_1 + \varepsilon
 </div>
 <div class="para" id="day04-notebook-2-3">As always, we start with our favorite standard imports.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day04-notebook-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="code-box"></div></section>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+%matplotlib inline
+import seaborn as sns
+</code></pre></div></section>
 <section class="subsection" id="subsec-ws04-simple-linear-regression">
 <h2 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Simple linear regression</span>
 </h2>
 <section class="introduction" id="subsec-ws04-simple-linear-regression-2">
-<div class="para" id="subsec-ws04-simple-linear-regression-2-1">In this module, we will be using the <code class="code-inline tex2jax_ignore">Diabetes</code> data set. While we could download a csv to put in the correct folder etc., because this is a commonly used test data set, it’s available in <code class="code-inline tex2jax_ignore">scikit-learn</code> for us to use without any cleanup. Yay!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws04-simple-linear-regression-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="code-box"></div>
-<article class="note remark-like" id="subsec-ws04-simple-linear-regression-2-3"><h3 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">9</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
-</h3>
-<div class="para" id="subsec-ws04-simple-linear-regression-2-3-1">Notice that this loads the data into a large dictionary. Check it out using <code class="code-inline tex2jax_ignore language-none">print(type(diabetes))</code><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws04-simple-linear-regression-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 9"><a tabindex="-1" href="#subsec-ws04-simple-linear-regression-2-3" title="Copy heading and permalink for Note 9" aria-label="Copy heading and permalink for Note 9">🔗</a></div>
-</article>
-<div class="para" id="subsec-ws04-simple-linear-regression-2-4">We can get the data immediately into a pandas data frame for ease of use as follows: <div class="code-box"><pre class="program clipboardable"><code class="language-py">diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
-diabetes_df['target'] = pd.Series(diabetes.target)
-diabetes_df
-</code></pre></div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws04-simple-linear-regression-2-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="subsec-ws04-simple-linear-regression-2-1">In this module, we will be using the <a href="sec-diabetes-data-set.html#diabetes-data" class="xref" data-knowl="./knowl/xref/diabetes-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 67: Diabetes data set">Data 67</a>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#subsec-ws04-simple-linear-regression-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div></section>
 <section class="exercises" id="ws04-exercises">
 <h3 class="heading hide-type">
@@ -743,14 +754,14 @@ plt.ylabel('s5')
 </div>
 <div class="conclusion" id="ws04-exercises-1-5">
 <article class="note remark-like" id="ws04-exercises-1-5-1"><h5 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">11</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">9</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h5>
 <div class="para" id="ws04-exercises-1-5-1-1">It turns out there is a bit of a cheap trick for plotting linear regression using seaborn. This command will actually both run the linear regression (that is, find the required <span class="process-math">\(\beta_i\)</span>’s) and plot it for you. The tradeoff is that this will only work for single variable linear regression; we’ll have to work harder when we’re doing multi-variable linear regression. They also do not provide any easy way to get the equation of the line out, so this isn’t really the best tool to use for anything other than quick and dirty visualization.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws04-exercises-1-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="code-box"><pre class="program clipboardable"><code class="language-py"># First easy version, but hard to get out the parameters....
 sns.regplot(x = diabetes_df.s5,y = diabetes_df.target)
 </code></pre></div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 11"><a tabindex="-1" href="#ws04-exercises-1-5-1" title="Copy heading and permalink for Note 11" aria-label="Copy heading and permalink for Note 11">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 9"><a tabindex="-1" href="#ws04-exercises-1-5-1" title="Copy heading and permalink for Note 9" aria-label="Copy heading and permalink for Note 9">🔗</a></div>
 </article>
 <div class="para" id="ws04-exercises-1-5-2">Congratulations, we’re done!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ws04-exercises-1-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="advertising-data-set">
+    <title>Advertising Data Set</title>
+
+    <data xml:id="advertising-csv">
+      <title>Advertising: Advertising Data Set</title>
+    
+
+      <p>
+        A data frame with 200 observations that represent sales in 200 markets on the following 3 variables.
+        <dl>
+          <li>
+            <title>TV</title>
+
+            <p>
+              Advertising cost for TV ads in thousands of dollars.
+            </p>
+          </li>
+
+          <li>
+            <title>radio</title>
+
+            <p>
+              Advertising cost for radio ads in thousands of dollars.
+            </p>
+          </li>
+
+          <li>
+            <title>newspaper</title>
+
+            <p>
+              Advertising cost for newspaper ads in thousands of dollars.
+            </p>
+          </li>
+
+          <li>
+            <title>sales</title>
+
+            <p>
+              Sales in thousands of dollars.
+            </p>
+          </li>
+
+        </dl>
+      </p>
+
+
+            <p>
+                The book's website has the data files <url href="https://trevorhastie.github.io/ISLR/data.html" visual="trevorhastie.github.io/ISLR/data.html">here</url>.
+            </p>
+
+      <p>
+        <dataurl source="data/Advertising.csv" visual="Advertising.csv data file"/>
+      </p>
+      <!-- <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
+        <pre source="data/Auto.csv"/>
+      </datafile> -->
+    </data>
+        
+    </subsection>

@@ -307,6 +307,30 @@
       <xi:include href="./homework/homework-02.ptx"/>
     </chapter>
     <!-- Include additional chapters for other categories -->
+
+    <chapter xml:id="ch-data-sets">
+      <title>Data sets</title>
+      <introduction>
+        <p>
+          This chapter contains the different data sets we will use in this course.
+        </p>
+      </introduction>
+      <!-- Include data sets files -->
+      <xi:include href="./data-sets/auto-data-set.ptx"/>
+      <xi:include href="./data-sets/advertising-data-set.ptx"/>
+      <xi:include href="./data-sets/diabetes-data-set.ptx"/>
+
+      </chapter>
+
+      <chapter xml:id="ch-study-guides">
+        <title>Exams study guides</title>
+        <!-- Include study guides -->
+        <xi:include href="./exam-study-guides/exam1-study-guide.ptx"/>
+      
+    </chapter>
+
+
+
   <!-- <chapter xml:id="slides">
       <title>Slides</title>
 

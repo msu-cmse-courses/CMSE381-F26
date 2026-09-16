@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="sec-diabetes-data-set">
+    <title>Auto Data Set</title>
+
+    <data xml:id="diabetes-data">
+      <title>Diabetes data set</title>
+
+    <p>
+      This is a commonly used test data set and is available in <c>scikit-learn</c> for us to use without any cleanup. 
+      </p>
+      <program language="python3">
+      <code>
+from sklearn.datasets import load_diabetes
+diabetes = load_diabetes(as_frame=True)
+      </code>
+      </program>
+      <note>
+        <p>
+          Notice that this loads the data into a large dictionary. Check it out using <pf>print(type(diabetes))</pf>
+        </p>
+      </note>
+      <p>
+        We can get the data immediately into a pandas data frame for ease of use as follows:
+        <program language="python3">
+          <code>
+diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
+diabetes_df['target'] = pd.Series(diabetes.target)
+
+# show the loaded data frame
+diabetes_df
+          </code>
+        </program>
+      </p>
+
+     <p>
+      Look up the documentation about the dataset here:
+      <url href="https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset" short="scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset">Scikit-learn Diabetes Dataset</url>
+    </p>   
+
+
+
+</data>
+</subsection>

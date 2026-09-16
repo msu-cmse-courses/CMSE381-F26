@@ -1,0 +1,56 @@
+    <section xml:id="exam1-study-guide">
+      <title>Exam1 study guide</title>
+      <introduction>
+        <p>
+            Here we summarize the detailed learning goals in terms of a series of topics or questions that you should be able to answer by exam 1. 
+        </p>
+      </introduction>
+      <subsection xml:id="exam1-practice-intro-statistical-learning">
+        <title>Introduction to Statistical Learning</title>
+        <p>
+        <ul>
+          <li><p>Regression versus classification</p></li>
+          <li><p>Input versus output variables</p></li>
+          <li><p>The model setup <m>Y = f(X) + \varepsilon</m></p></li>
+          <li><p>Reducible versus irreducible error</p></li>
+          <li><p>Training versus testing data</p></li>
+          <li><p>Parametric versus nonparametric methods</p></li>
+          <li><p>Flexibility versus interpretability</p></li>
+          <li><p>Supervised versus unsupervised learning</p></li>
+          <li><p>Quantitative versus qualitative variables</p></li>
+          <li><p>Mean squared error: training versus testing</p></li>
+          <li><p>The bias-variance trade-off</p></li>
+        </ul>
+        </p>
+      </subsection>
+      <subsection xml:id="exam1-practice-linear-regression-topics">
+        <title>Linear Regression</title>
+        <p>
+        <ul>
+          <li><p>Model setup</p></li>
+          <li><p>Least-squares coefficient estimates</p></li>
+          <li><p>Standard error for <m>\beta_i</m></p></li>
+          <li><p>Confidence intervals for <m>\beta_i</m></p></li>
+          <li><p>Hypothesis tests</p></li>
+          <li><p>Residual standard error</p></li>
+          <li><p><m>R^2</m></p></li>
+          <li><p>Multiple linear regression</p></li>
+          <li><p>Interaction terms</p></li>
+          <li><p>Dummy variables</p></li>
+        </ul>
+        </p>
+      </subsection>
+      <subsection xml:id="exam1-practice-classification-topics">
+        <title>Classification</title>
+        <p>Some topics are from Chapter 2.
+        <ul>
+          <li><p>Classification error rate</p></li>
+          <li><p>The Bayes classifier</p></li>
+          <li><p>Bayes error</p></li>
+          <li><p>KNN</p></li>
+          <li><p>Logistic regression</p></li>
+          <li><p>Log odds (logits)</p></li>
+        </ul>
+        </p>
+      </subsection>
+    </section>

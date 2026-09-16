@@ -16,14 +16,14 @@
         <p><url href="https://www.statsmodels.org">Statsmodels</url> provides many of the statisitcial tests we've been learning in class</p>
       </li>
     </ul></p>
-    <p>This lab will cover two ideas:</p>
+    <p>This lab will cover:</p>
     <p><ul>
       <li>
         <p>Categorical variables and how to represent them as dummy variables.</p>
       </li>
-      <li>
+      <!-- <li>
         <p>How to build interaction terms and pass them into your favorite model.</p>
-      </li>
+      </li> -->
     </ul></p>
     <program language="python">
       # As always, we start with our favorite standard imports. 

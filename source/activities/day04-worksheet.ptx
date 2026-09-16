@@ -32,13 +32,13 @@
       As always, we start with our favorite standard imports. 
       </p>
     <program language="python">
-    <preamble visible="yes">
+    <code>
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt 
 %matplotlib inline
 import seaborn as sns
-    </preamble>
+    </code>
     </program>    
     
     </introduction>
@@ -48,33 +48,7 @@ import seaborn as sns
   <title>Simple linear regression</title>
   <introduction>
     <p>
-      In this module, we will be using the <c>Diabetes</c> data set.
-      While we could download a csv to put in the correct folder etc., because this is a commonly used test data set, it's
-      available in <c>scikit-learn</c> for us to use without any 
-      cleanup. Yay!
-      </p>
-      <program language="python3">
-      <preamble visible="yes">
-from sklearn.datasets import load_diabetes
-diabetes = load_diabetes(as_frame=True)
-      </preamble>
-      </program>
-      <note>
-        <p>
-          Notice that this loads the data into a large dictionary. Check it out using <pf>print(type(diabetes))</pf>
-        </p>
-      </note>
-      <p>
-        We can get the data immediately into a pandas data frame for ease of use as follows:
-        <program language="python3">
-          <preamble visible="yes">
-diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
-diabetes_df['target'] = pd.Series(diabetes.target)
-          </preamble>
-          <code>
-diabetes_df
-          </code>
-        </program>
+      In this module, we will be using the <xref ref="diabetes-data"/>. 
       </p>
 
   </introduction>    

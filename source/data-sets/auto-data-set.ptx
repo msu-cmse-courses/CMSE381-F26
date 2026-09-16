@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="day01-auto-data-set">
+    <title>Auto Data Set</title>
+
+    <data xml:id="day01-Auto-csv">
+      <title>Auto: Auto Data Set</title>
+
+      <p>
+        Information about the data set
+        <ul>
+          <li>
+            <p>
+              <url href="https://rdrr.io/cran/ISLR/man/Auto.html" visual="custom">Info on R version</url>
+            </p>
+          </li>
+
+          <li>
+            <p>
+              <url href="https://islp.readthedocs.io/en/latest/datasets/Auto.html" visual="custom">Info on Python version</url>
+            </p>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        A data frame with 392 observations on the following 9 variables.
+        <dl>
+          <li>
+            <title>mpg</title>
+
+            <p>
+              miles per gallon
+            </p>
+          </li>
+
+          <li>
+            <title>cylinders</title>
+
+            <p>
+              Number of cylinders between 4 and 8
+            </p>
+          </li>
+
+          <li>
+            <title>displacement</title>
+
+            <p>
+              Engine displacement (cu.
+              inches)
+            </p>
+          </li>
+
+          <li>
+            <title>horsepower</title>
+
+            <p>
+              Engine horsepower.
+            </p>
+          </li>
+
+          <li>
+            <title>weight</title>
+
+            <p>
+              Vehicle weight (lbs.)
+            </p>
+          </li>
+
+          <li>
+            <title>acceleration</title>
+
+            <p>
+              Time to accelerate from 0 to 60 mph (sec.)
+            </p>
+          </li>
+
+          <li>
+            <title>year</title>
+
+            <p>
+              Model year (modulo 100)
+            </p>
+          </li>
+
+          <li>
+            <title>origin</title>
+
+            <p>
+              Origin of car (1.
+              American, 2.
+              European, 3.
+              Japanese)
+            </p>
+          </li>
+
+          <li>
+            <title>name</title>
+
+            <p>
+              Vehicle name
+            </p>
+          </li>
+        </dl>
+      </p>
+
+      <p>
+        The original data contained 408 observations but 16 observations with
+        missing values were removed.
+      </p>
+
+      <p>
+        Source: This dataset was taken from the StatLib library which is
+        maintained at Carnegie Mellon University.
+        The dataset was used in the 1983 American Statistical Association
+        Exposition.        
+            </p>
+
+            <p>
+                The book's website has the data files <url href="https://trevorhastie.github.io/ISLR/data.html" visual="trevorhastie.github.io/ISLR/data.html">here</url>.
+            </p>
+
+      <p>
+        <dataurl source="data/Auto.csv" visual="Auto.csv data file"/>
+      </p>
+      <!-- <datafile xml:id="auto-dataset" filename="Auto.csv" label="auto-dataset" hide="yes">
+        <pre source="data/Auto.csv"/>
+      </datafile> -->
+    </data>
+        
+    </subsection>

@@ -30,6 +30,7 @@
     </p>
           <p>
       As always, we start with our favorite standard imports. 
+      </p>
 
     <program language="python">
     <code>
@@ -43,7 +44,7 @@ import seaborn as sns
 from sklearn.linear_model import LinearRegression
     </code>
     </program>    
-    </p>
+
     
     </introduction>
 
@@ -310,19 +311,7 @@ linreg_smf.summary().tables[1]
         <label>Assessing Coefficient Estimate Accuracy</label>
         <introduction>
           <p>
-            We will be using the <c>Diabetes</c> data set again, which you looked into from the last class. In case you've forgotten, there is information about the data set <url href="https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset">in the documentation</url>.
-          </p>
-          <program language="python">
-            <code>
-from sklearn.datasets import load_diabetes
-diabetes = load_diabetes(as_frame=True)
-diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names)
-diabetes_df['target'] = pd.Series(diabetes.target)
-
-diabetes_df
-            </code>            
-          </program>
-          <p>
+            We will be using the <xref ref="diabetes-data"/> again.           
             Like last time, we're now going to fit to a simple linear regression to the models
             <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s1}</md> and
             <md>\texttt{target} = \beta_0 + \beta_1 \cdot\texttt{s5}</md>

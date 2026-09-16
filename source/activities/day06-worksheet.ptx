@@ -56,7 +56,7 @@
 
     <program language="python">
       # We're going to use the (fake) data set used in the beginning of the book. 
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/27085b33898cca7fb57dc6897c2deccd/Advertising.csv"
+      url = "https://msu-cmse-courses.github.io/CMSE381-F26/course/external/data/Advertising.csv"
       advertising_df = pd.read_csv(url, index_col = 0)
       advertising_df
     </program>

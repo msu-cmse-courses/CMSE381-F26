@@ -1081,24 +1081,6 @@ var ptx_lunr_docs = [
   "body": "  Suppose that a classifier assigns incoming email to Spam, Personal, or Work folders using the time sent, , converted to a numeric value, and the sender's IP address, , also converted to a numeric value.    For predictors and , write expressions for the probabilities that an email is Spam, Personal, or Work, using Spam as the baseline category.    In this model, how would you interpret a one-unit increase in the coefficient ?    For parts (a) and (b), see Lecture 11, slide 19, and Lecture 10, slide 22, respectively.   "
 },
 {
-  "id": "day01-auto-data-set",
-  "level": "1",
-  "url": "day01-auto-data-set.html",
-  "type": "Subsection",
-  "number": "",
-  "title": "Auto Data Set",
-  "body": " Auto Data Set   Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .       "
-},
-{
-  "id": "day01-Auto-csv",
-  "level": "2",
-  "url": "day01-auto-data-set.html#day01-Auto-csv",
-  "type": "Data",
-  "number": "65",
-  "title": "Auto: Auto Data Set.",
-  "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .      "
-},
-{
   "id": "advertising-data-set",
   "level": "1",
   "url": "advertising-data-set.html",
@@ -1112,9 +1094,45 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "advertising-data-set.html#advertising-csv",
   "type": "Data",
-  "number": "66",
+  "number": "65",
   "title": "Advertising: Advertising Data Set.",
   "body": " Advertising: Advertising Data Set  A data frame with 200 observations that represent sales in 200 markets on the following 3 variables.   TV  Advertising cost for TV ads in thousands of dollars.    radio  Advertising cost for radio ads in thousands of dollars.    newspaper  Advertising cost for newspaper ads in thousands of dollars.    sales  Sales in thousands of dollars.     The book's website has the data files here .      "
+},
+{
+  "id": "day01-auto-data-set",
+  "level": "1",
+  "url": "day01-auto-data-set.html",
+  "type": "Subsection",
+  "number": "",
+  "title": "Auto Data Set",
+  "body": " Auto Data Set   Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .       "
+},
+{
+  "id": "day01-Auto-csv",
+  "level": "2",
+  "url": "day01-auto-data-set.html#day01-Auto-csv",
+  "type": "Data",
+  "number": "66",
+  "title": "Auto: Auto Data Set.",
+  "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .      "
+},
+{
+  "id": "sec-credit-data-set",
+  "level": "1",
+  "url": "sec-credit-data-set.html",
+  "type": "Subsection",
+  "number": "",
+  "title": "Credit Data Set",
+  "body": " Credit Data Set   Credit: Credit Data Set  A csv file with 400 customers on the following 11 variables.   Income  Income in thousands of dollars.    Limit  Credit card limit in dollars.    Rating  Credit rating.    Cards  Number of credit cards owned.    Age  Person's age.    Education  the number of years of education completed by each customer.    Gender  Male or Female.    Student  Student status with values Yes or No .    Married  Marital status with values Yes or No .    Ethnicity  Either Caucasian , Asian , or African American .    Balance  Credit card balance in dollars.     The book's website has the data files here .       "
+},
+{
+  "id": "credit-csv",
+  "level": "2",
+  "url": "sec-credit-data-set.html#credit-csv",
+  "type": "Data",
+  "number": "67",
+  "title": "Credit: Credit Data Set.",
+  "body": " Credit: Credit Data Set  A csv file with 400 customers on the following 11 variables.   Income  Income in thousands of dollars.    Limit  Credit card limit in dollars.    Rating  Credit rating.    Cards  Number of credit cards owned.    Age  Person's age.    Education  the number of years of education completed by each customer.    Gender  Male or Female.    Student  Student status with values Yes or No .    Married  Marital status with values Yes or No .    Ethnicity  Either Caucasian , Asian , or African American .    Balance  Credit card balance in dollars.     The book's website has the data files here .      "
 },
 {
   "id": "sec-diabetes-data-set",
@@ -1122,15 +1140,15 @@ var ptx_lunr_docs = [
   "url": "sec-diabetes-data-set.html",
   "type": "Subsection",
   "number": "",
-  "title": "Auto Data Set",
-  "body": " Auto Data Set   Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset    "
+  "title": "Diabetes Data Set",
+  "body": " Diabetes Data Set   Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset    "
 },
 {
   "id": "diabetes-data",
   "level": "2",
   "url": "sec-diabetes-data-set.html#diabetes-data",
   "type": "Data",
-  "number": "67",
+  "number": "68",
   "title": "Diabetes data set.",
   "body": " Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset   "
 },

@@ -16,8 +16,6 @@
 
       <!-- Course syllabus -->
       <xi:include href="./syllabus/syllabus.ptx"/>
-      <url href="https://www.accuweather.com/en/us/east-lansing/48823/weather-forecast/333737"/>
-      <url href="https://msu-cmse-courses.github.io/CMSE381-S26/Course_Info/Schedule.html#google-calendar-for-office-hours"/>
       <!-- Other documents could go here, like a schedule, project description, etc. -->
       <xi:include href="./syllabus/course_schedule.ptx"/>
     </chapter>
@@ -139,7 +137,7 @@
         <xi:include href="./handouts/Day04.ptx"/>
         <xi:include href="./handouts/Day05-alt-slides.ptx"/>
         <xi:include href="./handouts/Day06.ptx"/>        
-        <xi:include href="./handouts/Day07.ptx"/>
+        <xi:include href="./handouts/Day07-alt-slides.ptx"/>
         <xi:include href="./handouts/Day08.ptx"/>
         <xi:include href="./handouts/Day09.ptx"/>
         <xi:include href="./handouts/Day10.ptx"/>       

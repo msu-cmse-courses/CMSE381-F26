@@ -3,10 +3,12 @@
 <handout component="day05" xml:id="day-05-lecture">
     <title>Day 05</title>
 
-    <paragraphs>
-        <title>More Linear Regression</title>
+<introduction>
+    <p>More Linear Regression</p>
+</introduction>
+        
 
-    </paragraphs>
+
 
     <objectives>
         <title>Covered in this class</title>

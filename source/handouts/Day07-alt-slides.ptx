@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day07" xml:id="day-07-lecture">
+    <title>Day 07</title>
+
+    <introduction>
+      <p>More Linear Regression</p>
+  </introduction>
+
+
+<objectives>
+  <title>Covered in this class</title>
+  <ul>
+    <li><p>RSE, <m>R^2</m></p></li>
+    <li><p>Confidence intervals and prediction intervals</p></li>
+    <li><p>Qualitative predictors</p></li>
+  </ul>
+  
+</objectives>
+
+
+
+
+
+
+
+
+    <paragraphs xml:id="day07-continued-questions-to-ask">
+      <title>inear Regression with Multiple Variables</title>
+
+        <sidebyside>
+          <stack>
+            <image source="figures/Fig3-4.png" >
+              <shortdescription>
+                Multiple linear regression model illustration.
+              </shortdescription>
+            </image>
+
+            <ul>
+              <li>
+                <p>Predict <m>Y</m> on multiple variables <m>X</m></p>
+                <p>
+                  <md>
+                  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots +
+                  \beta_pX_p + \epsilon
+                  </md>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Find good guesses for
+                  <m>\hat{\beta}_0,\hat{\beta}_1,\ldots</m>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <m>\hat{y}_i =
+                  \hat{\beta}_0 + \hat{\beta}_1x_{i1} + \cdots +
+                  \hat{\beta}_px_{ip}</m>
+                </p>
+              </li>
+            </ul>
+          </stack>
+
+          <stack>
+            <ul>
+              <li>
+                <p><m>e_i=y_i-\hat{y}_i</m> is the <m>i</m>th residual</p>
+              </li>
+              <li>
+                <p><m>\operatorname{RSS}=\sum_i e_i^2</m></p>
+              </li>
+              <li>
+                <p>
+                  RSS is minimized at
+                  <em>least squares coefficient estimates</em>
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="day07-review-questions">
+        <title>Review: Questions to ask of your model</title>
+
+        <sidebyside>
+          <stack>
+            <ol>
+              <li>
+                <p>
+                  Is at least one of the predictors <m>X_1,\ldots,X_p</m>
+                  useful in predicting the response?
+                </p>
+              </li>
+              <li>
+                <p>
+                  Do all the predictors help to explain <m>Y</m>, or is only
+                  a subset of the predictors useful?
+                </p>
+              </li>
+            </ol>
+          </stack>
+
+          <stack>
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Hypothesis test, F-statistic, at least one <m>\beta_j</m>
+                  is non-zero
+                </p>
+              </li>
+              <li><p>Forward and Backward selection</p></li>
+              <li><p>RSE, <m>R^2</m></p></li>
+              <li><p>Confidence intervals and prediction intervals</p></li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="question-3">
+        <title>Question 3: How well does the model fit the data?</title>
+
+
+
+        <p>
+          Assessing the accuracy of the model
+        </p>
+        <sidebyside>
+          <stack>
+              <p>
+                Residual standard error (RSE):
+                <md>
+                RSE=\sqrt{\frac{RSS}{n-p-1}}
+                </md>
+              </p>
+            <ul component="slides-inst-notes">
+              <li><p>Measure lack of fit.</p></li>
+            </ul>
+          </stack>
+
+          <stack>
+              <p>
+                <m>R</m> squared:
+                <md>
+                R^2=\frac{TSS-RSS}{TSS}
+                =1-\frac{RSS}{TSS}
+                </md>
+<md>
+                TSS=\sum_i(y_i-\overline{y})^2
+</md>
+              </p>
+
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Proportion in <m>[0,1]</m>; variability in <m>Y</m> that can be
+                  explained using <m>X</m>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  0 means <m>Y</m> is not explained by linear regression on <m>X</m>.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="r-squared-advertising">
+        <title> <m>R^2</m> on Advertising data</title>
+
+        <sidebyside>
+          <stack>
+            <ul>
+              <li><p>Just TV: <m>R^2=0.61</m></p></li>
+              <li><p>Just TV and radio: <m>R^2=0.89719</m></p></li>
+              <li><p>All three variables: <m>R^2=0.8972</m></p></li>
+            </ul>
+          </stack>
+
+          <stack>
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  <m>R^2</m> always increases with more variables, even if those
+                  variables are weakly associated to the response.
+                </p>
+              </li>
+              <li>
+                <p>Adding another variable decreases RSS on training.</p>
+              </li>
+              <li>
+                <p>
+                  Small increase in <m>R^2</m> if we include newspaper with the
+                  other two, so can safely ignore it.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Large increase going from just TV to TV and radio, so likely
+                  want to keep radio.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="rse-advertising">
+        <title>RSE on Advertising Data</title>
+
+        <sidebyside>
+          <stack>
+            <ul>
+              <li><p>Just TV: <m>RSE=3.26</m></p></li>
+              <li><p>Just TV and radio: <m>RSE=1.681</m></p></li>
+              <li><p>All three variables: <m>RSE=1.686</m></p></li>
+            </ul>
+          </stack>
+
+          <stack>
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Similar argument about the big jump from TV to TV and radio,
+                  but small difference after that.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Even though RSS went down, RSE goes up at the end because
+                  the increase in <m>p</m> made a difference in
+                  <m>RSE=\sqrt{\frac{RSS}{n-p-1}}</m>.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="look-at-the-data">
+        <title>If all else fails, look at the data</title>
+
+        <sidebyside>
+          <stack>
+            <image source="figures/Fig3-5.png">
+              <shortdescription>
+                Residuals for the Advertising data.
+              </shortdescription>
+            </image>
+          </stack>
+
+          <stack>
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Model overestimates sales for cases where either spent only
+                  on TV, or only spent on radio.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Underestimates sales where budget was split between the two.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Implies there are some synergy (interaction effects)
+                  between the two.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Later we will extend the model to allow for this interaction.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="question-4">
+        <title>Question 4</title>
+
+
+          <p>
+            Given a set of predictor values, what response value should we
+            predict, and how accurate is our prediction?
+          </p>
+
+      </paragraphs>
+
+      <paragraphs xml:id="making-predictions">
+        <title>Q4: Making predictions</title>
+
+        <sidebyside>
+          <stack>
+            <p>
+              Given estimates
+              <m>\hat{\beta}_0,\ldots,\hat{\beta}_p</m> for
+              <m>\beta_0,\ldots,\beta_p</m>.
+            </p>
+
+            <p>Least squares plane:</p>
+
+            <p>
+              <md>
+              \hat{Y}=
+              \hat{\beta}_0+\hat{\beta}_1X_1+\cdots+\hat{\beta}_pX_p
+              </md>
+            </p>
+
+            <p>Estimate for the true population regression plane:</p>
+
+            <p>
+              <md>
+              f(X)=
+              \beta_0+\beta_1X_1+\cdots+\beta_pX_p
+              </md>
+            </p>
+          </stack>
+
+          <stack>
+            <image source="figures/Fig3-5.png">
+              <shortdescription>
+                Advertising regression model.
+              </shortdescription>
+            </image>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="confidence-vs-prediction">
+        <title>Confidence vs Prediction Model</title>
+
+        <sidebyside>
+          <stack>
+            <p>
+              Confidence Interval
+            </p>
+
+              <p>
+                The range likely to contain the population parameter
+                (mean, standard deviation) of interest.
+              </p>
+
+            <p component="slides-inst-notes">
+              Shrink with more data <m>n</m>, converging to the population
+              regression line/plane.
+            </p>
+
+            <p>
+              Prediction Interval
+            </p>
+
+              <p>
+                The range that likely contains the value of the dependent
+                variable for a single new observation given specific values
+                of the independent variables.
+              </p>
+
+
+            <p component="slides-inst-notes">
+              Bounded by irreducible error; increasing <m>n</m> will not shrink it.
+            </p>
+          </stack>
+
+          <stack>
+            <image source="figures/Advertising-TV-With-ConfidenceInterval.png" >
+              <shortdescription>
+                Advertising TV regression with confidence interval.
+              </shortdescription>
+            </image>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="advertising-specific">
+        <title>Specific to the Advertising Data</title>
+
+        <sidebyside>
+          <stack>
+
+              <p>Confidence interval</p>
+              <p>
+                Quantify the uncertainty surrounding the <em>average</em>
+                sales over a large number of cities.
+              </p>
+
+
+            <p>
+              Advertising example:
+            </p>
+              <p>
+                If $100K is spent on TV, and $20K on radio,
+                in each of <m>n</m> cities.
+              </p>
+              <p>
+                95% CI for average sales:
+                <m>[10,985,\,11,528]</m>.
+              </p>
+
+
+            <p component="slides-inst-notes">
+              Interpretation: if we collect a large number of data sets like
+              the Advertising data set, and construct a confidence interval
+              for the average sales on the basis of each data set, given
+              $100,000 in TV and $20,000 in radio advertising, then 95% of
+              these confidence intervals will contain the true value of
+              average sales.
+            </p>
+          </stack>
+
+          <stack>
+
+              <p>Prediction Interval</p>
+              <p>
+                Quantify the uncertainty in sales for a particular city.
+              </p>
+
+
+
+              <p>Advertising example:</p>
+              <p>
+                Given that $100,000 is spent on TV advertising and $20,000
+                is spent on radio advertising in Gotham City.
+              </p>
+              <p>
+                95% prediction interval for Gotham:
+                <m>[7,930,\,14,580]</m>.
+              </p>
+
+
+            <p component="slides-inst-notes">
+              We interpret this to mean that 95% of intervals of this form
+              will contain the true value of <m>Y</m> for this city.
+            </p>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="comparing-confidence-prediction">
+        <title>Comparing the two</title>
+
+        <sidebyside>
+          <stack>
+            <ul component="slides-inst-notes">
+              <li><p>Example showing the 1-d regression case.</p></li>
+              <li>
+                <p>
+                  Fixing TV = $150, confidence interval for sales is tiny.
+                </p>
+              </li>
+              <li>
+                <p>
+                  High probability the correct model takes a value in there.
+                </p>
+              </li>
+              <li><p>On the other hand, prediction interval is large.</p></li>
+              <li>
+                <p>
+                  Need a wider band to be confident that a new observation
+                  is contained in there.
+                </p>
+              </li>
+            </ul>
+          </stack>
+
+          <stack>
+            <image source="figures/Advertising-TV-With-ConfidenceInterval.png">
+              <shortdescription>
+                Advertising TV regression with confidence and prediction
+                intervals.
+              </shortdescription>
+            </image>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+
+      <paragraphs xml:id="review-questions-2">
+        <title>Review: Questions to ask of your model</title>
+
+        <sidebyside>
+          <stack>
+            <ol>
+              <li>
+                <p>
+                  Is at least one of the predictors <m>X_1,\ldots,X_p</m>
+                  useful in predicting the response?
+                </p>
+              </li>
+              <li>
+                <p>
+                  Do all the predictors help to explain <m>Y</m>, or is only
+                  a subset of the predictors useful?
+                </p>
+              </li>
+              <li>
+                <p>How well does the model fit the data?</p>
+              </li>
+              <li>
+                <p>
+                  Given a set of predictor values, what response value
+                  should we predict, and how accurate is our prediction?
+                </p>
+              </li>
+            </ol>
+
+
+          </stack>
+
+          <stack>
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Hypothesis test, F-statistic, at least one <m>\beta_j</m>
+                  is non-zero.
+                </p>
+              </li>
+              <li><p>Forward and Backward selection.</p></li>
+              <li><p>RSE, <m>R^2</m>, eyeball test.</p></li>
+              <li><p>Confidence intervals and prediction intervals.</p></li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+
+      
+
+      <paragraphs xml:id="qualitative-vs-quantitative">
+        <title>Qualitative Predictors</title>
+
+        <p>
+          Reminder: Qualitative vs Quantitative predictors
+        </p>
+        <sidebyside>
+          <stack>
+            <p>
+              Quantitative:
+            </p>
+
+
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  Anything with values in either integers or real numbers.
+                </p>
+              </li>
+              <li><p>Temperature</p></li>
+              <li><p>Year, even though integers</p></li>
+              <li><p>Weight</p></li>
+              <li><p>Number of cylinders in a car</p></li>
+            </ul>
+          </stack>
+
+          <stack>
+            <p>
+             Qualitative/Categorical:
+            </p>
+
+            <ul component="slides-inst-notes">
+              <li><p>Anything from an unordered set</p></li>
+              <li><p>Country of origin</p></li>
+              <li><p>Brand names</p></li>
+              <li><p>Anything yes/no (married, has a cat)</p></li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="credit-card-balance">
+        <title>New data set! Credit card balance</title>
+
+        <sidebyside>
+          <stack>
+            <image source="figures/Figure3-6.png" >
+              <shortdescription>
+                Credit card balance data.
+              </shortdescription>
+            </image>
+          </stack>
+
+          <stack>
+            <ul>
+              <li>
+                <p><c>own</c>: house ownership</p>
+              </li>
+              <li>
+                <p><c>student</c>: student status</p>
+              </li>
+              <li>
+                <p><c>status</c>: marital status</p>
+              </li>
+              <li>
+                <p><c>region</c>: East, West, or South</p>
+              </li>
+            </ul>
+
+            <ul component="slides-inst-notes">
+              <li>
+                <p>
+                  <c>own</c> is referenced in the text, but isn't in any
+                  of the online versions of the data set that I can find.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <c>region</c> is also referenced in the book, but not in
+                  the online data sets.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="what-if">
+        <title>What if....</title>
+
+        <sidebyside>
+          <stack>
+
+              <p>... your variables aren't quantitative?</p>
+
+
+            <ul>
+              <li><p>Home ownership</p></li>
+              <li><p>Student status</p></li>
+              <li><p>Major</p></li>
+              <li><p>Gender</p></li>
+              <li><p>Ethnicity</p></li>
+              <li><p>Country of origin</p></li>
+            </ul>
+          </stack>
+
+          <stack>
+
+              <p>Example</p>
+              <p>
+                Investigate differences in credit card balance between
+                people who own a house and those who don't, ignoring the
+                other variables.
+              </p>
+
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+      <paragraphs xml:id="one-hot-encoding">
+        <title>One-hot encoding</title>
+
+
+          <p>Create a new variable</p>
+
+          <p>
+            <md>
+            x_i =
+            \begin{cases}
+            1 &amp; \text{if <m>i</m>th person is a student}\\
+            0 &amp; \text{if <m>i</m>th person is not a student}
+            \end{cases}
+            </md>
+          </p>
+
+          <p>Model:</p>
+
+          <p>
+          <md>
+            y_i=\beta_0+\beta_1x_i+\epsilon_i
+            =
+            \begin{cases}
+            \beta_0+\beta_1+\epsilon_i &amp;
+            \text{if <m>i</m>th person is student}\\
+            \beta_0+\epsilon_i &amp;
+            \text{if <m>i</m>th person isn't}
+            \end{cases}
+          </md>
+          </p>
+
+          <p>
+
+        <ul component="slides-inst-notes">
+          <li>
+            <p>
+              <m>\beta_0</m> is average credit card balance among those who
+              are not a student.
+            </p>
+          </li>
+          <li>
+            <p>
+              <m>\beta_0+\beta_1</m> is the average for those who are students.
+            </p>
+          </li>
+          <li>
+            <p><m>\beta_1</m> is the average difference in balance.</p>
+          </li>
+        </ul>
+      </p>
+      </paragraphs>
+
+      <paragraphs xml:id="interpretation">
+        <title>Interpretation</title>
+
+        <sidebyside>
+          <stack>
+            <image source="figures/Table3-7_ReplaceWithStudent.png" >
+              <shortdescription>
+                Credit card balance table comparing students and non-students.
+              </shortdescription>
+            </image>
+          </stack>
+
+          <stack>
+
+              <p>Model:</p>
+              <p>
+                <md>
+                y=480.36+396.46\cdot x_{\text{student}}
+                </md>
+              </p>
+
+          </stack>
+        </sidebyside>
+
+
+        <p component="slides-inst-notes">
+        <ul>
+          <li>
+            <p>Average CC balance for non-students: $480.36.</p>
+          </li>
+          <li>
+            <p>
+              Students have $396.46 additional debt, so $876.83.
+            </p>
+          </li>
+        </ul>
+      </p>
+      </paragraphs>
+
+      <paragraphs xml:id="zero-one">
+        <title>Who cares about 0/1?</title>
+
+        <sidebyside>
+          <stack>
+            <p>
+              Old version: 0/1
+            </p>
+
+            <p>
+              <md>
+              x_i =
+              \begin{cases}
+              1 &amp; \text{if <m>i</m>th person is a student}\\
+              0 &amp; \text{if <m>i</m>th person is not a student}
+              \end{cases}
+              </md>
+            </p>
+
+            <p>Model:</p>
+
+            <p>
+              <md>
+              y_i=\beta_0+\beta_1x_i+\epsilon_i
+              =
+              \begin{cases}
+              \beta_0+\beta_1+\epsilon_i &amp;
+              \text{if <m>i</m>th person is student}\\
+              \beta_0+\epsilon_i &amp;
+              \text{if <m>i</m>th person isn't}
+              \end{cases}
+              </md>
+            </p>
+          </stack>
+
+          <stack>
+            <p>
+              Alternative version: <m>\pm1</m>
+            </p>
+
+            <p>
+              <md>
+              x_i =
+              \begin{cases}
+              1 &amp; \text{if <m>i</m>th person is a student}\\
+              -1 &amp; \text{if <m>i</m>th person is not a student}
+              \end{cases}
+              </md>
+            </p>
+
+            <p>Model:</p>
+
+            <p>
+              <md>
+              y_i=\beta_0+\beta_1x_i+\epsilon_i
+              =
+              \begin{cases}
+              \beta_0+\beta_1+\epsilon_i &amp;
+              \text{if <m>i</m>th person is student}\\
+              \beta_0-\beta_1+\epsilon_i &amp;
+              \text{if <m>i</m>th person isn't}
+              \end{cases}
+              </md>
+            </p>
+          </stack>
+        </sidebyside>
+
+        <p component="slides-inst-notes">
+          Note that the predictions will be the same.
+        </p>
+      </paragraphs>
+
+      <paragraphs xml:id="more-than-two-levels">
+        <title>Qualitative Predictor with More than Two Levels</title>
+
+        <sidebyside>
+          <stack>
+
+
+
+     <p>
+            <table>
+              <title>Region</title>
+              
+              
+              <tabular>
+                <row>
+                  <cell></cell>
+                  <cell><m>x_{i1}</m></cell>
+                  <cell><m>x_{i2}</m></cell>
+                </row>
+                <row>
+                  <cell>South</cell>
+                  <cell>1</cell>
+                  <cell>0</cell>
+                </row>
+                <row>
+                  <cell>West</cell>
+                  <cell>0</cell>
+                  <cell>1</cell>
+                </row>
+                <row>
+                  <cell>East</cell>
+                  <cell>0</cell>
+                  <cell>0</cell>
+                </row>
+              </tabular>
+            </table>
+          </p>
+          </stack>
+
+          <stack>
+            
+              <p>Create spare dummy variables:</p>
+
+
+            <p>
+              <md>
+              x_{i1}=
+              \begin{cases}
+              1 &amp; \text{if <m>i</m>th person from South}\\
+              0 &amp; \text{if <m>i</m>th person not from South}
+              \end{cases}
+              </md>
+            </p>
+
+            <p>
+              <md>
+              x_{i2}=
+              \begin{cases}
+              1 &amp; \text{if <m>i</m>th person from West}\\
+              0 &amp; \text{if <m>i</m>th person not from West}
+              \end{cases}
+              </md>
+            </p>
+          </stack>
+        </sidebyside>
+
+        <p>
+          <md>
+          y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\epsilon_i
+          =
+          \begin{cases}
+          \beta_0+\beta_1x_{i1}+\epsilon_i &amp;
+          \text{if <m>i</m>th person from South}\\
+          \beta_0+\beta_2x_{i2}+\epsilon_i &amp;
+          \text{if <m>i</m>th person from West}\\
+          \beta_0+\epsilon_i &amp;
+          \text{if <m>i</m>th person from East}
+          \end{cases}
+          </md>
+        </p>
+      </paragraphs>
+
+      <paragraphs xml:id="more-on-multiple-levels">
+        <title>More on multiple levels</title>
+
+        <sidebyside>
+          <stack>
+            <ul component="slides-inst-notes">
+              <li><p>Always one less variable than levels.</p></li>
+              <li>
+                <p>
+                  Level with no dummy variable is called the baseline.
+                </p>
+              </li>
+            </ul>
+          </stack>
+
+          <stack>
+            <image source="figures/Table3-8.png" >
+              <shortdescription>
+                Regression results for regional dummy variables.
+              </shortdescription>
+            </image>
+
+            <ul component="slides-inst-notes">
+              <li>
+                <p>Balance for the baseline (EAST) is $531.</p>
+              </li>
+              <li>
+                <p>South has $18.69 less than east.</p>
+              </li>
+              <li>
+                <p>West has $12.50 less than east.</p>
+              </li>
+              <li>
+                <p>
+                  <m>p</m>-values for dummy variables are large, so can't reject
+                  null hypothesis.
+                </p>
+              </li>
+              <li>
+                <p>
+                  No statistical evidence that there's a difference in CC
+                  balance in different regions.
+                </p>
+              </li>
+            </ul>
+          </stack>
+        </sidebyside>
+      </paragraphs>
+
+
+  </handout>

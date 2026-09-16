@@ -103,7 +103,7 @@
           </stack>
 
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   Hypothesis test, F-statistic, at least one <m>\beta_j</m>
@@ -134,7 +134,7 @@
                 RSE=\sqrt{\frac{RSS}{n-p-1}}
                 </md>
               </p>
-            <ul component="slides-inst-notes">
+            <ul>
               <li><p>Measure lack of fit.</p></li>
             </ul>
           </stack>
@@ -151,7 +151,7 @@
 </md>
               </p>
 
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   Proportion in <m>[0,1]</m>; variability in <m>Y</m> that can be
@@ -181,7 +181,7 @@
           </stack>
 
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   <m>R^2</m> always increases with more variables, even if those
@@ -221,7 +221,7 @@
           </stack>
 
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   Similar argument about the big jump from TV to TV and radio,
@@ -253,7 +253,7 @@
           </stack>
 
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   Model overestimates sales for cases where either spent only
@@ -346,7 +346,7 @@
                 (mean, standard deviation) of interest.
               </p>
 
-            <p component="slides-inst-notes">
+            <p>
               Shrink with more data <m>n</m>, converging to the population
               regression line/plane.
             </p>
@@ -362,7 +362,7 @@
               </p>
 
 
-            <p component="slides-inst-notes">
+            <p>
               Bounded by irreducible error; increasing <m>n</m> will not shrink it.
             </p>
           </stack>
@@ -403,7 +403,7 @@
               </p>
 
 
-            <p component="slides-inst-notes">
+            <p>
               Interpretation: if we collect a large number of data sets like
               the Advertising data set, and construct a confidence interval
               for the average sales on the basis of each data set, given
@@ -433,7 +433,7 @@
               </p>
 
 
-            <p component="slides-inst-notes">
+            <p>
               We interpret this to mean that 95% of intervals of this form
               will contain the true value of <m>Y</m> for this city.
             </p>
@@ -446,7 +446,7 @@
 
         <sidebyside>
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li><p>Example showing the 1-d regression case.</p></li>
               <li>
                 <p>
@@ -513,7 +513,7 @@
           </stack>
 
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   Hypothesis test, F-statistic, at least one <m>\beta_j</m>
@@ -574,6 +574,9 @@
 
       <paragraphs xml:id="credit-card-balance">
         <title>New data set! Credit card balance</title>
+        <p>
+          The data set is <xref ref="credit-csv"/>.
+        </p>
 
         <sidebyside>
           <stack>
@@ -600,7 +603,7 @@
               </li>
             </ul>
 
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>
                   <c>own</c> is referenced in the text, but isn't in any
@@ -639,9 +642,7 @@
 
           <stack>
 
-              <p>Example</p>
-              <p>
-                Investigate differences in credit card balance between
+              <p>Example: Investigate differences in credit card balance between
                 people who own a house and those who don't, ignoring the
                 other variables.
               </p>
@@ -654,14 +655,15 @@
         <title>One-hot encoding</title>
 
 
-          <p>Create a new variable</p>
+          <p>Create a new dummy variable to handle qualitative predictors</p>
 
           <p>
+            For predictors with only two levels:
             <md>
             x_i =
             \begin{cases}
-            1 &amp; \text{if <m>i</m>th person is a student}\\
-            0 &amp; \text{if <m>i</m>th person is not a student}
+            1 &amp; \text{if}\,i\text{th person is a student}\\
+            0 &amp; \text{if}\,i\text{th person is not a student}
             \end{cases}
             </md>
           </p>
@@ -674,9 +676,9 @@
             =
             \begin{cases}
             \beta_0+\beta_1+\epsilon_i &amp;
-            \text{if <m>i</m>th person is student}\\
+            \text{if}\,i\text{th person is student}\\
             \beta_0+\epsilon_i &amp;
-            \text{if <m>i</m>th person isn't}
+            \text{if}\,i\text{th person isn't}
             \end{cases}
           </md>
           </p>
@@ -739,10 +741,75 @@
           </li>
         </ul>
       </p>
+      <exercise>
+        <introduction>
+          <p>
+            Consider the variable <sq>own</sq> which represents home ownership (<sq>Yes</sq> or <sq>No</sq>).
+          </p>
+        </introduction>
+        <task>
+          <statement>
+            <p>
+              Create a new variable with values 0 and 1 to represent <sq>own</sq>.
+            </p>
+          </statement>
+        <answer>
+          <p>
+            <md>
+            x_i =
+            \begin{cases}
+            1 &amp; \text{if}\,i\text{th person is a student}\\
+            0 &amp; \text{if}\,i\text{th person is not a student}
+            \end{cases}
+            </md>            
+          </p>
+        </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              Write down the resulting piecewise model for <m>y_i=\beta_0 + \beta_1 x_i + \epsilon_i</m>.
+            </p>
+          </statement>
+          <answer>
+            <p>
+              <md>
+                          y_i=\beta_0 + \beta_1 x_i + \epsilon_i=
+            \begin{cases}
+            \beta_0 + \beta_1 + \epsilon_i &amp; \text{if}\,i\text{th person owns a house}\\
+            \beta_0 +  \epsilon_i &amp; \text{if}\,i\text{th person does not own a house}
+            \end{cases}
+            </md>    
+            </p>
+          </answer>
+        </task>
+          <task>
+            <statement>
+              <p>
+                What is the interpretation of <m>\beta_0</m>, <m>\beta_0+\beta_1</m>, and <m>\beta_1</m>?
+              </p>
+            </statement>
+            <answer>
+              <p>
+                <m>\beta_0</m> can be interpreted as the average credit card balance among those who do not own a house.
+              </p>
+            </answer>
+            <answer>
+              <p>
+                <m>\beta0+\beta_1</m> can be interpreted as the average credit card balance among those who do own their house
+              </p>
+            </answer>
+                      <answer>
+            <p>
+              <m>\beta_1</m> can be interpreted as the average difference in credit card balance between owners and non-owners.
+            </p>
+          </answer>
+        </task>
+      </exercise>
       </paragraphs>
 
       <paragraphs xml:id="zero-one">
-        <title>Who cares about 0/1?</title>
+        <title>Other coding schemes besides 0/1</title>
 
         <sidebyside>
           <stack>
@@ -754,8 +821,8 @@
               <md>
               x_i =
               \begin{cases}
-              1 &amp; \text{if <m>i</m>th person is a student}\\
-              0 &amp; \text{if <m>i</m>th person is not a student}
+              1 &amp; \text{if}\,i\text{th person is a student}\\
+              0 &amp; \text{if}\,i\text{th person is not a student}
               \end{cases}
               </md>
             </p>
@@ -768,9 +835,9 @@
               =
               \begin{cases}
               \beta_0+\beta_1+\epsilon_i &amp;
-              \text{if <m>i</m>th person is student}\\
+              \text{if}\,i\text{th person is student}\\
               \beta_0+\epsilon_i &amp;
-              \text{if <m>i</m>th person isn't}
+              \text{if}\,i\text{th person isn't}
               \end{cases}
               </md>
             </p>
@@ -785,8 +852,8 @@
               <md>
               x_i =
               \begin{cases}
-              1 &amp; \text{if <m>i</m>th person is a student}\\
-              -1 &amp; \text{if <m>i</m>th person is not a student}
+              1 &amp; \text{if}\,i\text{th person is a student}\\
+              -1 &amp; \text{if}\,i\text{th person is not a student}
               \end{cases}
               </md>
             </p>
@@ -799,18 +866,122 @@
               =
               \begin{cases}
               \beta_0+\beta_1+\epsilon_i &amp;
-              \text{if <m>i</m>th person is student}\\
+              \text{if}\,i\text{th person is student}\\
               \beta_0-\beta_1+\epsilon_i &amp;
-              \text{if <m>i</m>th person isn't}
+              \text{if}\,i\text{th person isn't}
               \end{cases}
               </md>
             </p>
           </stack>
         </sidebyside>
 
-        <p component="slides-inst-notes">
-          Note that the predictions will be the same.
-        </p>
+        <note>
+        <p>
+          Note that the predictions will be the same, and they are not influenced by the choice of the coding.
+        </p>          
+        </note>
+        <exercise>
+        <introduction>
+                  <p>
+            Let's consider the variable <sq>own</sq> which represents home ownership (<sq>Yes</sq> or <sq>No</sq>) but with -1/1 coding.
+          </p>
+        </introduction>
+        <task>
+          <statement>
+            <p>
+              Write <m>x_i</m> using the coding -1/1.
+            </p>
+          </statement>
+          <answer>
+            <p>
+              <md>
+              x_i =
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th person owns a house}\\
+              -1 &amp; \text{if}\,i\text{th person does not own a house}
+              \end{cases}
+              </md>
+            </p>
+          </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              Use this variable to write the piecewise form of the equation <m>y_i=\beta_0 + \beta_1 x_i + \epsilon_i</m>.
+            </p>
+          </statement>
+          <answer>
+            <p>
+              <md>
+                            y_i=\beta_0+\beta_1x_i+\epsilon_i
+              =
+              \begin{cases}
+              \beta_0+\beta_1+\epsilon_i &amp;
+              \text{if}\,i\text{th person owns a house}\\
+              \beta_0-\beta_1+\epsilon_i &amp;
+              \text{if}\,i\text{th person does not own a house}
+              \end{cases}
+              </md>
+            </p>
+          </answer>
+        </task>
+          <task>
+            <statement>
+              <p>
+                What is the interpretation of <m>\beta_0</m> and <m>\beta_1</m> under this new coding?
+              </p>
+            </statement>
+            <answer>
+              <p>
+                <m>\beta_0</m> can be interpreted as the overall average credit card balance (ignoring the house ownership effect).
+              </p>
+            </answer>
+                      <answer>
+            <p>
+              <m>\beta_1</m> can be interpreted as the amount by which house owners and non-owners have credit card balances that are above and below the average, respectively.
+            </p>
+          </answer>
+          </task>
+          <task>
+            <statement>
+              <p>
+                If the average credit card balance for home owners is $529.53, and that of non-owners is $509.80, what is the estimate for <m>\beta_0</m> under this coding?
+              </p>
+            </statement>
+            <hint>
+              <p>
+                Recall that <m>\beta_0</m> in this case is the average credit card balance (ignoring the house ownership effect). 
+              </p>
+            </hint>
+            <answer>
+              <p>
+                <m>\beta_0=\frac{509.80+529.53}{2}=519.665</m> is the average of the two means.
+              </p>
+            </answer>
+            <task>
+              <statement>
+                <p>
+                  What is the estimate for <m>\beta_1</m>?
+                </p>
+              </statement>
+              <hint>
+                <p>
+                  Recall the interpretation of <m>\beta_1</m> under this coding.
+                </p>
+              </hint>
+              <hint>
+                <p>
+                  The average difference between owners and non-owners is $19.73. Use the interpretation of <m>\beta_1</m> and this average to compute <m>\beta_1</m>.
+                </p>
+              </hint>
+              <answer>
+                <p>
+                  <m>\beta_1=\frac{19.73}{2}=$9.865</m>
+                </p>
+              </answer>
+            </task>
+        </task>
+        </exercise>
       </paragraphs>
 
       <paragraphs xml:id="more-than-two-levels">
@@ -861,8 +1032,8 @@
               <md>
               x_{i1}=
               \begin{cases}
-              1 &amp; \text{if <m>i</m>th person from South}\\
-              0 &amp; \text{if <m>i</m>th person not from South}
+              1 &amp; \text{if}\,i\text{th person from South}\\
+              0 &amp; \text{if}\,i\text{th person not from South}
               \end{cases}
               </md>
             </p>
@@ -871,10 +1042,15 @@
               <md>
               x_{i2}=
               \begin{cases}
-              1 &amp; \text{if <m>i</m>th person from West}\\
-              0 &amp; \text{if <m>i</m>th person not from West}
+              1 &amp; \text{if}\,i\text{th person from West}\\
+              0 &amp; \text{if}\,i\text{th person not from West}
               \end{cases}
               </md>
+              <note>
+                <p>
+                  The level with no dummy variable (East here) is known as <term>the baseline</term>. 
+                </p>
+              </note>
             </p>
           </stack>
         </sidebyside>
@@ -885,14 +1061,52 @@
           =
           \begin{cases}
           \beta_0+\beta_1x_{i1}+\epsilon_i &amp;
-          \text{if <m>i</m>th person from South}\\
+          \text{if}\,i\text{th person from South}\\
           \beta_0+\beta_2x_{i2}+\epsilon_i &amp;
-          \text{if <m>i</m>th person from West}\\
+          \text{if}\,i\text{th person from West}\\
           \beta_0+\epsilon_i &amp;
-          \text{if <m>i</m>th person from East}
+          \text{if}\,i\text{th person from East}
           \end{cases}
           </md>
         </p>
+        <exercise>
+          <task>
+            <statement>
+              <p>
+                What is the interpretation for <m>\beta_0</m>?
+              </p>
+            </statement>
+            <answer>
+              <p>
+                <m>\beta_0</m> can be interpreted as the average credit card balance for individuals from the East.
+              </p>
+            </answer>
+          </task>
+          <task>
+            <statement>
+              <p>
+                What is the interpretation for <m>\beta_1</m>?
+              </p>
+            </statement>
+            <answer>
+              <p>
+                <m>\beta_1</m> can be interpreted as the difference in the average balance between people from the South versus the East.
+              </p>
+            </answer>
+          </task>
+          <task>
+            <statement>
+              <p>
+                What is the interpretation for <m>\beta_2</m>?
+              </p>
+            </statement>
+            <answer>
+              <p>
+                <m>\beta_2</m> can be interpreted as the difference in the average balance between those from the West versus the East.
+              </p>
+            </answer>
+          </task>
+        </exercise>
       </paragraphs>
 
       <paragraphs xml:id="more-on-multiple-levels">
@@ -900,7 +1114,7 @@
 
         <sidebyside>
           <stack>
-            <ul component="slides-inst-notes">
+            <ul>
               <li><p>Always one less variable than levels.</p></li>
               <li>
                 <p>
@@ -917,7 +1131,7 @@
               </shortdescription>
             </image>
 
-            <ul component="slides-inst-notes">
+            <ul>
               <li>
                 <p>Balance for the baseline (EAST) is $531.</p>
               </li>

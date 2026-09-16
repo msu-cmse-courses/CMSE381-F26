@@ -8,7 +8,7 @@
 
 
       <p>
-        A csv file with 400 customers on the following 11 variables.
+        A csv file with 400 customers on the following 11 variables. 
         <dl>
           <li>
             <title>Income</title>
@@ -22,7 +22,7 @@
             <title>Limit</title>
 
             <p>
-              Credit card limit in dollars.
+              Credit limit in dollars.
             </p>
           </li>
 
@@ -38,7 +38,7 @@
             <title>Cards</title>
 
             <p>
-              Number of credit cards owned.
+              Number of credit cards.
             </p>
           </li>
 
@@ -93,11 +93,23 @@
             <title>Balance</title>
 
             <p>
-              Credit card balance in dollars.
+              Average credit card debt in dollars.
             </p>
           </li>
         </dl>
       </p>
+      
+        
+      <note>
+                    <p>
+                        <sq>Own</sq> is referenced in the textbook which represents home ownership (<sq>Yes</sq> or <sq>No</sq>), but is not in any
+                  of the online versions of the data set that I can find.
+                </p>
+        <p>
+            The book also mentions the variable <sq>Region</sq> (East, West, or South), but the data file is also missing that column. 
+        </p>
+      </note>
+      
 
 
 

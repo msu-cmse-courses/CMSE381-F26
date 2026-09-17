@@ -18,13 +18,6 @@
   
 </objectives>
 
-
-
-
-
-
-
-
     <paragraphs xml:id="day07-continued-questions-to-ask">
       <title>inear Regression with Multiple Variables</title>
 
@@ -544,7 +537,7 @@
             </p>
 
 
-            <ul component="slides-inst-notes">
+            <ul >
               <li>
                 <p>
                   Anything with values in either integers or real numbers.
@@ -958,6 +951,7 @@
                 <m>\beta_0=\frac{509.80+529.53}{2}=519.665</m> is the average of the two means.
               </p>
             </answer>
+            </task>
             <task>
               <statement>
                 <p>
@@ -976,187 +970,15 @@
               </hint>
               <answer>
                 <p>
-                  <m>\beta_1=\frac{19.73}{2}=$9.865</m>
+                  <m>\beta_1=\frac{19.73}{2}=$9.865</m>.
                 </p>
               </answer>
-            </task>
-        </task>
+            </task>        
         </exercise>
       </paragraphs>
 
-      <paragraphs xml:id="more-than-two-levels">
-        <title>Qualitative Predictor with More than Two Levels</title>
-
-        <sidebyside>
-          <stack>
-
-
-
-     <p>
-            <table>
-              <title>Region</title>
-              
-              
-              <tabular>
-                <row>
-                  <cell></cell>
-                  <cell><m>x_{i1}</m></cell>
-                  <cell><m>x_{i2}</m></cell>
-                </row>
-                <row>
-                  <cell>South</cell>
-                  <cell>1</cell>
-                  <cell>0</cell>
-                </row>
-                <row>
-                  <cell>West</cell>
-                  <cell>0</cell>
-                  <cell>1</cell>
-                </row>
-                <row>
-                  <cell>East</cell>
-                  <cell>0</cell>
-                  <cell>0</cell>
-                </row>
-              </tabular>
-            </table>
-          </p>
-          </stack>
-
-          <stack>
-            
-              <p>Create spare dummy variables:</p>
-
-
-            <p>
-              <md>
-              x_{i1}=
-              \begin{cases}
-              1 &amp; \text{if}\,i\text{th person from South}\\
-              0 &amp; \text{if}\,i\text{th person not from South}
-              \end{cases}
-              </md>
-            </p>
-
-            <p>
-              <md>
-              x_{i2}=
-              \begin{cases}
-              1 &amp; \text{if}\,i\text{th person from West}\\
-              0 &amp; \text{if}\,i\text{th person not from West}
-              \end{cases}
-              </md>
-              <note>
-                <p>
-                  The level with no dummy variable (East here) is known as <term>the baseline</term>. 
-                </p>
-              </note>
-            </p>
-          </stack>
-        </sidebyside>
-
-        <p>
-          <md>
-          y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\epsilon_i
-          =
-          \begin{cases}
-          \beta_0+\beta_1x_{i1}+\epsilon_i &amp;
-          \text{if}\,i\text{th person from South}\\
-          \beta_0+\beta_2x_{i2}+\epsilon_i &amp;
-          \text{if}\,i\text{th person from West}\\
-          \beta_0+\epsilon_i &amp;
-          \text{if}\,i\text{th person from East}
-          \end{cases}
-          </md>
-        </p>
-        <exercise>
-          <task>
-            <statement>
-              <p>
-                What is the interpretation for <m>\beta_0</m>?
-              </p>
-            </statement>
-            <answer>
-              <p>
-                <m>\beta_0</m> can be interpreted as the average credit card balance for individuals from the East.
-              </p>
-            </answer>
-          </task>
-          <task>
-            <statement>
-              <p>
-                What is the interpretation for <m>\beta_1</m>?
-              </p>
-            </statement>
-            <answer>
-              <p>
-                <m>\beta_1</m> can be interpreted as the difference in the average balance between people from the South versus the East.
-              </p>
-            </answer>
-          </task>
-          <task>
-            <statement>
-              <p>
-                What is the interpretation for <m>\beta_2</m>?
-              </p>
-            </statement>
-            <answer>
-              <p>
-                <m>\beta_2</m> can be interpreted as the difference in the average balance between those from the West versus the East.
-              </p>
-            </answer>
-          </task>
-        </exercise>
-      </paragraphs>
-
-      <paragraphs xml:id="more-on-multiple-levels">
-        <title>More on multiple levels</title>
-
-        <sidebyside>
-          <stack>
-            <ul>
-              <li><p>Always one less variable than levels.</p></li>
-              <li>
-                <p>
-                  Level with no dummy variable is called the baseline.
-                </p>
-              </li>
-            </ul>
-          </stack>
-
-          <stack>
-            <image source="figures/Table3-8.png" >
-              <shortdescription>
-                Regression results for regional dummy variables.
-              </shortdescription>
-            </image>
-
-            <ul>
-              <li>
-                <p>Balance for the baseline (EAST) is $531.</p>
-              </li>
-              <li>
-                <p>South has $18.69 less than east.</p>
-              </li>
-              <li>
-                <p>West has $12.50 less than east.</p>
-              </li>
-              <li>
-                <p>
-                  <m>p</m>-values for dummy variables are large, so can't reject
-                  null hypothesis.
-                </p>
-              </li>
-              <li>
-                <p>
-                  No statistical evidence that there's a difference in CC
-                  balance in different regions.
-                </p>
-              </li>
-            </ul>
-          </stack>
-        </sidebyside>
-      </paragraphs>
-
+    <p>
+        Group work: Work in groups to complete <xref ref="activities" text="custom">Day07 in-class activity</xref>. 
+    </p>
 
   </handout>

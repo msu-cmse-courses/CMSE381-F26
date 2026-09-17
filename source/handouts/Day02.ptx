@@ -211,7 +211,7 @@
                     </md>
                 </p>
 
-                <p component="instructor-notes">
+                <p>
                     <ul>
                         <li>
                             <p>
@@ -297,10 +297,10 @@
                         </md>
                     </p>
 
-                    <ul component="instructor-notes">
+                    <ul>
                         <li>
                             <p>
-                                Want to get a good guess for $f$, which is
+                                Want to get a good guess for <m>f</m>, which is
                                 unknown blue
                             </p>
                         </li>
@@ -404,7 +404,7 @@
                     <term>Reducible error</term>
                 </p>
 
-                <ul component="instructor-notes">
+                <ul>
                     <li>
                         <p>
                             <m>\hat f</m> will not be a perfect estimate for
@@ -427,7 +427,7 @@
                     <term>Irreducible error</term>
                 </p>
 
-                <ul component="instructor-notes">
+                <ul>
                     <li>
                         <p>
                             Model was <m>Y = f(X) + \epsilon</m>,
@@ -484,7 +484,7 @@
             E(Y-\hat Y)^2 = E[f(X) + \epsilon -\hat f(X)]^2 = [f(X) - \hat f (X)]^2 + Var(\epsilon)
         </md>
 
-        <p component="instructor-notes">
+        <p>
             <m>[f(X) - \hat f (X)]^2</m> is reducible, <m>Var(\epsilon)</m> is
             irreducible
         </p>
@@ -801,11 +801,11 @@
             </row>
 
             <row>
-                <cell component="instructor-notes">
+                <cell>
                     Easier to estimate parameters than to figure out a
                     completely arbitrary function
                 </cell>
-                <cell component="instructor-notes">
+                <cell>
                     You might have chosen the wrong function type
                 </cell>
             </row>
@@ -815,16 +815,16 @@
     <paragraphs>
         <title>Overfitting</title>
 
-        <p component="instructor-notes">
+        <p>
             Possible fix: Find more <term>Flexible models</term>, which means
             braider functional form
         </p>
 
-        <p component="instructor-notes">
+        <p>
             Problem: needs more variables, could lead to overfitting
         </p>
 
-        <p component="instructor-notes">
+        <p>
             <term>Overfitting</term>: Following the noise too closely
         </p>
 
@@ -879,7 +879,7 @@
             </description>
         </image>
 
-        <ul component="instructor-notes">
+        <ul>
             <li>
                 <p>
                     More flexible allows for greater accuracy, but potential for
@@ -943,7 +943,7 @@
             <li>
                 <title><term>Quantitative</term></title>
 
-                <p component="instructor-notes">
+                <p>
                     Ex: Blood pressure, temperature, volume, height, income
                 </p>
             </li>
@@ -951,7 +951,7 @@
             <li>
                 <title><term>Qualitative</term> or <term>Categorical</term></title>
 
-                <p component="instructor-notes">
+                <p>
                     Ex: Purchased a ticket, owns a house, Job, Digit in MNIST
                 </p>
             </li>

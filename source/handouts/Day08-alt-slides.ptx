@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day08" xml:id="day-08-lecture">
+    <title>Day 08</title>
+
+    <introduction>
+        <p>
+            More Linear Regression
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Qualitative predictors with more than two levels
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Extending the linear model with interaction terms
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Hierarchy principle
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Polynomial regression
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs xml:id="more-than-two-levels">
+        <title>Qualitative Predictor with More than Two Levels</title>
+
+        <sidebyside>
+            <table xml:id="tab-day08-region">
+                <title>Region</title>
+
+                <tabular>
+                    <row>
+                        <cell/>
+                        <cell><m>x_{i1}</m></cell>
+                        <cell><m>x_{i2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>South</cell>
+                        <cell>1</cell>
+                        <cell>0</cell>
+                    </row>
+
+                    <row>
+                        <cell>West</cell>
+                        <cell>0</cell>
+                        <cell>1</cell>
+                    </row>
+
+                    <row>
+                        <cell>East</cell>
+                        <cell>0</cell>
+                        <cell>0</cell>
+                    </row>
+                </tabular>
+            </table>
+
+            <stack>
+                <p>
+                    Create spare dummy variables:
+                </p>
+
+                <p>
+                    <md>
+                        x_{i1}=
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th person from South}\\
+              0 &amp; \text{if}\,i\text{th person not from South}
+              \end{cases}
+                    </md>
+                </p>
+
+                <p>
+                    <md>
+                        x_{i2}=
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th person from West}\\
+              0 &amp; \text{if}\,i\text{th person not from West}
+              \end{cases}
+                    </md>
+
+                    <note>
+                        <p>
+                            The level with no dummy variable (East here) is
+                            known as <term>the baseline</term>.
+                        </p>
+                    </note>
+                </p>
+            </stack>
+        </sidebyside>
+
+        <p>
+            <md>
+                y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\epsilon_i
+          =
+          \begin{cases}
+          \beta_0+\beta_1+\epsilon_i &amp;
+          \text{if}\,i\text{th person from South}\\
+          \beta_0+\beta_2+\epsilon_i &amp;
+          \text{if}\,i\text{th person from West}\\
+          \beta_0+\epsilon_i &amp;
+          \text{if}\,i\text{th person from East}
+          \end{cases}
+            </md>
+        </p>
+
+        <exercise>
+            <task>
+                <statement>
+                    <p>
+                        What is the interpretation for <m>\beta_0</m>?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <m>\beta_0</m> can be interpreted as the average credit
+                        card balance for individuals from the East.
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What is the interpretation for <m>\beta_1</m>?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <m>\beta_1</m> can be interpreted as the difference in
+                        the average balance between people from the South versus
+                        the East.
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What is the interpretation for <m>\beta_2</m>?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <m>\beta_2</m> can be interpreted as the difference in
+                        the average balance between those from the West versus
+                        the East.
+                    </p>
+                </answer>
+            </task>
+        </exercise>
+    </paragraphs>
+
+    <paragraphs xml:id="more-on-multiple-levels">
+        <title>More on multiple levels</title>
+
+        <sidebyside>
+            <stack>
+                <ul>
+                    <li>
+                        <p>
+                            Always one less variable than levels.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Level with no dummy variable is called the baseline.
+                        </p>
+                    </li>
+                </ul>
+            </stack>
+
+            <stack>
+                <image source="figures/Table3-8.png">
+                    <shortdescription>
+                        Regression results for regional dummy variables.
+                    </shortdescription>
+                </image>
+
+                <ul>
+                    <li>
+                        <p>
+                            Balance for the baseline (EAST) is $531.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            South has $18.69 less than east.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            West has $12.50 less than east.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>p</m>-values for dummy variables are large, so
+                            can't reject null hypothesis.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            No statistical evidence that there's a difference in
+                            CC balance in different regions.
+                        </p>
+                    </li>
+                </ul>
+            </stack>
+        </sidebyside>
+
+        <exercise>
+            <introduction>
+                <p>
+                    Assume we are trying to build a regression model to predict
+                    the price of a Pokemon card based on its grading (
+                    <sq>Grading</sq> ).
+                    The card grading levels are Near Mint ( <sq>NM</sq> ),
+                    Lightly Played ( <sq>LP</sq> ), Heavily Played ( <sq>HP</sq>
+                    ), and Damaged ( <sq>DMG</sq> ).
+                    Answer the following questions.
+                </p>
+            </introduction>
+
+            <task>
+                <statement>
+                    <p>
+                        How many dummy variables will we need to encode
+                        <sq>Grading</sq>?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        Since we have 4 levels, we will need 3 variables (one
+                        less than the number of levels).
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        Create a table similar to <xref ref="tab-day08-region"/>
+                        using the ordering from top to bottom: <sq>NM</sq>,
+                        <sq>LP</sq>, <sq>HP</sq>, <sq>DMG</sq>.
+                    </p>
+                </statement>
+
+                <answer>
+                    <tabular>
+                        <row>
+                            <cell/>
+                            <cell><m>x_{i1}</m></cell>
+                            <cell><m>x_{i2}</m></cell>
+                            <cell><m>x_{i3}</m></cell>
+                        </row>
+
+                        <row>
+                            <cell>NM</cell>
+                            <cell>1</cell>
+                            <cell>0</cell>
+                            <cell>0</cell>
+                        </row>
+
+                        <row>
+                            <cell>LP</cell>
+                            <cell>0</cell>
+                            <cell>1</cell>
+                            <cell>0</cell>
+                        </row>
+
+                        <row>
+                            <cell>HP</cell>
+                            <cell>0</cell>
+                            <cell>0</cell>
+                            <cell>1</cell>
+                        </row>
+
+                        <row>
+                            <cell>DMG</cell>
+                            <cell>0</cell>
+                            <cell>0</cell>
+                            <cell>0</cell>
+                        </row>
+                    </tabular>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        Choosing <sq>DMG</sq> as the reference variable and
+                        using 0/1 one-hot encoding, write the expressions for
+                        all the dummy variables for the <m>i</m> th card.
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <md>
+                            <mrow>                        x_{i1}\amp=
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th card is NM}\\
+              0 &amp; \text{otherwise}
+              \end{cases} </mrow>
+                            <mrow>                        x_{i2}\amp=
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th card is LP}\\
+              0 &amp; \text{otherwise}
+              \end{cases} </mrow>
+                            <mrow>x_{i3}\amp=
+              \begin{cases}
+              1 &amp; \text{if}\,i\text{th card is HP}\\
+              0 &amp; \text{otherwise}
+              \end{cases} </mrow>
+                        </md>
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        Write the piecewise form for predicting the price of the
+                        <m>i</m> th card
+                        <md>
+                            y_i=\beta_0+\beta_1 x_{i1} + \ldots + \epsilon_i.
+                        </md>
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <md>
+                            <mrow>y_i\amp=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\beta_3 x_{i3}+\epsilon_i</mrow>
+                            <mrow>\amp=
+          \begin{cases}
+          \beta_0+\beta_1+\epsilon_i &amp;
+          \text{if}\,i\text{th card is NM}\\
+          \beta_0+\beta_2+\epsilon_i &amp;
+          \text{if}\,i\text{th card is LP}\\
+          \beta_0+\beta_3+\epsilon_i &amp;
+          \text{if}\,i\text{th card is HP}\\
+          \beta_0+\epsilon_i &amp;
+          \text{if}\,i\text{th card is DMG}
+          \end{cases}</mrow>
+                        </md>
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        Write down the interpretation for each coefficient in
+                        your model, <m>\beta_0, \beta_1, \ldots, \beta_p</m>.
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <dl>
+                            <li>
+                                <title><m>\beta_0</m></title>
+
+                                <p>
+                                    Average price for DMG cards.
+                                </p>
+                            </li>
+
+                            <li>
+                                <title><m>\beta_1</m></title>
+
+                                <p>
+                                    Difference in the average price between NM
+                                    and DMG cards.
+                                </p>
+                            </li>
+
+                            <li>
+                                <title><m>\beta_2</m></title>
+
+                                <p>
+                                    Difference in the average price between LP
+                                    and DMG cards.
+                                </p>
+                            </li>
+
+                            <li>
+                                <title><m>\beta_3</m></title>
+
+                                <p>
+                                    Difference in the average price between HP
+                                    and DMG cards.
+                                </p>
+                            </li>
+                        </dl>
+                    </p>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        Using the following table, write down the values for
+                        each of the coefficients in your regression model.
+                    </p>
+
+                    <table>
+                        <title>Average card values versus grading</title>
+
+                        <tabular>
+                            <row>
+                                <cell>Near Mint (NM)</cell>
+                                <cell>$12.35</cell>
+                            </row>
+
+                            <row>
+                                <cell>Lightly Played (LP)</cell>
+                                <cell>$8.87</cell>
+                            </row>
+
+                            <row>
+                                <cell>Heavily Played (HP)</cell>
+                                <cell>6.72</cell>
+                            </row>
+
+                            <row>
+                                <cell>Damaged (DMG)</cell>
+                                <cell>$4.17</cell>
+                            </row>
+                        </tabular>
+                    </table>
+                </statement>
+
+                <answer>
+                    <p>
+                        <md>
+                            <mrow>\beta_0 \amp=4.17 </mrow>
+                            <mrow>\beta_1 \amp=(\beta_0+\beta_1)-\beta_0=12.35-4.17=$8.20 </mrow>
+                            <mrow>\beta_2 \amp=(\beta_0+\beta_2)-\beta_0=8.87-4.17 =$4.80 </mrow>
+                            <mrow>\beta_3 \amp=(\beta_0+\beta_3)-\beta_0=6.72-4.17 =$2.60</mrow>
+                        </md>
+                    </p>
+                </answer>
+            </task>
+        </exercise>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Extending the linear model: interaction terms</title>
+
+        <p>
+            Assumptions so far (for Advertising data):
+            <md>
+                \hat Y_{sales}
+	= \beta_0
+	+ \beta_1 \cdot X_{{TV}}
+	+ \beta_2 \cdot X_{{radio}}
+	+ \beta_3 \cdot X_{{newspaper}}
+            </md>
+        </p>
+
+        <sidebyside width="45%">
+            <p>
+                Assumed (implicitly) that the effect on sales by increasing one
+                medium is independent of the others.
+            </p>
+
+            <p>
+                What if spending money on radio advertising increases the
+                effectiveness of TV advertising?
+                How do we model it?
+            </p>
+        </sidebyside>
+
+        <p>
+            Interaction term
+        </p>
+
+        <sidebyside width="45%">
+            <p>
+                <md>
+                    Y = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \beta_3 X_1X_2 + \epsilon
+                </md>
+                <md>
+                    <mrow>Y_{sales} \amp= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}X_{TV} + \epsilon</mrow>
+                    <mrow>\amp= \beta_0 + (\beta_1 + \beta_3 X_{radio}) X_{TV} + \beta_2 X_{radio} + \epsilon</mrow>
+                    <mrow>\amp=\beta_0 + \tilde{\beta_1} X_{TV} + \beta_2 X_{radio} + \epsilon</mrow>
+                </md>
+            </p>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            <m>\beta_3 X_{\text{radio}} X_{\text{TV}}</m> is the
+                            interaction term
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>\tilde{\beta_1} = \beta_1 + \beta_3 X_{radio}</m>,
+                            function of <m>X_2</m> association no longer
+                            constant between <m>X_1</m> and <m>Y</m>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+
+        <sidebyside width="45%">
+            <p>
+                <md>
+                    Y = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \beta_3 X_1X_2 + \epsilon
+                </md>
+                <md>
+                    <mrow>Y_{sales} &amp;= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}X_{TV} + \epsilon</mrow>
+                    <mrow>\amp= \beta_0 + (\beta_1 + \beta_3 X_{radio}) X_{TV} + \beta_2 X_{radio} + \epsilon</mrow>
+                </md>
+            </p>
+
+            <stack>
+                <image source="figures/Table3-9.png" width="80%">
+                    <shortdescription>
+                        Coefficients, standard error, t-statistic, and p-value
+                        for Sales versus TV, radio, TV times radio, all in
+                        thousands of dollars.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                P-value for interaction term is low, strong
+                                evidence for <m>H_a: \beta_3 \neq 0</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>R^2</m> is 96.8% for this, vs 89.7% for model
+                                without interaction
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>\beta_3</m> the increase in the effectiveness
+                                of TV advertising associated with a one-unit
+                                increase in radio advertising
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+
+        <p>
+            Interpretation.
+        </p>
+
+        <sidebyside width="45%">
+            <image source="figures/Table3-9.png" width="80%">
+                <shortdescription>
+                    Coefficients, standard error, t-statistic, and p-value for
+                    Sales versus TV, radio, TV times radio, all in thousands of
+                    dollars.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ol>
+                    <li>
+                        <p>
+                            An increase of $1K in TV advertising is associated
+                            with increased sales of
+                        </p>
+                        <md>
+                            (\beta_1 + \beta_3 X_{\text{radio}}) \cdot 1000
+      = 19 + 1.1 \cdot X_{\text{radio}}
+                        </md>
+
+                        <p>
+                            units.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            An increase of $1K in radio advertising is
+                            associated with increased sales of
+                            <md>
+                                (\beta_2 + \beta_3 X_{\text{TV}}) \cdot 1000
+      = 29 + 1.1 \cdot X_{\text{TV}}
+                            </md>
+                            units.
+                        </p>
+                    </li>
+                </ol>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Hierarchy principle</title>
+
+        <sidebyside widths="45% 45%" margins="5%">
+            <p>
+                Sometimes the <m>p</m>-value for an interaction term is very
+                small, but its associated main effects are not.
+            </p>
+
+            <p>
+                The hierarchy principle:
+                <ul>
+                    <li>
+                        If we include an interaction term, we should include its
+                        main effects regardless of their individual
+                        significance.
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Nonlinear relationships</title>
+
+        <p>
+            <md>
+                \texttt{mpg}
+    = \beta_0
+    + \beta_1 \cdot \texttt{horsepower}
+    + \beta_2 \cdot \texttt{horsepower}^2
+    + \epsilon
+            </md>
+        </p>
+
+        <sidebyside widths="45% 45%" margins="5%">
+            <p>
+                <ol>
+                    <li>
+                        Quadratic shape of the data suggests the model above.
+                    </li>
+
+                    <li>
+                        It is still linear regression because we use
+                        <m>X_1 = \texttt{horsepower}</m> and
+                        <m>X_2 = \texttt{horsepower}^2</m>.
+                    </li>
+
+                    <li>We could add more terms, but risk overfitting.</li>
+                    <li>
+                        Polynomial regression is covered further in Chapter 7.
+                    </li>
+                </ol>
+            </p>
+
+            <stack>
+                <image source="figures/Fig3-8.png">
+                    <shortdescription>
+                        Scatter plot of miles per gallon versus horsepower with
+                        linear, degree 2, and degree 5 fits.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/Table3-10.png">
+                    <shortdescription>
+                        Coefficients, standard error, t-statistic, and p-value
+                        for a quadratic polynomial fit of miles per gallon
+                        versus horse power.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <p>
+        Group work: Work in groups to complete
+        <xref ref="activities" text="custom">Day08 in-class activity</xref>.
+    </p>
+</handout>

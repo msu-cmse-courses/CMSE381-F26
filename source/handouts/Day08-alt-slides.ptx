@@ -809,6 +809,9 @@
             </stack>
         </sidebyside>
         <note>
+        <title>Hierarchy principle for nonlinear interaction terms</title>
+        
+        
                                     <p>
                             The hierarchy principle allows including an interaction term that includes polynomial powers only if all the lower order components including the linear interactions are included. For example, if we want to include <m>X_1^2 X_2</m>, then we must also include <m>X_1,X_2,X_1^2</m> and <m>X_1X_2</m>.
                         </p>

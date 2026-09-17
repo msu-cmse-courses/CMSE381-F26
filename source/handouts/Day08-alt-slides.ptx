@@ -646,11 +646,115 @@
                     <li>
                         If we include an interaction term, we should include its
                         main effects regardless of their individual
-                        significance.
+                        significance. This is called <term>strong hierarchy</term>, see <xref ref="strong-vs-weak-hierarchy" text="custom">the aside note</xref>.
+                    </li>
+                    <li>
+                        <p>
+                    Specifically, we only allow an interaction term into the model if all the corresponding main effects are also included in the model. For example, we only allow <m>X_1X_2X_3</m> if all of the corresponding lower-order components are included. This includes every individual effect (<m>X_1, X_2, X_3</m>) and all the pairwise interactions <m>X_1X_2, X_1X_3, X_2X_3</m>.                
+                        </p>
                     </li>
                 </ul>
             </p>
         </sidebyside>
+            <aside xml:id="strong-vs-weak-hierarchy">
+                <p>
+                    This is the notion of <term>strong hierarchy</term> versus <term>weak hierarchy</term>. Strong hierarchy is more common, and it is the one we will use here. See <url href="https://statisticaloddsandends.wordpress.com/2020/06/21/strong-and-weak-hierarchy-in-interaction-models/" visual="statisticaloddsandends.wordpress.com/2020/06/21/strong-and-weak-hierarchy-in-interaction-models">this website</url> for more details.
+                </p>
+
+            </aside>
+
+        <exercise xml:id="hierarchy-principle-models">
+            <title>Hierarchy Principle</title>
+
+            <statement>
+                <p>
+                    Which of the following regression models satisfy the
+                    hierarchy principle?
+                    Select all that apply.
+                </p>
+            </statement>
+
+            <choices multiple-correct="yes">
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="no">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 + \beta_4 X_1 X_3 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="no">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 + \beta_4 X_2 X_3 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="no">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 X_3 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+          + \beta_4 X_1 X_2 + \beta_5 X_1 X_3
+          + \beta_6 X_2 X_3 + \beta_7 X_1 X_2 X_3
+          + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="no">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 + \beta_4 X_1 X_2 X_3
+          + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+            </choices>
+        </exercise>
     </paragraphs>
 
     <paragraphs>
@@ -673,16 +777,17 @@
                         Quadratic shape of the data suggests the model above.
                     </li>
 
-                    <li>
+                    <li><p>
                         It is still linear regression because we use
                         <m>X_1 = \texttt{horsepower}</m> and
                         <m>X_2 = \texttt{horsepower}^2</m>.
+                        </p>
                     </li>
 
-                    <li>We could add more terms, but risk overfitting.</li>
+                    <li><p>We could add more terms, but risk overfitting.</p></li>
                     <li>
-                        Polynomial regression is covered further in Chapter 7.
-                    </li>
+                        <p>Polynomial regression is covered further in Chapter 7.</p>
+                    </li>                    
                 </ol>
             </p>
 
@@ -703,6 +808,59 @@
                 </image>
             </stack>
         </sidebyside>
+        <note>
+                                    <p>
+                            The hierarchy principle allows including an interaction term that includes polynomial powers only if all the lower order components including the linear interactions are included. For example, if we want to include <m>X_1^2 X_2</m>, then we must also include <m>X_1,X_2,X_1^2</m> and <m>X_1X_2</m>.
+                        </p>
+        </note>
+
+        <exercise xml:id="hierarchy-principle-nonlinear-models">
+            <title>Hierarchy Principle with Nonlinear relationships</title>
+
+            <statement>
+                <p>
+                    Which of the following regression models satisfy the
+                    hierarchy principle?
+                    Select all that apply.
+                </p>
+            </statement>
+
+            <choices multiple-correct="yes">
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1^2 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice correct="yes">
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2
+          + \beta_3 X_1^3 + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+
+                <choice>
+                    <statement>
+                        <p>
+                            <m>
+          Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_1 X_2 + \beta_4 X_1^2 X_2
+          + \epsilon
+        </m>
+                        </p>
+                    </statement>
+                </choice>
+            </choices>
+        </exercise>
     </paragraphs>
 
     <p>

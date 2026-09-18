@@ -230,6 +230,29 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html" class="internal"><span class="title">Day 08 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-dummy-variables-for-multi-level-categorical-inputs" class="internal"><span class="title">Dummy Variables for Multi-level Categorical Inputs</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way" class="internal"><span class="title">The wrong way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-wrong-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way" class="internal"><span class="title">The right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way-14" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way" class="internal"><span class="title">Another right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-another-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms" class="internal"><span class="title">Interaction Terms</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-interaction-terms" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms-15" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -289,7 +312,7 @@ eBookConfig.enable_chatcodes =  false;
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Credit Data Set</span>
 </h1>
 <article class="data computation-like" id="credit-csv"><h2 class="heading">
-<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">77</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Credit: Credit Data Set.</span>
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">78</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Credit: Credit Data Set.</span>
 </h2>
 <div class="para logical" id="credit-csv-2">
 <div class="para">A csv file with 400 customers on the following 11 variables.</div>
@@ -364,20 +387,20 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#credit-csv-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="note remark-like" id="credit-csv-3"><h3 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">78</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">79</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h3>
 <div class="para" id="credit-csv-3-1">‘Own’ is referenced in the textbook which represents home ownership (‘Yes’ or ‘No’), but is not in any of the online versions of the data set that I can find.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#credit-csv-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="credit-csv-3-2">The book also mentions the variable ‘Region’ (East, West, or South), but the data file is also missing that column.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#credit-csv-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Note 78"><a tabindex="-1" href="#credit-csv-3" title="Copy heading and permalink for Note 78" aria-label="Copy heading and permalink for Note 78">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Note 79"><a tabindex="-1" href="#credit-csv-3" title="Copy heading and permalink for Note 79" aria-label="Copy heading and permalink for Note 79">🔗</a></div>
 </article>
 <div class="para" id="credit-csv-4">The book’s website has the data files <a class="external" href="https://trevorhastie.github.io/ISLR/data.html" target="_blank">here</a>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#credit-csv-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="credit-csv-5">
 <a class="external" href="external/data/Credit.csv" target="_blank"><code class="code-inline tex2jax_ignore">Credit.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#credit-csv-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Data 77: Credit: Credit Data Set"><a tabindex="-1" href="#credit-csv" title="Copy heading and permalink for Data 77: Credit: Credit Data Set" aria-label="Copy heading and permalink for Data 77: Credit: Credit Data Set">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Data 78: Credit: Credit Data Set"><a tabindex="-1" href="#credit-csv" title="Copy heading and permalink for Data 78: Credit: Credit Data Set" aria-label="Copy heading and permalink for Data 78: Credit: Credit Data Set">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Subsection: Credit Data Set"><a tabindex="-1" href="#sec-credit-data-set" title="Copy heading and permalink for Subsection: Credit Data Set" aria-label="Copy heading and permalink for Subsection: Credit Data Set">🔗</a></div>
 </section>
 </div>

@@ -207,13 +207,116 @@
                     We conduct three experiments to classify 5 data points as
                     members of A, B, or C.
                 </p>
+                <table>
+  <title>Repeated classification experiments</title>
+  <tabular>
+    <row header="yes">
+      <cell>Experiment</cell>
+      <cell>Query point</cell>
+      <cell>True class</cell>
+      <cell>Predicted class</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Q1</cell>
+      <cell>A</cell>
+      <cell>A</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Q2</cell>
+      <cell>B</cell>
+      <cell>B</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Q3</cell>
+      <cell>C</cell>
+      <cell>B</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Q4</cell>
+      <cell>A</cell>
+      <cell>A</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Q5</cell>
+      <cell>C</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Q1</cell>
+      <cell>A</cell>
+      <cell>A</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Q2</cell>
+      <cell>B</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Q3</cell>
+      <cell>C</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Q4</cell>
+      <cell>B</cell>
+      <cell>B</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Q5</cell>
+      <cell>A</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>Q1</cell>
+      <cell>C</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>Q2</cell>
+      <cell>A</cell>
+      <cell>A</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>Q3</cell>
+      <cell>B</cell>
+      <cell>B</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>Q4</cell>
+      <cell>C</cell>
+      <cell>C</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>Q5</cell>
+      <cell>A</cell>
+      <cell>A</cell>
+    </row>
+  </tabular>
+</table>
+
+
             </introduction>
 
             <task>
                 <statement>
                     <p>
                         Fill out the following table which calculates the
-                        classification accuracy for each experiment.
+                        classification test error rate for each experiment.
                     </p>
 
                     <tabular>
@@ -221,7 +324,7 @@
                             <cell>Experiment</cell>
                             <cell>Correct Predictions</cell>
                             <cell>Misclassifications</cell>
-                            <cell>Accuracy</cell>
+                            <cell>Test error rate</cell>
                         </row>
 
                         <row>
@@ -253,28 +356,28 @@
                             <cell>Experiment</cell>
                             <cell>Correct Predictions</cell>
                             <cell>Misclassifications</cell>
-                            <cell>Accuracy</cell>
+                            <cell>Test error rate</cell>
                         </row>
 
                         <row>
                             <cell>1</cell>
                             <cell>4</cell>
                             <cell>1</cell>
-                            <cell>80%</cell>
+                            <cell>20%</cell>
                         </row>
 
                         <row>
                             <cell>2</cell>
                             <cell>3</cell>
                             <cell>2</cell>
-                            <cell>60%</cell>
+                            <cell>40%</cell>
                         </row>
 
                         <row>
                             <cell>3</cell>
                             <cell>5</cell>
                             <cell>0</cell>
-                            <cell>100%</cell>
+                            <cell>0</cell>
                         </row>
                     </tabular>
                 </answer>
@@ -283,15 +386,15 @@
             <task>
                 <statement>
                     <p>
-                        What is the
-                        <term>average classification accuracy</term>?
+                        What is the average
+                        <term>test error rate</term> across all the experiments?
                     </p>
                 </statement>
 
                 <answer>
                     <p>
                         <md>
-                            \frac{0.80+0.60+1.00}{3}={2.4}{3}=0.80.
+                            \frac{0.20+0.40+0}{3}={0.6}{3}=0.20.
                         </md>
                     </p>
                 </answer>
@@ -602,7 +705,7 @@
             </p>
 
             <sidebyside widths="40% 45%">
-                <figure>
+                <!-- <figure> -->
                     <image source="figures/KNN-Example.png">
                         <shortdescription>
                             A 2D plot of two classes (blue circles and yellow
@@ -610,8 +713,8 @@
                             Three test points are labeled as A, B, and C.
                         </shortdescription>
                     </image>
-                    <caption>KNN example.</caption>
-                </figure>
+                    <!-- <caption>KNN example.</caption> -->
+                <!-- </figure> -->
 
                 <table>
                     <title>KNN predictions</title>
@@ -795,7 +898,7 @@
     <exercise>
         <introduction>
             <p>
-                A group of observations and the Euclidean pairwise distances
+                A group of observations and the pairwise distances
                 between them are reported in the following tables.
             </p>
 
@@ -897,7 +1000,7 @@
             </table>
 
             <table>
-                <title>Pairwise Euclidean distances between observations</title>
+                <title>Pairwise distances between observations</title>
 
                 <tabular>
                     <row header="yes">
@@ -912,8 +1015,8 @@
                         <cell>P8</cell>
                         <cell>P9</cell>
                         <cell>P10</cell>
-                        <cell>P11</cell>
-                        <cell>P12</cell>
+                        <!-- <cell>P11</cell>
+                        <cell>P12</cell> -->
                     </row>
 
                     <row>
@@ -928,8 +1031,8 @@
                         <cell>10.00</cell>
                         <cell>5.83</cell>
                         <cell>5.66</cell>
-                        <cell>6.32</cell>
-                        <cell>7.62</cell>
+                        <!-- <cell>6.32</cell>
+                        <cell>7.62</cell> -->
                     </row>
 
                     <row>
@@ -944,8 +1047,8 @@
                         <cell>8.60</cell>
                         <cell>4.47</cell>
                         <cell>4.24</cell>
-                        <cell>5.10</cell>
-                        <cell>6.32</cell>
+                        <!-- <cell>5.10</cell>
+                        <cell>6.32</cell> -->
                     </row>
 
                     <row>
@@ -960,8 +1063,8 @@
                         <cell>8.49</cell>
                         <cell>4.24</cell>
                         <cell>4.47</cell>
-                        <cell>4.47</cell>
-                        <cell>5.83</cell>
+                        <!-- <cell>4.47</cell>
+                        <cell>5.83</cell> -->
                     </row>
 
                     <row>
@@ -976,8 +1079,8 @@
                         <cell>8.94</cell>
                         <cell>5.10</cell>
                         <cell>4.47</cell>
-                        <cell>6.00</cell>
-                        <cell>7.07</cell>
+                        <!-- <cell>6.00</cell>
+                        <cell>7.07</cell> -->
                     </row>
 
                     <row>
@@ -992,8 +1095,8 @@
                         <cell>2.00</cell>
                         <cell>3.16</cell>
                         <cell>2.83</cell>
-                        <cell>4.00</cell>
-                        <cell>3.16</cell>
+                        <!-- <cell>4.00</cell>
+                        <cell>3.16</cell> -->
                     </row>
 
                     <row>
@@ -1008,8 +1111,8 @@
                         <cell>3.16</cell>
                         <cell>4.00</cell>
                         <cell>3.16</cell>
-                        <cell>5.10</cell>
-                        <cell>4.47</cell>
+                        <!-- <cell>5.10</cell>
+                        <cell>4.47</cell> -->
                     </row>
 
                     <row>
@@ -1024,8 +1127,8 @@
                         <cell>2.24</cell>
                         <cell>5.39</cell>
                         <cell>5.00</cell>
-                        <cell>6.08</cell>
-                        <cell>5.00</cell>
+                        <!-- <cell>6.08</cell>
+                        <cell>5.00</cell> -->
                     </row>
 
                     <row>
@@ -1040,8 +1143,8 @@
                         <cell>0</cell>
                         <cell>4.24</cell>
                         <cell>4.47</cell>
-                        <cell>4.47</cell>
-                        <cell>3.16</cell>
+                        <!-- <cell>4.47</cell>
+                        <cell>3.16</cell> -->
                     </row>
 
                     <row>
@@ -1056,8 +1159,8 @@
                         <cell>4.24</cell>
                         <cell>0</cell>
                         <cell>1.41</cell>
-                        <cell>1.41</cell>
-                        <cell>2.00</cell>
+                        <!-- <cell>1.41</cell>
+                        <cell>2.00</cell> -->
                     </row>
 
                     <row>
@@ -1072,41 +1175,10 @@
                         <cell>4.47</cell>
                         <cell>1.41</cell>
                         <cell>0</cell>
-                        <cell>2.83</cell>
-                        <cell>3.16</cell>
+                        <!-- <cell>2.83</cell>
+                        <cell>3.16</cell> -->
                     </row>
 
-                    <row>
-                        <cell>P11</cell>
-                        <cell>6.32</cell>
-                        <cell>5.10</cell>
-                        <cell>4.47</cell>
-                        <cell>6.00</cell>
-                        <cell>4.00</cell>
-                        <cell>5.10</cell>
-                        <cell>6.08</cell>
-                        <cell>4.47</cell>
-                        <cell>1.41</cell>
-                        <cell>2.83</cell>
-                        <cell>0</cell>
-                        <cell>1.41</cell>
-                    </row>
-
-                    <row>
-                        <cell>P12</cell>
-                        <cell>7.62</cell>
-                        <cell>6.32</cell>
-                        <cell>5.83</cell>
-                        <cell>7.07</cell>
-                        <cell>3.16</cell>
-                        <cell>4.47</cell>
-                        <cell>5.00</cell>
-                        <cell>3.16</cell>
-                        <cell>2.00</cell>
-                        <cell>3.16</cell>
-                        <cell>1.41</cell>
-                        <cell>0</cell>
-                    </row>
                 </tabular>
             </table>
 
@@ -1126,17 +1198,65 @@
                 <row>
                     <cell><m>Q_1</m></cell>
                     <cell>?</cell>
-                    <cell>5.5</cell>
-                    <cell>6.5</cell>
+                    <cell>3</cell>
+                    <cell>7</cell>
                 </row>
 
                 <row>
-                    <cell><m>Q_1</m></cell>
+                    <cell><m>Q_2</m></cell>
                     <cell>?</cell>
-                    <cell>5</cell>
+                    <cell>4</cell>
                     <cell>8</cell>
                 </row>
             </tabular>
+            <p>
+                With the following pairwise distances to the training set
+            </p>
+            <tabular>
+                                <row header="yes">
+                        <cell></cell>
+                        <cell>P1</cell>
+                        <cell>P2</cell>
+                        <cell>P3</cell>
+                        <cell>P4</cell>
+                        <cell>P5</cell>
+                        <cell>P6</cell>
+                        <cell>P7</cell>
+                        <cell>P8</cell>
+                        <cell>P9</cell>
+                        <cell>P10</cell>
+                        <!-- <cell>P11</cell>
+                        <cell>P12</cell> -->
+                    </row>
+                                <row>
+                        <cell>Q1</cell>
+                        <cell>6.32</cell>
+                        <cell>5.10</cell>
+                        <cell>4.47</cell>
+                        <cell>6.00</cell>
+                        <cell>4.00</cell>
+                        <cell>5.10</cell>
+                        <cell>6.08</cell>
+                        <cell>4.47</cell>
+                        <cell>1.41</cell>
+                        <cell>2.83</cell>                                                
+                    </row>
+
+                    <row>
+                        <cell>Q2</cell>
+                        <cell>7.62</cell>
+                        <cell>6.32</cell>
+                        <cell>5.83</cell>
+                        <cell>7.07</cell>
+                        <cell>3.12</cell>
+                        <cell>4.47</cell>
+                        <cell>5.00</cell>
+                        <cell>3.14</cell>
+                        <cell>2.00</cell>
+                        <cell>3.16</cell>                        
+                        
+                    </row>
+                    </tabular>
         </introduction>
 
         <task>
@@ -1148,7 +1268,7 @@
 
             <answer>
                 <p>
-                    <m>K=1</m>: B
+                    <m>K=1</m>: C
                 </p>
             </answer>
         </task>
@@ -1167,19 +1287,7 @@
             </answer>
         </task>
 
-        <task>
-            <statement>
-                <p>
-                    What is the classification for <m>Q_1</m> using <m>K=5</m>?
-                </p>
-            </statement>
 
-            <answer>
-                <p>
-                    <m>K=5</m>: B
-                </p>
-            </answer>
-        </task>
 
         <task>
             <statement>
@@ -1209,26 +1317,14 @@
             </answer>
         </task>
 
-        <task>
-            <statement>
-                <p>
-                    What is the classification for <m>Q_2</m> using <m>K=5</m>?
-                </p>
-            </statement>
 
-            <answer>
-                <p>
-                    <m>K=1</m>: C
-                </p>
-            </answer>
-        </task>
     </exercise>
 
     <paragraphs>
         <title>Tradeoff</title>
 
         <sidebyside widths="30% 33% 30%">
-            <figure>
+            <!-- <figure> -->
                 <image source="figures/Fig2-16a.png">
                     <shortdescription>
                         A plot of two classes (yellow circles and blue circles)
@@ -1237,9 +1333,9 @@
                         decision boundary is plotted in purple.
                     </shortdescription>
                 </image>
-            </figure>
+            <!-- </figure> -->
 
-            <figure>
+            <!-- <figure> -->
                 <image source="figures/Fig2-15.png">
                     <shortdescription>
                         A plot of two classes (yellow circles and blue circles)
@@ -1248,9 +1344,9 @@
                         decision boundary is plotted in purple.
                     </shortdescription>
                 </image>
-            </figure>
+            <!-- </figure> -->
 
-            <figure>
+            <!-- <figure> -->
                 <image source="figures/Fig2-16c.png">
                     <shortdescription>
                         A plot of two classes (yellow circles and blue circles)
@@ -1259,7 +1355,7 @@
                         decision boundary is plotted in purple.
                     </shortdescription>
                 </image>
-            </figure>
+            <!-- </figure> -->
         </sidebyside>
 
         <p>

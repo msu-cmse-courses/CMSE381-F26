@@ -1,0 +1,1328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day09" xml:id="day-09-lecture">
+    <title>Day 09</title>
+
+    <introduction>
+        <p>
+            Ch 2.2.3: Intro to classification
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Error rate (classification)
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Bayes Classifier
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <m>K</m>-NN classification
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>Classification Overview</title>
+
+        <p>
+            What is classification?
+        </p>
+
+        <sidebyside width="45%">
+            <stack>
+                <p>
+                    Classification: When the response variable is qualitative.
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                qualitative: Unordered set
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Examples
+                            </p>
+
+                            <ul>
+                                <li>
+                                    <p>
+                                        Eye color
+                                        <m>\in\{\text{brown},\text{blue},\text{green}\}</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        <m>email\in\{\text{spam},\text{not spam}\}</m>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    Given feature vector <m>X</m> and qualitative response
+                    <m>Y</m> in the set <m>S</m>, the goal is to find a function
+                    (classifier) <m>C(X)</m> taking <m>X</m> as input and
+                    predicting its value for <m>Y</m>.
+                </p>
+
+                <p>
+                    We are more interested in estimating the probabilities that
+                    <m>X</m> belongs to each category.
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Some examples</title>
+
+        <p component="slides-inst-notes">
+            Discuss what set <m>Y</m> comes from in each case.
+        </p>
+
+        <sidebyside width="45%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Predict whether a COVID19 vaccine will work on a
+                                patient given patient's age.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                An online banking service wants to determine
+                                whether a transaction being performed is
+                                fraudulent on the basis of the user's IP
+                                address, past transactions, etc.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p/>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Classification</title>
+
+    </paragraphs>
+
+    <paragraphs>
+        <title>Error rate</title>
+
+        <sidebyside width="50%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Training data:
+                            </p>
+                            <md>
+                                \{(x_1,y_1),\cdots,(x_n,y_n)\}
+                            </md>
+
+                            <p>
+                                with <m>y_i</m> qualitative.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Estimate <m>\hat y=\hat f(x)</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Indicator variable.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    <m>\mathrm{I}(y_i\neq\hat y_i)</m> is 1 if not the same
+                    (misclassified) and 0 otherwise.
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    Training error rate:
+                    <md>
+                        \frac{1}{n}
+          \sum_{i=1}^{n}
+          \mathrm{I}(y_i\neq\hat y_i)
+                    </md>
+                </p>
+
+                <p>
+                    Test error rate:
+                    <md>
+                        \mathrm{Ave}
+          \left(
+            \mathrm{I}(y_0\neq\hat y_0)
+          \right)
+                    </md>
+                </p>
+
+                <p>
+                    Good classifier: one that minimizes test error rate.
+                </p>
+            </stack>
+        </sidebyside>
+
+        <example>
+            <introduction>
+                <p>
+                    We conduct three experiments to classify 5 data points as
+                    members of A, B, or C.
+                </p>
+            </introduction>
+
+            <task>
+                <statement>
+                    <p>
+                        Fill out the following table which calculates the
+                        classification accuracy for each experiment.
+                    </p>
+
+                    <tabular>
+                        <row>
+                            <cell>Experiment</cell>
+                            <cell>Correct Predictions</cell>
+                            <cell>Misclassifications</cell>
+                            <cell>Accuracy</cell>
+                        </row>
+
+                        <row>
+                            <cell>1</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+
+                        <row>
+                            <cell>2</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+
+                        <row>
+                            <cell>3</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                    </tabular>
+                </statement>
+
+                <answer>
+                    <tabular>
+                        <row>
+                            <cell>Experiment</cell>
+                            <cell>Correct Predictions</cell>
+                            <cell>Misclassifications</cell>
+                            <cell>Accuracy</cell>
+                        </row>
+
+                        <row>
+                            <cell>1</cell>
+                            <cell>4</cell>
+                            <cell>1</cell>
+                            <cell>80%</cell>
+                        </row>
+
+                        <row>
+                            <cell>2</cell>
+                            <cell>3</cell>
+                            <cell>2</cell>
+                            <cell>60%</cell>
+                        </row>
+
+                        <row>
+                            <cell>3</cell>
+                            <cell>5</cell>
+                            <cell>0</cell>
+                            <cell>100%</cell>
+                        </row>
+                    </tabular>
+                </answer>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What is the
+                        <term>average classification accuracy</term>?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        <md>
+                            \frac{0.80+0.60+1.00}{3}={2.4}{3}=0.80.
+                        </md>
+                    </p>
+                </answer>
+            </task>
+        </example>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Best ever classifier</title>
+
+        <sidebyside width="40%">
+            <stack>
+                <p>
+                    <term>Bayes Classifier:</term>
+                </p>
+
+                <p>
+                    Give every observation the <em>highest probability</em>
+                    class given its predictor variables.
+                    <md>
+                        \Pr(Y=j\mid X=x_0)
+                    </md>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                It is possible to show (though the proof is
+                                outside of this class) that the test error rate
+                                is minimized, on average, by a very simple
+                                classifier that assigns each observation to the
+                                most likely class, given its predictor values.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>An example</title>
+
+        <sidebyside width="50%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Survey students for amount of programming
+                                experience, and current GPA.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Try to predict if they will pass CMSE 381.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If we have a survey of all students that could
+                                ever exist, we can determine the probability of
+                                failure given a combination of those features.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <p>
+                No single classifier will get it right 100% since students with
+                the same features might pass or fail.
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Bayes decision boundary</title>
+
+        <sidebyside width="45%">
+            <figure>
+                <image source="figures/Fig2-13.png">
+                    <shortdescription>
+                        Data points belonging to two classes (yellow circles
+                        versus blue circles) plotted versus predictors X1 and
+                        X2.
+                        Bayes decision boundary is also shown.
+                    </shortdescription>
+                </image>
+                <caption>Bayes decision boundary.</caption>
+            </figure>
+
+            <stack>
+                <p>
+                    Example where we simulated the data, so we know the
+                    conditional probability of each value of <m>X_1</m> and
+                    <m>X_2</m>., using Bayes Theorem:
+                    <md>
+                        <mrow>P(\text{Blue}\mid X_1,X_2) \amp= \frac{P(X_1,X_2\mid\text{Blue})P(\text{Blue})}{P(X_1,X_2)}</mrow>
+                        <mrow>\amp= \frac{\text{likelihood}\cdot\text{prior}}{\text{marginal}}</mrow>
+                    </md>
+                </p>
+
+                <p component="slides-inst-notes">
+                    Posterior = likelihood times prior divided by marginal.
+                </p>
+
+                <p>
+                    The purple line is where we switch our predictor, called the
+                    <term>Bayes decision boundary</term>.
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Bayes error rate</title>
+
+        <sidebyside widths="50% 40%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Error at <m>X=x_0</m>.
+                            </p>
+
+                            <p>
+                                The <m>j</m> with the highest value is what's
+                                predicted by Bayes for that <m>x_0</m>, so this
+                                is probability that the Bayes classifier is
+                                wrong.
+                                <md>
+                                    1-\max_j\Pr(Y=j\mid X=x_0)
+                                </md>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Overall Bayes error.
+                            </p>
+
+                            <p>
+                                This is expectation over all <m>x_0</m>.
+                                This is the analogous to irreducible error.
+                                <md>
+                                    1-
+                E\left(
+                  \max_j\Pr(Y=j\mid X=x_0)
+                \right)
+                                </md>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    This is the irreducible error.
+                </p>
+            </stack>
+
+            <figure>
+                <image source="figures/Fig2-13.png">
+                    <shortdescription>
+                        Data points belonging to two classes (yellow circles
+                        versus blue circles) plotted versus predictors X1 and
+                        X2.
+                        Bayes decision boundary is also shown.
+                    </shortdescription>
+                </image>
+                <caption>Bayes decision boundary.</caption>
+            </figure>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>The game</title>
+
+        <sidebyside widths="50% 40%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Challenge: typically don't know the ground truth
+                                likelihood.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Game: do as good a job as possible estimating
+                                the Bayes decision boundary, by guessing the
+                                posterior <m>P(\text{Blue}\mid X_1,X_2)</m> and
+                                <m>P(\text{Yellow}\mid X_1,X_2)</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Classify given observation with highest
+                                estimated probability.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <figure>
+                <image source="figures/Fig2-13.png">
+                    <shortdescription>
+                        Data points belonging to two classes (yellow circles
+                        versus blue circles) plotted versus predictors X1 and
+                        X2.
+                        Bayes decision boundary is also shown.
+                    </shortdescription>
+                </image>
+                <caption>Bayes decision boundary.</caption>
+            </figure>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title><m>K</m>-Nearest Neighbors Classifier</title>
+
+    </paragraphs>
+
+    <paragraphs>
+        <title><m>K</m>-Nearest Neighbors</title>
+
+        <sidebyside widths="20% 50% 20%">
+            <figure>
+                <image source="figures/Fig2-14a.png">
+                    <shortdescription>
+                        A plot of two classes (yellow circles and blue circles)
+                        in the plane.
+                        A test point is marked with X, and its three nearest
+                        neighbors (K=3) are enclosed in a green disk.
+                    </shortdescription>
+                </image>
+                <caption><m>K=3</m>.</caption>
+            </figure>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Fix <m>K</m> positive integer.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <m>N(x)</m> = the set of <m>K</m> closest neighbors
+                            to <m>x</m>.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Estimate conditional probability.
+                        </p>
+                        <md>
+                            \Pr(Y=j\mid X=x_0)
+                =
+                \frac{1}{K}
+                \sum_{i\in N(x_0)}
+                \mathrm{I}(y_i=j)
+                        </md>
+                    </li>
+
+                    <li>
+                        <p>
+                            Pick <m>j</m> with highest value.
+                        </p>
+                    </li>
+                </ul>
+            </p>
+
+            <figure>
+                <image source="figures/Fig2-14b.png">
+                    <shortdescription>
+                        A plot of two classes (yellow circles and blue circles)
+                        in the plane, and the KNN decision boundary.
+                    </shortdescription>
+                </image>
+                <caption>
+                    Black line: KNN decision boundary.
+                    Note this is not Bayes like the examples we will soon see
+                    below!
+                </caption>
+            </figure>
+        </sidebyside>
+    </paragraphs>
+
+    <example>
+        <statement>
+            <p>
+                Here label is shown by O vs X.
+                What are the KNN predictions for points A, B and C for
+                <m>k=1</m> or <m>k=3</m>?
+            </p>
+
+            <sidebyside widths="40% 45%">
+                <figure>
+                    <image source="figures/KNN-Example.png">
+                        <shortdescription>
+                            A 2D plot of two classes (blue circles and yellow
+                            xs).
+                            Three test points are labeled as A, B, and C.
+                        </shortdescription>
+                    </image>
+                    <caption>KNN example.</caption>
+                </figure>
+
+                <table>
+                    <title>KNN predictions</title>
+
+                    <tabular>
+                        <row>
+                            <cell/>
+                            <cell><m>k=1</m></cell>
+                            <cell><m>k=3</m></cell>
+                        </row>
+
+                        <row>
+                            <cell><term>Point</term></cell>
+                            <cell>Prediction</cell>
+                            <cell>Prediction</cell>
+                        </row>
+
+                        <row>
+                            <cell>A</cell>
+                            <cell/>
+                            <cell/>
+                        </row>
+
+                        <row>
+                            <cell>B</cell>
+                            <cell/>
+                            <cell/>
+                        </row>
+
+                        <row>
+                            <cell>C</cell>
+                            <cell/>
+                            <cell/>
+                        </row>
+                    </tabular>
+                </table>
+            </sidebyside>
+        </statement>
+
+        <hint>
+            <image source="figures/KNN-Example-Soln-K1.png">
+                <shortdescription>
+                    Solution to the KNN example showing the predictions using
+                    K=1.
+                </shortdescription>
+            </image>
+
+            <image source="figures/KNN-Example-Soln-K3.png">
+                <shortdescription>
+                    Solution to the KNN example showing the predictions using
+                    K=3.
+                </shortdescription>
+            </image>
+        </hint>
+
+        <answer>
+            <table>
+                <title>KNN predictions</title>
+
+                <tabular>
+                    <row>
+                        <cell/>
+                        <cell><m>k=1</m></cell>
+                        <cell><m>k=3</m></cell>
+                    </row>
+
+                    <row>
+                        <cell><term>Point</term></cell>
+                        <cell>Prediction</cell>
+                        <cell>Prediction</cell>
+                    </row>
+
+                    <row>
+                        <cell>A</cell>
+                        <cell>O</cell>
+                        <cell>O</cell>
+                    </row>
+
+                    <row>
+                        <cell>B</cell>
+                        <cell>X</cell>
+                        <cell>X</cell>
+                    </row>
+
+                    <row>
+                        <cell>C</cell>
+                        <cell>O</cell>
+                        <cell>X</cell>
+                    </row>
+                </tabular>
+            </table>
+        </answer>
+    </example>
+
+    <exercise>
+        <introduction>
+            <p>
+                The image shows some labeled data with three query points (gray
+                stars) labeled A, B, and C.
+            </p>
+
+            <image source="figures/knn_3class_pictorial_example.png">
+                <shortdescription>
+                    Two-dimensional plot of 3 different classes (squares,
+                    triangles, and circles).
+                    Three query points (stars labelled A, B, and C) are also
+                    shown.
+                </shortdescription>
+            </image>
+        </introduction>
+
+        <task>
+            <statement>
+                <p>
+                    Use <m>K=1</m> to classify A, B, and C.
+                </p>
+
+                <tabular>
+                    <row>
+                        <cell>Query point</cell>
+                        <cell>Labels for <m>K</m>-nearest neighbor(s)</cell>
+                        <cell>Query point's label</cell>
+                    </row>
+
+                    <row>
+                        <cell>A</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>B</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>C</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </tabular>
+            </statement>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    Use <m>K=3</m> to classify A, B, and C.
+                </p>
+
+                <tabular>
+                    <row>
+                        <cell>Query point</cell>
+                        <cell>Labels for <m>K</m>-nearest neighbor(s)</cell>
+                        <cell>Query point's label</cell>
+                    </row>
+
+                    <row>
+                        <cell>A</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>B</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>C</cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </tabular>
+            </statement>
+        </task>
+    </exercise>
+
+    <exercise>
+        <introduction>
+            <p>
+                A group of observations and the Euclidean pairwise distances
+                between them are reported in the following tables.
+            </p>
+
+            <table>
+                <title>KNN classification data</title>
+
+                <tabular>
+                    <row header="yes">
+                        <cell>Point</cell>
+                        <cell>Class</cell>
+                        <cell><m>X_1</m></cell>
+                        <cell><m>X_2</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>P1</cell>
+                        <cell>A</cell>
+                        <cell>1</cell>
+                        <cell>1</cell>
+                    </row>
+
+                    <row>
+                        <cell>P2</cell>
+                        <cell>A</cell>
+                        <cell>2</cell>
+                        <cell>2</cell>
+                    </row>
+
+                    <row>
+                        <cell>P3</cell>
+                        <cell>A</cell>
+                        <cell>1</cell>
+                        <cell>3</cell>
+                    </row>
+
+                    <row>
+                        <cell>P4</cell>
+                        <cell>A</cell>
+                        <cell>3</cell>
+                        <cell>1</cell>
+                    </row>
+
+                    <row>
+                        <cell>P5</cell>
+                        <cell>B</cell>
+                        <cell>7</cell>
+                        <cell>7</cell>
+                    </row>
+
+                    <row>
+                        <cell>P6</cell>
+                        <cell>B</cell>
+                        <cell>8</cell>
+                        <cell>6</cell>
+                    </row>
+
+                    <row>
+                        <cell>P7</cell>
+                        <cell>B</cell>
+                        <cell>9</cell>
+                        <cell>8</cell>
+                    </row>
+
+                    <row>
+                        <cell>P8</cell>
+                        <cell>B</cell>
+                        <cell>7</cell>
+                        <cell>9</cell>
+                    </row>
+
+                    <row>
+                        <cell>P9</cell>
+                        <cell>C</cell>
+                        <cell>4</cell>
+                        <cell>6</cell>
+                    </row>
+
+                    <row>
+                        <cell>P10</cell>
+                        <cell>C</cell>
+                        <cell>5</cell>
+                        <cell>5</cell>
+                    </row>
+
+                    <row>
+                        <cell>P11</cell>
+                        <cell>C</cell>
+                        <cell>3</cell>
+                        <cell>7</cell>
+                    </row>
+
+                    <row>
+                        <cell>P12</cell>
+                        <cell>C</cell>
+                        <cell>4</cell>
+                        <cell>8</cell>
+                    </row>
+                </tabular>
+            </table>
+
+            <table>
+                <title>Pairwise Euclidean distances between observations</title>
+
+                <tabular>
+                    <row header="yes">
+                        <cell>P</cell>
+                        <cell>P1</cell>
+                        <cell>P2</cell>
+                        <cell>P3</cell>
+                        <cell>P4</cell>
+                        <cell>P5</cell>
+                        <cell>P6</cell>
+                        <cell>P7</cell>
+                        <cell>P8</cell>
+                        <cell>P9</cell>
+                        <cell>P10</cell>
+                        <cell>P11</cell>
+                        <cell>P12</cell>
+                    </row>
+
+                    <row>
+                        <cell>P1</cell>
+                        <cell>0</cell>
+                        <cell>1.41</cell>
+                        <cell>2.00</cell>
+                        <cell>2.00</cell>
+                        <cell>8.49</cell>
+                        <cell>8.60</cell>
+                        <cell>10.63</cell>
+                        <cell>10.00</cell>
+                        <cell>5.83</cell>
+                        <cell>5.66</cell>
+                        <cell>6.32</cell>
+                        <cell>7.62</cell>
+                    </row>
+
+                    <row>
+                        <cell>P2</cell>
+                        <cell>1.41</cell>
+                        <cell>0</cell>
+                        <cell>1.41</cell>
+                        <cell>1.41</cell>
+                        <cell>7.07</cell>
+                        <cell>7.21</cell>
+                        <cell>9.22</cell>
+                        <cell>8.60</cell>
+                        <cell>4.47</cell>
+                        <cell>4.24</cell>
+                        <cell>5.10</cell>
+                        <cell>6.32</cell>
+                    </row>
+
+                    <row>
+                        <cell>P3</cell>
+                        <cell>2.00</cell>
+                        <cell>1.41</cell>
+                        <cell>0</cell>
+                        <cell>2.83</cell>
+                        <cell>7.21</cell>
+                        <cell>7.62</cell>
+                        <cell>9.43</cell>
+                        <cell>8.49</cell>
+                        <cell>4.24</cell>
+                        <cell>4.47</cell>
+                        <cell>4.47</cell>
+                        <cell>5.83</cell>
+                    </row>
+
+                    <row>
+                        <cell>P4</cell>
+                        <cell>2.00</cell>
+                        <cell>1.41</cell>
+                        <cell>2.83</cell>
+                        <cell>0</cell>
+                        <cell>7.21</cell>
+                        <cell>7.07</cell>
+                        <cell>9.22</cell>
+                        <cell>8.94</cell>
+                        <cell>5.10</cell>
+                        <cell>4.47</cell>
+                        <cell>6.00</cell>
+                        <cell>7.07</cell>
+                    </row>
+
+                    <row>
+                        <cell>P5</cell>
+                        <cell>8.49</cell>
+                        <cell>7.07</cell>
+                        <cell>7.21</cell>
+                        <cell>7.21</cell>
+                        <cell>0</cell>
+                        <cell>1.41</cell>
+                        <cell>2.24</cell>
+                        <cell>2.00</cell>
+                        <cell>3.16</cell>
+                        <cell>2.83</cell>
+                        <cell>4.00</cell>
+                        <cell>3.16</cell>
+                    </row>
+
+                    <row>
+                        <cell>P6</cell>
+                        <cell>8.60</cell>
+                        <cell>7.21</cell>
+                        <cell>7.62</cell>
+                        <cell>7.07</cell>
+                        <cell>1.41</cell>
+                        <cell>0</cell>
+                        <cell>2.24</cell>
+                        <cell>3.16</cell>
+                        <cell>4.00</cell>
+                        <cell>3.16</cell>
+                        <cell>5.10</cell>
+                        <cell>4.47</cell>
+                    </row>
+
+                    <row>
+                        <cell>P7</cell>
+                        <cell>10.63</cell>
+                        <cell>9.22</cell>
+                        <cell>9.43</cell>
+                        <cell>9.22</cell>
+                        <cell>2.24</cell>
+                        <cell>2.24</cell>
+                        <cell>0</cell>
+                        <cell>2.24</cell>
+                        <cell>5.39</cell>
+                        <cell>5.00</cell>
+                        <cell>6.08</cell>
+                        <cell>5.00</cell>
+                    </row>
+
+                    <row>
+                        <cell>P8</cell>
+                        <cell>10.00</cell>
+                        <cell>8.60</cell>
+                        <cell>8.49</cell>
+                        <cell>8.94</cell>
+                        <cell>2.00</cell>
+                        <cell>3.16</cell>
+                        <cell>2.24</cell>
+                        <cell>0</cell>
+                        <cell>4.24</cell>
+                        <cell>4.47</cell>
+                        <cell>4.47</cell>
+                        <cell>3.16</cell>
+                    </row>
+
+                    <row>
+                        <cell>P9</cell>
+                        <cell>5.83</cell>
+                        <cell>4.47</cell>
+                        <cell>4.24</cell>
+                        <cell>5.10</cell>
+                        <cell>3.16</cell>
+                        <cell>4.00</cell>
+                        <cell>5.39</cell>
+                        <cell>4.24</cell>
+                        <cell>0</cell>
+                        <cell>1.41</cell>
+                        <cell>1.41</cell>
+                        <cell>2.00</cell>
+                    </row>
+
+                    <row>
+                        <cell>P10</cell>
+                        <cell>5.66</cell>
+                        <cell>4.24</cell>
+                        <cell>4.47</cell>
+                        <cell>4.47</cell>
+                        <cell>2.83</cell>
+                        <cell>3.16</cell>
+                        <cell>5.00</cell>
+                        <cell>4.47</cell>
+                        <cell>1.41</cell>
+                        <cell>0</cell>
+                        <cell>2.83</cell>
+                        <cell>3.16</cell>
+                    </row>
+
+                    <row>
+                        <cell>P11</cell>
+                        <cell>6.32</cell>
+                        <cell>5.10</cell>
+                        <cell>4.47</cell>
+                        <cell>6.00</cell>
+                        <cell>4.00</cell>
+                        <cell>5.10</cell>
+                        <cell>6.08</cell>
+                        <cell>4.47</cell>
+                        <cell>1.41</cell>
+                        <cell>2.83</cell>
+                        <cell>0</cell>
+                        <cell>1.41</cell>
+                    </row>
+
+                    <row>
+                        <cell>P12</cell>
+                        <cell>7.62</cell>
+                        <cell>6.32</cell>
+                        <cell>5.83</cell>
+                        <cell>7.07</cell>
+                        <cell>3.16</cell>
+                        <cell>4.47</cell>
+                        <cell>5.00</cell>
+                        <cell>3.16</cell>
+                        <cell>2.00</cell>
+                        <cell>3.16</cell>
+                        <cell>1.41</cell>
+                        <cell>0</cell>
+                    </row>
+                </tabular>
+            </table>
+
+            <p>
+                Suppose we have two data points <m>Q_1</m> and <m>Q_2</m> we are
+                trying to classify.
+            </p>
+
+            <tabular>
+                <row>
+                    <cell>Point</cell>
+                    <cell>Class</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                </row>
+
+                <row>
+                    <cell><m>Q_1</m></cell>
+                    <cell>?</cell>
+                    <cell>5.5</cell>
+                    <cell>6.5</cell>
+                </row>
+
+                <row>
+                    <cell><m>Q_1</m></cell>
+                    <cell>?</cell>
+                    <cell>5</cell>
+                    <cell>8</cell>
+                </row>
+            </tabular>
+        </introduction>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_1</m> using <m>K=1</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=1</m>: B
+                </p>
+            </answer>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_1</m> using <m>K=3</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=3</m>: C
+                </p>
+            </answer>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_1</m> using <m>K=5</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=5</m>: B
+                </p>
+            </answer>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_2</m> using <m>K=1</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=1</m>: C
+                </p>
+            </answer>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_2</m> using <m>K=3</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=3</m>: B
+                </p>
+            </answer>
+        </task>
+
+        <task>
+            <statement>
+                <p>
+                    What is the classification for <m>Q_2</m> using <m>K=5</m>?
+                </p>
+            </statement>
+
+            <answer>
+                <p>
+                    <m>K=1</m>: C
+                </p>
+            </answer>
+        </task>
+    </exercise>
+
+    <paragraphs>
+        <title>Tradeoff</title>
+
+        <sidebyside widths="30% 33% 30%">
+            <figure>
+                <image source="figures/Fig2-16a.png">
+                    <shortdescription>
+                        A plot of two classes (yellow circles and blue circles)
+                        in the plane.
+                        The KNN boundary is plotted in solid black, while Bayes
+                        decision boundary is plotted in purple.
+                    </shortdescription>
+                </image>
+            </figure>
+
+            <figure>
+                <image source="figures/Fig2-15.png">
+                    <shortdescription>
+                        A plot of two classes (yellow circles and blue circles)
+                        in the plane.
+                        The KNN boundary is plotted in solid black, while Bayes
+                        decision boundary is plotted in purple.
+                    </shortdescription>
+                </image>
+            </figure>
+
+            <figure>
+                <image source="figures/Fig2-16c.png">
+                    <shortdescription>
+                        A plot of two classes (yellow circles and blue circles)
+                        in the plane.
+                        The KNN boundary is plotted in solid black, while Bayes
+                        decision boundary is plotted in purple.
+                    </shortdescription>
+                </image>
+            </figure>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Purple is Bayes decision boundary.
+                        Same on both.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>K=1</m>, boundary is overly flexible, finds patterns
+                        not there.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>K=100</m> not enough flexibility.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>More on tradeoff</title>
+
+        <sidebyside widths="60% 40%">
+            <figure>
+                <image source="figures/Fig2-17.png">
+                    <shortdescription>
+                        Training error rate (plotted in solid blue) and Test
+                        error rate (plotted in solid orange) versus 1/K.
+                    </shortdescription>
+                </image>
+            </figure>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Right side, <m>K=1</m>, training is 0 error but high
+                            test error.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Test error has same U shape as bias-variance
+                            tradeoff in regression setting: decline at first,
+                            then increase again when overfitting.
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <p>
+        Group work: Work in groups to complete
+        <xref ref="activities" text="custom">Day09 in-class activity</xref>.
+    </p>
+</handout>

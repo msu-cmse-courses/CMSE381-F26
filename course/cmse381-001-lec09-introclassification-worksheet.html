@@ -319,6 +319,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="day01-auto-data-set.html" class="internal"><span class="title">Auto Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-credit-data-set.html" class="internal"><span class="title">Credit Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-diabetes-data-set.html" class="internal"><span class="title">Diabetes Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="chicken-and-egg-set.html" class="internal"><span class="title">Chicken and Egg data set</span></a></div></li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -349,12 +350,13 @@ import seaborn as sns
 <h2 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Reading in the chicken or egg data</span>
 </h2>
-<div class="para" id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-2">In this lab, we are going to try out the KNN classification described in class. First, we’re going to load up our data. This data is 100% made up by Dr. Munch and the code can generate it can be found on the <a class="external" href="../../../DataSets/DataSets.md" target="_blank">DataSets page</a>. Based on two inputs <span class="process-math">\(x_1\)</span> and <span class="process-math">\(x_2\text{,}\)</span> we get to predict whether we have a <code class="code-inline tex2jax_ignore">chicken</code> or an <code class="code-inline tex2jax_ignore">egg</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-2">In this lab, we are going to try out the KNN classification described in class. First, we’re going to load up our <a href="chicken-and-egg-set.html#ChickenEgg-csv" class="xref" data-knowl="./knowl/xref/ChickenEgg-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 100: Chicken and Egg Data Set">Data 100</a>. Based on two inputs <span class="process-math">\(x_1\)</span> and <span class="process-math">\(x_2\text{,}\)</span> we get to predict whether we have a <code class="code-inline tex2jax_ignore">chicken</code> or an <code class="code-inline tex2jax_ignore">egg</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para" id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-3">Go get the data from <a class="external" href="../../../DataSets/DataSets.md" target="_blank">the class website</a> then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-3">Load the data, either by downloading the csv, or using its url.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="code-box"><pre class="program clipboardable"><code class="language-py">url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/bfae9d1905fec60d2deb1e6affcecf8a/ChickenEgg.csv"
-Chick_df = pd.read_csv('../../../DataSets/ChickenEgg.csv')
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># adjust the path according to where you downloaded the csv.
+# alternatively, use the url to load the file.
+Chick_df = pd.read_csv('DataSets/ChickenEgg.csv')
 Chick_df.head(10)
 </code></pre></div>
 <section class="exercises" id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-5">

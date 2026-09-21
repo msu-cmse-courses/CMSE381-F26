@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="chicken-and-egg-set">
+    <title>Chicken and Egg data set</title>
+
+    <data xml:id="ChickenEgg-csv">
+      <title>Chicken and Egg Data Set</title>
+    
+
+      <p>
+        A data file with 90 observations that label each data point according to two predictors. 
+        <dl>
+          <li>
+            <title>X1</title>
+
+            <p>
+              First predictor.
+            </p>
+          </li>
+
+          <li>
+            <title>X2</title>
+
+            <p>
+              Second predictor
+            </p>
+          </li>
+
+
+          <li>
+            <title>Label</title>
+
+            <p>
+              The label for the data set, either <sq>chicken</sq> or <sq>egg</sq>.
+            </p>
+          </li>
+
+          
+        </dl>
+      </p>
+      
+
+            <p>
+                This data is 100% made up by Dr.~Munch and does not correspond to any real experiment.
+            </p>
+
+
+  <p>
+    The data set has inputs <m>x_1</m> and <m>x_2</m>, with <m>y</m> given by
+    <c>Label</c>. The Bayes classifier is
+
+
+ <md>
+    f(x_1,x_2) =
+    \begin{cases}
+      \texttt{chicken} \amp \text{if } (x_2)^3-x_2-x_1 > 0,\\
+      \texttt{egg} \amp \text{else.}
+    \end{cases}
+</md>
+  </p>
+
+
+
+  <image source="data/ChickenEgg.png">
+          <shortdescription>
+        An example data set in 2 dimensions, with some data points labeled
+        Chicken and others labeled Egg.
+      </shortdescription>  
+  </image>
+
+
+<p>
+  The code used to generate this data is below.
+</p>
+
+<program language="python">
+    <code>
+def generateData(N=90,xBounds = [-7,7],yBounds = [-7,7],sigma=1, seed = None):
+    # Generating data where the label is determined by being on one side or the
+    # other of $y^3-y-x = 0$.
+    # Adding noise so it's not cleanly separated
+    np.random.seed(seed)
+    DataX = np.random.uniform(xBounds[0],xBounds[1],[N,1])
+    DataY = np.random.uniform(yBounds[0],yBounds[1],[N,1])
+
+    Data = np.concatenate([DataX,DataY], axis = 1)
+    Noise = np.random.normal(0, sigma, N)
+    Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise)
+    def ChickOrEgg(z):
+        if z>0:
+            return 'chicken'
+        else:
+            return 'egg'
+    Label = [ChickOrEgg(z) for z in Check]
+    
+    
+    Data = pd.DataFrame(Data, columns = ['x1','x2'])
+    Data['Label'] = Label
+
+    return Data
+
+
+# Generate the data
+Data = generateData(N = 90, seed = 48824)
+
+# Plot the figure
+sns.scatterplot(data = Data, x = 'x1', y = 'x2', hue = 'Label', style = 'Label').set(title = 'Chicken or Egg?')
+ty = np.linspace(-2.1,2.1,100)
+tx = ty**3 - ty
+plt.plot(tx,ty, color = 'grey')
+</code>
+</program>
+
+      <p>
+        <dataurl source="data/ChickenEgg.csv" visual="ChickenEgg.csv data file"/>
+      </p>
+
+    </data>
+        
+    </subsection>

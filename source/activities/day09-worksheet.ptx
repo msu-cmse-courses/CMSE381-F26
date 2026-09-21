@@ -14,12 +14,15 @@
   </introduction>
   <subsection xml:id="cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data">
     <title>Reading in the chicken or egg data</title>
-    <p>In this lab, we are going to try out the KNN classification described in class. First, we're going to load up our data. This data is 100% made up by Dr. Munch and the code can generate it can be found on the <url href="../../../DataSets/DataSets.md">DataSets page</url>. Based on two inputs <m>x_1</m> and <m>x_2</m>, we get to predict whether we have a <c>chicken</c> or an <c>egg</c>.</p>
-    <!-- unsupported HTML omitted from source cell 4 -->
-    <p>Go get the data from <url href="../../../DataSets/DataSets.md">the class website</url> then run the following.</p>
+    <p>In this lab, we are going to try out the KNN classification described in class. First, we're going to load up our <xref ref="ChickenEgg-csv"/>. 
+    
+    Based on two inputs <m>x_1</m> and <m>x_2</m>, we get to predict whether we have a <c>chicken</c> or an <c>egg</c>.</p>
+    
+    <p>Load the data, either by downloading the csv, or using its url.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/bfae9d1905fec60d2deb1e6affcecf8a/ChickenEgg.csv"
-      Chick_df = pd.read_csv('../../../DataSets/ChickenEgg.csv')
+      # adjust the path according to where you downloaded the csv.
+      # alternatively, use the url to load the file.
+      Chick_df = pd.read_csv('DataSets/ChickenEgg.csv')
       Chick_df.head(10)
     </program>
     <exercises>

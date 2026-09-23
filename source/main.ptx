@@ -125,7 +125,7 @@
         <xi:include href="./handouts/Day07-alt-slides.ptx"/>
         <xi:include href="./handouts/Day08-alt-slides.ptx"/>
         <xi:include href="./handouts/Day09-alt-slides.ptx"/>
-        <xi:include href="./handouts/Day10.ptx"/>       
+        <xi:include href="./handouts/Day10-alt-slides.ptx"/>       
         <xi:include href="./handouts/Day11.ptx"/>
       </section>
     <section xml:id="sec-exam2-material" component="exam2-material">

@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day10" xml:id="day-10-lecture">
+    <title>Day 10</title>
+
+    <introduction>
+        <p>
+            Ch 4.3: Logistic Regression
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Logistic regression
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>Logistic Regression</title>
+
+        <sidebyside widths="45% 42%">
+            <image source="figures/Fig4-1a.png"/>
+            <image source="figures/Fig4-1b.png"/>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        10,000 data points
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Individuals who defaulted are shown in orange.
+                        The actual default rate is 3%, so only a fraction of
+                        those who did not default are plotted.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Goal: function
+                        <m>C(\text{balance}, \text{income}) = \text{default/not}</m>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>What is classification?</title>
+
+        <sidebyside>
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Classification: When the response variable is
+                                qualitative
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Goal: Model the probability that <m>Y</m>
+                                belongs to a particular category
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    <md>
+                        p(\texttt{balance}) = \Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+                    </md>
+                </p>
+            </stack>
+
+            <image source="figures/Fig4-1a.png" width="90%">
+                <shortdescription>
+                    Scatter plot of two classes (blue circles and orange pluses)
+                    on income versus balance plane.
+                </shortdescription>
+            </image>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Goal for Balance data set</title>
+
+        <sidebyside>
+            <image source="figures/Fig4-1a.png" width="90%">
+                <shortdescription>
+                    Scatter plot of two classes (blue circles and orange pluses)
+                    on income versus balance plane.
+                </shortdescription>
+            </image>
+
+            <stack>
+                <p>
+                    Goal: Model the probability that <m>Y</m> belongs to a
+                    particular category.
+                </p>
+
+                <p>
+                    Example:
+                    <m>\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})</m>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Use notation <m>p(\texttt{balance})</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Choice of threshold depends on comfort with
+                                risk.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Note that highly contrived fake data means that
+                                this is largely decidable by balance, so we'll
+                                just look at that.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Why not use linear regression?</title>
+
+        <sidebyside>
+            <stack>
+                <p>
+                    <em>Bad idea:</em>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Set <m>Y</m> to be a dummy variable taking
+                                values in <m>\{1,2,3,\ldots\}</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Run regression, and choose <m>k</m> based on
+                                which integer value <m>\hat{y}</m> is closest
+                                to.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    Example:
+                </p>
+
+                <p>
+                    <md>
+                        Y =
+        \begin{cases}
+          1 \amp \text{if stroke}\\
+          2 \amp \text{if drug overdose}\\
+          3 \amp \text{if epileptic seizure}
+        \end{cases}
+                    </md>
+                </p>
+
+                <p>
+                    versus
+                </p>
+
+                <p>
+                    <md>
+                        Y =
+        \begin{cases}
+          1 \amp \text{if mild}\\
+          2 \amp \text{if moderate}\\
+          3 \amp \text{if severe}
+        \end{cases}
+                    </md>
+                </p>
+            </stack>
+        </sidebyside>
+
+        <note>
+            <p>
+                Ordering implies something about closeness, i.e., there has to
+                be a monotonic relation between categories.
+            </p>
+        </note>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Is linear regression OK we have only two levels?</title>
+
+                <p>
+                    <md>
+                        p(\texttt{balance}) = \Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+                    </md>
+                </p>
+                <p>
+                    <md>
+                        Y =
+        \begin{cases}
+          0 \amp \text{if not default}\\
+          1 \amp \text{if default}
+        \end{cases}
+                    </md>
+                </p>
+        <sidebyside>
+            <stack>
+
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Fit linear regression.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Predict default if <m>\hat{y} &gt; 0.5</m>;
+                                predict not default otherwise.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Could produce values outside <m>[0,1]</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Cannot interpret this as a probability.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Regression methods cannot accommodate a
+                                qualitative response with more than two classes.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Does not provide meaningful estimates of
+                                <m>\Pr(Y \mid X)</m>, even with two classes.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <image source="figures/Fig4-2-clipped.png" width="100%">
+                    <shortdescription>
+                        Probability of default versus balance.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <md>
+                        p(\texttt{balance}) = \beta_0 + \beta_1 \texttt{balance}
+                    </md>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Approximating the probability</title>
+
+        <sidebyside>
+            <stack>
+                <p>
+                    <m>\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})</m>
+                </p>
+
+                <image source="figures/Fig4-2-NoLine.png" width="100%">
+                    <shortdescription>
+                        Probability of default versus balance.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                We are trying to approximate the probability
+                                with a function.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Draw some example functions.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                A linear function has issues: density at the
+                                bottom overcompensates.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Values can go outside the <m>[0,1]</m> bound.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                A better approach: note 0 when balance is below
+                                1000 and 1 when balance is over 2000, then add a
+                                smooth curve connecting them.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Logistic function</title>
+
+        <sidebyside>
+            <stack>
+                <image source="figures/LogisticFunction.png" width="100%">
+                    <shortdescription>
+                        A plot of the logistic function.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    <md>
+                        p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}
+                    </md>
+                </p>
+
+            </stack>
+
+
+        </sidebyside>
+
+                <p>
+                    <em>Try it out:</em>
+                </p>
+        <figure xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+            <caption>Graph of <m>p(x)\ =\ \frac{e^{b_{0}+b_{1}x}}{1+e^{b_{0}+b_{1}x}}</m>. <m>\beta_0</m> and <m>\beta_1</m> shift the curve left, right and change gain</caption>
+            <interactive desmos="cw1pyzzqci" width="60%" aspect="2:3">
+                <shortdescription>
+                    An interactive graph of the logistic function.
+                </shortdescription>
+            </interactive>
+        </figure>
+
+    </paragraphs>
+<paragraphs>
+  <title>Logistic Regression</title>
+
+  <p>
+    <md>
+      \Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+      =
+      \frac{e^{\beta_0 + \beta_1 \texttt{balance}}}
+      {1 + e^{\beta_0 + \beta_1 \texttt{balance}}}
+    </md>
+  </p>
+
+
+    <image source="figures/Fig4-2-clipped-noline.png" width="60%">
+      <shortdescription>Probability of default versus balance. A sigmoid function is also shown on the same plot.</shortdescription>
+    </image>
+
+
+</paragraphs>
+
+<example>
+<statement>
+    <p>
+        What will the drawn logistic regression classifier predict for each of the following values of <c>Balance</c>.
+	Choose the decision boundary to be <m>p &gt; 0.1</m>.
+    </p>
+    <sidebyside>
+  <stack>
+    <image source="figures/Fig4-2b.png" width="100%">
+      <shortdescription>Probability of default versus balance. A sigmoid function is also shown on the same plot.</shortdescription>
+    </image>
+  </stack>
+  <stack>
+    <tabular>
+      <row>
+        <cell><em>Balance</em></cell>
+        <cell><em>Prediction</em></cell>
+      </row>
+      <row><cell>0</cell><cell></cell></row>
+      <row><cell>500</cell><cell></cell></row>
+      <row><cell>1000</cell><cell></cell></row>
+      <row><cell>1500</cell><cell></cell></row>
+      <row><cell>2000</cell><cell></cell></row>
+      <row><cell>2500</cell><cell></cell></row>
+    </tabular>
+  </stack>
+</sidebyside>
+    </statement>
+    <answer>        
+                <tabular>
+      <row>
+        <cell><em>Balance</em></cell>
+        <cell><em>Prediction</em></cell>
+      </row>
+      <row><cell>0</cell><cell>No</cell></row>
+      <row><cell>500</cell><cell>No</cell></row>
+      <row><cell>1000</cell><cell>No</cell></row>
+      <row><cell>1500</cell><cell>No</cell></row>
+      <row><cell>2000</cell><cell>Yes</cell></row>
+      <row><cell>2500</cell><cell>Yes</cell></row>
+    </tabular>
+        
+    </answer>
+</example>
+
+<paragraphs>
+  <title>Odds</title>
+
+  <p>
+    <md>
+      \frac{p(x)}{1-p(x)}
+      = \frac{\Pr(Y = 1 \mid X=x)}{1-\Pr(Y = 1 \mid X=x)}
+      = \frac{\Pr(Y = 1 \mid X=x)}{\Pr(Y = 0 \mid X=x)}
+    </md>
+  </p>
+
+
+
+      <image source="figures/1024px-Probability_vs_odds.png" width="50%">
+        <shortdescription>A pie chart showing the difference between probability and odds.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p>The logistic function is chosen so that the log odds are linear.</p></li>
+          <li><p>Odds can take any value from 0 (low odds) to <m>\infty</m> (high odds).</p></li>
+        </ul>
+      </p>
+
+
+
+  <example>
+    <statement>
+        <p>
+           If the probability of default is 90%, what are the odds?
+        </p>
+    </statement>
+    <hint>
+        <p>
+            <m>p(x) = 0.9</m>
+        </p>
+    </hint>
+    <answer>
+        <p>
+            <m>\frac{0.9}{1-0.9} = 9</m>
+        </p>
+    </answer>
+  </example>
+  <example>
+    <statement>
+        <p>
+             If the odds are <m>1/3</m>, what is the probability of default?
+        </p>
+    </statement>
+    <hint>
+        <p>
+           <m>\frac{p}{1-p} = 1/3</m>
+        </p>
+    </hint>
+    <hint>
+        <p>
+            <m>3p = 1-p</m>
+        </p>
+    </hint>
+    <hint>
+        <p>
+            <m>4p = 1</m>
+        </p>
+    </hint>
+    <answer>
+        <p>
+             <m>p = 1/4</m>
+        </p>
+    </answer>
+  </example>
+</paragraphs>
+<paragraphs>
+  <title>Making the nonlinear linear</title>
+
+  <sidebyside>
+    <stack>
+      <p>Assume the (natural) log odds (logits) follow a linear model.</p>
+      <p>
+        <md>
+          \log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \beta_1x
+        </md>
+      </p>
+      <p>Do some algebra and get <m>p(x)</m>:</p>
+      <p>
+        <md>
+          p(x) = \frac{e^{\beta_0 + \beta_1x}}{1 + e^{\beta_0 + \beta_1x}}
+        </md>
+      </p>
+      <p>
+        <ul>
+            <li>
+                <p>
+                    <m>\frac{p(x)}{1-p(x)}</m> are the odds in favor of A. <m>\log\left(\frac{p(x)}{1-p(x)}\right)</m> measures the relative evidence between the two alternatives with probabilities <m>p(x)</m> and <m>1-p(x)</m>
+                </p>
+            </li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>
+        <ul>
+            <li>
+                <p>
+                    Perceptually, relative change in a stimulus matters more than absolute change. 
+                    <ul>
+          <li><p>Sensory perception works by times rather than additions.</p></li>
+            </ul>
+                </p>
+            </li>          
+        </ul>
+      </p>
+      <image source="figures/WebersLaw.png" width="60%">
+        <shortdescription>A 2 by 2 tile of plots. The first column shows a scatter plot of 10 and 20 points. The second column shows a scatter plot of 110 and 120 points.</shortdescription>
+      </image>
+      <p>
+        <url href="https://commons.wikimedia.org/wiki/File:Weber-Fechner_law_demo_-_dots.svg">Wiki image link</url>
+      </p>
+    </stack>
+  </sidebyside>
+
+  <exercise>
+  <title>Using coefficients to make predictions</title>
+<introduction>
+  <image source="figures/Table4-1.png" width="60%">
+    <shortdescription>Coefficients, standard error, z-statistic, and p-values for a logistic regression model with balance as a predictor for defaulting on credit card balance.</shortdescription>
+  </image>
+</introduction>
+<task>
+<statement>
+  <p>What is the estimated probability of default for someone with a balance of $1,000?</p>
+    </statement>
+    </task>
+<task>
+<statement>
+  <p>What is the estimated probability of default for someone with a balance of $2,000?</p>
+    </statement>
+    </task>
+</exercise>
+<!-- <example>
+<introduction>
+<p>
+    The quality assurance department in a car factory concluded that the failure time for a cosmetic door panel is given by
+    <md>
+        p(x)=e^{-x},
+    </md>
+    where <m>x</m> is the time in months. 
+    
+</p>
+</introduction>
+<task>
+<statement>
+<p>
+    What is the probability of the part failing in over 6 months?
+    </p>
+    </statement>
+    <answer>
+        <p>
+            <md>p(X &gt; 6) = \int\limits_2^\infty{e^{-x}\,dx}=(-e^{-x})_6^\infty=0-(-e^{-6})=e^{-6} </md>
+        </p>
+    </answer>
+</task>
+<task>
+<statement>
+    <p>
+        What are the odds that the part will fail in less than 6 months versus more?
+    </p>
+</statement>
+<answer>
+    <p>
+        <m>\frac{}{}=</m>
+    </p>
+    </answer>
+</task>
+
+</example> -->
+</paragraphs>
+
+<paragraphs>
+  <title>Interpreting the coefficients</title>
+
+  <sidebyside>
+    <stack>
+      <p>
+        <md>
+          p(x) = \frac{e^{\beta_0 + \beta_1x}}{1 + e^{\beta_0 + \beta_1x}}
+        </md>
+      </p>
+      <p>
+        <md>
+          \log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \beta_1x
+        </md>
+      </p>
+    </stack>
+    <stack>
+      <image source="figures/Table4-1.png" width="100%">
+        <shortdescription>Coefficients, standard error, z-statistic, and p-values for a logistic regression model with balance as a predictor for defaulting on credit card balance.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p><m>\beta_1</m> means increasing <m>x</m> by one unit increases the log odds by <m>\beta_1</m> units.</p></li>
+          <li><p>In this case, increasing the balance by 1 increases the log odds of default by 0.0055.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Confusion Matrix: Predicting <m>\texttt{default}</m> from <m>\texttt{balance}</m></title>
+
+  <sidebyside widths="50% 45%">
+    
+      <image source="figures/Table4-4.png">
+        <shortdescription>Confusion matrix for predicting default on credit card from balance.</shortdescription>
+      </image>
+    
+    
+      <image source="figures/ConfusionMatrixEx.png">
+        <shortdescription>General confusion matrix structure with arbitrary entries.</shortdescription>
+      </image>
+  </sidebyside>
+    
+      <p>
+        <ul>
+          <li><p>Overall error: <m>\frac{(c+b)}{N} = 2.75\%</m>.</p></li>
+          <li component="slides-inst-notes"><p>This table is from the LDA section, but we can use it to understand the confusion matrix.</p></li>
+        </ul>
+      </p>
+</paragraphs>
+
+    <p>
+        Group work: Work in groups to complete
+        <xref ref="activities" text="custom">Day10 in-class activity</xref>.
+    </p>
+
+</handout>

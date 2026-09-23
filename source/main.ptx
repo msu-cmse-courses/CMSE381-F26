@@ -306,6 +306,7 @@
       <xi:include href="./data-sets/credit-data-set.ptx"/>
       <xi:include href="./data-sets/diabetes-data-set.ptx"/>
       <xi:include href="./data-sets/chicken-and-egg-set.ptx"/>
+      <xi:include href="./data-sets/default-data-set.ptx"/>
 
       </chapter>
 

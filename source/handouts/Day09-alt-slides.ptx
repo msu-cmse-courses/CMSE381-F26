@@ -706,7 +706,7 @@
 
             <sidebyside widths="40% 45%">
                 <!-- <figure> -->
-                    <image source="figures/KNN-Example.png">
+                    <image source="figures/KNN-example.png">
                         <shortdescription>
                             A 2D plot of two classes (blue circles and yellow
                             xs).
@@ -755,14 +755,15 @@
         </statement>
 
         <hint>
-            <image source="figures/KNN-Example-Soln-K1.png">
+            <image source="figures/KNN-example-Soln-K1.png" width="50%">
                 <shortdescription>
                     Solution to the KNN example showing the predictions using
                     K=1.
                 </shortdescription>
             </image>
-
-            <image source="figures/KNN-Example-Soln-K3.png">
+            </hint>
+            <hint>
+            <image source="figures/KNN-example-Soln-K3.png" width="50%">
                 <shortdescription>
                     Solution to the KNN example showing the predictions using
                     K=3.

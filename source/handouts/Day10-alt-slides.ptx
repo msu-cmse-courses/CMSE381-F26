@@ -589,11 +589,21 @@
 <statement>
   <p>What is the estimated probability of default for someone with a balance of $1,000?</p>
     </statement>
+    <answer>
+        <p>
+            <m>\hat{p}(1,000)=\frac{e^{\hat{\beta}_0+\hat{\beta}_1 X}}{1+e^{\hat{\beta}_0+\hat{\beta}_1 X}}=\frac{e^{-10.6513+0.0055\times 1,000}}{1+e^{-10.6513+0.0055\times 1,000}}=0.00576</m> (below 1%)
+        </p>
+    </answer>
     </task>
 <task>
 <statement>
   <p>What is the estimated probability of default for someone with a balance of $2,000?</p>
     </statement>
+    <answer>
+        <p>
+            <m>\hat{p}(2,000)=0.586=58.6\%</m>
+        </p>
+    </answer>
     </task>
 </exercise>
 <!-- <example>

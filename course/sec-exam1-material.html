@@ -39,7 +39,7 @@ lang: "en-US",
 <meta name="twitter:description" content="Fall 2026">
 <meta property="og:description" content="Fall 2026">
 <meta name="twitter:card" content="summary">
-<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.52"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.52"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.53"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.53"></script><!--** eBookCongig is necessary to configure interactive       **-->
 <!--** Runestone components to run locally in reader's browser **-->
 <!--** No external communication:                              **-->
 <!--**     log level is 0, Runestone Services are disabled     **-->
@@ -279,6 +279,17 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html" class="internal"><span class="title">Day 10 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-getting-a-feel-for-the-data" class="internal"><span class="title">Getting a feel for the data</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="internal"><span class="title">Classification using Logistic Regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression-21" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter contains-active">
@@ -320,6 +331,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-credit-data-set.html" class="internal"><span class="title">Credit Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-diabetes-data-set.html" class="internal"><span class="title">Diabetes Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="chicken-and-egg-set.html" class="internal"><span class="title">Chicken and Egg data set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="default-set.html" class="internal"><span class="title">Credit card Default data set</span></a></div></li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -549,7 +561,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="day-01-lecture-6" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">16</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spam versus non-spam email.</span>
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">16</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spam versus non-spam email.</span>
 </h3></summary>
 <article class="example example-like knowl__content"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/figures/ESLR-Table1-1.png" class="contained" alt="table of distribution of strings in samples of spam versus non-spam emails"></div> 
 <div class="para" id="day-01-lecture-6-2-2">Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-6-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -617,7 +629,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-01-lecture-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="genAI-discussion" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">17</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Generative AI discussion.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">17</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Generative AI discussion.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content">
 <article class="task exercise-like" id="genAI-discussion-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
@@ -710,7 +722,7 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 </div>
 <details id="day02-ad-data-ex1" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">19</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Input Variables.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">19</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Input Variables.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -747,7 +759,7 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" aria-hidden="true" data-description="Checkpoint 19: Input Variables"><a tabindex="-1" href="#day02-ad-data-ex1" title="Copy heading and permalink for Checkpoint 19: Input Variables" aria-label="Copy heading and permalink for Checkpoint 19: Input Variables">🔗</a></div>
 </article></details>
 <details id="day02-ad-data-ex2" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">20</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Output Variables.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">20</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Output Variables.</span>
 </h3></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -1663,7 +1675,7 @@ S_p^2 =
 <div class="para" id="sec-stat-review-5-8">This procedure is called <dfn class="terminology">the two-sample <span class="process-math">\(t\)</span>-test</dfn>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <details id="sec-stat-review-5-9" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">30</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Portland cement formulation experiment.</span>
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">30</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Portland cement formulation experiment.</span>
 </h5></summary>
 <article class="example example-like knowl__content">
 <div class="para" id="sec-stat-review-5-9-2-1">Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-stat-review-5-9-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -2019,7 +2031,7 @@ E\left[\frac{1}{n}\sum_i
 </div>
 </div>
 <article class="note remark-like" id="sec-Assessing-linReg-coefficients-estimates-4-3"><h5 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">40</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Standard error versus standard variation.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">40</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Standard error versus standard variation.</span>
 </h5>
 <div class="para" id="sec-Assessing-linReg-coefficients-estimates-4-3-2">
 <dfn class="terminology">Standard deviation</dfn> measures the amount of spread in a sample from the mean. <dfn class="terminology">Standard error</dfn> measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-4-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -2085,7 +2097,7 @@ E\left[\frac{1}{n}\sum_i
 </div>
 </div>
 <details id="sec-Assessing-linReg-coefficients-estimates-6-3" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">42</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">CI in Advertising Data.</span>
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">42</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">CI in Advertising Data.</span>
 </h5></summary>
 <article class="example example-like knowl__content">
 <div class="sidebyside">
@@ -2161,7 +2173,7 @@ t=\frac{\widehat{\beta}_1-0}
 <div class="autopermalink" aria-hidden="true" data-description="Note 44"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-8-3" title="Copy heading and permalink for Note 44" aria-label="Copy heading and permalink for Note 44">🔗</a></div>
 </article>
 <details id="sec-Assessing-linReg-coefficients-estimates-8-4" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">45</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Advertising example.</span>
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">45</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Advertising example.</span>
 </h5></summary>
 <article class="example example-like knowl__content">
 <div class="sidebyside">
@@ -2274,7 +2286,7 @@ TSS = \sum_i (y_i - \overline{y})^2
 </div>
 </div>
 <details id="sec-Assessing-linReg-coefficients-estimates-10-3" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
-<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">48</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">48</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">
 <div class="para" id="sec-Assessing-linReg-coefficients-estimates-10-3-1-1">Advertising example<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-Assessing-linReg-coefficients-estimates-10-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>.</span>
 </h5></summary>
@@ -2322,7 +2334,7 @@ Advertising example🔗" aria-label="Copy heading and permalink for Example 48:
 Advertising example🔗">🔗</a></div>
 </article></details>
 <details id="sec-Assessing-linReg-coefficients-estimates-10-4" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h5 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">49</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">TSS and RSS.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">49</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">TSS and RSS.</span>
 </h5></summary>
 <article class="exercise exercise-like knowl__content">
 <div class="introduction" id="sec-Assessing-linReg-coefficients-estimates-10-4-2">
@@ -3999,7 +4011,7 @@ Y_{sales} &amp;= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}
 </div>
 </aside></details>
 <details id="hierarchy-principle-models" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">58</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy Principle.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">58</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy Principle.</span>
 </h4></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -4097,14 +4109,14 @@ Y_{sales} &amp;= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}
 </div>
 </div>
 <article class="note remark-like" id="day-08-lecture-8-4"><h4 class="heading">
-<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">59</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy principle for nonlinear interaction terms.</span>
+<span class="type">Note</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">59</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy principle for nonlinear interaction terms.</span>
 </h4>
 <div class="para" id="day-08-lecture-8-4-2">The hierarchy principle allows including an interaction term that includes polynomial powers only if all the lower order components including the linear interactions are included. For example, if we want to include <span class="process-math">\(X_1^2 X_2\text{,}\)</span> then we must also include <span class="process-math">\(X_1,X_2,X_1^2\)</span> and <span class="process-math">\(X_1X_2\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-08-lecture-8-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Note 59: Hierarchy principle for nonlinear interaction terms"><a tabindex="-1" href="#day-08-lecture-8-4" title="Copy heading and permalink for Note 59: Hierarchy principle for nonlinear interaction terms" aria-label="Copy heading and permalink for Note 59: Hierarchy principle for nonlinear interaction terms">🔗</a></div>
 </article>
 <details id="hierarchy-principle-nonlinear-models" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">60</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy Principle with Nonlinear relationships.</span>
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">60</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hierarchy Principle with Nonlinear relationships.</span>
 </h4></summary>
 <article class="exercise exercise-like knowl__content"><div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
 <div class="exercise-statement">
@@ -4741,7 +4753,7 @@ E\left(
 </div> 
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:3.75%;margin-right:3.75%;grid-template-columns:43.2432432432432% 48.6486486486486%;column-gap:7.5%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/KNN-Example.png" class="contained" alt="A 2D plot of two classes (blue circles and yellow xs). Three test points are labeled as A, B, and C."></div></div>
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/KNN-example.png" class="contained" alt="A 2D plot of two classes (blue circles and yellow xs). Three test points are labeled as A, B, and C."></div></div>
 <div class="sbspanel fixed-width sbspanel--top top" style="">
 <figure class="table table-like" id="day-09-lecture-15-1-2-2"><table class="tabular">
 <tr>
@@ -4776,15 +4788,19 @@ E\left(
 </div>
 </div>
 <div class="solutions">
-<details id="day-09-lecture-15-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<details id="day-09-lecture-15-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
 <div class="hint solution-like knowl__content">
-<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/KNN-Example-Soln-K1.png" class="contained" alt="Solution to the KNN example showing the predictions using K=1."></div>
-<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/KNN-Example-Soln-K3.png" class="contained" alt="Solution to the KNN example showing the predictions using K=3."></div>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/KNN-example-Soln-K1.png" class="contained" alt="Solution to the KNN example showing the predictions using K=1."></div>
 <div class="autopermalink" aria-hidden="true" data-description="Hint 68.1"><a tabindex="-1" href="#day-09-lecture-15-2" title="Copy heading and permalink for Hint 68.1" aria-label="Copy heading and permalink for Hint 68.1">🔗</a></div>
 </div></details>
-<details id="day-09-lecture-15-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<details id="day-09-lecture-15-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/KNN-example-Soln-K3.png" class="contained" alt="Solution to the KNN example showing the predictions using K=3."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 68.2"><a tabindex="-1" href="#day-09-lecture-15-3" title="Copy heading and permalink for Hint 68.2" aria-label="Copy heading and permalink for Hint 68.2">🔗</a></div>
+</div></details>
+<details id="day-09-lecture-15-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
 <div class="answer solution-like knowl__content">
-<figure class="table table-like" id="day-09-lecture-15-3-1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">70<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>KNN predictions<div class="autopermalink" aria-hidden="true" data-description="Table 70: KNN predictions"><a tabindex="-1" href="#day-09-lecture-15-3-1" title="Copy heading and permalink for Table 70: KNN predictions" aria-label="Copy heading and permalink for Table 70: KNN predictions">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<figure class="table table-like" id="day-09-lecture-15-4-1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">70<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>KNN predictions<div class="autopermalink" aria-hidden="true" data-description="Table 70: KNN predictions"><a tabindex="-1" href="#day-09-lecture-15-4-1" title="Copy heading and permalink for Table 70: KNN predictions" aria-label="Copy heading and permalink for Table 70: KNN predictions">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="l m b0 r0 l0 t0 lines"></td>
 <td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(k=1\)</span></td>
@@ -4811,7 +4827,7 @@ E\left(
 <td class="l m b0 r0 l0 t0 lines">X</td>
 </tr>
 </table></div>
-</figure><div class="autopermalink" aria-hidden="true" data-description="Answer 68.1"><a tabindex="-1" href="#day-09-lecture-15-3" title="Copy heading and permalink for Answer 68.1" aria-label="Copy heading and permalink for Answer 68.1">🔗</a></div>
+</figure><div class="autopermalink" aria-hidden="true" data-description="Answer 68.1"><a tabindex="-1" href="#day-09-lecture-15-4" title="Copy heading and permalink for Answer 68.1" aria-label="Copy heading and permalink for Answer 68.1">🔗</a></div>
 </div></details>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Example 68"><a tabindex="-1" href="#day-09-lecture-15" title="Copy heading and permalink for Example 68" aria-label="Copy heading and permalink for Example 68">🔗</a></div>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Credit card Default data set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
+<style>
+@counter-style ptx-marker-0 { system: extends lower-alpha; prefix: '('; suffix: ') '; }
+</style>
+<script type="module">import { startMathJax } from './_static/pretext/js/dist/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: false,
+isReact: false,
+htmlPresentation: false,
+lang: "en-US",
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta name="twitter:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="og:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="book:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta name="twitter:description" content="Fall 2026">
+<meta property="og:description" content="Fall 2026">
+<meta name="twitter:card" content="summary">
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.53"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.53"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '8.3.0';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script src="_static/prefix-runtime.c838822d59bc26bc.bundle.js"></script><script src="_static/prefix-926.5c7038c8ef173faf.bundle.js"></script><script src="_static/prefix-runestone.b9fedab97dee3c2a.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-926.229729d09512acc9.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.347e2ecdeacfed99.css">
+<script src="_static/pretext/js/dist/lti_iframe_resizer.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha512-dubtf8xMHSQlExGRQ5R7toxHLgSDZ0K7AunqPWHXmJQ8XyVIG19S1T95gBxlAeGOK02P4Da2RTnQz0Za0H0ebQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-highlight/prism-line-highlight.min.js" integrity="sha512-93uCmm0q+qO5Lb1huDqr7tywS8A2TFA+1/WHvyiWaK6/pvsFl6USnILagntBx8JnVbQH5s3n0vQZY6xNthNfKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/dist/pretext_search.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script>
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead" role="banner"><div class="ptx-banner"><div class="title-container">
+<div class="heading ptx-banner-heading"><a href="root-1-2.html"><span class="title">CMSE 381: Fundamentals of Data Science Methods</span> <span class="subtitle">Fall 2026</span></a></div>
+<p class="byline">CMSE faculty</p>
+</div></div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><div class="ptx-navbar-contents">
+<button id="ptx-toc-toggle" type="button" aria-controls="ptx-sidebar" class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="ptx-search-box">
+<div class="ptx-search-widget"><button id="ptx-search-button" type="button" class="ptx-search-button button" title="Search Book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<dialog id="ptx-search-dialog" class="ptx-dialog ptx-search-dialog"><div class="ptx-search-dialog-controls">
+<input aria-label="Search term" id="ptx-search-terms" class="ptx-search-terms" type="text" name="terms" placeholder="Search terms"><button aria-label="Close" id="ptx-search-close" class="ptx-search-close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div id="ptx-search-status" class="ptx-search-status" aria-live="polite" aria-atomic="true"></div>
+<h2 class="heading ptx-search-results-heading">Search Results: </h2>
+<div id="ptx-search-empty" class="ptx-search-empty"><span>No results.</span></div>
+<ol id="ptx-search-results" class="ptx-search-results"></ol></dialog>
+</div>
+<span class="nav-other-controls"><button id="ptx-embed-button" class="ptx-embed-button button" title="Embed this page"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe86f;</span><span class="name">Embed</span></button><dialog class="ptx-dialog ptx-embed-popup" id="ptx-embed-popup"><div class="ptx-embed-popup-controls">
+<p>Copy the code below to embed this page in your own website or LMS page.</p>
+<button class="ptx-embed-close-button button" id="ptx-embed-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-embed-code-container">
+<textarea class="ptx-embed-code-textbox" id="ptx-embed-code-textbox" readonly aria-label="Embed"><iframe src="https://example.com/embed" width="100%" height="1000"></iframe></textarea><button autofocus="autofocus" class="ptx-embed-copy-button button" id="ptx-embed-copy-button" title="Copy"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe14d;</span><span class="name">Copy</span></button>
+</div></dialog><button id="ptx-read-aloud-button" class="ptx-read-aloud-button button" title="Read aloud" aria-expanded="false"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf1bc;</span><span class="name">Read aloud</span></button><div id="ptx-read-aloud-player" class="ptx-read-aloud-player" hidden="hidden" role="group" aria-label="Read aloud">
+<button id="ptx-read-aloud-prev" class="button" title="Previous sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe045;</span></button><button id="ptx-read-aloud-toggle" class="ptx-read-aloud-toggle button" title="Play"><span class="ptx-read-aloud-icon-play"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></span><span class="ptx-read-aloud-icon-pause"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe034;</span></span></button><button id="ptx-read-aloud-next" class="button" title="Next sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe044;</span></button><a id="ptx-read-aloud-continue" class="ptx-read-aloud-continue button" hidden="hidden">Continue<span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></a><button id="ptx-read-aloud-settings-button" class="ptx-read-aloud-settings-button button" title="Reading settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe429;</span></button>
+</div>
+<dialog class="ptx-dialog ptx-read-aloud-settings-popup" id="ptx-read-aloud-settings-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Read aloud settings</h2>
+<button class="ptx-read-aloud-settings-close-button button" id="ptx-read-aloud-settings-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label for="ptx-read-aloud-voice"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe91f;</span><span>Voice</span></label><select id="ptx-read-aloud-voice"></select><label class="ptx-readability-slider-label" for="ptx-read-aloud-rate"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe9e4;</span><span>Reading speed</span><output id="ptx-read-aloud-rate-value" for="ptx-read-aloud-rate">1×</output></label><input type="range" id="ptx-read-aloud-rate" min="0.5" max="2" step="0.1" value="1"><label for="ptx-read-aloud-asides"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d7;</span><span>Collapsed content</span></label><select id="ptx-read-aloud-asides"><option value="skip">Announce, do not read</option>
+<option value="read">Read automatically</option></select><label for="ptx-read-aloud-autoscroll"><input type="checkbox" id="ptx-read-aloud-autoscroll" checked><span>Follow along (auto-scroll)</span></label><label for="ptx-read-aloud-autocontinue"><input type="checkbox" id="ptx-read-aloud-autocontinue"><span>Continue to the next page automatically</span></label>
+</div></dialog><button id="ptx-readability-options-button" class="ptx-readability-options-button button" title="Readability settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf6f1;</span><span class="name">Readability settings</span></button><dialog class="ptx-dialog ptx-readability-options-popup" id="ptx-readability-options-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Readability settings</h2>
+<button class="ptx-readability-options-close-button button" id="ptx-readability-options-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-line-height"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe240;</span><span>Line height</span><output id="ptx-readability-line-height-value" for="ptx-readability-line-height">1.35</output></label><input type="range" id="ptx-readability-line-height" min="1.10" max="3" step="0.05" value="1.35">
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-font-size"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe245;</span><span>Content font size</span><output id="ptx-readability-font-size-value" for="ptx-readability-font-size">100%</output></label><input type="range" id="ptx-readability-font-size" min="0.8" max="1.5" step="0.05" value="1">
+</div>
+<fieldset class="ptx-readability-options-group ptx-readability-options-group-theme">
+<legend>Theme</legend>
+<label for="ptx-readability-theme-system"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-system" value="system"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe1ab;</span><span>System</span></label><label for="ptx-readability-theme-light"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-light" value="light"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe518;</span><span>Light</span></label><label for="ptx-readability-theme-dark"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-dark" value="dark"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span>Dark</span></label>
+</fieldset>
+<fieldset class="ptx-readability-options-group">
+<legend>Assistive technologies</legend>
+<label for="ptx-readability-accessible-permalinks"><input type="checkbox" id="ptx-readability-accessible-permalinks"><span>🔗</span><span>Expose permalinks</span></label>
+</fieldset>
+<div class="ptx-readability-options-group"><button type="button" class="ptx-readability-reset-button button" id="ptx-readability-reset-button"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf053;</span><span class="name">Reset All</span></button></div></dialog></span><span class="treebuttons"><a class="previous-button button" href="chicken-and-egg-set.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="ch-data-sets.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="ch-study-guides.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+</div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul id="ptx-toc-group-frontmatter" class="structural toc-item-list"><li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-course-info.html" class="internal"><span class="title">Course Information and Office Hours</span></a></div>
+<ul id="ptx-toc-group-ch-course-info" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-2.html" class="internal"><span class="title">Instructional Team</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-Office-Hours.html" class="internal"><span class="title">Office Hours</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-4.html" class="internal"><span class="title">What is this course about?</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-D2L.html" class="internal"><span class="title">D2L and where to find grades</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-course-website.html" class="internal"><span class="title">Course website, Slides, and jupyter notebooks</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsubsec-crowdmark-info.html" class="internal"><span class="title">Crowdmark and where we grade your quizzes/midterms</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="subsec-class-structure.html" class="internal"><span class="title">Class Structure</span></a></div>
+<ul id="ptx-toc-group-subsec-class-structure" class="structural toc-item-list"><li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-class-structure.html#subsec-Basic-Expectations" class="internal"><span class="title">Basic Expectations</span></a></div></li></ul>
+</li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="course-documents.html" class="internal"><span class="title">Syllabus and Course Schedule</span></a></div>
+<ul id="ptx-toc-group-course-documents" class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="syllabus.html" class="internal"><span class="title">Syllabus</span></a></div>
+<ul id="ptx-toc-group-syllabus" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-course-info" class="internal"><span class="title">Policy Sheet</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-assessments" class="internal"><span class="title">Assessments and Grades</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="schedule.html" class="internal"><span class="title">Course Schedule</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="activities.html" class="internal"><span class="title">In-Class Activities</span></a></div>
+<ul id="ptx-toc-group-activities" class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day01-notebook.html" class="internal"><span class="title">Day 01 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day01-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day01-notebook.html#day01-subsec-the-data-set" class="internal"><span class="title">The Dataset</span></a></div>
+<ul id="ptx-toc-group-day01-subsec-the-data-set" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day01-notebook.html#exercises-day01" class="internal"><span class="title">Day01 Coding Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="day02-worksheet.html" class="internal"><span class="title">Day 02 Worksheet</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day03-notebook.html" class="internal"><span class="title">Day 03 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day03-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day03-notebook.html#subsec-ws03-mean-squared-error" class="internal"><span class="title">Mean Squared Error</span></a></div>
+<ul id="ptx-toc-group-subsec-ws03-mean-squared-error" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day03-notebook.html#ws03-exercises-" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day04-notebook.html" class="internal"><span class="title">Day 04 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day04-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day04-notebook.html#subsec-ws04-simple-linear-regression" class="internal"><span class="title">Simple linear regression</span></a></div>
+<ul id="ptx-toc-group-subsec-ws04-simple-linear-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day04-notebook.html#ws04-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day05-notebook.html" class="internal"><span class="title">Day 05 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day05-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day05-notebook.html#subsec-ws05-assessing-coefficient-accuracy" class="internal"><span class="title">Assessing Coefficient Accuracy</span></a></div>
+<ul id="ptx-toc-group-subsec-ws05-assessing-coefficient-accuracy" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day05-notebook.html#ws05-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html" class="internal"><span class="title">Day 06 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec06-multlinreg-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-multiple-linear-regression" class="internal"><span class="title">Multiple linear regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec06-multlinreg-worksheet-multiple-linear-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-multiple-linear-regression-8" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html" class="internal"><span class="title">Day 07 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-more-questions-to-ask-of-your-model-continued-from-last-time" class="internal"><span class="title">More questions to ask of your model (Continued from last time)</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-q3-how-well-does-the-model-fit" class="internal"><span class="title">Q3: How well does the model fit?</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-q4-making-predictions" class="internal"><span class="title">Q4: Making predictions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-playing-with-multi-level-variables" class="internal"><span class="title">Playing with multi-level variables</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way" class="internal"><span class="title">The wrong way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-right-way" class="internal"><span class="title">The right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-the-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-right-way-8" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-another-right-way" class="internal"><span class="title">Another right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-another-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-another-right-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html" class="internal"><span class="title">Day 08 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-dummy-variables-for-multi-level-categorical-inputs" class="internal"><span class="title">Dummy Variables for Multi-level Categorical Inputs</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way" class="internal"><span class="title">The wrong way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-wrong-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way" class="internal"><span class="title">The right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way-14" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way" class="internal"><span class="title">Another right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-another-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms" class="internal"><span class="title">Interaction Terms</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-interaction-terms" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms-15" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html" class="internal"><span class="title">Day 09 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data" class="internal"><span class="title">Reading in the chicken or egg data</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-5" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn" class="internal"><span class="title">KNN with <code class="code-inline tex2jax_ignore">sklearn</code></span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn-18" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-train-test-splits" class="internal"><span class="title">Train test splits</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-train-test-splits" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-train-test-splits-16" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-bayes-classifier" class="internal"><span class="title">Bayes classifier</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-bayes-classifier" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-bayes-classifier-9" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-messing-with-k" class="internal"><span class="title">Messing with <span class="process-math">\(k\)</span></span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-messing-with-k" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-messing-with-k-4" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html" class="internal"><span class="title">Day 10 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-getting-a-feel-for-the-data" class="internal"><span class="title">Getting a feel for the data</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="internal"><span class="title">Classification using Logistic Regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression-21" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="lectures.html" class="internal"><span class="title">Lectures</span></a></div>
+<ul id="ptx-toc-group-lectures" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="sec-exam1-material.html" class="internal"><span class="title">Exam 1 material</span></a></div>
+<ul id="ptx-toc-group-sec-exam1-material" class="structural toc-item-list">
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-01-lecture" class="internal"><span class="title">Day 01</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-02-lecture" class="internal"><span class="title">Day 02</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-03-lecture" class="internal"><span class="title">Day 03</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-04-lecture" class="internal"><span class="title">Day 04</span></a></div></li>
+<li class="toc-item toc-handout">
+<div class="toc-title-box"><a href="sec-exam1-material.html#day-05-lecture" class="internal"><span class="title">Day 05</span></a></div>
+<ul id="ptx-toc-group-day-05-lecture" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-stat-review" class="internal"><span class="title">Stats Review</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates" class="internal"><span class="title">Assessing Coefficient Estimate Accuracy</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-06-lecture" class="internal"><span class="title">Day 06</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-07-lecture" class="internal"><span class="title">Day 07</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-08-lecture" class="internal"><span class="title">Day 08</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-09-lecture" class="internal"><span class="title">Day 09</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="homework.html" class="internal"><span class="title">Homework</span></a></div>
+<ul id="ptx-toc-group-homework" class="structural toc-item-list">
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-2.html" class="internal"><span class="title">Homework 01</span></a></div></li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-3.html" class="internal"><span class="title">Homework 02</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="ch-data-sets.html" class="internal"><span class="title">Data sets</span></a></div>
+<ul class="structural toc-item-list contains-active" id="ptx-toc-group-ch-data-sets">
+<li class="toc-item toc-introduction"><div class="toc-title-box"><a href="ch-data-sets-2.html" class="internal"><span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="advertising-data-set.html" class="internal"><span class="title">Advertising Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="day01-auto-data-set.html" class="internal"><span class="title">Auto Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-credit-data-set.html" class="internal"><span class="title">Credit Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-diabetes-data-set.html" class="internal"><span class="title">Diabetes Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="chicken-and-egg-set.html" class="internal"><span class="title">Chicken and Egg data set</span></a></div></li>
+<li class="toc-item toc-subsection active"><div class="toc-title-box"><a href="default-set.html" class="internal"><span class="title">Credit card Default data set</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-study-guides.html" class="internal"><span class="title">Exams study guides</span></a></div>
+<ul id="ptx-toc-group-ch-study-guides" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="exam1-study-guide.html" class="internal"><span class="title">Exam1 study guide</span></a></div>
+<ul id="ptx-toc-group-exam1-study-guide" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-intro-statistical-learning" class="internal"><span class="title">Introduction to Statistical Learning</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-linear-regression-topics" class="internal"><span class="title">Linear Regression</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-classification-topics" class="internal"><span class="title">Classification</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="subsection" id="default-set">
+<h1 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Credit card Default data set</span>
+</h1>
+<article class="data computation-like" id="Default-csv"><h2 class="heading">
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">98</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Default Data Set.</span>
+</h2>
+<div class="para" id="Default-csv-2">A simulated data set containing information on ten thousand customers. The aim here is to predict which customers will default on their credit card debt.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="Default-csv-3">
+<div class="para">The data is formatted into a data frame with 10000 observations on the following 4 variables.</div>
+<dl class="description-list">
+<dt id="Default-csv-3-1-1">default<div class="autopermalink" aria-hidden="true" data-description="Item: default"><a tabindex="-1" href="#Default-csv-3-1-1" title="Copy heading and permalink for Item: default" aria-label="Copy heading and permalink for Item: default">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="Default-csv-3-1-1-2">A factor with levels No and Yes indicating whether the customer defaulted on their debt.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-3-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="Default-csv-3-1-2">student<div class="autopermalink" aria-hidden="true" data-description="Item: student"><a tabindex="-1" href="#Default-csv-3-1-2" title="Copy heading and permalink for Item: student" aria-label="Copy heading and permalink for Item: student">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="Default-csv-3-1-2-2">student A factor with levels No and Yes indicating whether the customer is a student.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-3-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="Default-csv-3-1-3">balance<div class="autopermalink" aria-hidden="true" data-description="Item: balance"><a tabindex="-1" href="#Default-csv-3-1-3" title="Copy heading and permalink for Item: balance" aria-label="Copy heading and permalink for Item: balance">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="Default-csv-3-1-3-2">The average balance that the customer has remaining on their credit card after making their monthly payment<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-3-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt id="Default-csv-3-1-4">income<div class="autopermalink" aria-hidden="true" data-description="Item: income"><a tabindex="-1" href="#Default-csv-3-1-4" title="Copy heading and permalink for Item: income" aria-label="Copy heading and permalink for Item: income">🔗</a></div>
+</dt>
+<dd>
+<div class="para" id="Default-csv-3-1-4-2">Income.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-3-1-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+</dl>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="Default-csv-4">Source: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https://www.statlearning.com, Springer-Verlag, New York<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="Default-csv-5">
+<a class="external" href="external/data/Default.csv" target="_blank"><code class="code-inline tex2jax_ignore">Default.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#Default-csv-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Data 98: Default Data Set"><a tabindex="-1" href="#Default-csv" title="Copy heading and permalink for Data 98: Default Data Set" aria-label="Copy heading and permalink for Data 98: Default Data Set">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Subsection: Credit card Default data set"><a tabindex="-1" href="#default-set" title="Copy heading and permalink for Subsection: Credit card Default data set" aria-label="Copy heading and permalink for Subsection: Credit card Default data set">🔗</a></div>
+</section>
+</div>
+<div id="ptx-content-footer" class="ptx-content-footer">
+<a class="previous-button button" href="chicken-and-egg-set.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="ch-study-guides.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="338 3000 8772 6866" role="img"><title>PreTeXt logo</title><g style="stroke-width:.025in; stroke:currentColor; fill:none"><polyline points="472,3590 472,9732 " style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png" alt="Runstone Academy logo"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png" alt="MathJax logo"></a>
+</div>
+</body>
+</html>

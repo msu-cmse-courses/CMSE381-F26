@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<worksheet component="hw03">
+  <title>Homework 03</title>
+
+  <introduction>
+    <p>
+      <alert>The Homework is due Monday, Oct 16, 2026, by 11:59 p.m. and must be submitted to Crowdmark</alert>.
+      See
+      <xref ref="syllabus-hw-policy" text="custom">late homework policy</xref>
+      in the syllabus.
+    </p>
+
+    <p>
+      <alert>All homework must be submitted to Crowdmark. </alert>
+      <ul>
+        <li>
+          <p>
+            For coding problems, you will only submit screenshots of your code
+            and output to Crowdmark (no Python code to submit).
+            For non-coding problems, you wil submit a scan or image of your
+            handwritten work.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            If you submit a scan to Crowdmark where a textbox is provided for
+            the answer, we will still grade your work but cannot provide
+            feedback.
+            Illegible scans/screenshots will receive 0 credit.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Submit individual pdfs/screenshots for each problem to the
+            corresponding prompt in Crowdmark.
+            Please do not submit one pdf containing all the solutions to each
+            prompt.
+            Each problem will be graded separately.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            The instructional team has the right to request the original code
+            for any problem.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The problems listed below are from
+      <url href="https://www.statlearning.com/">the textbook</url>.
+      This homework is worth <alert>52 points</alert> in total.
+    </p>
+
+    <p>
+      The grade distribution is as follows:
+      <ul>
+        <li>
+          <p>
+            <xref ref="hw03-P5-4-3"/>: 7 points
+            <ul>
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-3-a"/>: 3 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-3-b-i"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-3-b-ii"/>: 2 points
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <xref ref="hw03-P5-4-5"/>: 13 points
+            <ul>
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-a"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-b-i"/>: 1 point
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-b-ii"/>: 1 point
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-b-iii"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-b-iv"/>: 1 point
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-c"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-5-d"/>: 4 points
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <xref ref="hw03-P5-4-8"/>: 21 points
+            <ul>
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-a"/>: 3 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-b"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-c"/>: 6 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-d"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-e"/>: 2 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-P5-4-8-f"/>: 6 points
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <xref ref="hw03-subset-selection"/>: 11 points
+            <ul>
+              <li>
+                <p>
+                  <xref ref="hw03-subset-a"/>: 3 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-subset-b"/>: 3 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-subset-c"/>: 3 points
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <xref ref="hw03-subset-d"/>: 2 points
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+  </introduction>
+
+  <page>
+    <exercise xml:id="hw03-P5-4-3">
+      <title>Problem 5.4.3: <m>k</m>-fold Cross-Validation</title>
+
+      <task xml:id="hw03-P5-4-3-a" workspace="1.5in">
+        <statement>
+          <p>
+            Explain how <m>k</m>-fold cross-validation is implemented.
+            No code is necessary; you may use words, pictures, and/or pseudocode
+            to demonstrate your understanding.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-3-b-i" workspace="1.5in">
+        <statement>
+          <p>
+            What are the advantages and disadvantages of <m>k</m>-fold
+            cross-validation relative to the validation set approach?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-3-b-ii" workspace="1.5in">
+        <statement>
+          <p>
+            What are the advantages and disadvantages of <m>k</m>-fold
+            cross-validation relative to leave-one-out cross-validation (LOOCV)?
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw03-P5-4-5">
+      <title>Problem 5.4.5: Validation-Set Error</title>
+
+      <introduction>
+        <p>
+          In Chapter 4, we used logistic regression to predict the probability
+          of default using income and balance in the <c>Default</c> data set.
+          We will now estimate the test error of this model using the validation
+          set approach.
+          Set a random seed before beginning your analysis.
+        </p>
+
+        <program language="python">
+          <preamble visible="true">
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+          </preamble>
+          <code>
+url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/0bf0b0b65f603971cd33a04ad934449c/Default.csv"
+Default = pd.read_csv(url)
+Default.head()
+          </code>
+        </program>
+      </introduction>
+
+      <task xml:id="hw03-P5-4-5-a">
+        <statement>
+          <p>
+            Fit a logistic regression model that uses <c>income</c> and
+            <c>balance</c> to predict <c>default</c>.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-b-i">
+        <statement>
+          <p>
+            Split the observations into a training set and a validation set.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-b-ii">
+        <statement>
+          <p>
+            Fit a multiple logistic regression model using only the training
+            observations.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-b-iii">
+        <statement>
+          <p>
+            Compute the posterior probability of default for each observation in
+            the validation set.
+            Classify an observation as <c>Yes</c> when the probability is
+            greater than 0.5 and as <c>No</c> otherwise.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-b-iv" workspace="1in">
+        <statement>
+          <p>
+            Compute the validation set error: the fraction of validation
+            observations that are misclassified.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-c">
+        <statement>
+          <p>
+            Repeat the process in part (b) three times using three different
+            splits into training and validation sets.
+            Comment on the results.
+            Do not regenerate the original data; changing the split (for
+            example, by changing the random seed) is sufficient.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-5-d">
+        <statement>
+          <p>
+            Now use <c>income</c>, <c>balance</c>, and a dummy variable for
+            <c>student</c> to predict default.
+            Estimate the test error using the validation set approach, and
+            comment on whether including the student dummy variable reduces the
+            test error rate.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw03-P5-4-8">
+      <title>Problem 5.4.8: Cross-Validation on Simulated Data</title>
+
+      <introduction>
+        <p>
+          Generate the simulated data below.
+        </p>
+
+        <program language="python">
+          <code>
+rng = np.random.default_rng(1)
+x = rng.normal(size=100)
+y = x - 2 * x**2 + rng.normal(size=100)
+          </code>
+        </program>
+      </introduction>
+
+      <task xml:id="hw03-P5-4-8-a" workspace="1.5in">
+        <statement>
+          <p>
+            In this data set, what are <m>n</m> and <m>p</m>?
+            Write the model used to generate the data in equation form.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-8-b">
+        <statement>
+          <p>
+            Create a scatterplot of <m>X</m> against <m>Y</m> and comment on
+            what you find.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-8-c">
+        <statement>
+          <p>
+            Set a random seed and compute the LOOCV errors from least-squares
+            fits of polynomial models of degrees 1, 2, 3, and 4.
+            Plot LOOCV error against polynomial degree.
+          </p>
+
+          <p>
+            The four models are:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <m>Y = \beta_0 + \beta_1X + \varepsilon</m>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                <m>Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon</m>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                <m>Y = \beta_0 + \beta_1X + \beta_2X^2 + \beta_3X^3 + \varepsilon</m>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                <m>Y = \beta_0 + \beta_1X + \beta_2X^2 + \beta_3X^3 + \beta_4X^4 + \varepsilon</m>
+              </p>
+            </li>
+          </ul>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-8-d" workspace="1in">
+        <statement>
+          <p>
+            Repeat part (c) using another random seed and report your results.
+            Are the results the same?
+            Explain why or why not.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-8-e" workspace="1in">
+        <statement>
+          <p>
+            Which model in part (c) has the smallest LOOCV error?
+            Is this what you expected?
+            Explain.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-P5-4-8-f">
+        <statement>
+          <p>
+            Repeat part (c) using <m>k</m>-fold cross-validation for
+            <m>k=5,10,15,20</m>.
+            On one figure, plot test error against degree for all four values of
+            <m>k</m> and for LOOCV.
+            What do you notice?
+            You do not need to plot training error.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw03-subset-selection">
+      <title>Forward and Backward Selection</title>
+
+      <introduction>
+        <p>
+          The table reports training and test mean squared errors from fitting
+          linear regressions to predict <c>mpg</c> using different subsets of
+          variables from the <c>Auto</c> data set.
+        </p>
+
+        <table>
+          <title>Training and test error for candidate models</title>
+
+          <tabular>
+            <row header="yes">
+              <cell>Variables</cell>
+              <cell>Train error</cell>
+              <cell>Test error</cell>
+            </row>
+
+            <row>
+              <cell>Null model</cell>
+              <cell>60.76</cell>
+              <cell>60.73</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c></cell>
+              <cell>24.02</cell>
+              <cell>24.15</cell>
+            </row>
+
+            <row>
+              <cell><c>horsepower</c></cell>
+              <cell>23.94</cell>
+              <cell>24.19</cell>
+            </row>
+
+            <row>
+              <cell><c>weight</c></cell>
+              <cell>18.68</cell>
+              <cell>18.84</cell>
+            </row>
+
+            <row>
+              <cell><c>acceleration</c></cell>
+              <cell>49.87</cell>
+              <cell>50.26</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c>, <c>horsepower</c></cell>
+              <cell>20.85</cell>
+              <cell>21.13</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c>, <c>weight</c></cell>
+              <cell>18.38</cell>
+              <cell>18.55</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c>, <c>acceleration</c></cell>
+              <cell>23.94</cell>
+              <cell>24.38</cell>
+            </row>
+
+            <row>
+              <cell><c>horsepower</c>, <c>weight</c></cell>
+              <cell>17.84</cell>
+              <cell>18.03</cell>
+            </row>
+
+            <row>
+              <cell><c>horsepower</c>, <c>acceleration</c></cell>
+              <cell>22.46</cell>
+              <cell>22.70</cell>
+            </row>
+
+            <row>
+              <cell><c>weight</c>, <c>acceleration</c></cell>
+              <cell>18.25</cell>
+              <cell>18.61</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c>, <c>horsepower</c>, <c>weight</c></cell>
+              <cell>17.76</cell>
+              <cell>17.99</cell>
+            </row>
+
+            <row>
+              <cell>
+                <c>cylinders</c>, <c>horsepower</c>, <c>acceleration</c>
+              </cell>
+              <cell>20.06</cell>
+              <cell>20.44</cell>
+            </row>
+
+            <row>
+              <cell><c>cylinders</c>, <c>weight</c>, <c>acceleration</c></cell>
+              <cell>18.13</cell>
+              <cell>18.54</cell>
+            </row>
+
+            <row>
+              <cell><c>horsepower</c>, <c>weight</c>, <c>acceleration</c></cell>
+              <cell>17.84</cell>
+              <cell>18.16</cell>
+            </row>
+
+            <row>
+              <cell>All four predictors</cell>
+              <cell>17.76</cell>
+              <cell>18.13</cell>
+            </row>
+          </tabular>
+        </table>
+
+        <p>
+          For parts (a), (b), and (c), describe the algorithm, identify
+          <m>M_k</m> for <m>k=0,1,\ldots,4</m>, state the best model returned,
+          and report how many models must be trained.
+          No code is required.
+        </p>
+      </introduction>
+
+      <task xml:id="hw03-subset-a" workspace="2in">
+        <statement>
+          <p>
+            Apply best subset selection.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-subset-b" workspace="2in">
+        <statement>
+          <p>
+            Apply forward stepwise selection.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-subset-c" workspace="2in">
+        <statement>
+          <p>
+            Apply backward stepwise selection.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw03-subset-d" workspace="1.5in">
+        <statement>
+          <p>
+            Are your answers to parts (a), (b), and (c) the same?
+            Should we generally expect them to be the same?
+            Explain.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+</worksheet>

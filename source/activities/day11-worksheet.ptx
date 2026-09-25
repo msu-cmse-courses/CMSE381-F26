@@ -24,12 +24,16 @@
       from sklearn.metrics import accuracy_score
       from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
     </program>
-    <p>Same as last time, we're going to use the <c>Default</c> data set from the ISLR book as included in their R package. I've included a csv on the <url href="../../DataSets/DataSets.md">DataSets page</url> for you to use.</p>
+    <p>We're going to use <xref ref="Default-csv"/> from the ISLR book.</p>
+      <p>
+        Load the data, and run the following commands.
+      </p>   
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/0bf0b0b65f603971cd33a04ad934449c/Default.csv"
-      Default = pd.read_csv(url)
-      Default.head(10)
+      Default.head()
+      # Here's all the entries in the "default" column
+      list(Default['default'].unique())
     </program>
+
     <program language="python">
       # Here's all the entries in the "default" column
       list(Default['default'].unique())
@@ -357,7 +361,6 @@
   </subsection>
   <subsection xml:id="cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
-    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+    <p></p>    
   </subsection>
 </section>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Day 11 Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
+<style>
+@counter-style ptx-marker-0 { system: extends lower-alpha; prefix: '('; suffix: ') '; }
+</style>
+<script type="module">import { startMathJax } from './_static/pretext/js/dist/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: false,
+isReact: false,
+htmlPresentation: false,
+lang: "en-US",
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta name="twitter:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="og:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta property="book:title" content="CMSE 381: Fundamentals of Data Science Methods">
+<meta name="twitter:description" content="Fall 2026">
+<meta property="og:description" content="Fall 2026">
+<meta name="twitter:card" content="summary">
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.53"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.53"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '8.3.1';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script src="_static/prefix-runtime.8b982cdcb4aa84b9.bundle.js"></script><script src="_static/prefix-926.5c7038c8ef173faf.bundle.js"></script><script src="_static/prefix-runestone.0499040fbb8ea56b.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-926.229729d09512acc9.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.347e2ecdeacfed99.css">
+<script src="_static/pretext/js/dist/lti_iframe_resizer.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha512-dubtf8xMHSQlExGRQ5R7toxHLgSDZ0K7AunqPWHXmJQ8XyVIG19S1T95gBxlAeGOK02P4Da2RTnQz0Za0H0ebQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-highlight/prism-line-highlight.min.js" integrity="sha512-93uCmm0q+qO5Lb1huDqr7tywS8A2TFA+1/WHvyiWaK6/pvsFl6USnILagntBx8JnVbQH5s3n0vQZY6xNthNfKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/dist/pretext_search.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script>
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead" role="banner"><div class="ptx-banner"><div class="title-container">
+<div class="heading ptx-banner-heading"><a href="root-1-2.html"><span class="title">CMSE 381: Fundamentals of Data Science Methods</span> <span class="subtitle">Fall 2026</span></a></div>
+<p class="byline">CMSE faculty</p>
+</div></div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><div class="ptx-navbar-contents">
+<button id="ptx-toc-toggle" type="button" aria-controls="ptx-sidebar" class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="ptx-search-box">
+<div class="ptx-search-widget"><button id="ptx-search-button" type="button" class="ptx-search-button button" title="Search Book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<dialog id="ptx-search-dialog" class="ptx-dialog ptx-search-dialog"><div class="ptx-search-dialog-controls">
+<input aria-label="Search term" id="ptx-search-terms" class="ptx-search-terms" type="text" name="terms" placeholder="Search terms"><button aria-label="Close" id="ptx-search-close" class="ptx-search-close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div id="ptx-search-status" class="ptx-search-status" aria-live="polite" aria-atomic="true"></div>
+<h2 class="heading ptx-search-results-heading">Search Results: </h2>
+<div id="ptx-search-empty" class="ptx-search-empty"><span>No results.</span></div>
+<ol id="ptx-search-results" class="ptx-search-results"></ol></dialog>
+</div>
+<span class="nav-other-controls"><button id="ptx-embed-button" class="ptx-embed-button button" title="Embed this page"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe86f;</span><span class="name">Embed</span></button><dialog class="ptx-dialog ptx-embed-popup" id="ptx-embed-popup"><div class="ptx-embed-popup-controls">
+<p>Copy the code below to embed this page in your own website or LMS page.</p>
+<button class="ptx-embed-close-button button" id="ptx-embed-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-embed-code-container">
+<textarea class="ptx-embed-code-textbox" id="ptx-embed-code-textbox" readonly aria-label="Embed"><iframe src="https://example.com/embed" width="100%" height="1000"></iframe></textarea><button autofocus="autofocus" class="ptx-embed-copy-button button" id="ptx-embed-copy-button" title="Copy"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe14d;</span><span class="name">Copy</span></button>
+</div></dialog><button id="ptx-read-aloud-button" class="ptx-read-aloud-button button" title="Read aloud" aria-expanded="false"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf1bc;</span><span class="name">Read aloud</span></button><div id="ptx-read-aloud-player" class="ptx-read-aloud-player" hidden="hidden" role="group" aria-label="Read aloud">
+<button id="ptx-read-aloud-prev" class="button" title="Previous sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe045;</span></button><button id="ptx-read-aloud-toggle" class="ptx-read-aloud-toggle button" title="Play"><span class="ptx-read-aloud-icon-play"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></span><span class="ptx-read-aloud-icon-pause"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe034;</span></span></button><button id="ptx-read-aloud-next" class="button" title="Next sentence"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe044;</span></button><a id="ptx-read-aloud-continue" class="ptx-read-aloud-continue button" hidden="hidden">Continue<span class="icon material-symbols-outlined" aria-hidden="true">&#xe037;</span></a><button id="ptx-read-aloud-settings-button" class="ptx-read-aloud-settings-button button" title="Reading settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe429;</span></button>
+</div>
+<dialog class="ptx-dialog ptx-read-aloud-settings-popup" id="ptx-read-aloud-settings-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Read aloud settings</h2>
+<button class="ptx-read-aloud-settings-close-button button" id="ptx-read-aloud-settings-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label for="ptx-read-aloud-voice"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe91f;</span><span>Voice</span></label><select id="ptx-read-aloud-voice"></select><label class="ptx-readability-slider-label" for="ptx-read-aloud-rate"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe9e4;</span><span>Reading speed</span><output id="ptx-read-aloud-rate-value" for="ptx-read-aloud-rate">1×</output></label><input type="range" id="ptx-read-aloud-rate" min="0.5" max="2" step="0.1" value="1"><label for="ptx-read-aloud-asides"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d7;</span><span>Collapsed content</span></label><select id="ptx-read-aloud-asides"><option value="skip">Announce, do not read</option>
+<option value="read">Read automatically</option></select><label for="ptx-read-aloud-autoscroll"><input type="checkbox" id="ptx-read-aloud-autoscroll" checked><span>Follow along (auto-scroll)</span></label><label for="ptx-read-aloud-autocontinue"><input type="checkbox" id="ptx-read-aloud-autocontinue"><span>Continue to the next page automatically</span></label>
+</div></dialog><button id="ptx-readability-options-button" class="ptx-readability-options-button button" title="Readability settings"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf6f1;</span><span class="name">Readability settings</span></button><dialog class="ptx-dialog ptx-readability-options-popup" id="ptx-readability-options-popup"><div class="ptx-readability-options-popup-controls">
+<h2 class="heading">Readability settings</h2>
+<button class="ptx-readability-options-close-button button" id="ptx-readability-options-close-button" title="Close"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cd;</span></button>
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-line-height"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe240;</span><span>Line height</span><output id="ptx-readability-line-height-value" for="ptx-readability-line-height">1.35</output></label><input type="range" id="ptx-readability-line-height" min="1.10" max="3" step="0.05" value="1.35">
+</div>
+<div class="ptx-readability-options-group">
+<label class="ptx-readability-slider-label" for="ptx-readability-font-size"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe245;</span><span>Content font size</span><output id="ptx-readability-font-size-value" for="ptx-readability-font-size">100%</output></label><input type="range" id="ptx-readability-font-size" min="0.8" max="1.5" step="0.05" value="1">
+</div>
+<fieldset class="ptx-readability-options-group ptx-readability-options-group-theme">
+<legend>Theme</legend>
+<label for="ptx-readability-theme-system"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-system" value="system"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe1ab;</span><span>System</span></label><label for="ptx-readability-theme-light"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-light" value="light"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe518;</span><span>Light</span></label><label for="ptx-readability-theme-dark"><input type="radio" name="ptx-readability-theme" id="ptx-readability-theme-dark" value="dark"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span>Dark</span></label>
+</fieldset>
+<fieldset class="ptx-readability-options-group">
+<legend>Assistive technologies</legend>
+<label for="ptx-readability-accessible-permalinks"><input type="checkbox" id="ptx-readability-accessible-permalinks"><span>🔗</span><span>Expose permalinks</span></label>
+</fieldset>
+<div class="ptx-readability-options-group"><button type="button" class="ptx-readability-reset-button button" id="ptx-readability-reset-button"><span class="icon material-symbols-outlined" aria-hidden="true">&#xf053;</span><span class="name">Reset All</span></button></div></dialog></span><span class="treebuttons"><a class="previous-button button" href="cmse381-001-lec10-logisticregression-worksheet.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="activities.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+</div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" role="complementary" class="ptx-sidebar"><nav id="ptx-toc" tabindex="-1" aria-label="Contents" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul id="ptx-toc-group-frontmatter" class="structural toc-item-list"><li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-course-info.html" class="internal"><span class="title">Course Information and Office Hours</span></a></div>
+<ul id="ptx-toc-group-ch-course-info" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-2.html" class="internal"><span class="title">Instructional Team</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-Office-Hours.html" class="internal"><span class="title">Office Hours</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch-course-info-4.html" class="internal"><span class="title">What is this course about?</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-D2L.html" class="internal"><span class="title">D2L and where to find grades</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-course-website.html" class="internal"><span class="title">Course website, Slides, and jupyter notebooks</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="subsubsec-crowdmark-info.html" class="internal"><span class="title">Crowdmark and where we grade your quizzes/midterms</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="subsec-class-structure.html" class="internal"><span class="title">Class Structure</span></a></div>
+<ul id="ptx-toc-group-subsec-class-structure" class="structural toc-item-list"><li class="toc-item toc-section"><div class="toc-title-box"><a href="subsec-class-structure.html#subsec-Basic-Expectations" class="internal"><span class="title">Basic Expectations</span></a></div></li></ul>
+</li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="course-documents.html" class="internal"><span class="title">Syllabus and Course Schedule</span></a></div>
+<ul id="ptx-toc-group-course-documents" class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="syllabus.html" class="internal"><span class="title">Syllabus</span></a></div>
+<ul id="ptx-toc-group-syllabus" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-course-info" class="internal"><span class="title">Policy Sheet</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="syllabus.html#sec-assessments" class="internal"><span class="title">Assessments and Grades</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="schedule.html" class="internal"><span class="title">Course Schedule</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="activities.html" class="internal"><span class="title">In-Class Activities</span></a></div>
+<ul class="structural toc-item-list contains-active" id="ptx-toc-group-activities">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day01-notebook.html" class="internal"><span class="title">Day 01 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day01-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day01-notebook.html#day01-subsec-the-data-set" class="internal"><span class="title">The Dataset</span></a></div>
+<ul id="ptx-toc-group-day01-subsec-the-data-set" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day01-notebook.html#exercises-day01" class="internal"><span class="title">Day01 Coding Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="day02-worksheet.html" class="internal"><span class="title">Day 02 Worksheet</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day03-notebook.html" class="internal"><span class="title">Day 03 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day03-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day03-notebook.html#subsec-ws03-mean-squared-error" class="internal"><span class="title">Mean Squared Error</span></a></div>
+<ul id="ptx-toc-group-subsec-ws03-mean-squared-error" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day03-notebook.html#ws03-exercises-" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day04-notebook.html" class="internal"><span class="title">Day 04 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day04-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day04-notebook.html#subsec-ws04-simple-linear-regression" class="internal"><span class="title">Simple linear regression</span></a></div>
+<ul id="ptx-toc-group-subsec-ws04-simple-linear-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day04-notebook.html#ws04-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="day05-notebook.html" class="internal"><span class="title">Day 05 Worksheet</span></a></div>
+<ul id="ptx-toc-group-day05-notebook" class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="day05-notebook.html#subsec-ws05-assessing-coefficient-accuracy" class="internal"><span class="title">Assessing Coefficient Accuracy</span></a></div>
+<ul id="ptx-toc-group-subsec-ws05-assessing-coefficient-accuracy" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="day05-notebook.html#ws05-exercises" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html" class="internal"><span class="title">Day 06 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec06-multlinreg-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-multiple-linear-regression" class="internal"><span class="title">Multiple linear regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec06-multlinreg-worksheet-multiple-linear-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-multiple-linear-regression-8" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec06-multlinreg-worksheet.html#cmse381-lec06-multlinreg-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html" class="internal"><span class="title">Day 07 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-more-questions-to-ask-of-your-model-continued-from-last-time" class="internal"><span class="title">More questions to ask of your model (Continued from last time)</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-q3-how-well-does-the-model-fit" class="internal"><span class="title">Q3: How well does the model fit?</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-q4-making-predictions" class="internal"><span class="title">Q4: Making predictions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-playing-with-multi-level-variables" class="internal"><span class="title">Playing with multi-level variables</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way" class="internal"><span class="title">The wrong way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-wrong-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-right-way" class="internal"><span class="title">The right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-the-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-the-right-way-8" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-another-right-way" class="internal"><span class="title">Another right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec07-evenmorelinreg-worksheet-another-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-another-right-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec07-evenmorelinreg-worksheet.html#cmse381-lec07-evenmorelinreg-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html" class="internal"><span class="title">Day 08 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-dummy-variables-for-multi-level-categorical-inputs" class="internal"><span class="title">Dummy Variables for Multi-level Categorical Inputs</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way" class="internal"><span class="title">The wrong way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-wrong-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-wrong-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way" class="internal"><span class="title">The right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-the-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-the-right-way-14" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way" class="internal"><span class="title">Another right way</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-another-right-way" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-another-right-way-7" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms" class="internal"><span class="title">Interaction Terms</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec08-worksheet-interaction-terms" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-interaction-terms-15" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec08-worksheet.html#cmse381-lec08-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html" class="internal"><span class="title">Day 09 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data" class="internal"><span class="title">Reading in the chicken or egg data</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-reading-in-the-chicken-or-egg-data-5" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn" class="internal"><span class="title">KNN with <code class="code-inline tex2jax_ignore">sklearn</code></span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-knn-with-sklearn-18" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-train-test-splits" class="internal"><span class="title">Train test splits</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-train-test-splits" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-train-test-splits-16" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-bayes-classifier" class="internal"><span class="title">Bayes classifier</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-bayes-classifier" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-bayes-classifier-9" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-messing-with-k" class="internal"><span class="title">Messing with <span class="process-math">\(k\)</span></span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec09-introclassification-worksheet-messing-with-k" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-messing-with-k-4" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec09-introclassification-worksheet.html#cmse381-001-lec09-introclassification-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html" class="internal"><span class="title">Day 10 Worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-getting-a-feel-for-the-data" class="internal"><span class="title">Getting a feel for the data</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="internal"><span class="title">Classification using Logistic Regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-classification-using-logistic-regression-21" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-001-lec10-logisticregression-worksheet.html#cmse381-001-lec10-logisticregression-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section contains-active">
+<div class="toc-title-box"><a href="cmse381-lec11-morelogisticregression-worksheet.html" class="internal"><span class="title">Day 11 Worksheet</span></a></div>
+<ul class="structural toc-item-list active" id="ptx-toc-group-cmse381-lec11-morelogisticregression-worksheet">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec11-morelogisticregression-worksheet.html#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression" class="internal"><span class="title">Multinomial Logistic Regression</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec11-morelogisticregression-worksheet.html#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec11-morelogisticregression-worksheet.html#cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="lectures.html" class="internal"><span class="title">Lectures</span></a></div>
+<ul id="ptx-toc-group-lectures" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="sec-exam1-material.html" class="internal"><span class="title">Exam 1 material</span></a></div>
+<ul id="ptx-toc-group-sec-exam1-material" class="structural toc-item-list">
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-01-lecture" class="internal"><span class="title">Day 01</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-02-lecture" class="internal"><span class="title">Day 02</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-03-lecture" class="internal"><span class="title">Day 03</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-04-lecture" class="internal"><span class="title">Day 04</span></a></div></li>
+<li class="toc-item toc-handout">
+<div class="toc-title-box"><a href="sec-exam1-material.html#day-05-lecture" class="internal"><span class="title">Day 05</span></a></div>
+<ul id="ptx-toc-group-day-05-lecture" class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-stat-review" class="internal"><span class="title">Stats Review</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates" class="internal"><span class="title">Assessing Coefficient Estimate Accuracy</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-06-lecture" class="internal"><span class="title">Day 06</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-07-lecture" class="internal"><span class="title">Day 07</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-08-lecture" class="internal"><span class="title">Day 08</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-09-lecture" class="internal"><span class="title">Day 09</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam1-material.html#day-10-lecture" class="internal"><span class="title">Day 10</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam1-material.html#day-11-lecture" class="internal"><span class="title">Day 11</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="homework.html" class="internal"><span class="title">Homework</span></a></div>
+<ul id="ptx-toc-group-homework" class="structural toc-item-list">
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-2.html" class="internal"><span class="title">Homework 01</span></a></div></li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-3.html" class="internal"><span class="title">Homework 02</span></a></div></li>
+<li class="toc-item toc-worksheet"><div class="toc-title-box"><a href="homework-4.html" class="internal"><span class="title">Homework 03</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-data-sets.html" class="internal"><span class="title">Data sets</span></a></div>
+<ul id="ptx-toc-group-ch-data-sets" class="structural toc-item-list">
+<li class="toc-item toc-introduction"><div class="toc-title-box"><a href="ch-data-sets-2.html" class="internal"><span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="advertising-data-set.html" class="internal"><span class="title">Advertising Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="day01-auto-data-set.html" class="internal"><span class="title">Auto Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-credit-data-set.html" class="internal"><span class="title">Credit Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-diabetes-data-set.html" class="internal"><span class="title">Diabetes Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="chicken-and-egg-set.html" class="internal"><span class="title">Chicken and Egg data set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="default-set.html" class="internal"><span class="title">Credit card Default data set</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="ch-study-guides.html" class="internal"><span class="title">Exams study guides</span></a></div>
+<ul id="ptx-toc-group-ch-study-guides" class="structural toc-item-list"><li class="toc-item toc-section">
+<div class="toc-title-box"><a href="exam1-study-guide.html" class="internal"><span class="title">Exam1 study guide</span></a></div>
+<ul id="ptx-toc-group-exam1-study-guide" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-intro-statistical-learning" class="internal"><span class="title">Introduction to Statistical Learning</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-linear-regression-topics" class="internal"><span class="title">Linear Regression</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam1-study-guide.html#exam1-practice-classification-topics" class="internal"><span class="title">Classification</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="cmse381-lec11-morelogisticregression-worksheet">
+<h1 class="heading hide-type">
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 11 Worksheet</span>
+</h1>
+<section class="introduction" id="cmse381-lec11-morelogisticregression-worksheet-2">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-1">In this module we are going to test out the logistic regression classification method we discussed in class, but now we have:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="cmse381-lec11-morelogisticregression-worksheet-2-2">
+<ul class="disc" id="cmse381-lec11-morelogisticregression-worksheet-2-2-1">
+<li id="cmse381-lec11-morelogisticregression-worksheet-2-2-1-1">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-2-1-1-1">more than one input variable (multiple logistic regression) and,<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-2-2-1-2">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-2-1-2-1">more than one level for the output variable (multinomial logistic regression).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">import numpy as np 
+import matplotlib.pyplot as plt
+import pandas as pd 
+%matplotlib inline
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+</code></pre></div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-4">We’re going to use <a href="default-set.html#Default-csv" class="xref" data-knowl="./knowl/xref/Default-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 105: Default Data Set">Data 105</a> from the ISLR book.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-5">Load the data, and run the following commands.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">Default.head()
+# Here's all the entries in the "default" column
+list(Default['default'].unique())
+</code></pre></div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># Here's all the entries in the "default" column
+list(Default['default'].unique())
+</code></pre></div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># Check to see if you did that right!
+# If your data frame is updated properly, this should print out True
+list(Default.columns) == ['default', 'balance', 'income', 'student_Yes']
+</code></pre></div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-2-9">If you did all that right, the following should get us our train/test split of our inputs and outputs.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-2-9" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">X = Default[['balance', 'income', 'student_Yes']]
+y = Default['default']
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+</code></pre></div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">## Note this data is imbalanced, so accuracy is not the best metric
+C = confusion_matrix(y_test, Y_pred)
+ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+
+# In this case, 
+#   75 people who defaulted were predicted to not default, and (company loses money)
+#   20 people who didn't default were predicted to default (they don't get a loan).
+</code></pre></div></section>
+<section class="subsection" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression">
+<h2 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Multinomial Logistic Regression</span>
+</h2>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-2">Now we’ve got both multiple inputs and multiple levels. In this case we’re going to use the <code class="code-inline tex2jax_ignore">iris</code> data set but we’re just going to use the version from <code class="code-inline tex2jax_ignore">sklearn</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-3">Take a moment to look at the <a class="external" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html" target="_blank">documentation</a> or the <a class="external" href="https://en.wikipedia.org/wiki/Iris_flower_data_set" target="_blank">wikipedia page</a> so you know what’s going on in this data set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">from sklearn.datasets import load_iris
+</code></pre></div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># I'm going to load in the data set and do a bit of processing so that it's in a nice format
+iris_df = load_iris(as_frame=True)['frame']
+target_names = load_iris()['target_names']
+iris_df['species'] = target_names[load_iris()['target']]
+iris_df.drop('target', axis=1, inplace=True)
+iris_df.head()
+</code></pre></div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-6">I’ve done all the hard work for you. The cell below does everything:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7">
+<ul class="disc" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1">
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-1">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-1-1">Splits the data into X and y matrices.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-2">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-2-1">Does a train/test split<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-3">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-3-1">Sets up the logistic regression classifier<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-4">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-4-1">Predicts the outputs for the test data<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-5">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-5-1">Reports an accuracy.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-8">
+<em class="emphasis">It might spit out a convergence warning for you, don’t worry about it.</em><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">X = iris_df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']]
+y = iris_df['species']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10, random_state=11)
+
+logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
+
+Y_pred = logreg.predict(X_test)
+err = 1-accuracy_score(y_test, Y_pred)
+print(f'Error rate: {err*100:.2f}%')
+</code></pre></div>
+<section class="exercises" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10">
+<h3 class="heading hide-type">
+<span class="type">Exercises</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2">
+<h4 class="heading"><span class="title">Practice.</span></h4>
+<div class="introduction" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-2">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-2-1">Complete the following exercises.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3"><h5 class="heading"><span class="codenumber">1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-1-1">Create a dummy-variable column named <code class="code-inline tex2jax_ignore">student_Yes</code>, then remove the original categorical <code class="code-inline tex2jax_ignore">student</code> column from <code class="code-inline tex2jax_ignore">Default</code>. Verify the resulting data frame before continuing.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py"># Create the indicator for student == 'Yes'.
+Default['student_Yes'] = ...
+
+# Remove the original string-valued column.
+Default = ...
+Default.head()
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-2-1">Use <code class="code-inline tex2jax_ignore">pd.get_dummies</code> with <code class="code-inline tex2jax_ignore">drop_first=True</code>, or compare the <code class="code-inline tex2jax_ignore">student</code> column directly with the string <code class="code-inline tex2jax_ignore">'Yes'</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-2" title="Copy heading and permalink for Hint 1.a.1" aria-label="Copy heading and permalink for Hint 1.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-3-1">Drop the original <code class="code-inline tex2jax_ignore">student</code> column along <code class="code-inline tex2jax_ignore">axis=1</code>; the target <code class="code-inline tex2jax_ignore">default</code> column should remain.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-3" title="Copy heading and permalink for Hint 1.a.2" aria-label="Copy heading and permalink for Hint 1.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-4-1">
+<em class="alert">Common error:</em> Do not keep both the original string column and the dummy column in the numeric feature matrix.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 1.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-4" title="Copy heading and permalink for Hint 1.a.3" aria-label="Copy heading and permalink for Hint 1.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">Default['student_Yes'] = pd.get_dummies(Default['student'], drop_first = True, prefix='student')
+Default.drop('student', axis=1, inplace=True)
+Default.head()
+
+# pd.get_dummies(Default['student'], drop_first = True, prefix='student').head()
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 1.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1-5" title="Copy heading and permalink for Answer 1.a.1" aria-label="Copy heading and permalink for Answer 1.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3-1" title="Copy heading and permalink for Task 1.a" aria-label="Copy heading and permalink for Task 1.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-3" title="Copy heading and permalink for Exercise 1" aria-label="Copy heading and permalink for Exercise 1">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4"><h5 class="heading"><span class="codenumber">2<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-1">Set up a logistic regression model using inputs <code class="code-inline tex2jax_ignore">balance</code>, <code class="code-inline tex2jax_ignore">income</code>, and <code class="code-inline tex2jax_ignore">student_Yes</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para logical" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2">
+<ul class="disc" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2-1">
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2-1-1">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2-1-1-1">Train this model on the training set above.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py">logreg = LogisticRegression(max_iter=...)
+logreg.fit(X_train, y_train)
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-2-1">Construct <code class="code-inline tex2jax_ignore">X</code> from <code class="code-inline tex2jax_ignore">balance</code>, <code class="code-inline tex2jax_ignore">income</code>, and <code class="code-inline tex2jax_ignore">student_Yes</code>, and use <code class="code-inline tex2jax_ignore">default</code> as <code class="code-inline tex2jax_ignore">y</code> before making the split.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-2" title="Copy heading and permalink for Hint 2.a.1" aria-label="Copy heading and permalink for Hint 2.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-3-1">Fit the estimator only on <code class="code-inline tex2jax_ignore">X_train</code> and <code class="code-inline tex2jax_ignore">y_train</code>; reserve the test set for evaluation.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-3" title="Copy heading and permalink for Hint 2.a.2" aria-label="Copy heading and permalink for Hint 2.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-4-1">
+<em class="alert">Common error:</em> Training on the full data set before evaluating <code class="code-inline tex2jax_ignore">X_test</code> leaks test information and makes the reported error optimistic.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 2.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-4" title="Copy heading and permalink for Hint 2.a.3" aria-label="Copy heading and permalink for Hint 2.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
+
+print(f'Coefs: {logreg.coef_}')
+print(f'Intercept: {logreg.intercept_}')
+
+# Just for printing the equation
+short_coefs = [str(round(logreg.coef_[0, i], 4)) for i in range(3)]
+cols = ['balance', 'income', 'student_Yes']
+eqn_linear = f'{round(logreg.intercept_[0],4)} + {short_coefs[0]} * {cols[0]} + {short_coefs[1]} * {cols[1]} + {short_coefs[2]} * {cols[2]} ' 
+print(f'Linear part: {eqn_linear}')
+print(f'Full equation: p(default) = exp({eqn_linear}) / (1 + exp({eqn_linear}))')
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 2.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1-5" title="Copy heading and permalink for Answer 2.a.1" aria-label="Copy heading and permalink for Answer 2.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4-1" title="Copy heading and permalink for Task 2.a" aria-label="Copy heading and permalink for Task 2.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-4" title="Copy heading and permalink for Exercise 2" aria-label="Copy heading and permalink for Exercise 2">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5"><h5 class="heading"><span class="codenumber">3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="ptx-runestone-container"><div class="runestone shortanswer_section"><div data-component="shortanswer" data-question_label="" class="journal" data-mathjax="" data-placeholder="You can write here, and it will be saved on this device, but your response will not be graded.">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-1-1">What is the equation of your model?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div></div></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-3-1">Read the intercept from <code class="code-inline tex2jax_ignore">logreg.intercept_</code> and match the entries of <code class="code-inline tex2jax_ignore">logreg.coef_[0]</code> to <code class="code-inline tex2jax_ignore">X.columns</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 3.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-3" title="Copy heading and permalink for Hint 3.a.1" aria-label="Copy heading and permalink for Hint 3.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-4-1">First write the linear predictor, then place it inside the logistic function <span class="process-math">\(e^{\eta}/(1+e^{\eta})\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 3.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-4" title="Copy heading and permalink for Hint 3.a.2" aria-label="Copy heading and permalink for Hint 3.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-5" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-5-1">
+<em class="alert">Common error:</em> The exact numbers can vary with the random split; keep every coefficient paired with the correct feature rather than copying an old run blindly.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 3.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-5" title="Copy heading and permalink for Hint 3.a.3" aria-label="Copy heading and permalink for Hint 3.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6-1">The model is (may be slightly different b/c train-test split)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6-2">
+<div class="displaymath process-math" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6-2-1">
+\begin{equation*}
+p(X) = \frac{\exp(-2.9227 + 0.0041 * balance + -0.0001 * income + -3.8077 * student\_Yes)}{1+\exp(-2.9227 + 0.0041 * balance + -0.0001 * income + -3.8077 * student\_Yes )}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 3.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1-6" title="Copy heading and permalink for Answer 3.a.1" aria-label="Copy heading and permalink for Answer 3.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 3.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5-1" title="Copy heading and permalink for Task 3.a" aria-label="Copy heading and permalink for Task 3.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-5" title="Copy heading and permalink for Exercise 3" aria-label="Copy heading and permalink for Exercise 3">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6"><h5 class="heading"><span class="codenumber">4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-1-1">Use the test set to evaluate your model. What is the error?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py">Y_pred = logreg.predict(X_test)
+accuracy = ...
+error = ...
+print(error)
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-2-1">Generate labels with <code class="code-inline tex2jax_ignore">logreg.predict(X_test)</code> and compare them with <code class="code-inline tex2jax_ignore">y_test</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 4.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-2" title="Copy heading and permalink for Hint 4.a.1" aria-label="Copy heading and permalink for Hint 4.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-3-1">Convert accuracy to error using <code class="code-inline tex2jax_ignore">1 - accuracy_score(y_test, Y_pred)</code> or <code class="code-inline tex2jax_ignore">1 - logreg.score(X_test, y_test)</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 4.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-3" title="Copy heading and permalink for Hint 4.a.2" aria-label="Copy heading and permalink for Hint 4.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-4-1">
+<em class="alert">Common error:</em> Report test error, not training error, and distinguish a proportion such as 0.03 from a percentage such as 3%.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 4.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-4" title="Copy heading and permalink for Hint 4.a.3" aria-label="Copy heading and permalink for Hint 4.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">Y_pred = logreg.predict(X_test)
+err = 1-accuracy_score(y_test, Y_pred)
+print(f'Error rate: {err*100:.2f}%')
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 4.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1-5" title="Copy heading and permalink for Answer 4.a.1" aria-label="Copy heading and permalink for Answer 4.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 4.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6-1" title="Copy heading and permalink for Task 4.a" aria-label="Copy heading and permalink for Task 4.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 4"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-6" title="Copy heading and permalink for Exercise 4" aria-label="Copy heading and permalink for Exercise 4">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7"><h5 class="heading"><span class="codenumber">5<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-1-1">Take a look at the confusion matrix for this model. What do you notice?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py">C = confusion_matrix(y_test, Y_pred, labels=logreg.classes_)
+ConfusionMatrixDisplay(C, display_labels=logreg.classes_).plot()
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-2-1">Use the class order printed by <code class="code-inline tex2jax_ignore">logreg.classes_</code> when interpreting rows and columns.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 5.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-2" title="Copy heading and permalink for Hint 5.a.1" aria-label="Copy heading and permalink for Hint 5.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-3-1">Compare false negatives (actual default predicted as no default) with false positives and relate them to the class imbalance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 5.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-3" title="Copy heading and permalink for Hint 5.a.2" aria-label="Copy heading and permalink for Hint 5.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-4-1">
+<em class="alert">Common error:</em> High overall accuracy can hide poor detection of the rare default class; inspect the off-diagonal counts rather than accuracy alone.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 5.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-4" title="Copy heading and permalink for Hint 5.a.3" aria-label="Copy heading and permalink for Hint 5.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-5-1">The data are highly imbalanced and the model predicts the majority <code class="code-inline tex2jax_ignore">No</code> class much more reliably. In the stored run, 75 actual defaults were missed (false negatives), while 20 non-defaults were incorrectly labeled as defaults. Accuracy alone therefore understates the weakness on the rare class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">C = confusion_matrix(y_test, Y_pred, labels=logreg.classes_)
+ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 5.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1-5" title="Copy heading and permalink for Answer 5.a.1" aria-label="Copy heading and permalink for Answer 5.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 5.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7-1" title="Copy heading and permalink for Task 5.a" aria-label="Copy heading and permalink for Task 5.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 5"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-7" title="Copy heading and permalink for Exercise 5" aria-label="Copy heading and permalink for Exercise 5">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8"><h5 class="heading"><span class="codenumber">6<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para logical" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1">
+<ul class="disc" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1">
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-1">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-1-1">What do the columns of <code class="code-inline tex2jax_ignore">predict_proba</code> function below correspond to?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-2">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-2-1">Check your answer on the first few entries.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py">probabilities = logreg.predict_proba(X_test)
+print(logreg.classes_)
+print(probabilities[:5])
+...
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-2-1">The probability columns follow the exact order in <code class="code-inline tex2jax_ignore">logreg.classes_</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 6.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-2" title="Copy heading and permalink for Hint 6.a.1" aria-label="Copy heading and permalink for Hint 6.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-3-1">For each row, the predicted label should match the class associated with the largest probability.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 6.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-3" title="Copy heading and permalink for Hint 6.a.2" aria-label="Copy heading and permalink for Hint 6.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-4-1">
+<em class="alert">Common error:</em> Do not assume alphabetical or numeric order without checking <code class="code-inline tex2jax_ignore">classes_</code>; the estimator records the authoritative order.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 6.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-4" title="Copy heading and permalink for Hint 6.a.3" aria-label="Copy heading and permalink for Hint 6.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-5-1">The three columns correspond, in <code class="code-inline tex2jax_ignore">logreg.classes_</code> order, to <code class="code-inline tex2jax_ignore">setosa</code>, <code class="code-inline tex2jax_ignore">versicolor</code>, and <code class="code-inline tex2jax_ignore">virginica</code>. Each row sums to 1, and its largest entry determines the label returned by <code class="code-inline tex2jax_ignore">predict</code>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">probabilities = logreg.predict_proba(X_test)
+print('Classes:', logreg.classes_)
+for i in range(5):
+    print(i, probabilities[i], 'prediction:', Y_pred[i])
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 6.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1-5" title="Copy heading and permalink for Answer 6.a.1" aria-label="Copy heading and permalink for Answer 6.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 6.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8-1" title="Copy heading and permalink for Task 6.a" aria-label="Copy heading and permalink for Task 6.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 6"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-8" title="Copy heading and permalink for Exercise 6" aria-label="Copy heading and permalink for Exercise 6">🔗</a></div>
+</article>
+<article class="exercise exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9"><h5 class="heading"><span class="codenumber">7<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h5>
+<article class="task exercise-like" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-1-1">Which of the classes is most often misclassified?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="code-box"><pre class="program clipboardable"><code class="language-py"># Your code here
+</code></pre></div>
+<div class="solutions">
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-2-1">Build a confusion matrix using a fixed label order and sum each row’s off-diagonal entries.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 7.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-2" title="Copy heading and permalink for Hint 7.a.1" aria-label="Copy heading and permalink for Hint 7.a.1">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-3-1">Alternatively, compare <code class="code-inline tex2jax_ignore">y_test</code> and <code class="code-inline tex2jax_ignore">Y_pred</code>, then count the true labels only where the prediction is wrong.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 7.a.2"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-3" title="Copy heading and permalink for Hint 7.a.2" aria-label="Copy heading and permalink for Hint 7.a.2">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-4-1">
+<em class="alert">Common error:</em> Use the actual class when answering which class is misclassified most often; counting predicted labels answers a different question.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 7.a.3"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-4" title="Copy heading and permalink for Hint 7.a.3" aria-label="Copy heading and permalink for Hint 7.a.3">🔗</a></div>
+</div></details>
+<details id="cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">C = confusion_matrix(y_test, Y_pred)
+ConfusionMatrixDisplay(confusion_matrix=C, display_labels=logreg.classes_).plot()
+# In this case, the only error was predicting versicolor for two virginica data points
+</code></pre></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 7.a.1"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1-5" title="Copy heading and permalink for Answer 7.a.1" aria-label="Copy heading and permalink for Answer 7.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 7.a"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9-1" title="Copy heading and permalink for Task 7.a" aria-label="Copy heading and permalink for Task 7.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Exercise 7"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2-9" title="Copy heading and permalink for Exercise 7" aria-label="Copy heading and permalink for Exercise 7">🔗</a></div>
+</article>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercise Group 1–7: Practice"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10-2" title="Copy heading and permalink for Exercise Group 1–7: Practice" aria-label="Copy heading and permalink for Exercise Group 1–7: Practice">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Exercises: Exercises"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression-10" title="Copy heading and permalink for Exercises: Exercises" aria-label="Copy heading and permalink for Exercises: Exercises">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Subsection: Multinomial Logistic Regression"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-multinomial-logistic-regression" title="Copy heading and permalink for Subsection: Multinomial Logistic Regression" aria-label="Copy heading and permalink for Subsection: Multinomial Logistic Regression">🔗</a></div>
+</section>
+<section class="subsection" id="cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done">
+<h2 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Congratulations, we’re done!</span>
+</h2>
+<div class="para" id="cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done-2"><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Subsection: Congratulations, we’re done!"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet-congratulations-we-re-done" title="Copy heading and permalink for Subsection: Congratulations, we’re done!" aria-label="Copy heading and permalink for Subsection: Congratulations, we’re done!">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Section: Day 11 Worksheet"><a tabindex="-1" href="#cmse381-lec11-morelogisticregression-worksheet" title="Copy heading and permalink for Section: Day 11 Worksheet" aria-label="Copy heading and permalink for Section: Day 11 Worksheet">🔗</a></div>
+</section>
+</div>
+<div id="ptx-content-footer" class="ptx-content-footer">
+<a class="previous-button button" href="cmse381-001-lec10-logisticregression-worksheet.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="lectures.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="338 3000 8772 6866" role="img"><title>PreTeXt logo</title><g style="stroke-width:.025in; stroke:currentColor; fill:none"><polyline points="472,3590 472,9732 " style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png" alt="Runstone Academy logo"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png" alt="MathJax logo"></a>
+</div>
+</body>
+</html>

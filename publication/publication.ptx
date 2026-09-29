@@ -57,11 +57,15 @@
       <!-- <version include="w1s"/> -->
     <version include="day01 day02 day03 day04 day05 
                       day06 day07 day08 day09 day10 
-                      day11
+                      day11 
                       ws01 ws02 ws03 ws04 ws05 
                       ws06 ws07 ws08 ws09 ws10 
                       ws11
-                      hw01 hw02 hw03"/>
+                      hw01 hw02
+                      exam2-material 
+                      day12 day13
+                      ws12 ws13
+                      hw03"/>
     <!-- slides-inst-notes -->
 
 

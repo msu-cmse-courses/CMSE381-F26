@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec13-kfoldcv-worksheet" component="ws13">
+  <title>Day 13 Worksheet</title>
+  <introduction>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+
+      from sklearn.linear_model import LinearRegression
+      from sklearn.metrics import mean_squared_error
+    </program>
+    <p>Let's bring back the data set from last time!</p>
+    <program language="python">
+      # Set the seed so everyone has the same numbers
+      np.random.seed(42)
+
+      def f(t, m = -3, b = 2):
+          return m*t+b
+
+      n = 300
+      X_toy = np.random.uniform(0,5,n)
+      y_toy = f(X_toy) + np.random.normal(0,2,n)
+
+      X_toy = X_toy.reshape(-1,1)
+      y_toy = y_toy.reshape(-1,1)
+
+      plt.scatter(X_toy,y_toy)
+      plt.plot(X_toy,f(X_toy),c = 'red')
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec13-kfoldcv-worksheet-ptx-1-roll-your-own-k-fold">
+    <title>1. Roll your own <m>k</m>-fold</title>
+    <p>Ok, let's try to get a handle on what this <m>k</m>-fold CV is doing with our data. To do that, we're going to build our own <m>k</m>-fold splitter before we use the provided tools in <c>scikitlearn</c>. Of course, this is not going to be optimized at all, the goal is just to figure out how the innards are working.</p>
+    <program language="python">
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>For our first example, let's say you have 12 data points and you want <m>k=4</m> folds. How many data points will be in each fold?</p>
+            </statement>
+            <hint>
+              <p>When <m>n</m> is divisible by <m>k</m>, each fold contains <m>n/k</m> observations.</p>
+            </hint>
+            <hint>
+              <p>Substitute <m>n=12</m> and <m>k=4</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A fold is the held-out group, not the training set; each training set contains the other three folds.</p>
+            </hint>
+            <answer>
+              <p>Each fold contains <m>12/4=3</m> data points. On each iteration, 3 points are used for testing and the remaining 9 for training.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Below is the skeleton of code that will return the <m>k</m>-fold train/test splits. Update the code where noted to make it work.</p>
+              <p>How do you check that your code is doing what you want?</p>
+              <p><ul>
+                <li>
+                  <p>Make sure you end up with <m>k</m> splits</p>
+                </li>
+                <li>
+                  <p>Make sure that each of the testing splits has <m>n/k</m> data points</p>
+                </li>
+                <li>
+                  <p>Make sure that the rest of the data points end up in the training set.</p>
+                </li>
+                <li>
+                  <p>A good check is to see that you have all <m>n</m> data points between the training and testing set every time.</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  n = 12
+                  k = 4
+                  fold_size = ...
+                  indices = np.arange(n)
+
+                  for fold in range(k):
+                      test_index = ...
+                      train_index = ...
+                      print(train_index, test_index)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Partition the index array into four non-overlapping groups of three test indices.</p>
+            </hint>
+            <hint>
+              <p>Across all iterations, verify that every observation appears in a test set exactly once and that train/test indices never overlap.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not generate each test fold independently with random sampling; that can repeat or omit observations.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def mykfold(n,k):
+                      # Input: integers n and k.
+                      #        This version is only going to allow us to work with  
+                      #        a $k$ that is actually divisible by $n$ 
+                      # Output: a list of the train/test splits to be used.
+
+                      # This command is just going to make a warning so that if you pass in 
+                      # n and k not divisble, the code will kick you out.     
+                      assert (n % k == 0), "k doesn't divide n, this code can't handle it"
+
+                      # Make an array of the indices:
+                      all_my_indices = np.array(range(n))
+
+                      # Shuffles in place:
+                      np.random.shuffle(all_my_indices)
+
+                      # Length of my folds:
+                      length_of_fold = n // k
+
+                      AllSplits = []
+                      for i in range(k):
+                          test_set = all_my_indices[i*length_of_fold:(i+1)*length_of_fold]
+                          training_set = np.delete(all_my_indices, range(i*length_of_fold,(i+1)*length_of_fold))
+                          AllSplits.append({'train': training_set, 'test':test_set})
+
+                      return AllSplits
+
+                  n = 12
+                  k = 4
+                  mykfold(n,k)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Ok, so now your code returns indicies kind of like the LOOCV code from last time.</p>
+              <p>Set up a linear regression model for the toy data above, and use your train test split code to figure out the MSE for each, then return the average for your <m>CV_{(4)}</m> score, where this means we want <m>k=4</m> folds.</p>
+              <program language="python">
+                <code>
+                  MSEs = []
+                  for train_index, test_index in splits:
+                      model = LinearRegression().fit(X_toy[train_index], y_toy[train_index])
+                      prediction = model.predict(X_toy[test_index])
+                      MSEs.append(...)
+
+                  cv4 = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Fit a fresh model inside each fold using only its training indices.</p>
+            </hint>
+            <hint>
+              <p>Compute one test MSE per fold and average the four values to obtain <m>CV_{(4)}</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Averaging predictions before computing MSE is not the same as averaging the fold test errors.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  n = X_toy.shape[0]
+                  k = 3
+
+                  mySplits = mykfold(n,k)
+
+                  MSE = []
+                  for entry in mySplits:
+                      train_index = entry['train']
+                      test_index = entry['test']
+                      # print("TRAIN:", train_index, "\nTEST:", test_index, '\n')
+
+                      linreg = LinearRegression()
+                      linreg.fit(X_toy[train_index], y_toy[train_index])
+                      y_hat = linreg.predict(X_toy[test_index])
+                      MSE.append(mean_squared_error(y_toy[test_index], y_hat))
+
+
+                  print(np.average(MSE))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-kfoldcv-worksheet-ptx-2-letting-scikitlearn-do-the-work-for-us">
+    <title>2. Letting scikitlearn do the work for us.</title>
+    <p>Ok, now that we understand the innards, we can let <c>scikitlearn</c> do this for us.</p>
+    <program language="python">
+      from sklearn.model_selection import KFold
+
+      kf = KFold(n_splits=3)
+
+      # Notice that like the leave one out version, trying to print kf still doesn't give us much that's useful
+      print(kf)
+    </program>
+    <p>We can see the splits by putting this generator into a for loop as follows. Note I'm using the tiny version of the data set for this just so the pattern is easier to see.</p>
+    <program language="python">
+      X_tiny_toy = X_toy[:10]
+      y_tiny_toy = y_toy[:10]
+    </program>
+    <program language="python">
+      for train_index, test_index in kf.split(X_tiny_toy):
+          print("TRAIN:", train_index, "\nTEST:", test_index, '\n')
+          X_train, X_test = X_tiny_toy[train_index], X_tiny_toy[test_index]
+          y_train, y_test = y_tiny_toy[train_index], y_tiny_toy[test_index]
+    </program>
+    <p>Now that we have our train/test split generator set up, let's take a look at the result. Note that this is just going to color by the last split generated in that for loop up above.</p>
+    <program language="python">
+      plt.scatter(X_train,y_train, marker = '+', label = "Training")
+      plt.scatter(X_test,y_test, marker = '*', label = "Testing")
+      plt.legend()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>There is a BIG PROBLEM with using this code. We haven't done something!!! Something important!!!</p>
+              <p>What didn't we do? This is an easy fix, checkout the <url href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html">documentation for <c>KFold</c></url>, then modify the code below to fix the problem.</p>
+            </statement>
+            <hint>
+              <p>Look at the order of the original observations and at the default value of <c>shuffle</c> in <c>KFold</c>.</p>
+            </hint>
+            <hint>
+              <p>Set <c>shuffle=True</c>; add a <c>random_state</c> if you want the shuffled folds to be reproducible.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Shuffling after the folds have already been formed does not fix ordered folds; shuffle as part of the splitter.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # The code doesn't shuffle without you telling it explicitly to do that
+                  kf = KFold(n_splits=3, shuffle = True)
+
+                  for train_index, test_index in kf.split(X_tiny_toy):
+                      print("TRAIN:", train_index, "\nTEST:", test_index, '\n')
+                      X_train, X_test = X_tiny_toy[train_index], X_tiny_toy[test_index]
+                      y_train, y_test = y_tiny_toy[train_index], y_tiny_toy[test_index]
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Below is my code from last class to train our linear regression model, again just using that last train/test split. Fix this so that:</p>
+              <p><ul>
+                <li>
+                  <p>it uses the full <c>X_toy</c>, <c>y_toy</c> data set (rather than the tiny version)</p>
+                </li>
+                <li>
+                  <p>it uses every k-fold train/test split (<m>k=5</m>) with the shuffle built in, and</p>
+                </li>
+                <li>
+                  <p>returns the average of the MSEs.</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  kf = KFold(n_splits=5, shuffle=True, random_state=...)
+                  MSEs = []
+                  for train_index, test_index in kf.split(X_toy):
+                      ...
+                  print(np.mean(MSEs))
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use the full <c>X_toy</c> and <c>y_toy</c> arrays, and use the same indices on both.</p>
+            </hint>
+            <hint>
+              <p>Within each of the five splits, fit, predict the held-out fold, and append its MSE.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the last train/test split from an earlier cell; iterate over every split returned by the new five-fold object.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  kf = KFold(n_splits=5, shuffle = True)
+
+                  MSEs = []
+
+                  for train_index, test_index in kf.split(X_toy):
+                      X_train, X_test = X_toy[train_index], X_toy[test_index]
+                      y_train, y_test = y_toy[train_index], y_toy[test_index]
+
+
+                      model = LinearRegression()
+                      model.fit(X_train,y_train)
+                      y_hat = model.predict(X_test)
+
+                      MSEs.append(mean_squared_error(y_hat,y_test))
+
+                  print(MSEs)
+                  print(np.average(MSEs))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What happens if you set <c>n_splits</c> to be the same as the number of data points?</p>
+            </statement>
+            <hint>
+              <p>If <m>k=n</m>, divide <m>n</m> observations into <m>n</m> folds.</p>
+            </hint>
+            <hint>
+              <p>Determine the size of each test fold and compare the procedure with the previous lecture.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> This does not leave an empty training set; each fit uses <m>n-1</m> training observations and one test observation.</p>
+            </hint>
+            <answer>
+              <p>Setting <c>n_splits</c> equal to the number of observations makes each fold contain one test point. The procedure is therefore leave-one-out cross-validation (LOOCV).</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-kfoldcv-worksheet-easy-mode">
+    <title>Easy mode</title>
+    <p>As before, we can build all this work into a very compact code, which really is doing the same thing, just in a few lines.</p>
+    <program language="python">
+      # This command does all your work for you
+      # Note this is the same command you used Monday for LOOCV
+      from sklearn.model_selection import cross_val_score
+
+      # Set up linear regression model
+      model = LinearRegression()
+
+      # Pick your CV method
+      kf = KFold(n_splits=5, shuffle = True)
+
+      #use 5-fold CV to evaluate model
+      scores = cross_val_score(model, X_toy, y_toy, 
+                               scoring='neg_mean_squared_error',
+                               cv=kf)
+
+      # View mean absolute error
+      np.average(np.absolute(scores))
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p><ul>
+                <li>
+                  <p>How do you change the above code to do <m>k</m>-fold CV for a different <m>k</m>?</p>
+                </li>
+                <li>
+                  <p>You didn't get exactly the same value as you computed a few cells up. Why?</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Change <c>n_splits</c> in <c>KFold</c> or the integer passed as <c>cv</c>; the rest of the scoring call can remain unchanged.</p>
+            </hint>
+            <hint>
+              <p>Compare whether the manual and convenience versions used identical folds, shuffling, and random state.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Two correct CV calculations need not match if they use different shuffled partitions; fix <c>random_state</c> when exact reproducibility matters.</p>
+            </hint>
+            <answer>
+              <p><ul>
+                <li>
+                  <p>edit the <c>cv=5</c> bit</p>
+                </li>
+                <li>
+                  <p>The folds are done after a random shuffle, so you won't have exactly the same answers</p>
+                </li>
+              </ul></p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec13-kfoldcv-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+      
+    </p>
+  </subsection>
+</section>

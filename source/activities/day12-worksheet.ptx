@@ -54,8 +54,7 @@
       plt.scatter(X_test,y_test, marker = '*', label = "Testing")
       plt.legend()
     </program>
-    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
-    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+
     <exercises>
       <title>Exercises</title>
       <exercisegroup>
@@ -378,7 +377,9 @@
   </subsection>
   <subsection xml:id="cmse381-lec13-loocv-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-    <p>Written by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
-    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+    <p>
+      
+    </p>
+
   </subsection>
 </section>

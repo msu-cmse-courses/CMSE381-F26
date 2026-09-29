@@ -42,6 +42,7 @@
       <xi:include href="./activities/day10-worksheet.ptx"/>
       <xi:include href="./activities/day11-worksheet.ptx"/> 
       <xi:include href="./activities/day12-worksheet.ptx"/> 
+      <xi:include href="./activities/day13-worksheet.ptx"/> 
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 

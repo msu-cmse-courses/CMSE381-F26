@@ -43,6 +43,14 @@
       <xi:include href="./activities/day11-worksheet.ptx"/> 
       <xi:include href="./activities/day12-worksheet.ptx"/> 
       <xi:include href="./activities/day13-worksheet.ptx"/> 
+      <xi:include href="./activities/day14-worksheet.ptx"/> 
+      <xi:include href="./activities/day15-worksheet.ptx"/> 
+      <xi:include href="./activities/day16-worksheet.ptx"/> 
+      <xi:include href="./activities/day17-worksheet.ptx"/> 
+      <xi:include href="./activities/day18-worksheet.ptx"/> 
+      <xi:include href="./activities/day19-worksheet.ptx"/> 
+      <xi:include href="./activities/day20-worksheet.ptx"/> 
+
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 
@@ -181,8 +189,8 @@
         </introduction>
 
         <xi:include href="./handouts/Day12.ptx"/>        
-        <xi:include href="./handouts/Day13.ptx"/>
-        <xi:include href="./handouts/Day14.ptx"/>
+        <xi:include href="./handouts/Day13-alt-slides.ptx"/>
+        <xi:include href="./handouts/Day14-alt-slides.ptx"/>
         <xi:include href="./handouts/Day15.ptx"/>
         <xi:include href="./handouts/Day16.ptx"/>        
         <xi:include href="./handouts/Day17.ptx"/>

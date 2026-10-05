@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec18-lasso-worksheet" component="ws18">
+  <title>Day 18 Worksheet</title>
+  <introduction>
+    <p>In this module we are going to test out the lasso method, discussed in class.</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+      from sklearn.preprocessing import StandardScaler
+      from sklearn.linear_model import Ridge, RidgeCV
+      from sklearn.pipeline import make_pipeline
+
+
+      # Fix for deprecation warnings, but we should fix so this isn't here
+      import warnings 
+      warnings.filterwarnings('ignore')
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec18-lasso-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>Ok, here we go, let's play with a baseball data set again. Note this cleanup is all the same as the last lab.</p>
+    <program language="python">
+      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
+      hitters_df = pd.read_csv(url)
+
+      # Print the dimensions of the original Hitters data (322 rows x 20 columns)
+      print("Dimensions of original data:", hitters_df.shape)
+
+      # Drop any rows the contain missing values, along with the player names
+      hitters_df = hitters_df.dropna().drop('Player', axis=1)
+
+      # Replace any categorical variables with dummy variables
+      hitters_df = pd.get_dummies(hitters_df, drop_first = True)
+
+      hitters_df.head()
+    </program>
+    <program language="python">
+      y = hitters_df.Salary
+
+      # Drop the column with the independent variable (Salary)
+      X = hitters_df.drop(['Salary'], axis = 1).astype('float64')
+
+      X.info()
+    </program>
+    <p>Finally, here's a list of <m>\alpha</m>'s to test for our Lasso.</p>
+    <program language="python">
+      # List of alphas
+      alphas = 10**np.linspace(4,-2,100)*0.5
+      alphas
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec18-lasso-worksheet-lasso">
+    <title>Lasso</title>
+    <p>Thanks to the wonders of <c>scikit-learn</c>, now that we know how to do all this with ridge regression, translation to lasso is super easy.</p>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Lasso Documentation</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoCV.html#sklearn.linear_model.LassoCV">LassoCV Documentation</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/linear_model.html#lasso">User guide</url></p>
+      </li>
+    </ul></p>
+    <program language="python">
+      from sklearn.linear_model import Lasso, LassoCV
+    </program>
+    <p>Here's an example computing the lasso regression.</p>
+    <program language="python">
+      a = 1 #&lt;------ this is me picking an alpha value
+
+      # normalize the input
+      transformer = StandardScaler().fit(X)
+      # transformer.set_output(transform = 'pandas') #&lt;---- some older versions of sklearn
+                                                     #      have issues with this
+      X_norm = pd.DataFrame(transformer.transform(X), columns = X.columns)
+
+      # Fit the regression
+      lasso = Lasso(alpha = a) 
+      lasso.fit(X_norm, y)
+
+      # Get all the coefficients
+      print('intercept:', lasso.intercept_)
+      print('\n')
+      print(pd.Series(lasso.coef_, index = X_norm.columns))
+      print('\nTraining MSE:',mean_squared_error(y,lasso.predict(X_norm)))
+    </program>
+    <p>And the version using the <c>make_pipeline</c> along with the <c>StandardScaler</c> function which gives back the same answer.</p>
+    <program language="python">
+      a = 1#&lt;------ this is me picking an alpha value
+
+
+      # The make_pipeline command takes care of the normalization and the 
+      # Lasso regression for you. Note that I am passing in the un-normalized
+      # matrix X everywhere in here, since the normalization happens internally.
+      model = make_pipeline(StandardScaler(), Lasso(alpha = a))
+      model.fit(X, y)
+
+      # Get all the coefficients. Notice that in order to get 
+      # them out of the ridge portion, we have to ask the pipeline 
+      # for the specific bit we want with the model.named_steps['ridge']
+      # in place of just ridge from above.
+      print('intercept:', model.named_steps['lasso'].intercept_)
+      print('\n')
+      print(pd.Series(model.named_steps['lasso'].coef_, index = X.columns))
+      print('\nTraining MSE:',mean_squared_error(y,model.predict(X)))
+    </program>
+    <program language="python">
+      # If that worked above, you'll get a graph in this code. 
+
+      for var in coefs.columns:
+          # I'm greying out the ones that have magnitude below 200 to easier visualization
+          if np.abs(coefs[var][coefs.shape[0]-1])&lt;200:
+              plt.plot(alphas, coefs[var], color = 'grey', linewidth = .5)
+          else:
+              plt.plot(alphas, coefs[var], label = var)
+
+      plt.xscale('log')
+      plt.axis('tight')
+      plt.xlabel('alpha')
+      plt.ylabel('coefficients')
+
+      plt.legend()
+    </program>
+    <program language="python">
+      # If that worked, you should see your test error here.
+      i = np.argmin(errors) # Index of minimum 
+      print(f'Min occurs at alpha = {alphas[i]:.2f}')
+      print(f'Min MSE is {errors[i]:.2f}')
+
+      plt.title('Testing MSE')
+      plt.plot(alphas,errors)
+      plt.scatter(alphas[i],errors[i])
+      ax=plt.gca()
+      ax.set_xscale('log')
+    </program>
+    <program language="python">
+      # Here's the ridge code from last time that you should update
+
+      X_train, X_test , y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+
+      # To make sure my normalization isn't snooping, I fit the transformer only 
+      # on the training set 
+      transformer = StandardScaler().fit(X_train)
+      # transformer.set_output(transform = 'pandas')
+      X_train_norm = pd.DataFrame(transformer.transform(X_train), columns = X_train.columns)
+
+      # but in order for my output results to make sense, I have to apply the same 
+      # transformation to the testing set. 
+      X_test_norm = transformer.transform(X_test)
+
+      # I'm going to drop that 0 from the alphas because it makes 
+      # RidgeCV cranky
+      alphas = alphas[:-1]
+
+
+      ridgecv = RidgeCV(alphas = alphas, 
+                        scoring = 'neg_mean_squared_error', 
+                        )
+      ridgecv.fit(X_train_norm, y_train)
+
+      print('alpha chosen is', ridgecv.alpha_)
+    </program>
+    <p>Now let's take a look at some of the coefficients.</p>
+    <program language="python">
+      # Some of the coefficients are now reduced to exactly zero.
+      pd.Series(lassocv.coef_, index=X.columns)
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Mess with the values for <m>a</m> in the code, such as for <m>a=1, 10, 100, 1000</m>. What do you notice about the coefficients?</p>
+            </statement>
+            <hint>
+              <p>Compare both coefficient magnitudes and the number of coefficients equal to exactly zero as <m>\alpha</m> grows.</p>
+            </hint>
+            <hint>
+              <p>Lasso's <m>L_1</m> penalty becomes stronger for larger <m>\alpha</m>, increasing shrinkage and sparsity.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The intercept is normally not penalized; focus on the fitted feature coefficients.</p>
+            </hint>
+            <answer>
+              <p>Higher <m>\alpha</m> have more and more coefficients set to 0.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Make a graph of the coeffiencts from lasso as <m>\alpha</m> changes</p>
+              <p><em>Note: we did similar things in the last class but with ridge regression, so I've included the code you can borrow and modify from there. Also note I got a bunch of convergence warnings, but drawing the graphs I could safely ignore them. There's a command you ran in the first box to ignore warnings so they might not show up at all.</em></p>
+              <program language="python">
+                <code>
+                  coefs = []
+                  for alpha in alphas:
+                      model = make_pipeline(StandardScaler(), Lasso(alpha=alpha, max_iter=...))
+                      model.fit(X, y)
+                      coefs.append(model.named_steps['lasso'].coef_)
+
+                  coefs = pd.DataFrame(coefs, columns=X.columns)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Store one coefficient vector for every <m>\alpha</m>, keeping rows aligned with <c>alphas</c> and columns aligned with <c>X.columns</c>.</p>
+            </hint>
+            <hint>
+              <p>Plot each coefficient against <m>\alpha</m> on a logarithmic horizontal axis.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Use the lasso step's coefficients, not the scaler parameters or ridge coefficients copied from the previous lecture.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # This version is fixed to do lasso #
+
+                  coefs = []
+
+                  for a in alphas:
+                      model = make_pipeline(StandardScaler(), Lasso(alpha = a))
+                      model.fit(X, y)
+                      coefs.append(model.named_steps['lasso'].coef_)
+
+
+                  coefs = pd.DataFrame(coefs,columns = X_norm.columns)
+                  coefs.head()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Make a graph the test mean squared error as <m>\alpha</m> changes for a fixed train/test split.</p>
+              <p><em>Note: again I've included code from last time that you should just have to update.</em></p>
+              <program language="python">
+                <code>
+                  errors = []
+                  for alpha in alphas:
+                      model = make_pipeline(StandardScaler(), Lasso(alpha=alpha, max_iter=...))
+                      model.fit(X_train, y_train)
+                      errors.append(mean_squared_error(y_test, model.predict(X_test)))
+
+                  plt.semilogx(alphas, errors)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Keep the train/test split fixed while changing only <m>\alpha</m>, so the error comparison is fair.</p>
+            </hint>
+            <hint>
+              <p>Fit and predict inside the loop, then find the minimum with <c>np.argmin</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not select <m>\alpha</m> using training MSE; stronger shrinkage can raise training error while improving generalization.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Split data into training and test sets
+                  X_train, X_test , y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+
+                  errors = []
+
+                  for a in alphas:
+                      model = make_pipeline(StandardScaler(), Lasso(alpha = a))
+                      model.fit(X_train, y_train)
+
+                      pred = model.predict(X_test)
+                      errors.append(mean_squared_error(y_test, pred))
+
+
+                  i = np.argmin(errors) # Index of minimum
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>make a plot showing the number of non-zero coefficients as a function of the <m>\alpha</m> choice.</p>
+            </statement>
+            <hint>
+              <p>I used the <c>np.count_nonzero</c> command on the <c>coefs</c> data frame we already built</p>
+            </hint>
+            <hint>
+              <p>Count nonzero entries across each row of the coefficient-path DataFrame.</p>
+            </hint>
+            <hint>
+              <p>Plot those counts against the same ordered <c>alphas</c>, preferably with a logarithmic <m>x</m> axis.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Very small floating-point coefficients may not be conceptually meaningful; here use the exact zeros produced by lasso, as requested.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  nonzero = np.count_nonzero(coefs,axis=1)
+                  plt.title('Number of non-zero entries')
+
+                  plt.plot(alphas,nonzero)
+                  ax=plt.gca()
+                  ax.set_xscale('log')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Say your goal was to end up with a model with 5 variables used. What choice of <m>\alpha</m> gives us that and what are the variables used?</p>
+            </statement>
+            <hint>
+              <p>Find positions where the stored nonzero-count array equals 5 and map those positions back to <c>alphas</c>.</p>
+            </hint>
+            <hint>
+              <p>Refit at a qualifying <m>\alpha</m> and use the nonzero coefficient mask to index <c>X.columns</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Several nearby <m>\alpha</m> values may produce the same five-variable active set; report that range or list the qualifying choices rather than assuming uniqueness.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  alpha_5vars = alphas[np.where(nonzero ==5)]
+                  alpha_5vars
+
+                  for a in alpha_5vars: #&lt;------ this is me picking an alpha value
+
+                      model = make_pipeline(StandardScaler(), Lasso(alpha = a))
+                      model.fit(X, y)
+
+                      print('alpha:', a)
+                      print('vars:', list(X.columns[np.where(model.named_steps['lasso'].coef_ != 0)]))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Fit <c>LassoCV</c> using training data that have been standardized without test-set leakage. What value of <m>\alpha</m> does cross-validation recommend, and what is the resulting test MSE?</p>
+              <program language="python">
+                <code>
+                  transformer = StandardScaler().fit(X_train)
+                  X_train_norm = transformer.transform(X_train)
+                  X_test_norm = transformer.transform(X_test)
+
+                  lassocv = LassoCV(...)
+                  lassocv.fit(X_train_norm, y_train)
+                  print(lassocv.alpha_)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Fit the scaler on <c>X_train</c> only, then apply the same transformation to both splits.</p>
+            </hint>
+            <hint>
+              <p>Leaving <c>alphas=None</c> lets <c>LassoCV</c> construct a data-dependent candidate grid automatically.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not copy the preceding <c>RidgeCV</c> estimator: <c>LassoCV</c> has different behavior and can generate its own alpha path.</p>
+            </hint>
+            <answer>
+              <p>For the stored split, <c>LassoCV</c> chooses <m>\alpha\approx1.0801</m> and gives test MSE about 120,632. The exact selected value can vary with the split and cross-validation configuration.</p>
+              <program language="python">
+                <code>
+                  transformer = StandardScaler().fit(X_train)
+                  X_train_norm = transformer.transform(X_train)
+                  X_test_norm = transformer.transform(X_test)
+                  lassocv = LassoCV(alphas=None).fit(X_train_norm, y_train)
+                  print('alpha:', lassocv.alpha_)
+                  print('test MSE:', mean_squared_error(y_test, lassocv.predict(X_test_norm)))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>We've been repeating over and over that lasso gives us coefficients that are actually 0. At least in my code, I'm not seeing many that are 0. What happened? Can I change something to get more 0 entries?</p>
+            </statement>
+            <hint>
+              <p>Compare the cross-validated <m>\alpha</m> with the larger values on the coefficient-path plot.</p>
+            </hint>
+            <hint>
+              <p>Cross-validation optimizes predictive error, not the number of selected variables; increase <m>\alpha</m> to impose more sparsity.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Forcing more coefficients to zero can make the model easier to interpret but may worsen predictive performance.</p>
+            </hint>
+            <answer>
+              <p><c>LassoCV</c> selected a relatively small <m>\alpha</m> because it minimized estimated prediction error, so only a few coefficients were driven exactly to zero. Choosing a larger <m>\alpha</m> increases the <m>L_1</m> penalty and produces more zeros, at the possible cost of higher validation/test error.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec18-lasso-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+   <p>
+    
+   </p>
+  </subsection>
+</section>

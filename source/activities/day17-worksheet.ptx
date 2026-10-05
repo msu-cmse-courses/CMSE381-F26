@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec17-ridge-worksheet" component="ws17">
+  <title>Day 17 Worksheet</title>
+  <introduction>
+    <p>In this module we are going to test out the ridge regression method we discussed in class from Chapter 6.2.</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+      import seaborn as sns
+
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+
+      # Fix for deprecation warnings, but we should fix so this isn't here
+      # import warnings 
+      # warnings.filterwarnings('ignore')
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>Ok, here we go, let's play with a baseball data set.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
+      hitters_df = pd.read_csv(url)
+      hitters_df.head()
+    </program>
+    <p>Annoyingly enough we have some missing values in the data.</p>
+    <program language="python">
+      print("Number of null values:", hitters_df["Salary"].isnull().sum())
+    </program>
+    <p>So let's go clean those up.....</p>
+    <program language="python">
+      # Print the dimensions of the original Hitters data (322 rows x 20 columns)
+      print("Dimensions of original data:", hitters_df.shape)
+
+      # Drop any rows the contain missing values, along with the player names
+      hitters_df = hitters_df.dropna().drop('Player', axis=1)
+
+      # Print the dimensions of the modified Hitters data (263 rows x 20 columns)
+      print("Dimensions of modified data:", hitters_df.shape)
+
+      # One last check: should return 0
+      print("Number of null values:", hitters_df["Salary"].isnull().sum())
+
+      hitters_df.head()
+    </program>
+    <p>And finally, we can replace our categorical variables with dummy variables.</p>
+    <program language="python">
+      hitters_df = pd.get_dummies(hitters_df, drop_first = True)
+      hitters_df.head()
+    </program>
+    <program language="python">
+      y = hitters_df.Salary
+
+      # Drop the column with the independent variable (Salary)
+      X = hitters_df.drop(['Salary'], axis = 1).astype('float64')
+
+      X.info()
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-normalizing-the-data">
+    <title>Normalizing the data</title>
+    <p>Our first job is to normalize the data. Right now, all our columns have different standard deviations.</p>
+    <program language="python">
+      np.std(X)
+    </program>
+    <p>We'll do it on all the columns, but I'll draw pictures just with the <c>Hits</c> column for ease of visualization. Here's that the distribution of that particular column is before doing any normalization.</p>
+    <program language="python">
+      sns.histplot(X.Hits)
+    </program>
+    <p>I'm going to take all my columns and normalize them so that each column has standard deviation 1. I could do this by something like</p>
+    <program language="text">
+      X_Normalized = (X-X.mean())/X.std()
+    </program>
+    <p>however there's a built in command in <c>sklearn</c> already. So I'll do the same thing using the <c>StandardScalar</c> command.</p>
+    <program language="python">
+      from sklearn.preprocessing import StandardScaler
+    </program>
+    <program language="python">
+      # First we set up the transformer to figure out what has to happen 
+      # to each column to get out normalized data
+      transformer = StandardScaler().fit(X)
+
+      # This command tells the transformer I want a pandas data frame back
+      # otherwise it will hand me a numpy array.
+      transformer.set_output(transform = 'pandas')
+
+      #Then I actually use the transform bit to do the action on all the columns. 
+      X_norm = transformer.transform(X)
+
+      X_norm.head()
+    </program>
+    <program language="python">
+      # First we set up the transformer to figure out what has to happen 
+      # to each column to get out normalized data
+      transformer = StandardScaler().fit(X)
+
+      # This command tells the transformer I want a pandas data frame back
+      # otherwise it will hand me a numpy array.
+      transformer.set_output(transform = 'pandas')
+      # See below if this is throwing an error
+
+      #Then I actually use the transform bit to do the action on all the columns. 
+      X_norm = transformer.transform(X)
+
+      X_norm.head()
+    </program>
+    <program language="python">
+      # Note if the block above is giving you an error (in particular the transform = 'pandas' above), it's possibly because you're using an older version of the numpy library. You can either update numpy or use the following code instead:
+
+      # transformer = StandardScaler().fit(X)
+      # X_norm = transformer.transform(X)
+      # X_norm = pd.DataFrame(X_norm,columns = X.columns)
+
+      # X_norm.head()
+    </program>
+    <p>Woohoo, I have normalized data!</p>
+    <program language="python">
+      np.std(X_norm)
+    </program>
+    <p>Notice that the shape of the <c>Hits</c> histogram is the same, we've just scaled the <m>x</m>-axis.</p>
+    <program language="python">
+      sns.histplot(X_norm.Hits)
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-ridge-regression">
+    <title>Ridge Regression</title>
+    <p>In class, we learned that doing ridge regression means that we try to find the best model according to the score</p>
+    <p><md>
+    RSS + \lambda \sum_{i} \beta_i^2.
+    </md></p>
+    <p>The good news is that <c>sklearn</c> has a built in <c>Ridge</c> function.</p>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html">Documentation</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression">User guide</url></p>
+      </li>
+    </ul></p>
+    <program language="python">
+      from sklearn.linear_model import Ridge
+    </program>
+    <p>The bad (ok, not honestly that bad) news is that they call their <m>\lambda</m> parameter <m>\alpha</m>. So we're just going to minimize</p>
+    <p><md>
+    RSS + \alpha \sum_{i} \beta_i^2.
+    </md></p>
+    <p>instead. So if I pick an <m>\alpha</m> value, I can do ridge regression as follows.</p>
+    <program language="python">
+      a = 1 #&lt;------ this is me picking an alpha value
+
+      # normalize the input
+      transformer = StandardScaler().fit(X)
+      transformer.set_output(transform = 'pandas')
+      X_norm = transformer.transform(X)
+
+      # Fit the regression
+      ridge = Ridge(alpha = a) 
+      ridge.fit(X_norm, y)
+
+      # Get all the coefficients
+      print('intercept:', ridge.intercept_)
+      print('\n')
+      print(pd.Series(ridge.coef_, index = X_norm.columns))
+      print('\nTraining MSE:',mean_squared_error(y,ridge.predict(X_norm)))
+    </program>
+    <p>That is a bit annoying in terms of how much stuff I have to do, so here's some code that does the exact same thing (note that your score and coefficients learned are exactly the same as above).</p>
+    <program language="python">
+      from sklearn.pipeline import make_pipeline
+
+      a = 1 #&lt;------ this is me picking an alpha value
+
+
+      # The make_pipeline command takes care of the normalization and the 
+      # Ridge regression for you. Note that I am passing in the un-normalized
+      # matrix X everywhere in here, since the normalization happens internally.
+      model = make_pipeline(StandardScaler(), Ridge(alpha = a))
+      model.fit(X, y)
+
+      # Get all the coefficients. Notice that in order to get 
+      # them out of the ridge portion, we have to ask the pipeline 
+      # for the specific bit we want with the model.named_steps['ridge']
+      # in place of just ridge from above.
+      print('intercept:', model.named_steps['ridge'].intercept_)
+      print('\n')
+      print(pd.Series(model.named_steps['ridge'].coef_, index = X.columns))
+      print('\nTraining MSE:',mean_squared_error(y,model.predict(X)))
+    </program>
+    <p>Of course, that was just me picking a random <m>\alpha</m> out of a hat so there's no reason to trust that it's a good one. I could sit here all day and move that <m>\alpha</m> around to see what's going on, but why do that, when I can make a for loop!</p>
+    <p>Here's a pile of <m>\alpha</m>'s for us to test on.</p>
+    <program language="python">
+      alphas = 10**np.linspace(4,-2,100)*0.5
+      alphas = np.append(alphas,0)
+      alphas
+    </program>
+    <p>First off, let's take a look at how the coefficients learned change for various choices of <m>\alpha</m>.</p>
+    <p>Associated with each alpha value is a vector of ridge regression coefficients, which we'll store in a matrix coefs. In this case, it is a $ 19\times 100$ matrix, with 19 rows (one for each predictor) and 100 columns (one for each value of alpha).</p>
+    <program language="python">
+      from sklearn.pipeline import make_pipeline
+
+      ridge = Ridge()
+      coefs = []
+
+      for a in alphas:
+          model = make_pipeline(StandardScaler(), Ridge(alpha = a))
+          model.fit(X, y)
+          coefs.append(model.named_steps['ridge'].coef_)
+
+
+      coefs = pd.DataFrame(coefs,columns = X_norm.columns)
+      coefs.head()
+    </program>
+    <p>Let's say I just want to look at the coefficient for the <c>Hits</c> column.</p>
+    <program language="python">
+      plt.plot(alphas,coefs.Hits, label = 'Hits')
+      plt.xscale('log')
+
+      plt.legend()
+    </program>
+    <p>Or just for the <c>Runs</c> column.</p>
+    <program language="python">
+      plt.plot(alphas,coefs.Runs, label = 'Runs')
+      plt.xscale('log')
+
+      plt.legend()
+    </program>
+    <p>But that's pretty annoying, so instead we look at all of the coefficients at once.</p>
+    <program language="python">
+      plt.plot(alphas, coefs, label = coefs.columns)
+      plt.xscale('log')
+      plt.axis('tight')
+      plt.xlabel('alpha')
+      plt.ylabel('coefficients')
+
+      plt.legend(bbox_to_anchor = (1.1,1.1))
+    </program>
+    <program language="python">
+      # Fancier plot, 
+      # also added grey color for ease of visualization
+      for var in coefs.columns:
+          if np.abs(coefs[var][100])&lt;200:
+              plt.plot(alphas, coefs[var], label = var, color = 'grey', linewidth = .5)
+          else:
+              plt.plot(alphas, coefs[var], label = var)
+
+      plt.xscale('log')
+      plt.axis('tight')
+      plt.xlabel('alpha')
+      plt.ylabel('coefficients')
+
+      plt.legend(bbox_to_anchor = (1.1,1.1))
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>There are two variables that have higher magnitude than the rest for low <m>\alpha</m>'s (translation: they are either very large positive or very large negative). Which two are they from the data set? Which is which?</p>
+            </statement>
+            <hint>
+              <p>Look at the coefficient-path plot near the smallest <m>\alpha</m> values, where ridge is closest to the unregularized fit.</p>
+            </hint>
+            <hint>
+              <p>Match the two curves farthest from zero to the feature names used as the coefficient-table columns, and record each sign.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Compare absolute magnitude when finding the largest coefficients; a large negative coefficient can be just as prominent as a large positive one.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  cols = ['AtBat', 'CAtBat', 'CRuns','Hits']
+                  plt.plot(alphas, coefs[cols], label = cols)
+                  plt.xscale('log')
+                  plt.axis('tight')
+                  plt.xlabel('alpha')
+                  plt.ylabel('coefficients')
+
+                  plt.legend()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-train-test-split-version">
+    <title>Train/test split version</title>
+    <p>Now we can start setting up the usual train/test splits to have at least a starting idea of how the testing error is going. The <c>random_state=1</c> bit just makes it so that everyone should get the same random split.</p>
+    <program language="python">
+      # Split data into training and test sets
+      X_train, X_test , y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Train a model using ridge regression with <m>\alpha = 4</m>. What is the MSE of your model on the testing set?</p>
+              <program language="python">
+                <code>
+                  model = make_pipeline(StandardScaler(), Ridge(alpha=4))
+                  model.fit(X_train, y_train)
+                  prediction = model.predict(X_test)
+                  mse = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use the same training/test split already defined and keep scaling inside a pipeline with ridge.</p>
+            </hint>
+            <hint>
+              <p>Compute MSE by comparing <c>y_test</c> with predictions for <c>X_test</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Fit the scaler only through the training pipeline; scaling the full data before the split leaks test-set information.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  a = 4
+                  model = make_pipeline(StandardScaler(), Ridge(alpha = a))
+                  model.fit(X_train, y_train)
+
+                  pred = model.predict(X_test)
+                  print(mean_squared_error(y_test, pred))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Ha ha nah, you can do better than that. Lets try all our alphas and take a look at the testing MSE to make a better decision about what <m>\alpha</m> we might want. Modify the code below to plot your testing MSE for all the alphas. What <m>\alpha</m> should we use to train the model?</p>
+              <program language="python">
+                <code>
+                  test_errors = []
+                  for alpha in alphas:
+                      model = make_pipeline(StandardScaler(), Ridge(alpha=alpha))
+                      model.fit(X_train, y_train)
+                      test_errors.append(...)
+
+                  plt.semilogx(alphas, test_errors)
+                  best_alpha = alphas[np.argmin(test_errors)]
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Fit one scaled ridge model per candidate <m>\alpha</m> and append its test MSE in the same order as <c>alphas</c>.</p>
+            </hint>
+            <hint>
+              <p>Use <c>np.argmin(test_errors)</c> to retrieve the candidate with the smallest plotted error.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Choosing <m>\alpha</m> on the test set makes this test set part of model tuning; later cross-validation provides a cleaner selection method.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  ridge = Ridge()
+                  errors = []
+
+                  for a in alphas:
+                      model = make_pipeline(StandardScaler(), Ridge(alpha = a))
+                      model.fit(X_train, y_train)
+
+                      pred = model.predict(X_test)
+                      errors.append(mean_squared_error(y_test, pred))
+
+
+
+                  i = np.argmin(errors) # Index of minimum 
+
+                  #---plotting----
+                  plt.title('Testing MSE')
+
+                  plt.plot(alphas,errors)
+                  plt.scatter(alphas[i],errors[i])
+                  ax=plt.gca()
+                  ax.set_xscale('log')
+                  ax.set_yscale('log')
+
+                  print('Min occurs at alpha = ', alphas[i])
+                  print('Min MSE is', errors[i])
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-ridgecv">
+    <title>RidgeCV</title>
+    <p>Whelp, your meanie professor didn't tell you that there's actually a built in function to do this for you (sorry-not-sorry). Aren't you glad you didn't read ahead?</p>
+    <program language="python">
+      from sklearn.linear_model import RidgeCV
+    </program>
+    <p><ul>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html">Documentation</url></p>
+      </li>
+      <li>
+        <p><url href="https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression">User Guide</url></p>
+      </li>
+    </ul></p>
+    <p>Basically, <c>RidgeCV</c> runs LOOCV (unless you tell it otherwise, see the <url href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html">documentation</url>) on all the <m>\alpha</m> values you specify on an input array, and tells you the best <m>\alpha</m> given that.</p>
+    <p>First, I am going to normalize. I'm being careful to not just normalize all of <m>X</m> and then pass this matrix on since this is an example of <url href="https://scikit-learn.org/stable/common_pitfalls.html#data-leakage-during-pre-processing">data leakage</url>. In that version, we are using some amount of information about the testing data (in this case it is contributing to the normalization process) to affect something in our training process. So here's what we do instead.</p>
+    <program language="python">
+      X_train, X_test , y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+
+      # To make sure my normalization isn't snooping, I fit the transformer only 
+      # on the training set 
+      transformer = StandardScaler().fit(X_train)
+      transformer.set_output(transform = 'pandas')
+      X_train_norm = transformer.transform(X_train)
+
+      # but in order for my output results to make sense, I have to apply the same 
+      # transformation to the testing set. 
+      X_test_norm = transformer.transform(X_test)
+    </program>
+    <program language="python">
+      # I'm going to drop that 0 from the alphas because it makes 
+      # RidgeCV cranky
+      alphas = alphas[:-1]
+
+
+      ridgecv = RidgeCV(alphas = alphas, 
+                        scoring = 'neg_mean_squared_error', 
+                        )
+      ridgecv.fit(X_train_norm, y_train)
+
+
+
+      print('alpha chosen is', ridgecv.alpha_)
+    </program>
+    <p>I can predict my values on the test set directly from the <c>ridgecv</c> model we just built.</p>
+    <program language="python">
+      pred = ridgecv.predict(X_test_norm)
+      mean_squared_error(y_test,pred)
+    </program>
+    <p>This is exactly the same result as if I went and retrained my model using the chosen <m>\alpha</m> using <c>Ridge</c>.</p>
+    <program language="python">
+      ridge = Ridge(alpha = ridgecv.alpha_)
+      ridge.fit(X_train_norm, y_train)
+      mean_squared_error(y_test, ridge.predict(X_test_norm))
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Why did we get a different best choice of <m>\alpha</m> than we found in the previous section?</p>
+            </statement>
+            <hint>
+              <p>Compare how many validation partitions informed each choice: one fixed holdout versus several cross-validation folds.</p>
+            </hint>
+            <hint>
+              <p>A best hyperparameter is an estimate and can change when the data partition or scoring average changes.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Different selected values do not automatically mean one implementation is wrong; sampling variability can shift a shallow error minimum.</p>
+            </hint>
+            <answer>
+              <p>The earlier choice minimized error on one particular train/test split, while <c>RidgeCV</c> averages validation performance across multiple folds. Different observations therefore influence the two estimates, and sampling variability—especially when several <m>\alpha</m> values perform similarly—can produce different winners.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec17-ridge-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+      
+    </p>
+  </subsection>
+</section>

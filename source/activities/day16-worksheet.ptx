@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec16-subset-worksheet" component="ws16">
+  <title>Day 16 Worksheet</title>
+  <introduction>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      import seaborn as sns
+      %matplotlib inline
+
+      from sklearn.linear_model import LinearRegression,LogisticRegression
+      from sklearn.metrics import mean_squared_error
+      from sklearn.model_selection import cross_val_score
+      from sklearn.model_selection import KFold
+    </program>
+    <program language="python">
+      # First, we're going to do all the data loading we've had for a while for this data set
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/d75c3811a83a66f8c261e5b599ef9e44/Auto.csv"
+      auto = pd.read_csv(url)
+      auto = auto.replace('?', np.nan)
+      auto = auto.dropna()
+      auto.horsepower = auto.horsepower.astype('int')
+
+      #this shuffles my data set in advance so that i don't need to worry about it later 
+      auto = auto.sample(frac=1).reset_index(drop=True)
+
+
+      auto.head()
+    </program>
+    <p>Let's try to run subset selection on the <c>auto</c> data set! We're going to use <c>cylinders</c>, <c>horsepower</c>, <c>weight</c>, and <c>acceleration</c> to predict <c>mpg</c>.</p>
+    <program language="python">
+      inputvars = ['cylinders','horsepower','weight', 'acceleration']
+    </program>
+    <p>The first tool we are going to use is the <c>itertools</c> package, which gives us a way to get subsets of whatever size we want using the <c>combinations</c> command.</p>
+    <program language="python">
+      from itertools import combinations
+    </program>
+    <p>The weird thing is it's an iterator, so if I just try to print out what I want, it's not helpful to me.</p>
+    <program language="python">
+      combinations(inputvars,2)
+    </program>
+    <p>But if I use it in a for loop it does what I want!</p>
+    <program language="python">
+      for x in combinations(inputvars,2):
+          print(x)
+    </program>
+    <p>Here's some code stolen from the last few days to run linear regression on a subset of the input variables and get the <em>training error</em>. Note that this has no train/test split.</p>
+    <program language="python">
+      def myscore(df,listofvars, outputvar = 'mpg'):
+          '''
+          This code returns the training mean squared error of a linear regression model. No train test split or anything like that. 
+          '''
+          if listofvars == 'null model':
+              # Predict the mean of the output variable for any input 
+              yhat = np.full(auto.shape[0],np.average(auto.mpg))
+              return mean_squared_error(auto.mpg, yhat)
+
+          else:
+              X = df[list(listofvars)]
+              y = df[outputvar]
+
+              #build linear regression model
+              model = LinearRegression()
+
+              # fit model
+              model.fit(X,y)
+
+              #predict y
+              ypred = model.predict(X)
+
+              #view mean absolute error
+              return mean_squared_error(y,ypred)
+
+
+      myvars = ('cylinders', 'acceleration')
+      print(f"MSE for the (cylinders, acceleration) model: {myscore(auto,myvars)}")
+
+      print(f"MSE for the null model: {myscore(auto,'null model')}")
+    </program>
+    <p>Now, once we've found all the <m>M_k</m>, we want to return the best model using the <em>testing</em> error. So, here's a function that will take in a list of variables and give you the 5-fold CV score.</p>
+    <program language="python">
+      def myscore_cv(df,listofvars, outputvar = 'mpg'):
+
+
+          if listofvars == 'null model':
+              # Predict the mean of the output variable for any input
+              test_scores = [] 
+              for (train,test) in KFold(5).split(df):
+                  y_test = df[outputvar].iloc[train]
+                  yhat = np.full(y_test.shape[0],np.average(y_test))
+                  test_scores.append(mean_squared_error(y_test, yhat))
+              return np.average(test_scores)
+          else:
+              X = df[list(listofvars)]
+              y = df[outputvar]
+              #build linear regression model
+              model = LinearRegression()
+
+              #use 5-fold CV to evaluate model
+              scores = cross_val_score(model, X,y, 
+                                      scoring='neg_mean_squared_error',
+                                      cv=5)
+
+              #view mean absolute error
+              return np.average(np.absolute(scores))
+
+
+      myvars = ('cylinders', 'acceleration')
+      myscore_cv(auto,myvars)
+    </program>
+    <!-- horizontal rule in source notebook -->
+  </introduction>
+  <subsection xml:id="cmse381-lec16-subset-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Modify the code below by using the <c>myscore</c> function to get the training error for each possible model of size <m>k=2</m>.</p>
+              <program language="python">
+                <code>
+                  results = []
+                  for variables in itertools.combinations(X.columns, 2):
+                      score = myscore(...)
+                      results.append((variables, score))
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Use <c>itertools.combinations</c> to enumerate every unordered pair of predictor names.</p>
+            </hint>
+            <hint>
+              <p>For each pair, select those two columns, call <c>myscore</c>, and store both the pair and its training error.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use permutations: <c>{A, B}</c> and <c>{B, A}</c> define the same model and should be evaluated only once.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def getBestModel_df(df, k=2, outputvar = 'mpg'):
+                      '''
+                      This function will return the best model for a given number of input variables
+                      '''
+                      myvars = []
+                      myscores = []
+
+                      if k == 0:
+
+                          return pd.DataFrame({'Vars':'null model', 'Train Score':[myscore(auto,'null model')]})
+                      else:
+
+                          for Xs in combinations(inputvars,k):
+                              myvars.append(Xs) 
+
+                              myscores.append(myscore(auto,Xs)) #&lt;--- Fix this None
+
+                          myResults = pd.DataFrame({'Vars':myvars, 'Train Score':myscores})
+                          return myResults
+
+                  print("k = 2")
+                  print(getBestModel_df(auto, k=2))
+                  print("\n")
+                  print("k = 0, so this is the null model")
+                  print(getBestModel_df(auto, k=0))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is <m>M_2</m>? That is, what is the set of variables that give the lowest training error over all sets of size 2? Write a command to pull this automatically from the table above.</p>
+            </statement>
+            <hint>
+              <p>the command <c>DataFrame.idxmin()</c> will give you the row index of the minimum entry in a pandas series.</p>
+            </hint>
+            <hint>
+              <p>Locate the row with the minimum training-error value in the size-two results table.</p>
+            </hint>
+            <hint>
+              <p>Use <c>idxmin()</c> on the score column, then use <c>.loc</c> to retrieve the corresponding variable set.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> <m>M_2</m> is the best model among those with exactly two predictors, not the two individual predictors with the smallest one-variable errors.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def getBestModel(df, k=2, outputvar = 'mpg'):
+                      '''
+                      This function will return the best model for a given number of input variables
+                      '''
+                      myResults = getBestModel_df(df, k, outputvar)
+
+                      # Find the index of the minimum training score
+                      indexmin = myResults['Train Score'].idxmin()
+                      M_k = myResults.Vars[indexmin]
+                      return M_k
+
+                  print(getBestModel(auto, k=2))
+
+                  # Check to make sure this is right :-P
+                  getBestModel(auto, k=2) == ('horsepower', 'weight')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Put it all together. Finish the for loop that runs through <m>k=0</m> to <m>k=5</m>, and gets the set of variables giving the best size <m>k</m> model, and then computs the test error for each model. Which model would be returned by the best subset selection method?</p>
+              <program language="python">
+                <code>
+                  best_models = []
+                  test_errors = []
+                  for k in range(0, 6):
+                      # Find the lowest-training-error subset of size k.
+                      best_variables = ...
+                      # Refit/evaluate that selected model on the test set.
+                      test_error = ...
+                      best_models.append(best_variables)
+                      test_errors.append(test_error)
+
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>For each size <m>k</m>, first search all size-<m>k</m> subsets using training data only and keep the subset with minimum training error.</p>
+            </hint>
+            <hint>
+              <p>Then compare the selected <m>M_k</m> models using test error and choose the model size with the smallest test error.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use the test set to choose the best subset within each size and then reuse it to report performance; that leaks test information into model selection.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  for k in range(5):
+                      M_k = getBestModel(auto, k)
+                      print(f"Best {k} variable model: {M_k}")
+                      M_k_CV = myscore_cv(auto,M_k)
+                      print(f"CV Score: {M_k_CV:0.3f}")
+
+                  # The best model is the 2 variable model using horsepower and weight
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+</section>

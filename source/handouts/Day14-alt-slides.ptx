@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day14" xml:id="day-14-lecture">
+    <title>Day 14</title>
+
+    <introduction>
+        <p>
+            Ch 5.1.4-5: More cross-validation
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    Bias-variance tradeoff
+                </p>
+            </li>
+
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>Bias-Variance Tradeoff: Bias</title>
+    <p>
+        <md>
+            E(y_0 - \hat{f}(x_0))^2
+    = \operatorname{Var}(\hat{f}(x_0))
+    + [\operatorname{Bias}(\hat{f}(x_0))]^2
+    + \operatorname{Var}(\epsilon)
+        </md>
+        </p>
+
+        <sidebyside width="50%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                We are discussing bias in the estimation of test
+                                error rate.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Validation set: overestimates test error because
+                                it uses a small subset of the data.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>k</m>-fold CV: has a medium level of bias
+                                because each training set has approximately
+                                <m>(k-1)n/k</m> observations.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                LOOCV: gives an approximately unbiased estimate
+                                because it uses almost all the data each time.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Based on bias alone, LOOCV is better than
+                                <m>k</m>-fold CV.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Bias-Variance Tradeoff: Variance</title>
+
+        <p>
+            <md>
+                E(y_0 - \hat{f}(x_0))^2
+    = \operatorname{Var}(\hat{f}(x_0))
+    + [\operatorname{Bias}(\hat{f}(x_0))]^2
+    + \operatorname{Var}(\epsilon)
+            </md>
+        </p>
+
+        <sidebyside width="50%">
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            We are discussing variance in the estimation of test
+                            error rate.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            LOOCV has higher variance:
+                            <ul>
+                                <li>
+                                    <p>
+                                        It averages the outputs of <m>n</m>
+                                        fitted models, each trained on almost
+                                        identical observations.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The fitted models are highly correlated
+                                        with each other.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        This is like a repeated-measures problem
+                                        in science; the results may not
+                                        generalize well across samples.
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            <m>k</m>-fold CV:
+                            <ul>
+                                <li>
+                                    <p>
+                                        The <m>k</m> fitted models are somewhat
+                                        less correlated with each other.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The mean of highly correlated quantities
+                                        has higher variance than the mean of
+                                        uncorrelated quantities.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Empirically, <m>k=5</m> or <m>10</m> has
+                                        been shown to be a happy medium.
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>In short: Validation vs Test</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        We often treat the validation set as if it were the test
+                        set, even though it is not.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        A true test set is an independent sample.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Cross-validation measures never provide that independent
+                        sample.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Using K-Fold CV on Polynomial Linear Regression</title>
+
+        <p>
+            Polynomial regression
+        </p>
+
+        <sidebyside width="45%">
+
+                <p>
+                    Replace the linear model
+                    <md>
+                        y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+                    </md>
+                    with
+                    <md>
+                        y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2
+          + \cdots + \beta_d x_i^d + \epsilon_i
+                    </md>
+                </p>
+
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                These models can be fit with linear regression
+                                by passing in predictors <m>x_i^\ell</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                We tend not to go higher than degree 3 or 4
+                                because the model can become overly flexible.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Using Linear Regression for fitting polynomial models</title>
+
+        <sidebyside width="50%">
+            <p component="inst-notes">
+                <ul>
+                    <li>
+                        <p>
+                            Draw a column of data.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Draw the version with squares and cubes in the
+                            columns.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Pass it to linear regression and interpret the
+                            coefficients as the ones we want.
+                        </p>
+                    </li>
+                </ul>
+            </p>
+
+            <p/>
+        </sidebyside>
+    </paragraphs>
+</handout>

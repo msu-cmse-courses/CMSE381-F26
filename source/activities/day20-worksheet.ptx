@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec20-pcr-worksheet" component="ws20">
+  <title>Day 20 Worksheet</title>
+  <introduction>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+      import seaborn as sns
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec20-pcr-worksheet-pcr-on-hitters-data">
+    <title>PCR on Hitters Data</title>
+  </subsection>
+  <subsection xml:id="cmse381-lec20-pcr-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>Ok, here we go, let's play with a baseball data set again. Note this cleanup is all the same as previously.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
+      df = pd.read_csv(url).dropna().drop('Player', axis = 1)
+      df.info()
+      dummies = pd.get_dummies(df[['League', 'Division', 'NewLeague']])
+    </program>
+    <program language="python">
+      y = df.Salary
+
+      # Drop the column with the independent variable (Salary), and columns for which we created dummy variables
+      X_ = df.drop(['Salary', 'League', 'Division', 'NewLeague'], axis = 1).astype('float64')
+
+      # Define the feature set X.
+      X = pd.concat([X_, dummies[['League_N', 'Division_W', 'NewLeague_N']]], axis = 1)
+
+      X.info()
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec20-pcr-worksheet-principal-component-regression">
+    <title>Principal Component Regression</title>
+    <p>Ok, let's do Principal Components Regression. <c>Scikit-learn</c> doesn't have a built in function to do PCR (aka PCA and then regression) but it's just as easy for us to do it ourselves.</p>
+    <p>First step, let's figure out the <c>PCA</c> function.</p>
+    <program language="python">
+      from sklearn.decomposition import PCA
+      from sklearn.preprocessing import scale #&lt;--- this does the scaling of variables for us
+    </program>
+    <program language="python">
+      pca = PCA()
+      print(X.shape)
+      X_PC = pca.fit_transform(scale(X))
+      print(X_PC.shape)
+    </program>
+    <p>"But Professor, you said PCA was supposed to do dimension reduction, why is my feature output the same size?"</p>
+    <p>Glad you asked, young data scientist. The PCA command outputs all of the PCs, all the way up through <m>p=19</m> the original number of dimensions.</p>
+    <p>So, if I want the first three PCs, I can get them out as follows. I'll put it in a data frame just to add column labels, but you don't need to do that.</p>
+    <program language="python">
+      First3PCs = X_PC[:,:3]
+
+      pd.DataFrame(First3PCs, columns = ['Z1','Z2', 'Z3'])
+    </program>
+    <p>Now we can just do regression on the PCs like before.</p>
+    <program language="python">
+      from sklearn.linear_model import LinearRegression
+
+      regr = LinearRegression()
+      regr.fit(X_PC[:,:3], y)
+      mean_squared_error(y,regr.predict(X_PC[:,:3]))
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>My code above contains the rookie mistake of only reporting training error. Write modified code to return the 10-fold CV error of linear regression on the first 3 PCs.</p>
+              <program language="python">
+                <code>
+                  model = LinearRegression()
+                  scores = cross_val_score(
+                      model, X_pca[:, :3], y,
+                      cv=10, scoring='neg_mean_squared_error'
+                  )
+                  cv_mse = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Select the first three principal-component score columns as the regression inputs.</p>
+            </hint>
+            <hint>
+              <p>Use ten-fold cross-validation with negative MSE scoring, then negate the mean score to report a positive MSE.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not fit PCA separately to the full data before CV in a final production pipeline; preprocessing should be learned inside each fold to avoid leakage.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  i = 3
+                  allCVs = -1*cross_val_score(regr, X_PC[:,:i], y, cv=10, scoring='neg_mean_squared_error')
+                  avgCV = allCVs.mean()
+                  print(avgCV)
+
+                  # Note 'neg_mean_squared_error' returns the negative of the MSE. Otherwise, the default is to return the default score for the linear regression above, which uses R^2
+                  # See https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.score
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Take the code you figured out above to get the score for 10-fold CV on the first 3 PCs, and include it in the for-loop below to see how the MSE changes as the number of PCs you use changes.</p>
+              <program language="python">
+                <code>
+                  pc_counts = range(1, X_pca.shape[1] + 1)
+                  cv_errors = []
+                  for count in pc_counts:
+                      scores = cross_val_score(
+                          LinearRegression(), X_pca[:, :count], y,
+                          cv=10, scoring='neg_mean_squared_error'
+                      )
+                      cv_errors.append(...)
+
+                  plt.plot(pc_counts, cv_errors, marker='o')
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>For a count <m>m</m>, slice the transformed matrix to keep columns <c>:m</c> and evaluate the same regression model.</p>
+            </hint>
+            <hint>
+              <p>Store the average positive CV MSE for each count and plot it against the number of retained PCs.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Principal components must be added in variance order; selecting arbitrary later PCs does not represent PCR with the first <m>m</m> components.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # 10-fold CV, no shuffle because cross_val_score doesn't include shuffle=True internally
+                  n = len(X_PC)
+
+                  regr = LinearRegression()
+                  mse = []
+
+                  # Calculate MSE using CV for the 19 principle components, adding one component at the time.
+                  for i in np.arange(1, 20):
+                      score = -1*cross_val_score(regr, X_PC[:,:i], y.ravel(), cv=10, scoring='neg_mean_squared_error').mean()
+                      mse.append(score)
+
+
+                  # Plot results    
+                  plt.plot(np.arange(1, 20),mse, '-v')
+                  plt.xlabel('Number of principal components in regression')
+                  plt.ylabel('MSE')
+                  plt.title('Predicting Salary')
+                  plt.xlim(xmin=-1);
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on the graph you generated above, how many PCs do you think you should use?</p>
+              <p><em>Note: Based on graphs I generated, I can see a few different options for what I might decide to use for number of principal components. This is one of those cases where you potentially have a different answer and/or reasoning from your neighbor, so I enourage you to talk this one through with your group.</em></p>
+            </statement>
+            <hint>
+              <p>Identify the minimum of the CV-error curve, but also look for a simpler model whose error is nearly the same.</p>
+            </hint>
+            <hint>
+              <p>When the curve is noisy or flat, justify a reasonable range rather than claiming unsupported precision.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not choose the number of PCs from explained variance alone; PCR selects components for predicting the response, so validation error is the relevant criterion.</p>
+            </hint>
+            <answer>
+              <p>Depending on how I set the random state, either around 6 has lowest MSE, or something close to all (<m>m=</m> 16, 17, or 18). Even when the higher values have the lowest MSE, 6 is comparable enough to argue that the lower dimension is worth it.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Of the models you've built so far (Ridge, Lasso, and PCR), which would you choose to use and why?</p>
+              <p><em>Note: This goes in the no-one-right-answer bucket. Go argue with your group.</em></p>
+            </statement>
+            <hint>
+              <p>Compare the models using the same validation scheme and metric before considering interpretability or computational cost.</p>
+            </hint>
+            <hint>
+              <p>Ridge keeps all predictors, lasso can select a sparse set, and PCR regresses on unsupervised orthogonal components; connect those properties to the course goal.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not select a model only because its training error is smallest or because it is the most recently fitted; justify the choice with held-out performance and practical priorities.</p>
+            </hint>
+            <answer>
+              <p>There is no universally correct choice. Prefer the model with the best or statistically comparable cross-validated error under a common evaluation scheme. If errors are similar, lasso may be preferable for a sparse, interpretable predictor set; ridge is stable when many correlated predictors contribute; PCR is useful when a low-dimensional component representation is valuable, though its components are chosen without using the response.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec20-pcr-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+  <p>
+    
+  </p>
+  </subsection>
+</section>

@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day13" xml:id="day-13-lecture">
+    <title>Day 13</title>
+
+    <introduction>
+        <p>
+            Ch 5.1.1-3: K-fold cross-validation
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    K-fold cross-validation
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>The idea</title>
+
+        <image source="figures/CV-Kfold-subset0.png">
+            <shortdescription>
+                Diagram showing the first split in five-fold cross-validation.
+            </shortdescription>
+        </image>
+
+        <image source="figures/CV-Kfold-subset1.png">
+            <shortdescription>
+                Diagram showing the second split in five-fold cross-validation.
+            </shortdescription>
+        </image>
+
+        <image source="figures/CV-Kfold-subset2.png">
+            <shortdescription>
+                Diagram showing the third split in five-fold cross-validation.
+            </shortdescription>
+        </image>
+
+        <image source="figures/CV-Kfold-subset3.png">
+            <shortdescription>
+                Diagram showing the fourth split in five-fold cross-validation.
+            </shortdescription>
+        </image>
+
+        <image source="figures/CV-Kfold-subset4.png">
+            <shortdescription>
+                Diagram showing the fifth split in five-fold cross-validation.
+            </shortdescription>
+        </image>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        <m>K=5</m> in this example
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Randomly sort, split up into <m>K</m> subsets
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        If <m>K=n</m>, then we get LOOCV
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Mathy version</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Randomly split data into <m>k</m>-groups (folds)
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Approximately equal sized.
+                        For the sake of notation, say each set has <m>\ell</m>
+                        points
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Remove <m>i</m> th fold <m>U_i</m> and reserve for
+                        testing.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Train the model on remaining points
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Calculate
+                        <m>\mathrm{MSE}_i = \frac{1}{\ell} \sum_{(x_j,y_j)\in U_i}(y_j-\hat y_j)^2</m>
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Rinse and repeat
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            Return
+        </p>
+        <md>
+            \mathrm{CV}_{(k)} = \frac{1}{k}\sum_{i=1}^{k} \mathrm{MSE}_i
+        </md>
+    </paragraphs>
+
+    <exercise>
+        <title>By hand first!</title>
+
+        <statement>
+            <p>
+                There are 10 students in the class, and we have data points for
+                each.
+                They have already been randomly permuted below.
+                Write down the training/testing sets for a <m>3</m>-fold CV.
+            </p>
+
+            <sidebyside width="25%">
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Damien
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Alice
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Greta
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Jasmin
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Benji
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Inigo
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Frank
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Carina
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Enrique
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Hubert
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    Fold 1
+                    <ul>
+                        <li>
+                            <p>
+                                Test:
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Train:
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    Fold 2
+                    <ul>
+                        <li>
+                            <p>
+                                Test:
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Train:
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    Fold 3
+                    <ul>
+                        <li>
+                            <p>
+                                Test:
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Train:
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </sidebyside>
+        </statement>
+
+        <hint>
+            <p>
+                Divide the 10 students into three folds of approximately equal
+                size.
+                Each student belongs to exactly one test fold.
+                For each fold, use all the students in the other folds as the
+                training set.
+            </p>
+        </hint>
+
+        <hint>
+            <p>
+                One valid division is a first fold with Damien, Alice, Greta,
+                and Jasmin; a second fold with Benji, Inigo, and Frank; and a
+                third fold with Carina, Enrique, and Hubert.
+            </p>
+        </hint>
+
+        <answer>
+            <p>
+                Using the division in the second hint, the training and testing
+                sets are:
+                <ul>
+                    <li>
+                        <p>
+                            Fold 1: Test: DAGJ; Train: BIFCEH
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Fold 2: Test: BIF; Train: DAGJCEH
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Fold 3: Test: CEH; Train: DAGJBIF
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </answer>
+    </exercise>
+
+    <paragraphs>
+        <title>Pros and Cons</title>
+
+        <sidebyside>
+            <p>
+                <em>Pros:</em>
+                <ul>
+                    <li>
+                        <p>
+                            Cheaper computation with <m>k=5</m> or <m>10</m>
+                            instead of <m>n</m>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+
+            <p>
+                <em>Cons:</em>
+                <ul>
+                    <li>
+                        <p>
+                            Unlike LOOCV, there is randomness, but it has lower
+                            variability than validation
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Comparison</title>
+
+        <sidebyside width="30%">
+            <stack>
+                <p>
+                    <em>Validation Set</em>
+                </p>
+
+                <image source="figures/CV-subset0.png">
+                    <shortdescription>
+                        Diagram showing the first validation set split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-subset1.png">
+                    <shortdescription>
+                        Diagram showing the second validation set split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-subset2.png">
+                    <shortdescription>
+                        Diagram showing the third validation set split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-subset3.png">
+                    <shortdescription>
+                        Diagram showing the fourth validation set split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-subset4.png">
+                    <shortdescription>
+                        Diagram showing the fifth validation set split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/Fig5-2b.png">
+                    <shortdescription>
+                        Figure labeled validation set for comparison.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    <em>LOOCV</em>
+                </p>
+
+                <image source="figures/LOOCV-subset0.png">
+                    <shortdescription>
+                        Diagram showing the first leave-one-out cross-validation
+                        split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset1.png">
+                    <shortdescription>
+                        Diagram showing the second leave-one-out
+                        cross-validation split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset2.png">
+                    <shortdescription>
+                        Diagram showing the third leave-one-out cross-validation
+                        split.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    ⋮
+                </p>
+
+                <image source="figures/LOOCV-subset29.png">
+                    <shortdescription>
+                        Diagram showing the final leave-one-out cross-validation
+                        split.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/Fig5-4a.png">
+                    <shortdescription>
+                        Figure using the auto data example to show a fixed
+                        result with no randomness across repeated runs.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    <em>K-fold CV</em>
+                </p>
+
+                <image source="figures/CV-Kfold-subset0.png">
+                    <shortdescription>
+                        Diagram showing the first split in five-fold
+                        cross-validation.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset1.png">
+                    <shortdescription>
+                        Diagram showing the second split in five-fold
+                        cross-validation.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset2.png">
+                    <shortdescription>
+                        Diagram showing the third split in five-fold
+                        cross-validation.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset3.png">
+                    <shortdescription>
+                        Diagram showing the fourth split in five-fold
+                        cross-validation.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset4.png">
+                    <shortdescription>
+                        Diagram showing the fifth split in five-fold
+                        cross-validation.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/Fig5-4b.png">
+                    <shortdescription>
+                        Second figure from the auto data example.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Comparison with simulated data: Ex 3</title>
+
+        <sidebyside widths="33% 30% 30%">
+            <image source="figures/Fig2-11-clipped.png">
+                <shortdescription>
+                    Plot of simulated nonlinear data with fitted curves of
+                    different flexibility and corresponding error behavior.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig5-6c.png">
+                <shortdescription>
+                    Plot comparing true test MSE, LOOCV estimate, and 10-fold
+                    cross-validation estimate, showing very similar results.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Blue: true test MSE is shown in blue
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Black dashed: the LOOCV estimate
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Orange: 10-fold CV
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The crosses indicate the minimum of each of the MSE
+                            curves.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Nearly the same
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Comparison with simulated data: Ex 1</title>
+
+        <sidebyside widths="33% 32% 30%">
+            <image source="figures/Fig2-9-clipped.png">
+                <shortdescription>
+                    Plot of simulated nonlinear data with fitted curves of
+                    different flexibility and corresponding training and test
+                    error behavior.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig5-6a.png">
+                <shortdescription>
+                    Plot comparing true test MSE, LOOCV estimate, and 10-fold
+                    cross-validation estimate, showing that the cross-validation
+                    estimates underestimate the true test MSE.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Blue: true test MSE is shown in blue
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Black dashed: the LOOCV estimate
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Orange: 10-fold CV
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            The crosses indicate the minimum of each of the MSE
+                            curves.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <em>Underestimates the true test MSE</em>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Comparison with simulated data: Ex 2</title>
+
+        <sidebyside widths="33% 31% 29%">
+            <image source="figures/Fig2-10-clipped.png">
+                <shortdescription>
+                    Plot of simulated close-to-linear data with fitted curves of
+                    different flexibility and corresponding training and test
+                    error behavior.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig5-6b.png">
+                <shortdescription>
+                    Plot comparing true test MSE, LOOCV estimate, and 10-fold
+                    cross-validation estimate, showing close agreement at low
+                    flexibility and overestimation at higher flexibility.
+                </shortdescription>
+            </image>
+
+            <p>
+                Close for lower flexibility, then overestimates at higher
+                ranges.
+            </p>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Takeaways from the examples</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        In all plots, LOOCV and 10-fold CV are similar.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Sometimes we only care about the minimum point in the
+                        test MSE because we want to get the right degree of
+                        freedom for a model.
+                        All examples have approximately the same x-coordinate
+                        for that.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+</handout>

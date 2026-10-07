@@ -297,115 +297,6 @@
         </tabular>
     </paragraphs>
 
-<exercise>
-<task>
-
-<statement>
-    <p>If we use 10-fold cross-validation, what percentage of the data is used for training?</p>
-    </statement>
-    <hint>
-        <p>
-            The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
-        </p>
-    </hint>
-    <answer>
-        <p>
-            with <m>k=10</m> we have <m>\frac{k-1}{k} = \frac{9}{10} = 0.9</m>, so 90% of the data is used for training.
-        </p>
-    </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                If we use 5-fold cross-validation, what percentage of the data is used for training?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                with <m>k=5</m> we have <m>\frac{k-1}{k} = \frac{4}{5} = 0.8</m>, so 80% of the data is used for training.
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                If we use leave-one-out cross-validation, what percentage of the data is used for training?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                In LOOCV, each training set has <m>n-1</m> observations out of <m>n</m> total observations.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                with <m>k=n</m> we have <m>\frac{k-1}{k} = \frac{n-1}{n}</m>, so approximately 90% of the data is used for training when <m>n</m> is large.
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                For any two different folds in <m>k</m>-fold cross-validation, how many training sets are shared between them?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                Each training set in <m>k</m>-fold cross-validation has <m>(k-1)/k</m> of the data.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                For any two different folds in <m>k</m>-fold cross-validation, <m>(k-2)/(k-1)</m> of the training sets are shared between them.
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                For any two different folds in <m>k</m>-fold cross-validation, what is the number of overlapping samples?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                For any two different folds in <m>k</m>-fold cross-validation, <m>(k-2)/(k-1)</m> of the training sets are shared between them.
-            </p>
-        </hint>
-        <hint>
-            <p>
-                The number of overlapping samples is <m>(k-2)/(k-1)</m> times the number of samples in a training set.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                The number of overlapping samples is <m>(k-2)/(k-1)N</m>, where <m>N</m> is the number of samples in the training set.
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                What is the the percentage overlap between any two different training sets in <m>k</m>-fold cross-validation?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                Each training set in <m>k</m>-fold cross-validation has <m>(k-1)/k</m> of the data.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                The percentage overlap between any two different training sets in <m>k</m>-fold cross-validation is <m>\frac{k-2}{k-1}</m>.
-            </p>
-        </answer>
-    </task>
-</exercise>
-
     <paragraphs>
         <title>Using K-Fold CV on Polynomial Linear Regression</title>
 
@@ -445,6 +336,132 @@
             </p>
         </sidebyside>
     </paragraphs>
+
+<exercise>
+<task>
+
+<statement>
+    <p>If we use 10-fold cross-validation, what percentage of the data is used for training in each fold?</p>
+    </statement>
+    <hint>
+        <p>
+            The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
+        </p>
+    </hint>
+    <answer>
+        <p>
+            with <m>k=10</m> we have <m>\frac{k-1}{k} = \frac{9}{10} = 0.9</m>, so 90% of the data is used for training.
+        </p>
+    </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                If we use 5-fold cross-validation, what percentage of the data is used for training in each fold?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                with <m>k=5</m> we have <m>\frac{k-1}{k} = \frac{4}{5} = 0.8</m>, so 80% of the data is used for training.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                If we use leave-one-out cross-validation, what percentage of the data is used for training in each fold?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                In LOOCV, each training set has <m>n-1</m> observations out of <m>n</m> total observations.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                with <m>k=n</m> we have <m>\frac{k-1}{k} = \frac{n-1}{n}</m>, so approximately 90% of the data is used for training in each fold when <m>n</m> is large.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, how many training sets are shared between them?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                Splitting the data into <m>k</m> folds, how many of these folds do not include either of the two folds?
+            </p>
+        </hint>
+        <answer>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, there are <m>(k-2)</m> training sets that are shared between them.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, what is the number of overlapping training data points?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, there are <m>(k-2)</m> training sets that are shared between them.
+            </p>
+        </hint>
+        <hint>
+            <p>
+                The number of samples per fold is <m>N/k</m>, where <m>N</m> is the number of samples in the training set.
+            </p>
+        </hint>
+        <hint>
+            <p>
+                Knowing the number of shared training sets, and the number of samples per fold, we can calculate the number of overlapping training data points.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                The number of overlapping samples is <m>(k-2) \times N/k</m>, where <m>N</m> is the number of samples in the training set.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                What is the the percentage overlap between any two different training sets in <m>k</m>-fold cross-validation?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                Any two folds share <m>(k-2)</m> training sets, which is <md>(k-2)/k</md> of the data. 
+            </p>
+        </hint>
+        <hint>
+            <p>
+                The size of the training set in each fold is <m>(k-1)/k</m> of the total data. 
+            </p>
+        </hint>
+        <hint>
+            <p>
+                The percentage overlap is the ratio of the number of overlapping samples to the size of the training set.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                The percentage overlap between any two different training sets in <m>k</m>-fold cross-validation is <m>\frac{k-2}{k-1}</m>.
+            </p>
+        </answer>
+    </task>
+</exercise>
+
+
     <!-- <paragraphs>
         <title>Using Linear Regression for fitting polynomial models</title>
 

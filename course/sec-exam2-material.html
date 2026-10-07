@@ -1213,175 +1213,201 @@ E(y_0 - \hat{f}(x_0))^2
 </table></div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: In short: Validation vs LOOCV vs k-Fold CV"><a tabindex="-1" href="#day-14-lecture-6" title="Copy heading and permalink for Paragraphs: In short: Validation vs LOOCV vs k-Fold CV" aria-label="Copy heading and permalink for Paragraphs: In short: Validation vs LOOCV vs k-Fold CV">🔗</a></div>
 </section>
-<details id="day-14-lecture-7" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
-<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">84</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
-</h3></summary>
-<article class="exercise exercise-like knowl__content">
-<article class="task exercise-like" id="day-14-lecture-7-1"><h4 class="heading"><span class="codenumber">(a)</span></h4>
-<div class="para" id="day-14-lecture-7-1-1-1">If we use 10-fold cross-validation, what percentage of the data is used for training?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-1-2-1">The model is trained on <span class="process-math">\((k-1)/k\)</span> of the data, where <span class="process-math">\(k\)</span> is the number of folds.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.a.1"><a tabindex="-1" href="#day-14-lecture-7-1-2" title="Copy heading and permalink for Hint 84.a.1" aria-label="Copy heading and permalink for Hint 84.a.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-1-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-1-3-1">with <span class="process-math">\(k=10\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{9}{10} = 0.9\text{,}\)</span> so 90% of the data is used for training.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.a.1"><a tabindex="-1" href="#day-14-lecture-7-1-3" title="Copy heading and permalink for Answer 84.a.1" aria-label="Copy heading and permalink for Answer 84.a.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.a"><a tabindex="-1" href="#day-14-lecture-7-1" title="Copy heading and permalink for Task 84.a" aria-label="Copy heading and permalink for Task 84.a">🔗</a></div>
-</article>
-<article class="task exercise-like" id="day-14-lecture-7-2"><h4 class="heading"><span class="codenumber">(b)</span></h4>
-<div class="para" id="day-14-lecture-7-2-1-1">If we use 5-fold cross-validation, what percentage of the data is used for training?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-2-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-2-2-1">The model is trained on <span class="process-math">\((k-1)/k\)</span> of the data, where <span class="process-math">\(k\)</span> is the number of folds.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.b.1"><a tabindex="-1" href="#day-14-lecture-7-2-2" title="Copy heading and permalink for Hint 84.b.1" aria-label="Copy heading and permalink for Hint 84.b.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-2-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-2-3-1">with <span class="process-math">\(k=5\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{4}{5} = 0.8\text{,}\)</span> so 80% of the data is used for training.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.b.1"><a tabindex="-1" href="#day-14-lecture-7-2-3" title="Copy heading and permalink for Answer 84.b.1" aria-label="Copy heading and permalink for Answer 84.b.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.b"><a tabindex="-1" href="#day-14-lecture-7-2" title="Copy heading and permalink for Task 84.b" aria-label="Copy heading and permalink for Task 84.b">🔗</a></div>
-</article>
-<article class="task exercise-like" id="day-14-lecture-7-3"><h4 class="heading"><span class="codenumber">(c)</span></h4>
-<div class="para" id="day-14-lecture-7-3-1-1">If we use leave-one-out cross-validation, what percentage of the data is used for training?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-3-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-3-2-1">In LOOCV, each training set has <span class="process-math">\(n-1\)</span> observations out of <span class="process-math">\(n\)</span> total observations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.c.1"><a tabindex="-1" href="#day-14-lecture-7-3-2" title="Copy heading and permalink for Hint 84.c.1" aria-label="Copy heading and permalink for Hint 84.c.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-3-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-3-3-1">with <span class="process-math">\(k=n\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{n-1}{n}\text{,}\)</span> so approximately 90% of the data is used for training when <span class="process-math">\(n\)</span> is large.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.c.1"><a tabindex="-1" href="#day-14-lecture-7-3-3" title="Copy heading and permalink for Answer 84.c.1" aria-label="Copy heading and permalink for Answer 84.c.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.c"><a tabindex="-1" href="#day-14-lecture-7-3" title="Copy heading and permalink for Task 84.c" aria-label="Copy heading and permalink for Task 84.c">🔗</a></div>
-</article>
-<article class="task exercise-like" id="day-14-lecture-7-4"><h4 class="heading"><span class="codenumber">(d)</span></h4>
-<div class="para" id="day-14-lecture-7-4-1-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, how many training sets are shared between them?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-4-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-4-2-1">Each training set in <span class="process-math">\(k\)</span>-fold cross-validation has <span class="process-math">\((k-1)/k\)</span> of the data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.d.1"><a tabindex="-1" href="#day-14-lecture-7-4-2" title="Copy heading and permalink for Hint 84.d.1" aria-label="Copy heading and permalink for Hint 84.d.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-4-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-4-3-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, <span class="process-math">\((k-2)/(k-1)\)</span> of the training sets are shared between them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.d.1"><a tabindex="-1" href="#day-14-lecture-7-4-3" title="Copy heading and permalink for Answer 84.d.1" aria-label="Copy heading and permalink for Answer 84.d.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.d"><a tabindex="-1" href="#day-14-lecture-7-4" title="Copy heading and permalink for Task 84.d" aria-label="Copy heading and permalink for Task 84.d">🔗</a></div>
-</article>
-<article class="task exercise-like" id="day-14-lecture-7-5"><h4 class="heading"><span class="codenumber">(e)</span></h4>
-<div class="para" id="day-14-lecture-7-5-1-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, what is the number of overlapping samples?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-5-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-5-2-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, <span class="process-math">\((k-2)/(k-1)\)</span> of the training sets are shared between them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.e.1"><a tabindex="-1" href="#day-14-lecture-7-5-2" title="Copy heading and permalink for Hint 84.e.1" aria-label="Copy heading and permalink for Hint 84.e.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-5-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-5-3-1">The number of overlapping samples is <span class="process-math">\((k-2)/(k-1)\)</span> times the number of samples in a training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.e.2"><a tabindex="-1" href="#day-14-lecture-7-5-3" title="Copy heading and permalink for Hint 84.e.2" aria-label="Copy heading and permalink for Hint 84.e.2">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-5-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-5-4-1">The number of overlapping samples is <span class="process-math">\((k-2)/(k-1)N\text{,}\)</span> where <span class="process-math">\(N\)</span> is the number of samples in the training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-5-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.e.1"><a tabindex="-1" href="#day-14-lecture-7-5-4" title="Copy heading and permalink for Answer 84.e.1" aria-label="Copy heading and permalink for Answer 84.e.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.e"><a tabindex="-1" href="#day-14-lecture-7-5" title="Copy heading and permalink for Task 84.e" aria-label="Copy heading and permalink for Task 84.e">🔗</a></div>
-</article>
-<article class="task exercise-like" id="day-14-lecture-7-6"><h4 class="heading"><span class="codenumber">(f)</span></h4>
-<div class="para" id="day-14-lecture-7-6-1-1">What is the the percentage overlap between any two different training sets in <span class="process-math">\(k\)</span>-fold cross-validation?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="solutions">
-<details id="day-14-lecture-7-6-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="hint solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-6-2-1">Each training set in <span class="process-math">\(k\)</span>-fold cross-validation has <span class="process-math">\((k-1)/k\)</span> of the data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Hint 84.f.1"><a tabindex="-1" href="#day-14-lecture-7-6-2" title="Copy heading and permalink for Hint 84.f.1" aria-label="Copy heading and permalink for Hint 84.f.1">🔗</a></div>
-</div></details>
-<details id="day-14-lecture-7-6-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
-<div class="answer solution-like knowl__content">
-<div class="para" id="day-14-lecture-7-6-3-1">The percentage overlap between any two different training sets in <span class="process-math">\(k\)</span>-fold cross-validation is <span class="process-math">\(\frac{k-2}{k-1}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Answer 84.f.1"><a tabindex="-1" href="#day-14-lecture-7-6-3" title="Copy heading and permalink for Answer 84.f.1" aria-label="Copy heading and permalink for Answer 84.f.1">🔗</a></div>
-</div></details>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Task 84.f"><a tabindex="-1" href="#day-14-lecture-7-6" title="Copy heading and permalink for Task 84.f" aria-label="Copy heading and permalink for Task 84.f">🔗</a></div>
-</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 84"><a tabindex="-1" href="#day-14-lecture-7" title="Copy heading and permalink for Checkpoint 84" aria-label="Copy heading and permalink for Checkpoint 84">🔗</a></div>
-</article></details>
-<section class="paragraphs" id="day-14-lecture-8"><h3 class="heading"><span class="title">Using K-Fold CV on Polynomial Linear Regression.</span></h3>
-<div class="para" id="day-14-lecture-8-2">Polynomial regression<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<section class="paragraphs" id="day-14-lecture-7"><h3 class="heading"><span class="title">Using K-Fold CV on Polynomial Linear Regression.</span></h3>
+<div class="para" id="day-14-lecture-7-2">Polynomial regression<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-14-lecture-8-3-1">
+<div class="para logical" id="day-14-lecture-7-3-1">
 <div class="para">Replace the linear model</div>
-<div class="displaymath process-math" id="day-14-lecture-8-3-1-1">
+<div class="displaymath process-math" id="day-14-lecture-7-3-1-1">
 \begin{equation*}
 y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 \end{equation*}
 </div>
 <div class="para">with</div>
-<div class="displaymath process-math" id="day-14-lecture-8-3-1-2">
+<div class="displaymath process-math" id="day-14-lecture-7-3-1-2">
 \begin{equation*}
 y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2
 + \cdots + \beta_d x_i^d + \epsilon_i
 \end{equation*}
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-14-lecture-8-3-2">
-<ul class="disc" id="day-14-lecture-8-3-2-1">
-<li id="day-14-lecture-8-3-2-1-1">
-<div class="para" id="day-14-lecture-8-3-2-1-1-1">These models can be fit with linear regression by passing in predictors <span class="process-math">\(x_i^\ell\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-14-lecture-7-3-2">
+<ul class="disc" id="day-14-lecture-7-3-2-1">
+<li id="day-14-lecture-7-3-2-1-1">
+<div class="para" id="day-14-lecture-7-3-2-1-1-1">These models can be fit with linear regression by passing in predictors <span class="process-math">\(x_i^\ell\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-14-lecture-8-3-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-14-lecture-7-3-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-14-lecture-8-3-2-1-2">
-<div class="para" id="day-14-lecture-8-3-2-1-2-1">We tend not to go higher than degree 3 or 4 because the model can become overly flexible.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-14-lecture-7-3-2-1-2">
+<div class="para" id="day-14-lecture-7-3-2-1-2-1">We tend not to go higher than degree 3 or 4 because the model can become overly flexible.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-14-lecture-8-3-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-14-lecture-7-3-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-7-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Using K-Fold CV on Polynomial Linear Regression"><a tabindex="-1" href="#day-14-lecture-8" title="Copy heading and permalink for Paragraphs: Using K-Fold CV on Polynomial Linear Regression" aria-label="Copy heading and permalink for Paragraphs: Using K-Fold CV on Polynomial Linear Regression">🔗</a></div>
-</section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 14"><a tabindex="-1" href="#day-14-lecture" title="Copy heading and permalink for Handout: Day 14" aria-label="Copy heading and permalink for Handout: Day 14">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Using K-Fold CV on Polynomial Linear Regression"><a tabindex="-1" href="#day-14-lecture-7" title="Copy heading and permalink for Paragraphs: Using K-Fold CV on Polynomial Linear Regression" aria-label="Copy heading and permalink for Paragraphs: Using K-Fold CV on Polynomial Linear Regression">🔗</a></div>
+</section>
+<details id="day-14-lecture-8" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">84</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h3></summary>
+<article class="exercise exercise-like knowl__content">
+<article class="task exercise-like" id="day-14-lecture-8-1"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-14-lecture-8-1-1-1">If we use 10-fold cross-validation, what percentage of the data is used for training in each fold?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-1-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-1-2-1">The model is trained on <span class="process-math">\((k-1)/k\)</span> of the data, where <span class="process-math">\(k\)</span> is the number of folds.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.a.1"><a tabindex="-1" href="#day-14-lecture-8-1-2" title="Copy heading and permalink for Hint 84.a.1" aria-label="Copy heading and permalink for Hint 84.a.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-1-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-1-3-1">with <span class="process-math">\(k=10\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{9}{10} = 0.9\text{,}\)</span> so 90% of the data is used for training.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.a.1"><a tabindex="-1" href="#day-14-lecture-8-1-3" title="Copy heading and permalink for Answer 84.a.1" aria-label="Copy heading and permalink for Answer 84.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.a"><a tabindex="-1" href="#day-14-lecture-8-1" title="Copy heading and permalink for Task 84.a" aria-label="Copy heading and permalink for Task 84.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-14-lecture-8-2"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-14-lecture-8-2-1-1">If we use 5-fold cross-validation, what percentage of the data is used for training in each fold?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-2-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-2-2-1">The model is trained on <span class="process-math">\((k-1)/k\)</span> of the data, where <span class="process-math">\(k\)</span> is the number of folds.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.b.1"><a tabindex="-1" href="#day-14-lecture-8-2-2" title="Copy heading and permalink for Hint 84.b.1" aria-label="Copy heading and permalink for Hint 84.b.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-2-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-2-3-1">with <span class="process-math">\(k=5\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{4}{5} = 0.8\text{,}\)</span> so 80% of the data is used for training.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.b.1"><a tabindex="-1" href="#day-14-lecture-8-2-3" title="Copy heading and permalink for Answer 84.b.1" aria-label="Copy heading and permalink for Answer 84.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.b"><a tabindex="-1" href="#day-14-lecture-8-2" title="Copy heading and permalink for Task 84.b" aria-label="Copy heading and permalink for Task 84.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-14-lecture-8-3"><h4 class="heading"><span class="codenumber">(c)</span></h4>
+<div class="para" id="day-14-lecture-8-3-1-1">If we use leave-one-out cross-validation, what percentage of the data is used for training in each fold?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-3-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-3-2-1">In LOOCV, each training set has <span class="process-math">\(n-1\)</span> observations out of <span class="process-math">\(n\)</span> total observations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.c.1"><a tabindex="-1" href="#day-14-lecture-8-3-2" title="Copy heading and permalink for Hint 84.c.1" aria-label="Copy heading and permalink for Hint 84.c.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-3-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-3-3-1">with <span class="process-math">\(k=n\)</span> we have <span class="process-math">\(\frac{k-1}{k} = \frac{n-1}{n}\text{,}\)</span> so approximately 90% of the data is used for training in each fold when <span class="process-math">\(n\)</span> is large.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.c.1"><a tabindex="-1" href="#day-14-lecture-8-3-3" title="Copy heading and permalink for Answer 84.c.1" aria-label="Copy heading and permalink for Answer 84.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.c"><a tabindex="-1" href="#day-14-lecture-8-3" title="Copy heading and permalink for Task 84.c" aria-label="Copy heading and permalink for Task 84.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-14-lecture-8-4"><h4 class="heading"><span class="codenumber">(d)</span></h4>
+<div class="para" id="day-14-lecture-8-4-1-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, how many training sets are shared between them?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-4-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-4-2-1">Splitting the data into <span class="process-math">\(k\)</span> folds, how many of these folds do not include either of the two folds?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.d.1"><a tabindex="-1" href="#day-14-lecture-8-4-2" title="Copy heading and permalink for Hint 84.d.1" aria-label="Copy heading and permalink for Hint 84.d.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-4-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-4-3-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, there are <span class="process-math">\((k-2)\)</span> training sets that are shared between them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.d.1"><a tabindex="-1" href="#day-14-lecture-8-4-3" title="Copy heading and permalink for Answer 84.d.1" aria-label="Copy heading and permalink for Answer 84.d.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.d"><a tabindex="-1" href="#day-14-lecture-8-4" title="Copy heading and permalink for Task 84.d" aria-label="Copy heading and permalink for Task 84.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-14-lecture-8-5"><h4 class="heading"><span class="codenumber">(e)</span></h4>
+<div class="para" id="day-14-lecture-8-5-1-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, what is the number of overlapping training data points?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-5-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-5-2-1">For any two different folds in <span class="process-math">\(k\)</span>-fold cross-validation, there are <span class="process-math">\((k-2)\)</span> training sets that are shared between them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.e.1"><a tabindex="-1" href="#day-14-lecture-8-5-2" title="Copy heading and permalink for Hint 84.e.1" aria-label="Copy heading and permalink for Hint 84.e.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-5-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-5-3-1">The number of samples per fold is <span class="process-math">\(N/k\text{,}\)</span> where <span class="process-math">\(N\)</span> is the number of samples in the training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.e.2"><a tabindex="-1" href="#day-14-lecture-8-5-3" title="Copy heading and permalink for Hint 84.e.2" aria-label="Copy heading and permalink for Hint 84.e.2">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-5-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-5-4-1">Knowing the number of shared training sets, and the number of samples per fold, we can calculate the number of overlapping training data points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-5-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.e.3"><a tabindex="-1" href="#day-14-lecture-8-5-4" title="Copy heading and permalink for Hint 84.e.3" aria-label="Copy heading and permalink for Hint 84.e.3">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-5-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-5-5-1">The number of overlapping samples is <span class="process-math">\((k-2) \times N/k\text{,}\)</span> where <span class="process-math">\(N\)</span> is the number of samples in the training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-5-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.e.1"><a tabindex="-1" href="#day-14-lecture-8-5-5" title="Copy heading and permalink for Answer 84.e.1" aria-label="Copy heading and permalink for Answer 84.e.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.e"><a tabindex="-1" href="#day-14-lecture-8-5" title="Copy heading and permalink for Task 84.e" aria-label="Copy heading and permalink for Task 84.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-14-lecture-8-6"><h4 class="heading"><span class="codenumber">(f)</span></h4>
+<div class="para" id="day-14-lecture-8-6-1-1">What is the the percentage overlap between any two different training sets in <span class="process-math">\(k\)</span>-fold cross-validation?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-14-lecture-8-6-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para logical" id="day-14-lecture-8-6-2-1">
+<div class="para">Any two folds share <span class="process-math">\((k-2)\)</span> training sets, which is</div>
+<div class="displaymath process-math" id="day-14-lecture-8-6-2-1-2">
+\begin{equation*}
+(k-2)/k
+\end{equation*}
+</div>
+<div class="para">of the data.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.f.1"><a tabindex="-1" href="#day-14-lecture-8-6-2" title="Copy heading and permalink for Hint 84.f.1" aria-label="Copy heading and permalink for Hint 84.f.1">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-6-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-6-3-1">The size of the training set in each fold is <span class="process-math">\((k-1)/k\)</span> of the total data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.f.2"><a tabindex="-1" href="#day-14-lecture-8-6-3" title="Copy heading and permalink for Hint 84.f.2" aria-label="Copy heading and permalink for Hint 84.f.2">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-6-4" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-6-4-1">The percentage overlap is the ratio of the number of overlapping samples to the size of the training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-6-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 84.f.3"><a tabindex="-1" href="#day-14-lecture-8-6-4" title="Copy heading and permalink for Hint 84.f.3" aria-label="Copy heading and permalink for Hint 84.f.3">🔗</a></div>
+</div></details>
+<details id="day-14-lecture-8-6-5" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-14-lecture-8-6-5-1">The percentage overlap between any two different training sets in <span class="process-math">\(k\)</span>-fold cross-validation is <span class="process-math">\(\frac{k-2}{k-1}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-14-lecture-8-6-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 84.f.1"><a tabindex="-1" href="#day-14-lecture-8-6-5" title="Copy heading and permalink for Answer 84.f.1" aria-label="Copy heading and permalink for Answer 84.f.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 84.f"><a tabindex="-1" href="#day-14-lecture-8-6" title="Copy heading and permalink for Task 84.f" aria-label="Copy heading and permalink for Task 84.f">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 84"><a tabindex="-1" href="#day-14-lecture-8" title="Copy heading and permalink for Checkpoint 84" aria-label="Copy heading and permalink for Checkpoint 84">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 14"><a tabindex="-1" href="#day-14-lecture" title="Copy heading and permalink for Handout: Day 14" aria-label="Copy heading and permalink for Handout: Day 14">🔗</a></div>
 </section>
 <section class="handout" id="day-15-lecture" data-margins="0.75in 0.75in 0.75in 0.75in">
 <h2 class="heading hide-type">

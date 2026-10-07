@@ -1036,6 +1036,69 @@ var ptx_lunr_docs = [
   "body": "   If you still have some time, try the following:    see if you can figure out the test errors for everything through a degree 10 polynomial.    What happens to the graph if you mess around with the coefficients of the original polynomial that we used to generate the data set?     degrees = range(1, 11) # Reuse the cross-validation loop from the previous exercise. ...     Extend the same loop through degree 10; no new cross-validation method is required.    Changing the data-generating coefficients changes signal shape and can move the validation-error minimum to a different degree.    Common error: A lower training error at a very high degree is not evidence of better generalization; use the held-out fold errors.    The exact graph depends on the simulated data and folds. Extending to degree 10 typically shows training error continuing to fall while validation error eventually rises or becomes unstable. Changing the generating polynomial changes which degrees contain useful signal, so the CV-selected degree can shift.    "
 },
 {
+  "id": "cmse381-lec15-kfold-classification-worksheet",
+  "level": "1",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 15 Worksheet",
+  "body": " Day 15 Worksheet   # Everyone's favorite standard imports import numpy as np import pandas as pd import matplotlib.pyplot as plt import seaborn as sns %matplotlib inline from sklearn.linear_model import LinearRegression,LogisticRegression from sklearn.metrics import mean_squared_error from sklearn.model_selection import KFold    1. CV for a classification data set   Palmer Penguins. Artwork by @allison_horst.   Palmer Penguins Picture    For this lab, we are going to use the Palmer Penguins data set by Allison Horst, Alison Hill, and Kristen Gorman. This data set was originally posted in R, but has helpfully been loaded as an easily readable python data set by installing the palmerpenguins package using pip .  # You should only have to do this once: %pip install palmerpenguins  # If it worked, this should load our dataset from palmerpenguins import load_penguins penguins = load_penguins() penguins.head()  Our next favorite thing to do with any data set is to start trying to visualize relationships between the variables.  sns.pairplot(penguins)  #Here is another nice visualization taken from the palmerpenguins github g = sns.lmplot(x=\"flipper_length_mm\", y=\"body_mass_g\", hue=\"species\", height=7, data=penguins, palette=['#FF8C00','#159090','#A034F0']) g.set_xlabels('Flipper Length') g.set_ylabels('Body Mass')   Exercises   Practice   Complete the following exercises.      As always, when playing with a new data set, your first job is to just get a feel for what's in the data. We're going to use this data to predict species of the penguin given the other information.  ✅ Questions:      How many penguins are in the data set?    What are the input variables?    What are the possible values of the output variable?    Which are categorical varaibales? Which are quantitative?    Are there any lines with missing data? How is missing data represented in this data set?       Use penguins.shape , penguins.columns , penguins.dtypes , and penguins.isna().sum() to answer the structural questions.    Use penguins.species.unique() for output classes and distinguish string-valued categories from numerical measurements.     Common error:  species is the response, not an input variable, and missing values represented as NaN should not be mistaken for an additional category.    The raw data contain 344 penguins. The response is species , with levels Adelie, Chinstrap, and Gentoo. Inputs are island , four body measurements, sex , and year ; island and sex are categorical, while the measurements and year are numeric. Several rows contain NaN missing values.        Spoiler alert, there are penguins with missing data. Replace the penguins dataframe with one where you have removed all those lines. ( Hint: this should be a one line operation )   penguins = penguins.... print(penguins.shape)     Pandas provides dropna() to remove rows containing at least one missing value.    Assign the returned DataFrame back to penguins , then verify that the row count decreases to 333.     Common error: Calling penguins.dropna() without assignment does not modify the original DataFrame unless inplace=True is explicitly used.     penguins = penguins.dropna() print(penguins.shape) penguins.head()         Build the feature DataFrame X from the cleaned penguin data. Exclude species , and replace the categorical island and sex columns with dummy variables.   X = pd.get_dummies( penguins.drop(..., axis=1), columns=[...], drop_first=True ) X.head()     Drop the response column before encoding so species does not leak into the inputs.    Pass columns=['island', 'sex'] to pd.get_dummies ; drop_first=True uses reference coding.     Common error: Do not create dummy variables for the response and then leave them in X ; that would reveal the correct class to the model.     # The fast version!!!! X = pd.get_dummies(penguins.drop('species', axis = 1), columns = ['island','sex'],drop_first=True) X.head()         Save an pandas series of the entries in penguins.species as .   y = penguins[...] y.head()     Select the species column with a single pair of brackets to obtain a Series.    Check that len(y) == len(X) and that the indices align after dropping missing rows.     Common error: Double brackets create a one-column DataFrame; the exercise specifically asks for a Series.     y = penguins.species y          Step 2: Run logistic regression  Ok, you have your penguins data with input variables as X and we are going to predict penguins.species . While scikitlearn cannot handle input variables that are categorical (hence why we had to put in our dummy variables ourselves), it's find with a predictor variable that is. The following code will fit a logistic regression on the whole data set. Of course, you know better than to actually do this to return your results, so in a moment we will be modifying this to get -fold CV test errors.  logisticmodel = LogisticRegression(max_iter = 1400) # Note, I needed to up the interations # to get rid of a convergence warning logisticmodel.fit(X, y)  Also here's some helpful code to remember how to get accuracy\/error rates out of classification modules in scikitlearn .  # and now we can also get the error rate on the training set. from sklearn.metrics import accuracy_score yhat = logisticmodel.predict(X) accuracy = accuracy_score(yhat, y) # Note that accuracy is the percentage correct print('Accuracy:', accuracy) # so the percentage incorrect is print('Error:', 1-accuracy) # We can get the same info directly from the original model print('\\nAccuracy version 2:', logisticmodel.score(X,y))    Exercises   Practice   Complete the following exercises.      Ok, your job, should you choose to accept it, is to     Train a model predicing species from all the input variables using logistic regression.    Use -fold cross validation to determine the test error. I would recommend using something like to start building your code, but you can up it to when you want to see better results.     Hint: while I was building my version, I had to set the max_iter for Logistic regression pretty high to get the model to converge. However, my error results were still pretty reasonable with lower max_iter , ignoring the massive amount of pink warning boxes. Feel free to mess around with this parameter to see how it affects your output.       model = make_pipeline( StandardScaler(), LogisticRegression(max_iter=3000) ) cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=...) accuracy_scores = cross_val_score(model, X, y, cv=cv) test_error = ...     Use stratified folds so each fold preserves the approximate species proportions.     cross_val_score returns accuracy for a classifier by default; average the scores and subtract from 1 to report test error.     Common error: Do not reuse regression scoring such as neg_mean_squared_error for categorical species labels; use classification accuracy or an explicitly chosen classification metric.    A five-fold estimate gives accuracy near 0.99 for this data, so the estimated classification error is roughly 1%; the exact number varies with the shuffled folds. Scaling the numeric features and increasing max_iter makes convergence more reliable.   from sklearn.model_selection import StratifiedKFold, cross_val_score from sklearn.pipeline import make_pipeline from sklearn.preprocessing import StandardScaler model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=3000)) cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=381) accuracy_scores = cross_val_score(model, X, y, cv=cv) print('CV accuracy:', accuracy_scores.mean()) print('CV test error:', 1 - accuracy_scores.mean())          Congratulations, we're done!    "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-2",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-2",
+  "type": "Figure",
+  "number": "14",
+  "title": "",
+  "body": " Palmer Penguins. Artwork by @allison_horst.   Palmer Penguins Picture   "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-3",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   As always, when playing with a new data set, your first job is to just get a feel for what's in the data. We're going to use this data to predict species of the penguin given the other information.  ✅ Questions:      How many penguins are in the data set?    What are the input variables?    What are the possible values of the output variable?    Which are categorical varaibales? Which are quantitative?    Are there any lines with missing data? How is missing data represented in this data set?       Use penguins.shape , penguins.columns , penguins.dtypes , and penguins.isna().sum() to answer the structural questions.    Use penguins.species.unique() for output classes and distinguish string-valued categories from numerical measurements.     Common error:  species is the response, not an input variable, and missing values represented as NaN should not be mistaken for an additional category.    The raw data contain 344 penguins. The response is species , with levels Adelie, Chinstrap, and Gentoo. Inputs are island , four body measurements, sex , and year ; island and sex are categorical, while the measurements and year are numeric. Several rows contain NaN missing values.    "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-4",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-4",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": "   Spoiler alert, there are penguins with missing data. Replace the penguins dataframe with one where you have removed all those lines. ( Hint: this should be a one line operation )   penguins = penguins.... print(penguins.shape)     Pandas provides dropna() to remove rows containing at least one missing value.    Assign the returned DataFrame back to penguins , then verify that the row count decreases to 333.     Common error: Calling penguins.dropna() without assignment does not modify the original DataFrame unless inplace=True is explicitly used.     penguins = penguins.dropna() print(penguins.shape) penguins.head()     "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-5",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-5",
+  "type": "Exercise",
+  "number": "3",
+  "title": "",
+  "body": "   Build the feature DataFrame X from the cleaned penguin data. Exclude species , and replace the categorical island and sex columns with dummy variables.   X = pd.get_dummies( penguins.drop(..., axis=1), columns=[...], drop_first=True ) X.head()     Drop the response column before encoding so species does not leak into the inputs.    Pass columns=['island', 'sex'] to pd.get_dummies ; drop_first=True uses reference coding.     Common error: Do not create dummy variables for the response and then leave them in X ; that would reveal the correct class to the model.     # The fast version!!!! X = pd.get_dummies(penguins.drop('species', axis = 1), columns = ['island','sex'],drop_first=True) X.head()     "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-6",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set-9-2-6",
+  "type": "Exercise",
+  "number": "4",
+  "title": "",
+  "body": "   Save an pandas series of the entries in penguins.species as .   y = penguins[...] y.head()     Select the species column with a single pair of brackets to obtain a Series.    Check that len(y) == len(X) and that the indices align after dropping missing rows.     Common error: Double brackets create a one-column DataFrame; the exercise specifically asks for a Series.     y = penguins.species y     "
+},
+{
+  "id": "cmse381-lec15-kfold-classification-worksheet-step-2-run-logistic-regression-6-2-3",
+  "level": "2",
+  "url": "cmse381-lec15-kfold-classification-worksheet.html#cmse381-lec15-kfold-classification-worksheet-step-2-run-logistic-regression-6-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   Ok, your job, should you choose to accept it, is to     Train a model predicing species from all the input variables using logistic regression.    Use -fold cross validation to determine the test error. I would recommend using something like to start building your code, but you can up it to when you want to see better results.     Hint: while I was building my version, I had to set the max_iter for Logistic regression pretty high to get the model to converge. However, my error results were still pretty reasonable with lower max_iter , ignoring the massive amount of pink warning boxes. Feel free to mess around with this parameter to see how it affects your output.       model = make_pipeline( StandardScaler(), LogisticRegression(max_iter=3000) ) cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=...) accuracy_scores = cross_val_score(model, X, y, cv=cv) test_error = ...     Use stratified folds so each fold preserves the approximate species proportions.     cross_val_score returns accuracy for a classifier by default; average the scores and subtract from 1 to report test error.     Common error: Do not reuse regression scoring such as neg_mean_squared_error for categorical species labels; use classification accuracy or an explicitly chosen classification metric.    A five-fold estimate gives accuracy near 0.99 for this data, so the estimated classification error is roughly 1%; the exact number varies with the shuffled folds. Scaling the numeric features and increasing max_iter makes convergence more reliable.   from sklearn.model_selection import StratifiedKFold, cross_val_score from sklearn.pipeline import make_pipeline from sklearn.preprocessing import StandardScaler model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=3000)) cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=381) accuracy_scores = cross_val_score(model, X, y, cv=cv) print('CV accuracy:', accuracy_scores.mean()) print('CV test error:', 1 - accuracy_scores.mean())     "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
@@ -1049,7 +1112,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "14",
+  "number": "15",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
@@ -1058,7 +1121,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "15",
+  "number": "16",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
@@ -1067,7 +1130,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "16",
+  "number": "17",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
@@ -1076,7 +1139,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "17",
+  "number": "18",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
@@ -1094,7 +1157,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "18",
+  "number": "19",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
@@ -1103,7 +1166,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "19",
+  "number": "20",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
@@ -1112,7 +1175,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "21",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
@@ -1121,7 +1184,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "22",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1130,7 +1193,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
-  "number": "22",
+  "number": "23",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1139,7 +1202,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW3",
   "type": "Checkpoint",
-  "number": "23",
+  "number": "24",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1166,7 +1229,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "24",
+  "number": "25",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
@@ -1175,7 +1238,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "25",
+  "number": "26",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
@@ -1184,7 +1247,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "26",
+  "number": "27",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
@@ -1193,7 +1256,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "27",
+  "number": "28",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
@@ -1202,7 +1265,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "28",
+  "number": "29",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
@@ -1211,7 +1274,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "29",
+  "number": "30",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons    Easier to estimate parameters than to figure out a completely arbitrary function  You might have chosen the wrong function type    "
 },
@@ -1283,7 +1346,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-stat-review-5-9",
   "type": "Example",
-  "number": "30",
+  "number": "31",
   "title": "Portland cement formulation experiment.",
   "body": " Portland cement formulation experiment   Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)  Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding -statistic.  Choosing , we would reject if , or if . Do we reject in this case? What is the corresponding conclusion?   Tension strength for modified and unmodified mortar samples.     Modified mortar  Unmodified mortar    1  16.85  16.62    2  16.40  16.75    3  17.21  17.37    4  16.35  17.12    5  16.52  16.98    6  17.04  16.87    7  16.96  17.34    8  17.15  17.02    9  16.59  17.08    10  16.57  17.27      mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.    Modified mortar  Unmodified mortar                            The test hypotheses are     so . The test statistic is   Because , reject and conclude that the mean tension bond strengths of the two formulations are different.    Rejection region for the Portland Mortar data set.   Portland mortar example, rejection region.    "
 },
@@ -1301,7 +1364,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-stat-review-6-4",
   "type": "Table",
-  "number": "34",
+  "number": "35",
   "title": "",
   "body": "   -value  Evidence     Very strong evidence against     Strong evidence against     Weak evidence against     Little or no evidence against    "
 },
@@ -1310,7 +1373,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#p-value-reject",
   "type": "Figure",
-  "number": "35",
+  "number": "36",
   "title": "",
   "body": "  Rejection criteria using a set p-value shown as a horizontal function with two levels: accept and reject with the transition occurring at the p value.   "
 },
@@ -1319,7 +1382,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#confidence-interval-interpretation",
   "type": "Figure",
-  "number": "36",
+  "number": "37",
   "title": "",
   "body": "  Eleven realizations of the confidence interval on separate lines and one vertical line showing the true mean mu.   Interpretation of the confidence interval.  "
 },
@@ -1328,7 +1391,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1",
   "type": "Note",
-  "number": "37",
+  "number": "38",
   "title": "",
   "body": " (underestimation)  "
 },
@@ -1337,7 +1400,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-1",
   "type": "Figure",
-  "number": "38",
+  "number": "39",
   "title": "",
   "body": "  Scatter plot of simulated data with linear relationship plus noise with overalid true line relationship and least squares linear fit.   "
 },
@@ -1346,7 +1409,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-2",
   "type": "Figure",
-  "number": "39",
+  "number": "40",
   "title": "",
   "body": "  10 linear fits for the same data with 10 different noise realizations.   "
 },
@@ -1355,7 +1418,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-4-3",
   "type": "Note",
-  "number": "40",
+  "number": "41",
   "title": "Standard error versus standard variation.",
   "body": " Standard error versus standard variation  Standard deviation measures the amount of spread in a sample from the mean.  Standard error measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).  "
 },
@@ -1364,7 +1427,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-2-1-4",
   "type": "Note",
-  "number": "41",
+  "number": "42",
   "title": "",
   "body": " The same form works for .  "
 },
@@ -1382,7 +1445,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-3",
   "type": "Example",
-  "number": "42",
+  "number": "43",
   "title": "CI in Advertising Data.",
   "body": " CI in Advertising Data     scatter plot with linear fit and residuals     For the advertising data set, the confidence intervals are:         First line through and .    Second line through and .             "
 },
@@ -1391,7 +1454,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-3",
   "type": "Note",
-  "number": "44",
+  "number": "45",
   "title": "",
   "body": " A small -value indicates that it is unlikely to observe such a substantial association between the predictor and response by chance, in the absence of a real association between them.  "
 },
@@ -1400,7 +1463,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-4",
   "type": "Example",
-  "number": "45",
+  "number": "46",
   "title": "Advertising example.",
   "body": " Advertising example     linear fit table for the sales versus TV advertising in 1000 dollars data.      scatter plot with linear fit and residuals     "
 },
@@ -1409,7 +1472,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-3",
   "type": "Example",
-  "number": "48",
+  "number": "49",
   "title": "\n<div class=\"para\" id=\"sec-Assessing-linReg-coefficients-estimates-10-3-1-1\">Advertising example<div class=\"autopermalink\" aria-hidden=\"true\" data-description=\"Paragraph\"><a tabindex=\"-1\" href=\"#sec-Assessing-linReg-coefficients-estimates-10-3-1-1\" title=\"Copy heading and permalink for Paragraph\" aria-label=\"Copy heading and permalink for Paragraph\">🔗<\/a><\/div><\/div>.",
   "body": "  Advertising example      Sales versus TV advertising scatter plot with linear fit line.         Sales versus radio advertising scatter plot with linear fit line.         Sales versus newspaper advertising scatter plot with linear fit line.        "
 },
@@ -1418,7 +1481,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-4",
   "type": "Checkpoint",
-  "number": "49",
+  "number": "50",
   "title": "TSS and RSS.",
   "body": " TSS and RSS   For the shown data, answer the following questions     Sketch the deviation from the mean for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       Sketch the residual for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       If the data points are given by . Find the lengths of the bars you sketched in .      Use the answer to to find the TSS.      Assume that the linear regression line is given by and using the data points given in , find the lengths of bars you sketched in .      Use the answer to to find the RSS.    "
 },
@@ -1436,7 +1499,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#interpretation-3",
   "type": "Checkpoint",
-  "number": "50",
+  "number": "51",
   "title": "",
   "body": "  Consider the variable own which represents home ownership ( Yes or No ).     Create a new variable with values 0 and 1 to represent own .           Write down the resulting piecewise model for .           What is the interpretation of , , and ?     can be interpreted as the average credit card balance among those who do not own a house.     can be interpreted as the average credit card balance among those who do own their house     can be interpreted as the average difference in credit card balance between owners and non-owners.    "
 },
@@ -1445,7 +1508,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#zero-one-3",
   "type": "Note",
-  "number": "51",
+  "number": "52",
   "title": "",
   "body": " Note that the predictions will be the same, and they are not influenced by the choice of the coding.  "
 },
@@ -1454,7 +1517,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#zero-one-4",
   "type": "Checkpoint",
-  "number": "52",
+  "number": "53",
   "title": "",
   "body": "  Let's consider the variable own which represents home ownership ( Yes or No ) but with -1\/1 coding.     Write using the coding -1\/1.           Use this variable to write the piecewise form of the equation .           What is the interpretation of and under this new coding?     can be interpreted as the overall average credit card balance (ignoring the house ownership effect).     can be interpreted as the amount by which house owners and non-owners have credit card balances that are above and below the average, respectively.      If the average credit card balance for home owners is $529.53, and that of non-owners is $509.80, what is the estimate for under this coding?    Recall that in this case is the average credit card balance (ignoring the house ownership effect).     is the average of the two means.      What is the estimate for ?    Recall the interpretation of under this coding.    The average difference between owners and non-owners is $19.73. Use the interpretation of and this average to compute .     .    "
 },
@@ -1472,7 +1535,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#tab-day08-region",
   "type": "Table",
-  "number": "53",
+  "number": "54",
   "title": "Region",
   "body": " Region         South  1  0    West  0  1    East  0  0    "
 },
@@ -1490,7 +1553,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#more-than-two-levels-4",
   "type": "Checkpoint",
-  "number": "55",
+  "number": "56",
   "title": "",
   "body": "   What is the interpretation for ?     can be interpreted as the average credit card balance for individuals from the East.      What is the interpretation for ?     can be interpreted as the difference in the average balance between people from the South versus the East.      What is the interpretation for ?     can be interpreted as the difference in the average balance between those from the West versus the East.    "
 },
@@ -1499,7 +1562,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#more-on-multiple-levels-3",
   "type": "Checkpoint",
-  "number": "56",
+  "number": "57",
   "title": "",
   "body": "  Assume we are trying to build a regression model to predict the price of a Pokemon card based on its grading ( Grading ). The card grading levels are Near Mint ( NM ), Lightly Played ( LP ), Heavily Played ( HP ), and Damaged ( DMG ). Answer the following questions.     How many dummy variables will we need to encode Grading ?    Since we have 4 levels, we will need 3 variables (one less than the number of levels).      Create a table similar to using the ordering from top to bottom: NM , LP , HP , DMG .            NM  1  0  0    LP  0  1  0    HP  0  0  1    DMG  0  0  0        Choosing DMG as the reference variable and using 0\/1 one-hot encoding, write the expressions for all the dummy variables for the th card.           Write the piecewise form for predicting the price of the th card            Write down the interpretation for each coefficient in your model, .        Average price for DMG cards.     Difference in the average price between NM and DMG cards.     Difference in the average price between LP and DMG cards.     Difference in the average price between HP and DMG cards.         Using the following table, write down the values for each of the coefficients in your regression model.   Average card values versus grading    Near Mint (NM)  $12.35    Lightly Played (LP)  $8.87    Heavily Played (HP)  6.72    Damaged (DMG)  $4.17            "
 },
@@ -1526,7 +1589,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#hierarchy-principle-models",
   "type": "Checkpoint",
-  "number": "58",
+  "number": "59",
   "title": "Hierarchy Principle.",
   "body": " Hierarchy Principle   Which of the following regression models satisfy the hierarchy principle? Select all that apply.                                                      "
 },
@@ -1535,7 +1598,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-08-lecture-8-4",
   "type": "Note",
-  "number": "59",
+  "number": "60",
   "title": "Hierarchy principle for nonlinear interaction terms.",
   "body": " Hierarchy principle for nonlinear interaction terms  The hierarchy principle allows including an interaction term that includes polynomial powers only if all the lower order components including the linear interactions are included. For example, if we want to include , then we must also include and .  "
 },
@@ -1544,7 +1607,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#hierarchy-principle-nonlinear-models",
   "type": "Checkpoint",
-  "number": "60",
+  "number": "61",
   "title": "Hierarchy Principle with Nonlinear relationships.",
   "body": " Hierarchy Principle with Nonlinear relationships   Which of the following regression models satisfy the hierarchy principle? Select all that apply.                          "
 },
@@ -1562,7 +1625,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-7-3",
   "type": "Example",
-  "number": "61",
+  "number": "62",
   "title": "",
   "body": "  We conduct three experiments to classify 5 data points as members of A, B, or C.   Repeated classification experiments    Experiment  Query point  True class  Predicted class    1  Q1  A  A    1  Q2  B  B    1  Q3  C  B    1  Q4  A  A    1  Q5  C  C    2  Q1  A  A    2  Q2  B  C    2  Q3  C  C    2  Q4  B  B    2  Q5  A  C    3  Q1  C  C    3  Q2  A  A    3  Q3  B  B    3  Q4  C  C    3  Q5  A  A        Fill out the following table which calculates the classification test error rate for each experiment.    Experiment  Correct Predictions  Misclassifications  Test error rate    1       2       3           Experiment  Correct Predictions  Misclassifications  Test error rate    1  4  1  20%    2  3  2  40%    3  5  0  0        What is the average test error rate across all the experiments?         "
 },
@@ -1580,7 +1643,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-10-2-1",
   "type": "Figure",
-  "number": "63",
+  "number": "64",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1598,7 +1661,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-11-2-2",
   "type": "Figure",
-  "number": "64",
+  "number": "65",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1607,7 +1670,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-12-2-2",
   "type": "Figure",
-  "number": "65",
+  "number": "66",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1616,7 +1679,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-14-2-1",
   "type": "Figure",
-  "number": "66",
+  "number": "67",
   "title": "",
   "body": "  A plot of two classes (yellow circles and blue circles) in the plane. A test point is marked with X, and its three nearest neighbors (K=3) are enclosed in a green disk.   .  "
 },
@@ -1625,7 +1688,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-14-2-3",
   "type": "Figure",
-  "number": "67",
+  "number": "68",
   "title": "",
   "body": "  A plot of two classes (yellow circles and blue circles) in the plane, and the KNN decision boundary.   Black line: KNN decision boundary. Note this is not Bayes like the examples we will soon see below!  "
 },
@@ -1634,7 +1697,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-15",
   "type": "Example",
-  "number": "68",
+  "number": "69",
   "title": "",
   "body": "  Here label is shown by O vs X. What are the KNN predictions for points A, B and C for or ?     A 2D plot of two classes (blue circles and yellow xs). Three test points are labeled as A, B, and C.      KNN predictions         Point  Prediction  Prediction    A      B      C           Solution to the KNN example showing the predictions using K=1.      Solution to the KNN example showing the predictions using K=3.      KNN predictions         Point  Prediction  Prediction    A  O  O    B  X  X    C  O  X      "
 },
@@ -1643,7 +1706,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-16",
   "type": "Checkpoint",
-  "number": "71",
+  "number": "72",
   "title": "",
   "body": "  The image shows some labeled data with three query points (gray stars) labeled A, B, and C.   Two-dimensional plot of 3 different classes (squares, triangles, and circles). Three query points (stars labelled A, B, and C) are also shown.      Use to classify A, B, and C.    Query point  Labels for -nearest neighbor(s)  Query point's label    A      B      C          Use to classify A, B, and C.    Query point  Labels for -nearest neighbor(s)  Query point's label    A      B      C        "
 },
@@ -1652,7 +1715,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-17",
   "type": "Checkpoint",
-  "number": "72",
+  "number": "73",
   "title": "",
   "body": "  A group of observations and the pairwise distances between them are reported in the following tables.   KNN classification data    Point  Class      P1  A  1  1    P2  A  2  2    P3  A  1  3    P4  A  3  1    P5  B  7  7    P6  B  8  6    P7  B  9  8    P8  B  7  9    P9  C  4  6    P10  C  5  5    P11  C  3  7    P12  C  4  8      Pairwise distances between observations    P  P1  P2  P3  P4  P5  P6  P7  P8  P9  P10     P1  0  1.41  2.00  2.00  8.49  8.60  10.63  10.00  5.83  5.66     P2  1.41  0  1.41  1.41  7.07  7.21  9.22  8.60  4.47  4.24     P3  2.00  1.41  0  2.83  7.21  7.62  9.43  8.49  4.24  4.47     P4  2.00  1.41  2.83  0  7.21  7.07  9.22  8.94  5.10  4.47     P5  8.49  7.07  7.21  7.21  0  1.41  2.24  2.00  3.16  2.83     P6  8.60  7.21  7.62  7.07  1.41  0  2.24  3.16  4.00  3.16     P7  10.63  9.22  9.43  9.22  2.24  2.24  0  2.24  5.39  5.00     P8  10.00  8.60  8.49  8.94  2.00  3.16  2.24  0  4.24  4.47     P9  5.83  4.47  4.24  5.10  3.16  4.00  5.39  4.24  0  1.41     P10  5.66  4.24  4.47  4.47  2.83  3.16  5.00  4.47  1.41  0      Suppose we have two data points and we are trying to classify.    Point  Class       ?  3  7     ?  4  8    With the following pairwise distances to the training set     P1  P2  P3  P4  P5  P6  P7  P8  P9  P10     Q1  6.32  5.10  4.47  6.00  4.00  5.10  6.08  4.47  1.41  2.83    Q2  7.62  6.32  5.83  7.07  3.12  4.47  5.00  3.14  2.00  3.16       What is the classification for using ?     : C      What is the classification for using ?     : C      What is the classification for using ?     : C      What is the classification for using ?     : B    "
 },
@@ -1661,7 +1724,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-19-2-1",
   "type": "Figure",
-  "number": "75",
+  "number": "76",
   "title": "",
   "body": "  Training error rate (plotted in solid blue) and Test error rate (plotted in solid orange) versus 1\/K.   "
 },
@@ -1679,7 +1742,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-7-3",
   "type": "Note",
-  "number": "76",
+  "number": "77",
   "title": "",
   "body": " Ordering implies something about closeness, i.e., there has to be a monotonic relation between categories.  "
 },
@@ -1688,7 +1751,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-10-4",
   "type": "Figure",
-  "number": "77",
+  "number": "78",
   "title": "",
   "body": " Graph of . and shift the curve left, right and change gain   "
 },
@@ -1697,7 +1760,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-12",
   "type": "Example",
-  "number": "78",
+  "number": "79",
   "title": "",
   "body": "  What will the drawn logistic regression classifier predict for each of the following values of Balance . Choose the decision boundary to be .     Probability of default versus balance. A sigmoid function is also shown on the same plot.       Balance  Prediction   0  500  1000  1500  2000  2500         Balance  Prediction   0 No  500 No  1000 No  1500 No  2000 Yes  2500 Yes    "
 },
@@ -1706,7 +1769,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-13-5",
   "type": "Example",
-  "number": "79",
+  "number": "80",
   "title": "",
   "body": "  If the probability of default is 90%, what are the odds?             "
 },
@@ -1715,7 +1778,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-13-6",
   "type": "Example",
-  "number": "80",
+  "number": "81",
   "title": "",
   "body": "  If the odds are , what is the probability of default?                       "
 },
@@ -1724,7 +1787,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-14-3",
   "type": "Checkpoint",
-  "number": "81",
+  "number": "82",
   "title": "Using coefficients to make predictions.",
   "body": " Using coefficients to make predictions    Coefficients, standard error, z-statistic, and p-values for a logistic regression model with balance as a predictor for defaulting on credit card balance.      What is the estimated probability of default for someone with a balance of $1,000?     (below 1%)      What is the estimated probability of default for someone with a balance of $2,000?         "
 },
@@ -1735,7 +1798,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Exam 2 Material",
-  "body": " Exam 2 Material       Day 12      Day 13      Day 14        Day 12       Day 13   Ch 5.1.1-3: K-fold cross-validation    Covered in this class    K-fold cross-validation      The idea   Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.       in this example    Randomly sort, split up into subsets    If , then we get LOOCV       Mathy version     Randomly split data into -groups (folds)    Approximately equal sized. For the sake of notation, say each set has points    Remove th fold and reserve for testing.    Train the model on remaining points    Calculate     Rinse and repeat     Return     By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF        Pros and Cons    Pros:    Cheaper computation with or instead of       Cons:    Unlike LOOCV, there is randomness, but it has lower variability than validation        Comparison     Validation Set    Diagram showing the first validation set split.    Diagram showing the second validation set split.    Diagram showing the third validation set split.    Diagram showing the fourth validation set split.    Diagram showing the fifth validation set split.    Figure labeled validation set for comparison.      LOOCV    Diagram showing the first leave-one-out cross-validation split.    Diagram showing the second leave-one-out cross-validation split.    Diagram showing the third leave-one-out cross-validation split.   ⋮   Diagram showing the final leave-one-out cross-validation split.    Figure using the auto data example to show a fixed result with no randomness across repeated runs.      K-fold CV    Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.    Second figure from the auto data example.       Comparison with simulated data: Ex 3    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing very similar results.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.    Nearly the same        Comparison with simulated data: Ex 1    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing that the cross-validation estimates underestimate the true test MSE.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.     Underestimates the true test MSE         Comparison with simulated data: Ex 2    Plot of simulated close-to-linear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing close agreement at low flexibility and overestimation at higher flexibility.   Close for lower flexibility, then overestimates at higher ranges.     Takeaways from the examples     In all plots, LOOCV and 10-fold CV are similar.    Sometimes we only care about the minimum point in the test MSE because we want to get the right degree of freedom for a model. All examples have approximately the same x-coordinate for that.        Day 14   Ch 5.1.4-5: More cross-validation    Covered in this class    Bias-variance tradeoff      Bias-Variance Tradeoff: Bias          We are discussing bias in the estimation of test error rate.    Validation set: overestimates test error because it uses a small subset of the data.     -fold CV: has a medium level of bias because each training set has approximately observations.    LOOCV: gives an approximately unbiased estimate because it uses almost all the data each time.          Based on bias alone, LOOCV is better than -fold CV.         Bias-Variance Tradeoff: Variance         We are discussing variance in the estimation of test error rate.    LOOCV has higher variance:   It averages the outputs of fitted models, each trained on almost identical observations.    The fitted models are highly correlated with each other.    This is like a repeated-measures problem in science; the results may not generalize well across samples.            -fold CV:   The fitted models are somewhat less correlated with each other.    The mean of highly correlated quantities has higher variance than the mean of uncorrelated quantities.    Empirically, or has been shown to be a happy medium.           In short: Validation vs Test     We often treat the validation set as if it were the test set, even though it is not.    A true test set is an independent sample.    Cross-validation measures never provide that independent sample.       Using K-Fold CV on Polynomial Linear Regression  Polynomial regression   Replace the linear model with      These models can be fit with linear regression by passing in predictors .    We tend not to go higher than degree 3 or 4 because the model can become overly flexible.        Using Linear Regression for fitting polynomial models       "
+  "body": " Exam 2 Material       Day 12      Day 13      Day 14      Day 15        Day 12       Day 13   Ch 5.1.1-3: K-fold cross-validation    Covered in this class    K-fold cross-validation      The idea   Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.       in this example    Randomly sort, split up into subsets    If , then we get LOOCV       Mathy version     Randomly split data into -groups (folds)    Approximately equal sized. For the sake of notation, say each set has points    Remove th fold and reserve for testing.    Train the model on remaining points    Calculate     Rinse and repeat     Return     By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF        Pros and Cons    Pros:    Cheaper computation with or instead of       Cons:    Unlike LOOCV, there is randomness, but it has lower variability than validation        Comparison     Validation Set    Diagram showing the first validation set split.    Diagram showing the second validation set split.    Diagram showing the third validation set split.    Diagram showing the fourth validation set split.    Diagram showing the fifth validation set split.    Figure labeled validation set for comparison.      LOOCV    Diagram showing the first leave-one-out cross-validation split.    Diagram showing the second leave-one-out cross-validation split.    Diagram showing the third leave-one-out cross-validation split.   ⋮   Diagram showing the final leave-one-out cross-validation split.    Figure using the auto data example to show a fixed result with no randomness across repeated runs.      K-fold CV    Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.    Second figure from the auto data example.       Comparison with simulated data: Ex 3    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing very similar results.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.    Nearly the same        Comparison with simulated data: Ex 1    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing that the cross-validation estimates underestimate the true test MSE.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.     Underestimates the true test MSE         Comparison with simulated data: Ex 2    Plot of simulated close-to-linear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing close agreement at low flexibility and overestimation at higher flexibility.   Close for lower flexibility, then overestimates at higher ranges.     Takeaways from the examples     In all plots, LOOCV and 10-fold CV are similar.    Sometimes we only care about the minimum point in the test MSE because we want to get the right degree of freedom for a model. All examples have approximately the same x-coordinate for that.        Day 14   Ch 5.1.4-5: More cross-validation    Covered in this class    Bias-variance tradeoff      Bias-Variance Tradeoff: Bias     We are discussing bias in the estimation of test error rate.    Validation set: High bias. It overestimates test error because it uses a small subset of the data.   Learning curve monotonically decreasing and a point with training sample less than the total number of sample points     LOOCV: Gives an approximately unbiased estimate because it uses almost all the data each time ( observations) for training.   Learning curve monotonically decreasing and a point with training sample equals to almost the total number of samples.      -fold CV: has a medium level of bias because each training set has approximately observations.   Learning curve monotonically decreasing and a point with training sample equals to a large portion of the total number of samples.       Bias-Variance Tradeoff: Variance     We are discussing variance in the estimation of test error rate.      Validation set has high variance:   The estimate of test error is highly dependent on the particular split of the data.       LOOCV has high variance:   It averages the outputs of fitted models, each trained on almost identical observations.    The fitted models are highly correlated with each other.    The mean of highly correlated quantities has higher variance than the mean of uncorrelated quantities.             -fold CV: Medium variance.   The fitted models are somewhat less correlated with each other.    Empirically, or has been shown to be a happy medium.           In short: Validation vs LOOCV vs -Fold CV     We often treat the validation set as if it were the test set, even though it is not.    A true test set is an independent sample.    Cross-validation measures never provide that independent sample.           Method    Bias    Variance      Validation Set Approach    High: Consistently overestimates the true test error because of small training size.    High: Very sensitive to the choice of the splits.       -Fold Cross-Validation    Medium: Uses a large proportion of the data ( ) for training.    Medium: Averaging across the folds reduces the effect of the randomly obtained folds.      Leave-One-Out (LOOCV)    Low: Uses almost all ( ) data points for training.    High: The models are trained on nearly identical data, so the resulting models are highly correlated.         If we use 10-fold cross-validation, what percentage of the data is used for training?    The model is trained on of the data, where is the number of folds.    with we have , so 90% of the data is used for training.      If we use 5-fold cross-validation, what percentage of the data is used for training?    The model is trained on of the data, where is the number of folds.    with we have , so 80% of the data is used for training.      If we use leave-one-out cross-validation, what percentage of the data is used for training?    In LOOCV, each training set has observations out of total observations.    with we have , so approximately 90% of the data is used for training when is large.      For any two different folds in -fold cross-validation, how many training sets are shared between them?    Each training set in -fold cross-validation has of the data.    For any two different folds in -fold cross-validation, of the training sets are shared between them.      For any two different folds in -fold cross-validation, what is the number of overlapping samples?    For any two different folds in -fold cross-validation, of the training sets are shared between them.    The number of overlapping samples is times the number of samples in a training set.    The number of overlapping samples is , where is the number of samples in the training set.      What is the the percentage overlap between any two different training sets in -fold cross-validation?    Each training set in -fold cross-validation has of the data.    The percentage overlap between any two different training sets in -fold cross-validation is .      Using K-Fold CV on Polynomial Linear Regression  Polynomial regression   Replace the linear model with      These models can be fit with linear regression by passing in predictors .    We tend not to go higher than degree 3 or 4 because the model can become overly flexible.          Day 15   Ch 5.1.5: -fold Cross-Validation for Classification    Covered in this class    CV for classification      CV for Classification  Setup: LOOCV    Remove the th point and reserve it for testing.  Train the model on the remaining points.  Calculate .  Rinse and repeat.     Leave-one-out cross-validation split with the first point reserved for testing.    Leave-one-out cross-validation split with the second point reserved for testing.    Leave-one-out cross-validation split with the third point reserved for testing.    Leave-one-out cross-validation split with the fourth point reserved for testing.    Leave-one-out cross-validation split with the fifth point reserved for testing.       Leave-one-out cross-validation split with the final point reserved for testing.     Return the cross-validation error:     CV for Classification  Setup: -fold    Randomly split the data into groups (folds).  Make the folds approximately equal in size. For notation, suppose each fold has points.  Remove the th fold and reserve it for testing.  Train the model on the remaining points.  Calculate   Rinse and repeat.     Data split into folds, with the first fold reserved for testing.    Data split into folds, with the second fold reserved for testing.    Data split into folds, with the third fold reserved for testing.    Data split into folds, with the fourth fold reserved for testing.    Data split into folds, with the fifth fold reserved for testing.     Return the cross-validation error:     Classification on simulated data: logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the logistic regression boundary in black.      Purple: Bayes decision boundary.  Error rate:      Black: logistic regression.        Error rate:     This error rate is still high, so the model has not done a great job yet.           Increase the degree and see what happens.      The Bayes decision boundary is where , meaning     Classification on simulated data: Quadratic logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the quadratic logistic regression boundary in black.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.        Error rate:     The logistic regression error rate improved slightly, but is still not great.            Increase the degree again and see what happens.       Example on simulated data: Polynomial Logistic Regression  No -fold cross-validation yet.    Simulated data with the Bayes decision boundary and logistic regression decision boundaries for polynomial degrees one through four.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.   Degree 1 error rate:     Degree 2 error rate:     Degree 3 error rate:     Degree 4 error rate:             Normally, we do not have the Bayes decision boundary.    How do you pick between models?       Decide degree based on CV    Plot of test error, training error, and ten-fold cross-validation error as model flexibility increases.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Training error tends to decrease as the flexibility of the fit increases.    The blue curve does not decrease monotonically, but it trends downward overall.    Test error displays a characteristic U-shape.    The 10-fold CV error provides a fairly good, but underestimated, approximation to the test error rate.    The minimum occurs at degree 4, close to the test error curve's minimum at degree 3.       Similar approach for KNN    Plot of test error, training error, and ten-fold cross-validation error for K-nearest neighbors across values of 1\/K.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Here, the changing parameter is different.    The same idea helps identify a suitable choice of .    The minimum of the black curve (10-fold CV) occurs at a value of close to the minimum of the brown curve, suggesting a good choice.       TL;DR     -fold CV   First split in the k-fold cross-validation sequence.    Second split in the k-fold cross-validation sequence.    Third split in the k-fold cross-validation sequence.    Fourth split in the k-fold cross-validation sequence.    Fifth split in the k-fold cross-validation sequence.      Usually, use or .     -fold CV for classification            "
 },
 {
   "id": "day-13-lecture-3",
@@ -1751,7 +1814,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-13-lecture-6",
   "type": "Checkpoint",
-  "number": "82",
+  "number": "83",
   "title": "By hand first!",
   "body": " By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF      "
 },
@@ -1763,6 +1826,33 @@ var ptx_lunr_docs = [
   "number": "",
   "title": "Covered in this class",
   "body": " Covered in this class    Bias-variance tradeoff    "
+},
+{
+  "id": "day-14-lecture-7",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-14-lecture-7",
+  "type": "Checkpoint",
+  "number": "84",
+  "title": "",
+  "body": "   If we use 10-fold cross-validation, what percentage of the data is used for training?    The model is trained on of the data, where is the number of folds.    with we have , so 90% of the data is used for training.      If we use 5-fold cross-validation, what percentage of the data is used for training?    The model is trained on of the data, where is the number of folds.    with we have , so 80% of the data is used for training.      If we use leave-one-out cross-validation, what percentage of the data is used for training?    In LOOCV, each training set has observations out of total observations.    with we have , so approximately 90% of the data is used for training when is large.      For any two different folds in -fold cross-validation, how many training sets are shared between them?    Each training set in -fold cross-validation has of the data.    For any two different folds in -fold cross-validation, of the training sets are shared between them.      For any two different folds in -fold cross-validation, what is the number of overlapping samples?    For any two different folds in -fold cross-validation, of the training sets are shared between them.    The number of overlapping samples is times the number of samples in a training set.    The number of overlapping samples is , where is the number of samples in the training set.      What is the the percentage overlap between any two different training sets in -fold cross-validation?    Each training set in -fold cross-validation has of the data.    The percentage overlap between any two different training sets in -fold cross-validation is .    "
+},
+{
+  "id": "day-15-lecture-3",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-15-lecture-3",
+  "type": "Objectives",
+  "number": "",
+  "title": "Covered in this class",
+  "body": " Covered in this class    CV for classification    "
+},
+{
+  "id": "day-15-lecture-7",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-15-lecture-7",
+  "type": "Note",
+  "number": "85",
+  "title": "",
+  "body": " The Bayes decision boundary is where , meaning   "
 },
 {
   "id": "homework-2",
@@ -1985,7 +2075,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "advertising-data-set.html#advertising-csv",
   "type": "Data",
-  "number": "99",
+  "number": "102",
   "title": "Advertising: Advertising Data Set.",
   "body": " Advertising: Advertising Data Set  A data frame with 200 observations that represent sales in 200 markets on the following 3 variables.   TV  Advertising cost for TV ads in thousands of dollars.    radio  Advertising cost for radio ads in thousands of dollars.    newspaper  Advertising cost for newspaper ads in thousands of dollars.    sales  Sales in thousands of dollars.     The book's website has the data files here .      "
 },
@@ -2003,7 +2093,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "day01-auto-data-set.html#day01-Auto-csv",
   "type": "Data",
-  "number": "100",
+  "number": "103",
   "title": "Auto: Auto Data Set.",
   "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .      "
 },
@@ -2021,7 +2111,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-credit-data-set.html#credit-csv",
   "type": "Data",
-  "number": "101",
+  "number": "104",
   "title": "Credit: Credit Data Set.",
   "body": " Credit: Credit Data Set  A csv file with 400 customers on the following 11 variables.   Income  Income in thousands of dollars.    Limit  Credit limit in dollars.    Rating  Credit rating.    Cards  Number of credit cards.    Age  Person's age.    Education  the number of years of education completed by each customer.    Gender  Male or Female.    Student  Student status with values Yes or No .    Married  Marital status with values Yes or No .    Ethnicity  Either Caucasian , Asian , or African American .    Balance  Average credit card debt in dollars.       Own is referenced in the textbook which represents home ownership ( Yes or No ), but is not in any of the online versions of the data set that I can find.  The book also mentions the variable Region (East, West, or South), but the data file is also missing that column.   The book's website has the data files here .      "
 },
@@ -2039,7 +2129,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-diabetes-data-set.html#diabetes-data",
   "type": "Data",
-  "number": "103",
+  "number": "106",
   "title": "Diabetes data set.",
   "body": " Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset   "
 },
@@ -2057,7 +2147,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "chicken-and-egg-set.html#ChickenEgg-csv",
   "type": "Data",
-  "number": "105",
+  "number": "108",
   "title": "Chicken and Egg Data Set.",
   "body": " Chicken and Egg Data Set  A data file with 90 observations that label each data point according to two predictors.   X1  First predictor.    X2  Second predictor    Label  The label for the data set, either chicken or egg .     This data is 100% made up by Dr.~Munch and does not correspond to any real experiment.  The data set has inputs and , with given by Label . The Bayes classifier is    An example data set in 2 dimensions, with some data points labeled Chicken and others labeled Egg.   The code used to generate this data is below.   def generateData(N=90,xBounds = [-7,7],yBounds = [-7,7],sigma=1, seed = None): # Generating data where the label is determined by being on one side or the # other of $y^3-y-x = 0$. # Adding noise so it's not cleanly separated np.random.seed(seed) DataX = np.random.uniform(xBounds[0],xBounds[1],[N,1]) DataY = np.random.uniform(yBounds[0],yBounds[1],[N,1]) Data = np.concatenate([DataX,DataY], axis = 1) Noise = np.random.normal(0, sigma, N) Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise) def ChickOrEgg(z): if z>0: return 'chicken' else: return 'egg' Label = [ChickOrEgg(z) for z in Check] Data = pd.DataFrame(Data, columns = ['x1','x2']) Data['Label'] = Label return Data # Generate the data Data = generateData(N = 90, seed = 48824) # Plot the figure sns.scatterplot(data = Data, x = 'x1', y = 'x2', hue = 'Label', style = 'Label').set(title = 'Chicken or Egg?') ty = np.linspace(-2.1,2.1,100) tx = ty**3 - ty plt.plot(tx,ty, color = 'grey')      "
 },
@@ -2075,7 +2165,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "default-set.html#Default-csv",
   "type": "Data",
-  "number": "106",
+  "number": "109",
   "title": "Default Data Set.",
   "body": " Default Data Set  A simulated data set containing information on ten thousand customers. The aim here is to predict which customers will default on their credit card debt.  The data is formatted into a data frame with 10000 observations on the following 4 variables.   default  A factor with levels No and Yes indicating whether the customer defaulted on their debt.    student  student A factor with levels No and Yes indicating whether the customer is a student.    balance  The average balance that the customer has remaining on their credit card after making their monthly payment    income  Income.     Source: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York     "
 },

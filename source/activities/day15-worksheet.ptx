@@ -2,6 +2,7 @@
 
 <section xml:id="cmse381-lec15-kfold-classification-worksheet" component="ws15">
   <title>Day 15 Worksheet</title>
+
   <introduction>
     <program language="python">
       # Everyone's favorite standard imports
@@ -16,11 +17,27 @@
       from sklearn.model_selection import KFold
     </program>
   </introduction>
+
   <subsection xml:id="cmse381-lec15-kfold-classification-worksheet-ptx-1-cv-for-a-classification-data-set">
     <title>1. CV for a classification data set</title>
-    <figure><caption>Palmer Penguins Picture</caption><image source="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png"><description><p>Palmer Penguins Picture</p></description></image></figure>
-    <p><em>Artwork by @allison_horst</em></p>
-    <p>For this lab, we are going to use the Palmer Penguins data set by Allison Horst, Alison Hill, and Kristen Gorman. This data set was originally posted in R, but has helpfully been loaded as an easily readable python data set by installing the <c>palmerpenguins</c> package using <c>pip</c>.</p>
+
+    <figure>
+      <caption>Palmer Penguins. Artwork by @allison_horst.</caption>
+      <image source="figures/Palmer_penguins.png" width="85%">
+        <shortdescription>
+          Palmer Penguins Picture
+        </shortdescription>
+      </image>
+    </figure>
+
+    <p>
+      For this lab, we are going to use the Palmer Penguins data set by Allison
+      Horst, Alison Hill, and Kristen Gorman.
+      This data set was originally posted in R, but has helpfully been loaded as
+      an easily readable python data set by installing the <c>palmerpenguins</c>
+      package using <c>pip</c>.
+    </p>
+
     <program language="python">
       # You should only have to do this once:
       %pip install palmerpenguins
@@ -31,7 +48,11 @@
       penguins = load_penguins()
       penguins.head()
     </program>
-    <p>Our next favorite thing to do with any data set is to start trying to visualize relationships between the variables.</p>
+    <p>
+      Our next favorite thing to do with any data set is to start trying to
+      visualize relationships between the variables.
+    </p>
+
     <program language="python">
       sns.pairplot(penguins)
     </program>
@@ -48,52 +69,115 @@
     </program>
     <exercises>
       <title>Exercises</title>
+
       <exercisegroup>
         <title>Practice</title>
+
         <introduction>
-          <p>Complete the following exercises.</p>
+          <p>
+            Complete the following exercises.
+          </p>
         </introduction>
+
         <exercise>
           <task>
             <statement>
-              <p>As always, when playing with a new data set, your first job is to just get a feel for what's in the data. We're going to use this data to predict species of the penguin given the other information.</p>
-              <p>✅ <alert>Questions:</alert></p>
-              <p><ul>
-                <li>
-                  <p>How many penguins are in the data set?</p>
-                </li>
-                <li>
-                  <p>What are the input variables?</p>
-                </li>
-                <li>
-                  <p>What are the possible values of the output variable?</p>
-                </li>
-                <li>
-                  <p>Which are categorical varaibales? Which are quantitative?</p>
-                </li>
-                <li>
-                  <p>Are there any lines with missing data? How is missing data represented in this data set?</p>
-                </li>
-              </ul></p>
+              <p>
+                As always, when playing with a new data set, your first job is
+                to just get a feel for what's in the data.
+                We're going to use this data to predict species of the penguin
+                given the other information.
+              </p>
+
+              <p>
+                ✅ <alert>Questions:</alert>
+              </p>
+
+              <p>
+                <ul>
+                  <li>
+                    <p>
+                      How many penguins are in the data set?
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      What are the input variables?
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      What are the possible values of the output variable?
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      Which are categorical varaibales?
+                      Which are quantitative?
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      Are there any lines with missing data?
+                      How is missing data represented in this data set?
+                    </p>
+                  </li>
+                </ul>
+              </p>
             </statement>
+
             <hint>
-              <p>Use <c>penguins.shape</c>, <c>penguins.columns</c>, <c>penguins.dtypes</c>, and <c>penguins.isna().sum()</c> to answer the structural questions.</p>
+              <p>
+                Use <c>penguins.shape</c>, <c>penguins.columns</c>,
+                <c>penguins.dtypes</c>, and <c>penguins.isna().sum()</c> to
+                answer the structural questions.
+              </p>
             </hint>
+
             <hint>
-              <p>Use <c>penguins.species.unique()</c> for output classes and distinguish string-valued categories from numerical measurements.</p>
+              <p>
+                Use <c>penguins.species.unique()</c> for output classes and
+                distinguish string-valued categories from numerical
+                measurements.
+              </p>
             </hint>
+
             <hint>
-              <p><alert>Common error:</alert> <c>species</c> is the response, not an input variable, and missing values represented as <c>NaN</c> should not be mistaken for an additional category.</p>
+              <p>
+                <alert>Common error:</alert> <c>species</c> is the response, not
+                an input variable, and missing values represented as <c>NaN</c>
+                should not be mistaken for an additional category.
+              </p>
             </hint>
+
             <answer>
-              <p>The raw data contain 344 penguins. The response is <c>species</c>, with levels Adelie, Chinstrap, and Gentoo. Inputs are <c>island</c>, four body measurements, <c>sex</c>, and <c>year</c>; <c>island</c> and <c>sex</c> are categorical, while the measurements and year are numeric. Several rows contain <c>NaN</c> missing values.</p>
+              <p>
+                The raw data contain 344 penguins.
+                The response is <c>species</c>, with levels Adelie, Chinstrap,
+                and Gentoo.
+                Inputs are <c>island</c>, four body measurements, <c>sex</c>,
+                and <c>year</c>; <c>island</c> and <c>sex</c> are categorical,
+                while the measurements and year are numeric.
+                Several rows contain <c>NaN</c> missing values.
+              </p>
             </answer>
           </task>
         </exercise>
+
         <exercise>
           <task>
             <statement>
-              <p>Spoiler alert, there are penguins with missing data. Replace the <c>penguins</c> dataframe with one where you have removed all those lines. (<em>Hint: this should be a one line operation</em>)</p>
+              <p>
+                Spoiler alert, there are penguins with missing data.
+                Replace the <c>penguins</c> dataframe with one where you have
+                removed all those lines.
+                ( <em>Hint: this should be a one line operation</em> )
+              </p>
+
               <program language="python">
                 <code>
                   penguins = penguins....
@@ -101,15 +185,29 @@
                 </code>
               </program>
             </statement>
+
             <hint>
-              <p>Pandas provides <c>dropna()</c> to remove rows containing at least one missing value.</p>
+              <p>
+                Pandas provides <c>dropna()</c> to remove rows containing at
+                least one missing value.
+              </p>
             </hint>
+
             <hint>
-              <p>Assign the returned DataFrame back to <c>penguins</c>, then verify that the row count decreases to 333.</p>
+              <p>
+                Assign the returned DataFrame back to <c>penguins</c>, then
+                verify that the row count decreases to 333.
+              </p>
             </hint>
+
             <hint>
-              <p><alert>Common error:</alert> Calling <c>penguins.dropna()</c> without assignment does not modify the original DataFrame unless <c>inplace=True</c> is explicitly used.</p>
+              <p>
+                <alert>Common error:</alert> Calling <c>penguins.dropna()</c>
+                without assignment does not modify the original DataFrame unless
+                <c>inplace=True</c> is explicitly used.
+              </p>
             </hint>
+
             <answer>
               <program language="python">
                 <code>
@@ -121,10 +219,17 @@
             </answer>
           </task>
         </exercise>
+
         <exercise>
           <task>
             <statement>
-              <p>Build the feature DataFrame <c>X</c> from the cleaned penguin data. Exclude <c>species</c>, and replace the categorical <c>island</c> and <c>sex</c> columns with dummy variables.</p>
+              <p>
+                Build the feature DataFrame <c>X</c> from the cleaned penguin
+                data.
+                Exclude <c>species</c>, and replace the categorical
+                <c>island</c> and <c>sex</c> columns with dummy variables.
+              </p>
+
               <program language="python">
                 <code>
                   X = pd.get_dummies(
@@ -136,15 +241,29 @@
                 </code>
               </program>
             </statement>
+
             <hint>
-              <p>Drop the response column before encoding so <c>species</c> does not leak into the inputs.</p>
+              <p>
+                Drop the response column before encoding so <c>species</c> does
+                not leak into the inputs.
+              </p>
             </hint>
+
             <hint>
-              <p>Pass <c>columns=['island', 'sex']</c> to <c>pd.get_dummies</c>; <c>drop_first=True</c> uses reference coding.</p>
+              <p>
+                Pass <c>columns=['island', 'sex']</c> to <c>pd.get_dummies</c>;
+                <c>drop_first=True</c> uses reference coding.
+              </p>
             </hint>
+
             <hint>
-              <p><alert>Common error:</alert> Do not create dummy variables for the response and then leave them in <c>X</c>; that would reveal the correct class to the model.</p>
+              <p>
+                <alert>Common error:</alert> Do not create dummy variables for
+                the response and then leave them in <c>X</c>; that would reveal
+                the correct class to the model.
+              </p>
             </hint>
+
             <answer>
               <program language="python">
                 <code>
@@ -156,10 +275,15 @@
             </answer>
           </task>
         </exercise>
+
         <exercise>
           <task>
             <statement>
-              <p>Save an pandas series of the entries in <c>penguins.species</c> as <m>y</m>.</p>
+              <p>
+                Save an pandas series of the entries in <c>penguins.species</c>
+                as <m>y</m>.
+              </p>
+
               <program language="python">
                 <code>
                   y = penguins[...]
@@ -167,15 +291,28 @@
                 </code>
               </program>
             </statement>
+
             <hint>
-              <p>Select the <c>species</c> column with a single pair of brackets to obtain a Series.</p>
+              <p>
+                Select the <c>species</c> column with a single pair of brackets
+                to obtain a Series.
+              </p>
             </hint>
+
             <hint>
-              <p>Check that <c>len(y) == len(X)</c> and that the indices align after dropping missing rows.</p>
+              <p>
+                Check that <c>len(y) == len(X)</c> and that the indices align
+                after dropping missing rows.
+              </p>
             </hint>
+
             <hint>
-              <p><alert>Common error:</alert> Double brackets create a one-column DataFrame; the exercise specifically asks for a Series.</p>
+              <p>
+                <alert>Common error:</alert> Double brackets create a one-column
+                DataFrame; the exercise specifically asks for a Series.
+              </p>
             </hint>
+
             <answer>
               <program language="python">
                 <code>
@@ -189,15 +326,32 @@
       </exercisegroup>
     </exercises>
   </subsection>
+
   <subsection xml:id="cmse381-lec15-kfold-classification-worksheet-step-2-run-logistic-regression">
     <title>Step 2: Run logistic regression</title>
-    <p>Ok, you have your penguins data with input variables as X and we are going to predict <c>penguins.species</c>. While <c>scikitlearn</c> cannot handle input variables that are categorical (hence why we had to put in our dummy variables ourselves), it's find with a predictor variable that is. The following code will fit a logistic regression on the whole data set. Of course, you know better than to actually do this to return your results, so in a moment we will be modifying this to get <m>k</m>-fold CV test errors.</p>
+
+    <p>
+      Ok, you have your penguins data with input variables as X and we are going
+      to predict <c>penguins.species</c>.
+      While <c>scikitlearn</c> cannot handle input variables that are
+      categorical (hence why we had to put in our dummy variables ourselves),
+      it's find with a predictor variable that is.
+      The following code will fit a logistic regression on the whole data set.
+      Of course, you know better than to actually do this to return your
+      results, so in a moment we will be modifying this to get <m>k</m>-fold CV
+      test errors.
+    </p>
+
     <program language="python">
       logisticmodel = LogisticRegression(max_iter = 1400) # Note, I needed to up the interations
                                                          # to get rid of a convergence warning
       logisticmodel.fit(X, y)
     </program>
-    <p>Also here's some helpful code to remember how to get accuracy/error rates out of classification modules in <c>scikitlearn</c>.</p>
+    <p>
+      Also here's some helpful code to remember how to get accuracy/error rates
+      out of classification modules in <c>scikitlearn</c>.
+    </p>
+
     <program language="python">
       # and now we can also get the error rate on the training set. 
       from sklearn.metrics import accuracy_score
@@ -214,26 +368,50 @@
     <!-- horizontal rule in source notebook -->
     <exercises>
       <title>Exercises</title>
+
       <exercisegroup>
         <title>Practice</title>
+
         <introduction>
-          <p>Complete the following exercises.</p>
+          <p>
+            Complete the following exercises.
+          </p>
         </introduction>
+
         <exercise>
           <task>
             <statement>
-              <p>Ok, your job, should you choose to accept it, is to</p>
-              <p><ul>
-                <li>
-                  <p>Train a model predicing <c>species</c> from all the input variables using logistic regression.</p>
-                </li>
-                <li>
-                  <p>Use <m>k</m>-fold cross validation to determine the test error. I would recommend using something like <m>k=5</m> to start building your code, but you can up it to <m>k=10</m> when you want to see better results.</p>
-                </li>
-                <li>
-                  <p><em>Hint: while I was building my version, I had to set the <c>max_iter</c> for Logistic regression pretty high to get the model to converge. However, my error results were still pretty reasonable with lower <c>max_iter</c>, ignoring the massive amount of pink warning boxes. Feel free to mess around with this parameter to see how it affects your output.</em></p>
-                </li>
-              </ul></p>
+              <p>
+                Ok, your job, should you choose to accept it, is to
+              </p>
+
+              <p>
+                <ul>
+                  <li>
+                    <p>
+                      Train a model predicing <c>species</c> from all the input
+                      variables using logistic regression.
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      Use <m>k</m>-fold cross validation to determine the test
+                      error.
+                      I would recommend using something like <m>k=5</m> to start
+                      building your code, but you can up it to <m>k=10</m> when
+                      you want to see better results.
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      <em>Hint: while I was building my version, I had to set the <c>max_iter</c> for Logistic regression pretty high to get the model to converge. However, my error results were still pretty reasonable with lower <c>max_iter</c>, ignoring the massive amount of pink warning boxes. Feel free to mess around with this parameter to see how it affects your output.</em>
+                    </p>
+                  </li>
+                </ul>
+              </p>
+
               <program language="python">
                 <code>
                   model = make_pipeline(
@@ -246,17 +424,40 @@
                 </code>
               </program>
             </statement>
+
             <hint>
-              <p>Use stratified folds so each fold preserves the approximate species proportions.</p>
+              <p>
+                Use stratified folds so each fold preserves the approximate
+                species proportions.
+              </p>
             </hint>
+
             <hint>
-              <p><c>cross_val_score</c> returns accuracy for a classifier by default; average the scores and subtract from 1 to report test error.</p>
+              <p>
+                <c>cross_val_score</c> returns accuracy for a classifier by
+                default; average the scores and subtract from 1 to report test
+                error.
+              </p>
             </hint>
+
             <hint>
-              <p><alert>Common error:</alert> Do not reuse regression scoring such as <c>neg_mean_squared_error</c> for categorical species labels; use classification accuracy or an explicitly chosen classification metric.</p>
+              <p>
+                <alert>Common error:</alert> Do not reuse regression scoring
+                such as <c>neg_mean_squared_error</c> for categorical species
+                labels; use classification accuracy or an explicitly chosen
+                classification metric.
+              </p>
             </hint>
+
             <answer>
-              <p>A five-fold estimate gives accuracy near 0.99 for this data, so the estimated classification error is roughly 1%; the exact number varies with the shuffled folds. Scaling the numeric features and increasing <c>max_iter</c> makes convergence more reliable.</p>
+              <p>
+                A five-fold estimate gives accuracy near 0.99 for this data, so
+                the estimated classification error is roughly 1%; the exact
+                number varies with the shuffled folds.
+                Scaling the numeric features and increasing <c>max_iter</c>
+                makes convergence more reliable.
+              </p>
+
               <program language="python">
                 <code>
                   from sklearn.model_selection import StratifiedKFold, cross_val_score
@@ -276,8 +477,10 @@
       </exercisegroup>
     </exercises>
   </subsection>
+
   <subsection xml:id="cmse381-lec15-kfold-classification-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-   <p></p>
+
+    <p/>
   </subsection>
 </section>

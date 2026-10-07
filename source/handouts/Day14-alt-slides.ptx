@@ -18,70 +18,73 @@
                     Bias-variance tradeoff
                 </p>
             </li>
-
         </ul>
     </objectives>
 
     <paragraphs>
         <title>Bias-Variance Tradeoff: Bias</title>
-    <p>
-        <md>
-            E(y_0 - \hat{f}(x_0))^2
+
+        <p>
+            <md>
+                E(y_0 - \hat{f}(x_0))^2
     = \operatorname{Var}(\hat{f}(x_0))
     + [\operatorname{Bias}(\hat{f}(x_0))]^2
     + \operatorname{Var}(\epsilon)
-        </md>
+            </md>
         </p>
 
-        <sidebyside width="50%">
-            <stack>
+        <p>
+            We are discussing bias in the estimation of test error rate.
+        </p>
+
+        <sbsgroup>
+            <sidebyside>
                 <p>
-                    <ul>
-                        <li>
-                            <p>
-                                We are discussing bias in the estimation of test
-                                error rate.
-                            </p>
-                        </li>
-
-                        <li>
-                            <p>
-                                Validation set: overestimates test error because
-                                it uses a small subset of the data.
-                            </p>
-                        </li>
-
-                        <li>
-                            <p>
-                                <m>k</m>-fold CV: has a medium level of bias
-                                because each training set has approximately
-                                <m>(k-1)n/k</m> observations.
-                            </p>
-                        </li>
-
-                        <li>
-                            <p>
-                                LOOCV: gives an approximately unbiased estimate
-                                because it uses almost all the data each time.
-                            </p>
-                        </li>
-                    </ul>
+                    Validation set: High bias.
+                    It overestimates test error because it uses a small subset
+                    of the data.
                 </p>
-            </stack>
 
-            <stack>
+                <image source="figures/validation_set_pessimistic_bias.png" width="80%">
+                    <shortdescription>
+                        Learning curve monotonically decreasing and a point with
+                        training sample less than the total number of sample
+                        points
+                    </shortdescription>
+                </image>
+            </sidebyside>
+
+            <sidebyside>
                 <p>
-                    <ul>
-                        <li>
-                            <p>
-                                Based on bias alone, LOOCV is better than
-                                <m>k</m>-fold CV.
-                            </p>
-                        </li>
-                    </ul>
+                    LOOCV: Gives an approximately unbiased estimate because it
+                    uses almost all the data each time ( <m>n-1</m>
+                    observations) for training.
                 </p>
-            </stack>
-        </sidebyside>
+
+                <image source="figures/LOOCV_low_bias.png" width="80%">
+                    <shortdescription>
+                        Learning curve monotonically decreasing and a point with
+                        training sample equals to almost the total number of
+                        samples.
+                    </shortdescription>
+                </image>
+            </sidebyside>
+
+            <sidebyside>
+                <p>
+                    <m>k</m>-fold CV: has a medium level of bias because each
+                    training set has approximately <m>(k-1)n/k</m> observations.
+                </p>
+
+                <image source="figures/kfold_med_bias.png" width="80%">
+                    <shortdescription>
+                        Learning curve monotonically decreasing and a point with
+                        training sample equals to a large portion of the total
+                        number of samples.
+                    </shortdescription>
+                </image>
+            </sidebyside>
+        </sbsgroup>
     </paragraphs>
 
     <paragraphs>
@@ -96,19 +99,31 @@
             </md>
         </p>
 
+        <p>
+            We are discussing variance in the estimation of test error rate.
+        </p>
+
         <sidebyside width="50%">
             <p>
                 <ul>
                     <li>
                         <p>
-                            We are discussing variance in the estimation of test
-                            error rate.
+                            Validation set has high variance:
+                            <ul>
+                                <li>
+                                    <p>
+                                        The estimate of test error is highly
+                                        dependent on the particular split of the
+                                        data.
+                                    </p>
+                                </li>
+                            </ul>
                         </p>
                     </li>
 
                     <li>
                         <p>
-                            LOOCV has higher variance:
+                            LOOCV has high variance:
                             <ul>
                                 <li>
                                     <p>
@@ -124,14 +139,20 @@
                                         with each other.
                                     </p>
                                 </li>
-
-                                <li>
+                                                                <li>
+                                    <p>
+                                        The mean of highly correlated quantities
+                                        has higher variance than the mean of
+                                        uncorrelated quantities.
+                                    </p>
+                                </li>
+                                <!-- <li>
                                     <p>
                                         This is like a repeated-measures problem
                                         in science; the results may not
                                         generalize well across samples.
                                     </p>
-                                </li>
+                                </li> -->
                             </ul>
                         </p>
                     </li>
@@ -142,20 +163,12 @@
                 <ul>
                     <li>
                         <p>
-                            <m>k</m>-fold CV:
+                            <m>k</m>-fold CV: Medium variance.
                             <ul>
                                 <li>
                                     <p>
                                         The <m>k</m> fitted models are somewhat
                                         less correlated with each other.
-                                    </p>
-                                </li>
-
-                                <li>
-                                    <p>
-                                        The mean of highly correlated quantities
-                                        has higher variance than the mean of
-                                        uncorrelated quantities.
                                     </p>
                                 </li>
 
@@ -174,7 +187,7 @@
     </paragraphs>
 
     <paragraphs>
-        <title>In short: Validation vs Test</title>
+        <title>In short: Validation vs LOOCV vs <m>k</m>-Fold CV</title>
 
         <p>
             <ul>
@@ -199,7 +212,199 @@
                 </li>
             </ul>
         </p>
+
+        <tabular>
+            <col width="20%"/>
+            <col width="40%"/>
+            <col width="40%"/>
+            <row header="yes">
+                <cell>
+                    <p>
+                        Method
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        Bias
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        Variance
+                    </p>
+                </cell>
+            </row>
+
+            <row>
+                <cell>
+                    <p>
+                        Validation Set Approach
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        High: Consistently overestimates the true test error
+                        because of small training size.
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        High: Very sensitive to the choice of the splits.
+                    </p>
+                </cell>
+            </row>
+
+            <row>
+                <cell>
+                    <p>
+                        <m>k</m>-Fold Cross-Validation
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        Medium: Uses a large proportion of the data (
+                        <m>(k-1)/k\,N</m> ) for training.
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        Medium: Averaging across the folds reduces the effect of
+                        the randomly obtained folds.
+                    </p>
+                </cell>
+            </row>
+
+            <row>
+                <cell>
+                    <p>
+                        Leave-One-Out (LOOCV)
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        Low: Uses almost all ( <m>N-1</m> ) data points for
+                        training.
+                    </p>
+                </cell>
+                <cell>
+                    <p>
+                        High: The <m>N</m> models are trained on nearly
+                        identical data, so the resulting models are highly
+                        correlated.
+                    </p>
+                </cell>
+            </row>
+        </tabular>
     </paragraphs>
+
+<exercise>
+<task>
+
+<statement>
+    <p>If we use 10-fold cross-validation, what percentage of the data is used for training?</p>
+    </statement>
+    <hint>
+        <p>
+            The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
+        </p>
+    </hint>
+    <answer>
+        <p>
+            with <m>k=10</m> we have <m>\frac{k-1}{k} = \frac{9}{10} = 0.9</m>, so 90% of the data is used for training.
+        </p>
+    </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                If we use 5-fold cross-validation, what percentage of the data is used for training?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                The model is trained on <m>(k-1)/k</m> of the data, where <m>k</m> is the number of folds.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                with <m>k=5</m> we have <m>\frac{k-1}{k} = \frac{4}{5} = 0.8</m>, so 80% of the data is used for training.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                If we use leave-one-out cross-validation, what percentage of the data is used for training?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                In LOOCV, each training set has <m>n-1</m> observations out of <m>n</m> total observations.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                with <m>k=n</m> we have <m>\frac{k-1}{k} = \frac{n-1}{n}</m>, so approximately 90% of the data is used for training when <m>n</m> is large.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, how many training sets are shared between them?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                Each training set in <m>k</m>-fold cross-validation has <m>(k-1)/k</m> of the data.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, <m>(k-2)/(k-1)</m> of the training sets are shared between them.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, what is the number of overlapping samples?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                For any two different folds in <m>k</m>-fold cross-validation, <m>(k-2)/(k-1)</m> of the training sets are shared between them.
+            </p>
+        </hint>
+        <hint>
+            <p>
+                The number of overlapping samples is <m>(k-2)/(k-1)</m> times the number of samples in a training set.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                The number of overlapping samples is <m>(k-2)/(k-1)N</m>, where <m>N</m> is the number of samples in the training set.
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                What is the the percentage overlap between any two different training sets in <m>k</m>-fold cross-validation?
+            </p>
+        </statement>
+        <hint>
+            <p>
+                Each training set in <m>k</m>-fold cross-validation has <m>(k-1)/k</m> of the data.
+            </p>
+        </hint>
+        <answer>
+            <p>
+                The percentage overlap between any two different training sets in <m>k</m>-fold cross-validation is <m>\frac{k-2}{k-1}</m>.
+            </p>
+        </answer>
+    </task>
+</exercise>
 
     <paragraphs>
         <title>Using K-Fold CV on Polynomial Linear Regression</title>
@@ -209,41 +414,38 @@
         </p>
 
         <sidebyside width="45%">
-
-                <p>
-                    Replace the linear model
-                    <md>
-                        y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-                    </md>
-                    with
-                    <md>
-                        y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2
+            <p>
+                Replace the linear model
+                <md>
+                    y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+                </md>
+                with
+                <md>
+                    y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2
           + \cdots + \beta_d x_i^d + \epsilon_i
-                    </md>
-                </p>
+                </md>
+            </p>
 
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            These models can be fit with linear regression by
+                            passing in predictors <m>x_i^\ell</m>.
+                        </p>
+                    </li>
 
-                <p>
-                    <ul>
-                        <li>
-                            <p>
-                                These models can be fit with linear regression
-                                by passing in predictors <m>x_i^\ell</m>.
-                            </p>
-                        </li>
-
-                        <li>
-                            <p>
-                                We tend not to go higher than degree 3 or 4
-                                because the model can become overly flexible.
-                            </p>
-                        </li>
-                    </ul>
-                </p>
+                    <li>
+                        <p>
+                            We tend not to go higher than degree 3 or 4 because
+                            the model can become overly flexible.
+                        </p>
+                    </li>
+                </ul>
+            </p>
         </sidebyside>
     </paragraphs>
-
-    <paragraphs>
+    <!-- <paragraphs>
         <title>Using Linear Regression for fitting polynomial models</title>
 
         <sidebyside width="50%">
@@ -273,5 +475,5 @@
 
             <p/>
         </sidebyside>
-    </paragraphs>
+    </paragraphs> -->
 </handout>

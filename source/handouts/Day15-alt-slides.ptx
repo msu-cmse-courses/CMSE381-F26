@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day15" xml:id="day-15-lecture">
+    <title>Day 15</title>
+
+    <introduction>
+        <p>
+            Ch 5.1.5: <m>k</m>-fold Cross-Validation for Classification
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    CV for classification
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>CV for Classification</title>
+
+        <p>
+            Setup: LOOCV
+        </p>
+
+        <sidebyside widths="45% 45%">
+            <ul>
+                <li>
+                    Remove the <m>i</m> th point <m>(x_i,y_i)</m> and reserve it
+                    for testing.
+                </li>
+
+                <li>Train the model on the remaining points.</li>
+                <li>
+                    Calculate
+                    <m>\operatorname{Err}_i = \mathbb{I}(y_i \ne \widehat{y}_i)</m>.
+                </li>
+
+                <li>Rinse and repeat.</li>
+            </ul>
+
+            <stack>
+                <image source="figures/LOOCV-subset0.png" xml:id="loocv-subset-0">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the first
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset1.png" xml:id="loocv-subset-1">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the second
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset2.png" xml:id="loocv-subset-2">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the third
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset3.png" xml:id="loocv-subset-3">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the fourth
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/LOOCV-subset4.png" xml:id="loocv-subset-4">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the fifth
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <m>\vdots</m>
+                </p>
+
+                <image source="figures/LOOCV-subset29.png" xml:id="loocv-subset-29">
+                    <shortdescription>
+                        Leave-one-out cross-validation split with the final
+                        point reserved for testing.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+
+        <p>
+            Return the cross-validation error:
+            <md>
+                CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}\operatorname{Err}_i
+            </md>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>CV for Classification</title>
+
+        <p>
+            Setup: <m>k</m>-fold
+        </p>
+
+        <sidebyside widths="45% 45%">
+            <ul>
+                <li>Randomly split the data into <m>k</m> groups (folds).</li>
+                <li>
+                    Make the folds approximately equal in size.
+                    For notation, suppose each fold has <m>\ell</m> points.
+                </li>
+
+                <li>
+                    Remove the <m>i</m> th fold <m>U_i</m> and reserve it for
+                    testing.
+                </li>
+
+                <li>Train the model on the remaining points.</li>
+                <li>
+                    Calculate
+                    <md>
+                        \operatorname{Err}_i = \frac{1}{\ell}
+        \sum_{(x_j,y_j)\in U_i}
+        \mathbb{I}(y_j \ne \widehat{y}_j)
+                    </md>
+                </li>
+
+                <li>Rinse and repeat.</li>
+            </ul>
+
+            <stack>
+                <image source="figures/CV-Kfold-subset0.png" xml:id="cv-kfold-subset-0">
+                    <shortdescription>
+                        Data split into folds, with the first fold reserved for
+                        testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset1.png" xml:id="cv-kfold-subset-1">
+                    <shortdescription>
+                        Data split into folds, with the second fold reserved for
+                        testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset2.png" xml:id="cv-kfold-subset-2">
+                    <shortdescription>
+                        Data split into folds, with the third fold reserved for
+                        testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset3.png" xml:id="cv-kfold-subset-3">
+                    <shortdescription>
+                        Data split into folds, with the fourth fold reserved for
+                        testing.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset4.png" xml:id="cv-kfold-subset-4">
+                    <shortdescription>
+                        Data split into folds, with the fifth fold reserved for
+                        testing.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+
+        <p>
+            Return the cross-validation error:
+            <md>
+                CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}\operatorname{Err}_i
+            </md>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Classification on simulated data: logistic regression</title>
+
+        <p>
+            No <m>k</m>-fold cross-validation yet.
+        </p>
+
+        <sidebyside widths="40% 45%">
+            <image source="figures/Fig5-7a.png" xml:id="fig5-7a">
+                <shortdescription>
+                    Plot comparing the Bayes decision boundary in purple with
+                    the logistic regression boundary in black.
+                </shortdescription>
+            </image>
+
+            <p>
+            <ul>
+                <li>
+                    <p>
+                        Purple: Bayes decision boundary.                    
+                    <ul>
+                        <li>Error rate: <m>0.133</m></li>
+                    </ul>
+                    </p>
+                </li>
+
+                <li>
+                    <p>Black: logistic regression.
+                    <ul>
+                        <li>
+                            <p>
+                                <m>\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Error rate: <m>0.201</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                This error rate is still high, so the model has
+                                not done a great job yet.
+                            </p>
+                        </li>
+                    </ul>
+                    </p>
+                </li>
+            </ul>
+            </p>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>Increase the degree and see what happens.</li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <note>
+        <p>
+            The Bayes decision boundary is where <m>p = 1-p</m>, meaning
+            <m>\beta_0 + \beta_1 X_1 + \beta_2 X_2 = 0</m>
+        </p>
+    </note>
+
+    <paragraphs>
+        <title>
+            Classification on simulated data: Quadratic logistic regression
+        </title>
+
+        <p>
+            No <m>k</m>-fold cross-validation yet.
+        </p>
+
+        <sidebyside widths="40% 45%">
+            <image source="figures/Fig5-7b.png" xml:id="fig5-7b">
+                <shortdescription>
+                    Plot comparing the Bayes decision boundary in purple with
+                    the quadratic logistic regression boundary in black.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Purple: Bayes decision boundary.
+                            <ul>
+                                <li>
+                                    <p>
+                                        Error rate: <m>0.133</m>
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Black: logistic regression.                        
+                            <ul>
+                                <li>
+                                    <p>
+                                        <m>\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \beta_3 X_2 + \beta_4 X_2^2</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Error rate: <m>0.197</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The logistic regression error rate
+                                        improved slightly, but is still not
+                                        great.
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Increase the degree again and see what happens.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Example on simulated data: Polynomial Logistic Regression</title>
+
+        <p>
+            No <m>k</m>-fold cross-validation yet.
+        </p>
+
+        <sidebyside widths="45% 35%">
+            <image source="figures/Fig5-7.png" xml:id="fig5-7">
+                <shortdescription>
+                    Simulated data with the Bayes decision boundary and logistic
+                    regression decision boundaries for polynomial degrees one
+                    through four.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Purple: Bayes decision boundary.
+                            <ul>
+                                <li>
+                                    <p>
+                                        Error rate: <m>0.133</m>
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Black: logistic regression.
+
+                            <ul>
+                                <li>
+                                    <p>
+                                        Degree 1 error rate: <m>0.201</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Degree 2 error rate: <m>0.197</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Degree 3 error rate: <m>0.160</m>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Degree 4 error rate: <m>0.162</m>
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Normally, we do not have the Bayes decision boundary.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        How do you pick between models?
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Decide degree based on CV</title>
+
+        <sidebyside widths="45% 50%">
+            <image source="figures/Fig5-8a.png" xml:id="fig5-8a">
+                <shortdescription>
+                    Plot of test error, training error, and ten-fold
+                    cross-validation error as model flexibility increases.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Test error (brown)
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Training error (blue)
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            10-fold CV error (black)
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Training error tends to decrease as the flexibility of
+                        the fit increases.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The blue curve does not decrease monotonically, but it
+                        trends downward overall.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Test error displays a characteristic U-shape.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The 10-fold CV error provides a fairly good, but
+                        underestimated, approximation to the test error rate.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The minimum occurs at degree 4, close to the test error
+                        curve's minimum at degree 3.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Similar approach for KNN</title>
+
+        <sidebyside widths="45% 45%">
+            <image source="figures/Fig5-8b.png" xml:id="fig5-8b">
+                <shortdescription>
+                    Plot of test error, training error, and ten-fold
+                    cross-validation error for K-nearest neighbors across values
+                    of 1/K.
+                </shortdescription>
+            </image>
+
+            <p>
+                <ul>
+                    <li>
+                        <p>
+                            Test error (brown)
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Training error (blue)
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            10-fold CV error (black)
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Here, the changing parameter is different.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The same idea helps identify a suitable choice of
+                        <m>K</m>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The minimum of the black curve (10-fold CV) occurs at a
+                        value of <m>1/K</m> close to the minimum of the brown
+                        curve, suggesting a good choice.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>TL;DR</title>
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <p>
+                    <m>k</m>-fold CV
+                </p>
+
+                <image source="figures/CV-Kfold-subset0.png">
+                    <shortdescription>
+                        First split in the k-fold cross-validation sequence.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset1.png">
+                    <shortdescription>
+                        Second split in the k-fold cross-validation sequence.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset2.png">
+                    <shortdescription>
+                        Third split in the k-fold cross-validation sequence.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset3.png">
+                    <shortdescription>
+                        Fourth split in the k-fold cross-validation sequence.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/CV-Kfold-subset4.png">
+                    <shortdescription>
+                        Fifth split in the k-fold cross-validation sequence.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <md>
+                        CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}\operatorname{MSE}_i
+                    </md>
+                </p>
+
+                <p>
+                    Usually, use <m>k=5</m> or <m>k=10</m>.
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <m>k</m>-fold CV for classification
+                </p>
+
+                <p>
+                    <md>
+                        \operatorname{Err}_i = \mathbb{I}(y_j \ne \widehat{y}_j)
+                    </md>
+                </p>
+
+                <p>
+                    <md>
+                        CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}\operatorname{Err}_i
+                    </md>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+</handout>

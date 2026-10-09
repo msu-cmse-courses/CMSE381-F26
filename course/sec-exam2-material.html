@@ -1425,6 +1425,11 @@ y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-15-lecture-3-2-1" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
+<li id="day-15-lecture-3-2-2">
+<div class="para" id="day-15-lecture-3-2-2-1">Best subet selection<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-3-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-15-lecture-3-2-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
 </ul>
 <div class="autopermalink" aria-hidden="true" data-description="Objectives: Covered in this class"><a tabindex="-1" href="#day-15-lecture-3" title="Copy heading and permalink for Objectives: Covered in this class" aria-label="Copy heading and permalink for Objectives: Covered in this class">🔗</a></div>
 </article>
@@ -1908,6 +1913,887 @@ CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}\operatorname{Err}_i
 </div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: TL;DR"><a tabindex="-1" href="#day-15-lecture-12" title="Copy heading and permalink for Paragraphs: TL;DR" aria-label="Copy heading and permalink for Paragraphs: TL;DR">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-13"><h3 class="heading"><span class="title">Improving linear models:Subset selection.</span></h3>
+<div class="para logical" id="day-15-lecture-13-2">
+<ul class="disc" id="day-15-lecture-13-2-1">
+<li id="day-15-lecture-13-2-1-1">
+<div class="para" id="day-15-lecture-13-2-1-1-1">Why shouldn’t you have as many predictors in your model as possible?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-13-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-13-2-1-2">
+<div class="para" id="day-15-lecture-13-2-1-2-1">What are the three basic methods for selecting appropriate predictors (feature selection)?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-13-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-13-2-1-3">
+<div class="para" id="day-15-lecture-13-2-1-3-1">What are the steps in the algorithm for each of these methods?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-13-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-13-2-1-4">
+<div class="para" id="day-15-lecture-13-2-1-4-1">How can you carry out these procedures by hand, given the training and cross-validation test errors for each combination of predictors?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-13-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-13-2-1-5">
+<div class="para" id="day-15-lecture-13-2-1-5-1">What are the pros and cons of each feature selection method? When can or can’t you use them?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-13-2-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-13-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Improving linear models:Subset selection"><a tabindex="-1" href="#day-15-lecture-13" title="Copy heading and permalink for Paragraphs: Improving linear models:Subset selection" aria-label="Copy heading and permalink for Paragraphs: Improving linear models:Subset selection">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-14"><h3 class="heading"><span class="title">Subset selection.</span></h3>
+<div class="para" id="day-15-lecture-14-2">The problem of many features (p) relative to samples (n)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-15-lecture-14-3">
+<div class="para">Up to now, we’ve focused on the standard linear model:</div>
+<div class="displaymath process-math" id="day-15-lecture-14-3-1">
+\begin{equation*}
+Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \varepsilon
+\end{equation*}
+</div>
+<div class="para">and done least squares estimation.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-15-lecture-14-4">Translation: minimize <span class="process-math">\(RSS = \sum_i (y_i - \hat{y}_i)^2\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-15-lecture-14-5-1-1">Prediction accuracy<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-15-lecture-14-5-1-2">
+<ul class="disc" id="day-15-lecture-14-5-1-2-1">
+<li id="day-15-lecture-14-5-1-2-1-1">
+<div class="para" id="day-15-lecture-14-5-1-2-1-1-1">If the true relationship is approximately linear, least squares estimates have low bias.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-1-2-1-2">
+<div class="para" id="day-15-lecture-14-5-1-2-1-2-1">If <span class="process-math">\(n \gg p\text{,}\)</span> least squares also has low variance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-1-2-1-3">
+<div class="para" id="day-15-lecture-14-5-1-2-1-3-1">If <span class="process-math">\(n\)</span> is not much larger than <span class="process-math">\(p\text{,}\)</span> estimates have high variability, which can lead to overfitting and poor predictions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-1-2-1-4">
+<div class="para" id="day-15-lecture-14-5-1-2-1-4-1">If <span class="process-math">\(n &lt; p\text{,}\)</span> there is no unique solution, so least squares cannot be used.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-1-2-1-5">
+<div class="para" id="day-15-lecture-14-5-1-2-1-5-1">Goal for the next slide: shrink or constrain the number of variables to improve accuracy.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-1-2-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-15-lecture-14-5-2-1">Model interpretability<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-15-lecture-14-5-2-2">
+<ul class="disc" id="day-15-lecture-14-5-2-2-1">
+<li id="day-15-lecture-14-5-2-2-1-1">
+<div class="para" id="day-15-lecture-14-5-2-2-1-1-1">Often, many included variables are not associated with the response.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-2-2-1-2">
+<div class="para" id="day-15-lecture-14-5-2-2-1-2-1">Including them leads to unnecessary complexity in the model.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-2-2-1-3">
+<div class="para" id="day-15-lecture-14-5-2-2-1-3-1">Idea: set these coefficients to zero or close to zero.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-14-5-2-2-1-4">
+<div class="para" id="day-15-lecture-14-5-2-2-1-4-1">Goal for the next slide: use automatic feature selection (variable selection) to remove unnecessary variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-14-5-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-14-5-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Subset selection"><a tabindex="-1" href="#day-15-lecture-14" title="Copy heading and permalink for Paragraphs: Subset selection" aria-label="Copy heading and permalink for Paragraphs: Subset selection">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-15"><h3 class="heading"><span class="title">Best subset selection.</span></h3>
+<div class="para" id="day-15-lecture-15-2">Go through every combination of variables exhaustively.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-15-lecture-15-3">All subsets of 4 variables ( <span class="process-math">\(2^4 = 16\)</span> ):<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:4.5%;margin-right:4.5%;grid-template-columns:5.494505494505495% 10.989010989011% 10.989010989011% 16.4835164835165% 16.4835164835165%;column-gap:9%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-15-4-1-1">
+<ul class="disc" id="day-15-lecture-15-4-1-1-1">
+<li id="day-15-lecture-15-4-1-1-1-1">
+<div class="para" id="day-15-lecture-15-4-1-1-1-1-1">
+<span class="process-math">\(\displaystyle \emptyset\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-15-4-2-1">
+<ul class="disc" id="day-15-lecture-15-4-2-1-1">
+<li id="day-15-lecture-15-4-2-1-1-1">
+<div class="para" id="day-15-lecture-15-4-2-1-1-1-1">
+<span class="process-math">\(\displaystyle X_1\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-2-1-1-2">
+<div class="para" id="day-15-lecture-15-4-2-1-1-2-1">
+<span class="process-math">\(\displaystyle X_2\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-2-1-1-3">
+<div class="para" id="day-15-lecture-15-4-2-1-1-3-1">
+<span class="process-math">\(\displaystyle X_3\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-2-1-1-4">
+<div class="para" id="day-15-lecture-15-4-2-1-1-4-1">
+<span class="process-math">\(\displaystyle X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-15-4-3-1">
+<ul class="disc" id="day-15-lecture-15-4-3-1-1">
+<li id="day-15-lecture-15-4-3-1-1-1">
+<div class="para" id="day-15-lecture-15-4-3-1-1-1-1">
+<span class="process-math">\(\displaystyle X_1, X_2\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-3-1-1-2">
+<div class="para" id="day-15-lecture-15-4-3-1-1-2-1">
+<span class="process-math">\(\displaystyle X_1, X_3\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-3-1-1-3">
+<div class="para" id="day-15-lecture-15-4-3-1-1-3-1">
+<span class="process-math">\(\displaystyle X_1, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-3-1-1-4">
+<div class="para" id="day-15-lecture-15-4-3-1-1-4-1">
+<span class="process-math">\(\displaystyle X_2, X_3\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-3-1-1-5">
+<div class="para" id="day-15-lecture-15-4-3-1-1-5-1">
+<span class="process-math">\(\displaystyle X_2, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-3-1-1-6">
+<div class="para" id="day-15-lecture-15-4-3-1-1-6-1">
+<span class="process-math">\(\displaystyle X_3, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-3-1-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-15-4-4-1">
+<ul class="disc" id="day-15-lecture-15-4-4-1-1">
+<li id="day-15-lecture-15-4-4-1-1-1">
+<div class="para" id="day-15-lecture-15-4-4-1-1-1-1">
+<span class="process-math">\(\displaystyle X_1, X_2, X_3\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-4-1-1-2">
+<div class="para" id="day-15-lecture-15-4-4-1-1-2-1">
+<span class="process-math">\(\displaystyle X_1, X_2, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-4-1-1-3">
+<div class="para" id="day-15-lecture-15-4-4-1-1-3-1">
+<span class="process-math">\(\displaystyle X_1, X_3, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-4-4-1-1-4">
+<div class="para" id="day-15-lecture-15-4-4-1-1-4-1">
+<span class="process-math">\(\displaystyle X_2, X_3, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-4-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-15-4-5-1">
+<ul class="disc" id="day-15-lecture-15-4-5-1-1">
+<li id="day-15-lecture-15-4-5-1-1-1">
+<div class="para" id="day-15-lecture-15-4-5-1-1-1-1">
+<span class="process-math">\(\displaystyle X_1, X_2, X_3, X_4\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-5-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-4-5-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-4-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="para logical" id="day-15-lecture-15-5">
+<ul class="disc" id="day-15-lecture-15-5-1">
+<li id="day-15-lecture-15-5-1-1">
+<div class="para" id="day-15-lecture-15-5-1-1-1">The idea is to fit the model <span class="process-math">\(2^p\)</span> times, score each model, and choose the one with the best score.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-5-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-5-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-5-1-2">
+<div class="para" id="day-15-lecture-15-5-1-2-1">The subsets are grouped into tiers by the number of variables <span class="process-math">\(k\)</span> selected from the <span class="process-math">\(p\)</span> available variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-5-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-5-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-5-1-3">
+<div class="para" id="day-15-lecture-15-5-1-3-1">Models with the same <span class="process-math">\(k\)</span> can be compared without considering the order of the variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-5-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-5-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-15-5-1-4">
+<div class="para logical" id="day-15-lecture-15-5-1-4-1">
+<div class="para">Each tier has <span class="process-math">\(\binom{p}{k}\)</span> combinations, where</div>
+<div class="displaymath process-math" id="day-15-lecture-15-5-1-4-1-2">
+\begin{equation*}
+\binom{p}{k} = \dfrac{p!}{k!(p-k)!}\text{.}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-5-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-15-5-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-15-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Best subset selection"><a tabindex="-1" href="#day-15-lecture-15" title="Copy heading and permalink for Paragraphs: Best subset selection" aria-label="Copy heading and permalink for Paragraphs: Best subset selection">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-16"><h3 class="heading"><span class="title">One way of breaking this up.</span></h3>
+<div class="image-box" style="width: 65%; margin-left: 17.5%; margin-right: 17.5%;"><img src="external/figures/Alg6-1.png" class="contained" alt="Algorithm diagram showing one way to break up the subset selection procedure into steps for choosing models based on training and testing scores."></div>
+<div class="para logical" id="day-15-lecture-16-3">
+<ul class="disc" id="day-15-lecture-16-3-1">
+<li id="day-15-lecture-16-3-1-1">
+<div class="para" id="day-15-lecture-16-3-1-1-1">Part 2b chooses the model with the lowest training score; Part 3 then chooses the model with the lowest testing score.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-16-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-16-3-1-2">
+<div class="para" id="day-15-lecture-16-3-1-2-1">Step 2 is computationally infeasible for large <span class="process-math">\(p\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-16-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<details id="day-15-lecture-16-4" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">86</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Best subset selection.</span>
+</h4></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-15-lecture-16-4-2">
+<div class="para" id="day-15-lecture-16-4-2-1">We train a model using four variables, <span class="process-math">\(X_1, X_2, X_3, X_4\text{.}\)</span> We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/FakeData-SubsetSelection.png" class="contained" alt="Table showing mean squared error values for models fit using all possible subsets of four variables in a subset selection example."></div>
+</div>
+<article class="task exercise-like" id="day-15-lecture-16-4-3"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-16-4-3-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_0\)</span> when using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-16-4-3-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-16-4-3-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-16-4-3-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-16-4-3-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-16-4-3-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.a"><a tabindex="-1" href="#day-15-lecture-16-4-3" title="Copy heading and permalink for Task 86.a" aria-label="Copy heading and permalink for Task 86.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-16-4-4"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-16-4-4-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_1\)</span> when using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-16-4-4-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-16-4-4-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-16-4-4-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-16-4-4-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-16-4-4-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-16-4-4-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-4-3-1">
+<span class="process-math">\(\mathcal{M}_1\)</span> is the set containing the single variable with the lowest training score.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 86.b.1"><a tabindex="-1" href="#day-15-lecture-16-4-4-3" title="Copy heading and permalink for Hint 86.b.1" aria-label="Copy heading and permalink for Hint 86.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.b"><a tabindex="-1" href="#day-15-lecture-16-4-4" title="Copy heading and permalink for Task 86.b" aria-label="Copy heading and permalink for Task 86.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-16-4-5"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-16-4-5-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_2\)</span> when using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-16-4-5-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-16-4-5-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-16-4-5-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-16-4-5-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-16-4-5-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-16-4-5-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-5-3-1">
+<span class="process-math">\(\mathcal{M}_2\)</span> is the set containing the two variables with the lowest training scores.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 86.c.1"><a tabindex="-1" href="#day-15-lecture-16-4-5-3" title="Copy heading and permalink for Hint 86.c.1" aria-label="Copy heading and permalink for Hint 86.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.c"><a tabindex="-1" href="#day-15-lecture-16-4-5" title="Copy heading and permalink for Task 86.c" aria-label="Copy heading and permalink for Task 86.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-16-4-6"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-16-4-6-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_3\)</span> when using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-16-4-6-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-16-4-6-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-16-4-6-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-16-4-6-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-16-4-6-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-16-4-6-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-6-3-1">
+<span class="process-math">\(\mathcal{M}_3\)</span> is the set containing the three variables with the lowest training scores.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 86.d.1"><a tabindex="-1" href="#day-15-lecture-16-4-6-3" title="Copy heading and permalink for Hint 86.d.1" aria-label="Copy heading and permalink for Hint 86.d.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.d"><a tabindex="-1" href="#day-15-lecture-16-4-6" title="Copy heading and permalink for Task 86.d" aria-label="Copy heading and permalink for Task 86.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-16-4-7"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-16-4-7-1-1">What subset of variables is found for each of the sets <span class="process-math">\(\mathcal{M}_4\)</span> when using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-16-4-7-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-16-4-7-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-16-4-7-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-16-4-7-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-16-4-7-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-16-4-7-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-7-3-1">
+<span class="process-math">\(\mathcal{M}_4\)</span> is the set of all variables, i.e., <span class="process-math">\(\mathcal{M}_4 = \{X_1, X_2, X_3, X_4\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-7-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 86.e.1"><a tabindex="-1" href="#day-15-lecture-16-4-7-3" title="Copy heading and permalink for Hint 86.e.1" aria-label="Copy heading and permalink for Hint 86.e.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.e"><a tabindex="-1" href="#day-15-lecture-16-4-7" title="Copy heading and permalink for Task 86.e" aria-label="Copy heading and permalink for Task 86.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-16-4-8"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<div class="para" id="day-15-lecture-16-4-8-1-1">What subset of variables is returned using best subset selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-15-lecture-16-4-8-2" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-8-2-1">The best subset selection procedure returns the model with the lowest testing score.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 86.f.1"><a tabindex="-1" href="#day-15-lecture-16-4-8-2" title="Copy heading and permalink for Hint 86.f.1" aria-label="Copy heading and permalink for Hint 86.f.1">🔗</a></div>
+</div></details>
+<details id="day-15-lecture-16-4-8-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-15-lecture-16-4-8-3-1">Among test error, best is <span class="process-math">\(\mathcal{M}_2 = \{X_3, X_4\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-16-4-8-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 86.f.1"><a tabindex="-1" href="#day-15-lecture-16-4-8-3" title="Copy heading and permalink for Answer 86.f.1" aria-label="Copy heading and permalink for Answer 86.f.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 86.f"><a tabindex="-1" href="#day-15-lecture-16-4-8" title="Copy heading and permalink for Task 86.f" aria-label="Copy heading and permalink for Task 86.f">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 86: Best subset selection"><a tabindex="-1" href="#day-15-lecture-16-4" title="Copy heading and permalink for Example 86: Best subset selection" aria-label="Copy heading and permalink for Example 86: Best subset selection">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: One way of breaking this up"><a tabindex="-1" href="#day-15-lecture-16" title="Copy heading and permalink for Paragraphs: One way of breaking this up" aria-label="Copy heading and permalink for Paragraphs: One way of breaking this up">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-17"><h3 class="heading"><span class="title">What’s the problem with best subset selection?</span></h3>
+<div class="para logical" id="day-15-lecture-17-2">
+<ul class="disc" id="day-15-lecture-17-2-1">
+<li id="day-15-lecture-17-2-1-1">
+<div class="para" id="day-15-lecture-17-2-1-1-1">Checking <span class="process-math">\(2^p\)</span> models is not reasonable for large <span class="process-math">\(p\text{,}\)</span> such as <span class="process-math">\(p &gt; 40\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-17-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-17-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-17-2-1-2">
+<div class="para" id="day-15-lecture-17-2-1-2-1">The next few slides introduce alternatives to Step 2.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-17-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-17-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-17-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: What’s the problem with best subset selection?"><a tabindex="-1" href="#day-15-lecture-17" title="Copy heading and permalink for Paragraphs: What’s the problem with best subset selection?" aria-label="Copy heading and permalink for Paragraphs: What’s the problem with best subset selection?">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-18"><h3 class="heading"><span class="title">Forward Stepwise Selection.</span></h3>
+<div class="image-box" style="width: 65%; margin-left: 17.5%; margin-right: 17.5%;"><img src="external/figures/Alg6-2.png" class="contained" alt="Algorithm diagram showing the forward stepwise selection procedure for building a model by adding variables one at a time."></div>
+<details id="day-15-lecture-18-3" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">87</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Best subset selection.</span>
+</h4></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-15-lecture-18-3-2">
+<div class="para" id="day-15-lecture-18-3-2-1">We train a model using four variables, <span class="process-math">\(X_1, X_2, X_3, X_4\text{.}\)</span> We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/FakeData-SubsetSelection.png" class="contained" alt="Table showing mean squared error values for models fit using all possible subsets of four variables in a subset selection example."></div>
+</div>
+<article class="task exercise-like" id="day-15-lecture-18-3-3"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-18-3-3-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_0\)</span> when using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-18-3-3-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-18-3-3-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-18-3-3-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-18-3-3-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-18-3-3-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.a"><a tabindex="-1" href="#day-15-lecture-18-3-3" title="Copy heading and permalink for Task 87.a" aria-label="Copy heading and permalink for Task 87.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-18-3-4"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-18-3-4-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_1\)</span> when using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-18-3-4-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-18-3-4-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-18-3-4-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-18-3-4-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-18-3-4-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-18-3-4-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-18-3-4-3-1">
+<span class="process-math">\(\mathcal{M}_1\)</span> is the set containing the single variable with the lowest training score.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-4-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 87.b.1"><a tabindex="-1" href="#day-15-lecture-18-3-4-3" title="Copy heading and permalink for Hint 87.b.1" aria-label="Copy heading and permalink for Hint 87.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.b"><a tabindex="-1" href="#day-15-lecture-18-3-4" title="Copy heading and permalink for Task 87.b" aria-label="Copy heading and permalink for Task 87.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-18-3-5"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-18-3-5-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_2\)</span> when using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-18-3-5-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-18-3-5-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-18-3-5-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-18-3-5-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-18-3-5-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.c"><a tabindex="-1" href="#day-15-lecture-18-3-5" title="Copy heading and permalink for Task 87.c" aria-label="Copy heading and permalink for Task 87.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-18-3-6"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-18-3-6-1-1">What subset of variables is found for <span class="process-math">\(\mathcal{M}_3\)</span> when using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-18-3-6-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-18-3-6-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-18-3-6-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-18-3-6-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-18-3-6-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.d"><a tabindex="-1" href="#day-15-lecture-18-3-6" title="Copy heading and permalink for Task 87.d" aria-label="Copy heading and permalink for Task 87.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-18-3-7"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
+<div class="exercise-statement">
+<div class="para" id="day-15-lecture-18-3-7-1-1">What subset of variables is found for each of the sets <span class="process-math">\(\mathcal{M}_4\)</span> when using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<ul data-component="multiplechoice" class="exercise-interactives" data-multipleanswers="false">
+<li data-component="answer" id="_opt_a">
+<div class="para" id="day-15-lecture-18-3-7-2-1-1-1"><span class="process-math">\(\emptyset\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_a">
+<li data-component="answer" id="_opt_b">
+<div class="para" id="day-15-lecture-18-3-7-2-2-1-1"><span class="process-math">\(\{X_1\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_b">
+<li data-component="answer" id="_opt_c">
+<div class="para" id="day-15-lecture-18-3-7-2-3-1-1"><span class="process-math">\(\{X_2\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_c">
+<li data-component="answer" id="_opt_d">
+<div class="para" id="day-15-lecture-18-3-7-2-4-1-1"><span class="process-math">\(\{X_3\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_d">
+<li data-component="answer" id="_opt_e">
+<div class="para" id="day-15-lecture-18-3-7-2-5-1-1"><span class="process-math">\(\{X_4\}\)</span></div>
+</li>
+<li data-component="feedback" id="_opt_e">
+</ul>
+</div></div>
+<div class="solutions">
+<details id="day-15-lecture-18-3-7-3" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
+<div class="para" id="day-15-lecture-18-3-7-3-1">
+<span class="process-math">\(\mathcal{M}_4\)</span> is the set of all variables, i.e., <span class="process-math">\(\mathcal{M}_4 = \{X_1, X_2, X_3, X_4\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-7-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Hint 87.e.1"><a tabindex="-1" href="#day-15-lecture-18-3-7-3" title="Copy heading and permalink for Hint 87.e.1" aria-label="Copy heading and permalink for Hint 87.e.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.e"><a tabindex="-1" href="#day-15-lecture-18-3-7" title="Copy heading and permalink for Task 87.e" aria-label="Copy heading and permalink for Task 87.e">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-15-lecture-18-3-8"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<div class="para" id="day-15-lecture-18-3-8-1-1">What subset of variables is returned using forward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-15-lecture-18-3-8-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-15-lecture-18-3-8-2-1">Among test error, best is <span class="process-math">\(\mathcal{M}_2 = \{X2, X_3, X_4\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-18-3-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 87.f.1"><a tabindex="-1" href="#day-15-lecture-18-3-8-2" title="Copy heading and permalink for Answer 87.f.1" aria-label="Copy heading and permalink for Answer 87.f.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 87.f"><a tabindex="-1" href="#day-15-lecture-18-3-8" title="Copy heading and permalink for Task 87.f" aria-label="Copy heading and permalink for Task 87.f">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 87: Best subset selection"><a tabindex="-1" href="#day-15-lecture-18-3" title="Copy heading and permalink for Example 87: Best subset selection" aria-label="Copy heading and permalink for Example 87: Best subset selection">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Forward Stepwise Selection"><a tabindex="-1" href="#day-15-lecture-18" title="Copy heading and permalink for Paragraphs: Forward Stepwise Selection" aria-label="Copy heading and permalink for Paragraphs: Forward Stepwise Selection">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-19"><h3 class="heading"><span class="title">Pros and Cons of Forward Stepwise.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-19-2-1-1">
+<div class="para">Pros:</div>
+<ul class="disc" id="day-15-lecture-19-2-1-1-1">
+<li id="day-15-lecture-19-2-1-1-1-1">
+<div class="para" id="day-15-lecture-19-2-1-1-1-1-1">Computationally cheaper.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-19-2-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-19-2-1-1-1-2">
+<div class="para logical" id="day-15-lecture-19-2-1-1-1-2-1">
+<div class="para">The number of models fit is</div>
+<div class="displaymath process-math" id="day-15-lecture-19-2-1-1-1-2-1-1">
+\begin{equation*}
+1 + \sum_{k=0}^{p-1}(p-k) = 1 + \frac{p(p+1)}{2}
+\end{equation*}
+</div>
+<div class="para">which is much less than <span class="process-math">\(2^p\text{.}\)</span>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-19-2-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-15-lecture-19-2-2-1">
+<div class="para">Cons:</div>
+<ul class="disc" id="day-15-lecture-19-2-2-1-1">
+<li id="day-15-lecture-19-2-2-1-1-1">
+<div class="para" id="day-15-lecture-19-2-2-1-1-1-1">It is not guaranteed to find the best model.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-19-2-2-1-1-2">
+<div class="para" id="day-15-lecture-19-2-2-1-1-2-1">For example, if the best one-variable model uses <span class="process-math">\(X_1\text{,}\)</span> but the best two-variable model uses <span class="process-math">\(X_2\)</span> and <span class="process-math">\(X_3\text{,}\)</span> forward selection will not find it.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-19-2-2-1-1-3">
+<div class="para" id="day-15-lecture-19-2-2-1-1-3-1">If <span class="process-math">\(n &lt; p\text{,}\)</span> it can only construct models <span class="process-math">\(\mathcal{M}_0\)</span> through <span class="process-math">\(\mathcal{M}_{n-1}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-19-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-19-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pros and Cons of Forward Stepwise"><a tabindex="-1" href="#day-15-lecture-19" title="Copy heading and permalink for Paragraphs: Pros and Cons of Forward Stepwise" aria-label="Copy heading and permalink for Paragraphs: Pros and Cons of Forward Stepwise">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-20"><h3 class="heading"><span class="title">Backward Stepwise Selection.</span></h3>
+<div class="image-box" style="width: 65%; margin-left: 17.5%; margin-right: 17.5%;"><img src="external/figures/Alg6-3.png" class="contained" alt="Algorithm diagram showing the backward stepwise selection procedure for building a model by removing variables one at a time."></div>
+<details id="day-15-lecture-20-3" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">88</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Best subset selection.</span>
+</h4></summary>
+<article class="exercise exercise-like knowl__content">
+<div class="introduction" id="day-15-lecture-20-3-2">
+<div class="para" id="day-15-lecture-20-3-2-1">We train a model using four variables, <span class="process-math">\(X_1, X_2, X_3, X_4\text{.}\)</span> We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-20-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/FakeData-SubsetSelection.png" class="contained" alt="Table showing mean squared error values for models fit using all possible subsets of four variables in a subset selection example."></div>
+</div>
+<article class="task exercise-like" id="day-15-lecture-20-3-3"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="day-15-lecture-20-3-3-1-1">What subset of variables is returned using backward stepwise selection?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-20-3-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 88.a"><a tabindex="-1" href="#day-15-lecture-20-3-3" title="Copy heading and permalink for Task 88.a" aria-label="Copy heading and permalink for Task 88.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 88: Best subset selection"><a tabindex="-1" href="#day-15-lecture-20-3" title="Copy heading and permalink for Checkpoint 88: Best subset selection" aria-label="Copy heading and permalink for Checkpoint 88: Best subset selection">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Backward Stepwise Selection"><a tabindex="-1" href="#day-15-lecture-20" title="Copy heading and permalink for Paragraphs: Backward Stepwise Selection" aria-label="Copy heading and permalink for Paragraphs: Backward Stepwise Selection">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-15-lecture-21"><h3 class="heading"><span class="title">Pros and Cons of Backward Stepwise.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-15-lecture-21-2-1-1">
+<em class="emphasis">Pros:</em><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-15-lecture-21-2-1-2">
+<ul class="disc" id="day-15-lecture-21-2-1-2-1">
+<li id="day-15-lecture-21-2-1-2-1-1">
+<div class="para" id="day-15-lecture-21-2-1-2-1-1-1">Computationally cheaper.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-21-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-21-2-1-2-1-2">
+<div class="para logical" id="day-15-lecture-21-2-1-2-1-2-1">
+<div class="para">The number of models fit is still</div>
+<div class="displaymath process-math" id="day-15-lecture-21-2-1-2-1-2-1-1">
+\begin{equation*}
+1 + \sum_{k=0}^{p-1}(p-k) = 1 + \frac{p(p+1)}{2}
+\end{equation*}
+</div>
+<div class="para">which is much less than <span class="process-math">\(2^p\text{.}\)</span>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-21-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-15-lecture-21-2-2-1">
+<em class="emphasis">Cons:</em><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-15-lecture-21-2-2-2">
+<ul class="disc" id="day-15-lecture-21-2-2-2-1">
+<li id="day-15-lecture-21-2-2-2-1-1">
+<div class="para" id="day-15-lecture-21-2-2-2-1-1-1">It is not guaranteed to find the best model.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-21-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-15-lecture-21-2-2-2-1-2">
+<div class="para" id="day-15-lecture-21-2-2-2-1-2-1">Unlike forward selection, backward selection cannot be used if <span class="process-math">\(n &lt; p\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-15-lecture-21-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<details id="day-15-lecture-21-3" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Aside</span></h4></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="day-15-lecture-21-3-1">Hybrid approaches can combine forward and backward selection.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-15-lecture-21-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pros and Cons of Backward Stepwise"><a tabindex="-1" href="#day-15-lecture-21" title="Copy heading and permalink for Paragraphs: Pros and Cons of Backward Stepwise" aria-label="Copy heading and permalink for Paragraphs: Pros and Cons of Backward Stepwise">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 15"><a tabindex="-1" href="#day-15-lecture" title="Copy heading and permalink for Handout: Day 15" aria-label="Copy heading and permalink for Handout: Day 15">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Section: Exam 2 Material"><a tabindex="-1" href="#sec-exam2-material" title="Copy heading and permalink for Section: Exam 2 Material" aria-label="Copy heading and permalink for Section: Exam 2 Material">🔗</a></div>
 </section>

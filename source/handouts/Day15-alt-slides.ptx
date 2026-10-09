@@ -1795,7 +1795,7 @@
                         <li>
                             <p>
                                 Unlike forward selection, backward selection
-                                cannot be used if <m>n &lt; p</m>.
+                                cannot be used if <m>n &lt; p</m> because the initial model with all variables cannot be fitted using ordinary least squares (OLS).
                             </p>
                         </li>
                     </ul>

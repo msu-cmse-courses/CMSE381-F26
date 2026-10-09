@@ -18,6 +18,12 @@
                     CV for classification
                 </p>
             </li>
+
+            <li>
+                <p>
+                    Best subet selection
+                </p>
+            </li>
         </ul>
     </objectives>
 
@@ -196,41 +202,42 @@
             </image>
 
             <p>
-            <ul>
-                <li>
-                    <p>
-                        Purple: Bayes decision boundary.                    
-                    <ul>
-                        <li>Error rate: <m>0.133</m></li>
-                    </ul>
-                    </p>
-                </li>
+                <ul>
+                    <li>
+                        <p>
+                            Purple: Bayes decision boundary.
+                            <ul>
+                                <li>Error rate: <m>0.133</m></li>
+                            </ul>
+                        </p>
+                    </li>
 
-                <li>
-                    <p>Black: logistic regression.
-                    <ul>
-                        <li>
-                            <p>
-                                <m>\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2</m>
-                            </p>
-                        </li>
+                    <li>
+                        <p>
+                            Black: logistic regression.
+                            <ul>
+                                <li>
+                                    <p>
+                                        <m>\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2</m>
+                                    </p>
+                                </li>
 
-                        <li>
-                            <p>
-                                Error rate: <m>0.201</m>
-                            </p>
-                        </li>
+                                <li>
+                                    <p>
+                                        Error rate: <m>0.201</m>
+                                    </p>
+                                </li>
 
-                        <li>
-                            <p>
-                                This error rate is still high, so the model has
-                                not done a great job yet.
-                            </p>
-                        </li>
-                    </ul>
-                    </p>
-                </li>
-            </ul>
+                                <li>
+                                    <p>
+                                        This error rate is still high, so the
+                                        model has not done a great job yet.
+                                    </p>
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
             </p>
         </sidebyside>
 
@@ -282,7 +289,7 @@
 
                     <li>
                         <p>
-                            Black: logistic regression.                        
+                            Black: logistic regression.
                             <ul>
                                 <li>
                                     <p>
@@ -355,7 +362,6 @@
                     <li>
                         <p>
                             Black: logistic regression.
-
                             <ul>
                                 <li>
                                     <p>
@@ -606,5 +612,1200 @@
                 </p>
             </stack>
         </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Improving linear models:Subset selection</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Why shouldn't you have as many predictors in your model
+                        as possible?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        What are the three basic methods for selecting
+                        appropriate predictors (feature selection)?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        What are the steps in the algorithm for each of these
+                        methods?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        How can you carry out these procedures by hand, given
+                        the training and cross-validation test errors for each
+                        combination of predictors?
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        What are the pros and cons of each feature selection
+                        method?
+                        When can or can't you use them?
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Subset selection</title>
+
+        <p>
+            The problem of many features (p) relative to samples (n)
+        </p>
+
+        <p>
+            Up to now, we've focused on the standard linear model:
+            <md>
+                Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \varepsilon
+            </md>
+            and done least squares estimation.
+        </p>
+
+        <p>
+            Translation: minimize <m>RSS = \sum_i (y_i - \hat{y}_i)^2</m>.
+        </p>
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <p>
+                    Prediction accuracy
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                If the true relationship is approximately
+                                linear, least squares estimates have low bias.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>n \gg p</m>, least squares also has low
+                                variance.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>n</m> is not much larger than <m>p</m>,
+                                estimates have high variability, which can lead
+                                to overfitting and poor predictions.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>n &lt; p</m>, there is no unique solution,
+                                so least squares cannot be used.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Goal for the next slide: shrink or constrain the
+                                number of variables to improve accuracy.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    Model interpretability
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Often, many included variables are not
+                                associated with the response.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Including them leads to unnecessary complexity
+                                in the model.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Idea: set these coefficients to zero or close to
+                                zero.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Goal for the next slide: use automatic feature
+                                selection (variable selection) to remove
+                                unnecessary variables.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Best subset selection</title>
+
+        <p>
+            Go through every combination of variables exhaustively.
+        </p>
+
+        <p>
+            All subsets of 4 variables ( <m>2^4 = 16</m> ):
+        </p>
+
+        <sidebyside widths="5% 10% 10% 15% 15%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>X_1</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_2</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_3</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_4</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>X_1, X_2</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_1, X_3</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_1, X_4</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_2, X_3</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_2, X_4</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_3, X_4</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>X_1, X_2, X_3</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_1, X_2, X_4</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_1, X_3, X_4</m>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_2, X_3, X_4</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>X_1, X_2, X_3, X_4</m>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        The idea is to fit the model <m>2^p</m> times, score
+                        each model, and choose the one with the best score.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The subsets are grouped into tiers by the number of
+                        variables <m>k</m> selected from the <m>p</m> available
+                        variables.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Models with the same <m>k</m> can be compared without
+                        considering the order of the variables.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Each tier has <m>\binom{p}{k}</m> combinations, where
+                        <md>
+                            \binom{p}{k} = \dfrac{p!}{k!(p-k)!}
+                        </md>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>One way of breaking this up</title>
+
+        <image source="figures/Alg6-1.png" width="65%">
+            <shortdescription>
+                Algorithm diagram showing one way to break up the subset
+                selection procedure into steps for choosing models based on
+                training and testing scores.
+            </shortdescription>
+        </image>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Part 2b chooses the model with the lowest training
+                        score; Part 3 then chooses the model with the lowest
+                        testing score.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Step 2 is computationally infeasible for large <m>p</m>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+        <example>
+            <title>Best subset selection</title>
+
+            <introduction>
+                <p>
+                    We train a model using four variables,
+                    <m>X_1, X_2, X_3, X_4</m>.
+                    We’re interested in selecting a subset of the variables to
+                    use.
+                    The following table shows the mean squared error (MSE) for
+                    the model learned using each possible subset of variables.
+                </p>
+
+                <image source="figures/FakeData-SubsetSelection.png" width="50%">
+                    <shortdescription>
+                        Table showing mean squared error values for models fit
+                        using all possible subsets of four variables in a subset
+                        selection example.
+                    </shortdescription>
+                </image>
+            </introduction>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_0</m> when using best subset selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_1</m> when using best subset selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_1</m> is the set containing the single
+                        variable with the lowest training score.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_2</m> when using best subset selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_2</m> is the set containing the two
+                        variables with the lowest training scores.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_3</m> when using best subset selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_3</m> is the set containing the three
+                        variables with the lowest training scores.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for each of the sets
+                        <m>\mathcal{M}_4</m> when using best subset selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_4</m> is the set of all variables, i.e.,
+                        <m>\mathcal{M}_4 = \{X_1, X_2, X_3, X_4\}</m>.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is returned using best subset
+                        selection?
+                    </p>
+                </statement>
+
+                <hint>
+                    <p>
+                        The best subset selection procedure returns the model
+                        with the lowest testing score.
+                    </p>
+                </hint>
+
+                <answer>
+                    <p>
+                        Among test error, best is
+                        <m>\mathcal{M}_2 = \{X_3, X_4\}</m>.
+                    </p>
+                </answer>
+            </task>
+        </example>
+    </paragraphs>
+
+    <paragraphs>
+        <title>What's the problem with best subset selection?</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Checking <m>2^p</m> models is not reasonable for large
+                        <m>p</m>, such as <m>p &gt; 40</m>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The next few slides introduce alternatives to Step 2.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Forward Stepwise Selection</title>
+
+        <image source="figures/Alg6-2.png" width="65%">
+            <shortdescription>
+                Algorithm diagram showing the forward stepwise selection
+                procedure for building a model by adding variables one at a
+                time.
+            </shortdescription>
+        </image>
+
+        <example>
+            <title>Best subset selection</title>
+
+            <introduction>
+                <p>
+                    We train a model using four variables,
+                    <m>X_1, X_2, X_3, X_4</m>.
+                    We're interested in selecting a subset of the variables to
+                    use.
+                    The following table shows the mean squared error (MSE) for
+                    the model learned using each possible subset of variables.
+                </p>
+
+                <image source="figures/FakeData-SubsetSelection.png" width="50%">
+                    <shortdescription>
+                        Table showing mean squared error values for models fit
+                        using all possible subsets of four variables in a subset
+                        selection example.
+                    </shortdescription>
+                </image>
+            </introduction>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_0</m> when using forward stepwise
+                        selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_1</m> when using forward stepwise
+                        selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_1</m> is the set containing the single
+                        variable with the lowest training score.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_2</m> when using forward stepwise
+                        selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for
+                        <m>\mathcal{M}_3</m> when using forward stepwise
+                        selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is found for each of the sets
+                        <m>\mathcal{M}_4</m> when using forward stepwise
+                        selection?
+                    </p>
+                </statement>
+
+                <choices multiple-correct="true">
+                    <choice>
+                        <statement>
+                            <p>
+                                <m>\emptyset</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_1\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_2\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_3\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+
+                    <choice correct="true">
+                        <statement>
+                            <p>
+                                <m>\{X_4\}</m>
+                            </p>
+                        </statement>
+                    </choice>
+                </choices>
+
+                <hint>
+                    <p>
+                        <m>\mathcal{M}_4</m> is the set of all variables, i.e.,
+                        <m>\mathcal{M}_4 = \{X_1, X_2, X_3, X_4\}</m>.
+                    </p>
+                </hint>
+            </task>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is returned using forward
+                        stepwise selection?
+                    </p>
+                </statement>
+
+                <answer>
+                    <p>
+                        Among test error, best is
+                        <m>\mathcal{M}_2 = \{X2, X_3, X_4\}</m>.
+                    </p>
+                </answer>
+            </task>
+        </example>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Pros and Cons of Forward Stepwise</title>
+
+        <sidebyside width="45%">
+            <stack>
+                <p>
+                    Pros:
+                    <ul>
+                        <li>
+                            <p>
+                                Computationally cheaper.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The number of models fit is
+                                <md>
+                                    1 + \sum_{k=0}^{p-1}(p-k) = 1 + \frac{p(p+1)}{2}
+                                </md>
+                                which is much less than <m>2^p</m>.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    Cons:
+                    <ul>
+                        <li>
+                            <p>
+                                It is not guaranteed to find the best model.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                For example, if the best one-variable model uses
+                                <m>X_1</m>, but the best two-variable model uses
+                                <m>X_2</m> and <m>X_3</m>, forward selection
+                                will not find it.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>n &lt; p</m>, it can only construct models
+                                <m>\mathcal{M}_0</m> through
+                                <m>\mathcal{M}_{n-1}</m>.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Backward Stepwise Selection</title>
+
+        <image source="figures/Alg6-3.png" width="65%">
+            <shortdescription>
+                Algorithm diagram showing the backward stepwise selection
+                procedure for building a model by removing variables one at a
+                time.
+            </shortdescription>
+        </image>
+
+        <exercise>
+            <title>Best subset selection</title>
+
+            <introduction>
+                <p>
+                    We train a model using four variables,
+                    <m>X_1, X_2, X_3, X_4</m>.
+                    We're interested in selecting a subset of the variables to
+                    use.
+                    The following table shows the mean squared error (MSE) for
+                    the model learned using each possible subset of variables.
+                </p>
+
+                <image source="figures/FakeData-SubsetSelection.png" width="50%">
+                    <shortdescription>
+                        Table showing mean squared error values for models fit
+                        using all possible subsets of four variables in a subset
+                        selection example.
+                    </shortdescription>
+                </image>
+            </introduction>
+
+            <task>
+                <statement>
+                    <p>
+                        What subset of variables is returned using backward
+                        stepwise selection?
+                    </p>
+                </statement>
+            </task>
+        </exercise>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Pros and Cons of Backward Stepwise</title>
+
+        <sidebyside width="45%">
+            <stack>
+                <p>
+                    <em>Pros:</em>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Computationally cheaper.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The number of models fit is still
+                                <md>
+                                    1 + \sum_{k=0}^{p-1}(p-k) = 1 + \frac{p(p+1)}{2}
+                                </md>
+                                which is much less than <m>2^p</m>.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <em>Cons:</em>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                It is not guaranteed to find the best model.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Unlike forward selection, backward selection
+                                cannot be used if <m>n &lt; p</m>.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+        <aside>
+            <p>
+                Hybrid approaches can combine forward and backward selection.
+            </p>
+        </aside>
     </paragraphs>
 </handout>

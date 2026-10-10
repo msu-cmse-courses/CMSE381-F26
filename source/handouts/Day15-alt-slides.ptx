@@ -944,13 +944,57 @@
     <paragraphs>
         <title>One way of breaking this up</title>
 
-        <image source="figures/Alg6-1.png" width="65%">
-            <shortdescription>
-                Algorithm diagram showing one way to break up the subset
-                selection procedure into steps for choosing models based on
-                training and testing scores.
-            </shortdescription>
-        </image>
+        <algorithm xml:id="best-subset-selection">
+            <title>Best subset selection</title>
+
+            <p>
+                <ol>
+                    <li>
+                        <p>
+                            Let <m>\mathcal{M}_0</m> denote the
+                            <term>null model</term>, which contains no
+                            predictors.
+                            This model simply predicts the sample mean for each
+                            observation.
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            For <m>k = 1, 2, \ldots, p</m>:
+                            <ol marker="(a)">
+                                <li>
+                                    <p>
+                                        Fit all <m>\binom{p}{k}</m> models that
+                                        contain exactly <m>k</m> predictors.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Pick the best among these
+                                        <m>\binom{p}{k}</m> models, and call it
+                                        <m>\mathcal{M}_k</m>.
+                                        Here, <term>best</term> is defined as
+                                        having the smallest RSS, or
+                                        equivalently, the largest <m>R^2</m>.
+                                    </p>
+                                </li>
+                            </ol>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p>
+                            Select a single best model from among
+                            <m>\mathcal{M}_0, \ldots, \mathcal{M}_p</m> using
+                            cross-validated prediction error, <m>C_p</m> (AIC),
+                            BIC, or adjusted <m>R^2</m>.
+                        </p>
+                    </li>
+                </ol>
+            </p>
+        </algorithm>
 
         <p>
             <ul>
@@ -983,13 +1027,115 @@
                     the model learned using each possible subset of variables.
                 </p>
 
-                <image source="figures/FakeData-SubsetSelection.png" width="50%">
-                    <shortdescription>
-                        Table showing mean squared error values for models fit
-                        using all possible subsets of four variables in a subset
-                        selection example.
-                    </shortdescription>
-                </image>
+                <table>
+                    <title>
+                        Training MSE and k-fold Cross-Validation Testing Error
+                    </title>
+
+                    <tabular>
+                        <row header="yes">
+                            <cell>Model</cell>
+                            <cell>Training MSE ( <m>\times 10^7</m> )</cell>
+                            <cell>k-fold CV Testing Error</cell>
+                        </row>
+
+                        <row>
+                            <cell>Null model</cell>
+                            <cell>8.76</cell>
+                            <cell>10.08</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1</m></cell>
+                            <cell>8.63</cell>
+                            <cell>9.98</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2</m></cell>
+                            <cell>7.42</cell>
+                            <cell>8.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3</m></cell>
+                            <cell>8.16</cell>
+                            <cell>8.30</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_4</m></cell>
+                            <cell>8.33</cell>
+                            <cell>9.06</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2</m></cell>
+                            <cell>4.33</cell>
+                            <cell>7.47</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3</m></cell>
+                            <cell>5.82</cell>
+                            <cell>5.22</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_4</m></cell>
+                            <cell>3.17</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3</m></cell>
+                            <cell>4.07</cell>
+                            <cell>3.78</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_4</m></cell>
+                            <cell>3.31</cell>
+                            <cell>4.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3, X_4</m></cell>
+                            <cell>3.06</cell>
+                            <cell>4.16</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3</m></cell>
+                            <cell>3.08</cell>
+                            <cell>5.49</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_4</m></cell>
+                            <cell>3.55</cell>
+                            <cell>4.02</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3, X_4</m></cell>
+                            <cell>2.97</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3, X_4</m></cell>
+                            <cell>2.98</cell>
+                            <cell>3.17</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3, X_4</m></cell>
+                            <cell>2.16</cell>
+                            <cell>4.39</cell>
+                        </row>
+                    </tabular>
+                </table>
             </introduction>
 
             <task>
@@ -1000,8 +1146,8 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
-                    <choice correct="true">
+                <choices multiple-correct="yes">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\emptyset</m>
@@ -1051,7 +1197,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1068,7 +1214,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1109,7 +1255,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1134,7 +1280,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_3\}</m>
@@ -1142,7 +1288,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1167,7 +1313,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1176,7 +1322,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_1\}</m>
@@ -1192,7 +1338,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_3\}</m>
@@ -1200,7 +1346,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1225,7 +1371,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1234,7 +1380,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_1\}</m>
@@ -1242,7 +1388,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1250,7 +1396,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_3\}</m>
@@ -1258,7 +1404,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1324,16 +1470,63 @@
     <paragraphs>
         <title>Forward Stepwise Selection</title>
 
-        <image source="figures/Alg6-2.png" width="65%">
-            <shortdescription>
-                Algorithm diagram showing the forward stepwise selection
-                procedure for building a model by adding variables one at a
-                time.
-            </shortdescription>
-        </image>
+        <algorithm xml:id="alg-forward-stepwise-selection">
+            <title>Forward stepwise selection</title>
+
+            <statement>
+                <p>
+                    <ol>
+                        <li>
+                            <p>
+                                Let <m>\mathcal{M}_0</m> denote the null model,
+                                which contains no predictors.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                For <m>k = 0, \dots, p - 1</m>:
+                            </p>
+
+                            <p>
+                                <ol marker="(a)">
+                                    <li>
+                                        <p>
+                                            Consider all <m>p - k</m> models
+                                            that augment the predictors in
+                                            <m>\mathcal{M}_k</m> with one
+                                            additional predictor.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>
+                                            Choose the best among these
+                                            <m>p - k</m> models, and call it
+                                            <m>\mathcal{M}_{k+1}</m>.
+                                            Here best is defined as having
+                                            smallest RSS or highest <m>R^2</m>.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Select a single best model from among
+                                <m>\mathcal{M}_0, \dots, \mathcal{M}_p</m> using
+                                cross-validated prediction error, <m>C_p</m>
+                                (AIC), BIC, or adjusted <m>R^2</m>.
+                            </p>
+                        </li>
+                    </ol>
+                </p>
+            </statement>
+        </algorithm>
 
         <example>
-            <title>Best subset selection</title>
+            <title>Forward subset selection</title>
 
             <introduction>
                 <p>
@@ -1345,13 +1538,115 @@
                     the model learned using each possible subset of variables.
                 </p>
 
-                <image source="figures/FakeData-SubsetSelection.png" width="50%">
-                    <shortdescription>
-                        Table showing mean squared error values for models fit
-                        using all possible subsets of four variables in a subset
-                        selection example.
-                    </shortdescription>
-                </image>
+                <table>
+                    <title>
+                        Training MSE and k-fold Cross-Validation Testing Error
+                    </title>
+
+                    <tabular>
+                        <row header="yes">
+                            <cell>Model</cell>
+                            <cell>Training MSE ( <m>\times 10^7</m> )</cell>
+                            <cell>k-fold CV Testing Error</cell>
+                        </row>
+
+                        <row>
+                            <cell>Null model</cell>
+                            <cell>8.76</cell>
+                            <cell>10.08</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1</m></cell>
+                            <cell>8.63</cell>
+                            <cell>9.98</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2</m></cell>
+                            <cell>7.42</cell>
+                            <cell>8.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3</m></cell>
+                            <cell>8.16</cell>
+                            <cell>8.30</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_4</m></cell>
+                            <cell>8.33</cell>
+                            <cell>9.06</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2</m></cell>
+                            <cell>4.33</cell>
+                            <cell>7.47</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3</m></cell>
+                            <cell>5.82</cell>
+                            <cell>5.22</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_4</m></cell>
+                            <cell>3.17</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3</m></cell>
+                            <cell>4.07</cell>
+                            <cell>3.78</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_4</m></cell>
+                            <cell>3.31</cell>
+                            <cell>4.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3, X_4</m></cell>
+                            <cell>3.06</cell>
+                            <cell>4.16</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3</m></cell>
+                            <cell>3.08</cell>
+                            <cell>5.49</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_4</m></cell>
+                            <cell>3.55</cell>
+                            <cell>4.02</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3, X_4</m></cell>
+                            <cell>2.97</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3, X_4</m></cell>
+                            <cell>2.98</cell>
+                            <cell>3.17</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3, X_4</m></cell>
+                            <cell>2.16</cell>
+                            <cell>4.39</cell>
+                        </row>
+                    </tabular>
+                </table>
             </introduction>
 
             <task>
@@ -1363,8 +1658,8 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
-                    <choice correct="true">
+                <choices multiple-correct="yes">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\emptyset</m>
@@ -1415,7 +1710,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1432,7 +1727,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1474,7 +1769,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1491,7 +1786,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1507,7 +1802,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1526,7 +1821,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1543,7 +1838,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1551,7 +1846,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_3\}</m>
@@ -1559,7 +1854,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1578,7 +1873,7 @@
                     </p>
                 </statement>
 
-                <choices multiple-correct="true">
+                <choices multiple-correct="yes">
                     <choice>
                         <statement>
                             <p>
@@ -1587,7 +1882,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_1\}</m>
@@ -1595,7 +1890,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_2\}</m>
@@ -1603,7 +1898,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_3\}</m>
@@ -1611,7 +1906,7 @@
                         </statement>
                     </choice>
 
-                    <choice correct="true">
+                    <choice correct="yes">
                         <statement>
                             <p>
                                 <m>\{X_4\}</m>
@@ -1708,16 +2003,67 @@
     <paragraphs>
         <title>Backward Stepwise Selection</title>
 
-        <image source="figures/Alg6-3.png" width="65%">
-            <shortdescription>
-                Algorithm diagram showing the backward stepwise selection
-                procedure for building a model by removing variables one at a
-                time.
-            </shortdescription>
-        </image>
+
+        <algorithm xml:id="alg-backward-stepwise-selection">
+            <title>Backward stepwise selection</title>
+
+            <statement>
+                <p>
+                    <ol>
+                        <li>
+                            <p>
+                                Let <m>\mathcal{M}_p</m> denote the
+                                <em>full model</em>, which contains all <m>p</m>
+                                predictors.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                For <m>k = p, p - 1, \dots, 1</m>:
+                            </p>
+
+                            <p>
+                                <ol marker="(a)">
+                                    <li>
+                                        <p>
+                                            Consider all <m>k</m> models that
+                                            contain all but one of the
+                                            predictors in <m>\mathcal{M}_k</m>,
+                                            for a total of <m>k - 1</m>
+                                            predictors.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>
+                                            Choose the <em>best</em> among these
+                                            <m>k</m> models, and call it
+                                            <m>\mathcal{M}_{k-1}</m>.
+                                            Here <em>best</em> is defined as
+                                            having smallest RSS or highest
+                                            <m>R^2</m>.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Select a single best model from among
+                                <m>\mathcal{M}_0, \dots, \mathcal{M}_p</m> using
+                                cross-validated prediction error, <m>C_p</m>
+                                (AIC), BIC, or adjusted <m>R^2</m>.
+                            </p>
+                        </li>
+                    </ol>
+                </p>
+            </statement>
+        </algorithm>
 
         <exercise>
-            <title>Best subset selection</title>
+            <title>Backward subset selection</title>
 
             <introduction>
                 <p>
@@ -1729,13 +2075,115 @@
                     the model learned using each possible subset of variables.
                 </p>
 
-                <image source="figures/FakeData-SubsetSelection.png" width="50%">
-                    <shortdescription>
-                        Table showing mean squared error values for models fit
-                        using all possible subsets of four variables in a subset
-                        selection example.
-                    </shortdescription>
-                </image>
+                <table>
+                    <title>
+                        Training MSE and k-fold Cross-Validation Testing Error
+                    </title>
+
+                    <tabular>
+                        <row header="yes">
+                            <cell>Model</cell>
+                            <cell>Training MSE ( <m>\times 10^7</m> )</cell>
+                            <cell>k-fold CV Testing Error</cell>
+                        </row>
+
+                        <row>
+                            <cell>Null model</cell>
+                            <cell>8.76</cell>
+                            <cell>10.08</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1</m></cell>
+                            <cell>8.63</cell>
+                            <cell>9.98</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2</m></cell>
+                            <cell>7.42</cell>
+                            <cell>8.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3</m></cell>
+                            <cell>8.16</cell>
+                            <cell>8.30</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_4</m></cell>
+                            <cell>8.33</cell>
+                            <cell>9.06</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2</m></cell>
+                            <cell>4.33</cell>
+                            <cell>7.47</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3</m></cell>
+                            <cell>5.82</cell>
+                            <cell>5.22</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_4</m></cell>
+                            <cell>3.17</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3</m></cell>
+                            <cell>4.07</cell>
+                            <cell>3.78</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_4</m></cell>
+                            <cell>3.31</cell>
+                            <cell>4.01</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_3, X_4</m></cell>
+                            <cell>3.06</cell>
+                            <cell>4.16</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3</m></cell>
+                            <cell>3.08</cell>
+                            <cell>5.49</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_4</m></cell>
+                            <cell>3.55</cell>
+                            <cell>4.02</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_3, X_4</m></cell>
+                            <cell>2.97</cell>
+                            <cell>4.23</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_2, X_3, X_4</m></cell>
+                            <cell>2.98</cell>
+                            <cell>3.17</cell>
+                        </row>
+
+                        <row>
+                            <cell><m>X_1, X_2, X_3, X_4</m></cell>
+                            <cell>2.16</cell>
+                            <cell>4.39</cell>
+                        </row>
+                    </tabular>
+                </table>
             </introduction>
 
             <task>
@@ -1795,7 +2243,9 @@
                         <li>
                             <p>
                                 Unlike forward selection, backward selection
-                                cannot be used if <m>n &lt; p</m> because the initial model with all variables cannot be fitted using ordinary least squares (OLS).
+                                cannot be used if <m>n &lt; p</m> because the
+                                initial model with all variables cannot be
+                                fitted using ordinary least squares (OLS).
                             </p>
                         </li>
                     </ul>

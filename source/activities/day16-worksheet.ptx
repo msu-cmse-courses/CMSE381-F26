@@ -16,10 +16,11 @@
       from sklearn.model_selection import cross_val_score
       from sklearn.model_selection import KFold
     </program>
+    <p>
+      We will use <xref ref="day01-Auto-csv"/> with the usual data cleanup. Load the data into dataframe <c>auto</c>, and run the following commands.
+    </p>
     <program language="python">
-      # First, we're going to do all the data loading we've had for a while for this data set
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/d75c3811a83a66f8c261e5b599ef9e44/Auto.csv"
-      auto = pd.read_csv(url)
+  
       auto = auto.replace('?', np.nan)
       auto = auto.dropna()
       auto.horsepower = auto.horsepower.astype('int')

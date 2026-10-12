@@ -129,32 +129,32 @@
           <cell>12</cell>
           <cell>F</cell>
           <cell>10/2</cell>
-          <cell>Leave one out and k-fold CV</cell>
-          <cell>5.1.1-3</cell>
+          <cell>Leave one out and validation set</cell>
+          <cell>Ch 5.1.1-2</cell>
           <cell></cell>
         </row>
         <row>
           <cell>13</cell>
           <cell>M</cell>
           <cell>10/5</cell>
-          <cell>More k-fold CV</cell>
-          <cell>5.1.4-5</cell>
+          <cell><m>k</m>-fold CV</cell>
+          <cell>5.1.1-3</cell> 
           <cell></cell>
         </row>
         <row>
           <cell>14</cell>
           <cell>W</cell>
           <cell>10/7</cell>
-          <cell>k-fold CV for classification</cell>
-          <cell>5.1.5</cell>
+          <cell>k-fold CV: bias/variance tradeoff</cell>
+          <cell>5.1.4-5</cell>
           <cell></cell>
         </row>
         <row>
           <cell>15</cell>
           <cell>F</cell>
           <cell>10/9</cell>
-          <cell>Subset selection</cell>
-          <cell>6.1</cell>
+          <cell><m>k</m>-fold CV for classification. Subset selection</cell>
+          <cell>5.1.5. 6.1</cell>
           <cell>HW #3 assigned</cell>
         </row>
         <row>

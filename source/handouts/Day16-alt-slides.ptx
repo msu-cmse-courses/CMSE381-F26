@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day16" xml:id="day-16-lecture">
+    <title>Day 16</title>
+
+    <introduction>
+        <p>
+            Ch 6.2: Shrinkage - Ridge regression
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>
+                <p>
+                    What is regularization?
+                    Why do we need it?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What are the two basic types of regularization methods?
+                    How are they implemented mathematically in linear
+                    regression?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    How do you fit a ridge regression model in Python?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    How do you control model flexibility and the bias-variance
+                    tradeoff when using regularization?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    How do you find the right amount of regularization using
+                    cross-validation?
+                    How do you do this in Python?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What additional precautions do you need to take when using
+                    regularization compared to least squares?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What are the advantages of regularization compared to least
+                    squares?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What are the advantages of regularization compared to subset
+                    selection?
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs xml:id="regularization-goal">
+        <title>Goal</title>
+
+        <p>
+            <md>
+                Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+          + \beta_3 X_3 + \beta_4 X_4
+            </md>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Fit a model using all <m>p</m> predictors.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Aim to constrain (regularize) coefficient estimates.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Shrink the coefficient estimates toward <m>0</m>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Ridge regression
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Lasso
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Ridge regression</title>
+
+
+                <p>
+                    Before:
+                </p>
+
+                <p>
+                    <md>
+                        RSS = \sum_{i=1}^{n}
+          \left(y_i-\beta_0-\sum_{j=1}^{p}\beta_j x_{ij}\right)^2
+                    </md>
+                </p>
+
+                <p>
+                    After:
+                </p>
+
+                <p>
+                    <md>
+                        \sum_{i=1}^{n}
+          \left(y_i-\beta_0-\sum_{j=1}^{p}\beta_j x_{ij}\right)^2
+          +\lambda\sum_{j=1}^{p}\beta_j^2
+          = RSS+\lambda\sum_{j=1}^{p}\beta_j^2
+                    </md>
+                </p>
+
+
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                <m>\lambda \geq 0</m> is a tuning parameter to
+                                determine separately.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The second term is called the shrinkage penalty.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>\lambda=0</m> gives the least squares estimate.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                This is our first encounter with regularization,
+                                the <m>l_2</m> norm, and the general <m>l_p</m> norm.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Regularization constrains the model, reducing
+                                its flexibility.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                As <m>\lambda\to\infty</m>, the shrinkage penalty
+                                has an increasing impact, and the ridge
+                                regression coefficients approach zero.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The penalty is not applied to the intercept.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Denote the ridge regression coefficient
+                                estimates by
+                                <m>\hat{\boldsymbol{\beta}}_{\lambda}^{R}
+                                =(\hat{\beta}_{1,\lambda}^{R},\ldots,\hat{\beta}_{p,\lambda}^{R})</m>.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Example from the <c>Credit</c> data</title>
+
+        <p>
+            <md>
+                RSS + \lambda \sum_{j=1}^{p}\beta_j^2
+            </md>
+        </p>
+
+        <sidebyside widths="40% 40%">
+            <image source="figures/Fig6-4a.png">
+                <shortdescription>
+                    Ridge regression coefficient paths for the Credit data as
+                    the tuning parameter lambda increases.
+                </shortdescription>
+            </image>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                At the left end of the x-axis, <m>\lambda \approx
+                                0</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Each line represents the predicted coefficient
+                                value for a single variable.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                As <m>\lambda</m> increases, all coefficients
+                                approach zero, essentially giving the null model
+                                at the right end.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Same Setting, Different Plot</title>
+
+        <p>
+            <md>
+                RSS + \lambda \sum_{j=1}^{p}\beta_j^2
+      \qquad
+      \|\boldsymbol{\beta}\|_2 =
+      \sqrt{\sum_{j=1}^{p}\beta_j^2}
+            </md>
+        </p>
+
+        <sidebyside widths="40% 45%">
+            <image source="figures/Fig6-4b.png">
+                <shortdescription>
+                    Ridge regression coefficient paths plotted against the
+                    relative size of the coefficient vector.
+                </shortdescription>
+            </image>
+
+            <stack>
+                <p>
+                    <ul >
+                        <li>
+                            <p>
+                                The vector <m>\hat{\boldsymbol{\beta}}</m>
+                                contains the least squares coefficient
+                                estimates.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The norm <m>\|\cdot\|_2</m> measures the
+                                distance from zero.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The ratio
+                                <m>\|\hat{\boldsymbol{\beta}}_\lambda^R\|_2/\|\hat{\boldsymbol{\beta}}\|_2</m>
+                                ranges from <m>1</m> when <m>\lambda=0</m> down
+                                to <m>0</m> as regularization increases.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                This ratio measures the amount by which the
+                                coefficient estimates have been shrunk.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The ratio makes shrinkage more comparable across
+                                different regularization methods.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The left side is more flexible; the right side
+                                is less flexible.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Scale equivariance (or lack thereof)</title>
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <p>
+                    Scale equivariant:
+                </p>
+
+                <p>
+                    Multiplying a variable by <m>c</m>, giving <m>cX_i</m>,
+                    returns a coefficient multiplied by <m>1/c</m>, giving
+                    <m>\beta_i/c</m>.
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul >
+                        <li>
+                            <p>
+                                Example: <c>income</c> variable.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Least squares is scale equivariant.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Ridge regression is not scale equivariant.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>X_j\hat{\beta}_{j,\lambda}^{R}</m> depends
+                                not only on <m>\lambda</m> but also on the
+                                values of the other predictors.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Solution: Standardize predictors</title>
+
+        <p>
+            <md>
+                \widetilde{x}_{ij} =
+      \frac{x_{ij}}{
+      \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_{ij}-\overline{x}_j)^2}
+      }
+            </md>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        The denominator is the estimated standard deviation of
+                        the \(j\)th predictor.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Standardized predictors will all have a standard
+                        deviation of one.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Previous figures showed standardized ridge regression
+                        coefficients on the <m>y</m>-axis.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Using Cross-Validation to Find <m>\lambda</m></title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Choose a grid of <m>\lambda</m> values.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Compute the ( <m>k</m>-fold) cross-validation error for
+                        each value of <m>\lambda</m>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Select the tuning parameter value <m>\lambda</m> for
+                        which the cross-validation error is smallest.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Refit the model using all available observations and the
+                        selected value of the tuning parameter.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>
+            LOOCV Choice of <m>\lambda</m> for Ridge Regression and
+            <c>Credit</c> Data
+        </title>
+
+        <image source="figures/Fig6-12.png">
+            <shortdescription>
+                Leave-one-out cross-validation error for ridge regression on the
+                Credit data as a function of the tuning parameter lambda.
+            </shortdescription>
+        </image>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Dashed vertical lines indicate the selected value of
+                        <m>\lambda</m>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        In this case, <m>\lambda</m> is small, so the optimal
+                        fit involves only a small amount of shrinkage relative
+                        to least squares.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The dip is not very pronounced, so a wide range of
+                        values would give a very similar error.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        In a case like this, we might simply use the least
+                        squares solution.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Bias-Variance Tradeoff</title>
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <image source="figures/Fig6-5a.png">
+                    <shortdescription>
+                        Squared bias in black, variance in green, and test mean
+                        squared error in purple for simulated data.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    Squared bias (black), variance (green), and test mean
+                    squared error (purple) for simulated data.
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                The horizontal dashed line is the minimum
+                                possible test MSE.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Bias-variance tradeoff.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Minimum MSE is achieved around
+                                <m>\lambda = 30</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                High variance means the MSE for
+                                <m>\lambda = 0</m> (least squares) and
+                                <m>\lambda = \infty</m> (null model) are
+                                essentially the same.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>More Bias-Variance Tradeoff</title>
+
+        <sidebyside widths="45% 45%">
+
+                <image source="figures/Fig6-5b.png">
+                    <shortdescription>
+                        Squared bias in black, variance in green, and test mean
+                        squared error in purple for simulated data.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    Squared bias (black), variance (green), and test mean
+                    squared error (purple) for simulated data.
+                </p>
+                </sidebyside>
+
+    </paragraphs>
+
+    <paragraphs>
+        <title>Advantages of Ridge</title>
+
+        <sidebyside widths="45% 45%">
+            <stack>
+                <p>
+                    <em>Ridge vs. Least Squares:</em>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                As seen on the previous slide, ridge regression
+                                can reduce variance.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Ridge regression works best when the least
+                                squares estimates have high variance.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                It can trade a small increase in bias for a
+                                large decrease in variance.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <p>
+                    <em>Ridge vs. Subset Selection:</em>
+                </p>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Ridge regression is much more computationally
+                                efficient.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                It fits a single model rather than considering
+                                <m>2^p</m> possible models.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Computational techniques are available to solve
+                                for all values of <m>\lambda</m> simultaneously.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+</handout>

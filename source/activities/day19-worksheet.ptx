@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec19-ch6-3-pca-worksheet" component="ws19">
+<section xml:id="cmse381-lec19-pcr-worksheet" component="ws19">
   <title>Day 19 Worksheet</title>
   <introduction>
     <program language="python">
@@ -18,271 +18,59 @@
       from sklearn.metrics import mean_squared_error
     </program>
   </introduction>
-  <subsection xml:id="cmse381-lec19-ch6-3-pca-worksheet-ptx-1-pca-on-penguins">
-    <title>1. PCA on Penguins</title>
-    <figure><caption>Palmer Penguins Picture</caption><image source="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png"><description><p>Palmer Penguins Picture</p></description></image></figure>
-    <p><em>Artwork by @allison_horst</em></p>
-    <p>For this lab, we are going to again use the Palmer Penguins data set by Allison Horst, Alison Hill, and Kristen Gorman. You should have done this in a previous notebook, but if you don't have the package installed to get the data, you can run</p>
-    <program language="text">
-      pip install palmerpenguins
-    </program>
-    <p>to have access to the data.</p>
+  <subsection xml:id="cmse381-lec19-pcr-worksheet-pcr-on-hitters-data">
+    <title>PCR on Hitters Data</title>
+  </subsection>
+  <subsection xml:id="cmse381-lec19-pcr-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>Ok, here we go, let's play with a baseball data set again. Note this cleanup is all the same as previously.</p>
     <program language="python">
-      from palmerpenguins import load_penguins
-      penguins = load_penguins()
-      penguins = penguins.dropna()
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
+      df = pd.read_csv(url).dropna().drop('Player', axis = 1)
+      df.info()
+      dummies = pd.get_dummies(df[['League', 'Division', 'NewLeague']])
+    </program>
+    <program language="python">
+      y = df.Salary
 
-      #Shuffle the data
-      # penguins = penguins.sample(frac=1)
-      penguins.head()
-    </program>
-    <p>Before we get to the full version, let's just take a look at two of the columns: flipper length and bill length. A nice thing we can do is to also color the data by which species label the data point has.</p>
-    <program language="python">
-      sns.scatterplot(x = penguins.bill_length_mm, 
-                      y = penguins.flipper_length_mm, 
-                      hue = penguins.species)
-    </program>
-    <p>Before we get to it, we're going to just work with the columns that are numeric.</p>
-    <program language="python">
-      penguins_num = penguins.select_dtypes(np.number)
-      penguins_num.head()
-    </program>
-    <p>We will also use mean centered data to make the visualization easier (meaning shifting our data to have mean 0 in every column, and have standard deviation 1).</p>
-    <program language="python">
-      p_normalized = (penguins_num - penguins_num.mean())/penguins_num.std()
-      p_normalized.head()
+      # Drop the column with the independent variable (Salary), and columns for which we created dummy variables
+      X_ = df.drop(['Salary', 'League', 'Division', 'NewLeague'], axis = 1).astype('float64')
+
+      # Define the feature set X.
+      X = pd.concat([X_, dummies[['League_N', 'Division_W', 'NewLeague_N']]], axis = 1)
+
+      X.info()
     </program>
   </subsection>
-  <subsection xml:id="cmse381-lec19-ch6-3-pca-worksheet-pca-with-just-two-input-columns">
-    <title>PCA with just two input columns</title>
-    <p>To try to draw pictures similar to what we just saw on the slides, we'll first focus on two of the columns.</p>
-    <program language="python">
-      penguins_subset2 = p_normalized[['bill_length_mm', 'flipper_length_mm']]
-      penguins_subset2
-    </program>
-    <p>We run PCA using the <c>PCA</c> command from <c>scikitlearn</c>.</p>
+  <subsection xml:id="cmse381-lec19-pcr-worksheet-principal-component-regression">
+    <title>Principal Component Regression</title>
+    <p>Ok, let's do Principal Components Regression. <c>Scikit-learn</c> doesn't have a built in function to do PCR (aka PCA and then regression) but it's just as easy for us to do it ourselves.</p>
+    <p>First step, let's figure out the <c>PCA</c> function.</p>
     <program language="python">
       from sklearn.decomposition import PCA
+      from sklearn.preprocessing import scale #&lt;--- this does the scaling of variables for us
     </program>
     <program language="python">
-      # Set up the PCA object
-      pca = PCA(n_components=2)
-
-      # Fit it using our data
-      pca.fit(penguins_subset2.values)
+      pca = PCA()
+      print(X.shape)
+      X_PC = pca.fit_transform(scale(X))
+      print(X_PC.shape)
     </program>
+    <p>"But Professor, you said PCA was supposed to do dimension reduction, why is my feature output the same size?"</p>
+    <p>Glad you asked, young data scientist. The PCA command outputs all of the PCs, all the way up through <m>p=19</m> the original number of dimensions.</p>
+    <p>So, if I want the first three PCs, I can get them out as follows. I'll put it in a data frame just to add column labels, but you don't need to do that.</p>
     <program language="python">
-      pca_df = pca.fit_transform(penguins_subset2.values)
-      plt.scatter(pca_df[:,0], pca_df[:,1])
+      First3PCs = X_PC[:,:3]
+
+      pd.DataFrame(First3PCs, columns = ['Z1','Z2', 'Z3'])
     </program>
-    <p>The <c>pca.components_</c> store information about the lines we are going to project our data onto. Specifically, each row gives us one of these lines.</p>
+    <p>Now we can just do regression on the PCs like before.</p>
     <program language="python">
-      pca.components_
-    </program>
-    <program language="python">
-      sns.scatterplot(data = penguins_subset2, 
-                      x = 'bill_length_mm', 
-                      y = 'flipper_length_mm', 
-                      hue = penguins.species)
+      from sklearn.linear_model import LinearRegression
 
-      for i, comp in enumerate(pca.components_):
-          slope = comp[1]/comp[0]
-          plt.plot(np.array([-2,2]), slope*np.array([-2,2]))
-
-      plt.axis('square')
-    </program>
-    <p>A common way to look at the relative importance of the PC's is to draw these components as vectors with length based on the explained variance.</p>
-    <program language="python">
-      pca.explained_variance_
-    </program>
-    <program language="python">
-      sns.scatterplot(data = penguins_subset2, 
-                      x = 'bill_length_mm', 
-                      y = 'flipper_length_mm', 
-                      hue = penguins.species)
-
-      for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)):
-          slope = comp[1]/comp[0]
-          plt.plot(np.array([-2,2]), slope*np.array([-2,2]))
-
-          comp = comp * var  # scale component by its variance explanation power
-          plt.plot(
-              [0, comp[0]],
-              [0, comp[1]],
-              label=f"Component {i}",
-              linewidth=5,
-              color=f"C{i + 2}",
-          )
-
-      plt.axis('square')
-    </program>
-    <p>The next important part are the PC's, which we can get from the <c>pca</c> object as follows. I'm going to put them in a dataframe to make drawing and visualization easier. Basically, <m>PC_1</m> is our <m>Z_1</m> in the slides, and <m>PC_2</m> is the <m>Z_2</m>.</p>
-    <program language="python">
-      # The transform function takes in bill,flipper data points, 
-      # and returns a PC1,PC2 coordinate for each one. 
-      penguins_pca = pca.fit_transform(penguins_subset2)
-      penguins_pca = pd.DataFrame(data = penguins_pca, columns = ['PC1', 'PC2'])
-      penguins_pca.shape
-    </program>
-    <program language="python">
-      penguins.species
-    </program>
-    <p>This is the scatterplot of the data points transformed into the PC space.</p>
-    <program language="python">
-      sns.scatterplot(data = penguins_pca, x = 'PC1', y = 'PC2',hue = penguins.species)
-    </program>
-    <p>The PC's can be thought of as how far along their associated line the point would be projected. Here's one way to draw all the projections.</p>
-    <program language="python">
-      sns.scatterplot(data = penguins_subset2, 
-                      x = 'bill_length_mm', 
-                      y = 'flipper_length_mm', 
-                      hue = penguins.species)
-
-
-      # Show points projected onto the 1st PC line
-      X1 = penguins_pca.PC1*pca.components_[0,0]
-      Y1 = penguins_pca.PC1*pca.components_[0,1]
-
-      plt.scatter(X1,Y1, marker = '+', color = 'violet')
-
-
-      # Show points projected onto the 2st PC line
-      X2 = penguins_pca.PC2*pca.components_[1,0]
-      Y2 = penguins_pca.PC2*pca.components_[1,1]
-
-      plt.scatter(X2,Y2, marker = 'o', color = 'pink')
-      plt.axis('square')
-    </program>
-    <program language="python">
-      sns.scatterplot(data = penguins_subset2, 
-                      x = 'bill_length_mm', 
-                      y = 'flipper_length_mm', 
-                      hue = penguins.species)
-      plt.axis('square')
-
-      for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)):
-          slope = comp[1]/comp[0]
-          plt.plot(np.array([-2,2]), slope*np.array([-2,2]))
-
-      #===========
-      # Emphasize one point and its projections
-      #===========
-
-      index = 300 #&lt;---------- play with this!
-
-      # Here's one data point
-      plt.scatter([penguins_subset2.iloc[index,0]],
-                  [penguins_subset2.iloc[index,1]], 
-                  marker = 'D', color = 'black', s = 100, label = 'Data pt')
-
-      # Here's the projection of that point on PC1 (X shape)
-      plt.scatter([X1[index]], [Y1[index]], 
-                 marker = 'X', color = 'purple', s = 100, label = 'Project: PC1')
-
-      # And here's the projection of that point on PC2 (star)
-      plt.scatter([X2[index]], [Y2[index]], 
-                 marker = '*', color = 'purple', s = 100, label = 'Project: PC2')
-
-      plt.legend()
-    </program>
-    <exercises>
-      <title>Exercises</title>
-      <exercisegroup>
-        <title>Practice</title>
-        <introduction>
-          <p>Complete the following exercises.</p>
-        </introduction>
-        <exercise>
-          <task>
-            <statement>
-              <p>What are the PC coordinates for the first data point (index 0)? Which quadrant would this point be drawn in?</p>
-            </statement>
-            <hint>
-              <p>Read row 0 of the transformed <c>penguins_pca</c> DataFrame and use PC1 as the horizontal coordinate and PC2 as the vertical coordinate.</p>
-            </hint>
-            <hint>
-              <p>Determine the quadrant from the signs: left/right comes from PC1 and down/up from PC2.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Both coordinates in the stored output are negative, so the point is below—not above—the horizontal axis.</p>
-            </hint>
-            <answer>
-              <p>The first point has coordinates approximately <m>(PC1,PC2)=(-1.640,-0.375)</m>. Since both coordinates are negative, it lies in quadrant III (lower left).</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Below is code that emphasizes the projected points.</p>
-              <p>the value of <c>index</c> below is just picking out a different point in our data set. Mess around with this number. How do the X and star points move around as you change <c>index</c>?</p>
-            </statement>
-            <hint>
-              <p>For each selected observation, the black diamond is the original point; the X and star are its separate projections onto the PC1 and PC2 axes.</p>
-            </hint>
-            <hint>
-              <p>Change <c>index</c> and check that each projection stays on its corresponding principal-component line while its distance and sign change.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> The X and star are not two new observations; they are two vector components of the same selected observation.</p>
-            </hint>
-            <answer>
-              <p>Changing <c>index</c> selects a different original point, so both projection markers move. The X remains on the PC1 direction and the star remains on the perpendicular PC2 direction; their signed distances from the origin are that observation's PC1 and PC2 scores. Together the two projections reconstruct the centered point in this two-variable example.</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Everything we just did is great for understanding what the PCA is doing, but in reality, we're usually going to be looking at the data in the transformed space.</p>
-              <p>Make a scatter plot of PC1 and PC2. Color the points by <c>penguins.species</c>. What do you notice about how the points have moved from the (<c>bill</c>, <c>flipper</c>) scatter plot?</p>
-              <program language="python">
-                <code>
-                  sns.scatterplot(
-                      data=penguins_pca,
-                      x='PC1', y='PC2',
-                      hue=penguins.species
-                  )
-                </code>
-              </program>
-            </statement>
-            <hint>
-              <p>Use the transformed score DataFrame for the coordinates but retain <c>penguins.species</c> for color labels.</p>
-            </hint>
-            <hint>
-              <p>PCA rotates (and possibly reflects) the coordinate system; compare orientation and separation rather than expecting the original axes to remain recognizable.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> The sign of a principal component is arbitrary: flipping an entire PC axis does not change the PCA solution or distances between observations.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  # Instead plot in PC1, PC2 plane 
-                  sns.scatterplot(data = penguins_pca, x = 'PC1', y = 'PC2', hue = penguins.species)
-
-                  # The points appear to have been flipped since the second PC is 
-                  # pointing down, so now the green points are on top.
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-      </exercisegroup>
-    </exercises>
-  </subsection>
-  <subsection xml:id="cmse381-lec19-ch6-3-pca-worksheet-penguins-pca-with-all-columns">
-    <title>Penguins PCA with all columns</title>
-    <p>We used only two columns above for visualization, but we can instead use all the input columns to run our PCA.</p>
-    <program language="python">
-      penguins_num.head()
-    </program>
-    <program language="python">
-      pca = PCA(n_components=4)
-      penguins_pca_all = pca.fit_transform(penguins_num)
-      penguins_pca_all = pd.DataFrame(data = penguins_pca_all, 
-                                      columns = ['PC1', 'PC2', 'PC3', 'PC4'])
-      penguins_pca_all
+      regr = LinearRegression()
+      regr.fit(X_PC[:,:3], y)
+      mean_squared_error(y,regr.predict(X_PC[:,:3]))
     </program>
     <!-- horizontal rule in source notebook -->
     <exercises>
@@ -295,44 +83,143 @@
         <exercise>
           <task>
             <statement>
-              <p>Make a scatter plot of PC1 and PC2 using this new model, and again color the points by <c>penguins.species</c>. What do you notice about how the PC plot has changed from the previous setting?</p>
+              <p>My code above contains the rookie mistake of only reporting training error. Write modified code to return the 10-fold CV error of linear regression on the first 3 PCs.</p>
               <program language="python">
                 <code>
-                  sns.scatterplot(
-                      data=penguins_pca_all,
-                      x='PC1', y='PC2',
-                      hue=penguins.species
+                  model = LinearRegression()
+                  scores = cross_val_score(
+                      model, X_pca[:, :3], y,
+                      cv=10, scoring='neg_mean_squared_error'
                   )
+                  cv_mse = ...
                 </code>
               </program>
             </statement>
             <hint>
-              <p>Use the scores produced by the PCA fit with the expanded set of variables, not the earlier two-variable scores.</p>
+              <p>Select the first three principal-component score columns as the regression inputs.</p>
             </hint>
             <hint>
-              <p>Compare class overlap, cluster orientation, and relative spacing with the previous PC1–PC2 plot.</p>
+              <p>Use ten-fold cross-validation with negative MSE scoring, then negate the mean score to report a positive MSE.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> PC1 and PC2 from two different PCA fits are not the same variables; PCA recomputes its directions whenever the input feature set or scaling changes.</p>
+              <p><alert>Common error:</alert> Do not fit PCA separately to the full data before CV in a final production pipeline; preprocessing should be learned inside each fold to avoid leakage.</p>
             </hint>
             <answer>
               <program language="python">
                 <code>
-                  sns.scatterplot(data = penguins_pca_all, x = 'PC1', y = 'PC2', hue = penguins.species)
+                  i = 3
+                  allCVs = -1*cross_val_score(regr, X_PC[:,:i], y, cv=10, scoring='neg_mean_squared_error')
+                  avgCV = allCVs.mean()
+                  print(avgCV)
 
-                  # More overlap, the projection has changed.
+                  # Note 'neg_mean_squared_error' returns the negative of the MSE. Otherwise, the default is to return the default score for the linear regression above, which uses R^2
+                  # See https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.score
                 </code>
               </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Take the code you figured out above to get the score for 10-fold CV on the first 3 PCs, and include it in the for-loop below to see how the MSE changes as the number of PCs you use changes.</p>
+              <program language="python">
+                <code>
+                  pc_counts = range(1, X_pca.shape[1] + 1)
+                  cv_errors = []
+                  for count in pc_counts:
+                      scores = cross_val_score(
+                          LinearRegression(), X_pca[:, :count], y,
+                          cv=10, scoring='neg_mean_squared_error'
+                      )
+                      cv_errors.append(...)
+
+                  plt.plot(pc_counts, cv_errors, marker='o')
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>For a count <m>m</m>, slice the transformed matrix to keep columns <c>:m</c> and evaluate the same regression model.</p>
+            </hint>
+            <hint>
+              <p>Store the average positive CV MSE for each count and plot it against the number of retained PCs.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Principal components must be added in variance order; selecting arbitrary later PCs does not represent PCR with the first <m>m</m> components.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # 10-fold CV, no shuffle because cross_val_score doesn't include shuffle=True internally
+                  n = len(X_PC)
+
+                  regr = LinearRegression()
+                  mse = []
+
+                  # Calculate MSE using CV for the 19 principle components, adding one component at the time.
+                  for i in np.arange(1, 20):
+                      score = -1*cross_val_score(regr, X_PC[:,:i], y.ravel(), cv=10, scoring='neg_mean_squared_error').mean()
+                      mse.append(score)
+
+
+                  # Plot results    
+                  plt.plot(np.arange(1, 20),mse, '-v')
+                  plt.xlabel('Number of principal components in regression')
+                  plt.ylabel('MSE')
+                  plt.title('Predicting Salary')
+                  plt.xlim(xmin=-1);
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on the graph you generated above, how many PCs do you think you should use?</p>
+              <p><em>Note: Based on graphs I generated, I can see a few different options for what I might decide to use for number of principal components. This is one of those cases where you potentially have a different answer and/or reasoning from your neighbor, so I enourage you to talk this one through with your group.</em></p>
+            </statement>
+            <hint>
+              <p>Identify the minimum of the CV-error curve, but also look for a simpler model whose error is nearly the same.</p>
+            </hint>
+            <hint>
+              <p>When the curve is noisy or flat, justify a reasonable range rather than claiming unsupported precision.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not choose the number of PCs from explained variance alone; PCR selects components for predicting the response, so validation error is the relevant criterion.</p>
+            </hint>
+            <answer>
+              <p>Depending on how I set the random state, either around 6 has lowest MSE, or something close to all (<m>m=</m> 16, 17, or 18). Even when the higher values have the lowest MSE, 6 is comparable enough to argue that the lower dimension is worth it.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Of the models you've built so far (Ridge, Lasso, and PCR), which would you choose to use and why?</p>
+              <p><em>Note: This goes in the no-one-right-answer bucket. Go argue with your group.</em></p>
+            </statement>
+            <hint>
+              <p>Compare the models using the same validation scheme and metric before considering interpretability or computational cost.</p>
+            </hint>
+            <hint>
+              <p>Ridge keeps all predictors, lasso can select a sparse set, and PCR regresses on unsupervised orthogonal components; connect those properties to the course goal.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not select a model only because its training error is smallest or because it is the most recently fitted; justify the choice with held-out performance and practical priorities.</p>
+            </hint>
+            <answer>
+              <p>There is no universally correct choice. Prefer the model with the best or statistically comparable cross-validated error under a common evaluation scheme. If errors are similar, lasso may be preferable for a sparse, interpretable predictor set; ridge is stable when many correlated predictors contribute; PCR is useful when a low-dimensional component representation is valuable, though its components are chosen without using the response.</p>
             </answer>
           </task>
         </exercise>
       </exercisegroup>
     </exercises>
   </subsection>
-  <subsection xml:id="cmse381-lec19-ch6-3-pca-worksheet-congratulations-we-re-done">
+  <subsection xml:id="cmse381-lec20-pcr-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-    <p>
-      
-    </p>
+  <p>
+    
+  </p>
   </subsection>
 </section>

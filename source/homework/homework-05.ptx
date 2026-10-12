@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<worksheet component="hw05">
+  <title>Homework 05</title>
+
+  <introduction>
+    <p>
+      <alert>The Homework is due Monday, Nov 9, 2026, by 11:59 p.m. and must be submitted to Crowdmark</alert>.
+      See
+      <xref ref="syllabus-hw-policy" text="custom">late homework policy</xref>
+      in the syllabus.
+    </p>
+
+    <p>
+      <alert>All homework must be submitted to Crowdmark. </alert>
+      <ul>
+        <li>
+          <p>
+            For coding problems, you will only submit screenshots of your code
+            and output to Crowdmark (no Python code to submit).
+            For non-coding problems, you wil submit a scan or image of your
+            handwritten work.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            If you submit a scan to Crowdmark where a textbox is provided for
+            the answer, we will still grade your work but cannot provide
+            feedback.
+            Illegible scans/screenshots will receive 0 credit.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Submit individual pdfs/screenshots for each problem to the
+            corresponding prompt in Crowdmark.
+            Please do not submit one pdf containing all the solutions to each
+            prompt.
+            Each problem will be graded separately.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            The instructional team has the right to request the original code
+            for any problem.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The problems listed below are from
+      <url href="https://www.statlearning.com/">the textbook</url>.
+      This homework is worth <alert>52 points</alert> in total.
+    </p>
+
+    <p>
+      The grade distribution is as follows. Each score appears only here:
+      <ul>
+        <li>
+          <p>
+            <xref ref="hw05-q1"/>
+            <ul>
+              <li><p><xref ref="hw05-q1-poly-i"/>: 1 point</p></li>
+              <li><p><xref ref="hw05-q1-poly-ii"/>: 4 points</p></li>
+              <li><p><xref ref="hw05-q1-poly-iii"/>: 2 points</p></li>
+              <li><p><xref ref="hw05-q1-step-i"/>: 1 point</p></li>
+              <li><p><xref ref="hw05-q1-step-ii"/>: 4 points</p></li>
+              <li><p><xref ref="hw05-q1-step-iii"/>: 2 points</p></li>
+              <li><p><xref ref="hw05-q1-spline-i"/>: 1 point</p></li>
+              <li><p><xref ref="hw05-q1-spline-ii"/>: 4 points</p></li>
+              <li><p><xref ref="hw05-q1-spline-iii"/>: 2 points</p></li>
+              <li><p><xref ref="hw05-q1-plot"/>: 3 points</p></li>
+              <li><p><xref ref="hw05-q1-compare"/>: 2 points</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>
+            <xref ref="hw05-q2-step"/>
+            <ul>
+              <li><p><xref ref="hw05-q2-step-i"/>: 4 points</p></li>
+              <li><p><xref ref="hw05-q2-step-ii"/>: 3 points</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>
+            <xref ref="hw05-q2-spline"/>
+            <ul>
+              <li><p><xref ref="hw05-q2-spline-i"/>: 4 points</p></li>
+              <li><p><xref ref="hw05-q2-spline-ii"/>: 2 points</p></li>
+              <li><p><xref ref="hw05-q2-spline-iii"/>: 3 points</p></li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+  </introduction>
+
+  <page>
+    <exercise xml:id="hw05-q1">
+      <title>Question 1: Polynomial, Step, and Spline Models</title>
+
+      <introduction>
+        <p>
+          Use the <c>polynomial-toydata.csv</c> data set from the course
+          website. Predict <c>y</c> from <c>x</c> using polynomial regression,
+          a step function, and a cubic spline. For each model, identify its
+          tuning parameter, select it with <m>k</m>-fold cross-validation,
+          and refit the selected model on all observations. Finally, overlay
+          the three fits on one plot and compare them.
+        </p>
+        <p>
+          The original notebook generated the toy data as follows. Use the
+          published CSV for your analysis.
+        </p>
+        <program language="python">
+          <code>
+import numpy as np
+import pandas as pd
+
+np.random.seed(42)
+f_true = lambda x: (x + 2) * (x - 2) * (x + 6) * x + 20
+x_data = np.random.uniform(-6, 3, 100)
+y_data = f_true(x_data) + np.random.normal(0, 10, size=x_data.shape)
+toy_data = pd.DataFrame({"x": x_data, "y": y_data})
+          </code>
+        </program>
+        <program language="python">
+          <preamble visible="true">
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import PolynomialFeatures, KBinsDiscretizer, SplineTransformer
+          </preamble>
+          <code>
+url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/f642ded4bf0e8536ccd7675bb8d41449/polynomial-toydata.csv"
+polydf = pd.read_csv(url, index_col=0)
+X = polydf[["x"]].to_numpy()
+y = polydf["y"].to_numpy()
+t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
+          </code>
+        </program>
+      </introduction>
+
+      <task xml:id="hw05-q1-poly-i" workspace="1in">
+        <statement>
+          <p>
+            (A-i) For polynomial regression, identify the tuning parameter.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-poly-ii">
+        <statement>
+          <p>
+            (A-ii) Use <m>k</m>-fold cross-validation to select a polynomial
+            degree. Report the candidate degrees and validation errors.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-poly-iii">
+        <statement>
+          <p>
+            (A-iii) Refit polynomial regression on all observations using
+            the selected degree.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-step-i" workspace="1in">
+        <statement>
+          <p>
+            (B-i) For the step-function model, identify the tuning parameter.
+            State whether you count intervals or interior cutpoints.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-step-ii">
+        <statement>
+          <p>
+            (B-ii) Use <m>k</m>-fold cross-validation to choose the number of
+            intervals or cutpoints. Report the candidates and validation
+            errors. Learn the interval boundaries separately within each
+            training fold.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-step-iii">
+        <statement>
+          <p>
+            (B-iii) Refit the step-function model on all observations using
+            the selected number of intervals or cutpoints.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-spline-i" workspace="1in">
+        <statement>
+          <p>
+            (C-i) For a cubic spline, identify the tuning parameter.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-spline-ii">
+        <statement>
+          <p>
+            (C-ii) Use <m>k</m>-fold cross-validation to select the number
+            of spline knots. Report the candidates and validation errors.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-spline-iii">
+        <statement>
+          <p>
+            (C-iii) Refit the cubic spline on all observations using the
+            selected number of knots.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-plot">
+        <statement>
+          <p>
+            Plot the observed data and all three fitted models together.
+            Label the three fitted curves or steps.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q1-compare" workspace="1.5in">
+        <statement>
+          <p>
+            Compare the three fits. Which model would you select, and why?
+            Support your answer with both the plot and the
+            cross-validation results.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+  <page>
+    <exercise xml:id="hw05-q2-step">
+      <title>Question 2(A): A Step-Function Basis</title>
+      <introduction>
+        <p>
+          Consider a step function with two interior cutpoints at
+          <m>c_1=3</m> and <m>c_2=7</m>.
+        </p>
+      </introduction>
+
+      <task xml:id="hw05-q2-step-i" workspace="2in">
+        <statement>
+          <p>
+            Write equations for the three basis functions
+            <m>C_0(x)</m>, <m>C_1(x)</m>, and <m>C_2(x)</m>.
+            Sketch all three, showing their values on the intervals
+            separated by 3 and 7.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q2-step-ii" workspace="2in">
+        <statement>
+          <p>
+            Sketch the learned function
+            <m>f(x)=\beta_0+\beta_1C_1(x)+\beta_2C_2(x)</m>
+            when <m>\beta_0=2</m>, <m>\beta_1=3</m>, and
+            <m>\beta_2=-1</m>. Label its value on each interval.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw05-q2-spline">
+      <title>Question 2(B): A Cubic Spline with One Knot</title>
+      <introduction>
+        <p>
+          Consider a cubic spline with a knot at <m>c_1=4</m>.
+          Its basis functions are
+          <m>b_1(x)=x</m>, <m>b_2(x)=x^2</m>,
+          <m>b_3(x)=x^3</m>, and <m>b_4(x)=h(x,4)</m>, where
+          <m>h(x,4)=(x-4)^3</m> for <m>x>4</m> and
+          <m>h(x,4)=0</m> otherwise. The learned model is
+          <m>f(x)=3+b_1(x)-2b_2(x)+3b_3(x)-4b_4(x)</m>.
+        </p>
+      </introduction>
+
+      <task xml:id="hw05-q2-spline-i">
+        <statement>
+          <p>
+            Write the equation of <m>f(x)</m> as a piecewise polynomial
+            on either side of <m>x=4</m>. Draw its graph.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q2-spline-ii" workspace="1.5in">
+        <statement>
+          <p>
+            What conditions must a piecewise polynomial satisfy to be
+            a cubic spline?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw05-q2-spline-iii" workspace="2in">
+        <statement>
+          <p>
+            Check that the function from part (i) satisfies those
+            conditions at <m>x=4</m>.
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+</worksheet>

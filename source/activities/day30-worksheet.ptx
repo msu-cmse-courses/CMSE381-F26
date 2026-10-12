@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec30-cnn-worksheet" component="ws30">
+  <title>Jupyter Notebook: CMSE381 - Lec 30 - CNNs</title>
+  <introduction>
+    <!-- unsupported HTML omitted from source cell 0 -->
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec30-cnn-worksheet-playing-with-cnns">
+    <title>Playing with CNNs</title>
+    <p>Our next job is to get some more intuition for the Convolutional Neural Net architecture.</p>
+    <p>Load in the toy "image" <url href="../../DataSets/DataSets.md#dl-toyimage">on the DataSets page</url> to try out some tools.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/9df4c0ec6c692c4bfec98dd22cc76350/DL-ToyImage.csv"
+      M = np.loadtxt(url)
+      plt.matshow(M)
+      plt.colorbar()
+      plt.show()
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec30-cnn-worksheet-convolution-layer">
+    <title>Convolution Layer</title>
+    <p>First, we're going to try out convlution on this image. Here's a convolution filter matrix for us to test this onn.</p>
+    <program language="python">
+      F = np.zeros((5,5))
+      F[:,:2] = 1
+      F[:, 3:] = 1
+      plt.spy(F)
+      print(F)
+      plt.show()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Extract a portion of the matrix <m>M</m> from the top left of the same size as the filter matrix <m>F</m> and take the dot product of the two. This is the entry that would go in entry <m>[0, 0]</m> of the convolved image.</p>
+            </statement>
+            <hint>
+              <p>Slice the top-left patch with the same row and column dimensions as <c>F</c>.</p>
+            </hint>
+            <hint>
+              <p>A convolution entry is the sum of the element-by-element products of the patch and filter.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use <c>np.dot</c> here: matrix multiplication mixes rows and columns instead of multiplying corresponding pixels and filter entries.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  patch = M[:F.shape[0], :F.shape[1]]
+                  convolved_00 = np.sum(patch * F)
+                  convolved_00
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Do the same thing, but shifted right by one. This is the entry that would go in entry <m>[0, 1]</m> of the convolved image.</p>
+            </statement>
+            <hint>
+              <p>Keep the row slice unchanged and move both column-slice endpoints one position to the right.</p>
+            </hint>
+            <hint>
+              <p>Multiply the shifted patch and <c>F</c> element by element, then sum all entries.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Shift only the input patch, not the filter, and keep the patch shape equal to <c>F.shape</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  patch = M[:F.shape[0], 1:1 + F.shape[1]]
+                  convolved_01 = np.sum(patch * F)
+                  convolved_01
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now, do this for every entry in the matrix. Update this <c>NewM</c> matrix so that each entry is the convolution of the input image.</p>
+            </statement>
+            <hint>
+              <p>For valid convolution, the output dimensions are <c>input_size - filter_size + 1</c> in each direction.</p>
+            </hint>
+            <hint>
+              <p>At output position <c>(i, j)</c>, slice the matching patch of <c>M</c>, multiply it by <c>F</c> element by element, and sum.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Remember the <c>+ 1</c> in each output dimension; omitting it skips the final valid filter position.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  out_rows = M.shape[0] - F.shape[0] + 1
+                  out_cols = M.shape[1] - F.shape[1] + 1
+                  NewM = np.zeros((out_rows, out_cols))
+                  for i in range(out_rows):
+                      for j in range(out_cols):
+                          patch = M[i:i + F.shape[0], j:j + F.shape[1]]
+                          NewM[i, j] = np.sum(patch * F)
+                  plt.matshow(NewM)
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Here's a different filter. What happens when you convolve the image with this one instead?</p>
+              <program language="python">
+                <code>
+                  F = np.zeros((5, 5))
+                  F[:2, :] = 1
+                  print(F)
+                  plt.spy(F)
+                  plt.show()
+
+                  # Convolve M with this new filter.
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Reuse the nested-loop structure from the preceding exercise; only the entries of <c>F</c> have changed.</p>
+            </hint>
+            <hint>
+              <p>Because the nonzero entries now form horizontal rows, compare the result with the earlier vertically oriented filter.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Recompute both <c>NewM</c> and its dimensions after redefining <c>F</c>; otherwise you may be plotting the previous convolution.</p>
+            </hint>
+            <answer>
+              <p>The changed orientation makes the filter aggregate a different directional pattern in each local patch, so the highlighted structures in the convolved image change accordingly.</p>
+              <program language="python">
+                <code>
+                  out_rows = M.shape[0] - F.shape[0] + 1
+                  out_cols = M.shape[1] - F.shape[1] + 1
+                  NewM = np.zeros((out_rows, out_cols))
+                  for i in range(out_rows):
+                      for j in range(out_cols):
+                          patch = M[i:i + F.shape[0], j:j + F.shape[1]]
+                          NewM[i, j] = np.sum(patch * F)
+                  plt.matshow(NewM)
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec30-cnn-worksheet-pooling-layer">
+    <title>Pooling Layer</title>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>After our convolution layer, we often build a pooling layer.</p>
+              <p>Fix up the following code to create a pooled image from your convolved image.</p>
+            </statement>
+            <hint>
+              <p>A non-overlapping <m>2\times2</m> max-pooling layer produces half as many rows and columns, using integer division.</p>
+            </hint>
+            <hint>
+              <p>Output entry <c>(i, j)</c> is the maximum of <c>NewM[2*i:2*i+2, 2*j:2*j+2]</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Use <c>NewM.shape[1]</c> for the column loop; using the row count works only by accident for a square image.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  poolM = np.zeros((NewM.shape[0] // 2, NewM.shape[1] // 2))
+                  for i in range(poolM.shape[0]):
+                      for j in range(poolM.shape[1]):
+                          poolM[i, j] = np.max(NewM[2*i:2*i + 2, 2*j:2*j + 2])
+                  plt.matshow(poolM)
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              @@PTX-HEADER:2:Playing with a pre-trained classifier@@
+              <p>As with the regular neural nets, trying to train our own CNN is beyond the scope of the class. But we can play with some toys to see how the trained versions work.</p>
+              <p>Open the following in another browser tab to answer the questions below: <url href="https://poloclub.github.io/cnn-explainer/">https://poloclub.github.io/cnn-explainer/</url></p>
+              <p><ol>
+                <li>
+                  <p>Read the section below on what each layer of the network does.</p>
+                </li>
+                <li>
+                  <p>What is the 2nd top prediction output for the bell pepper picture?</p>
+                </li>
+                <li>
+                  <p>Clicking on the "+" button lets you upload a picture. What does your face get classified as?</p>
+                </li>
+              </ol></p>
+            </statement>
+            <hint>
+              <p>Follow one activation through convolution, ReLU, pooling, flattening, and the final class-probability layer; summarize the role of each stage in your own words.</p>
+            </hint>
+            <hint>
+              <p>For the bell-pepper and uploaded images, read the ranked labels and probabilities shown by the live tool rather than guessing from the picture.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> There is no fixed prediction for an arbitrary uploaded face, and the live demo may change; record the image used and the probabilities you actually observe.</p>
+            </hint>
+            <answer>
+              <p>Convolution layers extract local visual patterns, ReLU keeps positive activations and introduces nonlinearity, pooling reduces spatial resolution, flattening forms a feature vector, and the final softmax reports class probabilities. For the bell-pepper image, record the current second-ranked label shown by CNN Explainer. The face-upload result depends on the chosen image, so a complete answer reports its top labels and probabilities and briefly comments on whether they are sensible.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec30-cnn-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+      
+    </p>
+  </subsection>
+</section>

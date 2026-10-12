@@ -5,7 +5,7 @@
 
     <introduction>
         <p>
-            Ch 5.1.4-5: More cross-validation
+            Ch 5.1.4: CV bias-variance trade-off <!-- and the k-fold CV for classification (5.1.5) at the end of this set -->
         </p>
     </introduction>
 

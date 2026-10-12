@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<worksheet component="hw04">
+  <title>Homework 04</title>
+
+  <introduction>
+        <p>
+      <alert>The Homework is due Friday, Oct 30, 2026, by 11:59 p.m. and must be submitted to Crowdmark</alert>.
+      See
+      <xref ref="syllabus-hw-policy" text="custom">late homework policy</xref>
+      in the syllabus.
+    </p>
+
+    <p>
+      <alert>All homework must be submitted to Crowdmark. </alert>
+      <ul>
+        <li>
+          <p>
+            For coding problems, you will only submit screenshots of your code
+            and output to Crowdmark (no Python code to submit).
+            For non-coding problems, you wil submit a scan or image of your
+            handwritten work.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            If you submit a scan to Crowdmark where a textbox is provided for
+            the answer, we will still grade your work but cannot provide
+            feedback.
+            Illegible scans/screenshots will receive 0 credit.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Submit individual pdfs/screenshots for each problem to the
+            corresponding prompt in Crowdmark.
+            Please do not submit one pdf containing all the solutions to each
+            prompt.
+            Each problem will be graded separately.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            The instructional team has the right to request the original code
+            for any problem.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The problems listed below are from
+      <url href="https://www.statlearning.com/">the textbook</url>.
+      This homework is worth <alert>52 points</alert> in total.
+    </p>
+
+    <p>
+      The grade distribution is as follows:
+      <ul>
+        <li>
+          <p>
+            <xref ref="hw04-P6-6-0"/>
+            <ul>
+              <li><p><xref ref="hw04-P6-6-0-a"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-0-b"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-0-c"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-0-d"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-0-e"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-0-f"/>: 2 points</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>
+            <xref ref="hw04-P6-6-9"/>
+            <ul>
+              <li><p><xref ref="hw04-P6-6-9-a"/>: 2 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-b"/>: 3 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-c"/>: 4 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-d"/>: 4 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-e"/>: 4 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-f"/>: 4 points</p></li>
+              <li><p><xref ref="hw04-P6-6-9-g"/>: 2 points</p></li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+  </introduction>
+
+  <page>
+    <exercise xml:id="hw04-P6-6-0">
+      <title>Problem 6.6.0: Conceptual Questions</title>
+
+      <task xml:id="hw04-P6-6-0-a" workspace="1in">
+        <statement>
+          <p>What is the definition of scale equivariant?</p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-0-b" workspace="1in">
+        <statement>
+          <p>
+            Why is it important to standardize the predictors when using
+            ridge regression or the lasso?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-0-c" workspace="1in">
+        <statement>
+          <p>What is the difference between ridge regression and the lasso?</p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-0-d" workspace="1in">
+        <statement>
+          <p>
+            What is an advantage of using ridge regression or the lasso over
+            least-squares linear regression?
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-0-e" workspace="1in">
+        <statement>
+          <p>What is the purpose of principal component analysis (PCA)?</p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-0-f" workspace="1in">
+        <statement>
+          <p>What does the first principal component maximize?</p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+
+  <page>
+    <exercise xml:id="hw04-P6-6-9">
+      <title>Problem 6.6.9: Predicting College Applications</title>
+
+      <introduction>
+        <!-- The source notebook's part (a) says to use the split only for
+             least squares, but parts (c)-(f) explicitly request training-set
+             fits and held-out test errors. Follow those specific tasks. -->
+        <p>
+          Predict the number of applications received using the other variables
+          in the <c>College</c> data set. Use a single training/test split for
+          all five methods below. Choose tuning parameters by cross-validation
+          on the training set, then report error on the held-out test set. This
+          makes the reported test errors comparable across methods.
+        </p>
+
+        <program language="python">
+          <preamble visible="true">
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+from sklearn.cross_decomposition import PLSRegression
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LassoCV, LinearRegression, RidgeCV
+from sklearn.metrics import root_mean_squared_error
+from sklearn.model_selection import GridSearchCV, KFold, train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+          </preamble>
+          <code>
+url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/cc29ec6408d657de88bc7fe6de6b1170/College.csv"
+college_df = pd.read_csv(url)
+college_df = college_df.set_index("Unnamed: 0")
+college_df = pd.get_dummies(college_df, drop_first=True)
+college_df = college_df.astype(float)
+college_df.head()
+          </code>
+        </program>
+      </introduction>
+
+      <task xml:id="hw04-P6-6-9-a">
+        <statement>
+          <p>
+            Split the data into a training set and a test set. Separate
+            <c>Apps</c> as the response and use the remaining variables as
+            predictors.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-b">
+        <statement>
+          <p>
+            Fit a linear model using least squares on the training set, and
+            report its test error.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-c">
+        <statement>
+          <p>
+            Fit a ridge regression model, choosing <m>\lambda</m> by
+            cross-validation on the training set. Report its test error.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-d">
+        <statement>
+          <p>
+            Fit a lasso model, choosing <m>\lambda</m> by cross-validation
+            on the training set. Report its test error and the number of
+            nonzero coefficient estimates.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-e">
+        <statement>
+          <p>
+            Fit a principal components regression (PCR) model, choosing the
+            number of components <m>M</m> by cross-validation on the training
+            set. Report its test error and the selected value of <m>M</m>.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-f">
+        <statement>
+          <p>
+            Fit a partial least squares (PLS) model, choosing the number of
+            components <m>M</m> by cross-validation on the training set.
+            Report its test error and the selected value of <m>M</m>.
+          </p>
+        </statement>
+      </task>
+
+      <task xml:id="hw04-P6-6-9-g" workspace="1.5in">
+        <statement>
+          <p>
+            Comment on the results. How accurately can the number of college
+            applications received be predicted? Is there much difference
+            among the test errors from these five approaches?
+          </p>
+        </statement>
+      </task>
+    </exercise>
+  </page>
+</worksheet>

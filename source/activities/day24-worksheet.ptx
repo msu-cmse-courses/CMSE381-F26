@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec24-randomforests-worksheet" component="ws24">
+  <title>Jupyter Notebook: Lecture 24: Random Forests</title>
+  <introduction>
+    <p>[Image: https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/63890/forest-glade-clipart-md.png]</p>
+    <p>In this module we are going to set up random forest models.</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec24-randomforests-worksheet-loading-the-data">
+    <title>Loading the data</title>
+    <p>Since we're doing regression trees, again, we're going to use the <c>Carseat</c> data where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2cec98f7fc943558992925bc2510bb9d/Carseats.csv"
+      carseats = pd.read_csv(url).drop('Unnamed: 0', axis=1)
+      carseats.ShelveLoc = pd.factorize(carseats.ShelveLoc)[0]
+      carseats.Urban = carseats.Urban.map({'No':0, 'Yes':1})
+      carseats.US = carseats.US.map({'No':0, 'Yes':1})
+      carseats.info()
+    </program>
+    <program language="python">
+      X = carseats.drop(['Sales'], axis = 1)
+      y = carseats.Sales
+      X.head()
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec24-randomforests-worksheet-bagging">
+    <title>Bagging</title>
+    <p>Last time, we figured out how to use <c>sklearn.tree.DecisionTreeRegressor</c> to build a single tree to do our regression, but we'd like to be able to use ensemble models to create a pile of trees to give a more robust predction.</p>
+    <p>Let's try doing this the hard way first. We're going to set up the bagging on our <c>carseats</c> data. We'll use <m>B=3</m> to create our bagged model. So, step one is to generate three bootstrap samples, meaning I generate data sets by sampling <m>n=400</m> points with replacement.</p>
+    <program language="python">
+      X1 = carseats.sample(frac = 1, replace = True, random_state = 42)
+      y1 = X1.Sales
+      X1 = X1.drop(['Sales'], axis = 1)
+
+      X2 = carseats.sample(frac = 1, replace = True, random_state = 43)
+      y2 = X2.Sales
+      X2 = X2.drop(['Sales'], axis = 1)
+
+      X3 = carseats.sample(frac = 1, replace = True, random_state = 44)
+      y3 = X3.Sales
+      X3 = X3.drop(['Sales'], axis = 1)
+    </program>
+    <program language="python">
+      # If you named your models reg_tree1, reg_tree2, and reg_tree3 above, 
+      # this block will plot the three trees
+      fig, axs = plt.subplots(3,1, figsize = (20,30))
+
+      for i, reg_treeX in enumerate([reg_tree1, reg_tree2, reg_tree3]):
+          _= tree.plot_tree(reg_treeX, feature_names = X.columns, 
+                     filled = True, 
+                    fontsize = 22, 
+                    ax = axs[i])
+
+          axs[i].set_title(f"Tree {i+1}", fontsize = 30)
+      plt.show()
+    </program>
+    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
+    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Fit one regression tree of depth 2 per sampled data we just created. You'll end up with three regression trees: call them <c>reg_tree1</c>, <c>reg_tree2</c>, and <c>reg_tree3</c>. How similar are the tree structures?</p>
+              <program language="python">
+                <code>
+                  from sklearn.tree import DecisionTreeRegressor
+
+                  reg_tree1 = DecisionTreeRegressor(max_depth=2, random_state=381)
+                  reg_tree1.fit(X1, y1)
+                  # Repeat for samples 2 and 3
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Create a separate <c>DecisionTreeRegressor(max_depth=2)</c> and call <c>fit</c> on each matching bootstrap sample.</p>
+            </hint>
+            <hint>
+              <p>Compare the split variables and thresholds in the three plotted trees, not only their leaf values.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse one fitted estimator under three variable names; instantiate and fit three independent trees.</p>
+            </hint>
+            <answer>
+              <p>The trees usually share some important high-level predictors, but their exact split variables, thresholds, and leaf values differ because each bootstrap sample contains a different collection of observations. This variation is what averaging in bagging is designed to reduce.</p>
+              <program language="python">
+                <code>
+                  from sklearn.tree import DecisionTreeRegressor
+                  reg_tree1 = DecisionTreeRegressor(max_depth=2, random_state=381).fit(X1, y1)
+                  reg_tree2 = DecisionTreeRegressor(max_depth=2, random_state=381).fit(X2, y2)
+                  reg_tree3 = DecisionTreeRegressor(max_depth=2, random_state=381).fit(X3, y3)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Predict the <c>Sales</c> value for the first data point in the carseats data set using each of the three trees just generated. What is the average value of the three numbers? This is the bagged prediction for this input data.</p>
+              <program language="python">
+                <code>
+                  first_row = X.iloc[[0]]
+                  predictions = [...]
+                  bagged_prediction = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Predict with each fitted tree on <c>X.iloc[[0]]</c>; double brackets preserve a one-row data frame.</p>
+            </hint>
+            <hint>
+              <p>Take the arithmetic mean of the three scalar predictions.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not average the trees' parameters or structures; bagging averages their predictions for the same input.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  first_row = X.iloc[[0]]
+                  predictions = np.array([
+                      reg_tree1.predict(first_row)[0],
+                      reg_tree2.predict(first_row)[0],
+                      reg_tree3.predict(first_row)[0]
+                  ])
+                  print('tree predictions:', predictions)
+                  print('bagged prediction:', predictions.mean())
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec24-randomforests-worksheet-random-forests">
+    <title>Random Forests</title>
+    <p>Did you really need to do all that bagging by hand? Well, no actually, but this goes under the "eating your vegetables exactly once" part of the lab. Of course, <c>sklearn</c> has built in functions to do bagging for us. In reality, it just has a random forest function, but if we really want to do bagging, we can cheat.</p>
+    <p>Remember, for random forests, we essentially do bagging but we only allow for a subset of <m>m \leq p</m> variables to be considered at each splitting step. So if we want bagging, we set the <m>m=</m><c>max_features</c> to be the total number of features. That means this next code actually replecates what we just did above with bagging.</p>
+    <program language="python">
+      from sklearn.ensemble import RandomForestRegressor
+    </program>
+    <program language="python">
+      # Note we have p=10 input variables
+      print(X.shape)
+    </program>
+    <program language="python">
+      bagged_carseats = RandomForestRegressor(max_features = 10, oob_score = True )
+      bagged_carseats.fit(X,y)
+    </program>
+    <program language="python">
+      # If your code above works, below you'll get a plot of the different choices of m
+      colors = ['orange','blue','green']
+      labels = ['sqrt(p)', 'p/2', 'p']
+
+      for i in range(3):
+          M_error = Errors[i]
+          plt.plot(n_tree_list, M_error, label = labels[i], color = colors[i])
+
+      plt.legend()
+      plt.title('Error in random forest for different values of $m$')
+
+      plt.show()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Build a random forest model instead where the maximum number of features used at each step is <m>m = \sqrt {p}</m>.</p>
+            </statement>
+            <hint>
+              <p>For scikit-learn's regressor, <c>max_features='sqrt'</c> requests approximately <m>\sqrt p</m> candidates at each split.</p>
+            </hint>
+            <hint>
+              <p>Set <c>oob_score=True</c> if you want out-of-bag predictions for the next questions.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A floating-point <c>max_features</c> value is interpreted as a fraction of all features, not as an absolute feature count.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  forest_carseats = RandomForestRegressor(
+                      n_estimators=100,
+                      max_features='sqrt',
+                      oob_score=True,
+                      random_state=381
+                  )
+                  forest_carseats.fit(X, y)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Inspect <c>forest_carseats.oob_prediction_</c>. How many out-of-bag predictions are returned, and how does that shape compare with the response vector <c>y</c>?</p>
+            </statement>
+            <hint>
+              <p>Print the <c>.shape</c> of both arrays before computing any metric.</p>
+            </hint>
+            <hint>
+              <p>There should be one aggregated OOB prediction for each training observation.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> <c>oob_prediction_</c> contains predictions, whereas <c>oob_score_</c> is a single summary score; do not confuse the two.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  print(forest_carseats.oob_prediction_.shape)
+                  print(y.shape)
+                  # forest_carseats.oob_prediction_
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Determine the OOB error on the forest model you built just above using the <c>mean_squared_error</c> command.</p>
+              <p><em>Note:</em> The class does also keep track of the oob score as <c>model.oob_score_</c>, however this appears to be reporting <m>R^2</m> (where close to 1 is better) and I don't seem to have the ability to change this. See <url href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">the documentation</url> for further details.</p>
+            </statement>
+            <hint>
+              <p>Compare the observed response <c>y</c> with <c>forest_carseats.oob_prediction_</c>.</p>
+            </hint>
+            <hint>
+              <p>Pass those two equal-length vectors to <c>mean_squared_error</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not interpret <c>forest_carseats.oob_score_</c> as MSE; for a regressor its default is <m>R^2</m>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  mean_squared_error(forest_carseats.oob_prediction_,y)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>How does the number of trees used (<c>n_estimators</c> in this code) affect the error? Generate a plot like Fig 8.10 in the book for our <c>carseats</c> data. How many trees should we use?</p>
+            </statement>
+            <hint>
+              <p>Loop over candidate <c>n_estimators</c> values, fit a forest for each, and store its OOB MSE.</p>
+            </hint>
+            <hint>
+              <p>Compare curves for <m>m=\sqrt p</m>, <m>p/2</m>, and <m>p</m>, then look for the point after which extra trees bring little improvement.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Random forests do not generally overfit simply because more trees are averaged; the main tradeoff after the curve stabilizes is computation, not rising variance.</p>
+            </hint>
+            <answer>
+              <p>OOB error is usually noisy with very few trees, then decreases and stabilizes as more trees are averaged. Choose a value near the plateau rather than claiming one universally optimal count; around 100–200 trees is a reasonable starting range for this small data set, subject to the plotted result.</p>
+              <program language="python">
+                <code>
+                  p = X.shape[1]
+                  m_values = [int(np.sqrt(p)), max(1, p // 2), p]
+                  n_tree_values = np.arange(10, 201, 10)
+                  errors = []
+                  for m in m_values:
+                      curve = []
+                      for n_trees in n_tree_values:
+                          forest = RandomForestRegressor(
+                              n_estimators=n_trees, max_features=m,
+                              oob_score=True, random_state=381
+                          ).fit(X, y)
+                          curve.append(mean_squared_error(y, forest.oob_prediction_))
+                      errors.append(curve)
+                  for curve, label in zip(errors, ['sqrt(p)', 'p/2', 'p']):
+                      plt.plot(n_tree_values, curve, label=label)
+                  plt.xlabel('Number of trees')
+                  plt.ylabel('OOB MSE')
+                  plt.legend()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec25-randomforests-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+      
+    </p>
+  </subsection>
+</section>

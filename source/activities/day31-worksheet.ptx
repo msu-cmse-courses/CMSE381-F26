@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec31-hierarchicalclustering-worksheet" component="ws31">
+  <title>Jupyter Notebook: Lec 31: Hierarchical Clustering</title>
+  <introduction>
+    <!-- unsupported HTML omitted from source cell 0 -->
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+    </program>
+    <p>I've made us some data, easy case first, where we've got data that I made drawing from three clusters. You can probably look at the picture and figure out what they should be.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/540ccc8f37c0962c8003b5048bca8946/Clustering-ToyData.csv"
+      X = np.loadtxt(url)
+      plt.scatter(X[:,0],X[:,1])
+      plt.show()
+    </program>
+    <p>But notice that when I look at the order the points are included in the matrix, it's got nothing to do with the order that the points came in the matrix.</p>
+    <program language="python">
+      plt.scatter(X[:,0],X[:,1], c = list(range(X.shape[0])))
+      plt.colorbar()
+      plt.title('Colored by order of points in the matrix')
+      plt.show()
+    </program>
+    <p>The next thing we can do is look at the <em>distance matrix</em> of the points, which is a square matrix for which entry <c>D[i,j]</c> is the distance between points <c>i</c> and <c>j</c>.</p>
+    <program language="python">
+      from scipy.spatial import distance_matrix
+
+      D = distance_matrix(X,X)
+
+      plt.matshow(D)
+      plt.colorbar()
+      plt.title('Distance matrix')
+      plt.show()
+    </program>
+    <p>There are lots of controls in that function including messing with the choice of distances between the points, but for now we'll leave it at the good ol' fashioned Euclidean distance,</p>
+    <p><md>
+    \| x - y \| = \sqrt{ \sum_k (x_k-y_k)^2 } = \sqrt{(x_1-y_1)^2 + (x_2-y_2)^2}.
+    </md></p>
+    <p>Before we go on, here's a trick for figuring out where a particular data point is.</p>
+    <program language="python">
+      # I want to find point 53
+
+      colors = np.zeros(X.shape[0])
+      colors[53] = -1 #&lt;--- Make the color of point 53 different from the others
+
+      plt.scatter(X[:,0],X[:,1], c = colors)
+      plt.colorbar()
+      plt.title('Colored by order of points in the matrix')
+      print('Distance:', D[18,7])
+      plt.show()
+    </program>
+    <p>I can also play around with looking at the connections like in class, where we connect up points within distance <m>r</m> of each other. Mess around with the <m>r</m> value below to see what changes. Be careful: large <m>r</m> values wil make for slow drawing.</p>
+    <program language="python">
+      plt.scatter(X[:,0],X[:,1])
+
+      r = 0.3
+
+      for i in range(X.shape[0]):
+          for j in range(X.shape[0]):
+              if D[i,j] &lt;= r:
+                  p = X[(i,j),:]
+                  plt.plot(p[:,0],p[:,1],c = 'black')
+
+      plt.show()
+    </program>
+    <p>This matrix is very helpful for understanding distances, however, my code in just a moment is going to need the <c>condensed</c> distance matrix. It turns out that it has the same information as the above distance matrix, just flattened out. For our purposes, you won't need to fully understand this but the curious can go check out the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html">documentation</url>.</p>
+    <program language="python">
+      from scipy.spatial.distance import pdist
+
+      P = pdist(X)
+      P.shape
+    </program>
+    <p>And with that, we can get <c>scipy</c> to compute our dendrogram for us!</p>
+    <program language="python">
+      from scipy.cluster import hierarchy
+    </program>
+    <program language="python">
+      Z = hierarchy.linkage(pdist(X), 'single')
+
+      plt.figure()
+
+      dn = hierarchy.dendrogram(Z)
+      plt.show()
+    </program>
+    <p>First thing to notice, it automatically gives me some color visual guesses for what it thinks the threshold should be for clustering. Hunting around in the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.dendrogram.html">documentation</url>, it turns out it chooses this threshold based on some information in the linkage diagram......</p>
+    <program language="python">
+      h = 0.7*max(Z[:,2])  #&lt;---- this equation is what it uses to pick the cutoff
+      print('Chosen threshold:', h)
+    </program>
+    <p>...but we can also control the cutoff that it draws the colors</p>
+    <program language="python">
+      thresh_height = 0.8
+
+      dn = hierarchy.dendrogram(Z, color_threshold = thresh_height)
+      plt.axhline(y = thresh_height, color = 'r', linestyle = '-')
+      plt.show()
+    </program>
+    <p>Now the magic is that we have the ability to extract the clusters based on the chosen threshold.</p>
+    <program language="python">
+      labels = hierarchy.fcluster(Z,h,criterion = 'distance')
+
+      plt.scatter(X[:,0],X[:,1],c = labels)
+      plt.show()
+    </program>
+    <program language="python">
+      np.unique(labels)
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-a-nastier-example">
+    <title>A nastier example</title>
+    <p>I made another data set that's a bit more ambiguous. How many clusters are there? 2? 3? Ok, ok, let's not fight about it. I actually made it using three centers of a normal distribution, but one could argue whether there's two cleanly split clusters, or whether this is related to density and therefore there are 3.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/3620eb9976196da8a0f980c4b0435b94/Clustering-ToyData2.csv"
+      X = np.loadtxt(url)
+      plt.scatter(X[:,0],X[:,1])
+      plt.show()
+    </program>
+    <p>Now, we can mess with the choice of linkage to see how this changes the clustering assignment.</p>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p><alert>Answer these:</alert></p>
+              <p><ul>
+                <li>
+                  <p>Where are the 7th and 18th (according to python numbering) points in the scatter plot above?</p>
+                </li>
+                <li>
+                  <p>Are they in the same cluster (based on eyeballing it) or different clusters?</p>
+                </li>
+                <li>
+                  <p>What is the distance between the 7th and 18th points? Use the distance matrix to figure it out</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Use <c>X[[7, 18]]</c> to print the two coordinates, then highlight those same zero-based row indices in the scatter plot.</p>
+            </hint>
+            <hint>
+              <p>The distance matrix entry can be read as either <c>D[7, 18]</c> or <c>D[18, 7]</c> because Euclidean distance is symmetric.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The wording follows Python numbering, so use indices 7 and 18—not the seventh and eighteenth rows counted from one.</p>
+            </hint>
+            <answer>
+              <p>Point 7 is approximately <m>(0.2705,0.1507)</m> and point 18 is approximately <m>(3.6264,1.8462)</m>. They appear in different visual clusters, and their Euclidean distance is approximately <m>3.7599</m>.</p>
+              <program language="python">
+                <code>
+                  print('point 7:', X[7])
+                  print('point 18:', X[18])
+                  print('distance:', D[7, 18])
+                  colors = np.zeros(X.shape[0])
+                  colors[[7, 18]] = 1
+                  plt.scatter(X[:, 0], X[:, 1], c=colors)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>How many clusters are there if we have a cutoff of 2.0?</p>
+            </statement>
+            <hint>
+              <p>Cut the single-linkage dendrogram at height 2.0; every connected component below that horizontal line is one cluster.</p>
+            </hint>
+            <hint>
+              <p>Verify the visual count with <c>hierarchy.fcluster</c>, then count the unique labels.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not count dendrogram colors directly: branches above the threshold and singleton coloring can make the color count misleading.</p>
+            </hint>
+            <answer>
+              <p>A cutoff of 2.0 produces 2 clusters.</p>
+              <program language="python">
+                <code>
+                  thresh_height = 2.0
+                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
+                  plt.axhline(y=thresh_height, color='r', linestyle='-')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>(Continue from above) What about for 0.5?</p>
+            </statement>
+            <hint>
+              <p>Lowering the cutoff prevents merges whose linkage distance exceeds 0.5, so the number of clusters should increase.</p>
+            </hint>
+            <hint>
+              <p>Use <c>hierarchy.fcluster(Z, 0.5, criterion='distance')</c> and count its distinct labels.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A lower horizontal cut cannot produce fewer clusters than a higher cut on the same dendrogram.</p>
+            </hint>
+            <answer>
+              <p>A cutoff of 0.5 produces 8 clusters.</p>
+              <program language="python">
+                <code>
+                  thresh_height = 0.5
+                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
+                  plt.axhline(y=thresh_height, color='r', linestyle='-')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Where are the clusters associated to a threshold of 2.0?</p>
+            </statement>
+            <hint>
+              <p>Generate flat labels with <c>hierarchy.fcluster(Z, 2.0, criterion='distance')</c>.</p>
+            </hint>
+            <hint>
+              <p>Color the original scatter plot with those labels so every point's assignment is visible.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Apply <c>fcluster</c> to the linkage matrix <c>Z</c>, not to the square distance matrix <c>D</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  labels = hierarchy.fcluster(Z,2,criterion = 'distance')
+
+                  plt.scatter(X[:,0],X[:,1],c = labels)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>(Continue from above) What about 0.5?</p>
+            </statement>
+            <hint>
+              <p>Repeat the flat-cluster calculation with <c>t=0.5</c> while keeping <c>criterion='distance'</c>.</p>
+            </hint>
+            <hint>
+              <p>Use a qualitative colormap such as <c>tab10</c> because cluster numbers are category labels, not measured magnitudes.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the labels from the 2.0 cutoff; rerun <c>fcluster</c> after changing the threshold.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  labels = hierarchy.fcluster(Z,0.5,criterion = 'distance')
+
+                  plt.scatter(X[:,0],X[:,1],c = labels, cmap = 'tab10')
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Draw the single linkage cluster dendogram as above.</p>
+              <p><ul>
+                <li>
+                  <p>Is there a reasonable choice of threshold?</p>
+                </li>
+                <li>
+                  <p>Using this threshold, how many clusters are there?</p>
+                </li>
+                <li>
+                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Recompute <c>Z</c> from the second data set using <c>hierarchy.linkage(pdist(X), 'single')</c>, then inspect the largest merge heights.</p>
+            </hint>
+            <hint>
+              <p>Try a horizontal cut near 1.2 and use <c>fcluster</c> to count and plot the resulting assignments.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Make sure <c>X</c> contains <c>Clustering-ToyData2.csv</c>; otherwise you will silently redraw the first example.</p>
+            </hint>
+            <answer>
+              <p>Single linkage shows a chaining effect in this data set. A cutoff near 1.2 is defensible and produces 2 broad clusters, though another threshold can be argued if it is justified from the dendrogram.</p>
+              <program language="python">
+                <code>
+                  Z = hierarchy.linkage(pdist(X), 'single')
+                  threshold = 1.2
+                  hierarchy.dendrogram(Z, color_threshold=threshold)
+                  plt.axhline(y=threshold, color='r', linestyle='-')
+                  plt.show()
+                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Modify your linkage to use <c>complete</c> instead of <c>single</c> and draw the resulting dendrogram.</p>
+              <p><ul>
+                <li>
+                  <p>Is there a reasonable choice of threshold?</p>
+                </li>
+                <li>
+                  <p>Using this threshold, how many clusters are there?</p>
+                </li>
+                <li>
+                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Change only the linkage method to <c>'complete'</c>, then redraw the dendrogram before choosing a threshold.</p>
+            </hint>
+            <hint>
+              <p>A cut near 5 separates the three prominent branches; verify the count with <c>fcluster</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the single-linkage matrix <c>Z</c>; the linkage matrix itself must be recomputed with the complete method.</p>
+            </hint>
+            <answer>
+              <p>With complete linkage, a cutoff near 5 is a reasonable choice and produces 3 clusters. Compared with single linkage, complete linkage resists joining groups through a chain of individually close points.</p>
+              <program language="python">
+                <code>
+                  Z = hierarchy.linkage(pdist(X), 'complete')
+                  threshold = 5.0
+                  hierarchy.dendrogram(Z, color_threshold=threshold)
+                  plt.axhline(y=threshold, color='r', linestyle='-')
+                  plt.show()
+                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+      
+    </p>
+  </subsection>
+</section>

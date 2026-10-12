@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec28-nn-code-worksheet" component="ws28">
+  <title>Jupyter Notebook: Lecture 28: Single Layer Neural Nets</title>
+  <introduction>
+    <!-- unsupported HTML omitted from source cell 0 -->
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+    </program>
+    <program language="python">
+      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Mess with these
+      beta = np.array((-1,2,1,-2))               #&lt;----- These, too
+
+      #--- below here plots the output values for many combinations of 
+      #--- X1,X2
+
+      a = np.linspace(-10,10,30)
+      b = np.linspace(-10,10,30)
+      x,y = np.meshgrid(a,b)
+      M = np.zeros((len(a),len(b)))
+      for i in range(len(a)):
+          for j in range(len(a)):
+              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
+
+
+      # --- Make plots----
+      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
+
+      # Heatmap version 
+      ax1.set(aspect='equal')
+      colormesh = ax1.pcolormesh(x,y,M)
+      ax1.set_xlabel('X1')
+      ax1.set_ylabel('X2')
+      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
+
+      # Contour plot version 
+      ax2.set(aspect='equal')
+      contour = ax2.contour(x,y,M)
+      ax2.set_xlabel('X1')
+      ax2.set_ylabel('X2')
+      fig.colorbar(contour,ax = ax2, shrink = 0.5)
+
+      plt.show()
+    </program>
+    <program language="python">
+      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Original choices 
+      beta = np.array((-1,2,1,-2))               #&lt;----- of matrices
+
+      a = np.linspace(-10,10,30)
+      b = np.linspace(-10,10,30)
+      x,y = np.meshgrid(a,b)
+      M = np.zeros((len(a),len(b)))
+      for i in range(len(a)):
+          for j in range(len(a)):
+              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
+
+      # --- Make plots----
+      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
+
+      # Heatmap version 
+      ax1.set(aspect='equal')
+      colormesh = ax1.pcolormesh(x,y,M)
+      ax1.set_xlabel('X1')
+      ax1.set_ylabel('X2')
+      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
+
+      # Contour plot version 
+      ax2.set(aspect='equal')
+      contour = ax2.contour(x,y,M)
+      ax2.set_xlabel('X1')
+      ax2.set_ylabel('X2')
+      fig.colorbar(contour,ax = ax2, shrink = 0.5)
+      plt.show()
+    </program>
+    <p>So of course, if we were actually building this beast, our bigger job would be to find good choices of <m>w</m> and <m>\beta</m> based on our available training data. Let's pretend for the moment I have the following prediction data.</p>
+    <program language="python">
+      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/260ce1afe5ae90499a2e960020056fe9/DL-toy-data.csv"
+      data = np.loadtxt(url)
+      X = data[:,:2]
+      y = data[:,2]
+
+      plt.scatter(X[:,0],X[:,1], c= y)
+      plt.colorbar()
+      plt.show()
+    </program>
+    <!-- horizontal rule in source notebook -->
+  </introduction>
+  <subsection xml:id="cmse381-lec29-nn-code-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              @@PTX-HEADER:1:Building your own basic neural network@@
+              <p>We're going to try to play with building some simple portions of the neural nets described in class.</p>
+              <p>First up, let's try to build the following example we played with in class:
+              [Image: Example Neural Net from Class]</p>
+              <p>Add code where noted below to create an automatic computation of the things we did in class. <alert>Note: You can replace this code with the matrix version if you prefer, but this structure is built to work with the individual equations version.</alert></p>
+            </statement>
+            <hint>
+              <p>For each hidden unit, compute its affine input from the bias and two input weights, then apply ReLU with <c>max(value, 0)</c>.</p>
+            </hint>
+            <hint>
+              <p>Collect the three activations and combine them with the output-layer weights and output bias.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not apply ReLU to the final output unless the architecture explicitly says to; here ReLU is used only for the hidden units.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def MyFirstNN(X1,X2,w, beta):
+
+                      X = np.array((1,X1,X2))
+                      A = []
+
+                      for i in range(3): 
+                          # Option 1: 
+                          Ai = w[i][0] + w[i][1]*X1 + w[i][2]*X2
+
+                          # Option 2 with dot products:
+                          Ai = np.dot(w[i],X)
+
+                          # Either way, relu: 
+                          Ai = max(Ai,0)
+                          A.append(Ai)
+
+                      A = np.array(A)
+
+                      # Option 1, long way: 
+                      Y = beta[0] + beta[1]*A[0] + beta[2]*A[1] + beta[3]*A[2]
+
+                      # Option 2, with dot products: 
+                      Y = beta[0] + np.dot(beta[1:], A)
+
+                      return Y
+
+                  w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)])
+                  beta = np.array((-1,2,1,-2))
+                  print('(1,0) should give  1  =&gt; ', MyFirstNN(1,0,w,beta))
+                  print('(0,1) should give -1  =&gt; ', MyFirstNN(0,1,w,beta))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Play with the following code by changing around your <m>w</m> and <m>\beta</m> matrix values.</p>
+              <p><ul>
+                <li>
+                  <p>What sorts of changes occur in the resulting function value outputs?</p>
+                </li>
+                <li>
+                  <p>We're using the ReLU as our activation function above, which replaces the entry with the positive value of the entry. Why am I able to get negative results out of the neural net?</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Change one weight or bias at a time and compare the heatmaps so you can attribute the effect.</p>
+            </hint>
+            <hint>
+              <p>Separate the roles of <c>w</c> (hidden-unit boundaries) and <c>beta</c> (how activated units are combined at the output).</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Nonnegative hidden activations do not force a nonnegative output because output weights and the output bias may be negative.</p>
+            </hint>
+            <answer>
+              <p>Changing a row of <m>w</m> moves or rotates the boundary where one hidden unit activates, changing the piecewise-linear regions. Changing <m>\beta</m> changes the vertical contribution of those regions to the final surface. Negative network outputs are possible even though every ReLU activation is nonnegative because the output layer uses negative coefficients (and may have a negative bias); a weighted sum of nonnegative activations need not be nonnegative.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Write a modified version of your <c>MyFirstNN</c> function that uses a sigmoid function instead of ReLu. Use the block below to draw a 2D heatmap and/or contour plot like above. What sort of patterns can you get in the resulting output function?</p>
+            </statement>
+            <hint>
+              <p>Replace each hidden-unit ReLU call with <m>\sigma(z)=1/(1+e^{-z})</m> while leaving the affine computations unchanged.</p>
+            </hint>
+            <hint>
+              <p>Use the same grid evaluation loop to compare the smoother output surface with the ReLU version.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Apply sigmoid to each hidden pre-activation, not once to the final weighted sum, unless you intentionally change the architecture.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def MyFirstNN(X1,X2,w, beta):
+
+                      X = np.array((X1,X2))
+                      A = []
+
+                      for i in range(3): 
+                          Ai = w[i,0] + np.dot(w[i,1:],X)
+
+                          # Sigmoid activation function
+                          Ai = 1/(1+np.exp(-Ai))
+                          A.append(Ai)
+
+                      A = np.array(A)
+
+                      Y = beta[0] + np.dot(beta[1:], A)
+
+                      return Y
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>The functions you have created are what the neural net would predict given a new input data point.</p>
+              <p>For the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function, what output prediction would you get for an input <m>(-10,10)</m>?</p>
+            </statement>
+            <hint>
+              <p>Evaluate the three hidden affine functions at <m>X_1=-10,X_2=10</m> and apply sigmoid to each.</p>
+            </hint>
+            <hint>
+              <p>Substitute the three activations into <m>Y=\beta_0+\beta_1A_1+\beta_2A_2+\beta_3A_3</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the bias as the first entry of each row of <c>w</c>; it is not multiplied by either input coordinate.</p>
+            </hint>
+            <answer>
+              <p>The hidden pre-activations are <m>-9</m>, <m>9</m>, and <m>3</m>. Applying sigmoid and then the output weights gives approximately <m>-1.9050</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Given this particular data set, what is the mean squared error for the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function?</p>
+            </statement>
+            <hint>
+              <p>Evaluate <c>MyFirstNN</c> once for every row of the two-column input matrix and store the predictions in the original row order.</p>
+            </hint>
+            <hint>
+              <p>Compare the resulting prediction vector with <c>y</c> using <c>mean_squared_error</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not hard-code the loop length as 30 in reusable code; use <c>len(X)</c> so every observation is evaluated.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  y_predict = np.array([MyFirstNN(row[0], row[1], w, beta) for row in X])
+                  print('MSE:', mean_squared_error(y, y_predict))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>We're not going to train the model* ourselves, so let's switch now to the following online tool for training model.</p>
+              <p>Open this website in another window: <url href="https://playground.tensorflow.org/#activation=tanh&amp;batchSize=10&amp;dataset=xor&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4&amp;seed=0.85627&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false"><url href="https://playground.tensorflow.org">https://playground.tensorflow.org</url></url></p>
+              <p>*Translation: chosing better weights <m>w</m> and <m>\beta</m> to improve this score.</p>
+              <p><ol>
+                <li>
+                  <p>Start by working with a neural network with a single hidden layer on the data set labeled "Exclusive or". The initial setup has random weights chosen so the test loss on the right isn't very good. Hit the play button to watch the model find better and better weights to improve the prediction.</p>
+                </li>
+                <li>
+                  <p>Hover over the neurons on your trained model. What does the colormap shown on the right mean?</p>
+                </li>
+                <li>
+                  <p>What does the thickness/color of the edges between features/neurons mean? How does it align with our notation from class?</p>
+                </li>
+                <li>
+                  <p>What happens when you train the model using more or less neurons (hidden units) in the layer? What happens if you increase</p>
+                </li>
+                <li>
+                  <p>What happens when you train the same model on the spiral data set?</p>
+                </li>
+                <li>
+                  <p>If your settings are like mine, the sprial data set results are not good. Play with parameters until you can get test loss below 10% on the spiral data set.</p>
+                </li>
+              </ol></p>
+            </statement>
+            <hint>
+              <p>Hover over a hidden unit to view its activation over the input plane, and over an edge to relate color and thickness to a signed weight.</p>
+            </hint>
+            <hint>
+              <p>For the spiral data, add enough hidden units or layers to form a curved boundary, then compare training and test loss rather than training loss alone.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Changing many controls simultaneously makes the result hard to interpret; first vary width, depth, activation, or learning rate one at a time.</p>
+            </hint>
+            <answer>
+              <p>The neuron colormap shows where that unit activates over the two-dimensional input space. Edge thickness represents weight magnitude and edge color represents its sign, corresponding to the entries of <m>w</m> and <m>\beta</m>. More hidden units increase flexibility and can fit XOR more easily, but unnecessary width may make training less stable or encourage overfitting. The spiral data require a substantially more flexible nonlinear boundary; several hidden layers/units with a nonlinear activation can bring test loss below 10%, although exact settings vary with initialization. One working family of settings is three ReLU layers with roughly four units each, followed by checking that both training and test losses remain low.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+</section>

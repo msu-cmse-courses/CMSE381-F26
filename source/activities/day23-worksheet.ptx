@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec23-decisiontrees-worksheet" component="ws23">
+  <title>Jupyter Notebook: Lecture 24: Decision Trees</title>
+  <introduction>
+    <p>[Image: https://img.icons8.com/emoji/344/deciduous-tree-emoji.png]</p>
+    <p>In this module we are going to test out the tree based methods we discussed in class from Chapter 8.</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec24-decisiontrees-worksheet-fitting-regression-trees">
+    <title>Fitting Regression Trees</title>
+    <p>We can now turn to setting up a basic regression tree. For this example, we're going to use the <c>Carseat</c> data where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2cec98f7fc943558992925bc2510bb9d/Carseats.csv"
+      carseats = pd.read_csv(url).drop('Unnamed: 0', axis=1)
+      carseats.ShelveLoc = pd.factorize(carseats.ShelveLoc)[0]
+      carseats.Urban = carseats.Urban.map({'No':0, 'Yes':1})
+      carseats.US = carseats.US.map({'No':0, 'Yes':1})
+      carseats.info()
+    </program>
+    <program language="python">
+      carseats.head()
+    </program>
+    <program language="python">
+      X = carseats.drop(['Sales'], axis = 1)
+      y = carseats.Sales
+      X.head()
+    </program>
+    <p>The regression tree function we will use is <c>DecisionTreeRegressor</c>.</p>
+    <program language="python">
+      from sklearn import tree
+      from sklearn.tree import DecisionTreeRegressor
+    </program>
+    <program language="python">
+      reg_tree = DecisionTreeRegressor(max_depth = 3)
+      reg_tree.fit(X,y)
+    </program>
+    <p>We can draw the resulting tree to visualize what's happening.</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec24-decisiontrees-worksheet-visualization-1-text-based">
+    <title>Visualization 1: Text based</title>
+    <p>Ok, so not the prettiest of the options, but at least this one will work. This provides a text based tree where I can figure out what decisions were made at each step.</p>
+    <program language="python">
+      X.columns
+    </program>
+    <program language="python">
+      print( tree.export_text(reg_tree, feature_names = list(X.columns)) )
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Given a new data point with the entries below, use the visualization to determine the choices made by the decision tree at each step? What will your decision tree predict for <c>Sales</c>?</p>
+              <program language="text">
+                CompPrice      117
+                Income         100
+                Advertising      4
+                Population     466
+                Price           97
+                ShelveLoc        2
+                Age             55
+                Education       14
+                Urban            1
+                US               1
+              </program>
+            </statement>
+            <hint>
+              <p>Start at the root and evaluate the observation against the displayed threshold; take the left branch when the condition is true and the right branch otherwise.</p>
+            </hint>
+            <hint>
+              <p>For this observation, the decisive features are <c>ShelveLoc</c> and <c>Price</c>; continue until reaching a leaf value.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not interpret left and right as smaller and larger without reading the node condition: the left branch satisfies <c>&lt;=</c>, while the right branch does not.</p>
+            </hint>
+            <answer>
+              <p>For mine:</p>
+              <p><ul>
+                <li>
+                  <p>ShelveLoc &gt; 0.50</p>
+                </li>
+                <li>
+                  <p>ShelveLoc &gt; 1.50</p>
+                </li>
+                <li>
+                  <p>Price &lt;= 105.50</p>
+                </li>
+                <li>
+                  <p>value: 8.80</p>
+                </li>
+              </ul></p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-visualization-2-probably-should-work">
+    <title>Visualization 2: Probably should work</title>
+    <p>Here's another option for visualization. There is a plotting function built into <c>sklearn.tree</c> but I've had issues with people's python versions before. Let's try it and see, it's a bit clunky but it gets the job done.</p>
+    <program language="python">
+      fig = plt.figure(figsize = (25,20))
+      _= tree.plot_tree(reg_tree, feature_names = X.columns, 
+                     filled = True, 
+                    fontsize = 20)
+      plt.show()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Given a new data point with the following entries, use the visualization to determine the choices made by the decision tree at each step? What will your decision tree predict for <c>Sales</c>?</p>
+              <program language="text">
+                CompPrice      141
+                Income          64
+                Advertising      3
+                Population     340
+                Price          128
+                ShelveLoc        0
+                Age             38
+                Education       13
+                Urban            1
+                US               0
+              </program>
+            </statement>
+            <hint>
+              <p>Apply the root test first, then use only the tests encountered on the selected branch.</p>
+            </hint>
+            <hint>
+              <p>Record each true/false decision and report the numeric prediction stored in the terminal leaf.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The leaf's <c>value</c> is the regression prediction; it is not a class label or another threshold to test.</p>
+            </hint>
+            <answer>
+              <p><em>Note that going left is yes, and right is no</em></p>
+              <p><ul>
+                <li>
+                  <p>ShelveLoc &lt;0.5 (TRUE, go left)</p>
+                </li>
+                <li>
+                  <p>Price &lt;= 102.5 (FALSE, go right)</p>
+                </li>
+                <li>
+                  <p>Population &lt;=180.5 (FALSE, go right)</p>
+                </li>
+                <li>
+                  <p>Returns 5.27</p>
+                </li>
+              </ul></p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-other-visualization-tools">
+    <title>Other visualization tools.</title>
+    <p>There are nicer visualization tools. In particular, the outputs requiring <c>graphviz</c> are quite a bit better than these options. However, installing <c>graphviz</c> is non trivial so we won't use it in this lecture. Examples of code using this can be found <url href="https://mljar.com/blog/visualize-decision-tree/">here</url>.</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-predicting-on-the-tree">
+    <title>Predicting on the tree.</title>
+    <p>As with all other <c>sklearn</c> packages we've seen, we can predict values on our input <c>X</c> matrix, and compare the results using MSE.</p>
+    <program language="python">
+      yhat = reg_tree.predict(X)
+      yhat[:5]
+    </program>
+    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
+    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use the regression tree to predict <c>Sales</c> for all rows of <c>X</c>. Check the two hand-traced examples: they are rows 4 and 5 of the displayed data (zero-based indices 3 and 4). Do the predictions agree with the visualization? What is the resulting MSE on the full data set?</p>
+            </statement>
+            <hint>
+              <p>Use <c>reg_tree.predict(X.iloc[[3, 4]])</c> to check the two displayed observations without losing the feature names.</p>
+            </hint>
+            <hint>
+              <p>For the full-data MSE, compare <c>y</c> with <c>reg_tree.predict(X)</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use indices 2 and 3: the original wording counted the displayed CSV rows incorrectly; the two supplied observations occur at zero-based indices 3 and 4.</p>
+            </hint>
+            <answer>
+              <p>The two predictions should match the leaf values obtained by hand (approximately 8.80 and 5.28 for the stored depth-3 tree). The full-data MSE is about 3.88 for this fit.</p>
+              <program language="python">
+                <code>
+                  example_predictions = reg_tree.predict(X.iloc[[3, 4]])
+                  y_hat = reg_tree.predict(X)
+                  print('two examples:', example_predictions)
+                  print('full-data MSE:', mean_squared_error(y, y_hat))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-classification-trees">
+    <title>Classification trees</title>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>Let's start with the <c>palmerPenguins</c> data set.</p>
+    <program language="python">
+      pip install palmerpenguins
+    </program>
+    <program language="python">
+      import palmerpenguins
+    </program>
+    <program language="python">
+      penguins_df = palmerpenguins.load_penguins()
+
+      #I'm shuffling the data to make this a bit more interesting
+      penguins_df = penguins_df.sample(frac=1, random_state=1236) 
+
+      penguins_df = penguins_df.dropna()
+      penguins_df.head()
+    </program>
+    <program language="python">
+      X_df = pd.get_dummies(penguins_df.drop(columns = ['species']), drop_first = True)
+      X_df.head()
+    </program>
+    <program language="python">
+      y_df = penguins_df.species
+      y_df
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-fitting-classification-trees">
+    <title>Fitting Classification Trees</title>
+    <p>We'll use <c>sklearn</c>'s built in modules for this. As always, the <url href="https://scikit-learn.org/stable/modules/tree.html">user guide</url> is an excellent place to get started.</p>
+    <p>Now to fit the decision tree classifier? All we need is two lines:</p>
+    <program language="python">
+      from sklearn import tree
+    </program>
+    <program language="python">
+      clf_tree = tree.DecisionTreeClassifier(max_depth = 3)
+      clf_tree = clf_tree.fit(X_df, y_df)
+    </program>
+    <program language="python">
+      clf_tree = tree.DecisionTreeClassifier(max_depth =10) #&lt;-- mess with this
+
+
+      clf_tree = clf_tree.fit(X_df, y_df)
+      fig = plt.figure(figsize = (25,20))
+      _= tree.plot_tree(clf_tree, feature_names = X_df.columns, 
+                     filled = True, 
+                    fontsize = 20)
+
+      plt.show()
+    </program>
+    <p>If you are interested in more complex pruning techniques like we discussed in class, you can try to mess around with <url href="https://scikit-learn.org/stable/auto_examples/tree/plot_cost_complexity_pruning.html">Minimal Cost-Complexity Pruning</url>, but I'll leave that for another day.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Using the <c>.predict</c> function, what is the species predicted for the first five data points in <c>X</c>? Which of these predicted values are the same as the original labels?</p>
+            </statement>
+            <hint>
+              <p>Call <c>clf_tree.predict(X_df.iloc[:5])</c> and place the result next to <c>y_df.iloc[:5]</c>.</p>
+            </hint>
+            <hint>
+              <p>An elementwise comparison such as <c>predicted == actual</c> makes each match explicit.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Use the shuffled <c>y_df</c> with the same row order as <c>X_df</c>; resetting or separately shuffling one object would misalign labels.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  yhat = clf_tree.predict(X_df)
+                  print(yhat[:5])
+
+                  # In this case, they are all predicted correctly.
+                  print(y_df[:5])
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use whichever visualization method you prefer from above to see the resulting tree. What is the sequence of decisions for predicting the first data point?</p>
+              <program language="python">
+                <code>
+                  print(tree.export_text(clf_tree, feature_names=list(X_df.columns)))
+                  # or use tree.plot_tree(...)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Exporting the tree as text is often easiest for writing down a path precisely.</p>
+            </hint>
+            <hint>
+              <p>Read the first observation with <c>X_df.iloc[0]</c>, then evaluate one displayed threshold at a time.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not list every split in the tree; report only the nodes visited by the first observation.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  print(tree.export_text(clf_tree, feature_names=list(X_df.columns)))
+                  fig = plt.figure(figsize=(25, 20))
+                  tree.plot_tree(clf_tree, feature_names=X_df.columns, class_names=clf_tree.classes_, filled=True, fontsize=20)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the sequence of decisions for predicting the first data point based on the visualization?</p>
+              <program language="python">
+                <code>
+                  first_penguin = X_df.iloc[0]
+                  print(first_penguin)
+                  ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Substitute the first row's feature values into the thresholds shown along its branch.</p>
+            </hint>
+            <hint>
+              <p>At the final leaf, map the displayed class index or class counts back to <c>clf_tree.classes_</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A false <c>feature &lt;= threshold</c> test sends the observation right, not left.</p>
+            </hint>
+            <answer>
+              <p><ul>
+                <li>
+                  <p>flipper_length_mm &lt;= 206.50 (False, go right)</p>
+                </li>
+                <li>
+                  <p>bill_depth_mm &lt;= 17.65 (True, go left)</p>
+                </li>
+                <li>
+                  <p>class:1 -&gt; Gentoo</p>
+                </li>
+              </ul></p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              @@PTX-HEADER:2:Pruning the tree@@
+              <p>The simplest method we have for pruning the tree is to limit the maximum depth, that is the number of times the tree is allowed to split.</p>
+              <p>Change the value of <c>max_depth</c> below to see how the resulting tree changes.</p>
+            </statement>
+            <hint>
+              <p>Try several values such as 1, 2, 3, 5, and 10 while keeping the data unchanged.</p>
+            </hint>
+            <hint>
+              <p>Compare the number of internal nodes and leaves, then consider which tree would generalize better.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A deeper tree nearly always fits the training data better, but that does not guarantee better performance on unseen data.</p>
+            </hint>
+            <answer>
+              <p>Small <c>max_depth</c> values produce short, coarse trees with few leaves and higher bias. Increasing it adds splits and more specific regions, reducing training error but increasing complexity and the risk of overfitting. A validation or cross-validation score should be used to choose the depth rather than selecting the deepest tree.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec23-decisiontrees-worksheet-visualizing-the-parameter-splits">
+    <title>Visualizing the parameter splits</title>
+    <p>Now, if we want to visualize the parameter splits that are being represented with the trees, we can do that. However, I can't (easily) draw these sorts of figures when I'm using more than two variables. Let's just grab the first two variables and build a classifer off of those.</p>
+    <program language="python">
+      X_pair = X_df[['bill_length_mm', 'bill_depth_mm']].values
+      y_pair = y_df
+
+      clf_pair = tree.DecisionTreeClassifier(max_depth = 5).fit(X_pair, y_df)
+    </program>
+    <program language="python">
+      # Bounds for the figure 
+      X = X_df.values
+      x0_min = X[:,0].min()-1
+      x0_max = X[:,0].max()+1
+      x1_min = X[:,1].min()-1
+      x1_max = X[:,1].max()+1
+
+      # Parameters
+      n_classes = 3
+      plot_colors = "ryb"
+      plot_step = 0.02
+
+      xx, yy = np.meshgrid(
+          np.arange(x0_min, x0_max, plot_step), np.arange(x1_min, x1_max, plot_step)
+      )
+      plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
+
+      Z = clf_pair.predict(np.c_[xx.ravel(), yy.ravel()])
+      def numReplace(label):
+          if label == 'Adelie':
+              return 0
+          if label == 'Gentoo':
+              return 1
+          else: #(if 'Chinstrap')
+              return 2
+      Z = np.array([numReplace(label) for label in Z])
+      # Z = Z.replace(['Adelie','Gentoo','Chinstrap'], [0,1,2])
+      Z = Z.reshape(xx.shape)
+      cs = plt.contourf(xx, yy, Z, cmap=plt.cm.RdYlBu)
+
+      plt.xlabel(X_df.columns[0])
+      plt.ylabel(X_df.columns[1])
+
+      # Plot the training points
+      for label, color, symbol in zip(['Adelie','Gentoo','Chinstrap'], plot_colors, ['o','x','^']):
+          idx = np.where(y_df == label)
+          plt.scatter(
+              X[idx, 0],
+              X[idx, 1],
+              c=color,
+              label=label,
+              edgecolor="black",
+              s=15,
+              marker=symbol,
+          )
+      plt.legend()
+      plt.show()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use whatever worked for you above to plot your decision tree.</p>
+            </statement>
+            <hint>
+              <p>Use <c>tree.plot_tree</c> with <c>clf_pair</c> and the two feature names used to fit it.</p>
+            </hint>
+            <hint>
+              <p>Set <c>filled=True</c> and a large figure size to make the class regions and thresholds readable.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Pass exactly two feature names—<c>bill_length_mm</c> and <c>bill_depth_mm</c>; supplying every column name from <c>X_df</c> does not match this two-feature tree.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  fig = plt.figure(figsize=(20, 14))
+                  tree.plot_tree(
+                      clf_pair,
+                      feature_names=['bill_length_mm', 'bill_depth_mm'],
+                      class_names=clf_pair.classes_,
+                      filled=True,
+                      fontsize=12
+                  )
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Below is some code that will draw the regions of parameter space that get each different prediction.</p>
+              <p><ul>
+                <li>
+                  <p>Which labels do the colors red, yellow, and blue match to?</p>
+                </li>
+                <li>
+                  <p>What split in the figure does the first split in your tree above correspond to?</p>
+                </li>
+                <li>
+                  <p>What changes in this figure if you change the <c>max_depth</c> in your tree model above?</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Read the class order and color order directly from the <c>zip</c> call in the plotting code.</p>
+            </hint>
+            <hint>
+              <p>A split on the first feature appears as a vertical boundary; a split on the second appears as a horizontal boundary.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Changing <c>max_depth</c> requires refitting <c>clf_pair</c> before regenerating the regions; editing the number after the model is fit changes nothing.</p>
+            </hint>
+            <answer>
+              <p>The plotting code maps red to Adelie, yellow to Gentoo, and blue to Chinstrap. Match the root node's feature and threshold to the first vertical or horizontal boundary in the region plot. Reducing <c>max_depth</c> produces fewer, larger rectangular regions; increasing it permits more nested boundaries and smaller regions, which can fit the training data more closely but may overfit.</p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec24-decisiontrees-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+<p></p>
+  </subsection>
+</section>

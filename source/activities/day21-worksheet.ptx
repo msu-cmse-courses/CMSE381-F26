@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-001-lec21-stepclassification-worksheet" component="ws21">
+  <title>Jupyter - Day 21 - Secion 001: Lec 21 - Step Functions for Classification</title>
+  <introduction>
+    <p>Today we will play with the step functions again! But for classification!</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+
+      # ML imports we've used previously
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+      from sklearn.linear_model import LinearRegression
+
+      import statsmodels.api as sm
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-001-lec22-stepclassification-worksheet-loading-in-the-data">
+    <title>Loading in the data</title>
+    <p>We're going to use the <c>Wage</c> data used in the book, so note that many of your plots can be checked by looking at figures in the book.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2d664388c56e51af2d83cea1fe3027f4/Wage.csv"
+      df = pd.read_csv(url, index_col =0 )
+      df.head()
+    </program>
+    <program language="python">
+      df.info()
+    </program>
+    <program language="python">
+      df.describe()
+    </program>
+    <p>Here's the plot we used multiple times in class to look at a single variable: <c>age</c> vs <c>wage</c></p>
+    <program language="python">
+      plt.scatter(df.age[df.wage &lt;=250], df.wage[df.wage&lt;=250],marker = '*', label = '&lt; 250')
+      plt.scatter(df.age[df.wage &gt;250], df.wage[df.wage&gt;250], label = '&gt; 250')
+      plt.legend()
+
+      plt.xlabel('Age')
+      plt.ylabel('Wage')
+      plt.show()
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec22-stepclassification-worksheet-classification-version-of-step-functions">
+    <title>Classification version of step functions</title>
+    <p>Now we can try out the classification version of the problem. Let's build the classifier that predicts whether a person of a given age will make more than $250,000. You already made the matrix of step function features, so we just have to hand it to <c>LogisticRegression</c> to do its thing.</p>
+    <p>If all goes well, you should be able to run the below code and plat the prediction.</p>
+    <program language="python">
+      # Build the same step features for the x-values we want to draw
+      t_age = pd.Series(np.linspace(20,80,100))
+      t_df_cut = pd.cut(t_age, bins, right = False) #&lt;-- the `bins`` here is from the initial cut
+      t_dummies = pd.get_dummies(t_df_cut)
+      t_step = t_dummies.apply(lambda x: x * 1)
+
+      # Predict on these to get the line we can draw
+      f = clf.predict_proba(t_step)
+    </program>
+    <program language="python">
+      below = df.age[df.wage &lt;=250]
+      above = df.age[df.wage &gt;250]
+
+      # Comment this out to see the function better
+      # plt.scatter(above,np.ones(above.shape[0]),marker = '|', color = 'orange')
+      # plt.scatter(below,np.zeros(below.shape[0]),marker = '|', color = 'blue')
+
+      plt.xlabel('Age')
+      plt.ylabel('P[Wage &gt;= 250]')
+      plt.plot(t_age,f[:,1])
+      plt.show()
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>You will need to first create the dummy variables that represent the step functions. You will need to use <c>pd.cut</c> and <c>pd.get_dummies</c>, or you can copy the relevant code from Day 21's notebook!</p>
+            </statement>
+            <hint>
+              <p>Use <c>pd.cut(df.age, 4, retbins=True, right=False)</c> to obtain both interval labels and reusable bin edges.</p>
+            </hint>
+            <hint>
+              <p>Apply <c>pd.get_dummies</c> to the interval labels, then convert Boolean entries to 0 and 1 if desired.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not build new cuts independently for later prediction data; save and reuse the training bin edges.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Same matrix of step function features as last time.
+                  df_cut, bins = pd.cut(df.age, 4, retbins = True, right = False)
+                  df_steps_dummies = pd.get_dummies(df_cut) # This gives us entries with true/false
+                  df_steps = df_steps_dummies.apply(lambda x: x * 1) # This converts those to either 0 or 1.
+                  df_steps.head()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Pass the dummy variables to a logistic regression model and use it to predict the probability of <c>wage</c> being greater than 250. What is the equation for your learned model? Be specific in terms of the <m>C_i</m> functions you learned earlier. Complete the code below.</p>
+            </statement>
+            <hint>
+              <p>Create the binary response with <c>df.wage &gt; 250</c>, then fit <c>LogisticRegression</c> on the step-function columns.</p>
+            </hint>
+            <hint>
+              <p>The fitted log-odds equal the intercept plus one coefficient for each represented indicator <m>C_i(age)</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> When plotting the probability of wage exceeding 250, select the <c>predict_proba</c> column whose class is <c>True</c>; verify its position with <c>clf.classes_</c>.</p>
+            </hint>
+            <answer>
+              <p>If the fitted coefficients are <m>\hat\beta_0,\ldots,\hat\beta_4</m>, then <m>\log\{\hat p(age)/(1-\hat p(age))\}=\hat\beta_0+\hat\beta_1C_1(age)+\cdots+\hat\beta_4C_4(age)</m>, where <m>\hat p(age)=P(wage&gt;250\mid age)</m>. The numerical values come from <c>clf.intercept_</c> and <c>clf.coef_</c>.</p>
+              <program language="python">
+                <code>
+                  from sklearn.linear_model import LogisticRegression
+                  y = (df.wage &gt; 250).to_numpy()
+                  clf = LogisticRegression(random_state=48824)
+                  clf.fit(df_steps, y)
+                  print('classes:', clf.classes_)
+                  print('intercept:', clf.intercept_)
+                  print('coefficients:', clf.coef_)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-001-lec22-stepclassification-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+<p></p>
+  </subsection>
+</section>

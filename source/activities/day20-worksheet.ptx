@@ -1,76 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec20-pcr-worksheet" component="ws20">
-  <title>Day 20 Worksheet</title>
+<section xml:id="cmse381-lec20-polynomialandstepfunctions-worksheet" component="ws20">
+  <title>Jupyter Notebook: Lec 20 - Polynomial Regression and Step Functions</title>
   <introduction>
+    <p>In this module we are going to implement polynomial regression and step functions as discussed in class.</p>
     <program language="python">
       # Everyone's favorite standard imports
       import numpy as np
       import pandas as pd
       import matplotlib.pyplot as plt
-      %matplotlib inline
-      import time
 
-      import seaborn as sns
+      %matplotlib inline
+
 
       # ML imports we've used previously
+      # import sklearn
       from sklearn.model_selection import train_test_split
       from sklearn.metrics import mean_squared_error
+      from sklearn.preprocessing import PolynomialFeatures
     </program>
   </introduction>
-  <subsection xml:id="cmse381-lec20-pcr-worksheet-pcr-on-hitters-data">
-    <title>PCR on Hitters Data</title>
-  </subsection>
-  <subsection xml:id="cmse381-lec20-pcr-worksheet-loading-in-the-data">
-    <title>Loading in the data</title>
-    <p>Ok, here we go, let's play with a baseball data set again. Note this cleanup is all the same as previously.</p>
+  <subsection xml:id="cmse381-lec20-polynomialandstepfunctions-worksheet-ptx-0-loading-in-the-data">
+    <title>0. Loading in the data</title>
+    <p>We're going to use the <c>Wage</c> data used in the book, so note that many of your plots can be checked by looking at figures in the book.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
-      df = pd.read_csv(url).dropna().drop('Player', axis = 1)
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2d664388c56e51af2d83cea1fe3027f4/Wage.csv"
+      df = pd.read_csv(url, index_col =0 )
+      df.head()
+    </program>
+    <program language="python">
       df.info()
-      dummies = pd.get_dummies(df[['League', 'Division', 'NewLeague']])
     </program>
     <program language="python">
-      y = df.Salary
+      df.describe()
+    </program>
+    <p>Here's the plot we used multiple times in class to look at a single variable: <c>age</c> vs <c>wage</c>. I've also added some splits so that the people making above and below $250,000 are drawn in a different color.</p>
+    <program language="python">
+      plt.scatter(df.age[df.wage &lt;=250], df.wage[df.wage&lt;=250],marker = '*', label = '&lt; 250')
+      plt.scatter(df.age[df.wage &gt;250], df.wage[df.wage&gt;250], label = '&gt; 250')
+      plt.legend()
 
-      # Drop the column with the independent variable (Salary), and columns for which we created dummy variables
-      X_ = df.drop(['Salary', 'League', 'Division', 'NewLeague'], axis = 1).astype('float64')
-
-      # Define the feature set X.
-      X = pd.concat([X_, dummies[['League_N', 'Division_W', 'NewLeague_N']]], axis = 1)
-
-      X.info()
+      plt.xlabel('Age')
+      plt.ylabel('Wage')
+      plt.show()
     </program>
   </subsection>
-  <subsection xml:id="cmse381-lec20-pcr-worksheet-principal-component-regression">
-    <title>Principal Component Regression</title>
-    <p>Ok, let's do Principal Components Regression. <c>Scikit-learn</c> doesn't have a built in function to do PCR (aka PCA and then regression) but it's just as easy for us to do it ourselves.</p>
-    <p>First step, let's figure out the <c>PCA</c> function.</p>
-    <program language="python">
-      from sklearn.decomposition import PCA
-      from sklearn.preprocessing import scale #&lt;--- this does the scaling of variables for us
-    </program>
-    <program language="python">
-      pca = PCA()
-      print(X.shape)
-      X_PC = pca.fit_transform(scale(X))
-      print(X_PC.shape)
-    </program>
-    <p>"But Professor, you said PCA was supposed to do dimension reduction, why is my feature output the same size?"</p>
-    <p>Glad you asked, young data scientist. The PCA command outputs all of the PCs, all the way up through <m>p=19</m> the original number of dimensions.</p>
-    <p>So, if I want the first three PCs, I can get them out as follows. I'll put it in a data frame just to add column labels, but you don't need to do that.</p>
-    <program language="python">
-      First3PCs = X_PC[:,:3]
-
-      pd.DataFrame(First3PCs, columns = ['Z1','Z2', 'Z3'])
-    </program>
-    <p>Now we can just do regression on the PCs like before.</p>
+  <subsection xml:id="cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-linear-regression">
+    <title>1. Linear Regression</title>
+    <p>Before we do anything fancy, let's just do some linear regression. It's not going to be a great fit to our data, this is just to see how we can draw the function learned.</p>
+    <p>If I want to learn a linear model predicting <c>wage</c> from <c>age</c>, I can do the same thing we've done for the last month.</p>
     <program language="python">
       from sklearn.linear_model import LinearRegression
+    </program>
+    <program language="python">
+      X = df.age.values.reshape(-1,1)
+      y = df.wage
 
-      regr = LinearRegression()
-      regr.fit(X_PC[:,:3], y)
-      mean_squared_error(y,regr.predict(X_PC[:,:3]))
+      linreg = LinearRegression()
+
+      linreg.fit(X,y)
+    </program>
+    <program language="python">
+      # If you edit the y_wage stuff above, you'll get the linear regression line drawn here.
+
+
+      # This is all the stuff to plot the data
+      plt.scatter(df.age[df.wage &lt;=250], df.wage[df.wage&lt;=250],marker = '*', label = '&lt; 250')
+      plt.scatter(df.age[df.wage &gt;250], df.wage[df.wage&gt;250], label = '&gt; 250')
+      plt.legend()
+
+      plt.xlabel('Age')
+      plt.ylabel('Wage')
+
+      # This is what I'm adding to draw the line 
+      plt.plot(t_age, y_wage, color = 'red')
+      plt.show()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the equation learned by the model?</p>
+            </statement>
+            <hint>
+              <p>Read the slope from <c>linreg.coef_[0]</c> and the intercept from <c>linreg.intercept_</c>.</p>
+            </hint>
+            <hint>
+              <p>Write the fitted model in the form <m>\widehat{wage}=\beta_0+\beta_1 age</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reverse the intercept and slope; <c>intercept_</c> is the constant term and <c>coef_</c> multiplies age.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  print('beta_1:', round(linreg.coef_[0],3))
+                  print('beta_0:', round(linreg.intercept_,3))
+
+                  print('wage = ', round(linreg.intercept_,3), ' + ', round(linreg.coef_[0],3), '* age')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Now I could plot this by taking the equation I just learned and applying it to some vector of values. However, it is even easier to do this by simply predicting the outputs for a lot of the <m>x</m>-inputs and then drawing the function on top of the data.</p>
+              <p>Use the <c>predict</c> function to get the function outputs and then plot this using the code below.</p>
+            </statement>
+            <hint>
+              <p>Create a dense grid of ages and reshape it to one column before calling <c>predict</c>.</p>
+            </hint>
+            <hint>
+              <p>Plot the predicted wages against the same age grid, on top of the scatter plot.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A one-dimensional age array has the wrong shape for scikit-learn; use <c>.reshape(-1, 1)</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  t_age = np.linspace(20,80, 100).reshape(-1,1)
+
+                  # your code here for y_wage
+                  y_wage = linreg.predict(t_age)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-polynomial-regression">
+    <title>1. Polynomial Regression</title>
+    <p>Our first step is to build a polynomial regression model using the age data to predict wage. So, as in class, we are in <m>p=1</m> world here where we are going to fit the model
+    <md>
+    \texttt{wage} = \beta_0 + \beta_1 \texttt{age} + \beta_2 \texttt{age}^2 + \cdots + \beta_p \texttt{age}^p +\varepsilon.
+    </md></p>
+    <p>The trick here is to build a matrix <m>X</m> which has a column containing <c>age</c>, one with <c>age^2</c>, one with <c>age^3</c>, etc. Then we hand this to your favorite regression tool (it doesn't need to know it's getting polynomial matrix inputs, it just sees a matrix of features and does it's thing).</p>
+    <p>Here's the code we learned in <url href="../14-Ch5_1-More_KFoldCV/index.md">Lecture 14</url> for building the data frame of powers of input <m>X</m>.</p>
+    <program language="python">
+      p = 3
+      poly = PolynomialFeatures(p, include_bias = False)
+      X_powers = poly.fit_transform(X)
+
+      # X_powers
+
+      model = LinearRegression()
+      model.fit(X_powers,y)
+      print(f"Coefs: {model.coef_}")
+      print(f"Intercept: {model.intercept_}")
+    </program>
+    <program language="python">
+      # Note: this should look like slide from class.
+      plt.scatter(df.age[df.wage &lt;=250], df.wage[df.wage&lt;=250],marker = '*')
+      plt.scatter(df.age[df.wage &gt;250], df.wage[df.wage&gt;250])
+
+      plt.xlabel('Age')
+      plt.ylabel('Wage')
+
+      plt.plot(t_age, y_wage, c= 'red')
+      plt.show()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>What is the equation of the model learned?</p>
+            </statement>
+            <hint>
+              <p>The columns of <c>X_powers</c> are <m>age</m>, <m>age^2</m>, and <m>age^3</m> in that order.</p>
+            </hint>
+            <hint>
+              <p>Pair <c>model.coef_[i]</c> with power <m>i+1</m> and use <c>model.intercept_</c> as the constant term.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not treat the three coefficients as three unrelated predictors; they multiply successive powers of age.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # My cheating to print it out 
+                  linestring = str(round(model.intercept_,2))
+                  for i in range(p):
+                      linestring += ' + ' + str(round(model.coef_[i],2))+ ' X^'+ str(i+1)
+                  print( 'y = ', linestring)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>As before, in order to plot we want to determine <c>y_wage</c> from the <c>t_age</c> input below by using the <c>predict</c> command. However, note that to do this, you're going to have to pass in the polynomial matrix for the <c>t_age</c> column.</p>
+            </statement>
+            <hint>
+              <p>Apply the already configured <c>poly</c> transformer to <c>t_age</c> before prediction.</p>
+            </hint>
+            <hint>
+              <p>The transformed grid must have the same three feature columns used to fit <c>model</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not pass raw <c>t_age</c> directly to a model trained on polynomial features; its feature count will not match.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  t_age = np.linspace(10,90,100).reshape(-1,1)
+
+                  # Make the polynomial features from t_age 
+                  t_powers = poly.fit_transform(t_age)
+
+                  # Now predict the y values from the model and the t_powers
+                  y_wage = model.predict(t_powers)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions">
+    <title>2. Step functions</title>
+    <p>Now let's try to use step functions to learn a model using <c>age</c> to predict <c>wage</c>. Like with the polynomial example from last time, all we're going to do is build a data frame or feature matrix that has the step function values in each column, and then pass that matrix to our favorite linear modeling function.</p>
+    <p>First, we want to get a dataframe with the cuts.</p>
+    <program language="python">
+      df_cut, bins = pd.cut(df.age, 4, retbins = True, right = False)
+    </program>
+    <p>Note that the <c>df_cut</c> is a pandas series with each data point now represented as the interval it's contained in.</p>
+    <program language="python">
+      df_cut
+    </program>
+    <p>Here I'm just printing it out in a column next to the <c>age</c> information that was used to generate it.</p>
+    <program language="python">
+      pd.DataFrame({'age': df.age, 'df_cut': df_cut}).head(10)
+    </program>
+    <p>The <c>bins</c> output gives me the <m>c_i</m> knots as follows.</p>
+    <program language="python">
+      print(bins)
+    </program>
+    <program language="python">
+      # This is how it matches with our notation.
+      print(r'c_1 = ', bins[0])
+      print(r'c_2 = ', bins[1])
+      print(r'c_3 = ', bins[2])
+      print(r'c_4 = ', bins[3])
+      print(r'c_5 = ', bins[4])
+    </program>
+    <p>We can use the dummy variable trick to turn the <c>df_cut</c> output into something closer to what we are using. Below is my code that generates the data frame storing <m>C_i(X)</m> for all our entries.</p>
+    <program language="python">
+      df_steps_dummies = pd.get_dummies(df_cut) # This gives us entries with true/false
+      df_steps = df_steps_dummies.apply(lambda x: x * 1) # This converts those to either 0 or 1.
+      df_steps
+    </program>
+    <p>Assuming you stored your linear regression model as <c>linreg</c>, the following code will plot the learned function. Check that the answers you got in the table above match with what you're seeing in the graph.</p>
+    <program language="python">
+      t_age = pd.Series(np.linspace(20,80,100))
+      t_df_cut = pd.cut(t_age, bins, right = False) #&lt;-- I'm explicitly passing the same bins learned above so tha the procedure is the same. 
+
+      t_dummies = pd.get_dummies(t_df_cut)
+      t_step = t_dummies.apply(lambda x: x * 1)
+
+      t_step.head()
+    </program>
+    <program language="python">
+      plt.scatter(df.age[df.wage &lt;=250], df.wage[df.wage&lt;=250],marker = '*')
+      plt.scatter(df.age[df.wage &gt;250], df.wage[df.wage&gt;250])
+      plt.xlabel('Age')
+      plt.ylabel('Wage')
+
+      plt.plot(t_age, y_wage,color='red')
+      plt.show()
     </program>
     <!-- horizontal rule in source notebook -->
     <exercises>
@@ -83,37 +299,67 @@
         <exercise>
           <task>
             <statement>
-              <p>My code above contains the rookie mistake of only reporting training error. Write modified code to return the 10-fold CV error of linear regression on the first 3 PCs.</p>
-              <program language="python">
-                <code>
-                  model = LinearRegression()
-                  scores = cross_val_score(
-                      model, X_pca[:, :3], y,
-                      cv=10, scoring='neg_mean_squared_error'
-                  )
-                  cv_mse = ...
-                </code>
-              </program>
+              <p>For each of the functions <m>C_0(X)</m>, <m>C_1(X)</m>, <m>C_2(X)</m>, <m>C_3(X)</m>, <m>C_4(X)</m>, <m>C_5(X)</m> (following our notation in class), determine the domains where they have value 1.</p>
             </statement>
             <hint>
-              <p>Select the first three principal-component score columns as the regression inputs.</p>
+              <p>Use the printed bin edges as <m>c_1,\ldots,c_5</m> and remember that <c>right=False</c> makes each finite interval left-closed and right-open.</p>
             </hint>
             <hint>
-              <p>Use ten-fold cross-validation with negative MSE scoring, then negate the mean score to report a positive MSE.</p>
+              <p><m>C_0</m> and <m>C_5</m> describe the two exterior intervals; <m>C_1</m> through <m>C_4</m> describe the four bins in the observed data range.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Do not fit PCA separately to the full data before CV in a final production pipeline; preprocessing should be learned inside each fold to avoid leakage.</p>
+              <p><alert>Common error:</alert> The lower exterior interval is <m>(-\infty,c_1)</m>, not <m>(\infty,c_1)</m>.</p>
+            </hint>
+            <answer>
+              <p>With bin edges <m>18,33.5,49,64.5,80.062</m>, the indicator domains are: <m>C_0(X)=1</m> on <m>(-\infty,18)</m>; <m>C_1(X)=1</m> on <m>[18,33.5)</m>; <m>C_2(X)=1</m> on <m>[33.5,49)</m>; <m>C_3(X)=1</m> on <m>[49,64.5)</m>; <m>C_4(X)=1</m> on <m>[64.5,80.062)</m>; and <m>C_5(X)=1</m> on <m>[80.062,\infty)</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Which of the functions <m>C_i(X)</m> for <m>i=0,\cdots, 5</m> have columns represented in this matrix? <em>Note: it's not all of them</em></p>
+            </statement>
+            <hint>
+              <p>Inspect <c>df_steps.columns</c> and compare its four intervals with the six conceptual indicator domains.</p>
+            </hint>
+            <hint>
+              <p>Only intervals containing observed ages are returned by this particular <c>pd.cut</c> call.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not count <m>C_0</m> and <m>C_5</m> merely because they exist in the mathematical definition; no observed value falls in those exterior intervals.</p>
+            </hint>
+            <answer>
+              <p>It has <m>C_1, \cdots, C_4</m>. Basically the infinite interval ones <m>C_0</m> and <m>C_5</m> are dropped.</p>
+              <p>The function I'm learning is</p>
+              <p><md>
+              f(X) = \beta_0 + \beta_1*C_1(X) + \beta_2 * C_2(X) + \beta_3*C_3(X) + \beta_4*C_4(X)
+              </md></p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Pass this matrix to a linear regression model and use it to predict <c>wage</c>. What is the equation for your learned model?</p>
+            </statement>
+            <hint>
+              <p>Fit <c>LinearRegression()</c> using <c>df_steps</c> as <m>X</m> and <c>df.wage</c> as <m>y</m>.</p>
+            </hint>
+            <hint>
+              <p>Inspect both <c>coef_</c> and <c>intercept_</c>; each coefficient corresponds to one dummy column in <c>df_steps.columns</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the dummy-column order when interpreting coefficients; otherwise a coefficient may be assigned to the wrong interval.</p>
             </hint>
             <answer>
               <program language="python">
                 <code>
-                  i = 3
-                  allCVs = -1*cross_val_score(regr, X_PC[:,:i], y, cv=10, scoring='neg_mean_squared_error')
-                  avgCV = allCVs.mean()
-                  print(avgCV)
+                  linreg = LinearRegression()
+                  linreg.fit(df_steps,df.wage)
 
-                  # Note 'neg_mean_squared_error' returns the negative of the MSE. Otherwise, the default is to return the default score for the linear regression above, which uses R^2
-                  # See https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.score
+                  print(linreg.coef_)
+                  print(linreg.intercept_)
                 </code>
               </program>
             </answer>
@@ -122,52 +368,27 @@
         <exercise>
           <task>
             <statement>
-              <p>Take the code you figured out above to get the score for 10-fold CV on the first 3 PCs, and include it in the for-loop below to see how the MSE changes as the number of PCs you use changes.</p>
-              <program language="python">
-                <code>
-                  pc_counts = range(1, X_pca.shape[1] + 1)
-                  cv_errors = []
-                  for count in pc_counts:
-                      scores = cross_val_score(
-                          LinearRegression(), X_pca[:, :count], y,
-                          cv=10, scoring='neg_mean_squared_error'
-                      )
-                      cv_errors.append(...)
-
-                  plt.plot(pc_counts, cv_errors, marker='o')
-                </code>
-              </program>
+              <p>Be specific in terms of the <m>C_i</m> functions you learned earlier.</p>
             </statement>
             <hint>
-              <p>For a count <m>m</m>, slice the transformed matrix to keep columns <c>:m</c> and evaluate the same regression model.</p>
+              <p>Write the prediction as an intercept plus one fitted coefficient times each represented <m>C_i(X)</m>.</p>
             </hint>
             <hint>
-              <p>Store the average positive CV MSE for each count and plot it against the number of retained PCs.</p>
+              <p>Use the column order from <c>df_steps</c> to map the four coefficients to <m>C_1,C_2,C_3,C_4</m>.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Principal components must be added in variance order; selecting arbitrary later PCs does not represent PCR with the first <m>m</m> components.</p>
+              <p><alert>Common error:</alert> Because all four one-hot columns sum to one while an intercept is included, the coefficient representation is not unique; report the fitted scikit-learn parameterization consistently.</p>
             </hint>
             <answer>
               <program language="python">
                 <code>
-                  # 10-fold CV, no shuffle because cross_val_score doesn't include shuffle=True internally
-                  n = len(X_PC)
+                  coefs = [f"{beta:0.2e}" for beta in linreg.coef_]
+                  eqstring = f"{linreg.intercept_:.2f}"
 
-                  regr = LinearRegression()
-                  mse = []
+                  for i in range(len(coefs)):
+                      eqstring += ' + ' + coefs[i] + ' C_' + str(i+1) + '(X)'
 
-                  # Calculate MSE using CV for the 19 principle components, adding one component at the time.
-                  for i in np.arange(1, 20):
-                      score = -1*cross_val_score(regr, X_PC[:,:i], y.ravel(), cv=10, scoring='neg_mean_squared_error').mean()
-                      mse.append(score)
-
-
-                  # Plot results    
-                  plt.plot(np.arange(1, 20),mse, '-v')
-                  plt.xlabel('Number of principal components in regression')
-                  plt.ylabel('MSE')
-                  plt.title('Predicting Salary')
-                  plt.xlim(xmin=-1);
+                  print(eqstring)
                 </code>
               </program>
             </answer>
@@ -176,50 +397,33 @@
         <exercise>
           <task>
             <statement>
-              <p>Based on the graph you generated above, how many PCs do you think you should use?</p>
-              <p><em>Note: Based on graphs I generated, I can see a few different options for what I might decide to use for number of principal components. This is one of those cases where you potentially have a different answer and/or reasoning from your neighbor, so I enourage you to talk this one through with your group.</em></p>
+              <p>Above, I figured out the transformation of the input <c>t_age</c> values to do the same transformation as our step function. Now use the linear regression model learned to predict <c>y_wage</c>, then we can graph it.</p>
             </statement>
             <hint>
-              <p>Identify the minimum of the CV-error curve, but also look for a simpler model whose error is nearly the same.</p>
+              <p>Call <c>linreg.predict</c> on the transformed step-function rows for <c>t_age</c>.</p>
             </hint>
             <hint>
-              <p>When the curve is noisy or flat, justify a reasonable range rather than claiming unsupported precision.</p>
+              <p>Ensure the prediction matrix has the same dummy columns, in the same order, as the training matrix.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Do not choose the number of PCs from explained variance alone; PCR selects components for predicting the response, so validation error is the relevant criterion.</p>
+              <p><alert>Common error:</alert> Do not recompute unrelated bin edges for the plotting grid; reuse the training <c>bins</c> so the learned step boundaries stay fixed.</p>
             </hint>
             <answer>
-              <p>Depending on how I set the random state, either around 6 has lowest MSE, or something close to all (<m>m=</m> 16, 17, or 18). Even when the higher values have the lowest MSE, 6 is comparable enough to argue that the lower dimension is worth it.</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Of the models you've built so far (Ridge, Lasso, and PCR), which would you choose to use and why?</p>
-              <p><em>Note: This goes in the no-one-right-answer bucket. Go argue with your group.</em></p>
-            </statement>
-            <hint>
-              <p>Compare the models using the same validation scheme and metric before considering interpretability or computational cost.</p>
-            </hint>
-            <hint>
-              <p>Ridge keeps all predictors, lasso can select a sparse set, and PCR regresses on unsupervised orthogonal components; connect those properties to the course goal.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not select a model only because its training error is smallest or because it is the most recently fitted; justify the choice with held-out performance and practical priorities.</p>
-            </hint>
-            <answer>
-              <p>There is no universally correct choice. Prefer the model with the best or statistically comparable cross-validated error under a common evaluation scheme. If errors are similar, lasso may be preferable for a sparse, interpretable predictor set; ridge is stable when many correlated predictors contribute; PCR is useful when a low-dimensional component representation is valuable, though its components are chosen without using the response.</p>
+              <program language="python">
+                <code>
+                  y_wage = linreg.predict(t_dummies)
+                </code>
+              </program>
             </answer>
           </task>
         </exercise>
       </exercisegroup>
     </exercises>
   </subsection>
-  <subsection xml:id="cmse381-lec20-pcr-worksheet-congratulations-we-re-done">
+  <subsection xml:id="cmse381-lec21-polynomialandstepfunctions-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-  <p>
+   <p>
     
-  </p>
+   </p>
   </subsection>
 </section>

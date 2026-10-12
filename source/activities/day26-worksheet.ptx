@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec26-svc-worksheet" component="ws26">
+  <title>Lecture 26: Support Vector Classifiers</title>
+  <introduction>
+    <p>[Image: https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/SVM_margin.png/300px-SVM_margin.png]</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+      import seaborn as sns
+
+
+      # ML imports we've used previously
+      from sklearn.metrics import confusion_matrix
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+    </program>
+    <p>In this module we are going to test out the SVC methods discussed in class. The book's definitions as we talked about in class are:</p>
+    <p><ul>
+      <li>
+        <p><em>Maximal Margin Classifiers</em>, where the goal was to find a separating hyperplane with no misclassifications,</p>
+      </li>
+      <li>
+        <p><em>Support vector classifiers</em>, where we allow for a soft margin and hence some data points can end up either on the wrong side of the margin or the wrong side of the hyperplane.</p>
+      </li>
+    </ul></p>
+    <p>The <c>sklearn</c> function to do this is <c>SVC</c>. This can do either version above as long as we pass the correct inputs to do all of this, and we can basically trick it (by understanding the innards) into doing any of them. <alert>However, there are two things that will likely be confusing. </alert></p>
+    <p><ul>
+      <li>
+        <p>The command is just called <c>SVC</c>, but you should thinking of it as doing the most general SVM as defined in the book (we'll cover this next class) and then we can modify our inputs to allow for the other options as necessary.</p>
+      </li>
+      <li>
+        <p>The cost input parameter is <alert>not</alert> the same as the <c>C</c> defined in the book but it controls the same thing.</p>
+      </li>
+    </ul></p>
+    <p>The code below is to make plotting easier later. Once you have your <m>\beta_0</m>, <m>\beta_1</m>, <m>\beta_2</m> you should be able to easily draw the line.</p>
+    <program language="python">
+      def plotLine(b0,b1,b2,xmin = -2, xmax = 5):
+          """
+          Pass in your coefficients to draw the line 
+          b0 + b1 * X_1 + b2 * X_2 = 0
+          """
+          a = -b1 / b2
+          xx = np.linspace(xmin,xmax)
+          yy = a * xx - b0 / b2
+
+          plt.plot(xx,yy)
+
+
+      plotLine(b0 = 2, b1 = -1, b2 = 1)
+      plt.show()
+    </program>
+    <p>For now, we're going to mess with some synthetic data (meaning I generated it and saved it as a CSV for you).</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/79b8d68a386530ebf693a9130c756277/SVM-Data.csv"
+      data_df = pd.read_csv(url, 
+                      delimiter=' ', 
+                      header = None, 
+                      )
+
+      data_df.columns = ['X1','X2', 'y']
+      data_df.head(10)
+    </program>
+    <p>Here's a few helpful subsets of the data we can use for later drawing depending on what we want to do with it.</p>
+    <program language="python">
+      # Just the X and y as numpy arrays
+      X = data_df[['X1','X2']].values 
+      y = data_df['y'].values
+
+      # Just the data points where the y value is 1
+      X_pos = X[y&gt;0]
+
+      # Just the data points where the y value is -1
+      X_neg = X[y&lt;0]
+    </program>
+    <program language="python">
+      # Plotting so that we can see which points have y=+1 and which have y = -1
+      plt.scatter(X_pos[:,0], X_pos[:,1], label = 'y = +1', marker = 'x')
+      plt.scatter(X_neg[:,0], X_neg[:,1], label = 'y = -1', marker = 's')
+      plt.legend()
+      plt.xlabel('X1')
+      plt.ylabel('X2')
+
+      plt.show()
+    </program>
+    <p>And then, tada! Here's all it takes to fit your support vector classifier.</p>
+    <program language="python">
+      from sklearn.svm import SVC
+    </program>
+    <program language="python">
+      svc = SVC(C=1, kernel='linear', )
+      svc.fit(X,y)
+    </program>
+    <p>Remember that the SVC setting only uses a subset of observations, called <em>support vectors</em> to actually determine this hyperplane. The <c>svc</c> object keeps track of those for us.</p>
+    <program language="python">
+      # Here are the indices of the support vectors from our original X matrix
+
+      svc.support_
+    </program>
+    <program language="python">
+      # It also keeps track of the points themselves 
+      sv = svc.support_vectors_
+      print(sv)
+    </program>
+    <p>Now that you have a sense of what's going on in the svc function, I've built you a function that will make this nice drawing for us without much effort. We can hand it our <c>X</c> and <c>y</c> data, along with the trained <c>svc</c> to get the plot, with some added stuff, including dashed lines for the margin and colors for which side of the hyperplane you're on (blue for -1, red for +1).</p>
+    <program language="python">
+      # Run this cell to define the function
+      def plot_svc(svc, X, y, h=0.02, pad=0.25):
+          x_min, x_max = X[:, 0].min()-pad, X[:, 0].max()+pad
+          y_min, y_max = X[:, 1].min()-pad, X[:, 1].max()+pad
+          xvec = np.arange(x_min, x_max, h)
+          yvec = np.arange(y_min, y_max, h)
+          xx, yy = np.meshgrid(xvec,yvec )
+
+          Z = svc.predict(np.c_[xx.ravel(), yy.ravel()])
+          Z = Z.reshape(xx.shape)
+          plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.2)
+
+          plt.scatter(X[:,0], X[:,1], s=70, c=y, cmap=mpl.cm.Paired)
+          # Support vectors indicated in plot by X's
+          sv = svc.support_vectors_
+          plt.scatter(sv[:,0], sv[:,1], c='k', marker='x', s=100, linewidths=1)
+
+          if svc.kernel == 'linear':
+              # Get the margin lines 
+              w = svc.coef_[0]
+              a = -w[0] / w[1]
+              yhyperplane = a * xvec - (svc.intercept_[0]) / w[1]
+              margin = 1 / np.sqrt(np.sum(svc.coef_ ** 2))
+              ymargin_down = yhyperplane+  - np.sqrt(1 + a ** 2) * margin
+              ymargin_up = yhyperplane + np.sqrt(1 + a ** 2) * margin
+              plt.plot(xvec,ymargin_down, "k--")
+              plt.plot(xvec,ymargin_up, "k--")
+
+
+
+          plt.xlim(x_min, x_max)
+          plt.ylim(y_min, y_max)
+          plt.xlabel('X1')
+          plt.ylabel('X2')
+          # plt.show()
+          print('Number of support vectors: ', svc.support_.size)
+    </program>
+    <program language="python">
+      #From here on, you can just use this command to plot.
+      # I'm passing in the trained SVC classifier, plus the X and y data used
+      plot_svc(svc, X, y)
+
+      plt.show()
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec26-svc-worksheet-messing-with-c">
+    <title>Messing with <m>C</m></title>
+    <p>As in class, the <c>C</c> parameter controls how severe the margin violations can be. However, there is a warning:</p>
+    <p><alert>WARNING</alert>:
+    The <m>C</m> in the class/textbook and the <m>C</m> used as input to the <c>SVC</c> command are <alert>NOT THE SAME</alert>.</p>
+    <p><ul>
+      <li>
+        <p>The cost <m>C</m> in class had the property that big <m>C</m> meant big margin</p>
+      </li>
+      <li>
+        <p>This is a DIFFERENT <m>C</m>. In this case, big <m>C</m> means small margin.</p>
+      </li>
+    </ul></p>
+    <p>They're both serving the same purpose, i.e. to control how tolerant we are to misclassifications.</p>
+    <p>Let's take a look at a few examples in here.</p>
+    <program language="python">
+      svc = SVC(C=10e-2, kernel='linear', )
+      svc.fit(X, y)
+      plot_svc(svc, X, y)
+
+      plt.title(f"Small C = {10e-2}, Large margin")
+      plt.show()
+    </program>
+    <program language="python">
+      svc = SVC(C=1, kernel='linear', )
+      svc.fit(X, y)
+      plot_svc(svc, X, y)
+
+      plt.title(f"Medium C = 1, Medium margin")
+      plt.show()
+    </program>
+    <program language="python">
+      svc = SVC(C=10e5, kernel='linear', )
+      svc.fit(X, y)
+      plot_svc(svc, X, y)
+
+      plt.title(f"Large C = {10e5}, Small Margin")
+      plt.show()
+    </program>
+    <p>As with previous examples in this class, we can use K-Fold CV to tune this parameter.</p>
+    <program language="python">
+      from sklearn.model_selection import GridSearchCV
+    </program>
+    <program language="python">
+      # Select the optimal C parameter by cross-validation
+      C_list = [0.001, 0.01, 0.1, 1, 5, 10, 100]
+      tuned_parameters = [{'C': C_list}]
+      clf = GridSearchCV(SVC(kernel='linear'), tuned_parameters, cv=10, scoring='accuracy')
+      clf.fit(X, y)
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use your trained model to figure out the equation of the hyperplane (hint: go looking for the <c>coef_</c> and <c>intercept_</c>).</p>
+            </statement>
+            <hint>
+              <p>For a linear <c>SVC</c>, the normal-vector coefficients are in <c>svc.coef_[0]</c> and the constant is in <c>svc.intercept_[0]</c>.</p>
+            </hint>
+            <hint>
+              <p>Write the boundary where the decision function equals zero: <m>\beta_0+\beta_1X_1+\beta_2X_2=0</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not call <c>coef_</c> on a nonlinear-kernel SVC; explicit input-space coefficients are available here because <c>kernel='linear'</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  b0 = svc.intercept_[0]
+                  b1, b2 = svc.coef_[0]
+                  print(f'{b0:.3f} + {b1:.3f}*X_1 + {b2:.3f}*X_2 = 0')
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Based on the above trained model, plot it on a graph with the data points (see above for the <c>plotLine</c> function!). Does the resulting hyperplane seem reasonable?</p>
+            </statement>
+            <hint>
+              <p>Plot the positive and negative classes first, then call <c>plotLine(b0, b1, b2)</c> with the fitted coefficients.</p>
+            </hint>
+            <hint>
+              <p>Check whether the line separates the groups while leaving plausible margins around the nearby points.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The plotting function expects the intercept first; swapping it with a slope draws a different boundary.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  plt.scatter(X_pos[:,0], X_pos[:,1], label = 'y = +1', marker = 'x')
+                  plt.scatter(X_neg[:,0], X_neg[:,1], label = 'y = -1', marker = 's')
+                  plt.legend()
+                  plt.xlabel('X1')
+                  plt.ylabel('X2')
+
+                  plotLine(b0,b1,b2)
+
+                  plt.show()
+
+                  ###The resulting hyperplan is reasonable
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Draw a scatter plot of these points on top of the drawing you've already been building with some different marker. Do these points make sense to be the support vectors?</p>
+            </statement>
+            <hint>
+              <p>Read the selected observations from <c>svc.support_vectors_</c> and overlay them with a distinct marker.</p>
+            </hint>
+            <hint>
+              <p>Support vectors should lie on or near a margin, or be observations that violate the margin.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> <c>svc.support_</c> contains row indices, whereas <c>svc.support_vectors_</c> contains the coordinates needed for a scatter plot.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  plt.scatter(X_pos[:,0], X_pos[:,1], label = 'y = +1', marker = 'x')
+                  plt.scatter(X_neg[:,0], X_neg[:,1], label = 'y = -1', marker = 's')
+                  plt.legend()
+                  plt.xlabel('X1')
+                  plt.ylabel('X2')
+
+                  plotLine(b0,b1,b2)
+
+
+                  # Support vectors indicated in plot by X's
+                  sv = svc.support_vectors_
+                  plt.scatter(sv[:,0], sv[:,1], c='k', marker='x', s=100, linewidths=1)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use the <c>clf.cv_results_</c> function to determine which <m>C</m> give the best score (note there could be ties). Which <m>C</m> did the function choose?</p>
+            </statement>
+            <hint>
+              <p>Compare <c>clf.cv_results_['mean_test_score']</c> across the candidate values in <c>C_list</c>.</p>
+            </hint>
+            <hint>
+              <p>Use <c>clf.best_params_</c> for GridSearchCV's selected value and inspect tied mean scores separately.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The selected <c>C</c> is a parameter of the final refitted estimator, not the index of the best entry in the list.</p>
+            </hint>
+            <answer>
+              <p>For the stored data and ten-fold split, <m>C=0.1</m>, <m>10</m>, and <m>100</m> tie for the highest mean accuracy (0.94). <c>GridSearchCV</c> selects <m>C=0.1</m>, the first tied candidate in the supplied parameter order.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Load in the <c>SVM-Data2.csv</c> data from the folder. Run this same analysis again, namely:</p>
+              <p><ul>
+                <li>
+                  <p>Use the <c>GridSearchCV</c> function to determine the best choice of <m>C</m>.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Separate the first two columns into <c>X</c> and the third column into <c>y</c>, then reuse the linear-SVC parameter grid.</p>
+            </hint>
+            <hint>
+              <p>Fit <c>GridSearchCV</c> and read the selected value from <c>best_params_</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Make sure the second data set replaces both <c>X</c> and <c>y</c>; otherwise the search silently repeats the first analysis.</p>
+            </hint>
+            <answer>
+              <p>With the supplied candidate grid and ten-fold accuracy, the stored run selects <m>C=0.01</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p><ul>
+                <li>
+                  <p>Train an individual <c>SVC</c> instance with <m>C</m> set to that value. Then you can draw the resulting model with the <c>plot_svc</c> function from earlier. How does the model do?</p>
+                </li>
+              </ul></p>
+              <program language="python">
+                <code>
+                  # YOUR CODE HERE
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Retrieve the chosen value with <c>clf.best_params_['C']</c> instead of typing it again.</p>
+            </hint>
+            <hint>
+              <p>Fit a new linear SVC on the second data set and pass that fitted model to <c>plot_svc</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not plot the <c>GridSearchCV</c> object before fitting or use the earlier data set's SVC; the plotted estimator must be trained on <c>SVM-Data2.csv</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  best_c = clf.best_params_['C']
+                  svc = SVC(C=best_c, kernel='linear')
+                  svc.fit(X, y)
+                  plot_svc(svc, X, y)
+                  plt.title(f'Linear SVC with C={best_c}')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec26-svc-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

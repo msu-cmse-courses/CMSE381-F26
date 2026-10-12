@@ -50,6 +50,18 @@
       <xi:include href="./activities/day18-worksheet.ptx"/> 
       <xi:include href="./activities/day19-worksheet.ptx"/> 
       <xi:include href="./activities/day20-worksheet.ptx"/> 
+      <xi:include href="./activities/day21-worksheet.ptx"/> 
+      <xi:include href="./activities/day22-worksheet.ptx"/> 
+      <xi:include href="./activities/day23-worksheet.ptx"/> 
+      <xi:include href="./activities/day24-worksheet.ptx"/> 
+      <xi:include href="./activities/day25-worksheet.ptx"/> 
+      <xi:include href="./activities/day26-worksheet.ptx"/> 
+      <xi:include href="./activities/day27-worksheet.ptx"/> 
+      <xi:include href="./activities/day28-worksheet.ptx"/> 
+      <xi:include href="./activities/day29-worksheet.ptx"/>
+      <xi:include href="./activities/day30-worksheet.ptx"/>
+      <xi:include href="./activities/day31-worksheet.ptx"/>
+
 
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
@@ -300,6 +312,9 @@
       <xi:include href="./homework/homework-01.ptx"/>
       <xi:include href="./homework/homework-02.ptx"/>
       <xi:include href="./homework/homework-03.ptx"/>
+      <xi:include href="./homework/homework-04.ptx"/>
+      <xi:include href="./homework/homework-05.ptx"/>
+      <xi:include href="./homework/homework-06.ptx"/>
     </chapter>
     <!-- Include additional chapters for other categories -->
 
@@ -317,6 +332,7 @@
       <xi:include href="./data-sets/diabetes-data-set.ptx"/>
       <xi:include href="./data-sets/chicken-and-egg-set.ptx"/>
       <xi:include href="./data-sets/default-data-set.ptx"/>
+      <xi:include href="./data-sets/hitters-data-set.ptx"/>
 
       </chapter>
 

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec27-svm-worksheet" component="ws27">
+  <title>Jupyter Notebook: Lec 27: SVMs</title>
+  <introduction>
+    <p>[Image: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/1920px-Kernel_Machine.svg.png]</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+      import time
+
+
+      # ML imports we've used previously
+      from sklearn.metrics import confusion_matrix
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import mean_squared_error
+      from sklearn.model_selection import GridSearchCV
+
+      # For today, we just need SVC
+      from sklearn.svm import SVC
+    </program>
+    <p>We now have discussed three related methods in class. The book's definitions as we talked about in class are:</p>
+    <p><ul>
+      <li>
+        <p><em>Maximal Margin Classifiers</em>, where the goal was to find a separating hyperplane with no misclassifications,</p>
+      </li>
+      <li>
+        <p><em>Support vector classifiers</em>, where we allow for a soft margin and hence some misclassifications, but only allow for a linear kernel, and</p>
+      </li>
+      <li>
+        <p><em>Support vector machines</em>, where we have a soft margin and an option for kernels.</p>
+      </li>
+    </ul></p>
+    <p>It turns out that <c>sklearn</c> has only one function to do all of this. A reminder from last time. <alert>There are two things that will likely be confusing. </alert></p>
+    <p><ul>
+      <li>
+        <p>The command is just called <c>SVC</c>, but you should thinking of it as doing the most general SVM as defined in the book and then we can modify our inputs to allow for the other options as necessary.</p>
+      </li>
+      <li>
+        <p>The cost input parameter is not the same as the <c>C</c> defined in the book. However, it controls the same thing; that is, the amount of tolerance we have for data points on the wrong side of the margin and/or wrong side of the boundary.</p>
+      </li>
+    </ul></p>
+    <p>The command below is the same as from the last notebook. The goal is just to be able to draw the boundaries from the SVM easily.</p>
+    <program language="python">
+      # Run this cell to define the function
+      def plot_svc(svc, X, y, h=0.02, pad=0.25):
+          x_min, x_max = X[:, 0].min()-pad, X[:, 0].max()+pad
+          y_min, y_max = X[:, 1].min()-pad, X[:, 1].max()+pad
+          xvec = np.arange(x_min, x_max, h)
+          yvec = np.arange(y_min, y_max, h)
+          xx, yy = np.meshgrid(xvec,yvec )
+
+          Z = svc.predict(np.c_[xx.ravel(), yy.ravel()])
+          Z = Z.reshape(xx.shape)
+          plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.2)
+
+          plt.scatter(X[:,0], X[:,1], s=70, c=y, cmap=mpl.cm.Paired)
+          # Support vectors indicated in plot by X's
+          sv = svc.support_vectors_
+          plt.scatter(sv[:,0], sv[:,1], c='k', marker='x', s=100, linewidths=1)
+
+          if svc.kernel == 'linear':
+              # Get the margin lines 
+              w = svc.coef_[0]
+              a = -w[0] / w[1]
+              yhyperplane = a * xvec - (svc.intercept_[0]) / w[1]
+              margin = 1 / np.sqrt(np.sum(svc.coef_ ** 2))
+              ymargin_down = yhyperplane+  - np.sqrt(1 + a ** 2) * margin
+              ymargin_up = yhyperplane + np.sqrt(1 + a ** 2) * margin
+              plt.plot(xvec,ymargin_down, "k--")
+              plt.plot(xvec,ymargin_up, "k--")
+
+
+
+          plt.xlim(x_min, x_max)
+          plt.ylim(y_min, y_max)
+          plt.xlabel('X1')
+          plt.ylabel('X2')
+          plt.show()
+          print('Number of support vectors: ', svc.support_.size)
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec27-svm-worksheet-swapping-out-the-kernel">
+    <title>Swapping out the kernel</title>
+    <p>In today's class, we've been discussing changing the kernel function and then learning the model
+    <md>
+    f(x) = \beta_0 + \sum_{i \in \mathcal{S}}\alpha_i K(x,x_i)
+    </md></p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/dcaac2f6e75924a7e16c4caf01bb2a2f/SVM-Data3.csv"
+      data3 = np.loadtxt(url)
+      X = data3[:,:2]
+      y = data3[:,2]
+
+
+      plt.scatter(X[:,0], X[:,1], s=70, c=y, cmap=mpl.cm.Paired)
+      plt.xlabel('X1')
+      plt.ylabel('X2')
+      plt.show()
+    </program>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Train a SVC using a radial kernel (this is <c>kernel = 'rbf'</c> as input to the <c>SVC</c> function) and with <m>C=1</m>, <m>\gamma = 1</m>. Use the <c>plot_svc</c> function to see what the learned boundary looks like.</p>
+            </statement>
+            <hint>
+              <p>Instantiate <c>SVC(kernel='rbf', C=1, gamma=1)</c>, fit it on <c>X, y</c>, and then call <c>plot_svc</c>.</p>
+            </hint>
+            <hint>
+              <p>The RBF kernel can create a curved boundary; inspect both the regions and highlighted support vectors.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The scikit-learn kernel name is <c>'rbf'</c>, not <c>'radial'</c>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  svm = SVC(C=1.0, kernel='rbf', gamma=1)
+                  svm.fit(X, y)
+                  plot_svc(svm, X, y)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>What happens if you increase <m>C</m> to 100? Is this model looking better or worse than what you had before?</p>
+            </statement>
+            <hint>
+              <p>Refit a new RBF SVC with the same <m>\gamma</m> and only change <m>C</m>.</p>
+            </hint>
+            <hint>
+              <p>Compare boundary complexity and training errors, then discuss the likely bias-variance tradeoff.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Higher scikit-learn <c>C</c> penalizes violations more strongly; it does not mean a wider, more tolerant margin.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Increasing C parameter, allowing more flexibility
+                  svm2 = SVC(C=100, kernel='rbf', gamma=1.0)
+                  svm2.fit(X,y)
+                  plot_svc(svm2, X,y)
+
+                  # This is worse because we're heading for overfitting land.
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use the <c>GridSearchCV</c> function (see the last lab for examples of using it) to determine the best <m>C</m> and <m>\gamma</m> parameters.</p>
+            </statement>
+            <hint>
+              <p>Give <c>GridSearchCV</c> an RBF SVC and a dictionary containing lists for both <c>C</c> and <c>gamma</c>.</p>
+            </hint>
+            <hint>
+              <p>Fit the search on <c>X, y</c> and inspect <c>best_params_</c> and <c>best_score_</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Tune <m>C</m> and <m>\gamma</m> jointly; optimizing them in two isolated searches can miss the best combination.</p>
+            </hint>
+            <answer>
+              <p>For the parameter grid stored in the notebook, the ten-fold search selects <m>C=1</m> and <m>\gamma=0.1</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use the <c>plot_svc</c> function to take a look at the above result.</p>
+            </statement>
+            <hint>
+              <p>Use <c>clf.best_estimator_</c>, which has already been refit on the full data by default.</p>
+            </hint>
+            <hint>
+              <p>Pass the best estimator, <c>X</c>, and <c>y</c> to <c>plot_svc</c> and compare it with the manually chosen models.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not hard-code the earlier <m>C=1,\gamma=1</m> model after the search chose a different <m>\gamma</m>.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  best_svm = clf.best_estimator_
+                  print(clf.best_params_)
+                  plot_svc(best_svm, X, y)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec27-svm-worksheet-still-have-time">
+    <title>Still have time?</title>
+    <p>Download the NIST data set from here: <url href="https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits">https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits</url></p>
+    <p>You just need two files for now, the training set <c>optdigits.tra</c> and the testing set <c>optdigits.tes</c>. The following commands will pull the data from the remote server. Optionally, you can download the files directly to your computer.</p>
+    <program language="python">
+      X_train = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra', header=None)
+      X_train.head()
+    </program>
+    <program language="python">
+      X_test = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tes', header=None)
+      X_test.head()
+    </program>
+    <program language="python">
+      # X_train = pd.read_csv('optdigits.tra', header=None) #&lt;-- put this line back in if you saved the data locally
+      y_train = X_train[64]
+      X_train = X_train.drop(X_train.columns[64], axis=1)
+
+      # X_test = pd.read_csv('optdigits.tes', header=None) #&lt;-- put this line back in if you saved the data locally
+      y_test = X_test[64]
+      X_test = X_test.drop(X_test.columns[64], axis=1)
+    </program>
+    <program language="python">
+      print(X_train.shape)
+      print(X_test.shape)
+    </program>
+    <p>This data set consists of 8x8 images of handwritten digits. The following command will draw each data point for you. Mess around with the value of <m>i</m> below to see other examples</p>
+    <program language="python">
+      i = 13
+      plt.imshow(X_train.values[i].reshape(8,8), cmap="gray") 
+      plt.show()
+      print(f'Data point {i} is labeled as {y_train[i]}')
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Build a classifier to predict the correct digit for a given handwritten digit. As you do this, answer the following questions:</p>
+              <p><ul>
+                <li>
+                  <p>What choice of kernel does best?</p>
+                </li>
+                <li>
+                  <p>What are the optimal choices of parameters for the SVC?</p>
+                </li>
+                <li>
+                  <p>How well does your classifier do? Don't forget that quality measures should always use testing data.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Tune candidate kernels and their relevant parameters using cross-validation on the provided training set only.</p>
+            </hint>
+            <hint>
+              <p>After choosing the best configuration, evaluate it exactly once on the separate testing set with accuracy and a confusion matrix.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A perfect training confusion matrix does not answer how well the classifier generalizes; parameter selection must not use the test labels.</p>
+            </hint>
+            <answer>
+              <p>A linear SVC is a strong baseline for these 64 pixel features. In the stored run it fits the training set perfectly and obtains about 96.1% test accuracy. A more extensive answer may compare linear, RBF, and polynomial kernels by cross-validation, then report only the chosen model's held-out result.</p>
+              <program language="python">
+                <code>
+                  from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay
+
+                  parameter_grid = [
+                      {'kernel': ['linear'], 'C': [0.1, 1, 10]},
+                      {'kernel': ['rbf'], 'C': [1, 10], 'gamma': ['scale', 0.001, 0.01]}
+                  ]
+                  search = GridSearchCV(SVC(), parameter_grid, cv=5, scoring='accuracy', n_jobs=-1)
+                  search.fit(X_train, y_train)
+                  best_digit_svc = search.best_estimator_
+                  test_predictions = best_digit_svc.predict(X_test)
+                  print('best parameters:', search.best_params_)
+                  print('test accuracy:', accuracy_score(y_test, test_predictions))
+                  ConfusionMatrixDisplay.from_predictions(y_test, test_predictions)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p><ul>
+                <li>
+                  <p>How well does your above classifier do? Don't forget that quality measures should always use testing data.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Predict labels for <c>X_test</c>, then compute the fraction matching <c>y_test</c>.</p>
+            </hint>
+            <hint>
+              <p>Use a confusion matrix to see which individual digits are most often confused.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the conventional confusion-matrix orientation—true labels first and predicted labels second—when interpreting rows and columns.</p>
+            </hint>
+            <answer>
+              <p>The stored linear-SVC run correctly classifies 1727 of 1797 test images, for approximately 96.1% accuracy. The confusion matrix reveals that errors are concentrated among visually similar digits rather than being evenly distributed.</p>
+              <program language="python">
+                <code>
+                  from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay
+                  test_predictions = best_digit_svc.predict(X_test) if 'best_digit_svc' in globals() else svc.predict(X_test)
+                  print('test accuracy:', accuracy_score(y_test, test_predictions))
+                  ConfusionMatrixDisplay.from_predictions(y_test, test_predictions)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec27-svm-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>
+    </p>
+  </subsection>
+</section>

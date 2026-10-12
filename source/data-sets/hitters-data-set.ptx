@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="sec-hitters-data-set">
+  <title>Hitters Data Set</title>
+
+  <data xml:id="hitters-data">
+    <title>Hitters data set</title>
+    <p>
+      A data frame with 322 observations of major league players on the following 20 variables.
+  <dl>
+    <li><title>AtBat</title><p>Number of times at bat in 1986</p></li>
+    <li><title>Hits</title><p>Number of hits in 1986</p></li>
+    <li><title>HmRun</title><p>Number of home runs in 1986</p></li>
+    <li><title>Runs</title><p>Number of runs in 1986</p></li>
+    <li><title>RBI</title><p>Number of runs batted in in 1986</p></li>
+    <li><title>Walks</title><p>Number of walks in 1986</p></li>
+    <li><title>Years</title><p>Number of years in the major leagues</p></li>
+    <li><title>CAtBat</title><p>Number of times at bat during his career</p></li>
+    <li><title>CHits</title><p>Number of hits during his career</p></li>
+    <li><title>CHmRun</title><p>Number of home runs during his career</p></li>
+    <li><title>CRuns</title><p>Number of runs during his career</p></li>
+    <li><title>CRBI</title><p>Number of runs batted in during his career</p></li>
+    <li><title>CWalks</title><p>Number of walks during his career</p></li>
+    <li><title>League</title><p>A factor with levels <c>A</c> and <c>N</c> indicating player's league at the end of 1986</p></li>
+    <li><title>Division</title><p>A factor with levels <c>E</c> and <c>W</c> indicating player's division at the end of 1986</p></li>
+    <li><title>PutOuts</title><p>Number of put outs in 1986</p></li>
+    <li><title>Assists</title><p>Number of assists in 1986</p></li>
+    <li><title>Errors</title><p>Number of errors in 1986</p></li>
+    <li><title>Salary</title><p>1987 annual salary on opening day in thousands of dollars</p></li>
+    <li><title>NewLeague</title><p>A factor with levels <c>A</c> and <c>N</c> indicating player's league at the beginning of 1987</p></li>
+  </dl>
+  </p>
+
+  <p>    
+      Note that this version is slightly different than versions that can be found online. As far as I can tell, it's just that this particular file has the player names in an entry column.
+    
+  </p>
+
+    <p>
+      Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https://www.statlearning.com, Springer-Verlag, New York.
+    </p>
+
+    <p>
+      Look up the documentation about the dataset here:
+      <url href="https://www.rdocumentation.org/packages/ISLR/versions/1.4/topics/Hitters" visual="Hitters Dataset"/>
+    </p>
+
+       <p>
+        <dataurl source="data/Hitters.csv" visual="Hitters.csv data file"/>
+      </p>
+</data>
+  
+</subsection>

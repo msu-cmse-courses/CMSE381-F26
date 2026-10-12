@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="cmse381-lec16-bootstrap-worksheet">
+  <title>Bootstrap Worksheet</title>
+  <introduction>
+    <p>In this lab, we are going to follow along with the book to generate boostrap samples.</p>
+    <p>While <c>sklearn</c> does have a method called <url href="https://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/modules/generated/sklearn.cross_validation.Bootstrap.html"><c>Bootstrap</c></url>, it doesn't quite do what we want in terms of the example from class. So instead, we're going to use even simpler functions.</p>
+    <program language="python">
+      # Everyone's favorite standard imports
+      import numpy as np
+      import pandas as pd
+      import matplotlib.pyplot as plt
+      import seaborn as sns
+      %matplotlib inline
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec16-bootstrap-worksheet-the-setup">
+    <title>The Setup</title>
+    <p>We wish to invest a fixed sum of money in two financial assets that yield returns of <m>X</m> and <m>Y</m>, respectively, where <m>X</m> and <m>Y</m> are random quantities. Return is defined as</p>
+    <p><md>
+    R = \frac{V_f-V_i}{V_i}
+    </md></p>
+    <p>where <m>V_f</m> is the final value of the investment, and <m>V_i</m> is the initial value of the investment. In particular this means, return times the investment amount tells me how much money I make:</p>
+    <p><md>
+    \text{Money I make} = V_f - V_i = R \cdot V_i
+    </md></p>
+    <p>We will invest a fraction <m>\alpha</m> of our money in <em>Xylophone Services, Ltd</em>, and will invest the remaining <m>(1-\alpha)</m> in <em>Yodeling Yaks, Inc</em>.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Suppose you have $100 and invest 20% in Xylophones and the remaining 80% in Yaks. If the Xylophone investment has return <m>X=1</m> and the Yak investment has return <m>Y=-0.50</m>, how much money do you make? Complete the code below.</p>
+              <program language="python">
+                <code>
+                  X = 1
+                  Y = -0.50
+                  alpha = 0.2
+                  myMoney = 100
+
+                  income = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>The dollar amounts invested are <c>alpha * myMoney</c> in X and <c>(1-alpha) * myMoney</c> in Y.</p>
+            </hint>
+            <hint>
+              <p>Multiply each invested amount by its return and add the two gains or losses.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the negative sign on <c>Y</c>: a return of -0.50 loses half of the amount invested in Y.</p>
+            </hint>
+            <answer>
+              <p>The Xylophone investment gains $20, while the Yak investment loses $40. The net amount made is therefore $-20; equivalently, the final portfolio value is $80.</p>
+              <program language="python">
+                <code>
+                  income = myMoney * (alpha * X + (1 - alpha) * Y)
+                  print('money made:', income)
+                  print('final portfolio value:', myMoney + income)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>If instead I invest a dollar, what is my equation for income?</p>
+            </statement>
+            <hint>
+              <p>Investing one dollar places <m>\alpha</m> dollars in X and <m>1-\alpha</m> dollars in Y.</p>
+            </hint>
+            <hint>
+              <p>Add each position's invested amount times its return.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not add the original one-dollar principal when the question asks for income (the gain or loss), rather than final wealth.</p>
+            </hint>
+            <answer>
+              <p><md>
+              \texttt{income} = \alpha X + (1-\alpha)Y
+              </md></p>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec16-bootstrap-worksheet-making-fake-data">
+    <title>Making Fake Data</title>
+    <p>Below is some code that generates the data sets as described in Ch 5.2.</p>
+    <program language="python">
+      # Note that every time you rerun this function, you will get a new random sample.
+      def generatePortfolio(varX = 1, varY = 1.25,varXY = 0.5, seed = None):
+          cov = np.array(((varX, varXY), (varXY, varY)))
+
+          mean = (0,0)
+
+          # This sets the seed if we don't want to generate a new data set each time
+          np.random.seed(seed)
+
+          # This generates our random data
+          portfolio = np.random.multivariate_normal(mean, cov, (100))
+
+          portfolio = pd.DataFrame(portfolio, columns = ['X', 'Y'])
+          return portfolio
+
+      portfolio = generatePortfolio(seed = 42)
+      portfolio.head()
+    </program>
+    <program language="python">
+      plt.scatter(portfolio.X, portfolio.Y)
+      plt.xlabel('X')
+      plt.ylabel('Y')
+    </program>
+    <p>I want to see how much money I'd make in each case based on a fixed <m>\alpha</m>. For the sake of all this, I can assume that I'm just investing a dollar since my goal will be to just minimize the variance of the income.</p>
+    <p>I can color the points by the amount of income I would get if that pair of <m>X</m> and <m>Y</m> values occurred.</p>
+    <program language="python">
+      alpha = 0.2 #&lt;----- Messing with this number, changes what percentage I invest
+                  #       in each company. 
+
+      income = portfolio.X*alpha + (1-alpha)*portfolio.Y #&lt;--Make sure this equation makes 
+                                                         # sense to you based on how you 
+                                                         # figured out income above
+
+      plt.scatter(portfolio.X, portfolio.Y, c = income, cmap = 'flare')
+      plt.colorbar()
+    </program>
+    <p><alert>Warning:</alert> I'm following the book in that they call the second column <m>Y</m>, but we're not doing a variable prediction with this data set. We just happen to have labeled the outputs of our two companies <m>X</m> and <m>Y</m>.</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec16-bootstrap-worksheet-approximate-hat-alpha-with-simulated-data">
+    <title>Approximate <m>\hat \alpha</m> with simulated data</title>
+    <p>We're assuming we're investing <m>\alpha</m> percent of our money in stock <m>X</m> and <m>(1-\alpha)</m> percent of our money in stock <m>Y</m>. Our goal is to minimize the variance</p>
+    <p><md> \mathrm{Var}(\alpha X + (1-\alpha)Y)</md></p>
+    <p>In your homework, you will show that the variance is minimized when</p>
+    <p><md>
+    \alpha = \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 - 2\sigma_{XY}}
+    </md></p>
+    <p>Next, we will figure out how to approximate <m>\alpha</m> using the computed covariance from our particular data set. We can find the values for variance and covariance for our simulated data in pandas' covariance matrix.</p>
+    <program language="python">
+      portfolio.cov()
+    </program>
+    <p>Now, if your <c>alpha_hat</c> code is working, the following loop will generate 1000 data sets, calculate <m>\hat \alpha</m> for each, and draw a histogram of the result.</p>
+    <program language="python">
+      allAlphas = [] 
+      for i in range (1000):
+
+          # Resimualte a new portfolio data set. Because I'm not passing 
+          # in a seed, I get a new portfolio data set every time. 
+          portfolio = generatePortfolio()
+
+          # Compute the alpha_hat and append it to my list
+          allAlphas.append(alpha_hat(portfolio))
+
+      print('Mean:', round(np.mean(allAlphas),2))
+      print('StDev:', round(np.std(allAlphas),2))
+
+
+      plt.hist(allAlphas)
+    </program>
+    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
+    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>First, based on the parameters we used to simulate our data, determine the true value of <m>\alpha</m> using the equation above. <em>(Hint: You know what the answer should be from the slides, so make sure you can calculate it based on our inputs)</em></p>
+              <program language="python">
+                <code>
+                  var_x = 1
+                  var_y = 1.25
+                  cov_xy = 0.5
+
+                  true_alpha = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Read <m>\sigma_X^2=1</m>, <m>\sigma_Y^2=1.25</m>, and <m>\sigma_{XY}=0.5</m> from the covariance matrix used by <c>generatePortfolio</c>.</p>
+            </hint>
+            <hint>
+              <p>Substitute those three values into the numerator and denominator separately before dividing.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The formula uses variances, not standard deviations; do not square the supplied variance values again.</p>
+            </hint>
+            <answer>
+              <p>Substitution gives <m>(1.25-0.5)/(1+1.25-2(0.5))=0.75/1.25=0.6</m>.</p>
+              <program language="python">
+                <code>
+                  true_alpha = (var_y - cov_xy) / (var_x + var_y - 2 * cov_xy)
+                  print('true alpha:', true_alpha)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Edit the function <c>alpha_hat</c> below which takes in a data frame and returns the predicted <m>\hat \alpha</m> using the equation above. Use your function on the entire data set to get an estimate <m>\hat \alpha</m>.</p>
+              <program language="python">
+                <code>
+                  def alpha_hat(df):
+                      cov = np.asarray(df.cov())
+                      # Extract the two variances and their covariance.
+                      ...
+
+                  alpha_hat(portfolio)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>In the <m>2\times2</m> covariance matrix, the variances are on the diagonal and the X-Y covariance is off the diagonal.</p>
+            </hint>
+            <hint>
+              <p>Return <m>(\hat\sigma_Y^2-\hat\sigma_{XY})/(\hat\sigma_X^2+\hat\sigma_Y^2-2\hat\sigma_{XY})</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Use the X-Y covariance from <c>[0, 1]</c> or <c>[1, 0]</c>, not a second copy of either diagonal variance.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  def alpha_hat(df):
+                      cov = np.asarray(df.cov())
+                      var_x = cov[0, 0]
+                      var_y = cov[1, 1]
+                      cov_xy = cov[0, 1]
+                      return (var_y - cov_xy) / (var_x + var_y - 2 * cov_xy)
+
+                  alpha_hat(portfolio)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec16-bootstrap-worksheet-resampling-data">
+    <title>Resampling data</title>
+    <p>Ok, so normally we don't have access to those original parameters to figure out what <m>\alpha</m> actually should be, nor do we have the ability to simulate data for ourselves. So, the answer is the boostrap!</p>
+    <p>First, we get our data set. <alert>Note</alert>: For the rest of this exercise, I pretend that I am not allowed to simulate anything. I was just handed this data set and it's all I get to work with.</p>
+    <program language="python">
+      portfolio = generatePortfolio(seed = 0)
+      plt.scatter(portfolio.X, portfolio.Y)
+    </program>
+    <p>The main thing we need to do is to sample our data set with replacement, which we can do with the <c>sample</c> function built into the data frame. In this function, <c>frac=1</c> means that we use 100% of our data (so we end up with <m>n</m> samples from our original <m>n</m> data points), and <c>replace=True</c> means we get to pick points with replacement</p>
+    <program language="python">
+      samp_port = portfolio.sample(frac=1,replace=True)
+
+      print('Notice that the `samp_port` dataframe has 100 rows.')
+      print('Length of samp_port:', len(samp_port.index))
+
+      print('\nbut if we get rid of duplicates we have less \nthan 100 data points represented.')
+      print('Length of samp_port without duplicates:', len(set(samp_port.index)))
+      samp_port.head()
+    </program>
+    <p>The last thing to do is determine the error estimate. Eqn 5.8 in the book says that we can estimate the error using</p>
+    <p><md>
+    SE_B(\hat \alpha) = \sqrt{ \frac{1}{B-1}
+    \sum_{r=1}^B \left(
+    \hat \alpha^{*r} - \frac{1}{B}\sum_{r'=1}^B \hat \alpha^{*r'}
+    \right)^2
+    }
+    </md></p>
+    <p>where <m>\hat \alpha^{*i}</m> is the <m>i</m>th prediction (AKA the <m>i</m>th entry in your <c>alphahats</c> list up there).</p>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Repeat the following procedure 1000 times:</p>
+              <p><ul>
+                <li>
+                  <p>Generate a new sample of your <c>portfolio</c> data set (Note: DO NOT resimulate your portfolio data set)</p>
+                </li>
+                <li>
+                  <p>Use your <c>alpha_hat</c> function from above to compute <m>\hat \alpha</m> and keep it in your list</p>
+                </li>
+              </ul></p>
+              <p>Then, draw a histogram of the results.</p>
+              <program language="python">
+                <code>
+                  alphahats = []
+                  B = 1000
+
+                  for b in range(B):
+                      # Resample the existing rows with replacement and estimate alpha.
+                      ...
+
+                  plt.hist(alphahats)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Call <c>portfolio.sample(frac=1, replace=True)</c> inside the loop to create a bootstrap sample with the same number of rows.</p>
+            </hint>
+            <hint>
+              <p>Apply <c>alpha_hat</c> to each resample and append the returned scalar to <c>alphahats</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not call <c>generatePortfolio</c> in this bootstrap loop; bootstrap resamples the one observed data set instead of generating new population data.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  alphahats = []
+                  B = 1000
+                  for b in range(B):
+                      sample = portfolio.sample(frac=1, replace=True, random_state=381 + b)
+                      alphahats.append(alpha_hat(sample))
+                  plt.hist(alphahats)
+                  plt.xlabel(r'$\hat{\alpha}$')
+                  plt.ylabel('Bootstrap frequency')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Use your <c>alphahats</c> list to determine the standard error of <m>\hat \alpha</m>.</p>
+              <program language="python">
+                <code>
+                  # Estimate the standard error from the bootstrap values.
+                  bootstrap_se = ...
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>The bootstrap standard error is the sample standard deviation of the values in <c>alphahats</c>.</p>
+            </hint>
+            <hint>
+              <p>NumPy uses the population denominator by default, so request <c>ddof=1</c> to divide by <m>B-1</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not use the default <c>np.std(alphahats)</c> here; its denominator is <m>B</m>, while the displayed formula uses <m>B-1</m>.</p>
+            </hint>
+            <answer>
+              <p>Compute the sample standard deviation of the bootstrap estimates. Its numerical value varies slightly with the resamples.</p>
+              <program language="python">
+                <code>
+                  bootstrap_se = np.std(np.asarray(alphahats), ddof=1)
+                  print('bootstrap standard error:', bootstrap_se)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec16-bootstrap-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Written by Dr. Liz Munch, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  </subsection>
+</section>

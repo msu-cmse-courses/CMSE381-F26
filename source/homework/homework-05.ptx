@@ -54,7 +54,7 @@
     <p>
       The problems listed below are from
       <url href="https://www.statlearning.com/">the textbook</url>.
-      This homework is worth <alert>52 points</alert> in total.
+      This homework is worth <alert>42 points</alert> in total.
     </p>
 
     <p>
@@ -62,7 +62,7 @@
       <ul>
         <li>
           <p>
-            <xref ref="hw05-q1"/>
+            <xref ref="hw05-q1"/>: 26 points
             <ul>
               <li><p><xref ref="hw05-q1-poly-i"/>: 1 point</p></li>
               <li><p><xref ref="hw05-q1-poly-ii"/>: 4 points</p></li>
@@ -80,7 +80,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw05-q2-step"/>
+            <xref ref="hw05-q2-step"/>: 7 points
             <ul>
               <li><p><xref ref="hw05-q2-step-i"/>: 4 points</p></li>
               <li><p><xref ref="hw05-q2-step-ii"/>: 3 points</p></li>
@@ -89,7 +89,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw05-q2-spline"/>
+            <xref ref="hw05-q2-spline"/>: 9 points
             <ul>
               <li><p><xref ref="hw05-q2-spline-i"/>: 4 points</p></li>
               <li><p><xref ref="hw05-q2-spline-ii"/>: 2 points</p></li>
@@ -107,29 +107,15 @@
 
       <introduction>
         <p>
-          Use the <c>polynomial-toydata.csv</c> data set from the course
-          website. Predict <c>y</c> from <c>x</c> using polynomial regression,
+          Use <xref ref="PolynomialToy-csv"/> to predict <c>y</c> from <c>x</c> using polynomial regression,
           a step function, and a cubic spline. For each model, identify its
           tuning parameter, select it with <m>k</m>-fold cross-validation,
           and refit the selected model on all observations. Finally, overlay
           the three fits on one plot and compare them.
         </p>
         <p>
-          The original notebook generated the toy data as follows. Use the
-          published CSV for your analysis.
+          Use the published CSV in <xref ref="PolynomialToy-csv"/> for your analysis, and load it into <c>polydef</c> data frame.
         </p>
-        <program language="python">
-          <code>
-import numpy as np
-import pandas as pd
-
-np.random.seed(42)
-f_true = lambda x: (x + 2) * (x - 2) * (x + 6) * x + 20
-x_data = np.random.uniform(-6, 3, 100)
-y_data = f_true(x_data) + np.random.normal(0, 10, size=x_data.shape)
-toy_data = pd.DataFrame({"x": x_data, "y": y_data})
-          </code>
-        </program>
         <program language="python">
           <preamble visible="true">
 import numpy as np
@@ -142,8 +128,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures, KBinsDiscretizer, SplineTransformer
           </preamble>
           <code>
-url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/f642ded4bf0e8536ccd7675bb8d41449/polynomial-toydata.csv"
-polydf = pd.read_csv(url, index_col=0)
+
+# this assumes the data is loaded into polydf
 X = polydf[["x"]].to_numpy()
 y = polydf["y"].to_numpy()
 t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
@@ -154,7 +140,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-poly-i" workspace="1in">
         <statement>
           <p>
-            (A-i) For polynomial regression, identify the tuning parameter.
+            For polynomial regression, identify the tuning parameter.
           </p>
         </statement>
       </task>
@@ -162,7 +148,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-poly-ii">
         <statement>
           <p>
-            (A-ii) Use <m>k</m>-fold cross-validation to select a polynomial
+            Use <m>k</m>-fold cross-validation to select a polynomial
             degree. Report the candidate degrees and validation errors.
           </p>
         </statement>
@@ -171,7 +157,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-poly-iii">
         <statement>
           <p>
-            (A-iii) Refit polynomial regression on all observations using
+            Refit polynomial regression on all observations using
             the selected degree.
           </p>
         </statement>
@@ -180,7 +166,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-step-i" workspace="1in">
         <statement>
           <p>
-            (B-i) For the step-function model, identify the tuning parameter.
+            For the step-function model, identify the tuning parameter.
             State whether you count intervals or interior cutpoints.
           </p>
         </statement>
@@ -189,7 +175,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-step-ii">
         <statement>
           <p>
-            (B-ii) Use <m>k</m>-fold cross-validation to choose the number of
+            Use <m>k</m>-fold cross-validation to choose the number of
             intervals or cutpoints. Report the candidates and validation
             errors. Learn the interval boundaries separately within each
             training fold.
@@ -200,7 +186,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-step-iii">
         <statement>
           <p>
-            (B-iii) Refit the step-function model on all observations using
+            Refit the step-function model on all observations using
             the selected number of intervals or cutpoints.
           </p>
         </statement>
@@ -209,7 +195,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-spline-i" workspace="1in">
         <statement>
           <p>
-            (C-i) For a cubic spline, identify the tuning parameter.
+            For a cubic spline, identify the tuning parameter.
           </p>
         </statement>
       </task>
@@ -217,7 +203,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-spline-ii">
         <statement>
           <p>
-            (C-ii) Use <m>k</m>-fold cross-validation to select the number
+            Use <m>k</m>-fold cross-validation to select the number
             of spline knots. Report the candidates and validation errors.
           </p>
         </statement>
@@ -226,7 +212,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
       <task xml:id="hw05-q1-spline-iii">
         <statement>
           <p>
-            (C-iii) Refit the cubic spline on all observations using the
+            Refit the cubic spline on all observations using the
             selected number of knots.
           </p>
         </statement>
@@ -254,7 +240,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
   </page>
   <page>
     <exercise xml:id="hw05-q2-step">
-      <title>Question 2(A): A Step-Function Basis</title>
+      <title>A Step-Function Basis</title>
       <introduction>
         <p>
           Consider a step function with two interior cutpoints at
@@ -288,7 +274,7 @@ t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)
 
   <page>
     <exercise xml:id="hw05-q2-spline">
-      <title>Question 2(B): A Cubic Spline with One Knot</title>
+      <title>A Cubic Spline with One Knot</title>
       <introduction>
         <p>
           Consider a cubic spline with a knot at <m>c_1=4</m>.

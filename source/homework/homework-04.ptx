@@ -54,7 +54,7 @@
     <p>
       The problems listed below are from
       <url href="https://www.statlearning.com/">the textbook</url>.
-      This homework is worth <alert>52 points</alert> in total.
+      This homework is worth <alert>35 points</alert> in total.
     </p>
 
     <p>
@@ -62,7 +62,7 @@
       <ul>
         <li>
           <p>
-            <xref ref="hw04-P6-6-0"/>
+            <xref ref="hw04-P6-6-0"/>: 12 points
             <ul>
               <li><p><xref ref="hw04-P6-6-0-a"/>: 2 points</p></li>
               <li><p><xref ref="hw04-P6-6-0-b"/>: 2 points</p></li>
@@ -75,7 +75,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw04-P6-6-9"/>
+            <xref ref="hw04-P6-6-9"/>: 23 points
             <ul>
               <li><p><xref ref="hw04-P6-6-9-a"/>: 2 points</p></li>
               <li><p><xref ref="hw04-P6-6-9-b"/>: 3 points</p></li>
@@ -156,7 +156,7 @@
         </p>
 
         <program language="python">
-          <preamble visible="true">
+          <code>
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
@@ -168,16 +168,20 @@ from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import GridSearchCV, KFold, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-          </preamble>
+          </code>
+        </program>
+<p>We will use the <xref ref="college-data"/>. Load the data into <c>college_df</c>, then run the following.</p>
+
+        <program language="python">          
           <code>
-url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/cc29ec6408d657de88bc7fe6de6b1170/College.csv"
-college_df = pd.read_csv(url)
 college_df = college_df.set_index("Unnamed: 0")
 college_df = pd.get_dummies(college_df, drop_first=True)
 college_df = college_df.astype(float)
 college_df.head()
           </code>
-        </program>
+          </program>
+          
+          
       </introduction>
 
       <task xml:id="hw04-P6-6-9-a">

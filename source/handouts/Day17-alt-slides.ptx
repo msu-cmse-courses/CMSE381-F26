@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day17" xml:id="day-17-lecture">
+    <title>Day 17</title>
+
+    <introduction>
+        <p>
+            Ch 6.2: Shrinkage - The Lasso
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>What is regularization? Why do we need it?</li>
+            <li>
+                What are the two basic types of regularization methods?
+                How are they implemented mathematically in linear regression?
+                Why are they also called shrinkage methods?
+            </li>
+
+            <li>How do you fit a Lasso regression model in Python?</li>
+            <li>
+                How do you control model flexibility and the bias-variance
+                tradeoff when using regularization?
+            </li>
+
+            <li>
+                How do you find the right amount of regularization using
+                cross-validation?
+                How do you do this in Python?
+            </li>
+
+            <li>
+                What additional precautions do you need to take when using
+                regularization compared with least squares?
+            </li>
+
+            <li>When do you choose one shrinkage method over another?</li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>
+           Lasso: Least Absolute Shrinkage and Selection Operator
+        </title>
+
+        <p>
+            Same goal as before:
+            <ul>
+                <li>
+                    <p>
+                        Fit model using all <m>p</m> predictors.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Aim to constrain (regularize) coefficient estimates.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Shrink the coefficient estimates towards 0.
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+        <note>
+            <p>
+                Ridge shrinks coefficients but does not eliminate them, which is
+                what we actually want.
+            </p>
+        </note>
+
+        <p>
+            <md>
+                Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4
+            </md>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>The lasso</title>
+
+        <p>
+            Least Squares:
+        </p>
+
+        <p>
+            <md>
+                RSS = \sum_{i=1}^{n}
+      \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+            </md>
+        </p>
+
+        <p>
+            Ridge:
+        </p>
+
+        <p>
+            <md>
+                \sum_{i=1}^{n}
+      \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+      + \lambda \sum_{j=1}^{p} \beta_j^2
+      = RSS + \lambda \sum_{j=1}^{p} \beta_j^2
+            </md>
+        </p>
+
+        <p>
+            The Lasso:
+        </p>
+
+        <p>
+            <md>
+                \sum_{i=1}^{n}
+      \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+      + \lambda \sum_{j=1}^{p} |\beta_j|
+      = RSS + \lambda \sum_{j=1}^{p} |\beta_j|
+            </md>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        <m>\ell_1</m> penalty instead of <m>\ell_2</m> penalty
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>\ell_1</m> norm: <m>\|\beta\|_1 = \sum |\beta_j|</m>
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>\ell_2</m> norm: <m>\|\beta\|_2 = \sum \beta_j^2</m>
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>\ell_p</m> norm:
+                        <m>\|\beta\|_p = (\sum |\beta_j|^p)^{1/p}</m>
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>\ell_\infty</m> norm:
+                        <m>\|\beta\|_\infty = \max\{|\beta_i|\}</m>
+                    </p>
+                </li>
+            </ul>
+        </p>
+        <example>
+        <introduction>
+                <p>
+                    Each square in the shown figure has sides of unit length. For each of the following points, compute the <m>\ell_1</m>, <m>\ell_2</m>, and <m>\ell_\infty</m> norms.
+                </p>
+                <image source="figures/ell_norm_class_example.png" width="70%">
+                    <shortdescription>A 2D x-y grid showing 4 points labeled as a, b, c, and d. Each point is in one of the quadrants.</shortdescription>
+                    
+                </image>
+        </introduction>
+        <task>
+            <statement>
+                <p>
+                    Point a=(3,3)
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <md>
+                    <mrow>\ell_1 \amp= |3|+|3|=6</mrow>
+                    <mrow>\ell_2 \amp= \sqrt{3^2+3^2}=\sqrt{18}</mrow>
+                    <mrow>\ell_\infty \amp= \max\{3,3\}=3</mrow>                        
+                    </md>
+                    
+                </p>
+            </answer>
+        </task>
+                <task>
+            <statement>
+                <p>
+                    Point b=(-4,3)
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <md>
+                    <mrow>\ell_1 \amp= |-4|+|3|=4+3=7</mrow>
+                    <mrow>\ell_2 \amp= \sqrt{(-4)^2+3^2}=\sqrt{25}=5</mrow>
+                    <mrow>\ell_\infty \amp= \max\{4,3\}=4</mrow>
+                    </md>
+                </p>
+            </answer>
+        </task>
+                <task>
+            <statement>
+                <p>
+                    Point c=(-1,-2)
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <md>
+                    <mrow>\ell_1 \amp= |-1|+|-2|=1+2=3</mrow>
+                    <mrow>\ell_2 \amp= \sqrt{(-1)^2+(-2)^2}=\sqrt{5}</mrow>
+                    <mrow>\ell_\infty \amp= \max\{1,2\}=2</mrow>
+                    </md>
+                </p>
+            </answer>
+        </task>
+                <task>
+            <statement>
+                <p>
+                    Point d=(4,-4)
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <md>
+                    <mrow>\ell_1 \amp= |4|+|-4|=4+4=8</mrow>
+                    <mrow>\ell_2 \amp= \sqrt{4^2+(-4)^2}=\sqrt{32}=4\sqrt{2}</mrow>
+                    <mrow>\ell_\infty \amp= \max\{4,4\}=4</mrow>
+                    </md>
+                </p>
+            </answer>
+        </task>
+
+        </example>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Subsets with lasso</title>
+
+        <p>
+            <md>
+                \sum_{i=1}^{n}
+      \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+      + \lambda \sum_{j=1}^{p} |\beta_j|
+      = RSS + \lambda \sum_{j=1}^{p} |\beta_j|
+            </md>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        The result of the <m>\ell_1</m> penalty is that it
+                        forces some coefficients to be exactly 0.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        This can be interpreted as something like subset
+                        selection, but it is called <em>variable selection</em>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The result is <em>sparse</em> models, which use only a
+                        subset of variables.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Selecting a good <m>\lambda</m> is critical.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>An example on the <c>Credit</c> data set</title>
+
+        <sidebyside widths="47% 47%">
+            <stack>
+                <p>
+                    Lasso
+                </p>
+
+                <image source="figures/Fig6-6a.png" width="50%">
+                    <shortdescription>
+                        Plot of lasso coefficient paths for the Credit data,
+                        showing how some coefficient estimates shrink exactly to
+                        zero as lambda increases.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    Ridge
+                </p>
+
+                <image source="figures/Fig6-4a.png" width="50%">
+                    <shortdescription>
+                        Plot of ridge regression coefficient paths for the
+                        Credit data, showing how the coefficient estimates
+                        shrink toward zero as lambda increases.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        <m>\lambda = 0</m>: Both are least squares.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>\lambda = \infty</m>: All coefficients are 0.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Only lasso has coefficients equal to 0 at finite
+                        <m>\lambda</m>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>More example on the Credit data set</title>
+
+        <sidebyside widths="47% 47%">
+            <stack>
+                <p>
+                    Lasso
+                </p>
+
+                <image source="figures/Fig6-6b.png" width="50%">
+                    <shortdescription>
+                        Plot of lasso coefficient paths for the Credit data,
+                        showing how some coefficient estimates shrink exactly to
+                        zero and produce variable subsets.
+                    </shortdescription>
+                </image>
+            </stack>
+
+            <stack>
+                <p>
+                    Ridge
+                </p>
+
+                <image source="figures/Fig6-4b.png" width="50%">
+                    <shortdescription>
+                        Plot of ridge regression coefficient paths for the
+                        Credit data, showing how coefficient estimates shrink as
+                        the relative L2 norm decreases from left to right.
+                    </shortdescription>
+                </image>
+            </stack>
+        </sidebyside>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Note that ridge always includes all variables, even if a
+                        coefficient is small.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Lasso produces different-sized subsets depending on the
+                        amount of regularization.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+<paragraphs>
+  <title>Why can lasso select variables while ridge cannot?</title>
+
+  <p>
+    Alternative formulation of lasso and ridge regression    
+  </p>
+  
+      <figure xmlns:pi="http://pretextbook.org/2020/pretext/internal">
+        <caption>Playing with different values of <m>p</m>.</caption>
+        <interactive xml:id="p-norm-unit-ball" geogebra="euymx5b9" width="90%" aspect="16:9" reset-icon="yes">
+        <shortdescription>
+            An interactive Geogebra applet showing the unit ball for different values of p. The user can change the value of p using a slider, and see how the shape of the unit ball changes.
+        </shortdescription>
+        <description>
+            <p>
+                An interactive Geogebra applet showing the unit ball in <m>\ell_p</m> norm for different values of <m>p</m>. The user can change the value of <m>p</m> using a slider, and see how the shape of the unit ball changes. 
+            </p>
+        </description>
+        </interactive>
+    </figure>
+   
+
+  <p>
+    <md>
+      \min_{\beta} \sum (y_i - \hat{y}_i)^2
+      \quad \text{where} \quad \sum |\beta_j| \leq s
+    </md>
+  </p>
+
+  <p>
+    <md>
+      \min_{\beta} \sum (y_i - \hat{y}_i)^2
+      \quad \text{where} \quad \sum |\beta_j|^2 \leq s
+    </md>
+  </p>
+
+  <image source="figures/lasso_ridge_contour.png" width="70%">
+    <shortdescription>Contour plot illustrating the geometric difference between lasso and ridge constraints, showing why lasso can set coefficients exactly to zero while ridge generally cannot.</shortdescription>
+    <description><p><m>\hat{\beta}</m> is the least squares solution. Each of the ellipses represents parameter combinations that yield a constant value of the sum of squared residuals. The blue region is the <m>p</m>-norm ball: diamond for <m>p=1</m> and circle for <m>p=2</m>. The parameter estimates that minimize the objective function are at the point where a contour first intersects the boundary of the <m>p</m>-norm ball.</p></description>
+  </image>
+  <p>
+    <ul>
+        <li>
+            <p>
+                The ridge constraint region is circular, so the contours of the least squares error function are more likely to intersect the constraint region at a point where both coefficients are nonzero.
+            </p>
+        </li>
+        <li>
+            <p>
+                The lasso constraint region is diamond-shaped, so the contours of the least squares error function are more likely to intersect the constraint region at a corner, where one of the coefficients is zero.
+                <ul>
+                    <li>
+                        <p>
+                            In higher dimensions, the lasso constraint region gets more and more spiky with many corners, and many of the coefficients can simultaneously be set to zero.
+                        </p>
+                    </li>
+                </ul>
+            </p>
+        </li>
+    </ul>
+  </p>
+  <exercise>
+    <introduction>
+        <p>
+            Consider the shown RSS contours and the lasso and ridge constraint regions. <m>\hat{\beta}</m> is the least square solution. Each square in the grid has unit length. 
+        </p>
+            <image source="figures/pictorial_optimization_soln.png" width="75%">
+            <shortdescription>Four subplots each showing two elliptical contours centered around the least squares solution. The top two panels show diamonds (p=1 norm) at the origin. The bottom two show circles (p=1 norm) at the origin. </shortdescription>
+            </image>
+    </introduction>
+    <task>
+        <statement>
+            <p>
+                What is the optimal parameter combination for (a)?
+            </p>
+        </statement>
+        <answer>
+            <p>
+                <m>(\beta_1, \beta_2)=(-1,-1)</m>
+            </p>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                What is the optimal parameter combination for (b)?
+            </p>
+        </statement>
+        <answer>
+            <p>
+                <m>(\beta_1, \beta_2)=(0,2)</m>
+            </p>
+        </answer>
+        </task>
+        <task>
+            <statement>
+                <p>
+                    What is the optimal parameter combination for (c)?
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <m>(\beta_1, \beta_2)=(0.5,-1.9)</m>
+                </p>
+            </answer>
+        </task>
+        <task>
+            <statement>
+                <p>
+                    What is the optimal parameter combination for (d)?
+                </p>
+            </statement>
+            <answer>
+                <p>
+                    <m>(\beta_1, \beta_2)=(-2,2)</m>
+                </p>
+            </answer>
+        </task>
+  </exercise>
+</paragraphs>
+
+<paragraphs>
+  <title>Bias-Variance tradeoff</title>
+
+  <image source="figures/Fig6-5.png" width="90%">
+    <shortdescription>Plot illustrating the bias-variance tradeoff for simulated data, showing squared bias, variance, and test mean squared error.</shortdescription>
+  </image>
+
+  <p>Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.</p>
+
+    <p>The horizontal dashed line is the minimum possible test MSE.</p>
+
+</paragraphs>
+
+<paragraphs>
+  <title>Using Cross-Validation to find <m>\lambda</m></title>
+
+  <p>
+    <ul>
+      <li><p>Choose a grid of <m>\lambda</m> values.</p></li>
+      <li><p>Compute the (<m>k</m>-fold) cross-validation error for each value of <m>\lambda</m>.</p></li>
+      <li><p>Select the tuning parameter value <m>\lambda</m> for which the CV error is smallest.</p></li>
+      <li><p>Refit the model using all available observations and the selected tuning parameter value.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>10-fold CV choice of <m>\lambda</m> for lasso and simulated data</title>
+
+  <image source="figures/Fig6-13.png" width="90%">
+    <shortdescription>Plot of 10-fold cross-validation error and lasso coefficient behavior for simulated data, with dashed vertical lines indicating the selected lambda and only the signal variables remaining nonzero near the chosen model.</shortdescription>
+  </image>
+
+  <p>
+    <ul>
+      <li><p>Data generated with <m>p = 45</m> variables and <m>n = 50</m> data points; only 2 variables are actually involved.</p></li>
+      <li><p>The vertical dashed line indicates the choice of <m>\lambda</m>.</p></li>
+      <li><p>On the right, the two colored lines are predictors related to the response (signal); grey lines are unrelated (noise).</p></li>
+      <li><p>The lasso correctly gives much larger coefficient estimates to the two signal predictors. The minimum CV error also corresponds to coefficient estimates for which only the signal variables are nonzero.</p></li>
+      <li><p>Note that the least squares solution does not even emphasize one of the variables (the green one).</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>Ridge vs Lasso</title>
+
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p><term>Ridge Regression:</term></p>
+      <p>
+        <ul>
+          <li><p>Coefficients are shrunk towards 0, but are not forced to be exactly 0.</p></li>
+          <li><p>Tends to be better than lasso when many predictors have a significant effect on the output.</p></li>
+          <li><p>More robust to outliers.</p></li>
+        </ul>
+      </p>
+    </stack>
+
+    <stack>
+      <p><term>Lasso:</term></p>
+      <p>
+        <ul>
+          <li><p>Coefficients are shrunk towards 0, and some are forced to be exactly 0.</p></li>
+          <li><p>Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.</p></li>
+          <li><p>More sensitive to outliers.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>TL;DR - Original formulation</title>
+
+      <p><term>Least Squares:</term></p>
+      <p>
+        <md>
+          RSS = \sum_{i=1}^{n}
+          \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+        </md>
+      </p>
+
+      <p><term>Ridge:</term></p>
+      <p>
+        <md>
+          \sum_{i=1}^{n}
+          \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+          + \lambda \sum_{j=1}^{p} \beta_j^2
+          = RSS + \lambda \sum_{j=1}^{p} \beta_j^2
+        </md>
+      </p>
+
+
+  <p><term>The Lasso:</term></p>
+  <p>
+    <md>
+      \sum_{i=1}^{n}
+      \left(y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij}\right)^2
+      + \lambda \sum_{j=1}^{p} |\beta_j|
+      = RSS + \lambda \sum_{j=1}^{p} |\beta_j|
+    </md>
+  </p>
+</paragraphs>
+
+
+</handout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="sec-OJ-data-set">
+  <title>Orange Juice Data Set</title>
+
+  <data xml:id="OJ-data">
+    <title>Orange Juice data set</title>
+    <p>
+      The data contains 1070 purchases where the customer either purchased Citrus Hill or Minute Maid Orange Juice. A number of characteristics of the customer and product are recorded. 
+    </p>
+    <p>
+      A data frame with 1070 observations on the following 18 variables.
+<dl>
+  <li><title>Purchase</title><p>A factor with levels CH and MM indicating whether the customer purchased Citrus Hill or Minute Maid Orange Juice</p></li>
+  <li><title>WeekofPurchase</title><p>Week of purchase</p></li>
+  <li><title>StoreID</title><p>Store ID</p></li>
+  <li><title>PriceCH</title><p>Price charged for CH</p></li>
+  <li><title>PriceMM</title><p>Price charged for MM</p></li>
+  <li><title>DiscCH</title><p>Discount offered for CH</p></li>
+  <li><title>DiscMM</title><p>Discount offered for MM</p></li>
+  <li><title>SpecialCH</title><p>Indicator of special on CH</p></li>
+  <li><title>SpecialMM</title><p>Indicator of special on MM</p></li>
+  <li><title>LoyalCH</title><p>Customer brand loyalty for CH</p></li>
+  <li><title>SalePriceMM</title><p>Sale price for MM</p></li>
+  <li><title>SalePriceCH</title><p>Sale price for CH</p></li>
+  <li><title>PriceDiff</title><p>Sale price of MM less sale price of CH</p></li>
+  <li><title>Store7</title><p>A factor with levels No and Yes indicating whether the sale is at Store 7</p></li>
+  <li><title>PctDiscMM</title><p>Percentage discount for MM</p></li>
+  <li><title>PctDiscCH</title><p>Percentage discount for CH</p></li>
+  <li><title>ListPriceDiff</title><p>List price of MM less list price of CH</p></li>
+  <li><title>STORE</title><p>Which of 5 possible stores the sale occurred at</p></li>
+</dl>
+  </p>
+
+    <p>
+      Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https://www.statlearning.com, Springer-Verlag, New York.
+    </p>
+
+    <p>
+      Look up the documentation about the dataset here:
+      <url href="https://www.rdocumentation.org/packages/ISLR/versions/1.4/topics/Hitters" visual="Hitters Dataset"/>
+    </p>
+
+       <p>
+        <dataurl source="data/Hitters.csv" visual="Hitters.csv data file"/>
+      </p>
+</data>
+  
+</subsection>

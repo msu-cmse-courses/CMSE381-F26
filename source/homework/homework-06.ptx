@@ -54,14 +54,14 @@
     <p>
       The problems listed below are from
       <url href="https://www.statlearning.com/">the textbook</url>.
-      This homework is worth <alert>52 points</alert> in total.
+      This homework is worth <alert>42 points</alert> in total.
     </p>
     <p>
       The grade distribution is as follows. Each score appears only here:
       <ul>
         <li>
           <p>
-            <xref ref="hw06-q1"/>
+            <xref ref="hw06-q1"/>: 18 points
             <ul>
               <li><p><xref ref="hw06-q1-a"/>: 2 points</p></li>
               <li><p><xref ref="hw06-q1-b"/>: 3 points</p></li>
@@ -76,7 +76,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw06-q2"/>
+            <xref ref="hw06-q2"/>: 6 points
             <ul>
               <li><p><xref ref="hw06-q2-a"/>: 4 points</p></li>
               <li><p><xref ref="hw06-q2-b"/>: 2 points</p></li>
@@ -85,7 +85,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw06-q3"/>
+            <xref ref="hw06-q3"/>: 9 points
             <ul>
               <li><p><xref ref="hw06-q3-a"/>: 5 points</p></li>
               <li><p><xref ref="hw06-q3-b"/>: 1 point</p></li>
@@ -96,7 +96,7 @@
         </li>
         <li>
           <p>
-            <xref ref="hw06-q4"/>
+            <xref ref="hw06-q4"/>: 6 points
             <ul>
               <li><p><xref ref="hw06-q4-a"/>: 4 points</p></li>
               <li><p><xref ref="hw06-q4-b"/>: 2 points</p></li>
@@ -112,12 +112,10 @@
     <exercise xml:id="hw06-q1">
       <title>Question 1: Classification Tree on the OJ Data Set</title>
       <introduction>
-        <p>
-          Use <c>Purchase</c> as the response and all other columns in the
-          <c>OJ</c> data set as predictors. The original notebook loads the
-          course data as follows. Convert <c>Store7</c> to a numeric column
-          before fitting scikit-learn models.
-        </p>
+      <p>
+        First, perform the usual imports.
+      </p>
+
         <program language="python">
           <code>
 import numpy as np
@@ -128,9 +126,18 @@ from sklearn.model_selection import train_test_split, cross_val_score, Stratifie
 from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.ensemble import RandomForestClassifier
+</code>
+        </program>
 
-url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/73b56f6984db80ab92105d5e86279f38/OJ.csv"
-OJ_df = pd.read_csv(url, index_col=0)
+      <p>
+        Load the OJ data set from <xref ref="OJ-data"/> into data frame <c>OJ_df</c>. Use <c>Purchase</c>  as the response and all other columns in the <c>OJ</c> data set as predictors.
+      </p>
+      <p>
+        Convert the <c>Store7</c> column to a numeric column, where <sq>Yes</sq> is 1 and <sq>No</sq> is 0.
+      </p>
+
+      <program language="python">
+        <code>
 OJ_df["Store7"] = OJ_df["Store7"].map({"Yes": 1, "No": 0})
 OJ_df.head()
           </code>
@@ -140,7 +147,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-a">
         <statement>
           <p>
-            (a) Create a training set containing a random sample of
+            Create a training set containing a random sample of
             800 observations and a test set containing the remaining
             observations. Report the percentage in the training set.
           </p>
@@ -150,7 +157,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-b">
         <statement>
           <p>
-            (b) Fit a classification tree to the training data with
+            Fit a classification tree to the training data with
             maximum depth 3. Report the fitted model and its training
             error rate.
           </p>
@@ -159,14 +166,14 @@ OJ_df.head()
 
       <task xml:id="hw06-q1-c-plot">
         <statement>
-          <p>(c-i) Plot the fitted tree.</p>
+          <p> Plot the fitted tree.</p>
         </statement>
       </task>
 
       <task xml:id="hw06-q1-c-interpret" workspace="1.5in">
         <statement>
           <p>
-            (c-ii) How many terminal nodes does the tree have?
+            How many terminal nodes does the tree have?
             Which variables appear near its top? Briefly interpret
             two main splits.
           </p>
@@ -176,7 +183,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-d-export">
         <statement>
           <p>
-            (d-i) Use <c>export_text()</c> to produce a text summary
+            Use <c>export_text()</c> to produce a text summary
             of the fitted tree.
           </p>
         </statement>
@@ -185,7 +192,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-d-interpret" workspace="1.5in">
         <statement>
           <p>
-            (d-ii) Choose one terminal node. Describe the split path
+            Choose one terminal node. Describe the split path
             leading to it, the observations that fall there, and its
             predicted class.
           </p>
@@ -195,7 +202,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-e-matrix">
         <statement>
           <p>
-            (e-i) Predict <c>Purchase</c> on the test set. Produce a
+            Predict <c>Purchase</c> on the test set. Produce a
             confusion matrix comparing the test labels to your
             predictions, and report the test error rate.
           </p>
@@ -205,7 +212,7 @@ OJ_df.head()
       <task xml:id="hw06-q1-e-comment" workspace="1in">
         <statement>
           <p>
-            (e-ii) Briefly comment on the model's performance using
+            Briefly comment on the model's performance using
             the confusion matrix and test error rate.
           </p>
         </statement>
@@ -219,7 +226,7 @@ OJ_df.head()
       <task xml:id="hw06-q2-a">
         <statement>
           <p>
-            (a) Using only the training set, evaluate classification
+            Using only the training set, evaluate classification
             trees with maximum depths 1 through 20 by five-fold
             cross-validation. Plot maximum depth against the mean
             cross-validated classification error rate.
@@ -229,7 +236,7 @@ OJ_df.head()
       <task xml:id="hw06-q2-b" workspace="1in">
         <statement>
           <p>
-            (b) Which maximum depth has the lowest cross-validated
+            Which maximum depth has the lowest cross-validated
             error rate? Briefly explain your selection. Here, tree
             size is parameterized by maximum depth; it need not
             equal the number of terminal nodes.
@@ -245,7 +252,7 @@ OJ_df.head()
       <task xml:id="hw06-q3-a">
         <statement>
           <p>
-            (a) Fit an unrestricted tree and a pruned or
+            Fit an unrestricted tree and a pruned or
             depth-restricted tree using the depth selected in Question 2.
             If cross-validation does not clearly support pruning, you may
             use a smaller reasonable tree and justify your choice.
@@ -257,7 +264,7 @@ OJ_df.head()
       <task xml:id="hw06-q3-b" workspace="0.8in">
         <statement>
           <p>
-            (b) Compare the training error rates of the restricted
+            Compare the training error rates of the restricted
             and unrestricted trees. Which is higher?
           </p>
         </statement>
@@ -265,7 +272,7 @@ OJ_df.head()
       <task xml:id="hw06-q3-c" workspace="0.8in">
         <statement>
           <p>
-            (c) Compare their test error rates. Which model
+            Compare their test error rates. Which model
             performs better on the held-out data?
           </p>
         </statement>
@@ -273,7 +280,7 @@ OJ_df.head()
       <task xml:id="hw06-q3-d" workspace="1in">
         <statement>
           <p>
-            (d) Explain why the two trees may have different
+            Explain why the two trees may have different
             training and test performance.
           </p>
         </statement>
@@ -290,7 +297,7 @@ OJ_df.head()
       <task xml:id="hw06-q4-a">
         <statement>
           <p>
-            (a) Fit a random forest predicting <c>Purchase</c>
+            Fit a random forest predicting <c>Purchase</c>
             from the other variables, using at least 500 trees.
             Report its test error rate and display the variable
             importance values.
@@ -300,7 +307,7 @@ OJ_df.head()
       <task xml:id="hw06-q4-b" workspace="1.5in">
         <statement>
           <p>
-            (b) Compare the random forest with the trees in
+            Compare the random forest with the trees in
             Question 3 using test error rates. Identify the most
             important predictors and briefly interpret their
             importance values.

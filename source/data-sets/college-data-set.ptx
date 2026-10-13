@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="sec-college-data-set">
+  <title>College Data Set</title>
+
+  <data xml:id="college-data">
+    <title>College data set</title>
+    <p>
+      Statistics for a large number of US Colleges from the 1995 issue of US News and World Report.    
+<dl>
+  <li><title>Private</title><p>A factor with levels No and Yes indicating private or public university</p></li>
+  <li><title>Apps</title><p>Number of applications received</p></li>
+  <li><title>Accept</title><p>Number of applications accepted</p></li>
+  <li><title>Enroll</title><p>Number of new students enrolled</p></li>
+  <li><title>Top10perc</title><p>Percentage of new students from the top 10% of their high school class</p></li>
+  <li><title>Top25perc</title><p>Percentage of new students from the top 25% of their high school class</p></li>
+  <li><title>F.Undergrad</title><p>Number of full-time undergraduates</p></li>
+  <li><title>P.Undergrad</title><p>Number of part-time undergraduates</p></li>
+  <li><title>Outstate</title><p>Out-of-state tuition</p></li>
+  <li><title>Room.Board</title><p>Room and board costs</p></li>
+  <li><title>Books</title><p>Estimated book costs</p></li>
+  <li><title>Personal</title><p>Estimated personal spending</p></li>
+  <li><title>PhD</title><p>Percentage of faculty with Ph.D.s</p></li>
+  <li><title>Terminal</title><p>Percentage of faculty with terminal degrees</p></li>
+  <li><title>S.F.Ratio</title><p>Student-to-faculty ratio</p></li>
+  <li><title>perc.alumni</title><p>Percentage of alumni who donate</p></li>
+  <li><title>Expend</title><p>Instructional expenditure per student</p></li>
+  <li><title>Grad.Rate</title><p>Graduation rate</p></li>
+</dl>
+  </p>
+
+
+
+    <p>
+      Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the ASA Statistical Graphics Section's 1995 Data Analysis Exposition.
+    </p>
+
+    <p>
+      Look up the documentation about the dataset here:
+      <url href="https://intro-stat-learning.github.io/ISLP/datasets/College.html" visual="College Dataset"/>
+    </p>
+
+       <p>
+        <dataurl source="data/College.csv" visual="College.csv data file"/>
+      </p>
+</data>
+  
+</subsection>

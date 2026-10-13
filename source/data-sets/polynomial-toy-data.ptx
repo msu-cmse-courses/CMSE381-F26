@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="polynomial-toy-data">
+    <title>Polynomial Toy Data Set</title>
+
+    <data xml:id="PolynomialToy-csv">
+      <title>Polynomial Toy Data Set</title>
+    
+
+      <p>
+        A data file with 100 samples from the function
+        <md>
+          f(x)=(x+2)(x-2)(x+6)*x+20.
+        </md>
+        The points are randomly sampled from the interval <m>[-6,3]</m> from a uniform distribution, and noise sampled from a normal distribution is added to the output. 
+        
+      </p>
+      <p>
+        The data is arranged into a data frame called <c>toy_data</c> with two columns, <c>x</c> and <c>y</c>, where <c>x</c> is the input and <c>y</c> is the output. 
+        <dl>
+          <li>
+            <title>x</title>
+
+            <p>
+              The <m>x</m> value of the data point.
+            </p>
+          </li>
+
+          <li>
+            <title>y</title>
+
+            <p>
+              The <m>y</m> value of the data point.
+            </p>
+          </li>
+
+          
+
+          
+        </dl>
+      </p>
+      
+
+            <p>
+                This data is 100% simulated, and does not correspond to any real experiments.
+            </p>
+
+
+
+  <image width="85%" source="data/polynomial-toydata.png">
+          <shortdescription>
+        An example data set showing a polynomial in black, solid line along with data points sampled from the polynomial with added noise in blue, circular markers.
+      </shortdescription>  
+  </image>
+
+
+<p>
+  The code used to generate this data is below.
+</p>
+
+<program language="python">
+    <code>
+# Set the random seed for reproducibility
+np.random.seed(42)
+
+# Define the polynomial
+f = lambda x: (x+2)*(x-2)*(x+6)*x+20
+
+# Generate data 
+x_data = np.random.uniform(-6, 3, 100)
+y_data = f(x_data) + np.random.normal(0, 10, size=x_data.shape)
+
+# Generate data for plotting 
+x_plot = np.linspace(-6, 3, 100)
+y_plot = f(x_plot)
+
+# Create a DataFrame to store the data
+toy_data = pd.DataFrame({'x': x_data, 'y': y_data})
+
+plt.plot(x_data,y_data, 'o', label = 'f(x) + noise')
+plt.plot(x_plot, y_plot, 'k', label = 'f(x)')
+plt.legend()
+plt.title('Toy data: Basis functions')
+</code>
+</program>
+
+      <p>
+        <dataurl source="data/polynomial-toydata.csv" visual="Polynomial Toy Data Set" xml:id="datafile-PolynomialToy-csv"/>
+      </p>
+
+    </data>
+        
+    </subsection>

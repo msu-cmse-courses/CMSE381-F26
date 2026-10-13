@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math">
+<article class="exercise exercise-like"><h2 class="heading">
+<span class="type">Worksheet Exercise</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Problem 6.6.9: Predicting College Applications.</span>
+</h2>
+<div class="introduction">
+<div class="para">Predict the number of applications received using the other variables in the <code class="code-inline tex2jax_ignore">College</code> data set. Use a single training/test split for all five methods below. Choose tuning parameters by cross-validation on the training set, then report error on the held-out test set. This makes the reported test errors comparable across methods.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+from sklearn.cross_decomposition import PLSRegression
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LassoCV, LinearRegression, RidgeCV
+from sklearn.metrics import root_mean_squared_error
+from sklearn.model_selection import GridSearchCV, KFold, train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+</code></pre></div>
+<div class="para">We will use the <a href="sec-college-data-set.html#college-data" class="xref" data-knowl="./knowl/xref/college-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 124: College data set">Data 124</a>. Load the data into <code class="code-inline tex2jax_ignore">college_df</code>, then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">college_df = college_df.set_index("Unnamed: 0")
+college_df = pd.get_dummies(college_df, drop_first=True)
+college_df = college_df.astype(float)
+college_df.head()
+</code></pre></div>
+</div>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(a)</span></h3>
+<div class="para">Split the data into a training set and a test set. Separate <code class="code-inline tex2jax_ignore">Apps</code> as the response and use the remaining variables as predictors.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-a-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.a"><a tabindex="-1" href="#hw04-P6-6-9-a" title="Copy heading and permalink for Task 2.a" aria-label="Copy heading and permalink for Task 2.a">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(b)</span></h3>
+<div class="para">Fit a linear model using least squares on the training set, and report its test error.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-b-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.b"><a tabindex="-1" href="#hw04-P6-6-9-b" title="Copy heading and permalink for Task 2.b" aria-label="Copy heading and permalink for Task 2.b">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(c)</span></h3>
+<div class="para">Fit a ridge regression model, choosing <span class="process-math">\(\lambda\)</span> by cross-validation on the training set. Report its test error.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-c-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.c"><a tabindex="-1" href="#hw04-P6-6-9-c" title="Copy heading and permalink for Task 2.c" aria-label="Copy heading and permalink for Task 2.c">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(d)</span></h3>
+<div class="para">Fit a lasso model, choosing <span class="process-math">\(\lambda\)</span> by cross-validation on the training set. Report its test error and the number of nonzero coefficient estimates.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-d-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.d"><a tabindex="-1" href="#hw04-P6-6-9-d" title="Copy heading and permalink for Task 2.d" aria-label="Copy heading and permalink for Task 2.d">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(e)</span></h3>
+<div class="para">Fit a principal components regression (PCR) model, choosing the number of components <span class="process-math">\(M\)</span> by cross-validation on the training set. Report its test error and the selected value of <span class="process-math">\(M\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-e-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.e"><a tabindex="-1" href="#hw04-P6-6-9-e" title="Copy heading and permalink for Task 2.e" aria-label="Copy heading and permalink for Task 2.e">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(f)</span></h3>
+<div class="para">Fit a partial least squares (PLS) model, choosing the number of components <span class="process-math">\(M\)</span> by cross-validation on the training set. Report its test error and the selected value of <span class="process-math">\(M\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-f-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.f"><a tabindex="-1" href="#hw04-P6-6-9-f" title="Copy heading and permalink for Task 2.f" aria-label="Copy heading and permalink for Task 2.f">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(g)</span></h3>
+<div class="para">Comment on the results. How accurately can the number of college applications received be predicted? Is there much difference among the test errors from these five approaches?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-g-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="workspace" data-space="1.5in"></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 2.g"><a tabindex="-1" href="#hw04-P6-6-9-g" title="Copy heading and permalink for Task 2.g" aria-label="Copy heading and permalink for Task 2.g">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Worksheet Exercise 2: Problem 6.6.9: Predicting College Applications"><a tabindex="-1" href="#hw04-P6-6-9" title="Copy heading and permalink for Worksheet Exercise 2: Problem 6.6.9: Predicting College Applications" aria-label="Copy heading and permalink for Worksheet Exercise 2: Problem 6.6.9: Predicting College Applications">🔗</a></div>
+</article><span class="incontext"><a class="internal" href="homework-5.html#hw04-P6-6-9">In Context</a></span>
+</body>
+</html>

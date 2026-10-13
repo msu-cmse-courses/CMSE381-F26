@@ -1,0 +1,251 @@
+    <section xml:id="exam2-study-guide" component="exam2-material">
+      <title>Exam2 study guide</title>
+      <introduction>
+        <p>
+            Here we summarize the detailed learning goals in terms of a series of topics or questions that you should be able to answer by exam 2. Make sure to check out the practice problems in <xref ref="exam2-practice-problems" text="title"/>. 
+        </p>
+      </introduction>
+
+  <subsection xml:id="exam2-practice-validation-methods">
+  <title>Methods of Validation</title>
+  <p>Required readings: Chapter Section 5.1 (10 pages)</p>
+  <p>
+    <ul>
+      <li><p>Why do you need validation methods?</p></li>
+      <li><p>What is the difference between validation scores and true test errors?</p></li>
+      <li><p>What are the three most basic validation methods?</p></li>
+      <li>
+        <p>For each of these methods:
+        <ul>
+          <li><p>How do you calculate the validation score? You should be able to describe the procedures verbally and mathematically.</p></li>
+          <li><p>How do you calculate the validation score in Python?</p></li>
+          <li><p>What are the advantages and disadvantages of using this method compared to the other two methods? You should be able to describe them in terms of computational cost and the bias and variance of the estimation.</p></li>
+        </ul>
+        </p>
+      </li>
+      <li>
+        <p>How do you use validation methods to select the appropriate meta-parameter?
+        <ul>
+          <li><p>Given a plot of validation score as a function of model flexibility, which depends on a specific meta-parameter of the model, you should be able to choose the appropriate parameter by reading the plot and explain your choice based on the bias-variance tradeoff.</p></li>
+          <li><p>Given a dataset, you should be able to generate this plot yourself in Python for any type of model covered in this class.</p></li>
+        </ul>
+        </p>
+      </li>
+    </ul>
+  </p>
+</subsection>
+
+<subsection xml:id="exam2-practice-subset-selection">
+  <title>Subset/Feature Selection</title>
+  <p>Required readings: Chapter Section 6.1 (9 pages)</p>
+  <p>
+    <ul>
+      <li><p>Why shouldn't you have as many predictors in your model as possible?</p></li>
+      <li><p>What are the three basic methods that could be used to select the appropriate predictors (feature selection)?</p></li>
+      <li><p>What are the steps and procedures in the algorithm for each of these methods?</p></li>
+      <li><p>How do you implement these procedures by hand, given the training and cross-validation test errors for each combination of predictors?</p></li>
+      <li><p>What are the pros and cons of each feature selection method? When can or can't you use them?</p></li>
+      <li><p>How do you implement the feature selection algorithms in Python?</p></li>
+    </ul>
+  </p>
+</subsection>
+
+<subsection xml:id="exam2-practice-regularization-methods">
+  <title>Regularization Methods</title>
+  <p>Required readings: Chapter Sections 6.2.1-6.2.2 (12 pages)</p>
+  <p>
+    <ul>
+      <li><p>What is regularization? Why do we need it?</p></li>
+      <li><p>What are the two basic types of regularization methods? How are they implemented mathematically in linear regression? Why are they also called shrinkage methods?</p></li>
+      <li><p>How do you fit these two basic types of regularized linear regression models in Python?</p></li>
+      <li><p>How do you control model flexibility and the bias-variance tradeoff when using regularization?</p></li>
+      <li><p>How do you find the right amount of regularization using cross-validation? How do you do this in Python?</p></li>
+      <li><p>What additional precautions do you need to take when using regularization compared to least squares?</p></li>
+      <li><p>What are the advantages of regularization compared to least squares?</p></li>
+      <li><p>What are the advantages of regularization compared to subset selection?</p></li>
+      <li><p>What are the advantages of one shrinkage method over another? When should you choose one over the other?</p></li>
+    </ul>
+  </p>
+</subsection>
+
+<subsection xml:id="exam2-practice-dimensionality-reduction">
+  <title>Dimensionality Reduction and Feature Engineering</title>
+  <p>Required readings: Chapter Section 6.3 (9 pages)</p>
+  <p>
+    <ul>
+      <li><p>How do you create new variables as linear combinations of the original predictors?</p></li>
+      <li>
+        <p>Why do we need <em>Principal Component Analysis (PCA)</em>? What is its main purpose?</p>
+      </li>
+      <li>
+        <p>What is a principal component (PC)?
+        <ul>
+          <li><p>What does the first PC maximize? You should be able to explain this both geometrically in a plot and mathematically.</p></li>
+          <li><p>Similarly, what do the subsequent PCs maximize?</p></li>
+        </ul>
+        </p>
+      </li>
+      <li>
+        <p>How do you compute the PCs in Python, given a dataset?
+        <ul>
+          <li><p>How do you project data points onto each PC? You should also be able to plot the data points in PC space.</p></li>
+          <li><p>How do you determine how much variance each PC explains?</p></li>
+        </ul>
+        </p>
+      </li>
+      <li>
+        <p>Why would you want to use PCs in regression models?
+        <ul>
+          <li><p>What assumptions must hold for <em>principal component regression (PCR)</em> to be a good idea?</p></li>
+          <li><p>Conversely, what is a typical scenario in which using PCR would be a bad idea?</p></li>
+        </ul>
+        </p>
+      </li>
+      <li><p>How do you implement PCR in Python?</p></li>
+      <li><p>How do you interpret the model coefficients when using PCR?</p></li>
+      <li>
+        <p>How do you choose the number of PCs to use in PCR?
+        <ul>
+          <li><p>Given a figure of cross-validation score as a function of the number of PCs, you should be able to choose the appropriate number and justify your choice in terms of the bias-variance tradeoff.</p></li>
+          <li><p>You should be able to generate such figures in Python.</p></li>
+        </ul>
+        </p>
+      </li>
+      <li><p>What are the relationships and differences between PCR, feature selection, and the regularization methods you learned in this part of the course?</p></li>
+    </ul>
+  </p>
+</subsection>
+
+<subsection xml:id="exam2-practice-problems">
+  <title>Exam 2 practice problems</title>
+<exercise xml:id="problem-2">
+  <statement>
+    <p>
+      The figure below shows the solution to the constrained optimization problem
+      <md>
+        \min_{\boldsymbol{\beta}} \sum_{i=1}^{n}(y_i-\hat{y}_i)^2
+        \quad \text{subject to} \quad
+        \sum_{j=1}^{p}|\beta_j|\leq s,
+      </md>
+      where <m>s</m> corresponds to a particular value of the tuning parameter <m>\lambda</m>.
+    </p>
+    <p>
+      For each figure, write down the resulting model, including the constant term <m>\beta_0</m>.
+    </p>
+    <p>
+      Hint: Chapter 6.2.
+    </p>
+    <image source="figures/pictorial_optimization.png">
+      <shortdescription>Geometric illustration of the constrained optimization problem for LASSO regression.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="LASSO-problem">
+  <statement>
+    <p>
+      The <m>\ell_1</m> norm of the fitted coefficients using ordinary least squares multiple regression was found to be <m>150</m>. Use the table and figure provided to write down the expression for the model fit using LASSO regression.
+    </p>
+    <p>
+      Hint: Chapter 6.2.
+    </p>
+    <sidebyside widths="45% 50%">
+        <table>
+          <tabular>
+            <row>
+              <cell><m>\|\hat{\boldsymbol{\beta}}^{\mathrm{L}}\|_1</m></cell>
+              <cell><m>10</m>-fold CV testing error</cell>
+            </row>
+            <row><cell><m>0</m></cell><cell><m>243</m></cell></row>
+            <row><cell><m>15</m></cell><cell><m>237</m></cell></row>
+            <row><cell><m>30</m></cell><cell><m>233</m></cell></row>
+            <row><cell><m>45</m></cell><cell><m>202</m></cell></row>
+            <row><cell><m>60</m></cell><cell><m>224</m></cell></row>
+            <row><cell><m>75</m></cell><cell><m>333</m></cell></row>
+            <row><cell><m>90</m></cell><cell><m>500</m></cell></row>
+            <row><cell><m>105</m></cell><cell><m>735</m></cell></row>
+            <row><cell><m>120</m></cell><cell><m>1030</m></cell></row>
+            <row><cell><m>135</m></cell><cell><m>1454</m></cell></row>
+            <row><cell><m>150</m></cell><cell><m>1513</m></cell></row>
+          </tabular>
+        </table>
+        <image source="figures/LASSO_CV.png">
+          <shortdescription>Cross-validation error for LASSO regression as a function of the coefficient L1 norm.</shortdescription>
+        </image>
+    </sidebyside>
+  </statement>
+</exercise>
+
+<exercise xml:id="CV-problem">
+  <statement>
+    <p>
+      This dataset corresponds to an experiment with 30 data points measuring the resistance of rubber to abrasion, using hardness and tensile strength as predictors. Hardness was measured in degrees Shore (degree S), with higher values indicating harder rubber. Abrasion loss was measured in grams per hour (g/h). Assume the data are already randomized in the order shown in the table, and answer the following questions.
+    </p>
+    <p>
+      Source: Davies, O. L., and Goldsmith, P. L. (eds.) (1972), Statistical Methods in Research and Production, 4th edition, Edinburgh: Oliver and Boyd, p. 239.
+    </p>
+    <table>
+      <tabular>
+        <row>
+          <cell>Abrasion loss (g/h)</cell>
+          <cell>Hardness (degree S)</cell>
+          <cell>Tensile strength (kg/cm<sup>2</sup>)</cell>
+        </row>
+        <row><cell>372</cell><cell>45</cell><cell>162</cell></row>
+        <row><cell>206</cell><cell>55</cell><cell>233</cell></row>
+        <row><cell>175</cell><cell>61</cell><cell>232</cell></row>
+        <row><cell>154</cell><cell>66</cell><cell>231</cell></row>
+        <row><cell>136</cell><cell>71</cell><cell>231</cell></row>
+        <row><cell>112</cell><cell>71</cell><cell>237</cell></row>
+        <row><cell>55</cell><cell>81</cell><cell>224</cell></row>
+        <row><cell>45</cell><cell>86</cell><cell>219</cell></row>
+        <row><cell>221</cell><cell>53</cell><cell>203</cell></row>
+        <row><cell>166</cell><cell>60</cell><cell>189</cell></row>
+        <row><cell>164</cell><cell>64</cell><cell>210</cell></row>
+        <row><cell>113</cell><cell>68</cell><cell>210</cell></row>
+        <row><cell>82</cell><cell>79</cell><cell>196</cell></row>
+        <row><cell>32</cell><cell>81</cell><cell>180</cell></row>
+        <row><cell>228</cell><cell>56</cell><cell>200</cell></row>
+        <row><cell>196</cell><cell>68</cell><cell>173</cell></row>
+        <row><cell>128</cell><cell>75</cell><cell>188</cell></row>
+        <row><cell>97</cell><cell>83</cell><cell>161</cell></row>
+        <row><cell>64</cell><cell>88</cell><cell>119</cell></row>
+        <row><cell>249</cell><cell>59</cell><cell>161</cell></row>
+        <row><cell>219</cell><cell>71</cell><cell>151</cell></row>
+        <row><cell>186</cell><cell>80</cell><cell>165</cell></row>
+        <row><cell>155</cell><cell>82</cell><cell>151</cell></row>
+        <row><cell>114</cell><cell>89</cell><cell>128</cell></row>
+        <row><cell>341</cell><cell>51</cell><cell>161</cell></row>
+        <row><cell>340</cell><cell>59</cell><cell>146</cell></row>
+        <row><cell>283</cell><cell>65</cell><cell>148</cell></row>
+        <row><cell>267</cell><cell>74</cell><cell>144</cell></row>
+        <row><cell>215</cell><cell>81</cell><cell>134</cell></row>
+        <row><cell>148</cell><cell>86</cell><cell>127</cell></row>
+      </tabular>
+    </table>
+    <p>
+    <ol marker="(a)">
+      <li>
+        <p>
+          Show the full computations, including the equations used, for the mean squared error (MSE) of the first fold in 10-fold cross-validation.
+        </p>
+        <p>Hint: Chapters 5.1-5.3.</p>
+      </li>
+      <li>
+        <p>
+          Using only the first three rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using leave-one-out cross-validation (LOOCV).
+        </p>
+        <p>Hint: Chapters 5.1-5.3.</p>
+      </li>
+      <li>
+        <p>
+          Using only the first six rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using the validation-set approach. If you make any decisions about data selection, state them clearly.
+        </p>
+        <p>Hint: Chapters 5.1-5.3</p>
+      </li>
+    </ol>
+    </p>
+  </statement>
+</exercise>
+</subsection>
+    </section>

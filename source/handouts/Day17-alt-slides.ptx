@@ -139,7 +139,7 @@
 
                 <li>
                     <p>
-                        <m>\ell_2</m> norm: <m>\|\beta\|_2 = \sum \beta_j^2</m>
+                        <m>\ell_2</m> norm: <m>\|\beta\|_2 = (\sum \beta_j^2)^{\frac{1}{2}}</m>
                     </p>
                 </li>
 
@@ -557,34 +557,67 @@
 
 <paragraphs>
   <title>Ridge vs Lasso</title>
+  
+  <p>
+    <ul>
+        <li>
+            <p>
+                Both Ridge and Lasso are used with linear models to reduce model variance, thus reducing overfitting and improving accuracy for new, unseen data.
+            </p>
+        </li>
+        <li>
+            <p>
+                Adding the Ridge or Lasso penalty, i.e., adding constraints or regularization, allows solving problems where <m>n \lt p</m>. The problem is unsolvable if the only penalty term is the RSS.
+            </p>
+        </li>
+    </ul>
+    
+  </p>
 
-  <sidebyside widths="50% 50%">
-    <stack>
-      <p><term>Ridge Regression:</term></p>
-      <p>
-        <ul>
-          <li><p>Coefficients are shrunk towards 0, but are not forced to be exactly 0.</p></li>
-          <li><p>Tends to be better than lasso when many predictors have a significant effect on the output.</p></li>
-          <li><p>More robust to outliers.</p></li>
-        </ul>
-      </p>
-    </stack>
+  <table>
+  <title>Comparison of Ridge Regression and Lasso</title>
+  <tabular valign="top">
+    <row header="yes">
+      <cell>Ridge</cell>
+      <cell>Lasso</cell>
+    </row>
+    <row>
+      <cell>
+        Coefficients are shrunk towards 0, but are not forced to be exactly 0.
+      </cell>
+      <cell>
+        Coefficients are shrunk towards 0, and some are forced to be exactly 0.
+      </cell>
+    </row>
+    <row>
+      <cell>
+        Tends to be better than lasso when many predictors have a significant effect on the output.
+      </cell>
+      <cell>
+        Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.
+      </cell>
+    </row>
+    <row>
+      <cell>
+        More sensitive to outliers.
+        Squared penalty term <m>\|\beta\|_2^2=\sum_{j=1}^{p} \beta_j^2</m>. Outliers will affect the penalty quadratically. This sensitivity to outliers makes Ridge less robust.
+      </cell>
+      <cell>
+        More robust to outliers.
+        Penalty term is the absolute sum <m>\|\beta\|_1=\sum_{j=1}^{p} |\beta_j|</m>. Outliers will affect the penalty linearly. This makes Lasso less sensitive to outliers, and therefore more robust.
+      </cell>
+    </row>
+    <row>
+      <cell>
+        Is not a model selection tool.
+      </cell>
+      <cell>
+        Is also a model selection tool since it often yields sparse models. Can be considered as an alternative to subset selection methods.
+      </cell>
+    </row>
+  </tabular>
+</table>
 
-    <stack>
-      <p><term>Lasso:</term></p>
-      <p>
-        <ul>
-          <li><p>Coefficients are shrunk towards 0, and some are forced to be exactly 0.</p></li>
-          <li><p>Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.</p></li>
-          <li><p>More sensitive to outliers.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>TL;DR - Original formulation</title>
 
       <p><term>Least Squares:</term></p>
       <p>

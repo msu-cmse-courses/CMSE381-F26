@@ -54,7 +54,7 @@
     <p>
       The problems listed below are from
       <url href="https://www.statlearning.com/">the textbook</url>.
-      This homework is worth <alert>35 points</alert> in total.
+      This homework is worth <alert>31 points</alert> in total.
     </p>
 
     <p>
@@ -75,14 +75,14 @@
         </li>
         <li>
           <p>
-            <xref ref="hw04-P6-6-9"/>: 23 points
+            <xref ref="hw04-P6-6-9"/>: 19 points
             <ul>
               <li><p><xref ref="hw04-P6-6-9-a"/>: 2 points</p></li>
               <li><p><xref ref="hw04-P6-6-9-b"/>: 3 points</p></li>
               <li><p><xref ref="hw04-P6-6-9-c"/>: 4 points</p></li>
               <li><p><xref ref="hw04-P6-6-9-d"/>: 4 points</p></li>
               <li><p><xref ref="hw04-P6-6-9-e"/>: 4 points</p></li>
-              <li><p><xref ref="hw04-P6-6-9-f"/>: 4 points</p></li>
+              <!-- <li><p><xref ref="hw04-P6-6-9-f"/>: 4 points</p></li> -->
               <li><p><xref ref="hw04-P6-6-9-g"/>: 2 points</p></li>
             </ul>
           </p>
@@ -232,7 +232,7 @@ college_df.head()
         </statement>
       </task>
 
-      <task xml:id="hw04-P6-6-9-f">
+      <!-- <task xml:id="hw04-P6-6-9-f">
         <statement>
           <p>
             Fit a partial least squares (PLS) model, choosing the number of
@@ -240,7 +240,7 @@ college_df.head()
             Report its test error and the selected value of <m>M</m>.
           </p>
         </statement>
-      </task>
+      </task> -->
 
       <task xml:id="hw04-P6-6-9-g" workspace="1.5in">
         <statement>

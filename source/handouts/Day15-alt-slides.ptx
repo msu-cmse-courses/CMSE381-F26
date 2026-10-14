@@ -2255,10 +2255,10 @@
                 </p>
             </stack>
         </sidebyside>
-        <aside>
+        <note>
             <p>
                 Hybrid approaches can combine forward and backward selection.
             </p>
-        </aside>
+        </note>
     </paragraphs>
 </handout>

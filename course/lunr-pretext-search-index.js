@@ -1243,6 +1243,60 @@ var ptx_lunr_docs = [
   "body": "   We've been repeating over and over that lasso gives us coefficients that are actually 0. At least in my code, I'm not seeing many that are 0. What happened? Can I change something to get more 0 entries?    Compare the cross-validated with the larger values on the coefficient-path plot.    Cross-validation optimizes predictive error, not the number of selected variables; increase to impose more sparsity.     Common error: Forcing more coefficients to zero can make the model easier to interpret but may worsen predictive performance.     LassoCV selected a relatively small because it minimized estimated prediction error, so only a few coefficients were driven exactly to zero. Choosing a larger increases the penalty and produces more zeros, at the possible cost of higher validation\/test error.    "
 },
 {
+  "id": "cmse381-lec18-ch6-3-pca-worksheet",
+  "level": "1",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 18 Worksheet",
+  "body": " Day 18 Worksheet   # Everyone's favorite standard imports import numpy as np import pandas as pd import matplotlib.pyplot as plt %matplotlib inline import time import seaborn as sns # ML imports we've used previously from sklearn.model_selection import train_test_split from sklearn.metrics import mean_squared_error    1. PCA on Penguins   Palmer Penguins. Artwork by @allison_horst.   Palmer Penguins Picture    For this lab, we are going to again use the Palmer Penguins data set by Allison Horst, Alison Hill, and Kristen Gorman. You should have done this in a previous notebook, but if you don't have the package installed to get the data, you can run  pip install palmerpenguins  to have access to the data.  from palmerpenguins import load_penguins penguins = load_penguins() penguins = penguins.dropna() #Shuffle the data # penguins = penguins.sample(frac=1) penguins.head()  Before we get to the full version, let's just take a look at two of the columns: flipper length and bill length. A nice thing we can do is to also color the data by which species label the data point has.  sns.scatterplot(x = penguins.bill_length_mm, y = penguins.flipper_length_mm, hue = penguins.species)  Before we get to it, we're going to just work with the columns that are numeric.  penguins_num = penguins.select_dtypes(np.number) penguins_num.head()  We will also use mean centered data to make the visualization easier (meaning shifting our data to have mean 0 in every column, and have standard deviation 1).  p_normalized = (penguins_num - penguins_num.mean())\/penguins_num.std() p_normalized.head()    PCA with just two input columns  To try to draw pictures similar to what we just saw on the slides, we'll first focus on two of the columns.  penguins_subset2 = p_normalized[['bill_length_mm', 'flipper_length_mm']] penguins_subset2  We run PCA using the PCA command from scikitlearn .  from sklearn.decomposition import PCA  # Set up the PCA object pca = PCA(n_components=2) # Fit it using our data pca.fit(penguins_subset2.values)  pca_df = pca.fit_transform(penguins_subset2.values) plt.scatter(pca_df[:,0], pca_df[:,1])  The pca.components_ store information about the lines we are going to project our data onto. Specifically, each row gives us one of these lines.  pca.components_  sns.scatterplot(data = penguins_subset2, x = 'bill_length_mm', y = 'flipper_length_mm', hue = penguins.species) for i, comp in enumerate(pca.components_): slope = comp[1]\/comp[0] plt.plot(np.array([-2,2]), slope*np.array([-2,2])) plt.axis('square')  A common way to look at the relative importance of the PC's is to draw these components as vectors with length based on the explained variance.  pca.explained_variance_  sns.scatterplot(data = penguins_subset2, x = 'bill_length_mm', y = 'flipper_length_mm', hue = penguins.species) for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)): slope = comp[1]\/comp[0] plt.plot(np.array([-2,2]), slope*np.array([-2,2])) comp = comp * var # scale component by its variance explanation power plt.plot( [0, comp[0]], [0, comp[1]], label=f\"Component {i}\", linewidth=5, color=f\"C{i + 2}\", ) plt.axis('square')  The next important part are the PC's, which we can get from the pca object as follows. I'm going to put them in a dataframe to make drawing and visualization easier. Basically, is our in the slides, and is the .  # The transform function takes in bill,flipper data points, # and returns a PC1,PC2 coordinate for each one. penguins_pca = pca.fit_transform(penguins_subset2) penguins_pca = pd.DataFrame(data = penguins_pca, columns = ['PC1', 'PC2']) penguins_pca.shape  penguins.species  This is the scatterplot of the data points transformed into the PC space.  sns.scatterplot(data = penguins_pca, x = 'PC1', y = 'PC2',hue = penguins.species)  The PC's can be thought of as how far along their associated line the point would be projected. Here's one way to draw all the projections.  sns.scatterplot(data = penguins_subset2, x = 'bill_length_mm', y = 'flipper_length_mm', hue = penguins.species) # Show points projected onto the 1st PC line X1 = penguins_pca.PC1*pca.components_[0,0] Y1 = penguins_pca.PC1*pca.components_[0,1] plt.scatter(X1,Y1, marker = '+', color = 'violet') # Show points projected onto the 2st PC line X2 = penguins_pca.PC2*pca.components_[1,0] Y2 = penguins_pca.PC2*pca.components_[1,1] plt.scatter(X2,Y2, marker = 'o', color = 'pink') plt.axis('square')  sns.scatterplot(data = penguins_subset2, x = 'bill_length_mm', y = 'flipper_length_mm', hue = penguins.species) plt.axis('square') for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)): slope = comp[1]\/comp[0] plt.plot(np.array([-2,2]), slope*np.array([-2,2])) #=========== # Emphasize one point and its projections #=========== index = 300 #<---------- play with this! # Here's one data point plt.scatter([penguins_subset2.iloc[index,0]], [penguins_subset2.iloc[index,1]], marker = 'D', color = 'black', s = 100, label = 'Data pt') # Here's the projection of that point on PC1 (X shape) plt.scatter([X1[index]], [Y1[index]], marker = 'X', color = 'purple', s = 100, label = 'Project: PC1') # And here's the projection of that point on PC2 (star) plt.scatter([X2[index]], [Y2[index]], marker = '*', color = 'purple', s = 100, label = 'Project: PC2') plt.legend()   Exercises   Practice   Complete the following exercises.      What are the PC coordinates for the first data point (index 0)? Which quadrant would this point be drawn in?    Read row 0 of the transformed penguins_pca DataFrame and use PC1 as the horizontal coordinate and PC2 as the vertical coordinate.    Determine the quadrant from the signs: left\/right comes from PC1 and down\/up from PC2.    Common error: Both coordinates in the stored output are negative, so the point is below—not above—the horizontal axis.    The first point has coordinates approximately . Since both coordinates are negative, it lies in quadrant III (lower left).        Below is code that emphasizes the projected points.  the value of index below is just picking out a different point in our data set. Mess around with this number. How do the X and star points move around as you change index ?    For each selected observation, the black diamond is the original point; the X and star are its separate projections onto the PC1 and PC2 axes.    Change index and check that each projection stays on its corresponding principal-component line while its distance and sign change.    Common error: The X and star are not two new observations; they are two vector components of the same selected observation.    Changing index selects a different original point, so both projection markers move. The X remains on the PC1 direction and the star remains on the perpendicular PC2 direction; their signed distances from the origin are that observation's PC1 and PC2 scores. Together the two projections reconstruct the centered point in this two-variable example.        Everything we just did is great for understanding what the PCA is doing, but in reality, we're usually going to be looking at the data in the transformed space.  Make a scatter plot of PC1 and PC2. Color the points by penguins.species . What do you notice about how the points have moved from the ( bill , flipper ) scatter plot?   sns.scatterplot( data=penguins_pca, x='PC1', y='PC2', hue=penguins.species )     Use the transformed score DataFrame for the coordinates but retain penguins.species for color labels.    PCA rotates (and possibly reflects) the coordinate system; compare orientation and separation rather than expecting the original axes to remain recognizable.    Common error: The sign of a principal component is arbitrary: flipping an entire PC axis does not change the PCA solution or distances between observations.     # Instead plot in PC1, PC2 plane sns.scatterplot(data = penguins_pca, x = 'PC1', y = 'PC2', hue = penguins.species) # The points appear to have been flipped since the second PC is # pointing down, so now the green points are on top.          Penguins PCA with all columns  We used only two columns above for visualization, but we can instead use all the input columns to run our PCA.  penguins_num.head()  pca = PCA(n_components=4) penguins_pca_all = pca.fit_transform(penguins_num) penguins_pca_all = pd.DataFrame(data = penguins_pca_all, columns = ['PC1', 'PC2', 'PC3', 'PC4']) penguins_pca_all    Exercises   Practice   Complete the following exercises.      Make a scatter plot of PC1 and PC2 using this new model, and again color the points by penguins.species . What do you notice about how the PC plot has changed from the previous setting?   sns.scatterplot( data=penguins_pca_all, x='PC1', y='PC2', hue=penguins.species )     Use the scores produced by the PCA fit with the expanded set of variables, not the earlier two-variable scores.    Compare class overlap, cluster orientation, and relative spacing with the previous PC1–PC2 plot.    Common error: PC1 and PC2 from two different PCA fits are not the same variables; PCA recomputes its directions whenever the input feature set or scaling changes.     sns.scatterplot(data = penguins_pca_all, x = 'PC1', y = 'PC2', hue = penguins.species) # More overlap, the projection has changed.          Congratulations, we're done!     "
+},
+{
+  "id": "cmse381-lec18-ch6-3-pca-worksheet-ptx-1-pca-on-penguins-2",
+  "level": "2",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html#cmse381-lec18-ch6-3-pca-worksheet-ptx-1-pca-on-penguins-2",
+  "type": "Figure",
+  "number": "15",
+  "title": "",
+  "body": " Palmer Penguins. Artwork by @allison_horst.   Palmer Penguins Picture   "
+},
+{
+  "id": "cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-3",
+  "level": "2",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html#cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   What are the PC coordinates for the first data point (index 0)? Which quadrant would this point be drawn in?    Read row 0 of the transformed penguins_pca DataFrame and use PC1 as the horizontal coordinate and PC2 as the vertical coordinate.    Determine the quadrant from the signs: left\/right comes from PC1 and down\/up from PC2.    Common error: Both coordinates in the stored output are negative, so the point is below—not above—the horizontal axis.    The first point has coordinates approximately . Since both coordinates are negative, it lies in quadrant III (lower left).    "
+},
+{
+  "id": "cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-4",
+  "level": "2",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html#cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-4",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": "   Below is code that emphasizes the projected points.  the value of index below is just picking out a different point in our data set. Mess around with this number. How do the X and star points move around as you change index ?    For each selected observation, the black diamond is the original point; the X and star are its separate projections onto the PC1 and PC2 axes.    Change index and check that each projection stays on its corresponding principal-component line while its distance and sign change.    Common error: The X and star are not two new observations; they are two vector components of the same selected observation.    Changing index selects a different original point, so both projection markers move. The X remains on the PC1 direction and the star remains on the perpendicular PC2 direction; their signed distances from the origin are that observation's PC1 and PC2 scores. Together the two projections reconstruct the centered point in this two-variable example.    "
+},
+{
+  "id": "cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-5",
+  "level": "2",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html#cmse381-lec18-ch6-3-pca-worksheet-pca-with-just-two-input-columns-22-2-5",
+  "type": "Exercise",
+  "number": "3",
+  "title": "",
+  "body": "   Everything we just did is great for understanding what the PCA is doing, but in reality, we're usually going to be looking at the data in the transformed space.  Make a scatter plot of PC1 and PC2. Color the points by penguins.species . What do you notice about how the points have moved from the ( bill , flipper ) scatter plot?   sns.scatterplot( data=penguins_pca, x='PC1', y='PC2', hue=penguins.species )     Use the transformed score DataFrame for the coordinates but retain penguins.species for color labels.    PCA rotates (and possibly reflects) the coordinate system; compare orientation and separation rather than expecting the original axes to remain recognizable.    Common error: The sign of a principal component is arbitrary: flipping an entire PC axis does not change the PCA solution or distances between observations.     # Instead plot in PC1, PC2 plane sns.scatterplot(data = penguins_pca, x = 'PC1', y = 'PC2', hue = penguins.species) # The points appear to have been flipped since the second PC is # pointing down, so now the green points are on top.     "
+},
+{
+  "id": "cmse381-lec19-ch6-3-pca-worksheet-penguins-pca-with-all-columns-5-2-3",
+  "level": "2",
+  "url": "cmse381-lec18-ch6-3-pca-worksheet.html#cmse381-lec19-ch6-3-pca-worksheet-penguins-pca-with-all-columns-5-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   Make a scatter plot of PC1 and PC2 using this new model, and again color the points by penguins.species . What do you notice about how the PC plot has changed from the previous setting?   sns.scatterplot( data=penguins_pca_all, x='PC1', y='PC2', hue=penguins.species )     Use the scores produced by the PCA fit with the expanded set of variables, not the earlier two-variable scores.    Compare class overlap, cluster orientation, and relative spacing with the previous PC1–PC2 plot.    Common error: PC1 and PC2 from two different PCA fits are not the same variables; PCA recomputes its directions whenever the input feature set or scaling changes.     sns.scatterplot(data = penguins_pca_all, x = 'PC1', y = 'PC2', hue = penguins.species) # More overlap, the projection has changed.     "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
@@ -1256,7 +1310,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-1",
   "type": "List",
-  "number": "15",
+  "number": "16",
   "title": "Statistical Learning",
   "body": " Statistical Learning   Subfield of statistics   Emphasizes models and their interpretability, precision, and uncertainty    "
 },
@@ -1265,7 +1319,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-3-2-2",
   "type": "List",
-  "number": "16",
+  "number": "17",
   "title": "Machine Learning",
   "body": " Machine Learning    Has a greater emphasis on large scale applications and prediction accuracy.    "
 },
@@ -1274,7 +1328,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-01-lecture-6",
   "type": "Example",
-  "number": "17",
+  "number": "18",
   "title": "Spam versus non-spam email.",
   "body": " Spam versus non-spam email    table of distribution of strings in samples of spam versus non-spam emails   Classify incoming emails as spam versus non-spam based on the average percentage of certain words or characters.    One choice is to select the words and characters showing the largest difference between spam and email. For example, one classifier can be if (%george ;leq 0.6) & (%you > 1.5) then spam. Another option is if (0.2.%you - 0.3.%george > 0) then spam.   "
 },
@@ -1283,7 +1337,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#genAI-discussion",
   "type": "Checkpoint",
-  "number": "18",
+  "number": "19",
   "title": "Generative AI discussion.",
   "body": " Generative AI discussion  Generative artificial intelligence (AI) is artificial intelligence capable of generating text, images, or other media, using generative models. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics.    Get in a group of about 4.      In your group, brainstorm cases where someone might use generative AI in the context of our class.      Once you have added a few, start adding arguments for or against whether we should allow the use of that context in class.    "
 },
@@ -1301,7 +1355,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-5-1",
   "type": "Figure",
-  "number": "19",
+  "number": "20",
   "title": "",
   "body": " Sales of a product in 200 markets, along with amount spent on three different types of advertising   screenshot of the advertising data set   "
 },
@@ -1310,7 +1364,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex1",
   "type": "Checkpoint",
-  "number": "20",
+  "number": "21",
   "title": "Input Variables.",
   "body": " Input Variables   List the input variables.      TV      Radio      Newspaper      Sales      Those are used to predict the output.   "
 },
@@ -1319,7 +1373,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-ad-data-ex2",
   "type": "Checkpoint",
-  "number": "21",
+  "number": "22",
   "title": "Output Variables.",
   "body": " Output Variables   List the output variables.      TV      Radio      Newspaper      Sales      Those are what we measure or estimate.   "
 },
@@ -1328,7 +1382,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW1",
   "type": "Checkpoint",
-  "number": "22",
+  "number": "23",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1337,7 +1391,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW2",
   "type": "Checkpoint",
-  "number": "23",
+  "number": "24",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1346,7 +1400,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW3",
   "type": "Checkpoint",
-  "number": "24",
+  "number": "25",
   "title": "",
   "body": "  What is ?         "
 },
@@ -1373,7 +1427,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW4",
   "type": "Checkpoint",
-  "number": "25",
+  "number": "26",
   "title": "",
   "body": "  Predict effectiveness of vaccine      Prediction      Inference     "
 },
@@ -1382,7 +1436,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW5",
   "type": "Checkpoint",
-  "number": "26",
+  "number": "27",
   "title": "",
   "body": "  Determine the address written on the image of an envelope.      Prediction      Inference     "
 },
@@ -1391,7 +1445,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW6",
   "type": "Checkpoint",
-  "number": "27",
+  "number": "28",
   "title": "",
   "body": "  Identify risk factors for getting long covid.      Prediction      Inference     "
 },
@@ -1400,7 +1454,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW7",
   "type": "Checkpoint",
-  "number": "28",
+  "number": "29",
   "title": "",
   "body": "  Transcribe an audio file of a person talking.      Prediction      Inference     "
 },
@@ -1409,7 +1463,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day02-GW8",
   "type": "Checkpoint",
-  "number": "29",
+  "number": "30",
   "title": "",
   "body": "  Predict stock prices.      Prediction      Inference     "
 },
@@ -1418,7 +1472,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-02-lecture-30",
   "type": "Table",
-  "number": "30",
+  "number": "31",
   "title": "Parametric methods: Pros and Cons",
   "body": " Parametric methods: Pros and Cons    Pros  Cons    Easier to estimate parameters than to figure out a completely arbitrary function  You might have chosen the wrong function type    "
 },
@@ -1490,7 +1544,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-stat-review-5-9",
   "type": "Example",
-  "number": "31",
+  "number": "32",
   "title": "Portland cement formulation experiment.",
   "body": " Portland cement formulation experiment   Tension bond strength data is given fo the Portland cement formulation experiment are given below. (Source: Design and Analysis of Experiments, D.C. Montgomery, 8th edition.)  Formulate the null hypothesis that the two formulations yield the same tension bond strength. Then, compute the corresponding -statistic.  Choosing , we would reject if , or if . Do we reject in this case? What is the corresponding conclusion?   Tension strength for modified and unmodified mortar samples.     Modified mortar  Unmodified mortar    1  16.85  16.62    2  16.40  16.75    3  17.21  17.37    4  16.35  17.12    5  16.52  16.98    6  17.04  16.87    7  16.96  17.34    8  17.15  17.02    9  16.59  17.08    10  16.57  17.27      mean, variance, standard deviation, and number of samples for the modified and unmodified mortar.    Modified mortar  Unmodified mortar                            The test hypotheses are     so . The test statistic is   Because , reject and conclude that the mean tension bond strengths of the two formulations are different.    Rejection region for the Portland Mortar data set.   Portland mortar example, rejection region.    "
 },
@@ -1508,7 +1562,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-stat-review-6-4",
   "type": "Table",
-  "number": "35",
+  "number": "36",
   "title": "",
   "body": "   -value  Evidence     Very strong evidence against     Strong evidence against     Weak evidence against     Little or no evidence against    "
 },
@@ -1517,7 +1571,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#p-value-reject",
   "type": "Figure",
-  "number": "36",
+  "number": "37",
   "title": "",
   "body": "  Rejection criteria using a set p-value shown as a horizontal function with two levels: accept and reject with the transition occurring at the p value.   "
 },
@@ -1526,7 +1580,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#confidence-interval-interpretation",
   "type": "Figure",
-  "number": "37",
+  "number": "38",
   "title": "",
   "body": "  Eleven realizations of the confidence interval on separate lines and one vertical line showing the true mean mu.   Interpretation of the confidence interval.  "
 },
@@ -1535,7 +1589,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-2-2-2-2-1-1",
   "type": "Note",
-  "number": "38",
+  "number": "39",
   "title": "",
   "body": " (underestimation)  "
 },
@@ -1544,7 +1598,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-1",
   "type": "Figure",
-  "number": "39",
+  "number": "40",
   "title": "",
   "body": "  Scatter plot of simulated data with linear relationship plus noise with overalid true line relationship and least squares linear fit.   "
 },
@@ -1553,7 +1607,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-3-2-2",
   "type": "Figure",
-  "number": "40",
+  "number": "41",
   "title": "",
   "body": "  10 linear fits for the same data with 10 different noise realizations.   "
 },
@@ -1562,7 +1616,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-4-3",
   "type": "Note",
-  "number": "41",
+  "number": "42",
   "title": "Standard error versus standard variation.",
   "body": " Standard error versus standard variation  Standard deviation measures the amount of spread in a sample from the mean.  Standard error measures the statistical accuracy of a sample statistic (like a mean), i.e., (how much it deviates from the true population mean).  "
 },
@@ -1571,7 +1625,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-2-1-4",
   "type": "Note",
-  "number": "42",
+  "number": "43",
   "title": "",
   "body": " The same form works for .  "
 },
@@ -1589,7 +1643,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-6-3",
   "type": "Example",
-  "number": "43",
+  "number": "44",
   "title": "CI in Advertising Data.",
   "body": " CI in Advertising Data     scatter plot with linear fit and residuals     For the advertising data set, the confidence intervals are:         First line through and .    Second line through and .             "
 },
@@ -1598,7 +1652,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-3",
   "type": "Note",
-  "number": "45",
+  "number": "46",
   "title": "",
   "body": " A small -value indicates that it is unlikely to observe such a substantial association between the predictor and response by chance, in the absence of a real association between them.  "
 },
@@ -1607,7 +1661,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-8-4",
   "type": "Example",
-  "number": "46",
+  "number": "47",
   "title": "Advertising example.",
   "body": " Advertising example     linear fit table for the sales versus TV advertising in 1000 dollars data.      scatter plot with linear fit and residuals     "
 },
@@ -1616,7 +1670,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-3",
   "type": "Example",
-  "number": "49",
+  "number": "50",
   "title": "\n<div class=\"para\" id=\"sec-Assessing-linReg-coefficients-estimates-10-3-1-1\">Advertising example<div class=\"autopermalink\" aria-hidden=\"true\" data-description=\"Paragraph\"><a tabindex=\"-1\" href=\"#sec-Assessing-linReg-coefficients-estimates-10-3-1-1\" title=\"Copy heading and permalink for Paragraph\" aria-label=\"Copy heading and permalink for Paragraph\">🔗<\/a><\/div><\/div>.",
   "body": "  Advertising example      Sales versus TV advertising scatter plot with linear fit line.         Sales versus radio advertising scatter plot with linear fit line.         Sales versus newspaper advertising scatter plot with linear fit line.        "
 },
@@ -1625,7 +1679,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#sec-Assessing-linReg-coefficients-estimates-10-4",
   "type": "Checkpoint",
-  "number": "50",
+  "number": "51",
   "title": "TSS and RSS.",
   "body": " TSS and RSS   For the shown data, answer the following questions     Sketch the deviation from the mean for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       Sketch the residual for each data point.   Five data points roughly following a linear trend overlaid with their mean line a linear regression line.       If the data points are given by . Find the lengths of the bars you sketched in .      Use the answer to to find the TSS.      Assume that the linear regression line is given by and using the data points given in , find the lengths of bars you sketched in .      Use the answer to to find the RSS.    "
 },
@@ -1643,7 +1697,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#interpretation-3",
   "type": "Checkpoint",
-  "number": "51",
+  "number": "52",
   "title": "",
   "body": "  Consider the variable own which represents home ownership ( Yes or No ).     Create a new variable with values 0 and 1 to represent own .           Write down the resulting piecewise model for .           What is the interpretation of , , and ?     can be interpreted as the average credit card balance among those who do not own a house.     can be interpreted as the average credit card balance among those who do own their house     can be interpreted as the average difference in credit card balance between owners and non-owners.    "
 },
@@ -1652,7 +1706,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#zero-one-3",
   "type": "Note",
-  "number": "52",
+  "number": "53",
   "title": "",
   "body": " Note that the predictions will be the same, and they are not influenced by the choice of the coding.  "
 },
@@ -1661,7 +1715,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#zero-one-4",
   "type": "Checkpoint",
-  "number": "53",
+  "number": "54",
   "title": "",
   "body": "  Let's consider the variable own which represents home ownership ( Yes or No ) but with -1\/1 coding.     Write using the coding -1\/1.           Use this variable to write the piecewise form of the equation .           What is the interpretation of and under this new coding?     can be interpreted as the overall average credit card balance (ignoring the house ownership effect).     can be interpreted as the amount by which house owners and non-owners have credit card balances that are above and below the average, respectively.      If the average credit card balance for home owners is $529.53, and that of non-owners is $509.80, what is the estimate for under this coding?    Recall that in this case is the average credit card balance (ignoring the house ownership effect).     is the average of the two means.      What is the estimate for ?    Recall the interpretation of under this coding.    The average difference between owners and non-owners is $19.73. Use the interpretation of and this average to compute .     .    "
 },
@@ -1679,7 +1733,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#tab-day08-region",
   "type": "Table",
-  "number": "54",
+  "number": "55",
   "title": "Region",
   "body": " Region         South  1  0    West  0  1    East  0  0    "
 },
@@ -1697,7 +1751,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#more-than-two-levels-4",
   "type": "Checkpoint",
-  "number": "56",
+  "number": "57",
   "title": "",
   "body": "   What is the interpretation for ?     can be interpreted as the average credit card balance for individuals from the East.      What is the interpretation for ?     can be interpreted as the difference in the average balance between people from the South versus the East.      What is the interpretation for ?     can be interpreted as the difference in the average balance between those from the West versus the East.    "
 },
@@ -1706,7 +1760,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#more-on-multiple-levels-3",
   "type": "Checkpoint",
-  "number": "57",
+  "number": "58",
   "title": "",
   "body": "  Assume we are trying to build a regression model to predict the price of a Pokemon card based on its grading ( Grading ). The card grading levels are Near Mint ( NM ), Lightly Played ( LP ), Heavily Played ( HP ), and Damaged ( DMG ). Answer the following questions.     How many dummy variables will we need to encode Grading ?    Since we have 4 levels, we will need 3 variables (one less than the number of levels).      Create a table similar to using the ordering from top to bottom: NM , LP , HP , DMG .            NM  1  0  0    LP  0  1  0    HP  0  0  1    DMG  0  0  0        Choosing DMG as the reference variable and using 0\/1 one-hot encoding, write the expressions for all the dummy variables for the th card.           Write the piecewise form for predicting the price of the th card            Write down the interpretation for each coefficient in your model, .        Average price for DMG cards.     Difference in the average price between NM and DMG cards.     Difference in the average price between LP and DMG cards.     Difference in the average price between HP and DMG cards.         Using the following table, write down the values for each of the coefficients in your regression model.   Average card values versus grading    Near Mint (NM)  $12.35    Lightly Played (LP)  $8.87    Heavily Played (HP)  6.72    Damaged (DMG)  $4.17            "
 },
@@ -1733,7 +1787,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#hierarchy-principle-models",
   "type": "Checkpoint",
-  "number": "59",
+  "number": "60",
   "title": "Hierarchy Principle.",
   "body": " Hierarchy Principle   Which of the following regression models satisfy the hierarchy principle? Select all that apply.                                                      "
 },
@@ -1742,7 +1796,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-08-lecture-8-4",
   "type": "Note",
-  "number": "60",
+  "number": "61",
   "title": "Hierarchy principle for nonlinear interaction terms.",
   "body": " Hierarchy principle for nonlinear interaction terms  The hierarchy principle allows including an interaction term that includes polynomial powers only if all the lower order components including the linear interactions are included. For example, if we want to include , then we must also include and .  "
 },
@@ -1751,7 +1805,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#hierarchy-principle-nonlinear-models",
   "type": "Checkpoint",
-  "number": "61",
+  "number": "62",
   "title": "Hierarchy Principle with Nonlinear relationships.",
   "body": " Hierarchy Principle with Nonlinear relationships   Which of the following regression models satisfy the hierarchy principle? Select all that apply.                          "
 },
@@ -1769,7 +1823,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-7-3",
   "type": "Example",
-  "number": "62",
+  "number": "63",
   "title": "",
   "body": "  We conduct three experiments to classify 5 data points as members of A, B, or C.   Repeated classification experiments    Experiment  Query point  True class  Predicted class    1  Q1  A  A    1  Q2  B  B    1  Q3  C  B    1  Q4  A  A    1  Q5  C  C    2  Q1  A  A    2  Q2  B  C    2  Q3  C  C    2  Q4  B  B    2  Q5  A  C    3  Q1  C  C    3  Q2  A  A    3  Q3  B  B    3  Q4  C  C    3  Q5  A  A        Fill out the following table which calculates the classification test error rate for each experiment.    Experiment  Correct Predictions  Misclassifications  Test error rate    1       2       3           Experiment  Correct Predictions  Misclassifications  Test error rate    1  4  1  20%    2  3  2  40%    3  5  0  0        What is the average test error rate across all the experiments?         "
 },
@@ -1787,7 +1841,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-10-2-1",
   "type": "Figure",
-  "number": "64",
+  "number": "65",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1805,7 +1859,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-11-2-2",
   "type": "Figure",
-  "number": "65",
+  "number": "66",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1814,7 +1868,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-12-2-2",
   "type": "Figure",
-  "number": "66",
+  "number": "67",
   "title": "",
   "body": "  Data points belonging to two classes (yellow circles versus blue circles) plotted versus predictors X1 and X2. Bayes decision boundary is also shown.   Bayes decision boundary.  "
 },
@@ -1823,7 +1877,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-14-2-1",
   "type": "Figure",
-  "number": "67",
+  "number": "68",
   "title": "",
   "body": "  A plot of two classes (yellow circles and blue circles) in the plane. A test point is marked with X, and its three nearest neighbors (K=3) are enclosed in a green disk.   .  "
 },
@@ -1832,7 +1886,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-14-2-3",
   "type": "Figure",
-  "number": "68",
+  "number": "69",
   "title": "",
   "body": "  A plot of two classes (yellow circles and blue circles) in the plane, and the KNN decision boundary.   Black line: KNN decision boundary. Note this is not Bayes like the examples we will soon see below!  "
 },
@@ -1841,7 +1895,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-15",
   "type": "Example",
-  "number": "69",
+  "number": "70",
   "title": "",
   "body": "  Here label is shown by O vs X. What are the KNN predictions for points A, B and C for or ?     A 2D plot of two classes (blue circles and yellow xs). Three test points are labeled as A, B, and C.      KNN predictions         Point  Prediction  Prediction    A      B      C           Solution to the KNN example showing the predictions using K=1.      Solution to the KNN example showing the predictions using K=3.      KNN predictions         Point  Prediction  Prediction    A  O  O    B  X  X    C  O  X      "
 },
@@ -1850,7 +1904,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-16",
   "type": "Checkpoint",
-  "number": "72",
+  "number": "73",
   "title": "",
   "body": "  The image shows some labeled data with three query points (gray stars) labeled A, B, and C.   Two-dimensional plot of 3 different classes (squares, triangles, and circles). Three query points (stars labelled A, B, and C) are also shown.      Use to classify A, B, and C.    Query point  Labels for -nearest neighbor(s)  Query point's label    A      B      C          Use to classify A, B, and C.    Query point  Labels for -nearest neighbor(s)  Query point's label    A      B      C        "
 },
@@ -1859,7 +1913,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-17",
   "type": "Checkpoint",
-  "number": "73",
+  "number": "74",
   "title": "",
   "body": "  A group of observations and the pairwise distances between them are reported in the following tables.   KNN classification data    Point  Class      P1  A  1  1    P2  A  2  2    P3  A  1  3    P4  A  3  1    P5  B  7  7    P6  B  8  6    P7  B  9  8    P8  B  7  9    P9  C  4  6    P10  C  5  5    P11  C  3  7    P12  C  4  8      Pairwise distances between observations    P  P1  P2  P3  P4  P5  P6  P7  P8  P9  P10     P1  0  1.41  2.00  2.00  8.49  8.60  10.63  10.00  5.83  5.66     P2  1.41  0  1.41  1.41  7.07  7.21  9.22  8.60  4.47  4.24     P3  2.00  1.41  0  2.83  7.21  7.62  9.43  8.49  4.24  4.47     P4  2.00  1.41  2.83  0  7.21  7.07  9.22  8.94  5.10  4.47     P5  8.49  7.07  7.21  7.21  0  1.41  2.24  2.00  3.16  2.83     P6  8.60  7.21  7.62  7.07  1.41  0  2.24  3.16  4.00  3.16     P7  10.63  9.22  9.43  9.22  2.24  2.24  0  2.24  5.39  5.00     P8  10.00  8.60  8.49  8.94  2.00  3.16  2.24  0  4.24  4.47     P9  5.83  4.47  4.24  5.10  3.16  4.00  5.39  4.24  0  1.41     P10  5.66  4.24  4.47  4.47  2.83  3.16  5.00  4.47  1.41  0      Suppose we have two data points and we are trying to classify.    Point  Class       ?  3  7     ?  4  8    With the following pairwise distances to the training set     P1  P2  P3  P4  P5  P6  P7  P8  P9  P10     Q1  6.32  5.10  4.47  6.00  4.00  5.10  6.08  4.47  1.41  2.83    Q2  7.62  6.32  5.83  7.07  3.12  4.47  5.00  3.14  2.00  3.16       What is the classification for using ?     : C      What is the classification for using ?     : C      What is the classification for using ?     : C      What is the classification for using ?     : B    "
 },
@@ -1868,7 +1922,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-09-lecture-19-2-1",
   "type": "Figure",
-  "number": "76",
+  "number": "77",
   "title": "",
   "body": "  Training error rate (plotted in solid blue) and Test error rate (plotted in solid orange) versus 1\/K.   "
 },
@@ -1886,7 +1940,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-7-3",
   "type": "Note",
-  "number": "77",
+  "number": "78",
   "title": "",
   "body": " Ordering implies something about closeness, i.e., there has to be a monotonic relation between categories.  "
 },
@@ -1895,7 +1949,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-10-4",
   "type": "Figure",
-  "number": "78",
+  "number": "79",
   "title": "",
   "body": " Graph of . and shift the curve left, right and change gain   "
 },
@@ -1904,7 +1958,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-12",
   "type": "Example",
-  "number": "79",
+  "number": "80",
   "title": "",
   "body": "  What will the drawn logistic regression classifier predict for each of the following values of Balance . Choose the decision boundary to be .     Probability of default versus balance. A sigmoid function is also shown on the same plot.       Balance  Prediction   0  500  1000  1500  2000  2500         Balance  Prediction   0 No  500 No  1000 No  1500 No  2000 Yes  2500 Yes    "
 },
@@ -1913,7 +1967,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-13-5",
   "type": "Example",
-  "number": "80",
+  "number": "81",
   "title": "",
   "body": "  If the probability of default is 90%, what are the odds?             "
 },
@@ -1922,7 +1976,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-13-6",
   "type": "Example",
-  "number": "81",
+  "number": "82",
   "title": "",
   "body": "  If the odds are , what is the probability of default?                       "
 },
@@ -1931,7 +1985,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam1-material.html#day-10-lecture-14-3",
   "type": "Checkpoint",
-  "number": "82",
+  "number": "83",
   "title": "Using coefficients to make predictions.",
   "body": " Using coefficients to make predictions    Coefficients, standard error, z-statistic, and p-values for a logistic regression model with balance as a predictor for defaulting on credit card balance.      What is the estimated probability of default for someone with a balance of $1,000?     (below 1%)      What is the estimated probability of default for someone with a balance of $2,000?         "
 },
@@ -1942,7 +1996,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "",
   "title": "Exam 2 Material",
-  "body": " Exam 2 Material       Day 12      Day 13      Day 14      Day 15      Day 16      Day 17        Day 12       Day 13   Ch 5.1.3: K-fold cross-validation    Covered in this class    K-fold cross-validation      The idea   Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.       in this example    Randomly sort, split up into subsets    If , then we get LOOCV       Mathy version     Randomly split data into -groups (folds)    Approximately equal sized. For the sake of notation, say each set has points    Remove th fold and reserve for testing.    Train the model on remaining points    Calculate     Rinse and repeat     Return     By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF        Pros and Cons    Pros:    Cheaper computation with or instead of       Cons:    Unlike LOOCV, there is randomness, but it has lower variability than validation        Comparison     Validation Set    Diagram showing the first validation set split.    Diagram showing the second validation set split.    Diagram showing the third validation set split.    Diagram showing the fourth validation set split.    Diagram showing the fifth validation set split.    Figure labeled validation set for comparison.      LOOCV    Diagram showing the first leave-one-out cross-validation split.    Diagram showing the second leave-one-out cross-validation split.    Diagram showing the third leave-one-out cross-validation split.   ⋮   Diagram showing the final leave-one-out cross-validation split.    Figure using the auto data example to show a fixed result with no randomness across repeated runs.      K-fold CV    Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.    Second figure from the auto data example.       Comparison with simulated data: Ex 3    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing very similar results.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.    Nearly the same        Comparison with simulated data: Ex 1    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing that the cross-validation estimates underestimate the true test MSE.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.     Underestimates the true test MSE         Comparison with simulated data: Ex 2    Plot of simulated close-to-linear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing close agreement at low flexibility and overestimation at higher flexibility.   Close for lower flexibility, then overestimates at higher ranges.     Takeaways from the examples     In all plots, LOOCV and 10-fold CV are similar.    Sometimes we only care about the minimum point in the test MSE because we want to get the right degree of freedom for a model. All examples have approximately the same x-coordinate for that.        Day 14   Ch 5.1.4: CV bias-variance trade-off     Covered in this class    Bias-variance tradeoff      Bias-Variance Tradeoff: Bias     We are discussing bias in the estimation of test error rate.    Validation set: High bias. It overestimates test error because it uses a small subset of the data.   Learning curve monotonically decreasing and a point with training sample less than the total number of sample points     LOOCV: Gives an approximately unbiased estimate because it uses almost all the data each time ( observations) for training.   Learning curve monotonically decreasing and a point with training sample equals to almost the total number of samples.      -fold CV: has a medium level of bias because each training set has approximately observations.   Learning curve monotonically decreasing and a point with training sample equals to a large portion of the total number of samples.       Bias-Variance Tradeoff: Variance     We are discussing variance in the estimation of test error rate.      Validation set has high variance:   The estimate of test error is highly dependent on the particular split of the data.       LOOCV has high variance:   It averages the outputs of fitted models, each trained on almost identical observations.    The fitted models are highly correlated with each other.    The mean of highly correlated quantities has higher variance than the mean of uncorrelated quantities.             -fold CV: Medium variance.   The fitted models are somewhat less correlated with each other.    Empirically, or has been shown to be a happy medium.           In short: Validation vs LOOCV vs -Fold CV     We often treat the validation set as if it were the test set, even though it is not.    A true test set is an independent sample.    Cross-validation measures never provide that independent sample.           Method    Bias    Variance      Validation Set Approach    High: Consistently overestimates the true test error because of small training size.    High: Very sensitive to the choice of the splits.       -Fold Cross-Validation    Medium: Uses a large proportion of the data ( ) for training.    Medium: Averaging across the folds reduces the effect of the randomly obtained folds.      Leave-One-Out (LOOCV)    Low: Uses almost all ( ) data points for training.    High: The models are trained on nearly identical data, so the resulting models are highly correlated.       Using K-Fold CV on Polynomial Linear Regression  Polynomial regression   Replace the linear model with      These models can be fit with linear regression by passing in predictors .    We tend not to go higher than degree 3 or 4 because the model can become overly flexible.          If we use 10-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 90% of the data is used for training.      If we use 5-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 80% of the data is used for training.      If we use leave-one-out cross-validation, what percentage of the data is used for training in each fold?    In LOOCV, each training set has observations out of total observations.    with we have , so approximately 90% of the data is used for training in each fold when is large.      For any two different folds in -fold cross-validation, how many training sets are shared between them?    Splitting the data into folds, how many of these folds do not include either of the two folds?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.      For any two different folds in -fold cross-validation, what is the number of overlapping training data points?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.    The number of samples per fold is , where is the number of samples in the training set.    Knowing the number of shared training sets, and the number of samples per fold, we can calculate the number of overlapping training data points.    The number of overlapping samples is , where is the number of samples in the training set.      What is the the percentage overlap between any two different training sets in -fold cross-validation?    Any two folds share training sets, which is of the data.    The size of the training set in each fold is of the total data.    The percentage overlap is the ratio of the number of overlapping samples to the size of the training set.    The percentage overlap between any two different training sets in -fold cross-validation is .        Day 15   Ch 5.1.5: -fold Cross-Validation for Classification  Ch 6.1: Subset Selection    Covered in this class    CV for classification    Best subet selection      CV for Classification  Setup: LOOCV    Remove the th point and reserve it for testing.  Train the model on the remaining points.  Calculate .  Rinse and repeat.     Leave-one-out cross-validation split with the first point reserved for testing.    Leave-one-out cross-validation split with the second point reserved for testing.    Leave-one-out cross-validation split with the third point reserved for testing.    Leave-one-out cross-validation split with the fourth point reserved for testing.    Leave-one-out cross-validation split with the fifth point reserved for testing.       Leave-one-out cross-validation split with the final point reserved for testing.     Return the cross-validation error:     CV for Classification  Setup: -fold    Randomly split the data into groups (folds).  Make the folds approximately equal in size. For notation, suppose each fold has points.  Remove the th fold and reserve it for testing.  Train the model on the remaining points.  Calculate   Rinse and repeat.     Data split into folds, with the first fold reserved for testing.    Data split into folds, with the second fold reserved for testing.    Data split into folds, with the third fold reserved for testing.    Data split into folds, with the fourth fold reserved for testing.    Data split into folds, with the fifth fold reserved for testing.     Return the cross-validation error:     Classification on simulated data: logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the logistic regression boundary in black.      Purple: Bayes decision boundary.  Error rate:      Black: logistic regression.        Error rate:     This error rate is still high, so the model has not done a great job yet.           Increase the degree and see what happens.      The Bayes decision boundary is where , meaning     Classification on simulated data: Quadratic logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the quadratic logistic regression boundary in black.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.        Error rate:     The logistic regression error rate improved slightly, but is still not great.            Increase the degree again and see what happens.       Example on simulated data: Polynomial Logistic Regression  No -fold cross-validation yet.    Simulated data with the Bayes decision boundary and logistic regression decision boundaries for polynomial degrees one through four.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.   Degree 1 error rate:     Degree 2 error rate:     Degree 3 error rate:     Degree 4 error rate:             Normally, we do not have the Bayes decision boundary.    How do you pick between models?       Decide degree based on CV    Plot of test error, training error, and ten-fold cross-validation error as model flexibility increases.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Training error tends to decrease as the flexibility of the fit increases.    The blue curve does not decrease monotonically, but it trends downward overall.    Test error displays a characteristic U-shape.    The 10-fold CV error provides a fairly good, but underestimated, approximation to the test error rate.    The minimum occurs at degree 4, close to the test error curve's minimum at degree 3.       Similar approach for KNN    Plot of test error, training error, and ten-fold cross-validation error for K-nearest neighbors across values of 1\/K.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Here, the changing parameter is different.    The same idea helps identify a suitable choice of .    The minimum of the black curve (10-fold CV) occurs at a value of close to the minimum of the brown curve, suggesting a good choice.       TL;DR     -fold CV   First split in the k-fold cross-validation sequence.    Second split in the k-fold cross-validation sequence.    Third split in the k-fold cross-validation sequence.    Fourth split in the k-fold cross-validation sequence.    Fifth split in the k-fold cross-validation sequence.      Usually, use or .     -fold CV for classification            Improving linear models:Subset selection     Why shouldn't you have as many predictors in your model as possible?    What are the three basic methods for selecting appropriate predictors (feature selection)?    What are the steps in the algorithm for each of these methods?    How can you carry out these procedures by hand, given the training and cross-validation test errors for each combination of predictors?    What are the pros and cons of each feature selection method? When can or can't you use them?       Subset selection  The problem of many features (p) relative to samples (n)  Up to now, we've focused on the standard linear model: and done least squares estimation.  Translation: minimize .    Prediction accuracy     If the true relationship is approximately linear, least squares estimates have low bias.    If , least squares also has low variance.    If is not much larger than , estimates have high variability, which can lead to overfitting and poor predictions.    If , there is no unique solution, so least squares cannot be used.    Goal for the next slide: shrink or constrain the number of variables to improve accuracy.       Model interpretability     Often, many included variables are not associated with the response.    Including them leads to unnecessary complexity in the model.    Idea: set these coefficients to zero or close to zero.    Goal for the next slide: use automatic feature selection (variable selection) to remove unnecessary variables.         Best subset selection  Go through every combination of variables exhaustively.  All subsets of 4 variables ( ):                                                                                                                     The idea is to fit the model times, score each model, and choose the one with the best score.    The subsets are grouped into tiers by the number of variables selected from the available variables.    Models with the same can be compared without considering the order of the variables.    Each tier has combinations, where .       One way of breaking this up   Best subset selection     Let denote the null model , which contains no predictors. This model simply predicts the sample mean for each observation.    For :   Fit all models that contain exactly predictors.    Pick the best among these models, and call it . Here, best is defined as having the smallest RSS, or equivalently, the largest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .         Part 2b chooses the model with the lowest training score; Part 3 then chooses the model with the lowest testing score.    Step 2 is computationally infeasible for large .      Best subset selection   We train a model using four variables, . We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using best subset selection?                                           What subset of variables is found for when using best subset selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using best subset selection?                                          is the set containing the two variables with the lowest training scores.      What subset of variables is found for when using best subset selection?                                          is the set containing the three variables with the lowest training scores.      What subset of variables is found for each of the sets when using best subset selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using best subset selection?    The best subset selection procedure returns the model with the lowest testing score.    Among test error, best is .       What's the problem with best subset selection?     Checking models is not reasonable for large , such as .    The next few slides introduce alternatives to Step 2.       Forward Stepwise Selection   Forward stepwise selection      Let denote the null model, which contains no predictors.    For :     Consider all models that augment the predictors in with one additional predictor.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .        Forward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for each of the sets when using forward stepwise selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using forward stepwise selection?    Among test error, best is .       Pros and Cons of Forward Stepwise    Pros:   Computationally cheaper.    The number of models fit is which is much less than .       Cons:   It is not guaranteed to find the best model.    For example, if the best one-variable model uses , but the best two-variable model uses and , forward selection will not find it.    If , it can only construct models through .         Backward Stepwise Selection   Backward stepwise selection      Let denote the full model , which contains all predictors.    For :     Consider all models that contain all but one of the predictors in , for a total of predictors.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .        Backward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is returned using backward stepwise selection?       Pros and Cons of Backward Stepwise     Pros:      Computationally cheaper.    The number of models fit is still which is much less than .        Cons:      It is not guaranteed to find the best model.    Unlike forward selection, backward selection cannot be used if because the initial model with all variables cannot be fitted using ordinary least squares (OLS).        Hybrid approaches can combine forward and backward selection.      Day 16   Ch 6.2: Shrinkage - Ridge regression    Covered in this class    What is regularization? Why do we need it?    What are the two basic types of regularization methods? How are they implemented mathematically in linear regression?    How do you fit a ridge regression model in Python?    How do you control model flexibility and the bias-variance tradeoff when using regularization?    How do you find the right amount of regularization using cross-validation? How do you do this in Python?    What additional precautions do you need to take when using regularization compared to least squares?    What are the advantages of regularization compared to least squares?    What are the advantages of regularization compared to subset selection?      Goal        Fit a model using all predictors.    Aim to constrain (regularize) coefficient estimates.    Shrink the coefficient estimates toward .        Ridge regression    Lasso       Ridge regression  Before:     After:           is a tuning parameter to determine separately.    The second term is called the shrinkage penalty.     gives the least squares estimate.    This is our first encounter with regularization, the norm, and the general norm.    Regularization constrains the model, reducing its flexibility.          As , the shrinkage penalty has an increasing impact, and the ridge regression coefficients approach zero.    The penalty is not applied to the intercept.    Denote the ridge regression coefficient estimates by .         Example from the Credit data       Ridge regression coefficient paths for the Credit data as the tuning parameter lambda increases.       At the left end of the x-axis, .    Each line represents the predicted coefficient value for a single variable.    As increases, all coefficients approach zero, essentially giving the null model at the right end.         Same Setting, Different Plot       Ridge regression coefficient paths plotted against the relative size of the coefficient vector.       The vector contains the least squares coefficient estimates.    The norm measures the distance from zero.    The ratio ranges from when down to as regularization increases.    This ratio measures the amount by which the coefficient estimates have been shrunk.    The ratio makes shrinkage more comparable across different regularization methods.    The left side is less flexible; the right side is more flexible.         Scale equivariance (or lack thereof)    Scale equivariant:  Multiplying a variable by , giving , returns a coefficient multiplied by , giving .       Example: income variable.    Least squares is scale equivariant.    Ridge regression is not scale equivariant.     depends not only on but also on the values of the other predictors.         Solution: Standardize predictors        The denominator is the estimated standard deviation of the \\(j\\)th predictor.    Standardized predictors will all have a standard deviation of one.    Previous figures showed standardized ridge regression coefficients on the -axis.       Using Cross-Validation to Find     Choose a grid of values.    Compute the ( -fold) cross-validation error for each value of .    Select the tuning parameter value for which the cross-validation error is smallest.    Refit the model using all available observations and the selected value of the tuning parameter.       LOOCV Choice of for Ridge Regression and Credit Data   Leave-one-out cross-validation error for ridge regression on the Credit data as a function of the tuning parameter lambda.      Dashed vertical lines indicate the selected value of .    In this case, is small, so the optimal fit involves only a small amount of shrinkage relative to least squares.    The dip is not very pronounced, so a wide range of values would give a very similar error.    In a case like this, we might simply use the least squares solution.       Bias-Variance Tradeoff     Squared bias in black, variance in green, and test mean squared error in purple for simulated data.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.     The horizontal dashed line is the minimum possible test MSE.          Bias-variance tradeoff.    Minimum MSE is achieved around .    High variance means the MSE for (least squares) and (null model) are essentially the same.         More Bias-Variance Tradeoff    Squared bias in black, variance in green, and test mean squared error in purple for simulated data.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.     Advantages of Ridge     Ridge vs. Least Squares:      As seen on the previous slide, ridge regression can reduce variance.    Ridge regression works best when the least squares estimates have high variance.    It can trade a small increase in bias for a large decrease in variance.        Ridge vs. Subset Selection:      Ridge regression is much more computationally efficient.    It fits a single model rather than considering possible models.    Computational techniques are available to solve for all values of simultaneously.          Day 17   Ch 6.2: Shrinkage - The Lasso    Covered in this class   What is regularization? Why do we need it?  What are the two basic types of regularization methods? How are they implemented mathematically in linear regression? Why are they also called shrinkage methods?  How do you fit a Lasso regression model in Python?  How do you control model flexibility and the bias-variance tradeoff when using regularization?  How do you find the right amount of regularization using cross-validation? How do you do this in Python?  What additional precautions do you need to take when using regularization compared with least squares?  When do you choose one shrinkage method over another?     Lasso: Least Absolute Shrinkage and Selection Operator  Same goal as before:   Fit model using all predictors.    Aim to constrain (regularize) coefficient estimates.    Shrink the coefficient estimates towards 0.      Ridge shrinks coefficients but does not eliminate them, which is what we actually want.        The lasso  Least Squares:     Ridge:     The Lasso:         penalty instead of penalty     norm:      norm:      norm:      norm:        Each square in the shown figure has sides of unit length. For each of the following points, compute the , , and norms.   A 2D x-y grid showing 4 points labeled as a, b, c, and d. Each point is in one of the quadrants.      Point a=(3,3)           Point b=(-4,3)           Point c=(-1,-2)           Point d=(4,-4)            Subsets with lasso        The result of the penalty is that it forces some coefficients to be exactly 0.    This can be interpreted as something like subset selection, but it is called variable selection .    The result is sparse models, which use only a subset of variables.    Selecting a good is critical.       An example on the Credit data set    Lasso   Plot of lasso coefficient paths for the Credit data, showing how some coefficient estimates shrink exactly to zero as lambda increases.     Ridge   Plot of ridge regression coefficient paths for the Credit data, showing how the coefficient estimates shrink toward zero as lambda increases.         : Both are least squares.     : All coefficients are 0.    Only lasso has coefficients equal to 0 at finite .       More example on the Credit data set    Lasso   Plot of lasso coefficient paths for the Credit data, showing how some coefficient estimates shrink exactly to zero and produce variable subsets.     Ridge   Plot of ridge regression coefficient paths for the Credit data, showing how coefficient estimates shrink as the relative L2 norm decreases from left to right.        Note that ridge always includes all variables, even if a coefficient is small.    Lasso produces different-sized subsets depending on the amount of regularization.       Why can lasso select variables while ridge cannot?  Alternative formulation of lasso and ridge regression   Playing with different values of .           Contour plot illustrating the geometric difference between lasso and ridge constraints, showing why lasso can set coefficients exactly to zero while ridge generally cannot.  is the least squares solution. Each of the ellipses represents parameter combinations that yield a constant value of the sum of squared residuals. The blue region is the -norm ball: diamond for and circle for . The parameter estimates that minimize the objective function are at the point where a contour first intersects the boundary of the -norm ball.      The ridge constraint region is circular, so the contours of the least squares error function are more likely to intersect the constraint region at a point where both coefficients are nonzero.    The lasso constraint region is diamond-shaped, so the contours of the least squares error function are more likely to intersect the constraint region at a corner, where one of the coefficients is zero.   In higher dimensions, the lasso constraint region gets more and more spiky with many corners, and many of the coefficients can simultaneously be set to zero.          Consider the shown RSS contours and the lasso and ridge constraint regions. is the least square solution. Each square in the grid has unit length.   Four subplots each showing two elliptical contours centered around the least squares solution. The top two panels show diamonds (p=1 norm) at the origin. The bottom two show circles (p=1 norm) at the origin.      What is the optimal parameter combination for (a)?           What is the optimal parameter combination for (b)?           What is the optimal parameter combination for (c)?           What is the optimal parameter combination for (d)?            Bias-Variance tradeoff   Plot illustrating the bias-variance tradeoff for simulated data, showing squared bias, variance, and test mean squared error.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.  The horizontal dashed line is the minimum possible test MSE.    Using Cross-Validation to find    Choose a grid of values.  Compute the ( -fold) cross-validation error for each value of .  Select the tuning parameter value for which the CV error is smallest.  Refit the model using all available observations and the selected tuning parameter value.      10-fold CV choice of for lasso and simulated data   Plot of 10-fold cross-validation error and lasso coefficient behavior for simulated data, with dashed vertical lines indicating the selected lambda and only the signal variables remaining nonzero near the chosen model.     Data generated with variables and data points; only 2 variables are actually involved.  The vertical dashed line indicates the choice of .  On the right, the two colored lines are predictors related to the response (signal); grey lines are unrelated (noise).  The lasso correctly gives much larger coefficient estimates to the two signal predictors. The minimum CV error also corresponds to coefficient estimates for which only the signal variables are nonzero.  Note that the least squares solution does not even emphasize one of the variables (the green one).      Ridge vs Lasso     Both Ridge and Lasso are used with linear models to reduce model variance, thus reducing overfitting and improving accuracy for new, unseen data.    Adding the Ridge or Lasso penalty, i.e., adding constraints or regularization, allows solving problems where . The problem is unsolvable if the only penalty term is the RSS.      Comparison of Ridge Regression and Lasso    Ridge  Lasso    Coefficients are shrunk towards 0, but are not forced to be exactly 0.  Coefficients are shrunk towards 0, and some are forced to be exactly 0.    Tends to be better than lasso when many predictors have a significant effect on the output.  Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.    More sensitive to outliers. Squared penalty term . Outliers will affect the penalty quadratically. This sensitivity to outliers makes Ridge less robust.  More robust to outliers. Penalty term is the absolute sum . Outliers will affect the penalty linearly. This makes Lasso less sensitive to outliers, and therefore more robust.    Is not a model selection tool.  Is also a model selection tool since it often yields sparse models. Can be considered as an alternative to subset selection methods.     Least Squares:     Ridge:     The Lasso:       "
+  "body": " Exam 2 Material       Day 12      Day 13      Day 14      Day 15      Day 16      Day 17      Day 18        Day 12       Day 13   Ch 5.1.3: K-fold cross-validation    Covered in this class    K-fold cross-validation      The idea   Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.       in this example    Randomly sort, split up into subsets    If , then we get LOOCV       Mathy version     Randomly split data into -groups (folds)    Approximately equal sized. For the sake of notation, say each set has points    Remove th fold and reserve for testing.    Train the model on remaining points    Calculate     Rinse and repeat     Return     By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF        Pros and Cons    Pros:    Cheaper computation with or instead of       Cons:    Unlike LOOCV, there is randomness, but it has lower variability than validation        Comparison     Validation Set    Diagram showing the first validation set split.    Diagram showing the second validation set split.    Diagram showing the third validation set split.    Diagram showing the fourth validation set split.    Diagram showing the fifth validation set split.    Figure labeled validation set for comparison.      LOOCV    Diagram showing the first leave-one-out cross-validation split.    Diagram showing the second leave-one-out cross-validation split.    Diagram showing the third leave-one-out cross-validation split.   ⋮   Diagram showing the final leave-one-out cross-validation split.    Figure using the auto data example to show a fixed result with no randomness across repeated runs.      K-fold CV    Diagram showing the first split in five-fold cross-validation.    Diagram showing the second split in five-fold cross-validation.    Diagram showing the third split in five-fold cross-validation.    Diagram showing the fourth split in five-fold cross-validation.    Diagram showing the fifth split in five-fold cross-validation.    Second figure from the auto data example.       Comparison with simulated data: Ex 3    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing very similar results.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.    Nearly the same        Comparison with simulated data: Ex 1    Plot of simulated nonlinear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing that the cross-validation estimates underestimate the true test MSE.      Blue: true test MSE is shown in blue    Black dashed: the LOOCV estimate    Orange: 10-fold CV    The crosses indicate the minimum of each of the MSE curves.     Underestimates the true test MSE         Comparison with simulated data: Ex 2    Plot of simulated close-to-linear data with fitted curves of different flexibility and corresponding training and test error behavior.    Plot comparing true test MSE, LOOCV estimate, and 10-fold cross-validation estimate, showing close agreement at low flexibility and overestimation at higher flexibility.   Close for lower flexibility, then overestimates at higher ranges.     Takeaways from the examples     In all plots, LOOCV and 10-fold CV are similar.    Sometimes we only care about the minimum point in the test MSE because we want to get the right degree of freedom for a model. All examples have approximately the same x-coordinate for that.        Day 14   Ch 5.1.4: CV bias-variance trade-off     Covered in this class    Bias-variance tradeoff      Bias-Variance Tradeoff: Bias     We are discussing bias in the estimation of test error rate.    Validation set: High bias. It overestimates test error because it uses a small subset of the data.   Learning curve monotonically decreasing and a point with training sample less than the total number of sample points     LOOCV: Gives an approximately unbiased estimate because it uses almost all the data each time ( observations) for training.   Learning curve monotonically decreasing and a point with training sample equals to almost the total number of samples.      -fold CV: has a medium level of bias because each training set has approximately observations.   Learning curve monotonically decreasing and a point with training sample equals to a large portion of the total number of samples.       Bias-Variance Tradeoff: Variance     We are discussing variance in the estimation of test error rate.      Validation set has high variance:   The estimate of test error is highly dependent on the particular split of the data.       LOOCV has high variance:   It averages the outputs of fitted models, each trained on almost identical observations.    The fitted models are highly correlated with each other.    The mean of highly correlated quantities has higher variance than the mean of uncorrelated quantities.             -fold CV: Medium variance.   The fitted models are somewhat less correlated with each other.    Empirically, or has been shown to be a happy medium.           In short: Validation vs LOOCV vs -Fold CV     We often treat the validation set as if it were the test set, even though it is not.    A true test set is an independent sample.    Cross-validation measures never provide that independent sample.           Method    Bias    Variance      Validation Set Approach    High: Consistently overestimates the true test error because of small training size.    High: Very sensitive to the choice of the splits.       -Fold Cross-Validation    Medium: Uses a large proportion of the data ( ) for training.    Medium: Averaging across the folds reduces the effect of the randomly obtained folds.      Leave-One-Out (LOOCV)    Low: Uses almost all ( ) data points for training.    High: The models are trained on nearly identical data, so the resulting models are highly correlated.       Using K-Fold CV on Polynomial Linear Regression  Polynomial regression   Replace the linear model with      These models can be fit with linear regression by passing in predictors .    We tend not to go higher than degree 3 or 4 because the model can become overly flexible.          If we use 10-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 90% of the data is used for training.      If we use 5-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 80% of the data is used for training.      If we use leave-one-out cross-validation, what percentage of the data is used for training in each fold?    In LOOCV, each training set has observations out of total observations.    with we have , so approximately 90% of the data is used for training in each fold when is large.      For any two different folds in -fold cross-validation, how many training sets are shared between them?    Splitting the data into folds, how many of these folds do not include either of the two folds?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.      For any two different folds in -fold cross-validation, what is the number of overlapping training data points?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.    The number of samples per fold is , where is the number of samples in the training set.    Knowing the number of shared training sets, and the number of samples per fold, we can calculate the number of overlapping training data points.    The number of overlapping samples is , where is the number of samples in the training set.      What is the the percentage overlap between any two different training sets in -fold cross-validation?    Any two folds share training sets, which is of the data.    The size of the training set in each fold is of the total data.    The percentage overlap is the ratio of the number of overlapping samples to the size of the training set.    The percentage overlap between any two different training sets in -fold cross-validation is .        Day 15   Ch 5.1.5: -fold Cross-Validation for Classification  Ch 6.1: Subset Selection    Covered in this class    CV for classification    Best subet selection      CV for Classification  Setup: LOOCV    Remove the th point and reserve it for testing.  Train the model on the remaining points.  Calculate .  Rinse and repeat.     Leave-one-out cross-validation split with the first point reserved for testing.    Leave-one-out cross-validation split with the second point reserved for testing.    Leave-one-out cross-validation split with the third point reserved for testing.    Leave-one-out cross-validation split with the fourth point reserved for testing.    Leave-one-out cross-validation split with the fifth point reserved for testing.       Leave-one-out cross-validation split with the final point reserved for testing.     Return the cross-validation error:     CV for Classification  Setup: -fold    Randomly split the data into groups (folds).  Make the folds approximately equal in size. For notation, suppose each fold has points.  Remove the th fold and reserve it for testing.  Train the model on the remaining points.  Calculate   Rinse and repeat.     Data split into folds, with the first fold reserved for testing.    Data split into folds, with the second fold reserved for testing.    Data split into folds, with the third fold reserved for testing.    Data split into folds, with the fourth fold reserved for testing.    Data split into folds, with the fifth fold reserved for testing.     Return the cross-validation error:     Classification on simulated data: logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the logistic regression boundary in black.      Purple: Bayes decision boundary.  Error rate:      Black: logistic regression.        Error rate:     This error rate is still high, so the model has not done a great job yet.           Increase the degree and see what happens.      The Bayes decision boundary is where , meaning     Classification on simulated data: Quadratic logistic regression  No -fold cross-validation yet.    Plot comparing the Bayes decision boundary in purple with the quadratic logistic regression boundary in black.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.        Error rate:     The logistic regression error rate improved slightly, but is still not great.            Increase the degree again and see what happens.       Example on simulated data: Polynomial Logistic Regression  No -fold cross-validation yet.    Simulated data with the Bayes decision boundary and logistic regression decision boundaries for polynomial degrees one through four.      Purple: Bayes decision boundary.   Error rate:        Black: logistic regression.   Degree 1 error rate:     Degree 2 error rate:     Degree 3 error rate:     Degree 4 error rate:             Normally, we do not have the Bayes decision boundary.    How do you pick between models?       Decide degree based on CV    Plot of test error, training error, and ten-fold cross-validation error as model flexibility increases.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Training error tends to decrease as the flexibility of the fit increases.    The blue curve does not decrease monotonically, but it trends downward overall.    Test error displays a characteristic U-shape.    The 10-fold CV error provides a fairly good, but underestimated, approximation to the test error rate.    The minimum occurs at degree 4, close to the test error curve's minimum at degree 3.       Similar approach for KNN    Plot of test error, training error, and ten-fold cross-validation error for K-nearest neighbors across values of 1\/K.      Test error (brown)    Training error (blue)    10-fold CV error (black)         Here, the changing parameter is different.    The same idea helps identify a suitable choice of .    The minimum of the black curve (10-fold CV) occurs at a value of close to the minimum of the brown curve, suggesting a good choice.       TL;DR     -fold CV   First split in the k-fold cross-validation sequence.    Second split in the k-fold cross-validation sequence.    Third split in the k-fold cross-validation sequence.    Fourth split in the k-fold cross-validation sequence.    Fifth split in the k-fold cross-validation sequence.      Usually, use or .     -fold CV for classification            Improving linear models:Subset selection     Why shouldn't you have as many predictors in your model as possible?    What are the three basic methods for selecting appropriate predictors (feature selection)?    What are the steps in the algorithm for each of these methods?    How can you carry out these procedures by hand, given the training and cross-validation test errors for each combination of predictors?    What are the pros and cons of each feature selection method? When can or can't you use them?       Subset selection  The problem of many features (p) relative to samples (n)  Up to now, we've focused on the standard linear model: and done least squares estimation.  Translation: minimize .    Prediction accuracy     If the true relationship is approximately linear, least squares estimates have low bias.    If , least squares also has low variance.    If is not much larger than , estimates have high variability, which can lead to overfitting and poor predictions.    If , there is no unique solution, so least squares cannot be used.    Goal for the next slide: shrink or constrain the number of variables to improve accuracy.       Model interpretability     Often, many included variables are not associated with the response.    Including them leads to unnecessary complexity in the model.    Idea: set these coefficients to zero or close to zero.    Goal for the next slide: use automatic feature selection (variable selection) to remove unnecessary variables.         Best subset selection  Go through every combination of variables exhaustively.  All subsets of 4 variables ( ):                                                                                                                     The idea is to fit the model times, score each model, and choose the one with the best score.    The subsets are grouped into tiers by the number of variables selected from the available variables.    Models with the same can be compared without considering the order of the variables.    Each tier has combinations, where .       One way of breaking this up   Best subset selection     Let denote the null model , which contains no predictors. This model simply predicts the sample mean for each observation.    For :   Fit all models that contain exactly predictors.    Pick the best among these models, and call it . Here, best is defined as having the smallest RSS, or equivalently, the largest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .         Part 2b chooses the model with the lowest training score; Part 3 then chooses the model with the lowest testing score.    Step 2 is computationally infeasible for large .      Best subset selection   We train a model using four variables, . We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using best subset selection?                                           What subset of variables is found for when using best subset selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using best subset selection?                                          is the set containing the two variables with the lowest training scores.      What subset of variables is found for when using best subset selection?                                          is the set containing the three variables with the lowest training scores.      What subset of variables is found for each of the sets when using best subset selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using best subset selection?    The best subset selection procedure returns the model with the lowest testing score.    Among test error, best is .       What's the problem with best subset selection?     Checking models is not reasonable for large , such as .    The next few slides introduce alternatives to Step 2.       Forward Stepwise Selection   Forward stepwise selection      Let denote the null model, which contains no predictors.    For :     Consider all models that augment the predictors in with one additional predictor.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .        Forward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for each of the sets when using forward stepwise selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using forward stepwise selection?    Among test error, best is .       Pros and Cons of Forward Stepwise    Pros:   Computationally cheaper.    The number of models fit is which is much less than .       Cons:   It is not guaranteed to find the best model.    For example, if the best one-variable model uses , but the best two-variable model uses and , forward selection will not find it.    If , it can only construct models through .         Backward Stepwise Selection   Backward stepwise selection      Let denote the full model , which contains all predictors.    For :     Consider all models that contain all but one of the predictors in , for a total of predictors.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .        Backward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is returned using backward stepwise selection?       Pros and Cons of Backward Stepwise     Pros:      Computationally cheaper.    The number of models fit is still which is much less than .        Cons:      It is not guaranteed to find the best model.    Unlike forward selection, backward selection cannot be used if because the initial model with all variables cannot be fitted using ordinary least squares (OLS).        Hybrid approaches can combine forward and backward selection.      Day 16   Ch 6.2: Shrinkage - Ridge regression    Covered in this class    What is regularization? Why do we need it?    What are the two basic types of regularization methods? How are they implemented mathematically in linear regression?    How do you fit a ridge regression model in Python?    How do you control model flexibility and the bias-variance tradeoff when using regularization?    How do you find the right amount of regularization using cross-validation? How do you do this in Python?    What additional precautions do you need to take when using regularization compared to least squares?    What are the advantages of regularization compared to least squares?    What are the advantages of regularization compared to subset selection?      Goal        Fit a model using all predictors.    Aim to constrain (regularize) coefficient estimates.    Shrink the coefficient estimates toward .        Ridge regression    Lasso       Ridge regression  Before:     After:           is a tuning parameter to determine separately.    The second term is called the shrinkage penalty.     gives the least squares estimate.    This is our first encounter with regularization, the norm, and the general norm.    Regularization constrains the model, reducing its flexibility.          As , the shrinkage penalty has an increasing impact, and the ridge regression coefficients approach zero.    The penalty is not applied to the intercept.    Denote the ridge regression coefficient estimates by .         Example from the Credit data       Ridge regression coefficient paths for the Credit data as the tuning parameter lambda increases.       At the left end of the x-axis, .    Each line represents the predicted coefficient value for a single variable.    As increases, all coefficients approach zero, essentially giving the null model at the right end.         Same Setting, Different Plot       Ridge regression coefficient paths plotted against the relative size of the coefficient vector.       The vector contains the least squares coefficient estimates.    The norm measures the distance from zero.    The ratio ranges from when down to as regularization increases.    This ratio measures the amount by which the coefficient estimates have been shrunk.    The ratio makes shrinkage more comparable across different regularization methods.    The left side is less flexible; the right side is more flexible.         Scale equivariance (or lack thereof)    Scale equivariant:  Multiplying a variable by , giving , returns a coefficient multiplied by , giving .       Example: income variable.    Least squares is scale equivariant.    Ridge regression is not scale equivariant.     depends not only on but also on the values of the other predictors.         Solution: Standardize predictors        The denominator is the estimated standard deviation of the \\(j\\)th predictor.    Standardized predictors will all have a standard deviation of one.    Previous figures showed standardized ridge regression coefficients on the -axis.       Using Cross-Validation to Find     Choose a grid of values.    Compute the ( -fold) cross-validation error for each value of .    Select the tuning parameter value for which the cross-validation error is smallest.    Refit the model using all available observations and the selected value of the tuning parameter.       LOOCV Choice of for Ridge Regression and Credit Data   Leave-one-out cross-validation error for ridge regression on the Credit data as a function of the tuning parameter lambda.      Dashed vertical lines indicate the selected value of .    In this case, is small, so the optimal fit involves only a small amount of shrinkage relative to least squares.    The dip is not very pronounced, so a wide range of values would give a very similar error.    In a case like this, we might simply use the least squares solution.       Bias-Variance Tradeoff     Squared bias in black, variance in green, and test mean squared error in purple for simulated data.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.     The horizontal dashed line is the minimum possible test MSE.          Bias-variance tradeoff.    Minimum MSE is achieved around .    High variance means the MSE for (least squares) and (null model) are essentially the same.         More Bias-Variance Tradeoff    Squared bias in black, variance in green, and test mean squared error in purple for simulated data.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.     Advantages of Ridge     Ridge vs. Least Squares:      As seen on the previous slide, ridge regression can reduce variance.    Ridge regression works best when the least squares estimates have high variance.    It can trade a small increase in bias for a large decrease in variance.        Ridge vs. Subset Selection:      Ridge regression is much more computationally efficient.    It fits a single model rather than considering possible models.    Computational techniques are available to solve for all values of simultaneously.          Day 17   Ch 6.2: Shrinkage - The Lasso    Covered in this class   What is regularization? Why do we need it?  What are the two basic types of regularization methods? How are they implemented mathematically in linear regression? Why are they also called shrinkage methods?  How do you fit a Lasso regression model in Python?  How do you control model flexibility and the bias-variance tradeoff when using regularization?  How do you find the right amount of regularization using cross-validation? How do you do this in Python?  What additional precautions do you need to take when using regularization compared with least squares?  When do you choose one shrinkage method over another?     Lasso: Least Absolute Shrinkage and Selection Operator  Same goal as before:   Fit model using all predictors.    Aim to constrain (regularize) coefficient estimates.    Shrink the coefficient estimates towards 0.      Ridge shrinks coefficients but does not eliminate them, which is what we actually want.        The lasso  Least Squares:     Ridge:     The Lasso:         penalty instead of penalty     norm:      norm:      norm:      norm:        Each square in the shown figure has sides of unit length. For each of the following points, compute the , , and norms.   A 2D x-y grid showing 4 points labeled as a, b, c, and d. Each point is in one of the quadrants.      Point a=(3,3)           Point b=(-4,3)           Point c=(-1,-2)           Point d=(4,-4)            Subsets with lasso        The result of the penalty is that it forces some coefficients to be exactly 0.    This can be interpreted as something like subset selection, but it is called variable selection .    The result is sparse models, which use only a subset of variables.    Selecting a good is critical.       An example on the Credit data set    Lasso   Plot of lasso coefficient paths for the Credit data, showing how some coefficient estimates shrink exactly to zero as lambda increases.     Ridge   Plot of ridge regression coefficient paths for the Credit data, showing how the coefficient estimates shrink toward zero as lambda increases.         : Both are least squares.     : All coefficients are 0.    Only lasso has coefficients equal to 0 at finite .       More example on the Credit data set    Lasso   Plot of lasso coefficient paths for the Credit data, showing how some coefficient estimates shrink exactly to zero and produce variable subsets.     Ridge   Plot of ridge regression coefficient paths for the Credit data, showing how coefficient estimates shrink as the relative L2 norm decreases from left to right.        Note that ridge always includes all variables, even if a coefficient is small.    Lasso produces different-sized subsets depending on the amount of regularization.       Why can lasso select variables while ridge cannot?  Alternative formulation of lasso and ridge regression   Playing with different values of .           Contour plot illustrating the geometric difference between lasso and ridge constraints, showing why lasso can set coefficients exactly to zero while ridge generally cannot.  is the least squares solution. Each of the ellipses represents parameter combinations that yield a constant value of the sum of squared residuals. The blue region is the -norm ball: diamond for and circle for . The parameter estimates that minimize the objective function are at the point where a contour first intersects the boundary of the -norm ball.      The ridge constraint region is circular, so the contours of the least squares error function are more likely to intersect the constraint region at a point where both coefficients are nonzero.    The lasso constraint region is diamond-shaped, so the contours of the least squares error function are more likely to intersect the constraint region at a corner, where one of the coefficients is zero.   In higher dimensions, the lasso constraint region gets more and more spiky with many corners, and many of the coefficients can simultaneously be set to zero.          Consider the shown RSS contours and the lasso and ridge constraint regions. is the least square solution. Each square in the grid has unit length.   Four subplots each showing two elliptical contours centered around the least squares solution. The top two panels show diamonds (p=1 norm) at the origin. The bottom two show circles (p=1 norm) at the origin.      What is the optimal parameter combination for (a)?           What is the optimal parameter combination for (b)?           What is the optimal parameter combination for (c)?           What is the optimal parameter combination for (d)?            Bias-Variance tradeoff   Plot illustrating the bias-variance tradeoff for simulated data, showing squared bias, variance, and test mean squared error.   Squared bias (black), variance (green), and test mean squared error (purple) for simulated data.  The horizontal dashed line is the minimum possible test MSE.    Using Cross-Validation to find    Choose a grid of values.  Compute the ( -fold) cross-validation error for each value of .  Select the tuning parameter value for which the CV error is smallest.  Refit the model using all available observations and the selected tuning parameter value.      10-fold CV choice of for lasso and simulated data   Plot of 10-fold cross-validation error and lasso coefficient behavior for simulated data, with dashed vertical lines indicating the selected lambda and only the signal variables remaining nonzero near the chosen model.     Data generated with variables and data points; only 2 variables are actually involved.  The vertical dashed line indicates the choice of .  On the right, the two colored lines are predictors related to the response (signal); grey lines are unrelated (noise).  The lasso correctly gives much larger coefficient estimates to the two signal predictors. The minimum CV error also corresponds to coefficient estimates for which only the signal variables are nonzero.  Note that the least squares solution does not even emphasize one of the variables (the green one).      Ridge vs Lasso     Both Ridge and Lasso are used with linear models to reduce model variance, thus reducing overfitting and improving accuracy for new, unseen data.    Adding the Ridge or Lasso penalty, i.e., adding constraints or regularization, allows solving problems where . The problem is unsolvable if the only penalty term is the RSS.      Comparison of Ridge Regression and Lasso    Ridge  Lasso    Coefficients are shrunk towards 0, but are not forced to be exactly 0.  Coefficients are shrunk towards 0, and some are forced to be exactly 0.    Tends to be better than lasso when many predictors have a significant effect on the output.  Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.    More sensitive to outliers. Squared penalty term . Outliers will affect the penalty quadratically. This sensitivity to outliers makes Ridge less robust.  More robust to outliers. Penalty term is the absolute sum . Outliers will affect the penalty linearly. This makes Lasso less sensitive to outliers, and therefore more robust.    Is not a model selection tool.  Is also a model selection tool since it often yields sparse models. Can be considered as an alternative to subset selection methods.     Least Squares:     Ridge:     The Lasso:        Day 18   Ch 6.3: Dimension Reduction - PCA    Covered in this class    How to create new variables as linear combinations of the original predictors?    Why do we need Principal Component Analysis (PCA)? What is the main purpose of using it?    What is a principal component (PC)?    What does the first PC maximize? You should be able to explain this both geometrically in a plot and mathematically.    Similarly, what do the subsequent PCs maximize?    How do you compute the PCs in Python, given a dataset?    How do you project data points on each PC? You should also be able to plot the data points in the PC space.    How do you find out how much variance each PC explains?      Linear transformation of predictors  Original predictors:   New predictors:      The goal is work with variables instead where .  We need to figure out good values to do this.     A pictorial illustration of the PCA projection of an n by p data matrix that shows the projection of one row of data into a 1 by M vector, and the projection of all rows of data into N by M matrix.      The matrix is called the loadings matrix. It shows the contribution of each of the original predictors towards each of the Principal Components (PCs).      PCs for example data   Consider the following matrix that shows the predictor levels at each collected data point.       0 1  3 4  1 1  -1 0   and let the loadings matrix be      How many data points and predictors does the data matrix have?     is the number of rows, is the number of columns.     and .      Based on the form of , what is the dimension of the resulting transformed data?     has dimensions , so here . The transformed data will have dimension 1 (the original data had dimension 2).      Write down the matrix of the transformed data points.    The transformed data is        0 1 3  3 4 15  1 1 4  -1 0 -1             Geometric interpretation  Given two vectors and , the orthogonal projection of onto is the closes point on to . It can be found using the dot product where is a unit vector with the same direction as .   Two vectors a and b in the first quadrant and the orthogonal projection of a onto b. The unit vector for b is also shown.      Standardize the data to have 0 mean and unit variance.   Choose to have unit norm.  For example, .  For a data point , the value of us where along the line defined by the projection falls.    Applying this to all the data points, gives us their projection onto the line defined by   Diagram illustrating projection of a point onto a line as a geometric interpretation of dimensionality reduction.    Projection on a line      Different possible projections  For a given data set, there are many possible projections. How do we choose which lines to project the data along?   We want to preserve the structural information in the signal: points that are originally far apart are ideally still far in the projection, distinct points remain distinct after projection.      Evaluating two different projections.  Which of the shown projections better preserves the structure in the data?    Two sides by side scatter plots of data points in the plane showing two different projections. The one on the left (projection a) projects the data into more spread out points. The one on the right projects them closer to each other.    For this figure, which of the two projections   Diagram showing different projections of data points onto a line in a dimensionality reduction example.     First projection example in a dimensionality reduction illustration.    Second projection example in a dimensionality reduction illustration.      Third projection example in a dimensionality reduction illustration.    Fourth projection example in a dimensionality reduction illustration.       Histograms of values  Among all possible projections, we observe that the one that maximizes the variance of the projections (the values) seem to preserve the structural information the best.     First projection example in a dimensionality reduction illustration.    Histogram of projected Z values for the first projection example.      Second projection example in a dimensionality reduction illustration.    Histogram of projected Z values for the second projection example.      Third projection example in a dimensionality reduction illustration.    Histogram of projected Z values for the third projection example.      Fourth projection example in a dimensionality reduction illustration.    Histogram of projected Z values for the fourth projection example.       The goal      Find good values for some .  Fit a regression model on the values using least squares:       In this notation, the values replace the values.      Dimension reduction comes from fitting models on a smaller number of variables.          An example dataset     Scatter plot of an example dataset with two input variables and a line showing the principal component direction of greatest variability.       Population size in tens of thousands of people.  Ad spending for a company in thousands of dollars.  Both variables are inputs.  There are 100 data points.  By eye, the green line is the direction of greatest variability. This is called the principal component.  Projecting observations onto this line gives projected observations with the largest possible variance.        Projection onto first PC    Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.       The principal component loadings are and . The blue dot is .    What does it mean to have the highest variance     Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.       Of every linear combination of and , this one has the highest variance.  It maximizes .  Require ; otherwise, we could make arbitrarily large to inflate the variance.        Toy for learning PCA   Toy for learning PCA    Click step 2a to show points for PC2.    Principal component scores    Diagram illustrating principal component scores obtained by projecting observations onto the first principal component direction.         Another view    Rotated view of the example dataset showing observations in relation to the first principal component and their principal component scores.      Think of this as rotated for now      The score can be thought of as a relation measured from the mean.  means below-average population size and below-average ad spending.        The other principal components      is a linear combination of variables uncorrelated with .  Find the one that explains the most variance.  This requires to be orthogonal, or perpendicular, to .  Computers find it using matrix methods. The details are beyond the scope of this class, but you should be able to interpret the output.      Geometrically, imagine a circle of directions around a line in three dimensions.      TL;DR    PCA    Unsupervised dimensionality reduction.  Choose component in the direction of greatest variance using only information from the .  Choose and later components by the same method, after accounting for information in directions already explained.     Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.           "
 },
 {
   "id": "day-13-lecture-3",
@@ -1958,7 +2012,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-13-lecture-6",
   "type": "Checkpoint",
-  "number": "83",
+  "number": "84",
   "title": "By hand first!",
   "body": " By hand first!   There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. Write down the training\/testing sets for a -fold CV.      Damien    Alice    Greta    Jasmin    Benji    Inigo    Frank    Carina    Enrique    Hubert     Fold 1   Test:    Train:     Fold 2   Test:    Train:     Fold 3   Test:    Train:        Divide the 10 students into three folds of approximately equal size. Each student belongs to exactly one test fold. For each fold, use all the students in the other folds as the training set.    One valid division is a first fold with Damien, Alice, Greta, and Jasmin; a second fold with Benji, Inigo, and Frank; and a third fold with Carina, Enrique, and Hubert.    Using the division in the second hint, the training and testing sets are:   Fold 1: Test: DAGJ; Train: BIFCEH    Fold 2: Test: BIF; Train: DAGJCEH    Fold 3: Test: CEH; Train: DAGJBIF      "
 },
@@ -1976,7 +2030,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-14-lecture-8",
   "type": "Checkpoint",
-  "number": "84",
+  "number": "85",
   "title": "",
   "body": "   If we use 10-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 90% of the data is used for training.      If we use 5-fold cross-validation, what percentage of the data is used for training in each fold?    The model is trained on of the data, where is the number of folds.    with we have , so 80% of the data is used for training.      If we use leave-one-out cross-validation, what percentage of the data is used for training in each fold?    In LOOCV, each training set has observations out of total observations.    with we have , so approximately 90% of the data is used for training in each fold when is large.      For any two different folds in -fold cross-validation, how many training sets are shared between them?    Splitting the data into folds, how many of these folds do not include either of the two folds?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.      For any two different folds in -fold cross-validation, what is the number of overlapping training data points?    For any two different folds in -fold cross-validation, there are training sets that are shared between them.    The number of samples per fold is , where is the number of samples in the training set.    Knowing the number of shared training sets, and the number of samples per fold, we can calculate the number of overlapping training data points.    The number of overlapping samples is , where is the number of samples in the training set.      What is the the percentage overlap between any two different training sets in -fold cross-validation?    Any two folds share training sets, which is of the data.    The size of the training set in each fold is of the total data.    The percentage overlap is the ratio of the number of overlapping samples to the size of the training set.    The percentage overlap between any two different training sets in -fold cross-validation is .    "
 },
@@ -1994,7 +2048,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-15-lecture-7",
   "type": "Note",
-  "number": "85",
+  "number": "86",
   "title": "",
   "body": " The Bayes decision boundary is where , meaning   "
 },
@@ -2003,7 +2057,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#best-subset-selection",
   "type": "Algorithm",
-  "number": "86",
+  "number": "87",
   "title": "Best subset selection.",
   "body": " Best subset selection     Let denote the null model , which contains no predictors. This model simply predicts the sample mean for each observation.    For :   Fit all models that contain exactly predictors.    Pick the best among these models, and call it . Here, best is defined as having the smallest RSS, or equivalently, the largest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .     "
 },
@@ -2012,7 +2066,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-15-lecture-16-4",
   "type": "Example",
-  "number": "87",
+  "number": "88",
   "title": "Best subset selection.",
   "body": " Best subset selection   We train a model using four variables, . We’re interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using best subset selection?                                           What subset of variables is found for when using best subset selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using best subset selection?                                          is the set containing the two variables with the lowest training scores.      What subset of variables is found for when using best subset selection?                                          is the set containing the three variables with the lowest training scores.      What subset of variables is found for each of the sets when using best subset selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using best subset selection?    The best subset selection procedure returns the model with the lowest testing score.    Among test error, best is .    "
 },
@@ -2021,7 +2075,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#alg-forward-stepwise-selection",
   "type": "Algorithm",
-  "number": "89",
+  "number": "90",
   "title": "Forward stepwise selection.",
   "body": " Forward stepwise selection      Let denote the null model, which contains no predictors.    For :     Consider all models that augment the predictors in with one additional predictor.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .      "
 },
@@ -2030,7 +2084,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-15-lecture-18-3",
   "type": "Example",
-  "number": "90",
+  "number": "91",
   "title": "Forward subset selection.",
   "body": " Forward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                          is the set containing the single variable with the lowest training score.      What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for when using forward stepwise selection?                                           What subset of variables is found for each of the sets when using forward stepwise selection?                                          is the set of all variables, i.e., .      What subset of variables is returned using forward stepwise selection?    Among test error, best is .    "
 },
@@ -2039,7 +2093,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#alg-backward-stepwise-selection",
   "type": "Algorithm",
-  "number": "92",
+  "number": "93",
   "title": "Backward stepwise selection.",
   "body": " Backward stepwise selection      Let denote the full model , which contains all predictors.    For :     Consider all models that contain all but one of the predictors in , for a total of predictors.    Choose the best among these models, and call it . Here best is defined as having smallest RSS or highest .       Select a single best model from among using cross-validated prediction error, (AIC), BIC, or adjusted .      "
 },
@@ -2048,7 +2102,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-15-lecture-20-3",
   "type": "Checkpoint",
-  "number": "93",
+  "number": "94",
   "title": "Backward subset selection.",
   "body": " Backward subset selection   We train a model using four variables, . We're interested in selecting a subset of the variables to use. The following table shows the mean squared error (MSE) for the model learned using each possible subset of variables.   Training MSE and k-fold Cross-Validation Testing Error    Model  Training MSE ( )  k-fold CV Testing Error    Null model  8.76  10.08     8.63  9.98     7.42  8.01     8.16  8.30     8.33  9.06     4.33  7.47     5.82  5.22     3.17  4.23     4.07  3.78     3.31  4.01     3.06  4.16     3.08  5.49     3.55  4.02     2.97  4.23     2.98  3.17     2.16  4.39        What subset of variables is returned using backward stepwise selection?    "
 },
@@ -2057,7 +2111,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-15-lecture-21-3",
   "type": "Note",
-  "number": "95",
+  "number": "96",
   "title": "",
   "body": " Hybrid approaches can combine forward and backward selection.  "
 },
@@ -2084,7 +2138,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-17-lecture-4-3",
   "type": "Note",
-  "number": "96",
+  "number": "97",
   "title": "",
   "body": " Ridge shrinks coefficients but does not eliminate them, which is what we actually want.  "
 },
@@ -2093,7 +2147,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-17-lecture-5-9",
   "type": "Example",
-  "number": "97",
+  "number": "98",
   "title": "",
   "body": "  Each square in the shown figure has sides of unit length. For each of the following points, compute the , , and norms.   A 2D x-y grid showing 4 points labeled as a, b, c, and d. Each point is in one of the quadrants.      Point a=(3,3)           Point b=(-4,3)           Point c=(-1,-2)           Point d=(4,-4)         "
 },
@@ -2102,7 +2156,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-17-lecture-9-3",
   "type": "Figure",
-  "number": "98",
+  "number": "99",
   "title": "",
   "body": " Playing with different values of .   "
 },
@@ -2111,7 +2165,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-17-lecture-9-8",
   "type": "Checkpoint",
-  "number": "99",
+  "number": "100",
   "title": "",
   "body": "  Consider the shown RSS contours and the lasso and ridge constraint regions. is the least square solution. Each square in the grid has unit length.   Four subplots each showing two elliptical contours centered around the least squares solution. The top two panels show diamonds (p=1 norm) at the origin. The bottom two show circles (p=1 norm) at the origin.      What is the optimal parameter combination for (a)?           What is the optimal parameter combination for (b)?           What is the optimal parameter combination for (c)?           What is the optimal parameter combination for (d)?         "
 },
@@ -2120,7 +2174,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-exam2-material.html#day-17-lecture-13-3",
   "type": "Table",
-  "number": "100",
+  "number": "101",
   "title": "Comparison of Ridge Regression and Lasso",
   "body": " Comparison of Ridge Regression and Lasso    Ridge  Lasso    Coefficients are shrunk towards 0, but are not forced to be exactly 0.  Coefficients are shrunk towards 0, and some are forced to be exactly 0.    Tends to be better than lasso when many predictors have a significant effect on the output.  Tends to be more interpretable because we can see which variables are nonzero, rather than having to decide how small is small enough.    More sensitive to outliers. Squared penalty term . Outliers will affect the penalty quadratically. This sensitivity to outliers makes Ridge less robust.  More robust to outliers. Penalty term is the absolute sum . Outliers will affect the penalty linearly. This makes Lasso less sensitive to outliers, and therefore more robust.    Is not a model selection tool.  Is also a model selection tool since it often yields sparse models. Can be considered as an alternative to subset selection methods.    "
 },
@@ -2150,6 +2204,51 @@ var ptx_lunr_docs = [
   "number": "",
   "title": "",
   "body": "The Lasso: "
+},
+{
+  "id": "day-18-lecture-3",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-18-lecture-3",
+  "type": "Objectives",
+  "number": "",
+  "title": "Covered in this class",
+  "body": " Covered in this class    How to create new variables as linear combinations of the original predictors?    Why do we need Principal Component Analysis (PCA)? What is the main purpose of using it?    What is a principal component (PC)?    What does the first PC maximize? You should be able to explain this both geometrically in a plot and mathematically.    Similarly, what do the subsequent PCs maximize?    How do you compute the PCs in Python, given a dataset?    How do you project data points on each PC? You should also be able to plot the data points in the PC space.    How do you find out how much variance each PC explains?    "
+},
+{
+  "id": "day-18-lecture-4-10",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-18-lecture-4-10",
+  "type": "Example",
+  "number": "102",
+  "title": "PCs for example data.",
+  "body": " PCs for example data   Consider the following matrix that shows the predictor levels at each collected data point.       0 1  3 4  1 1  -1 0   and let the loadings matrix be      How many data points and predictors does the data matrix have?     is the number of rows, is the number of columns.     and .      Based on the form of , what is the dimension of the resulting transformed data?     has dimensions , so here . The transformed data will have dimension 1 (the original data had dimension 2).      Write down the matrix of the transformed data points.    The transformed data is        0 1 3  3 4 15  1 1 4  -1 0 -1          "
+},
+{
+  "id": "day-18-lecture-5-7",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-18-lecture-5-7",
+  "type": "Figure",
+  "number": "103",
+  "title": "",
+  "body": " Projection on a line   "
+},
+{
+  "id": "day-18-lecture-6-3",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-18-lecture-6-3",
+  "type": "Example",
+  "number": "104",
+  "title": "Evaluating two different projections..",
+  "body": " Evaluating two different projections.  Which of the shown projections better preserves the structure in the data?    Two sides by side scatter plots of data points in the plane showing two different projections. The one on the left (projection a) projects the data into more spread out points. The one on the right projects them closer to each other.    "
+},
+{
+  "id": "day-18-lecture-12-2",
+  "level": "2",
+  "url": "sec-exam2-material.html#day-18-lecture-12-2",
+  "type": "Figure",
+  "number": "105",
+  "title": "",
+  "body": " Toy for learning PCA   "
 },
 {
   "id": "homework-2",
@@ -2399,7 +2498,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "advertising-data-set.html#advertising-csv",
   "type": "Data",
-  "number": "117",
+  "number": "122",
   "title": "Advertising: Advertising Data Set.",
   "body": " Advertising: Advertising Data Set  A data frame with 200 observations that represent sales in 200 markets on the following 3 variables.   TV  Advertising cost for TV ads in thousands of dollars.    radio  Advertising cost for radio ads in thousands of dollars.    newspaper  Advertising cost for newspaper ads in thousands of dollars.    sales  Sales in thousands of dollars.     The book's website has the data files here .      "
 },
@@ -2417,7 +2516,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "day01-auto-data-set.html#day01-Auto-csv",
   "type": "Data",
-  "number": "118",
+  "number": "123",
   "title": "Auto: Auto Data Set.",
   "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .      "
 },
@@ -2435,7 +2534,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-credit-data-set.html#credit-csv",
   "type": "Data",
-  "number": "119",
+  "number": "124",
   "title": "Credit: Credit Data Set.",
   "body": " Credit: Credit Data Set  A csv file with 400 customers on the following 11 variables.   Income  Income in thousands of dollars.    Limit  Credit limit in dollars.    Rating  Credit rating.    Cards  Number of credit cards.    Age  Person's age.    Education  the number of years of education completed by each customer.    Gender  Male or Female.    Student  Student status with values Yes or No .    Married  Marital status with values Yes or No .    Ethnicity  Either Caucasian , Asian , or African American .    Balance  Average credit card debt in dollars.       Own is referenced in the textbook which represents home ownership ( Yes or No ), but is not in any of the online versions of the data set that I can find.  The book also mentions the variable Region (East, West, or South), but the data file is also missing that column.   The book's website has the data files here .      "
 },
@@ -2453,7 +2552,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-diabetes-data-set.html#diabetes-data",
   "type": "Data",
-  "number": "121",
+  "number": "126",
   "title": "Diabetes data set.",
   "body": " Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset   "
 },
@@ -2471,7 +2570,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "chicken-and-egg-set.html#ChickenEgg-csv",
   "type": "Data",
-  "number": "123",
+  "number": "128",
   "title": "Chicken and Egg Data Set.",
   "body": " Chicken and Egg Data Set  A data file with 90 observations that label each data point according to two predictors.   X1  First predictor.    X2  Second predictor    Label  The label for the data set, either chicken or egg .     This data is 100% made up by Dr.~Munch and does not correspond to any real experiment.  The data set has inputs and , with given by Label . The Bayes classifier is    An example data set in 2 dimensions, with some data points labeled Chicken and others labeled Egg.   The code used to generate this data is below.   def generateData(N=90,xBounds = [-7,7],yBounds = [-7,7],sigma=1, seed = None): # Generating data where the label is determined by being on one side or the # other of $y^3-y-x = 0$. # Adding noise so it's not cleanly separated np.random.seed(seed) DataX = np.random.uniform(xBounds[0],xBounds[1],[N,1]) DataY = np.random.uniform(yBounds[0],yBounds[1],[N,1]) Data = np.concatenate([DataX,DataY], axis = 1) Noise = np.random.normal(0, sigma, N) Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise) def ChickOrEgg(z): if z>0: return 'chicken' else: return 'egg' Label = [ChickOrEgg(z) for z in Check] Data = pd.DataFrame(Data, columns = ['x1','x2']) Data['Label'] = Label return Data # Generate the data Data = generateData(N = 90, seed = 48824) # Plot the figure sns.scatterplot(data = Data, x = 'x1', y = 'x2', hue = 'Label', style = 'Label').set(title = 'Chicken or Egg?') ty = np.linspace(-2.1,2.1,100) tx = ty**3 - ty plt.plot(tx,ty, color = 'grey')      "
 },
@@ -2489,7 +2588,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "default-set.html#Default-csv",
   "type": "Data",
-  "number": "124",
+  "number": "129",
   "title": "Default Data Set.",
   "body": " Default Data Set  A simulated data set containing information on ten thousand customers. The aim here is to predict which customers will default on their credit card debt.  The data is formatted into a data frame with 10000 observations on the following 4 variables.   default  A factor with levels No and Yes indicating whether the customer defaulted on their debt.    student  student A factor with levels No and Yes indicating whether the customer is a student.    balance  The average balance that the customer has remaining on their credit card after making their monthly payment    income  Income.     Source: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York     "
 },
@@ -2507,7 +2606,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-hitters-data-set.html#hitters-data",
   "type": "Data",
-  "number": "125",
+  "number": "130",
   "title": "Hitters data set.",
   "body": " Hitters data set  A data frame with 322 observations of major league players on the following 20 variables.  AtBat Number of times at bat in 1986  Hits Number of hits in 1986  HmRun Number of home runs in 1986  Runs Number of runs in 1986  RBI Number of runs batted in in 1986  Walks Number of walks in 1986  Years Number of years in the major leagues  CAtBat Number of times at bat during his career  CHits Number of hits during his career  CHmRun Number of home runs during his career  CRuns Number of runs during his career  CRBI Number of runs batted in during his career  CWalks Number of walks during his career  League A factor with levels A and N indicating player's league at the end of 1986  Division A factor with levels E and W indicating player's division at the end of 1986  PutOuts Number of put outs in 1986  Assists Number of assists in 1986  Errors Number of errors in 1986  Salary 1987 annual salary on opening day in thousands of dollars  NewLeague A factor with levels A and N indicating player's league at the beginning of 1987    Note that this version is slightly different than versions that can be found online. As far as I can tell, it's just that this particular file has the player names in an entry column.  Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York.  Look up the documentation about the dataset here:      "
 },
@@ -2525,7 +2624,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-college-data-set.html#college-data",
   "type": "Data",
-  "number": "126",
+  "number": "131",
   "title": "College data set.",
   "body": " College data set  Statistics for a large number of US Colleges from the 1995 issue of US News and World Report.  Private A factor with levels No and Yes indicating private or public university  Apps Number of applications received  Accept Number of applications accepted  Enroll Number of new students enrolled  Top10perc Percentage of new students from the top 10% of their high school class  Top25perc Percentage of new students from the top 25% of their high school class  F.Undergrad Number of full-time undergraduates  P.Undergrad Number of part-time undergraduates  Outstate Out-of-state tuition  Room.Board Room and board costs  Books Estimated book costs  Personal Estimated personal spending  PhD Percentage of faculty with Ph.D.s  Terminal Percentage of faculty with terminal degrees  S.F.Ratio Student-to-faculty ratio  perc.alumni Percentage of alumni who donate  Expend Instructional expenditure per student  Grad.Rate Graduation rate    Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the ASA Statistical Graphics Section's 1995 Data Analysis Exposition.  Look up the documentation about the dataset here:      "
 },
@@ -2543,7 +2642,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "polynomial-toy-data.html#PolynomialToy-csv",
   "type": "Data",
-  "number": "127",
+  "number": "132",
   "title": "Polynomial Toy Data Set.",
   "body": " Polynomial Toy Data Set  A data file with 100 samples from the function The points are randomly sampled from the interval from a uniform distribution, and noise sampled from a normal distribution is added to the output.  The data is arranged into a data frame called toy_data with two columns, x and y , where x is the input and y is the output.   x  The value of the data point.    y  The value of the data point.     This data is 100% simulated, and does not correspond to any real experiments.   An example data set showing a polynomial in black, solid line along with data points sampled from the polynomial with added noise in blue, circular markers.   The code used to generate this data is below.   # Set the random seed for reproducibility np.random.seed(42) # Define the polynomial f = lambda x: (x+2)*(x-2)*(x+6)*x+20 # Generate data x_data = np.random.uniform(-6, 3, 100) y_data = f(x_data) + np.random.normal(0, 10, size=x_data.shape) # Generate data for plotting x_plot = np.linspace(-6, 3, 100) y_plot = f(x_plot) # Create a DataFrame to store the data toy_data = pd.DataFrame({'x': x_data, 'y': y_data}) plt.plot(x_data,y_data, 'o', label = 'f(x) + noise') plt.plot(x_plot, y_plot, 'k', label = 'f(x)') plt.legend() plt.title('Toy data: Basis functions')      "
 },
@@ -2561,7 +2660,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-OJ-data-set.html#OJ-data",
   "type": "Data",
-  "number": "128",
+  "number": "133",
   "title": "Orange Juice data set.",
   "body": " Orange Juice data set  The data contains 1070 purchases where the customer either purchased Citrus Hill or Minute Maid Orange Juice. A number of characteristics of the customer and product are recorded.  A data frame with 1070 observations on the following 18 variables.  Purchase A factor with levels CH and MM indicating whether the customer purchased Citrus Hill or Minute Maid Orange Juice  WeekofPurchase Week of purchase  StoreID Store ID  PriceCH Price charged for CH  PriceMM Price charged for MM  DiscCH Discount offered for CH  DiscMM Discount offered for MM  SpecialCH Indicator of special on CH  SpecialMM Indicator of special on MM  LoyalCH Customer brand loyalty for CH  SalePriceMM Sale price for MM  SalePriceCH Sale price for CH  PriceDiff Sale price of MM less sale price of CH  Store7 A factor with levels No and Yes indicating whether the sale is at Store 7  PctDiscMM Percentage discount for MM  PctDiscCH Percentage discount for CH  ListPriceDiff List price of MM less list price of CH  STORE Which of 5 possible stores the sale occurred at    Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York.  Look up the documentation about the dataset here:      "
 },
@@ -2588,7 +2687,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#problem-2",
   "type": "Checkpoint",
-  "number": "129",
+  "number": "134",
   "title": "",
   "body": "  The figure below shows the solution to the constrained optimization problem where corresponds to a particular value of the tuning parameter .  For each figure, write down the resulting model, including the constant term .  Hint: Chapter 6.2.   Geometric illustration of the constrained optimization problem for LASSO regression.    "
 },
@@ -2597,7 +2696,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#LASSO-problem",
   "type": "Checkpoint",
-  "number": "130",
+  "number": "135",
   "title": "",
   "body": "  The norm of the fitted coefficients using ordinary least squares multiple regression was found to be . Use the table and figure provided to write down the expression for the model fit using LASSO regression.  Hint: Chapter 6.2.       -fold CV testing error                 Cross-validation error for LASSO regression as a function of the coefficient L1 norm.     "
 },
@@ -2606,7 +2705,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#CV-problem",
   "type": "Checkpoint",
-  "number": "132",
+  "number": "137",
   "title": "",
   "body": "  This dataset corresponds to an experiment with 30 data points measuring the resistance of rubber to abrasion, using hardness and tensile strength as predictors. Hardness was measured in degrees Shore (degree S), with higher values indicating harder rubber. Abrasion loss was measured in grams per hour (g\/h). Assume the data are already randomized in the order shown in the table, and answer the following questions.  Source: Davies, O. L., and Goldsmith, P. L. (eds.) (1972), Statistical Methods in Research and Production, 4th edition, Edinburgh: Oliver and Boyd, p. 239.     Abrasion loss (g\/h)  Hardness (degree S)  Tensile strength (kg\/cm 2 )   372 45 162  206 55 233  175 61 232  154 66 231  136 71 231  112 71 237  55 81 224  45 86 219  221 53 203  166 60 189  164 64 210  113 68 210  82 79 196  32 81 180  228 56 200  196 68 173  128 75 188  97 83 161  64 88 119  249 59 161  219 71 151  186 80 165  155 82 151  114 89 128  341 51 161  340 59 146  283 65 148  267 74 144  215 81 134  148 86 127       Show the full computations, including the equations used, for the mean squared error (MSE) of the first fold in 10-fold cross-validation.  Hint: Chapters 5.1-5.3.    Using only the first three rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using leave-one-out cross-validation (LOOCV).  Hint: Chapters 5.1-5.3.    Using only the first six rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using the validation-set approach. If you make any decisions about data selection, state them clearly.  Hint: Chapters 5.1-5.3      "
 }

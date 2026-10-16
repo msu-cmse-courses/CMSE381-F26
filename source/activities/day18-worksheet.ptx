@@ -20,8 +20,14 @@
   </introduction>
   <subsection xml:id="cmse381-lec18-ch6-3-pca-worksheet-ptx-1-pca-on-penguins">
     <title>1. PCA on Penguins</title>
-    <figure><caption>Palmer Penguins Picture</caption><image source="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png"><description><p>Palmer Penguins Picture</p></description></image></figure>
-    <p><em>Artwork by @allison_horst</em></p>
+    <figure>
+      <caption>Palmer Penguins. Artwork by @allison_horst.</caption>
+      <image source="figures/Palmer_penguins.png" width="85%">
+        <shortdescription>
+          Palmer Penguins Picture
+        </shortdescription>
+      </image>
+    </figure>
     <p>For this lab, we are going to again use the Palmer Penguins data set by Allison Horst, Alison Hill, and Kristen Gorman. You should have done this in a previous notebook, but if you don't have the package installed to get the data, you can run</p>
     <program language="text">
       pip install palmerpenguins

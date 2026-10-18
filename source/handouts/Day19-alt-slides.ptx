@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day19" xml:id="day-19-lecture">
+    <title>Day 19</title>
+
+    <introduction>
+        <p>
+            Ch 6.3: PCR
+        </p>
+    </introduction>
+
+    <objectives>
+        <title>Covered in this class</title>
+
+        <ul>
+            <li>Why do you want to use the PCs in regression models?
+              <ul>
+                <li>What assumptions do you have to make for it to be a good idea to use <em>principal component regression (PCR)</em>?</li>
+                <li>Conversely, what is a typical bad scenario in which to use PCR?</li>
+              </ul>
+            </li>
+            <li>How do you implement PCR in Python?</li>
+            <li>How do you interpret the model coefficients when using PCR?</li>
+            <li>How do you choose the number of PCs to use in PCR?
+              <ul>
+                <li>Given a figure of, for example, cross-validation score as a function of the number of PCs, you should be able to choose appropriately and provide rationales in terms of the bias-variance tradeoff.</li>
+                <li>You should be able to generate such figures in Python.</li>
+              </ul>
+            </li>
+            <li>What is the relationship between PCR and the feature selection and regularization methods that you learned in this part of the course? What are the differences?</li>
+          </ul>
+
+    </objectives>
+  
+    <title>Principal Components Regression</title>
+  
+    <paragraphs>
+      <title>So you've found your PCA coefficients</title>
+      <sidebyside widths="45% 45%">
+        <stack>
+          <p>Now what?</p>
+          <p>
+            <ul>
+              <li>Do linear regression on <m>Z_1,\ldots,Z_M</m>.</li>
+              <li>The book calls this principal components regression.</li>
+              <li>The linear model is
+                <md>
+                  y = \theta_0 + \theta_1 Z_1 + \cdots + \theta_M Z_M.
+                </md>
+              </li>
+            </ul>
+          </p>
+        </stack>
+        <stack>
+          <p>What are we assuming?</p>
+          <p>
+            <ul>
+              <li>The directions in which <m>X_1,\ldots,X_p\</m> have the most variation are the directions that are associated with <m>Y</m>.</li>
+              <li>If this assumption holds, fitting on <m>Z_i</m> is better than fitting on <m>X_i</m> since using fewer variables lessens the chance of overfitting.</li>
+            </ul>
+          </p>
+        </stack>
+      </sidebyside>
+    </paragraphs>
+  
+    <paragraphs>
+      <title>Interpretation of PCR coefficients</title>
+      <sidebyside widths="35% 55%">
+        <stack>
+          <p><b>Original Predictors:</b></p>
+          <p>
+            <md>
+              X_1,\ldots,X_p
+            </md>
+          </p>
+          <p><b>New Predictors:</b></p>
+          <p>
+            <md>
+              Z_1,\ldots,Z_M
+            </md>
+          </p>
+          <p>
+            <md>
+              Z_m = \sum_{j=1}^{p}\phi_{jm}X_j
+            </md>
+          </p>
+          <p><b>Learned model:</b></p>
+          <p>
+            <md>
+              y = \theta_0 + \theta_1 Z_1 + \cdots + \theta_M Z_M
+            </md>
+          </p>
+        </stack>
+        <stack>
+          <p>
+            <ul>
+              <li>Do an example showing that the coefficients of <m>Z_i</m> cannot be used directly to interpret the effects of <m>X_i</m>.</li>
+              <li><m>p=3, M=2</m>.</li>
+              <li>
+                <md>
+                  \phi =
+                  \begin{pmatrix}
+                  1 &amp; -1 \\
+                  3 &amp; \frac{1}{2} \\
+                  0 &amp; \frac{1}{2}
+                  \end{pmatrix}
+                </md>
+              </li>
+              <li>The learned model is
+                <md>
+                  y = 2Z_1-Z_2.
+                </md>
+              </li>
+              <li>
+                <md>
+                  y = 2(X_1+3X_2+0X_3)-(-X_1+\tfrac{1}{2}X_2+\tfrac{1}{2}X_3)
+                </md>
+              </li>
+              <li>
+                <md>
+                  = 3X_1+2.5X_2-0.5X_3
+                </md>
+              </li>
+              <li>Conclusion: you cannot directly use the coefficients learned for the principal components to interpret the original inputs!</li>
+              <li>Each PC is a linear combination of the original predictors, so you can work backward to determine the corresponding coefficients, as shown on the left.</li>
+            </ul>
+          </p>
+        </stack>
+      </sidebyside>
+    </paragraphs>
+  
+    <paragraphs>
+      <title>Picking <m>M</m></title>
+      <p>
+        <image source="figures/Fig6-20.png">
+          <shortdescription>Two plots showing standardized PCR coefficients (left) and cross-validation MSE (right) versus the number of principal components.</shortdescription>
+        </image>
+      </p>
+      <p>
+        <ul>
+          <li>Credit data set.</li>
+          <li>There is a major drop in MSE at 10 components, so there is little savings compared with using the original 11 variables.</li>
+        </ul>
+      </p>
+    </paragraphs>
+  
+    <paragraphs>
+      <title>Bias-Variance Trade-off</title>
+      <p>Example with simulated data: <m>n=50</m> observations of <m>p=45</m> predictors.</p>
+      <sidebyside widths="45% 45%">
+        <stack>
+          <p><m>Y</m> is a function of <b>all predictors</b>.</p>
+          <p>
+            <image source="figures/Fig6-18a.png" width="80%">
+              <shortdescription>Plot of training and test Mean Squared Error versus number of components, illustrating the bias-variance tradeoff.</shortdescription>
+            </image>
+          </p>
+          <p>
+            <ul>
+              <li>Typical U shape for test MSE.</li>
+              <li>Improves over least squares (rightmost value, <m>x=45</m>).</li>
+            </ul>
+          </p>
+        </stack>
+        <stack>
+          <p><m>Y</m> is a function of <b>2 predictors</b>.</p>
+          <p>
+            <image source="figures/Fig6-18b.png" width="80%">
+              <shortdescription>Plot of squared bias, variance, and test MSE versus number of components, demonstrating the bias-variance decomposition.</shortdescription>
+            </image>
+          </p>
+          <p>
+            <ul>
+              <li>Typical U shape for test MSE.</li>
+              <li>Slight improvement over least squares (rightmost value, <m>x=45</m>).</li>
+            </ul>
+          </p>
+        </stack>
+      </sidebyside>
+    </paragraphs>
+  
+    <paragraphs>
+      <title>Comparison to results on shrinkage</title>
+      <sidebyside widths="45% 45%">
+        <stack>
+          <p><m>Y</m> is a function of all predictors.</p>
+          <p>
+            <image source="figures/Fig6-18a.png" width="50%">
+              <shortdescription>Plot of training and test Mean Squared Error versus number of components, illustrating the bias-variance tradeoff.</shortdescription>
+            </image>
+          </p>
+          <p>
+            <image source="figures/Fig6-8.png" width="100%">
+              <shortdescription>Two plots showing MSE, squared bias, and variance versus lambda (left) and training R-squared (right), illustrating the bias-variance tradeoff.</shortdescription>
+            </image>
+          </p>
+        </stack>
+        <stack>
+          <p><m>Y</m> is a function of 2 predictors.</p>
+          <p>
+            <image source="figures/Fig6-18b.png" width="50%">
+              <shortdescription>Plot of squared bias, variance, and test MSE versus number of components, demonstrating the bias-variance decomposition.</shortdescription>
+            </image>
+          </p>
+          <p>
+            <image source="figures/Fig6-9.png" width="100%">
+              <shortdescription>Two plots showing MSE, squared bias, and variance for Lasso versus lambda (left) and training R-squared (right).</shortdescription>
+            </image>
+          </p>
+        </stack>
+      </sidebyside>
+      <p>Shrinkage does better.</p>
+    </paragraphs>
+  
+    <paragraphs>
+      <title>Properties of PCR</title>
+      <sidebyside widths="45% 45%">
+        <stack>
+          <p>
+            <ul>
+              <li>Note that PCR performed better in the previous example because many PCs were needed.</li>
+              <li>It performs better when the information is contained in the first few PCs.</li>
+              <li>The number of PCs to use can be selected with cross-validation (CV).</li>
+              <li>Standardization is needed to ensure that large data values do not skew the results.</li>
+            </ul>
+          </p>
+        </stack>
+        <stack>
+          <p>
+            <ul>
+              <li>PCR is not a feature selection method because it does not produce a subset of features; instead, it produces a collection of linear combinations of features.</li>
+            </ul>
+          </p>
+        </stack>
+      </sidebyside>
+    </paragraphs>
+
+</handout>

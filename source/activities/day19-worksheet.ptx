@@ -23,10 +23,13 @@
   </subsection>
   <subsection xml:id="cmse381-lec19-pcr-worksheet-loading-in-the-data">
     <title>Loading in the data</title>
-    <p>Ok, here we go, let's play with a baseball data set again. Note this cleanup is all the same as previously.</p>
+    <p>Ok, here we go, let's play with <xref ref="hitters-data"/> again. </p>
+
+      <p>
+        Load the data into the data frame <c>df</c>, and run the following command. Note this cleanup is all the same as previously. 
+      </p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/7c9ee5baa268e98bd5a1cade1809d7fe/Hitters.csv"
-      df = pd.read_csv(url).dropna().drop('Player', axis = 1)
+      df = df.dropna().drop('Player', axis = 1)
       df.info()
       dummies = pd.get_dummies(df[['League', 'Division', 'NewLeague']])
     </program>

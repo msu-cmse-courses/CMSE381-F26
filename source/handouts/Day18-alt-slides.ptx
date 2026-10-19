@@ -1,342 +1,606 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <handout component="day18" xml:id="day-18-lecture">
-    <title>Day 18</title>
+  <title>Day 18</title>
 
-    <introduction>
+  <introduction>
+    <p>
+      Ch 6.3: Dimension Reduction - PCA
+    </p>
+  </introduction>
+
+  <objectives>
+    <title>Covered in this class</title>
+
+    <ul>
+      <li>
         <p>
-            Ch 6.3: Dimension Reduction - PCA
+          How to create new variables as linear combinations of the original
+          predictors?
         </p>
-    </introduction>
+      </li>
 
-    <objectives>
-        <title>Covered in this class</title>
+      <li>
+        <p>
+          Why do we need Principal Component Analysis (PCA)?
+          What is the main purpose of using it?
+        </p>
+      </li>
 
-        <ul>
-    <li>
-        <p>How to create new variables as linear combinations of the original predictors?</p>
-    </li>
-    <li>
-        <p>Why do we need Principal Component Analysis (PCA)? What is the main purpose of using it?</p>
-    </li>
-    <li>
-        <p>What is a principal component (PC)?</p>
-    </li>
-    <li>
-        <p>What does the first PC maximize? You should be able to explain this both geometrically in a plot and mathematically.</p>
-    </li>
-    <li>
-        <p>Similarly, what do the subsequent PCs maximize?</p>
-    </li>
-    <li>
-        <p>How do you compute the PCs in Python, given a dataset?</p>
-    </li>
-    <li>
-        <p>How do you project data points on each PC? You should also be able to plot the data points in the PC space.</p>
-    </li>
-    <li>
-        <p>How do you find out how much variance each PC explains?</p>
-    </li>
-</ul>
+      <li>
+        <p>
+          What is a principal component (PC)?
+        </p>
+      </li>
 
+      <li>
+        <p>
+          What does the first PC maximize?
+          You should be able to explain this both geometrically in a plot and
+          mathematically.
+        </p>
+      </li>
 
+      <li>
+        <p>
+          Similarly, what do the subsequent PCs maximize?
+        </p>
+      </li>
 
-    </objectives>
+      <li>
+        <p>
+          How do you compute the PCs in Python, given a dataset?
+        </p>
+      </li>
 
-<paragraphs>
-  <title>Linear transformation of predictors</title>
-  
-  
-      <p>Original predictors:</p>
-      <p><md>X_1,\cdots,X_p</md></p>
-  
-      <p>New predictors:</p>
-      <p><md>Z_1,\cdots,Z_M</md></p>
+      <li>
+        <p>
+          How do you project data points on each PC?
+          You should also be able to plot the data points in the PC space.
+        </p>
+      </li>
 
-      <p><md>
+      <li>
+        <p>
+          How do you find out how much variance each PC explains?
+        </p>
+      </li>
+    </ul>
+  </objectives>
+
+  <paragraphs>
+    <title>Linear transformation of predictors</title>
+
+    <p>
+      Original predictors:
+    </p>
+
+    <p>
+      <md>
+        X_1,\cdots,X_p
+      </md>
+    </p>
+
+    <p>
+      New predictors:
+    </p>
+
+    <p>
+      <md>
+        Z_1,\cdots,Z_M
+      </md>
+    </p>
+
+    <p>
+      <md>
         <mrow> Z_m \amp= \sum_{j=1}^{p}\phi_{jm}X_j=X_1 \phi_{1m}+X_2 \phi_{2m}+\ldots+X_p \phi_{pm}</mrow>
         <mrow> \amp= \begin{bmatrix}X_1 \amp X_2 \amp \ldots \amp X_p\end{bmatrix}\begin{bmatrix}\phi_{1m}\\\phi_{2m}\\ \vdots\\\phi_{pm} \end{bmatrix} </mrow>
-        </md></p>
-  <p>
-    <ul>
-      <li><p>The goal is work with <m>M</m> variables instead where <m>M \ll p</m>.</p></li>
-      <li><p>We need to figure out good <m>\phi</m> values to do this.</p></li>
-    </ul>
-  </p>
+      </md>
+    </p>
 
-  <image source="figures/PCA_pictorial_explanation_allZ.png" width="75%">
-    <shortdescription>A pictorial illustration of the PCA projection of an n by p data matrix that shows the projection of one row of data into a 1 by M vector, and the projection of all rows of data into N by M matrix.</shortdescription>    
-  </image>
-  <p>
-    <ul>
-        <li>
-            <p>
-                The <m>p\times m</m> matrix <m>\boldsymbol{\phi}</m> is called the loadings matrix. It shows the contribution of each of the original predictors towards each of the Principal Components (PCs).
-            </p>
-        </li>
-    </ul>
-  </p>
-  <example>
-    <title>PCs for example data</title>
-    <introduction>
     <p>
-        Consider the following matrix that shows the predictor levels at each collected data point.
-    </p>        
+      <ul>
+        <li>
+          <p>
+            The goal is work with <m>M</m> variables instead where
+            <m>M \ll p</m>.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            We need to figure out good <m>\phi</m> values to do this.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <image source="figures/PCA_pictorial_explanation_allZ.png" width="75%">
+      <shortdescription>
+        A pictorial illustration of the PCA projection of an n by p data matrix
+        that shows the projection of one row of data into a 1 by M vector, and
+        the projection of all rows of data into N by M matrix.
+      </shortdescription>
+    </image>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            The <m>p\times m</m> matrix <m>\boldsymbol{\phi}</m> is called the
+            loadings matrix.
+            It shows the contribution of each of the original predictors towards
+            each of the Principal Components (PCs).
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <example>
+      <title>PCs for example data</title>
+
+      <introduction>
+        <p>
+          Consider the following matrix that shows the predictor levels at each
+          collected data point.
+        </p>
+
         <tabular>
           <row>
             <cell><m>X_1</m></cell>
-            <cell><m>X_2</m></cell>            
-          </row>
-          <row><cell>0</cell><cell>1</cell></row>
-          <row><cell>3</cell><cell>4</cell></row>
-          <row><cell>1</cell><cell>1</cell></row>
-          <row><cell>-1</cell><cell>0</cell></row>
-        </tabular>        
-        <p>
-            and let the loadings matrix be <md>
-                \boldsymbol{\phi}=\begin{bmatrix} 1 \\3 \end{bmatrix}.
-            </md>
-        </p>
-    </introduction>
-    <task>
-        <statement>
-            <p>
-                How many data points <m>n</m> and predictors <m>p</m> does the data matrix have?
-            </p>
-        </statement>
-        <hint>
-            <p>
-                <m>n</m> is the number of rows, <m>p</m> is the number of columns.
-            </p>
-        </hint>
-        <answer>
-            <p>
-                <m>n=4</m> and <m>p=2</m>.
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                Based on the form of <m>\boldsymbol{\phi}</m>, what is the dimension of the resulting transformed data?
-            </p>
-        </statement>
-        <answer>
-            <p>
-                <m>\boldsymbol{\phi}</m> has dimensions <m>p\times M</m>, so here <m>M=1</m>. The transformed data will have dimension 1 (the original data had dimension 2). 
-            </p>
-        </answer>
-    </task>
-    <task>
-        <statement>
-            <p>
-                Write down the matrix <m>Z</m> of the transformed data points.
-            </p>
-        </statement>
-        <hint>
-            <p>
-                The transformed data is
-            </p>
-                    <tabular>
-          <row>
-            <cell><m>X_1</m></cell>
             <cell><m>X_2</m></cell>
-            <cell><m>Z_1</m></cell>
           </row>
-          <row><cell>0</cell><cell>1</cell><cell>3</cell></row>
-          <row><cell>3</cell><cell>4</cell><cell>15</cell></row>
-          <row><cell>1</cell><cell>1</cell><cell>4</cell></row>
-          <row><cell>-1</cell><cell>0</cell><cell>-1</cell></row>
-        </tabular>    
-        </hint>
-        <answer>
-                
-    
+
+          <row>
+            <cell>0</cell>
+            <cell>1</cell>
+          </row>
+
+          <row>
+            <cell>3</cell>
+            <cell>4</cell>
+          </row>
+
+          <row>
+            <cell>1</cell>
+            <cell>1</cell>
+          </row>
+
+          <row>
+            <cell>-1</cell>
+            <cell>0</cell>
+          </row>
+        </tabular>
+
         <p>
-                <md>
-                    \mathbf{Z}=\begin{bmatrix}3 \\ 15 \\ 4 \\ -1\end{bmatrix}
-                </md>
-                
-            </p>
+          and let the loadings matrix be
+          <md>
+            \boldsymbol{\phi}=\begin{bmatrix} 1 \\3 \end{bmatrix}.
+          </md>
+        </p>
+      </introduction>
+
+      <task>
+        <statement>
+          <p>
+            How many data points <m>n</m> and predictors <m>p</m> does the data
+            matrix have?
+          </p>
+        </statement>
+
+        <hint>
+          <p>
+            <m>n</m> is the number of rows, <m>p</m> is the number of columns.
+          </p>
+        </hint>
+
+        <answer>
+          <p>
+            <m>n=4</m> and <m>p=2</m>.
+          </p>
         </answer>
-    </task>
-    
-  </example>
-</paragraphs>
+      </task>
 
-<paragraphs>
-  <title>Geometric interpretation</title>
-<p>Given two vectors <m>\mathbf{a}</m> and <m>\mathbf{b}</m>, the orthogonal projection of <m>\mathbf{a}</m> onto <m>\mathbf{b}</m> is the closes point on <m>\mathbf{b}</m> to <m>\mathbf{a}</m>. It can be found using the dot product
-<md>
-\text{proj}_b(a)=(\mathbf{a} \cdot \hat{\mathbf{u}}_b ) \hat{\mathbf{u}}_b,
-</md>
-where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction as <m>\mathbf{b}</m>.
-    </p>
-    <image source="figures/ortho_projection_cartoon.png" width="50%">
-        <shortdescription>Two vectors a and b in the first quadrant and the orthogonal projection of a onto b. The unit vector for b is also shown.</shortdescription>
-        
-    </image>
-      <p>
-        <ul>
-            <li>
-                <p>
-                    Standardize the data to have 0 mean and unit variance. 
-                </p>
-            </li>
-          <li><p>Choose <m>\phi</m> to have unit norm.</p></li>
-          <li><p>For example, <m>Z_1 = \frac{1}{\sqrt{10}}X_1 + \frac{3}{\sqrt{10}}X_2</m>.</p></li>
-          <li><p> For a data point <m>\mathbf{X}</m>, the value of <m>Z=\mathbf{X} \boldsymbol{\phi}</m> us where along the line defined by <m>\boldsymbol{\phi}</m> the projection falls.</p></li>
-        </ul>
-      </p>
-<p>Applying this to all the data points, gives us their projection onto the line defined by <m>\boldsymbol{\phi}</m></p>
-      <image source="figures/DimReduction_Projection.png" width="70%">
-  <shortdescription>Diagram illustrating projection of a point onto a line as a geometric interpretation of dimensionality reduction.</shortdescription>
-</image>
+      <task>
+        <statement>
+          <p>
+            Based on the form of <m>\boldsymbol{\phi}</m>, what is the dimension
+            of the resulting transformed data?
+          </p>
+        </statement>
 
+        <answer>
+          <p>
+            <m>\boldsymbol{\phi}</m> has dimensions <m>p\times M</m>, so here
+            <m>M=1</m>.
+            The transformed data will have dimension 1 (the original data had
+            dimension 2).
+          </p>
+        </answer>
+      </task>
 
-      <figure>  
-        <caption>Projection on a line</caption>
-        <interactive geogebra="gucrrevt" />
-      </figure>
-</paragraphs>
+      <task>
+        <statement>
+          <p>
+            Write down the matrix <m>Z</m> of the transformed data points.
+          </p>
+        </statement>
 
-<paragraphs>
-  <title>Different possible projections</title>
-  <p>
-    For a given data set, there are many possible projections. How do we choose which lines to project the data along?
-    <ul>
-        <li>
-            <p>
-                We want to preserve the structural information in the signal: points that are originally far apart are ideally still far in the projection, distinct points remain distinct after projection.
-            </p>
-        </li>
-    </ul>
-  </p>
-<example>   
-<title>Evaluating two different projections.</title>
-<statement><p>Which of the shown projections better preserves the structure in the data?</p>
-<p></p>
-    <image source="figures/max_var_projection_PCA.png" width="70%">
-        <shortdescription>Two sides by side scatter plots of data points in the plane showing two different projections. The one on the left (projection a) projects the data into more spread out points. The one on the right projects them closer to each other.</shortdescription>
-        
-    </image>
-    </statement>
+        <hint>
+          <p>
+            The transformed data is
+          </p>
 
-</example>
+          <tabular>
+            <row>
+              <cell><m>X_1</m></cell>
+              <cell><m>X_2</m></cell>
+              <cell><m>Z_1</m></cell>
+            </row>
 
-  For this figure, which of the two projections 
-  <sidebyside widths="30% 30% 30%">    
-      <image source="figures/DimReduction_Projection_Example2.png">
-        <shortdescription>Diagram showing different projections of data points onto a line in a dimensionality reduction example.</shortdescription>
-      </image>
-    
-    <stack>
-      <image source="figures/DimReduction_Projection_Example2_157.png">
-        <shortdescription>First projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_235.png">
-        <shortdescription>Second projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      </stack>
-      <stack>
-      <image source="figures/DimReduction_Projection_Example2_78.png">
-        <shortdescription>Third projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_0.png">
-        <shortdescription>Fourth projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-    </stack>
-  </sidebyside>
-</paragraphs>
+            <row>
+              <cell>0</cell>
+              <cell>1</cell>
+              <cell>3</cell>
+            </row>
 
-<paragraphs>
-  <title>Histograms of <m>Z</m> values</title>
-  <p>
-    Among all possible projections, we observe that the one that maximizes the variance of the projections (the <m>Z</m> values) seem to preserve the structural information the best.
-  </p>
-  <sidebyside widths="25% 25% 25% 25%">
-    <stack>
-      <image source="figures/DimReduction_Projection_Example2_157.png">
-        <shortdescription>First projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_hist157.png">
-        <shortdescription>Histogram of projected Z values for the first projection example.</shortdescription>
-      </image>
-    </stack>
-    <stack>
-      <image source="figures/DimReduction_Projection_Example2_235.png">
-        <shortdescription>Second projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_hist235.png">
-        <shortdescription>Histogram of projected Z values for the second projection example.</shortdescription>
-      </image>
-    </stack>
-    <stack>
-      <image source="figures/DimReduction_Projection_Example2_78.png">
-        <shortdescription>Third projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_hist78.png">
-        <shortdescription>Histogram of projected Z values for the third projection example.</shortdescription>
-      </image>
-    </stack>
-    <stack>
-      <image source="figures/DimReduction_Projection_Example2_0.png">
-        <shortdescription>Fourth projection example in a dimensionality reduction illustration.</shortdescription>
-      </image>
-      <image source="figures/DimReduction_Projection_Example2_hist0.png">
-        <shortdescription>Histogram of projected Z values for the fourth projection example.</shortdescription>
-      </image>
-    </stack>
-  </sidebyside>
-</paragraphs>
+            <row>
+              <cell>3</cell>
+              <cell>4</cell>
+              <cell>15</cell>
+            </row>
 
-<paragraphs>
-  <title>The goal</title>
-  <sidebyside widths="50% 50%">
-    <stack>
-      <p>
-        <ul>
-          <li><p>Find good <m>\phi</m> values for some <m>M \ll p</m>.</p></li>
-          <li><p>Fit a regression model on the <m>Z_i</m> values using least squares:</p></li>
-        </ul>
-      </p>
-      <p>
-        <md>y_i = \theta_0 + \sum_{m=1}^{M}\theta_m z_{im} + \epsilon_i</md>
-      </p>
-      <p>In this notation, the <m>\theta</m> values replace the <m>\beta</m> values.</p>
-    </stack>
-    <stack>
-      <p>
-        <ul>
-          <li><p>Dimension reduction comes from fitting models on a smaller number of variables.</p></li>
-          <!-- <li><p>The next two subsections cover ways to find <m>\phi</m>: PCA and partial least squares.</p></li> -->
-          <!-- <li><p>Today, we focus on PCA.</p></li> -->
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
+            <row>
+              <cell>1</cell>
+              <cell>1</cell>
+              <cell>4</cell>
+            </row>
 
+            <row>
+              <cell>-1</cell>
+              <cell>0</cell>
+              <cell>-1</cell>
+            </row>
+          </tabular>
+        </hint>
 
-
+        <answer>
+          <p>
+            <md>
+              \mathbf{Z}=\begin{bmatrix}3 \\ 15 \\ 4 \\ -1\end{bmatrix}
+            </md>
+          </p>
+        </answer>
+      </task>
+    </example>
+  </paragraphs>
 
   <paragraphs>
-    <title>An example dataset</title>
-    <sidebyside widths="50% 50%">
+    <title>Geometric interpretation</title>
+
+    <p>
+      Given two vectors <m>\mathbf{a}</m> and <m>\mathbf{b}</m>, the orthogonal
+      projection of <m>\mathbf{a}</m> onto <m>\mathbf{b}</m> is the closes point
+      on <m>\mathbf{b}</m> to <m>\mathbf{a}</m>.
+      It can be found using the dot product
+      <md>
+        \text{proj}_b(a)=(\mathbf{a} \cdot \hat{\mathbf{u}}_b ) \hat{\mathbf{u}}_b,
+      </md>
+      where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction
+      as <m>\mathbf{b}</m>.
+    </p>
+
+    <image source="figures/ortho_projection_cartoon.png" width="50%">
+      <shortdescription>
+        Two vectors a and b in the first quadrant and the orthogonal projection
+        of a onto b.
+        The unit vector for b is also shown.
+      </shortdescription>
+    </image>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Standardize the data to have 0 mean and unit variance.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Choose <m>\phi</m> to have unit norm.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            For example,
+            <m>Z_1 = \frac{1}{\sqrt{10}}X_1 + \frac{3}{\sqrt{10}}X_2</m>.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            For a data point <m>\mathbf{X}</m>, the value of
+            <m>Z=\mathbf{X} \boldsymbol{\phi}</m> us where along the line
+            defined by <m>\boldsymbol{\phi}</m> the projection falls.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      Applying this to all the data points, gives us their projection onto the
+      line defined by <m>\boldsymbol{\phi}</m>
+    </p>
+
+    <image source="figures/DimReduction_Projection.png" width="70%">
+      <shortdescription>
+        Diagram illustrating projection of a point onto a line as a geometric
+        interpretation of dimensionality reduction.
+      </shortdescription>
+    </image>
+
+    <figure>
+      <caption>Projection on a line</caption>
+      <interactive geogebra="gucrrevt"/>
+    </figure>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Different possible projections</title>
+
+    <p>
+      For a given data set, there are many possible projections.
+      How do we choose which lines to project the data along?
+      <ul>
+        <li>
+          <p>
+            We want to preserve the structural information in the signal: points
+            that are originally far apart are ideally still far in the
+            projection, distinct points remain distinct after projection.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <example>
+      <title>Evaluating two different projections.</title>
+
+      <statement>
+        <p>
+          Which of the shown projections better preserves the structure in the
+          data?
+        </p>
+
+        <p/>
+        <image source="figures/max_var_projection_PCA.png" width="70%">
+          <shortdescription>
+            Two sides by side scatter plots of data points in the plane showing
+            two different projections.
+            The one on the left (projection a) projects the data into more
+            spread out points.
+            The one on the right projects them closer to each other.
+          </shortdescription>
+        </image>
+      </statement>
+    </example>
+    For this figure, which of the two projections
+    <sidebyside widths="30% 30% 30%">
+      <image source="figures/DimReduction_Projection_Example2.png">
+        <shortdescription>
+          Diagram showing different projections of data points onto a line in a
+          dimensionality reduction example.
+        </shortdescription>
+      </image>
+
       <stack>
-        <image source="figures/Fig6-14.png">
-          <shortdescription>Scatter plot of an example dataset with two input variables and a line showing the principal component direction of greatest variability.</shortdescription>
+        <image source="figures/DimReduction_Projection_Example2_157.png">
+          <shortdescription>
+            First projection example in a dimensionality reduction illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_235.png">
+          <shortdescription>
+            Second projection example in a dimensionality reduction
+            illustration.
+          </shortdescription>
         </image>
       </stack>
+
+      <stack>
+        <image source="figures/DimReduction_Projection_Example2_78.png">
+          <shortdescription>
+            Third projection example in a dimensionality reduction illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_0.png">
+          <shortdescription>
+            Fourth projection example in a dimensionality reduction
+            illustration.
+          </shortdescription>
+        </image>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Histograms of <m>Z</m> values</title>
+
+    <p>
+      Among all possible projections, we observe that the one that maximizes the
+      variance of the projections (the <m>Z</m> values) seem to preserve the
+      structural information the best.
+    </p>
+
+    <sidebyside widths="25% 25% 25% 25%">
+      <stack>
+        <image source="figures/DimReduction_Projection_Example2_157.png">
+          <shortdescription>
+            First projection example in a dimensionality reduction illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_hist157.png">
+          <shortdescription>
+            Histogram of projected Z values for the first projection example.
+          </shortdescription>
+        </image>
+      </stack>
+
+      <stack>
+        <image source="figures/DimReduction_Projection_Example2_235.png">
+          <shortdescription>
+            Second projection example in a dimensionality reduction
+            illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_hist235.png">
+          <shortdescription>
+            Histogram of projected Z values for the second projection example.
+          </shortdescription>
+        </image>
+      </stack>
+
+      <stack>
+        <image source="figures/DimReduction_Projection_Example2_78.png">
+          <shortdescription>
+            Third projection example in a dimensionality reduction illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_hist78.png">
+          <shortdescription>
+            Histogram of projected Z values for the third projection example.
+          </shortdescription>
+        </image>
+      </stack>
+
+      <stack>
+        <image source="figures/DimReduction_Projection_Example2_0.png">
+          <shortdescription>
+            Fourth projection example in a dimensionality reduction
+            illustration.
+          </shortdescription>
+        </image>
+
+        <image source="figures/DimReduction_Projection_Example2_hist0.png">
+          <shortdescription>
+            Histogram of projected Z values for the fourth projection example.
+          </shortdescription>
+        </image>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>The goal</title>
+
+    <sidebyside widths="50% 50%">
       <stack>
         <p>
           <ul>
-            <li><p>Population size in tens of thousands of people.</p></li>
-            <li><p>Ad spending for a company in thousands of dollars.</p></li>
-            <li><p>Both variables are inputs.</p></li>
-            <li><p>There are 100 data points.</p></li>
-            <li><p>By eye, the green line is the direction of greatest variability. This is called the principal component.</p></li>
-            <li><p>Projecting observations onto this line gives projected observations with the largest possible variance.</p></li>
+            <li>
+              <p>
+                Find good <m>\phi</m> values for some <m>M \ll p</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Fit a regression model on the <m>Z_i</m> values using least
+                squares:
+              </p>
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <md>
+            y_i = \theta_0 + \sum_{m=1}^{M}\theta_m z_{im} + \epsilon_i
+          </md>
+        </p>
+
+        <p>
+          In this notation, the <m>\theta</m> values replace the <m>\beta</m>
+          values.
+        </p>
+      </stack>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Dimension reduction comes from fitting models on a smaller
+                number of variables.
+              </p>
+            </li>
+            <!-- <li><p>The next two subsections cover ways to find <m>\phi</m>: PCA and partial least squares.</p></li> -->
+            <!-- <li><p>Today, we focus on PCA.</p></li> -->
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>An example dataset</title>
+
+    <sidebyside widths="50% 50%">
+      <stack>
+        <image source="figures/Fig6-14.png">
+          <shortdescription>
+            Scatter plot of an example dataset with two input variables and a
+            line showing the principal component direction of greatest
+            variability.
+          </shortdescription>
+        </image>
+      </stack>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Population size in tens of thousands of people.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Ad spending for a company in thousands of dollars.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Both variables are inputs.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                There are 100 data points.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                By eye, the green line is the direction of greatest variability.
+                This is called the principal component.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Projecting observations onto this line gives projected
+                observations with the largest possible variance.
+              </p>
+            </li>
           </ul>
         </p>
       </stack>
@@ -345,34 +609,194 @@ where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction as <m>\
 
   <paragraphs>
     <title>Projection onto first PC</title>
+
     <p>
       <image source="figures/Fig6-15a.png" width="75%">
-        <shortdescription>Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.</shortdescription>
+        <shortdescription>
+          Scatter plot showing an example dataset projected onto the first
+          principal component, with the principal component direction and the
+          mean point indicated.
+        </shortdescription>
       </image>
     </p>
+
     <p>
       <md>
         Z_1 = 0.839 \cdot (\texttt{pop} - \overline{\texttt{pop}})
         + 0.544 \cdot (\texttt{ad} - \overline{\texttt{ad}})
       </md>
     </p>
-    <p>The principal component loadings are <m>\phi_{11}=0.839</m> and <m>\phi_{21}=0.544</m>. The blue dot is <m>(\overline{\texttt{pop}},\overline{\texttt{ad}})</m>.</p>
+
+    <p>
+      The principal component loadings are <m>\phi_{11}=0.839</m> and
+      <m>\phi_{21}=0.544</m>.
+      The blue dot is <m>(\overline{\texttt{pop}},\overline{\texttt{ad}})</m>.
+    </p>
   </paragraphs>
+
+  <exercise>
+    <title>Visual identification of the loadings</title>
+
+    <introduction>
+      <p>
+        The image shows three principal components (PC) obtained as
+        <md>
+          Z=\phi_1 X_1 + \phi_2 X_2,
+        </md>
+        for some loadings <m>\phi_1</m> and <m>\phi_2</m>.
+      </p>
+      <image source="figures/vector_weighted_sum_exercise.png">
+        <shortdescription>Three plots, a, b, and c, showing x and y axes labeled as X1 and X2, respectively. Each figure also shows a vector labeled PC in the first quadrant. </shortdescription>        
+      </image>
+    </introduction>
+
+    <task>
+      <statement>
+        <p>
+          which of the following are the loadings for the PC in panel (a)?
+        </p>
+      </statement>
+
+      <choices>
+        <choice correct="yes">
+          <statement>
+            <p>
+              <m>\phi_1=0.6, \phi_2=0.8</m>
+            </p>
+          </statement>
+          <feedback>
+          <p>You got it!</p>
+          </feedback>
+        </choice>
+
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.71, \phi_2 \approx 0.71</m>
+            </p>
+          </statement>
+        </choice>
+
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.9, \phi_2 \approx 0.44</m>
+            </p>
+          </statement>
+        </choice>
+      </choices>
+    </task>
+     <task>
+      <statement>
+        <p>
+          which of the following are the loadings for the PC in panel (b)?
+        </p>
+      </statement>
+
+      <choices>
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1=0.6, \phi_2=0.8</m>
+            </p>
+          </statement>
+        </choice>
+
+        <choice correct="yes">
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.71, \phi_2 \approx 0.71</m>
+            </p>
+          </statement>
+          <feedback>
+          <p>You got it!</p>
+          </feedback>
+        </choice>
+
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.9, \phi_2 \approx 0.44</m>
+            </p>
+          </statement>
+        </choice>
+      </choices>
+    </task>
+         <task>
+      <statement>
+        <p>
+          which of the following are the loadings for the PC in panel (c)?
+        </p>
+      </statement>
+
+      <choices>
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1=0.6, \phi_2=0.8</m>
+            </p>
+          </statement>
+        </choice>
+
+        <choice>
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.71, \phi_2 \approx 0.71</m>
+            </p>
+          </statement>
+        </choice>
+
+        <choice correct="yes">
+          <statement>
+            <p>
+              <m>\phi_1\approx 0.9, \phi_2 \approx 0.44</m>
+            </p>
+          </statement>
+          <feedback>
+          <p>You got it!</p>
+          </feedback>
+        </choice>
+      </choices>
+    </task>
+  </exercise>
 
   <paragraphs>
     <title>What does it mean to have the highest variance</title>
+
     <sidebyside widths="50% 50%">
       <stack>
         <image source="figures/Fig6-15a.png">
-          <shortdescription>Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.</shortdescription>
+          <shortdescription>
+            Scatter plot showing an example dataset projected onto the first
+            principal component, with the principal component direction and the
+            mean point indicated.
+          </shortdescription>
         </image>
       </stack>
+
       <stack>
         <p>
           <ul>
-            <li><p>Of every linear combination of <m>\texttt{pop}</m> and <m>\texttt{ad}</m>, this one has the highest variance.</p></li>
-            <li><p>It maximizes <m>\operatorname{Var}(\phi_{1,1}(\texttt{pop}-\overline{\texttt{pop}})+\phi_{2,1}(\texttt{ad}-\overline{\texttt{ad}}))</m>.</p></li>
-            <li><p>Require <m>\phi_{11}^2+\phi_{21}^2=1</m>; otherwise, we could make <m>\phi</m> arbitrarily large to inflate the variance.</p></li>
+            <li>
+              <p>
+                Of every linear combination of <m>\texttt{pop}</m> and
+                <m>\texttt{ad}</m>, this one has the highest variance.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                It maximizes
+                <m>\operatorname{Var}(\phi_{1,1}(\texttt{pop}-\overline{\texttt{pop}})+\phi_{2,1}(\texttt{ad}-\overline{\texttt{ad}}))</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Require <m>\phi_{11}^2+\phi_{21}^2=1</m>; otherwise, we could
+                make <m>\phi</m> arbitrarily large to inflate the variance.
+              </p>
+            </li>
           </ul>
         </p>
       </stack>
@@ -381,20 +805,29 @@ where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction as <m>\
 
   <paragraphs>
     <title>Toy for learning PCA</title>
+
     <figure>
       <caption>Toy for learning PCA</caption>
-      <interactive desmos="gvmq07pg1k" />
+      <interactive desmos="gvmq07pg1k"/>
     </figure>
-    <p>Click step 2a to show points for PC2.</p>
+
+    <p>
+      Click step 2a to show points for PC2.
+    </p>
   </paragraphs>
 
   <paragraphs>
     <title>Principal component scores</title>
+
     <p>
       <image source="figures/Fig6-16.png">
-        <shortdescription>Diagram illustrating principal component scores obtained by projecting observations onto the first principal component direction.</shortdescription>
+        <shortdescription>
+          Diagram illustrating principal component scores obtained by projecting
+          observations onto the first principal component direction.
+        </shortdescription>
       </image>
     </p>
+
     <p>
       <md>
         z_{i1} = 0.839 \cdot (\texttt{pop}_i-\overline{\texttt{pop}})
@@ -405,20 +838,39 @@ where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction as <m>\
 
   <paragraphs>
     <title>Another view</title>
+
     <p>
       <image source="figures/Fig6-15.png">
-        <shortdescription>Rotated view of the example dataset showing observations in relation to the first principal component and their principal component scores.</shortdescription>
+        <shortdescription>
+          Rotated view of the example dataset showing observations in relation
+          to the first principal component and their principal component scores.
+        </shortdescription>
       </image>
     </p>
+
     <sidebyside widths="50% 50%">
       <stack>
-        <p>Think of this as rotated for now</p>
+        <p>
+          Think of this as rotated for now
+        </p>
       </stack>
+
       <stack>
         <p>
           <ul>
-            <li><p>The score can be thought of as a relation measured from the mean.</p></li>
-            <li><p><m>z_{i1}&lt;0</m> means below-average population size and below-average ad spending.</p></li>
+            <li>
+              <p>
+                The score can be thought of as a relation measured from the
+                mean.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                <m>z_{i1}&lt;0</m> means below-average population size and
+                below-average ad spending.
+              </p>
+            </li>
           </ul>
         </p>
       </stack>
@@ -427,42 +879,95 @@ where <m>\hat{\mathbf{u}}_b</m> is a unit vector with the same direction as <m>\
 
   <paragraphs>
     <title>The other principal components</title>
+
     <sidebyside widths="50% 50%">
       <stack>
         <p>
           <ul>
-            <li><p><m>Z_2</m> is a linear combination of variables uncorrelated with <m>Z_1</m>.</p></li>
-            <li><p>Find the one that explains the most variance.</p></li>
-            <li><p>This requires <m>Z_2</m> to be orthogonal, or perpendicular, to <m>Z_1</m>.</p></li>
-            <li><p>Computers find it using matrix methods. The details are beyond the scope of this class, but you should be able to interpret the output.</p></li>
+            <li>
+              <p>
+                <m>Z_2</m> is a linear combination of variables uncorrelated
+                with <m>Z_1</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Find the one that explains the most variance.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                This requires <m>Z_2</m> to be orthogonal, or perpendicular, to
+                <m>Z_1</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Computers find it using matrix methods.
+                The details are beyond the scope of this class, but you should
+                be able to interpret the output.
+              </p>
+            </li>
           </ul>
         </p>
       </stack>
+
       <stack>
-        <p>Geometrically, imagine a circle of directions around a line in three dimensions.</p>
+        <p>
+          Geometrically, imagine a circle of directions around a line in three
+          dimensions.
+        </p>
       </stack>
     </sidebyside>
   </paragraphs>
 
-
   <paragraphs>
     <title>TL;DR</title>
+
     <sidebyside widths="50% 50%">
       <stack>
-        <p><em>PCA</em></p>
+        <p>
+          <em>PCA</em>
+        </p>
+
         <p>
           <ul>
-            <li><p>Unsupervised dimensionality reduction.</p></li>
-            <li><p>Choose component <m>Z_1</m> in the direction of greatest variance using only information from the <m>X_i</m>.</p></li>
-            <li><p>Choose <m>Z_2</m> and later components by the same method, after accounting for information in directions already explained.</p></li>
+            <li>
+              <p>
+                Unsupervised dimensionality reduction.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Choose component <m>Z_1</m> in the direction of greatest
+                variance using only information from the <m>X_i</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Choose <m>Z_2</m> and later components by the same method, after
+                accounting for information in directions already explained.
+              </p>
+            </li>
           </ul>
         </p>
+
         <image source="figures/Fig6-15a.png">
-          <shortdescription>Scatter plot showing an example dataset projected onto the first principal component, with the principal component direction and the mean point indicated.</shortdescription>
+          <shortdescription>
+            Scatter plot showing an example dataset projected onto the first
+            principal component, with the principal component direction and the
+            mean point indicated.
+          </shortdescription>
         </image>
       </stack>
+
       <stack>
-        <p></p>
+        <p/>
       </stack>
     </sidebyside>
     <!-- <exercise>

@@ -1342,6 +1342,96 @@ var ptx_lunr_docs = [
   "body": "   Of the models you've built so far (Ridge, Lasso, and PCR), which would you choose to use and why?  Note: This goes in the no-one-right-answer bucket. Go argue with your group.    Compare the models using the same validation scheme and metric before considering interpretability or computational cost.    Ridge keeps all predictors, lasso can select a sparse set, and PCR regresses on unsupervised orthogonal components; connect those properties to the course goal.    Common error: Do not select a model only because its training error is smallest or because it is the most recently fitted; justify the choice with held-out performance and practical priorities.    There is no universally correct choice. Prefer the model with the best or statistically comparable cross-validated error under a common evaluation scheme. If errors are similar, lasso may be preferable for a sparse, interpretable predictor set; ridge is stable when many correlated predictors contribute; PCR is useful when a low-dimensional component representation is valuable, though its components are chosen without using the response.    "
 },
 {
+  "id": "cmse381-lec20-polynomialandstepfunctions-worksheet",
+  "level": "1",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html",
+  "type": "Section",
+  "number": "",
+  "title": "Day 20 worksheet",
+  "body": " Day 20 worksheet   In this module we are going to implement polynomial regression and step functions as discussed in class.  # Everyone's favorite standard imports import numpy as np import pandas as pd import matplotlib.pyplot as plt %matplotlib inline # ML imports we've used previously # import sklearn from sklearn.model_selection import train_test_split from sklearn.metrics import mean_squared_error from sklearn.preprocessing import PolynomialFeatures    0. Loading in the data  We're going to use the used in the book, so note that many of your plots can be checked by looking at figures in the book.  Load the data into the dataframe df , and run the following commands.  df.head()  df.info()  df.describe()  Here's the plot we used multiple times in class to look at a single variable: age vs wage . I've also added some splits so that the people making above and below $250,000 are drawn in a different color.  plt.scatter(df.age[df.wage <=250], df.wage[df.wage<=250],marker = '*', label = '< 250') plt.scatter(df.age[df.wage >250], df.wage[df.wage>250], label = '> 250') plt.legend() plt.xlabel('Age') plt.ylabel('Wage') plt.show()    1. Linear Regression  Before we do anything fancy, let's just do some linear regression. It's not going to be a great fit to our data, this is just to see how we can draw the function learned.  If I want to learn a linear model predicting wage from age , I can do the same thing we've done for the last month.  from sklearn.linear_model import LinearRegression  X = df.age.values.reshape(-1,1) y = df.wage linreg = LinearRegression() linreg.fit(X,y)  # If you edit the y_wage stuff above, you'll get the linear regression line drawn here. # This is all the stuff to plot the data plt.scatter(df.age[df.wage <=250], df.wage[df.wage<=250],marker = '*', label = '< 250') plt.scatter(df.age[df.wage >250], df.wage[df.wage>250], label = '> 250') plt.legend() plt.xlabel('Age') plt.ylabel('Wage') # This is what I'm adding to draw the line plt.plot(t_age, y_wage, color = 'red') plt.show()   Exercises   Practice   Complete the following exercises.      What is the equation learned by the model?    Read the slope from linreg.coef_[0] and the intercept from linreg.intercept_ .    Write the fitted model in the form .    Common error: Do not reverse the intercept and slope; intercept_ is the constant term and coef_ multiplies age.     print('beta_1:', round(linreg.coef_[0],3)) print('beta_0:', round(linreg.intercept_,3)) print('wage = ', round(linreg.intercept_,3), ' + ', round(linreg.coef_[0],3), '* age')         Now I could plot this by taking the equation I just learned and applying it to some vector of values. However, it is even easier to do this by simply predicting the outputs for a lot of the -inputs and then drawing the function on top of the data.  Use the predict function to get the function outputs and then plot this using the code below.    Create a dense grid of ages and reshape it to one column before calling predict .    Plot the predicted wages against the same age grid, on top of the scatter plot.    Common error: A one-dimensional age array has the wrong shape for scikit-learn; use .reshape(-1, 1) .     t_age = np.linspace(20,80, 100).reshape(-1,1) # your code here for y_wage y_wage = linreg.predict(t_age)          1. Polynomial Regression  Our first step is to build a polynomial regression model using the age data to predict wage. So, as in class, we are in world here where we are going to fit the model  The trick here is to build a matrix which has a column containing age , one with age^2 , one with age^3 , etc. Then we hand this to your favorite regression tool (it doesn't need to know it's getting polynomial matrix inputs, it just sees a matrix of features and does it's thing).  Here's the code we learned in Lecture 14 for building the data frame of powers of input .  p = 3 poly = PolynomialFeatures(p, include_bias = False) X_powers = poly.fit_transform(X) # X_powers model = LinearRegression() model.fit(X_powers,y) print(f\"Coefs: {model.coef_}\") print(f\"Intercept: {model.intercept_}\")  # Note: this should look like slide from class. plt.scatter(df.age[df.wage <=250], df.wage[df.wage<=250],marker = '*') plt.scatter(df.age[df.wage >250], df.wage[df.wage>250]) plt.xlabel('Age') plt.ylabel('Wage') plt.plot(t_age, y_wage, c= 'red') plt.show()   Exercises   Practice   Complete the following exercises.      What is the equation of the model learned?    The columns of X_powers are , , and in that order.    Pair model.coef_[i] with power and use model.intercept_ as the constant term.    Common error: Do not treat the three coefficients as three unrelated predictors; they multiply successive powers of age.     # My cheating to print it out linestring = str(round(model.intercept_,2)) for i in range(p): linestring += ' + ' + str(round(model.coef_[i],2))+ ' X^'+ str(i+1) print( 'y = ', linestring)         As before, in order to plot we want to determine y_wage from the t_age input below by using the predict command. However, note that to do this, you're going to have to pass in the polynomial matrix for the t_age column.    Apply the already configured poly transformer to t_age before prediction.    The transformed grid must have the same three feature columns used to fit model .    Common error: Do not pass raw t_age directly to a model trained on polynomial features; its feature count will not match.     t_age = np.linspace(10,90,100).reshape(-1,1) # Make the polynomial features from t_age t_powers = poly.fit_transform(t_age) # Now predict the y values from the model and the t_powers y_wage = model.predict(t_powers)          2. Step functions  Now let's try to use step functions to learn a model using age to predict wage . Like with the polynomial example from last time, all we're going to do is build a data frame or feature matrix that has the step function values in each column, and then pass that matrix to our favorite linear modeling function.  First, we want to get a dataframe with the cuts.  df_cut, bins = pd.cut(df.age, 4, retbins = True, right = False)  Note that the df_cut is a pandas series with each data point now represented as the interval it's contained in.  df_cut  Here I'm just printing it out in a column next to the age information that was used to generate it.  pd.DataFrame({'age': df.age, 'df_cut': df_cut}).head(10)  The bins output gives me the knots as follows.  print(bins)  # This is how it matches with our notation. print(r'c_1 = ', bins[0]) print(r'c_2 = ', bins[1]) print(r'c_3 = ', bins[2]) print(r'c_4 = ', bins[3]) print(r'c_5 = ', bins[4])  We can use the dummy variable trick to turn the df_cut output into something closer to what we are using. Below is my code that generates the data frame storing for all our entries.  df_steps_dummies = pd.get_dummies(df_cut) # This gives us entries with true\/false df_steps = df_steps_dummies.apply(lambda x: x * 1) # This converts those to either 0 or 1. df_steps  Assuming you stored your linear regression model as linreg , the following code will plot the learned function. Check that the answers you got in the table above match with what you're seeing in the graph.  t_age = pd.Series(np.linspace(20,80,100)) t_df_cut = pd.cut(t_age, bins, right = False) #<-- I'm explicitly passing the same bins learned above so tha the procedure is the same. t_dummies = pd.get_dummies(t_df_cut) t_step = t_dummies.apply(lambda x: x * 1) t_step.head()  plt.scatter(df.age[df.wage <=250], df.wage[df.wage<=250],marker = '*') plt.scatter(df.age[df.wage >250], df.wage[df.wage>250]) plt.xlabel('Age') plt.ylabel('Wage') plt.plot(t_age, y_wage,color='red') plt.show()    Exercises   Practice   Complete the following exercises.      For each of the functions , , , , , (following our notation in class), determine the domains where they have value 1.    Use the printed bin edges as and remember that right=False makes each finite interval left-closed and right-open.    and describe the two exterior intervals; through describe the four bins in the observed data range.    Common error: The lower exterior interval is , not .    With bin edges , the indicator domains are: on ; on ; on ; on ; on ; and on .        Which of the functions for have columns represented in this matrix? Note: it's not all of them    Inspect df_steps.columns and compare its four intervals with the six conceptual indicator domains.    Only intervals containing observed ages are returned by this particular pd.cut call.    Common error: Do not count and merely because they exist in the mathematical definition; no observed value falls in those exterior intervals.    It has . Basically the infinite interval ones and are dropped.  The function I'm learning is         Pass this matrix to a linear regression model and use it to predict wage . What is the equation for your learned model?    Fit LinearRegression() using df_steps as and df.wage as .    Inspect both coef_ and intercept_ ; each coefficient corresponds to one dummy column in df_steps.columns .    Common error: Keep the dummy-column order when interpreting coefficients; otherwise a coefficient may be assigned to the wrong interval.     linreg = LinearRegression() linreg.fit(df_steps,df.wage) print(linreg.coef_) print(linreg.intercept_)         Be specific in terms of the functions you learned earlier.    Write the prediction as an intercept plus one fitted coefficient times each represented .    Use the column order from df_steps to map the four coefficients to .    Common error: Because all four one-hot columns sum to one while an intercept is included, the coefficient representation is not unique; report the fitted scikit-learn parameterization consistently.     coefs = [f\"{beta:0.2e}\" for beta in linreg.coef_] eqstring = f\"{linreg.intercept_:.2f}\" for i in range(len(coefs)): eqstring += ' + ' + coefs[i] + ' C_' + str(i+1) + '(X)' print(eqstring)         Above, I figured out the transformation of the input t_age values to do the same transformation as our step function. Now use the linear regression model learned to predict y_wage , then we can graph it.    Call linreg.predict on the transformed step-function rows for t_age .    Ensure the prediction matrix has the same dummy columns, in the same order, as the training matrix.    Common error: Do not recompute unrelated bin edges for the plotting grid; reuse the training bins so the learned step boundaries stay fixed.     y_wage = linreg.predict(t_dummies)          Congratulations, we're done!     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-linear-regression-7-2-3",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-linear-regression-7-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   What is the equation learned by the model?    Read the slope from linreg.coef_[0] and the intercept from linreg.intercept_ .    Write the fitted model in the form .    Common error: Do not reverse the intercept and slope; intercept_ is the constant term and coef_ multiplies age.     print('beta_1:', round(linreg.coef_[0],3)) print('beta_0:', round(linreg.intercept_,3)) print('wage = ', round(linreg.intercept_,3), ' + ', round(linreg.coef_[0],3), '* age')     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-linear-regression-7-2-4",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-linear-regression-7-2-4",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": "   Now I could plot this by taking the equation I just learned and applying it to some vector of values. However, it is even easier to do this by simply predicting the outputs for a lot of the -inputs and then drawing the function on top of the data.  Use the predict function to get the function outputs and then plot this using the code below.    Create a dense grid of ages and reshape it to one column before calling predict .    Plot the predicted wages against the same age grid, on top of the scatter plot.    Common error: A one-dimensional age array has the wrong shape for scikit-learn; use .reshape(-1, 1) .     t_age = np.linspace(20,80, 100).reshape(-1,1) # your code here for y_wage y_wage = linreg.predict(t_age)     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-polynomial-regression-7-2-3",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-polynomial-regression-7-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   What is the equation of the model learned?    The columns of X_powers are , , and in that order.    Pair model.coef_[i] with power and use model.intercept_ as the constant term.    Common error: Do not treat the three coefficients as three unrelated predictors; they multiply successive powers of age.     # My cheating to print it out linestring = str(round(model.intercept_,2)) for i in range(p): linestring += ' + ' + str(round(model.coef_[i],2))+ ' X^'+ str(i+1) print( 'y = ', linestring)     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-polynomial-regression-7-2-4",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-1-polynomial-regression-7-2-4",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": "   As before, in order to plot we want to determine y_wage from the t_age input below by using the predict command. However, note that to do this, you're going to have to pass in the polynomial matrix for the t_age column.    Apply the already configured poly transformer to t_age before prediction.    The transformed grid must have the same three feature columns used to fit model .    Common error: Do not pass raw t_age directly to a model trained on polynomial features; its feature count will not match.     t_age = np.linspace(10,90,100).reshape(-1,1) # Make the polynomial features from t_age t_powers = poly.fit_transform(t_age) # Now predict the y values from the model and the t_powers y_wage = model.predict(t_powers)     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-3",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-3",
+  "type": "Exercise",
+  "number": "1",
+  "title": "",
+  "body": "   For each of the functions , , , , , (following our notation in class), determine the domains where they have value 1.    Use the printed bin edges as and remember that right=False makes each finite interval left-closed and right-open.    and describe the two exterior intervals; through describe the four bins in the observed data range.    Common error: The lower exterior interval is , not .    With bin edges , the indicator domains are: on ; on ; on ; on ; on ; and on .    "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-4",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-4",
+  "type": "Exercise",
+  "number": "2",
+  "title": "",
+  "body": "   Which of the functions for have columns represented in this matrix? Note: it's not all of them    Inspect df_steps.columns and compare its four intervals with the six conceptual indicator domains.    Only intervals containing observed ages are returned by this particular pd.cut call.    Common error: Do not count and merely because they exist in the mathematical definition; no observed value falls in those exterior intervals.    It has . Basically the infinite interval ones and are dropped.  The function I'm learning is     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-5",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-5",
+  "type": "Exercise",
+  "number": "3",
+  "title": "",
+  "body": "   Pass this matrix to a linear regression model and use it to predict wage . What is the equation for your learned model?    Fit LinearRegression() using df_steps as and df.wage as .    Inspect both coef_ and intercept_ ; each coefficient corresponds to one dummy column in df_steps.columns .    Common error: Keep the dummy-column order when interpreting coefficients; otherwise a coefficient may be assigned to the wrong interval.     linreg = LinearRegression() linreg.fit(df_steps,df.wage) print(linreg.coef_) print(linreg.intercept_)     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-6",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-6",
+  "type": "Exercise",
+  "number": "4",
+  "title": "",
+  "body": "   Be specific in terms of the functions you learned earlier.    Write the prediction as an intercept plus one fitted coefficient times each represented .    Use the column order from df_steps to map the four coefficients to .    Common error: Because all four one-hot columns sum to one while an intercept is included, the coefficient representation is not unique; report the fitted scikit-learn parameterization consistently.     coefs = [f\"{beta:0.2e}\" for beta in linreg.coef_] eqstring = f\"{linreg.intercept_:.2f}\" for i in range(len(coefs)): eqstring += ' + ' + coefs[i] + ' C_' + str(i+1) + '(X)' print(eqstring)     "
+},
+{
+  "id": "cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-7",
+  "level": "2",
+  "url": "cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17-2-7",
+  "type": "Exercise",
+  "number": "5",
+  "title": "",
+  "body": "   Above, I figured out the transformation of the input t_age values to do the same transformation as our step function. Now use the linear regression model learned to predict y_wage , then we can graph it.    Call linreg.predict on the transformed step-function rows for t_age .    Ensure the prediction matrix has the same dummy columns, in the same order, as the training matrix.    Common error: Do not recompute unrelated bin edges for the plotting grid; reuse the training bins so the learned step boundaries stay fixed.     y_wage = linreg.predict(t_dummies)     "
+},
+{
   "id": "sec-exam1-material",
   "level": "1",
   "url": "sec-exam1-material.html",
@@ -2341,6 +2431,60 @@ var ptx_lunr_docs = [
   "body": "  Assume we have three input variables and two principal components (PCs), defined as:      Using linear regression, we learn the model What are the coefficients for the model learned in terms of the 's? Show your work.    Substitute the equations for and into the model for : The final model coefficients are for , for , and for .      You have a data point . What would be the coordinates of this point in the PC space (also known as the scores)? Show your work.    Substitute the coordinates of the data point into the PC formulas: The coordinates in the PC space are .    "
 },
 {
+  "id": "sec-exam3-material",
+  "level": "1",
+  "url": "sec-exam3-material.html",
+  "type": "Section",
+  "number": "",
+  "title": "Exam 3 Material",
+  "body": " Exam 3 Material       Day 20        Day 20   7.1: Polynomial regression  7.2: Step functions    Covered in this class   Why do people want to use polynomial regression rather than simple linear regression?  How do you fit polynomial regression models?  Why do people want to use step functions rather than simple linear regression?  How do you fit step function models?  What do polynomial regression and step functions have in common?  What are the differences between polynomial regression and step functions?     Polynomial regression  Replace the linear model     with       Can learn with linear models by passing in predictors .  Tend not to go higher than degree 3 or 4 because this can make the model overly flexible.   Resulting model is global.   Can miss important localized information.          Example: Wage Data     Using OLS to fit a polynomial model: Treat higher powers as separate predictors.  Make a matrix of predictors with columns .     1  2       Then use linear regression to learn the coefficients.    The code learned:    Scatter plot of Wage versus Age showing a non-linear polynomial fit with dashed standard error bands.  Scatter plot of the Wage data depicting wage versus age for men in the Mid-Atlantic region of the United States. The solid blue curve is a degree-4 polynomial of wage (in thousands of dollars) as a function of age, fit by least squares. The dashed curves indicate an estimated 95% confidence interval     The dark line is a degree 4 polynomial.  There is an estimated variance for each coefficient.  Assume the fitted model is    Use this model to estimate the pointwise variance .  Draw two standard deviations away from the fitted line to obtain an approximate 95% confidence interval.         We notice that the data contains two groups: high earners, and low earners.    Most of the data is low earners (about 79 earners out of 3000 data points).    A global model (such as polynomial regression) will impose global structure on the data.     Step functions allow learning localized models.       Step functions   A 3 by 1 panel showing identical axes with X on the horizontal axis, and 3 different indicator functions on the vertical axis. The plots show the regions where the indicator function is either zero or one.    More generally:    A four by one panel showing identical axes with X on the horizontal axis, and four different indicator functions on the vertical axis. The plots show the regions where the indicator function is either zero or one for K indicator functions.      Choose values for the knots  .    is an indicator function . It returns 1 if its argument is true, and 0 otherwise.   Use indicator functions to break up the range of into bins, then fit a new constant in each bin.  The terms are sometimes also called dummy variables.  Note that because belongs to exactly one interval.      Step functions allow models to be learned without imposing a global structure.   They are very popular in biostatistics and epidemiology 5-year age groups are often used to define the bins. 5-year age groups are often used to define the bins.       Step function: Learned model       Note that we do not learn a coefficient for . As with qualitative predictors, its value can be determined from the other coefficients.  If , all predictors are zero, so is the mean value of for .  For , the response is . Thus, is the average change in response for in that interval relative to .      Step function example    Given knots , , and , determine the entries in the columns for in the matrix below.               1   2   3   4   5   6   7   8   9   10                   1 1 0 0 0  2 1 0 0 0  3 0 1 0 0  5 0 1 0 0  5 0 0 1 0  6 0 0 1 0  7 0 0 0 1  8 0 0 0 1  9 0 0 0 1  10 0 0 0 1       My code, using regression on the step function inputs, returned the function   Fill in the missing values in the table below.      1  2  3  4  5  6  7  8  9  10         1 -1  2 -1  3 2  4 2  5 3  6 3  7 -3  8 -3  9 -3  10 -3       Draw the function.   Empty Cartesian coordinate grid with x-axis and y-axis.     Using the cutpoints , , and , we can define the functions     The piecewise values for can be written as      A grid showing the solution to the problem which is composed of horizontal lines at the specified cut points.       Step function with the Wage data    Scatter plot of Wage versus Age with a green step function fit and dashed standard error bands.     Good: The fitted model identifies a peak where the high earners are.   Not great: Unless there are natural breakpoints in the predictors, the model can miss important information. For example, the first bin misses the increasing trend of wage with age.        Coffee shop sales step regression   Suppose we want to predict the number of coffees sold per hour ( ) at a campus coffee shop based on the time of day ( , measured in hours since opening from 8:00 AM to 4:00 PM, where ).  A sample dataset of 20 hourly observations is provided in .   Hourly Coffee Shop Sales Data    Observation  Time of Day ( )  Coffees Sold ( )   1 0.2 48  2 0.5 54  3 1.1 51  4 1.8 45  5 2.5 52  6 3.1 118  7 3.4 125  8 3.9 115  9 4.2 122  10 4.7 120  11 5.0 42  12 5.3 38  13 5.8 40  14 6.1 82  15 6.4 78  16 6.9 85  17 7.2 77  18 7.5 81  19 7.8 84  20 8.0 79       Fit an intercept-only model (0 cutpoints). Is this a good model?    If we fit an intercept-only model, , our best prediction is the global average of all observations: This model underfits significantly, completely missing the morning and afternoon fluctuations.      Introduce a single split at noon to segment the data into Morning ( ) and Afternoon ( ). Fit the resulting model.    The resulting model with one cutpoint at noon is Averaging the subsets yields:  Morning Step (Observations 1-8):  Afternoon Step (Observations 9-20):        Can you think of a partition that can better capture the peak hours' rush? There is not a unique solution to this part.    We can use 3 cutpoints at . We fit the model where: Calculating the averages within each interval yields: This refinement level seems to capture the underlying demand wave of the shop without overfitting.       "
+},
+{
+  "id": "day-20-lecture-3",
+  "level": "2",
+  "url": "sec-exam3-material.html#day-20-lecture-3",
+  "type": "Objectives",
+  "number": "",
+  "title": "Covered in this class",
+  "body": " Covered in this class   Why do people want to use polynomial regression rather than simple linear regression?  How do you fit polynomial regression models?  Why do people want to use step functions rather than simple linear regression?  How do you fit step function models?  What do polynomial regression and step functions have in common?  What are the differences between polynomial regression and step functions?   "
+},
+{
+  "id": "day-20-lecture-5-7",
+  "level": "2",
+  "url": "sec-exam3-material.html#day-20-lecture-5-7",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "Step functions "
+},
+{
+  "id": "day-20-lecture-6-4",
+  "level": "2",
+  "url": "sec-exam3-material.html#day-20-lecture-6-4",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "knots indicator function "
+},
+{
+  "id": "day-20-lecture-8",
+  "level": "2",
+  "url": "sec-exam3-material.html#day-20-lecture-8",
+  "type": "Example",
+  "number": "110",
+  "title": "Step function example.",
+  "body": " Step function example    Given knots , , and , determine the entries in the columns for in the matrix below.               1   2   3   4   5   6   7   8   9   10                   1 1 0 0 0  2 1 0 0 0  3 0 1 0 0  5 0 1 0 0  5 0 0 1 0  6 0 0 1 0  7 0 0 0 1  8 0 0 0 1  9 0 0 0 1  10 0 0 0 1       My code, using regression on the step function inputs, returned the function   Fill in the missing values in the table below.      1  2  3  4  5  6  7  8  9  10         1 -1  2 -1  3 2  4 2  5 3  6 3  7 -3  8 -3  9 -3  10 -3       Draw the function.   Empty Cartesian coordinate grid with x-axis and y-axis.     Using the cutpoints , , and , we can define the functions     The piecewise values for can be written as      A grid showing the solution to the problem which is composed of horizontal lines at the specified cut points.     "
+},
+{
+  "id": "day-20-lecture-10",
+  "level": "2",
+  "url": "sec-exam3-material.html#day-20-lecture-10",
+  "type": "Checkpoint",
+  "number": "111",
+  "title": "Coffee shop sales step regression.",
+  "body": " Coffee shop sales step regression   Suppose we want to predict the number of coffees sold per hour ( ) at a campus coffee shop based on the time of day ( , measured in hours since opening from 8:00 AM to 4:00 PM, where ).  A sample dataset of 20 hourly observations is provided in .   Hourly Coffee Shop Sales Data    Observation  Time of Day ( )  Coffees Sold ( )   1 0.2 48  2 0.5 54  3 1.1 51  4 1.8 45  5 2.5 52  6 3.1 118  7 3.4 125  8 3.9 115  9 4.2 122  10 4.7 120  11 5.0 42  12 5.3 38  13 5.8 40  14 6.1 82  15 6.4 78  16 6.9 85  17 7.2 77  18 7.5 81  19 7.8 84  20 8.0 79       Fit an intercept-only model (0 cutpoints). Is this a good model?    If we fit an intercept-only model, , our best prediction is the global average of all observations: This model underfits significantly, completely missing the morning and afternoon fluctuations.      Introduce a single split at noon to segment the data into Morning ( ) and Afternoon ( ). Fit the resulting model.    The resulting model with one cutpoint at noon is Averaging the subsets yields:  Morning Step (Observations 1-8):  Afternoon Step (Observations 9-20):        Can you think of a partition that can better capture the peak hours' rush? There is not a unique solution to this part.    We can use 3 cutpoints at . We fit the model where: Calculating the averages within each interval yields: This refinement level seems to capture the underlying demand wave of the shop without overfitting.    "
+},
+{
   "id": "homework-2",
   "level": "1",
   "url": "homework-2.html",
@@ -2575,6 +2719,96 @@ var ptx_lunr_docs = [
   "body": " Problem 6.6.9: Predicting College Applications    Predict the number of applications received using the other variables in the College data set. Use a single training\/test split for all five methods below. Choose tuning parameters by cross-validation on the training set, then report error on the held-out test set. This makes the reported test errors comparable across methods.   import numpy as np import pandas as pd import statsmodels.api as sm from sklearn.cross_decomposition import PLSRegression from sklearn.decomposition import PCA from sklearn.linear_model import LassoCV, LinearRegression, RidgeCV from sklearn.metrics import root_mean_squared_error from sklearn.model_selection import GridSearchCV, KFold, train_test_split from sklearn.pipeline import Pipeline from sklearn.preprocessing import StandardScaler   We will use the . Load the data into college_df , then run the following.   college_df = college_df.set_index(\"Unnamed: 0\") college_df = pd.get_dummies(college_df, drop_first=True) college_df = college_df.astype(float) college_df.head()      Split the data into a training set and a test set. Separate Apps as the response and use the remaining variables as predictors.      Fit a linear model using least squares on the training set, and report its test error.      Fit a ridge regression model, choosing by cross-validation on the training set. Report its test error.      Fit a lasso model, choosing by cross-validation on the training set. Report its test error and the number of nonzero coefficient estimates.      Fit a principal components regression (PCR) model, choosing the number of components by cross-validation on the training set. Report its test error and the selected value of .       Comment on the results. How accurately can the number of college applications received be predicted? Is there much difference among the test errors from these five approaches?    "
 },
 {
+  "id": "homework-6",
+  "level": "1",
+  "url": "homework-6.html",
+  "type": "Worksheet",
+  "number": "",
+  "title": "Homework 05",
+  "body": " Homework 05    The Homework is due Monday, Nov 9, 2026, by 11:59 p.m. and must be submitted to Crowdmark . See late homework policy in the syllabus.   All homework must be submitted to Crowdmark.    For coding problems, you will only submit screenshots of your code and output to Crowdmark (no Python code to submit). For non-coding problems, you wil submit a scan or image of your handwritten work.    If you submit a scan to Crowdmark where a textbox is provided for the answer, we will still grade your work but cannot provide feedback. Illegible scans\/screenshots will receive 0 credit.    Submit individual pdfs\/screenshots for each problem to the corresponding prompt in Crowdmark. Please do not submit one pdf containing all the solutions to each prompt. Each problem will be graded separately.    The instructional team has the right to request the original code for any problem.     The problems listed below are from the textbook . This homework is worth 42 points in total.  The grade distribution is as follows. Each score appears only here:    : 26 points  : 1 point  : 4 points  : 2 points  : 1 point  : 4 points  : 2 points  : 1 point  : 4 points  : 2 points  : 3 points  : 2 points       : 7 points  : 4 points  : 3 points       : 9 points  : 4 points  : 2 points  : 3 points          Question 1: Polynomial, Step, and Spline Models   Use to predict y from x using polynomial regression, a step function, and a cubic spline. For each model, identify its tuning parameter, select it with -fold cross-validation, and refit the selected model on all observations. Finally, overlay the three fits on one plot and compare them.  Use the published CSV in for your analysis, and load it into polydef data frame.   import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn.linear_model import LinearRegression from sklearn.model_selection import KFold, cross_val_score from sklearn.pipeline import make_pipeline from sklearn.preprocessing import PolynomialFeatures, KBinsDiscretizer, SplineTransformer  # this assumes the data is loaded into polydf X = polydf[[\"x\"]].to_numpy() y = polydf[\"y\"].to_numpy() t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)      For polynomial regression, identify the tuning parameter.      Use -fold cross-validation to select a polynomial degree. Report the candidate degrees and validation errors.      Refit polynomial regression on all observations using the selected degree.      For the step-function model, identify the tuning parameter. State whether you count intervals or interior cutpoints.      Use -fold cross-validation to choose the number of intervals or cutpoints. Report the candidates and validation errors. Learn the interval boundaries separately within each training fold.      Refit the step-function model on all observations using the selected number of intervals or cutpoints.      For a cubic spline, identify the tuning parameter.      Use -fold cross-validation to select the number of spline knots. Report the candidates and validation errors.      Refit the cubic spline on all observations using the selected number of knots.      Plot the observed data and all three fitted models together. Label the three fitted curves or steps.      Compare the three fits. Which model would you select, and why? Support your answer with both the plot and the cross-validation results.        A Step-Function Basis   Consider a step function with two interior cutpoints at and .     Write equations for the three basis functions , , and . Sketch all three, showing their values on the intervals separated by 3 and 7.      Sketch the learned function when , , and . Label its value on each interval.        A Cubic Spline with One Knot   Consider a cubic spline with a knot at . Its basis functions are , , , and , where for and otherwise. The learned model is .     Write the equation of as a piecewise polynomial on either side of . Draw its graph.      What conditions must a piecewise polynomial satisfy to be a cubic spline?      Check that the function from part (i) satisfies those conditions at .      "
+},
+{
+  "id": "hw05-q1",
+  "level": "2",
+  "url": "homework-6.html#hw05-q1",
+  "type": "Worksheet Exercise",
+  "number": "1",
+  "title": "Question 1: Polynomial, Step, and Spline Models.",
+  "body": " Question 1: Polynomial, Step, and Spline Models   Use to predict y from x using polynomial regression, a step function, and a cubic spline. For each model, identify its tuning parameter, select it with -fold cross-validation, and refit the selected model on all observations. Finally, overlay the three fits on one plot and compare them.  Use the published CSV in for your analysis, and load it into polydef data frame.   import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn.linear_model import LinearRegression from sklearn.model_selection import KFold, cross_val_score from sklearn.pipeline import make_pipeline from sklearn.preprocessing import PolynomialFeatures, KBinsDiscretizer, SplineTransformer  # this assumes the data is loaded into polydf X = polydf[[\"x\"]].to_numpy() y = polydf[\"y\"].to_numpy() t_plot = np.linspace(-6, 3, 400).reshape(-1, 1)      For polynomial regression, identify the tuning parameter.      Use -fold cross-validation to select a polynomial degree. Report the candidate degrees and validation errors.      Refit polynomial regression on all observations using the selected degree.      For the step-function model, identify the tuning parameter. State whether you count intervals or interior cutpoints.      Use -fold cross-validation to choose the number of intervals or cutpoints. Report the candidates and validation errors. Learn the interval boundaries separately within each training fold.      Refit the step-function model on all observations using the selected number of intervals or cutpoints.      For a cubic spline, identify the tuning parameter.      Use -fold cross-validation to select the number of spline knots. Report the candidates and validation errors.      Refit the cubic spline on all observations using the selected number of knots.      Plot the observed data and all three fitted models together. Label the three fitted curves or steps.      Compare the three fits. Which model would you select, and why? Support your answer with both the plot and the cross-validation results.    "
+},
+{
+  "id": "hw05-q2-step",
+  "level": "2",
+  "url": "homework-6.html#hw05-q2-step",
+  "type": "Worksheet Exercise",
+  "number": "2",
+  "title": "A Step-Function Basis.",
+  "body": " A Step-Function Basis   Consider a step function with two interior cutpoints at and .     Write equations for the three basis functions , , and . Sketch all three, showing their values on the intervals separated by 3 and 7.      Sketch the learned function when , , and . Label its value on each interval.    "
+},
+{
+  "id": "hw05-q2-spline",
+  "level": "2",
+  "url": "homework-6.html#hw05-q2-spline",
+  "type": "Worksheet Exercise",
+  "number": "3",
+  "title": "A Cubic Spline with One Knot.",
+  "body": " A Cubic Spline with One Knot   Consider a cubic spline with a knot at . Its basis functions are , , , and , where for and otherwise. The learned model is .     Write the equation of as a piecewise polynomial on either side of . Draw its graph.      What conditions must a piecewise polynomial satisfy to be a cubic spline?      Check that the function from part (i) satisfies those conditions at .    "
+},
+{
+  "id": "homework-7",
+  "level": "1",
+  "url": "homework-7.html",
+  "type": "Worksheet",
+  "number": "",
+  "title": "Homework 06",
+  "body": " Homework 06    The Homework is due Friday, Nov 20, 2026, by 11:59 p.m. and must be submitted to Crowdmark . See late homework policy in the syllabus.   All homework must be submitted to Crowdmark.    For coding problems, you will only submit screenshots of your code and output to Crowdmark (no Python code to submit). For non-coding problems, you wil submit a scan or image of your handwritten work.    If you submit a scan to Crowdmark where a textbox is provided for the answer, we will still grade your work but cannot provide feedback. Illegible scans\/screenshots will receive 0 credit.    Submit individual pdfs\/screenshots for each problem to the corresponding prompt in Crowdmark. Please do not submit one pdf containing all the solutions to each prompt. Each problem will be graded separately.    The instructional team has the right to request the original code for any problem.     The problems listed below are from the textbook . This homework is worth 42 points in total.  The grade distribution is as follows. Each score appears only here:    : 18 points  : 2 points  : 3 points  : 2 points  : 2 points  : 2 points  : 2 points  : 3 points  : 2 points       : 6 points  : 4 points  : 2 points       : 9 points  : 5 points  : 1 point  : 1 point  : 2 points       : 6 points  : 4 points  : 2 points     : 3 points       Question 1: Classification Tree on the OJ Data Set   First, perform the usual imports.   import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay from sklearn.ensemble import RandomForestClassifier   Load the OJ data set from into data frame OJ_df . Use Purchase as the response and all other columns in the OJ data set as predictors.  Convert the Store7 column to a numeric column, where Yes is 1 and No is 0.   OJ_df[\"Store7\"] = OJ_df[\"Store7\"].map({\"Yes\": 1, \"No\": 0}) OJ_df.head()      Create a training set containing a random sample of 800 observations and a test set containing the remaining observations. Report the percentage in the training set.      Fit a classification tree to the training data with maximum depth 3. Report the fitted model and its training error rate.      Plot the fitted tree.      How many terminal nodes does the tree have? Which variables appear near its top? Briefly interpret two main splits.      Use export_text() to produce a text summary of the fitted tree.      Choose one terminal node. Describe the split path leading to it, the observations that fall there, and its predicted class.      Predict Purchase on the test set. Produce a confusion matrix comparing the test labels to your predictions, and report the test error rate.      Briefly comment on the model's performance using the confusion matrix and test error rate.        Question 2: Cross-Validation and Tree Size    Using only the training set, evaluate classification trees with maximum depths 1 through 20 by five-fold cross-validation. Plot maximum depth against the mean cross-validated classification error rate.      Which maximum depth has the lowest cross-validated error rate? Briefly explain your selection. Here, tree size is parameterized by maximum depth; it need not equal the number of terminal nodes.        Question 3: Unpruned and Restricted Trees    Fit an unrestricted tree and a pruned or depth-restricted tree using the depth selected in Question 2. If cross-validation does not clearly support pruning, you may use a smaller reasonable tree and justify your choice. State the chosen depth or number of terminal nodes and report training and test error rates for both models.      Compare the training error rates of the restricted and unrestricted trees. Which is higher?      Compare their test error rates. Which model performs better on the held-out data?      Explain why the two trees may have different training and test performance.        Question 4: Random Forest   Use the same training and test sets as in Question 1.     Fit a random forest predicting Purchase from the other variables, using at least 500 trees. Report its test error rate and display the variable importance values.      Compare the random forest with the trees in Question 3 using test error rates. Identify the most important predictors and briefly interpret their importance values.        Question 5: Reflection   Write a short paragraph addressing all three questions: What is one advantage of a single decision tree? What is one disadvantage? Why can an ensemble method such as a random forest often improve prediction?     "
+},
+{
+  "id": "hw06-q1",
+  "level": "2",
+  "url": "homework-7.html#hw06-q1",
+  "type": "Worksheet Exercise",
+  "number": "1",
+  "title": "Question 1: Classification Tree on the OJ Data Set.",
+  "body": " Question 1: Classification Tree on the OJ Data Set   First, perform the usual imports.   import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay from sklearn.ensemble import RandomForestClassifier   Load the OJ data set from into data frame OJ_df . Use Purchase as the response and all other columns in the OJ data set as predictors.  Convert the Store7 column to a numeric column, where Yes is 1 and No is 0.   OJ_df[\"Store7\"] = OJ_df[\"Store7\"].map({\"Yes\": 1, \"No\": 0}) OJ_df.head()      Create a training set containing a random sample of 800 observations and a test set containing the remaining observations. Report the percentage in the training set.      Fit a classification tree to the training data with maximum depth 3. Report the fitted model and its training error rate.      Plot the fitted tree.      How many terminal nodes does the tree have? Which variables appear near its top? Briefly interpret two main splits.      Use export_text() to produce a text summary of the fitted tree.      Choose one terminal node. Describe the split path leading to it, the observations that fall there, and its predicted class.      Predict Purchase on the test set. Produce a confusion matrix comparing the test labels to your predictions, and report the test error rate.      Briefly comment on the model's performance using the confusion matrix and test error rate.    "
+},
+{
+  "id": "hw06-q2",
+  "level": "2",
+  "url": "homework-7.html#hw06-q2",
+  "type": "Worksheet Exercise",
+  "number": "2",
+  "title": "Question 2: Cross-Validation and Tree Size.",
+  "body": " Question 2: Cross-Validation and Tree Size    Using only the training set, evaluate classification trees with maximum depths 1 through 20 by five-fold cross-validation. Plot maximum depth against the mean cross-validated classification error rate.      Which maximum depth has the lowest cross-validated error rate? Briefly explain your selection. Here, tree size is parameterized by maximum depth; it need not equal the number of terminal nodes.    "
+},
+{
+  "id": "hw06-q3",
+  "level": "2",
+  "url": "homework-7.html#hw06-q3",
+  "type": "Worksheet Exercise",
+  "number": "3",
+  "title": "Question 3: Unpruned and Restricted Trees.",
+  "body": " Question 3: Unpruned and Restricted Trees    Fit an unrestricted tree and a pruned or depth-restricted tree using the depth selected in Question 2. If cross-validation does not clearly support pruning, you may use a smaller reasonable tree and justify your choice. State the chosen depth or number of terminal nodes and report training and test error rates for both models.      Compare the training error rates of the restricted and unrestricted trees. Which is higher?      Compare their test error rates. Which model performs better on the held-out data?      Explain why the two trees may have different training and test performance.    "
+},
+{
+  "id": "hw06-q4",
+  "level": "2",
+  "url": "homework-7.html#hw06-q4",
+  "type": "Worksheet Exercise",
+  "number": "4",
+  "title": "Question 4: Random Forest.",
+  "body": " Question 4: Random Forest   Use the same training and test sets as in Question 1.     Fit a random forest predicting Purchase from the other variables, using at least 500 trees. Report its test error rate and display the variable importance values.      Compare the random forest with the trees in Question 3 using test error rates. Identify the most important predictors and briefly interpret their importance values.    "
+},
+{
+  "id": "hw06-q5",
+  "level": "2",
+  "url": "homework-7.html#hw06-q5",
+  "type": "Worksheet Exercise",
+  "number": "5",
+  "title": "Question 5: Reflection.",
+  "body": " Question 5: Reflection   Write a short paragraph addressing all three questions: What is one advantage of a single decision tree? What is one disadvantage? Why can an ensemble method such as a random forest often improve prediction?   "
+},
+{
   "id": "advertising-data-set",
   "level": "1",
   "url": "advertising-data-set.html",
@@ -2588,7 +2822,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "advertising-data-set.html#advertising-csv",
   "type": "Data",
-  "number": "126",
+  "number": "129",
   "title": "Advertising: Advertising Data Set.",
   "body": " Advertising: Advertising Data Set  A data frame with 200 observations that represent sales in 200 markets on the following 3 variables.   TV  Advertising cost for TV ads in thousands of dollars.    radio  Advertising cost for radio ads in thousands of dollars.    newspaper  Advertising cost for newspaper ads in thousands of dollars.    sales  Sales in thousands of dollars.     The book's website has the data files here .      "
 },
@@ -2606,7 +2840,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "day01-auto-data-set.html#day01-Auto-csv",
   "type": "Data",
-  "number": "127",
+  "number": "130",
   "title": "Auto: Auto Data Set.",
   "body": " Auto: Auto Data Set  Information about the data set    Info on R version      Info on Python version      A data frame with 392 observations on the following 9 variables.   mpg  miles per gallon    cylinders  Number of cylinders between 4 and 8    displacement  Engine displacement (cu. inches)    horsepower  Engine horsepower.    weight  Vehicle weight (lbs.)    acceleration  Time to accelerate from 0 to 60 mph (sec.)    year  Model year (modulo 100)    origin  Origin of car (1. American, 2. European, 3. Japanese)    name  Vehicle name     The original data contained 408 observations but 16 observations with missing values were removed.  Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.  The book's website has the data files here .      "
 },
@@ -2624,7 +2858,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-credit-data-set.html#credit-csv",
   "type": "Data",
-  "number": "128",
+  "number": "131",
   "title": "Credit: Credit Data Set.",
   "body": " Credit: Credit Data Set  A csv file with 400 customers on the following 11 variables.   Income  Income in thousands of dollars.    Limit  Credit limit in dollars.    Rating  Credit rating.    Cards  Number of credit cards.    Age  Person's age.    Education  the number of years of education completed by each customer.    Gender  Male or Female.    Student  Student status with values Yes or No .    Married  Marital status with values Yes or No .    Ethnicity  Either Caucasian , Asian , or African American .    Balance  Average credit card debt in dollars.       Own is referenced in the textbook which represents home ownership ( Yes or No ), but is not in any of the online versions of the data set that I can find.  The book also mentions the variable Region (East, West, or South), but the data file is also missing that column.   The book's website has the data files here .      "
 },
@@ -2642,7 +2876,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-diabetes-data-set.html#diabetes-data",
   "type": "Data",
-  "number": "130",
+  "number": "133",
   "title": "Diabetes data set.",
   "body": " Diabetes data set  This is a commonly used test data set and is available in scikit-learn for us to use without any cleanup.   from sklearn.datasets import load_diabetes diabetes = load_diabetes(as_frame=True)    Notice that this loads the data into a large dictionary. Check it out using print(type(diabetes))    We can get the data immediately into a pandas data frame for ease of use as follows:  diabetes_df = pd.DataFrame(diabetes.data, columns = diabetes.feature_names) diabetes_df['target'] = pd.Series(diabetes.target) # show the loaded data frame diabetes_df    Look up the documentation about the dataset here: Scikit-learn Diabetes Dataset   "
 },
@@ -2660,7 +2894,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "chicken-and-egg-set.html#ChickenEgg-csv",
   "type": "Data",
-  "number": "132",
+  "number": "135",
   "title": "Chicken and Egg Data Set.",
   "body": " Chicken and Egg Data Set  A data file with 90 observations that label each data point according to two predictors.   X1  First predictor.    X2  Second predictor    Label  The label for the data set, either chicken or egg .     This data is 100% made up by Dr.~Munch and does not correspond to any real experiment.  The data set has inputs and , with given by Label . The Bayes classifier is    An example data set in 2 dimensions, with some data points labeled Chicken and others labeled Egg.   The code used to generate this data is below.   def generateData(N=90,xBounds = [-7,7],yBounds = [-7,7],sigma=1, seed = None): # Generating data where the label is determined by being on one side or the # other of $y^3-y-x = 0$. # Adding noise so it's not cleanly separated np.random.seed(seed) DataX = np.random.uniform(xBounds[0],xBounds[1],[N,1]) DataY = np.random.uniform(yBounds[0],yBounds[1],[N,1]) Data = np.concatenate([DataX,DataY], axis = 1) Noise = np.random.normal(0, sigma, N) Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise) def ChickOrEgg(z): if z>0: return 'chicken' else: return 'egg' Label = [ChickOrEgg(z) for z in Check] Data = pd.DataFrame(Data, columns = ['x1','x2']) Data['Label'] = Label return Data # Generate the data Data = generateData(N = 90, seed = 48824) # Plot the figure sns.scatterplot(data = Data, x = 'x1', y = 'x2', hue = 'Label', style = 'Label').set(title = 'Chicken or Egg?') ty = np.linspace(-2.1,2.1,100) tx = ty**3 - ty plt.plot(tx,ty, color = 'grey')      "
 },
@@ -2678,7 +2912,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "default-set.html#Default-csv",
   "type": "Data",
-  "number": "133",
+  "number": "136",
   "title": "Default Data Set.",
   "body": " Default Data Set  A simulated data set containing information on ten thousand customers. The aim here is to predict which customers will default on their credit card debt.  The data is formatted into a data frame with 10000 observations on the following 4 variables.   default  A factor with levels No and Yes indicating whether the customer defaulted on their debt.    student  student A factor with levels No and Yes indicating whether the customer is a student.    balance  The average balance that the customer has remaining on their credit card after making their monthly payment    income  Income.     Source: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York     "
 },
@@ -2696,7 +2930,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-hitters-data-set.html#hitters-data",
   "type": "Data",
-  "number": "134",
+  "number": "137",
   "title": "Hitters data set.",
   "body": " Hitters data set  A data frame with 322 observations of major league players on the following 20 variables.  AtBat Number of times at bat in 1986  Hits Number of hits in 1986  HmRun Number of home runs in 1986  Runs Number of runs in 1986  RBI Number of runs batted in in 1986  Walks Number of walks in 1986  Years Number of years in the major leagues  CAtBat Number of times at bat during his career  CHits Number of hits during his career  CHmRun Number of home runs during his career  CRuns Number of runs during his career  CRBI Number of runs batted in during his career  CWalks Number of walks during his career  League A factor with levels A and N indicating player's league at the end of 1986  Division A factor with levels E and W indicating player's division at the end of 1986  PutOuts Number of put outs in 1986  Assists Number of assists in 1986  Errors Number of errors in 1986  Salary 1987 annual salary on opening day in thousands of dollars  NewLeague A factor with levels A and N indicating player's league at the beginning of 1987    Note that this version is slightly different than versions that can be found online. As far as I can tell, it's just that this particular file has the player names in an entry column.  Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York.  Look up the documentation about the dataset here:      "
 },
@@ -2714,7 +2948,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-college-data-set.html#college-data",
   "type": "Data",
-  "number": "135",
+  "number": "138",
   "title": "College data set.",
   "body": " College data set  Statistics for a large number of US Colleges from the 1995 issue of US News and World Report.  Private A factor with levels No and Yes indicating private or public university  Apps Number of applications received  Accept Number of applications accepted  Enroll Number of new students enrolled  Top10perc Percentage of new students from the top 10% of their high school class  Top25perc Percentage of new students from the top 25% of their high school class  F.Undergrad Number of full-time undergraduates  P.Undergrad Number of part-time undergraduates  Outstate Out-of-state tuition  Room.Board Room and board costs  Books Estimated book costs  Personal Estimated personal spending  PhD Percentage of faculty with Ph.D.s  Terminal Percentage of faculty with terminal degrees  S.F.Ratio Student-to-faculty ratio  perc.alumni Percentage of alumni who donate  Expend Instructional expenditure per student  Grad.Rate Graduation rate    Source: This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the ASA Statistical Graphics Section's 1995 Data Analysis Exposition.  Look up the documentation about the dataset here:      "
 },
@@ -2732,7 +2966,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "polynomial-toy-data.html#PolynomialToy-csv",
   "type": "Data",
-  "number": "136",
+  "number": "139",
   "title": "Polynomial Toy Data Set.",
   "body": " Polynomial Toy Data Set  A data file with 100 samples from the function The points are randomly sampled from the interval from a uniform distribution, and noise sampled from a normal distribution is added to the output.  The data is arranged into a data frame called toy_data with two columns, x and y , where x is the input and y is the output.   x  The value of the data point.    y  The value of the data point.     This data is 100% simulated, and does not correspond to any real experiments.   An example data set showing a polynomial in black, solid line along with data points sampled from the polynomial with added noise in blue, circular markers.   The code used to generate this data is below.   # Set the random seed for reproducibility np.random.seed(42) # Define the polynomial f = lambda x: (x+2)*(x-2)*(x+6)*x+20 # Generate data x_data = np.random.uniform(-6, 3, 100) y_data = f(x_data) + np.random.normal(0, 10, size=x_data.shape) # Generate data for plotting x_plot = np.linspace(-6, 3, 100) y_plot = f(x_plot) # Create a DataFrame to store the data toy_data = pd.DataFrame({'x': x_data, 'y': y_data}) plt.plot(x_data,y_data, 'o', label = 'f(x) + noise') plt.plot(x_plot, y_plot, 'k', label = 'f(x)') plt.legend() plt.title('Toy data: Basis functions')      "
 },
@@ -2750,9 +2984,27 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "sec-OJ-data-set.html#OJ-data",
   "type": "Data",
-  "number": "137",
+  "number": "140",
   "title": "Orange Juice data set.",
   "body": " Orange Juice data set  The data contains 1070 purchases where the customer either purchased Citrus Hill or Minute Maid Orange Juice. A number of characteristics of the customer and product are recorded.  A data frame with 1070 observations on the following 18 variables.  Purchase A factor with levels CH and MM indicating whether the customer purchased Citrus Hill or Minute Maid Orange Juice  WeekofPurchase Week of purchase  StoreID Store ID  PriceCH Price charged for CH  PriceMM Price charged for MM  DiscCH Discount offered for CH  DiscMM Discount offered for MM  SpecialCH Indicator of special on CH  SpecialMM Indicator of special on MM  LoyalCH Customer brand loyalty for CH  SalePriceMM Sale price for MM  SalePriceCH Sale price for CH  PriceDiff Sale price of MM less sale price of CH  Store7 A factor with levels No and Yes indicating whether the sale is at Store 7  PctDiscMM Percentage discount for MM  PctDiscCH Percentage discount for CH  ListPriceDiff List price of MM less list price of CH  STORE Which of 5 possible stores the sale occurred at    Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013) An Introduction to Statistical Learning with applications in R, https:\/\/www.statlearning.com, Springer-Verlag, New York.  Look up the documentation about the dataset here:      "
+},
+{
+  "id": "wages-data",
+  "level": "1",
+  "url": "wages-data.html",
+  "type": "Subsection",
+  "number": "",
+  "title": "Wages Data Set",
+  "body": " Wages Data Set   Wages Data Set  Wage and other data for a group of 3000 male workers in the Mid-Atlantic region.     year  Year that wage information was recorded    age  Age of worker    maritl  A factor with levels 1. Never Married , 2. Married , 3. Widowed , 4. Divorced , and 5. Separated indicating marital status    race  A factor with levels 1. White , 2. Black , 3. Asian , and 4. Other indicating race    education  A factor with levels 1. < HS Grad , 2. HS Grad , 3. Some College , 4. College Grad , and 5. Advanced Degree indicating education level    region  Region of the country (mid-atlantic only)    jobclass  A factor with levels 1. Industrial , and 2. Information indicating type of job    health  A factor with levels 1. <=Good , and 2. >=Very Good indicating health level of worker    health_ins  A factor with levels 1. Yes , and 2. No indicating whether worker has health insurance    logwage  Log of workers wage    wage  Workers raw wage     Source: Data was manually assembled by Steve Miller, of Inquidia Consulting (formerly Open BI). From the March 2011 Supplement to Current Population Survey data.  See also: .      "
+},
+{
+  "id": "wages-csv",
+  "level": "2",
+  "url": "wages-data.html#wages-csv",
+  "type": "Data",
+  "number": "141",
+  "title": "Wages Data Set.",
+  "body": " Wages Data Set  Wage and other data for a group of 3000 male workers in the Mid-Atlantic region.     year  Year that wage information was recorded    age  Age of worker    maritl  A factor with levels 1. Never Married , 2. Married , 3. Widowed , 4. Divorced , and 5. Separated indicating marital status    race  A factor with levels 1. White , 2. Black , 3. Asian , and 4. Other indicating race    education  A factor with levels 1. < HS Grad , 2. HS Grad , 3. Some College , 4. College Grad , and 5. Advanced Degree indicating education level    region  Region of the country (mid-atlantic only)    jobclass  A factor with levels 1. Industrial , and 2. Information indicating type of job    health  A factor with levels 1. <=Good , and 2. >=Very Good indicating health level of worker    health_ins  A factor with levels 1. Yes , and 2. No indicating whether worker has health insurance    logwage  Log of workers wage    wage  Workers raw wage     Source: Data was manually assembled by Steve Miller, of Inquidia Consulting (formerly Open BI). From the March 2011 Supplement to Current Population Survey data.  See also: .     "
 },
 {
   "id": "exam1-study-guide",
@@ -2777,7 +3029,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#problem-2",
   "type": "Checkpoint",
-  "number": "138",
+  "number": "142",
   "title": "",
   "body": "  The figure below shows the solution to the constrained optimization problem where corresponds to a particular value of the tuning parameter .  For each figure, write down the resulting model, including the constant term .  Hint: Chapter 6.2.   Geometric illustration of the constrained optimization problem for LASSO regression.    "
 },
@@ -2786,7 +3038,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#LASSO-problem",
   "type": "Checkpoint",
-  "number": "139",
+  "number": "143",
   "title": "",
   "body": "  The norm of the fitted coefficients using ordinary least squares multiple regression was found to be . Use the table and figure provided to write down the expression for the model fit using LASSO regression.  Hint: Chapter 6.2.       -fold CV testing error                 Cross-validation error for LASSO regression as a function of the coefficient L1 norm.     "
 },
@@ -2795,7 +3047,7 @@ var ptx_lunr_docs = [
   "level": "2",
   "url": "exam2-study-guide.html#CV-problem",
   "type": "Checkpoint",
-  "number": "141",
+  "number": "145",
   "title": "",
   "body": "  This dataset corresponds to an experiment with 30 data points measuring the resistance of rubber to abrasion, using hardness and tensile strength as predictors. Hardness was measured in degrees Shore (degree S), with higher values indicating harder rubber. Abrasion loss was measured in grams per hour (g\/h). Assume the data are already randomized in the order shown in the table, and answer the following questions.  Source: Davies, O. L., and Goldsmith, P. L. (eds.) (1972), Statistical Methods in Research and Production, 4th edition, Edinburgh: Oliver and Boyd, p. 239.     Abrasion loss (g\/h)  Hardness (degree S)  Tensile strength (kg\/cm 2 )   372 45 162  206 55 233  175 61 232  154 66 231  136 71 231  112 71 237  55 81 224  45 86 219  221 53 203  166 60 189  164 64 210  113 68 210  82 79 196  32 81 180  228 56 200  196 68 173  128 75 188  97 83 161  64 88 119  249 59 161  219 71 151  186 80 165  155 82 151  114 89 128  341 51 161  340 59 146  283 65 148  267 74 144  215 81 134  148 86 127       Show the full computations, including the equations used, for the mean squared error (MSE) of the first fold in 10-fold cross-validation.  Hint: Chapters 5.1-5.3.    Using only the first three rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using leave-one-out cross-validation (LOOCV).  Hint: Chapters 5.1-5.3.    Using only the first six rows of the data and ignoring all others, show the full computations, including the equations used, for the MSE using the validation-set approach. If you make any decisions about data selection, state them clearly.  Hint: Chapters 5.1-5.3      "
 }

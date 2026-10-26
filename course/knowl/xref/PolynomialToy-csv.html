@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math">
+<article class="data computation-like"><h2 class="heading">
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">139</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Polynomial Toy Data Set.</span>
+</h2>
+<div class="para logical">
+<div class="para">A data file with 100 samples from the function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+f(x)=(x+2)(x-2)(x+6)*x+20.
+\end{equation*}
+</div>
+<div class="para">The points are randomly sampled from the interval <span class="process-math">\([-6,3]\)</span> from a uniform distribution, and noise sampled from a normal distribution is added to the output.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical">
+<div class="para">The data is arranged into a data frame called <code class="code-inline tex2jax_ignore">toy_data</code> with two columns, <code class="code-inline tex2jax_ignore">x</code> and <code class="code-inline tex2jax_ignore">y</code>, where <code class="code-inline tex2jax_ignore">x</code> is the input and <code class="code-inline tex2jax_ignore">y</code> is the output.</div>
+<dl class="description-list">
+<dt>x<div class="autopermalink" aria-hidden="true" data-description="Item: x"><a tabindex="-1" href="#PolynomialToy-csv-3-6-1" title="Copy heading and permalink for Item: x" aria-label="Copy heading and permalink for Item: x">🔗</a></div>
+</dt>
+<dd>
+<div class="para">The <span class="process-math">\(x\)</span> value of the data point.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-3-6-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+<dt>y<div class="autopermalink" aria-hidden="true" data-description="Item: y"><a tabindex="-1" href="#PolynomialToy-csv-3-6-2" title="Copy heading and permalink for Item: y" aria-label="Copy heading and permalink for Item: y">🔗</a></div>
+</dt>
+<dd>
+<div class="para">The <span class="process-math">\(y\)</span> value of the data point.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-3-6-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</dd>
+</dl>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para">This data is 100% simulated, and does not correspond to any real experiments.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 85%; margin-left: 7.5%; margin-right: 7.5%;"><img src="external/data/polynomial-toydata.png" class="contained" alt="An example data set showing a polynomial in black, solid line along with data points sampled from the polynomial with added noise in blue, circular markers."></div>
+<div class="para">The code used to generate this data is below.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># Set the random seed for reproducibility
+np.random.seed(42)
+
+# Define the polynomial
+f = lambda x: (x+2)*(x-2)*(x+6)*x+20
+
+# Generate data 
+x_data = np.random.uniform(-6, 3, 100)
+y_data = f(x_data) + np.random.normal(0, 10, size=x_data.shape)
+
+# Generate data for plotting 
+x_plot = np.linspace(-6, 3, 100)
+y_plot = f(x_plot)
+
+# Create a DataFrame to store the data
+toy_data = pd.DataFrame({'x': x_data, 'y': y_data})
+
+plt.plot(x_data,y_data, 'o', label = 'f(x) + noise')
+plt.plot(x_plot, y_plot, 'k', label = 'f(x)')
+plt.legend()
+plt.title('Toy data: Basis functions')
+</code></pre></div>
+<div class="para">
+<a class="external" href="external/data/polynomial-toydata.csv" target="_blank"><code class="code-inline tex2jax_ignore">Polynomial Toy Data Set</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#PolynomialToy-csv-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Data 139: Polynomial Toy Data Set"><a tabindex="-1" href="#PolynomialToy-csv" title="Copy heading and permalink for Data 139: Polynomial Toy Data Set" aria-label="Copy heading and permalink for Data 139: Polynomial Toy Data Set">🔗</a></div>
+</article><span class="incontext"><a class="internal" href="polynomial-toy-data.html#PolynomialToy-csv">In Context</a></span>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math">
+<article class="exercise exercise-like"><h2 class="heading">
+<span class="type">Worksheet Exercise</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Question 1: Classification Tree on the OJ Data Set.</span>
+</h2>
+<div class="introduction">
+<div class="para">First, perform the usual imports.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.ensemble import RandomForestClassifier
+</code></pre></div>
+<div class="para">Load the OJ data set from <a href="sec-OJ-data-set.html#OJ-data" class="xref" data-knowl="./knowl/xref/OJ-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 140: Orange Juice data set">Data 140</a> into data frame <code class="code-inline tex2jax_ignore">OJ_df</code>. Use <code class="code-inline tex2jax_ignore">Purchase</code>  as the response and all other columns in the <code class="code-inline tex2jax_ignore">OJ</code> data set as predictors.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para">Convert the <code class="code-inline tex2jax_ignore">Store7</code> column to a numeric column, where ‘Yes’ is 1 and ‘No’ is 0.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-2-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py">OJ_df["Store7"] = OJ_df["Store7"].map({"Yes": 1, "No": 0})
+OJ_df.head()
+</code></pre></div>
+</div>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(a)</span></h3>
+<div class="para">Create a training set containing a random sample of 800 observations and a test set containing the remaining observations. Report the percentage in the training set.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-a-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.a"><a tabindex="-1" href="#hw06-q1-a" title="Copy heading and permalink for Task 1.a" aria-label="Copy heading and permalink for Task 1.a">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(b)</span></h3>
+<div class="para">Fit a classification tree to the training data with maximum depth 3. Report the fitted model and its training error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-b-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.b"><a tabindex="-1" href="#hw06-q1-b" title="Copy heading and permalink for Task 1.b" aria-label="Copy heading and permalink for Task 1.b">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(c)</span></h3>
+<div class="para">Plot the fitted tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-c-plot-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.c"><a tabindex="-1" href="#hw06-q1-c-plot" title="Copy heading and permalink for Task 1.c" aria-label="Copy heading and permalink for Task 1.c">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(d)</span></h3>
+<div class="para">How many terminal nodes does the tree have? Which variables appear near its top? Briefly interpret two main splits.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-c-interpret-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="workspace" data-space="1.5in"></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.d"><a tabindex="-1" href="#hw06-q1-c-interpret" title="Copy heading and permalink for Task 1.d" aria-label="Copy heading and permalink for Task 1.d">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(e)</span></h3>
+<div class="para">Use <code class="code-inline tex2jax_ignore">export_text()</code> to produce a text summary of the fitted tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-d-export-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.e"><a tabindex="-1" href="#hw06-q1-d-export" title="Copy heading and permalink for Task 1.e" aria-label="Copy heading and permalink for Task 1.e">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(f)</span></h3>
+<div class="para">Choose one terminal node. Describe the split path leading to it, the observations that fall there, and its predicted class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-d-interpret-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="workspace" data-space="1.5in"></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.f"><a tabindex="-1" href="#hw06-q1-d-interpret" title="Copy heading and permalink for Task 1.f" aria-label="Copy heading and permalink for Task 1.f">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(g)</span></h3>
+<div class="para">Predict <code class="code-inline tex2jax_ignore">Purchase</code> on the test set. Produce a confusion matrix comparing the test labels to your predictions, and report the test error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-e-matrix-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.g"><a tabindex="-1" href="#hw06-q1-e-matrix" title="Copy heading and permalink for Task 1.g" aria-label="Copy heading and permalink for Task 1.g">🔗</a></div>
+</article>
+<article class="task exercise-like"><h3 class="heading"><span class="codenumber">(h)</span></h3>
+<div class="para">Briefly comment on the model’s performance using the confusion matrix and test error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw06-q1-e-comment-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="workspace" data-space="1in"></div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 1.h"><a tabindex="-1" href="#hw06-q1-e-comment" title="Copy heading and permalink for Task 1.h" aria-label="Copy heading and permalink for Task 1.h">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Worksheet Exercise 1: Question 1: Classification Tree on the OJ Data Set"><a tabindex="-1" href="#hw06-q1" title="Copy heading and permalink for Worksheet Exercise 1: Question 1: Classification Tree on the OJ Data Set" aria-label="Copy heading and permalink for Worksheet Exercise 1: Question 1: Classification Tree on the OJ Data Set">🔗</a></div>
+</article><span class="incontext"><a class="internal" href="homework-7.html#hw06-q1">In Context</a></span>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="wages-data">
+    <title>Wages Data Set</title>
+
+    <data xml:id="wages-csv">
+      <title>Wages Data Set</title>
+      
+   
+
+      <p>
+        Wage and other data for a group of 3000 male workers in the Mid-Atlantic region.
+             
+      </p>
+      <p>
+        
+        <dl>
+  <li>
+    <title><c>year</c></title>
+    <p>Year that wage information was recorded</p>
+  </li>
+  <li>
+    <title><c>age</c></title>
+    <p>Age of worker</p>
+  </li>
+  <li>
+    <title><c>maritl</c></title>
+    <p>A factor with levels <q>1. Never Married</q>, <q>2. Married</q>, <q>3. Widowed</q>, <q>4. Divorced</q>, and <q>5. Separated</q> indicating marital status</p>
+  </li>
+  <li>
+    <title><c>race</c></title>
+    <p>A factor with levels <q>1. White</q>, <q>2. Black</q>, <q>3. Asian</q>, and <q>4. Other</q> indicating race</p>
+  </li>
+  <li>
+    <title><c>education</c></title>
+    <p>A factor with levels <q>1. &lt; HS Grad</q>, <q>2. HS Grad</q>, <q>3. Some College</q>, <q>4. College Grad</q>, and <q>5. Advanced Degree</q> indicating education level</p>
+  </li>
+  <li>
+    <title><c>region</c></title>
+    <p>Region of the country (mid-atlantic only)</p>
+  </li>
+  <li>
+    <title><c>jobclass</c></title>
+    <p>A factor with levels <q>1. Industrial</q>, and <q>2. Information</q> indicating type of job</p>
+  </li>
+  <li>
+    <title><c>health</c></title>
+    <p>A factor with levels <q>1. &lt;=Good</q>, and <q>2. &gt;=Very Good</q> indicating health level of worker</p>
+  </li>
+  <li>
+    <title><c>health_ins</c></title>
+    <p>A factor with levels <q>1. Yes</q>, and <q>2. No</q> indicating whether worker has health insurance</p>
+  </li>
+  <li>
+    <title><c>logwage</c></title>
+    <p>Log of workers wage</p>
+  </li>
+  <li>
+    <title><c>wage</c></title>
+    <p>Workers raw wage</p>
+  </li>
+</dl>
+
+      </p>
+      <p>
+        Source: Data was manually assembled by Steve Miller, of Inquidia Consulting (formerly Open BI). From the March 2011 Supplement to Current Population Survey data. 
+      </p>
+
+      <p>
+        See also: <url href="https://www.re3data.org/repository/r3d100011860" visual="re3data.org/repository/r3d100011860"/>.
+      </p>
+
+      <p>
+        <dataurl source="data/Wages.csv" visual="Wages Data Set" xml:id="datafile-Wages-csv"/>
+      </p>
+
+    </data>
+        
+    </subsection>

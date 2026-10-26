@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day20" xml:id="day-20-lecture">
+  <title>Day 20</title>
+
+  <introduction>
+    <p>
+      7.1: Polynomial regression
+    </p>
+    <p>
+        7.2: Step functions
+    </p>
+  </introduction>
+
+  <objectives>
+    <title>Covered in this class</title>
+
+  <ul>
+    <li>Why do people want to use polynomial regression rather than simple linear regression?</li>
+    <li>How do you fit polynomial regression models?</li>
+    <li>Why do people want to use step functions rather than simple linear regression?</li>
+    <li>How do you fit step function models?</li>
+    <li>What do polynomial regression and step functions have in common?</li>
+    <li>What are the differences between polynomial regression and step functions?</li>
+  </ul>
+
+  </objectives>
+
+  <paragraphs>
+    <title>Polynomial regression</title>
+
+        <p>Replace the linear model</p>
+        <p>
+          <md>
+            y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+          </md>
+        </p>
+        <p>with</p>
+        <p>
+          <md>
+            y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \cdots + \beta_d x_i^d + \varepsilon_i
+          </md>
+        </p>
+
+        <p>
+          <ul>
+            <li><p>Can learn with linear models by passing in predictors <m>x_i^\ell</m>.</p></li>
+            <li><p>Tend not to go higher than degree 3 or 4 because this can make the model overly flexible.</p></li>
+                <li>
+                    <p>
+                        Resulting model is global.
+                        <ul>
+                            <li>
+                                <p>
+                                    Can miss important localized information.
+                                </p>
+                            </li>
+                        </ul>
+                    </p>
+                </li>
+          </ul>
+        </p>
+
+  </paragraphs>
+
+  <paragraphs>
+    <title>Example: Wage Data</title>
+    <p>
+      <md>
+        \texttt{wage} = \beta_0 + \beta_1\texttt{age} + \beta_2\texttt{age}^2 + \cdots + \beta_p\texttt{age}^p + \varepsilon.
+      </md>
+    </p>
+        <p>
+            Using OLS to fit a polynomial model: Treat higher powers as separate predictors. 
+          <ul>
+            <li><p>Make a matrix of predictors <m>X</m> with columns <m>X^0, X^1, X^2, \ldots, X^p</m>.</p>
+                <tabular>
+                    <row>
+                        <cell></cell><cell><m>X_0</m></cell><cell><m>X_1</m></cell><cell><m>X_1^2</m></cell><cell><m>\ldots</m></cell><cell><m>X_1^n</m></cell>
+                        <cell>1</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
+                        <cell>2</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
+                        <cell><m>\vdots</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
+                        <cell><m>n</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
+                    </row>
+                </tabular>
+                
+                </li>
+            <li><p>Then use linear regression to learn the coefficients.</p></li>
+          </ul>
+        </p>
+    <p>The code learned:
+      <md>
+        <mrow>\widehat{\texttt{wage}} \amp= -184.1542 + 21.24552\,\texttt{age}</mrow>
+        <mrow>\amp- 0.56386\,\texttt{age}^2 + 0.00681\,\texttt{age}^3</mrow>
+        <mrow>\amp- 3\times 10^{-5}\,\texttt{age}^4</mrow>        
+      </md>
+    </p>    
+
+              <image source="figures/Fig7-1a.png" width="60%">
+            <shortdescription>Scatter plot of Wage versus Age showing a non-linear polynomial fit with dashed standard error bands.</shortdescription>
+            <description><p>Scatter plot of the <c>Wage</c> data depicting wage versus age for men in the Mid-Atlantic region of the United States. The solid blue curve is a degree-4 polynomial of wage (in thousands of dollars) as a function of age, fit by least squares. The dashed curves indicate an estimated 95% confidence interval</p></description>
+          </image>      
+
+          <p>
+          <ul>
+            <li><p>The dark line is a degree 4 polynomial.</p></li>
+            <li><p>There is an estimated variance for each coefficient.
+            <ul>
+            <li><p>Assume the fitted model is
+              <md>
+                \hat f(x_0) = \hat\beta_0 + \hat\beta_1 x_0 + \cdots + \hat\beta_d x_0^d.
+              </md>
+              </p>
+            </li>
+            <li><p>Use this model to estimate the pointwise variance <m>\operatorname{Var}(\hat f(x_0))</m>.</p></li>
+            <li>Draw two standard deviations away from the fitted line to obtain an approximate 95% confidence interval.</li>
+          </ul>
+          </p></li>
+          </ul>
+        </p>
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        We notice that the data contains two groups: high earners, and low earners. 
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Most of the data is low earners (about 79 earners out of 3000 data points). 
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        A global model (such as polynomial regression) will impose global structure on the data.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                       <term>Step functions</term> allow learning localized models. 
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+  </paragraphs>
+
+
+
+  <paragraphs>
+    <title>Step functions</title>
+
+<image source="figures/example_step_functions.png" width="40%">
+<shortdescription>A 3 by 1 panel showing identical axes with X on the horizontal axis, and 3 different indicator functions on the vertical axis. The plots show the regions where the indicator function is either zero or one. </shortdescription>
+</image>
+
+
+    <sidebyside widths="44% 43%">
+      
+        <p>More generally: 
+<md>
+  <mrow>C_0(X) \amp = I(X \lt c_1),</mrow>
+  <mrow>C_1(X) \amp = I(c_1 \le X \lt c_2),</mrow>
+  <mrow>C_2(X) \amp = I(c_2 \le X \lt c_3),</mrow>
+  <mrow>\amp \vdots</mrow>
+  <mrow>C_{K-1}(X) \amp = I(c_{K-1} \le X \lt c_K),</mrow>
+  <mrow>C_K(X) \amp = I(c_K \le X),</mrow>
+</md>
+            
+        </p>
+
+        <image source="figures/general_step_functions.png">
+        <shortdescription>A four by one panel showing identical axes with X on the horizontal axis, and four different indicator functions on the vertical axis. The plots show the regions where the indicator function is either zero or one for K indicator functions.</shortdescription>
+        </image>
+      
+    </sidebyside>
+
+        <p>
+          <ul>
+            <li><p>Choose values for the <term>knots</term> <m>c_1,\ldots,c_K</m>.</p></li>
+                <li>
+                    <p>
+                        <m>I(\cdot)</m> is an <term>indicator function</term>. It returns 1 if its argument is true, and 0 otherwise. 
+                    </p>
+                </li>            
+            <li><p>Use indicator functions to break up the range of <m>X</m> into bins, then fit a new constant in each bin.</p></li>
+            <li><p>The <m>C_j</m> terms are sometimes also called dummy variables.</p></li>
+            <li><p>Note that <m>\sum_j C_j(X)=1</m> because <m>X</m> belongs to exactly one interval.</p></li>
+          </ul>
+        </p>
+
+            <p>
+        <ul>
+            <li><p>Step functions allow models to be learned without imposing a global structure.</p></li>
+                <li>
+                    <p>
+                         They are very popular in biostatistics and epidemiology 5-year age groups are often used to define the bins. 5-year age groups are often used to define the bins.
+                    </p>
+                </li>
+            </ul>
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Step function: Learned model</title>
+    <p>
+      <md>
+        y_i = \beta_0 + \beta_1 C_1(x_i) + \beta_2 C_2(x_i) + \cdots + \beta_K C_K(x_i) + \varepsilon_i
+      </md>
+    </p>
+    <p>
+      <ul>
+        <li><p>Note that we do not learn a coefficient for <m>C_0</m>. As with qualitative predictors, its value can be determined from the other coefficients.</p></li>
+        <li><p>If <m>X \lt c_1</m>, all predictors are zero, so <m>\beta_0</m> is the mean value of <m>Y</m> for <m>X \lt c_1</m>.</p></li>
+        <li><p>For <m>X\in[c_j,c_{j+1})</m>, the response is <m>\beta_0+\beta_j</m>. Thus, <m>\beta_j</m> is the average change in response for <m>X</m> in that interval relative to <m>X \lt c_1</m>.</p></li>
+      </ul>
+    </p>
+  </paragraphs>
+
+<example>
+    <title>Step function example</title>
+    <task>
+    <statement>
+        <p>
+            Given knots <m>c_1=3</m>, <m>c_2=5</m>, and <m>c_3=7</m>, determine the entries in the columns for <m>C_i(X)</m> in the matrix below.            
+        </p>
+     
+        
+          <tabular>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <row>
+              <cell><m>X</m></cell>
+              <cell><m>C_0(X)</m></cell>
+              <cell><m>C_1(X)</m></cell>
+              <cell><m>C_2(X)</m></cell>
+              <cell><m>C_3(X)</m></cell>
+            </row>
+            <row><cell>1</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>2</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>3</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>4</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>5</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>6</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>7</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>8</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>9</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+            <row><cell>10</cell><cell/><cell/><cell/><cell/></row>
+            <row><cell/><cell/><cell/><cell/><cell/></row>
+          </tabular>
+          </statement>
+
+
+<answer>
+              <tabular>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <row>
+              <cell><m>X</m></cell>
+              <cell><m>C_0(X)</m></cell>
+              <cell><m>C_1(X)</m></cell>
+              <cell><m>C_2(X)</m></cell>
+              <cell><m>C_3(X)</m></cell>
+            </row>
+            <row><cell>1</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+            <row><cell>2</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+            <row><cell>3</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+            <row><cell>5</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+            <row><cell>5</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+            <row><cell>6</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+            <row><cell>7</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell></row>
+            <row><cell>8</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell></row>
+            <row><cell>9</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell></row>
+            <row><cell>10</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell></row>
+          </tabular>
+</answer>
+           </task>
+   
+    <task>
+        <statement>
+
+                <p>My code, using regression on the step function inputs, returned the function    
+      <md>
+        F(X) = -1 + 3C_1(X) + 4C_2(X) - 2C_3(X).
+      </md>
+    </p>
+    <p>Fill in the missing values in the table below.
+            </p>
+            <tabular>
+            <col width="50%"/>
+            <col width="50%"/>
+            <row><cell><m>X</m></cell><cell><m>F(X)</m></cell></row>
+            <row><cell>1</cell><cell/></row>            
+            <row><cell>2</cell><cell/></row>            
+            <row><cell>3</cell><cell/></row>            
+            <row><cell>4</cell><cell/></row>            
+            <row><cell>5</cell><cell/></row>
+            <row><cell>6</cell><cell/></row>
+            <row><cell>7</cell><cell/></row>
+            <row><cell>8</cell><cell/></row>
+            <row><cell>9</cell><cell/></row>
+            <row><cell>10</cell><cell/></row>            
+          </tabular>
+        </statement>
+        <answer>
+            <tabular>
+            <col width="50%"/>
+            <col width="50%"/>
+            <row><cell><m>X</m></cell><cell><m>F(X)</m></cell></row>
+            <row><cell>1</cell><cell>-1</cell></row>            
+            <row><cell>2</cell><cell>-1</cell></row>            
+            <row><cell>3</cell><cell>2</cell></row>            
+            <row><cell>4</cell><cell>2</cell></row>            
+            <row><cell>5</cell><cell>3</cell></row>
+            <row><cell>6</cell><cell>3</cell></row>
+            <row><cell>7</cell><cell>-3</cell></row>
+            <row><cell>8</cell><cell>-3</cell></row>
+            <row><cell>9</cell><cell>-3</cell></row>
+            <row><cell>10</cell><cell>-3</cell></row>            
+          </tabular>
+        </answer>
+    </task>
+    <task>
+        <statement>
+            <p>
+                Draw the function.
+            </p>
+            <image source="figures/StepFunctionAxes.png" width="100%">
+            <shortdescription>Empty Cartesian coordinate grid with x-axis and y-axis.</shortdescription>
+          </image>
+        </statement>
+        <hint>
+<p>
+Using the cutpoints <m>c_1 = 3</m>, <m>c_2 = 5</m>, and <m>c_3 = 7</m>, we can define the functions
+  <md>
+    <mrow>C_1(X) \amp = I(3 \le X \lt 5)</mrow>
+    <mrow>C_2(X) \amp = I(5 \le X \lt 7)</mrow>
+    <mrow>C_3(X) \amp = I(7 \le X)</mrow>
+  </md>
+</p>
+        </hint>
+        <hint>
+            
+                <p>
+  The piecewise values for <m>F(X)</m> can be written as
+  <md>
+    F(X) = \begin{cases}
+      -1 \amp \text{if } X \lt 3 \\
+      2  \amp \text{if } 3 \le X \lt 5 \\
+      3  \amp \text{if } 5 \le X \lt 7 \\
+      -3 \amp \text{if } X \ge 7
+    \end{cases}
+  </md>
+
+            </p>
+        </hint>
+        <answer>
+<image source="figures/step_function_example1.png" width="75%">
+<shortdescription>A grid showing the solution to the problem which is composed of horizontal lines at the specified cut points.</shortdescription>
+</image>
+        </answer>
+    </task>
+
+    </example>
+
+    
+  
+
+
+
+
+
+
+  <paragraphs>
+    <title>Step function with the <c>Wage</c> data</title>
+    <sidebyside widths="45% 45%">
+        
+          <image source="figures/Fig7-2a.png" width="100%">
+            <shortdescription>Scatter plot of Wage versus Age with a green step function fit and dashed standard error bands.</shortdescription>
+          </image>        
+
+      
+        <p>
+          <ul>
+            <li><p>Good: The fitted model identifies a peak where the high earners are.</p></li>
+                <li>
+                    <p>
+                        Not great: Unless there are natural breakpoints in the predictors, the model can miss important information. For example, the first bin misses the increasing trend of wage with age. 
+                    </p>
+                </li>
+          </ul>
+        </p>
+        </sidebyside>
+  </paragraphs>
+
+<exercise>
+<title>Coffee shop sales step regression</title>
+<introduction>
+    <p>
+        
+
+
+      Suppose we want to predict the number of coffees sold per hour (<m>Y</m>) at a campus coffee shop based on the time of day (<m>X</m>, measured in hours since opening from 8:00 AM to 4:00 PM, where <m>X \in [0,8]</m>). 
+    </p>
+    <p>
+      A sample dataset of 20 hourly observations is provided in <xref ref="table-coffee-sales-data"/>.
+    </p>
+
+    <table xml:id="table-coffee-sales-data">
+      <title>Hourly Coffee Shop Sales Data</title>
+      <tabular halign="center" bottom="minor" top="minor" left="minor" right="minor">
+        <row header="yes" bottom="medium">
+          <cell>Observation</cell>
+          <cell>Time of Day (<m>X</m>)</cell>
+          <cell>Coffees Sold (<m>Y</m>)</cell>
+        </row>
+        <row><cell>1</cell><cell>0.2</cell><cell>48</cell></row>
+        <row><cell>2</cell><cell>0.5</cell><cell>54</cell></row>
+        <row><cell>3</cell><cell>1.1</cell><cell>51</cell></row>
+        <row><cell>4</cell><cell>1.8</cell><cell>45</cell></row>
+        <row><cell>5</cell><cell>2.5</cell><cell>52</cell></row>
+        <row><cell>6</cell><cell>3.1</cell><cell>118</cell></row>
+        <row><cell>7</cell><cell>3.4</cell><cell>125</cell></row>
+        <row><cell>8</cell><cell>3.9</cell><cell>115</cell></row>
+        <row><cell>9</cell><cell>4.2</cell><cell>122</cell></row>
+        <row><cell>10</cell><cell>4.7</cell><cell>120</cell></row>
+        <row><cell>11</cell><cell>5.0</cell><cell>42</cell></row>
+        <row><cell>12</cell><cell>5.3</cell><cell>38</cell></row>
+        <row><cell>13</cell><cell>5.8</cell><cell>40</cell></row>
+        <row><cell>14</cell><cell>6.1</cell><cell>82</cell></row>
+        <row><cell>15</cell><cell>6.4</cell><cell>78</cell></row>
+        <row><cell>16</cell><cell>6.9</cell><cell>85</cell></row>
+        <row><cell>17</cell><cell>7.2</cell><cell>77</cell></row>
+        <row><cell>18</cell><cell>7.5</cell><cell>81</cell></row>
+        <row><cell>19</cell><cell>7.8</cell><cell>84</cell></row>
+        <row><cell>20</cell><cell>8.0</cell><cell>79</cell></row>
+      </tabular>
+    </table>
+
+</introduction>
+<task>
+  <statement>
+    <p>
+        Fit an intercept-only model (0 cutpoints). Is this a good model?
+    </p>
+  </statement>
+  <solution>
+    <p>
+        If we fit an intercept-only model, <m>F(X) = \beta_0</m>, our best prediction is the global average of all observations:
+            <md>\beta_0 \approx 79.55 \text{ coffees/hour}</md>
+            This model underfits significantly, completely missing the morning and afternoon fluctuations.
+    </p>
+  </solution>
+  </task>
+  <task>
+    <statement>
+        <p>
+            Introduce a single split at noon to segment the data into Morning (<m>X \lt 4</m>) and Afternoon (<m>X \ge 4</m>). Fit the resulting model. 
+        </p>
+    </statement>
+    <solution>
+        <p> The resulting model with one cutpoint at noon is
+             <md>F(X) = \beta_0 + \beta_1 I(X \ge 4).</md>
+            Averaging the subsets yields:
+            <ul>
+              <li><p>Morning Step (Observations 1-8): <m>\beta_0 = 63.5</m></p></li>
+              <li><p>Afternoon Step (Observations 9-20): <m>\beta_0 + \beta_1 = 78.83 \implies \beta_1 = 15.33</m></p></li>
+            </ul>
+        </p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+        <p>
+            Can you think of a partition that can better capture the peak hours' rush? There is not a unique solution to this part.
+        </p>
+    </statement>
+    <solution>
+        <p>
+           We can use 3 cutpoints at <m>c_1 = 3.0, c_2 = 5.0, c_3 = 6.0</m>. We fit the model
+            <md>F(X) = \beta_0 + \beta_1 C_1(X) + \beta_2 C_2(X) + \beta_3 C_3(X)</md>
+            where:
+            <md>
+              <mrow>C_1(X) \amp = I(3.0 \le X \lt 5.0)</mrow>
+              <mrow>C_2(X) \amp = I(5.0 \le X \lt 6.0)</mrow>
+              <mrow>C_3(X) \amp = I(6.0 \le X)</mrow>
+            </md>
+            Calculating the averages within each interval yields:
+            <md>
+              F(X) = \begin{cases}
+                50.0 \amp \text{if } X \lt 3.0  \\
+                121.0 \amp \text{if } 3.0 \le X \lt 5.0 \\
+                40.0 \amp \text{if } 5.0 \le X \lt 6.0  \\
+                80.71 \amp \text{if } X \ge 6.0 
+              \end{cases}
+            </md>
+            This refinement level seems to capture the underlying demand wave of the shop without overfitting. 
+        </p>
+    </solution>
+
+    </task> 
+
+  
+</exercise>
+
+<!-- <exercise xml:id="exercise-step-function-server-load">
+  <title>Extra Practice: Server Bandwidth Step Regression</title>
+  <statement>
+    <p>
+      An IT engineer wants to model the hourly processing load on an e-commerce website's data servers to optimize cloud-hosting costs. The independent variable (<m>X</m>) represents hours past midnight (<m>X = 0</m> corresponds to 12:00 AM, up to <m>X = 24</m>). The dependent variable (<m>Y</m>) represents server traffic measured in thousands of requests per minute.
+    </p>
+    <p>
+      A sample dataset of 20 observations recorded over a single day is provided in <xref ref="table-server-load-data"/>.
+    </p>
+
+    <table xml:id="table-server-load-data">
+      <title>Hourly Server Traffic Load Data</title>
+      <tabular halign="center" bottom="minor" top="minor" left="minor" right="minor">
+        <row header="yes" bottom="medium">
+          <cell>Observation</cell>
+          <cell>Hours Past Midnight (<m>X</m>)</cell>
+          <cell>Requests/Min in Thousands (<m>Y</m>)</cell>
+        </row>
+        <row><cell>1</cell><cell>0.5</cell><cell>12</cell></row>
+        <row><cell>2</cell><cell>1.2</cell><cell>8</cell></row>
+        <row><cell>3</cell><cell>2.0</cell><cell>10</cell></row>
+        <row><cell>4</cell><cell>3.8</cell><cell>10</cell></row>
+        <row><cell>5</cell><cell>4.5</cell><cell>10</cell></row>
+        <row><cell>6</cell><cell>6.2</cell><cell>42</cell></row>
+        <row><cell>7</cell><cell>7.5</cell><cell>38</cell></row>
+        <row><cell>8</cell><cell>8.9</cell><cell>40</cell></row>
+        <row><cell>9</cell><cell>10.1</cell><cell>92</cell></row>
+        <row><cell>10</cell><cell>12.4</cell><cell>105</cell></row>
+        <row><cell>11</cell><cell>14.0</cell><cell>98</cell></row>
+        <row><cell>12</cell><cell>15.5</cell><cell>101</cell></row>
+        <row><cell>13</cell><cell>16.8</cell><cell>104</cell></row>
+        <row><cell>14</cell><cell>18.2</cell><cell>62</cell></row>
+        <row><cell>15</cell><cell>19.0</cell><cell>58</cell></row>
+        <row><cell>16</cell><cell>20.5</cell><cell>60</cell></row>
+        <row><cell>17</cell><cell>21.1</cell><cell>14</cell></row>
+        <row><cell>18</cell><cell>22.0</cell><cell>9</cell></row>
+        <row><cell>19</cell><cell>23.2</cell><cell>11</cell></row>
+        <row><cell>20</cell><cell>23.9</cell><cell>12</cell></row>
+      </tabular>
+    </table>
+    
+    <p>
+      Tasks:
+      <ol marker="1.">
+        <li><p>Calculate the 0-cutpoint global baseline prediction (<m>\beta_0</m>).</p></li>
+        <li><p>Fit a 1-cutpoint model splitting the day at exactly noon (<m>c_1 = 12.0</m>).</p></li>
+        <li><p>Fit a high-refinement 4-cutpoint step regression model using the cutpoints <m>c_1 = 5.0, c_2 = 9.0, c_3 = 18.0,</m> and <m>c_4 = 21.0</m>.</p></li>
+        <li>
+          <p>
+            Independent Plotting Task: Consider a hypothetical 3-cutpoint model producing the estimated step function:
+            <md>G(X) = 15 + 35 C_1(X) + 75 C_2(X) - 5 C_3(X)</md>
+            where the indicator basis functions are left-closed and right-open with cutpoints at <m>c_1 = 6.0, c_2 = 10.0,</m> and <m>c_3 = 17.0</m>. Sketch a plot of <m>G(X)</m> from <m>X = 0</m> to <m>X = 24</m>. Explicitly show open vs. closed boundary behaviors at each change point.
+          </p>
+        </li>
+      </ol>
+    </p>
+  </statement>
+
+  <hint>
+    <p>
+      For the independent plotting task, parse <m>G(X)</m> tier-by-tier before sketching. For instance, when <m>X \lt 6.0</m>, all indicators are zero, so <m>G(X) = 15</m>. Remember that left-closed, right-open steps (<m>c_k \le X \lt c_{k+1}</m>) require a solid boundary dot (<m>\bullet</m>) on the left edge and a hollow circular marker (<m>\circ</m>) on the right edge of each horizontal line segment.
+    </p>
+  </hint>
+
+  <solution>
+    <p>
+      Below are the computed solutions for the exercise tasks:
+      <ol marker="A.">
+        <li>
+          <p>
+            Global Baseline (0 Cutpoints): The average of all 20 observations is:
+            <md>\beta_0 = 41.65 \text{ thousand requests/min}</md>
+          </p>
+        </li>
+        <li>
+          <p>
+            1 Cutpoint at <m>c_1 = 12.0</m>:
+            <ul>
+              <li><p>Interval <m>[0, 12)</m> (Obs 1-9): <m>\beta_0 = 30.22</m></p></li>
+              <li><p>Interval <m>[12, 24)</m> (Obs 10-20): <m>\beta_0 + \beta_1 = 51.0 \implies \beta_1 = 20.78</m></p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>
+            4 Cutpoints (<m>5.0, 9.0, 18.0, 21.0</m>): The piecewise regression function evaluates to the following tier averages:
+            <md>
+              F(X) = \begin{cases}
+                10.0 \amp \text{if } 0 \le X \lt 5.0 \\
+                40.0 \amp \text{if } 5.0 \le X \lt 9.0 \\
+                100.0 \amp \text{if } 9.0 \le X \lt 18.0 \\
+                60.0 \amp \text{if } 18.0 \le X \lt 21.0 \\
+                11.5 \amp \text{if } 21.0 \le X \le 24.0
+              \end{cases}
+            </md>
+          </p>
+        </li>
+        <li>
+          <p>
+            Independent Plotting Task Solution: Evaluating the linear combination for <m>G(X)</m> yields four distinct flat horizontal steps across the day:
+            <md>
+              G(X) = \begin{cases}
+                15 \amp \text{if } 0 \le X \lt 6.0 \\
+                50 \amp \text{if } 6.0 \le X \lt 10.0 \pmod{15 + 35} \\
+                125 \amp \text{if } 10.0 \le X \lt 17.0 \pmod{15 + 35 + 75} \\
+                120 \amp \text{if } 17.0 \le X \le 24.0 \pmod{15 + 35 + 75 - 5}
+              \end{cases}
+            </md>
+            The resulting graph features four horizontal flat lines. Solid dots must be placed at the left boundaries: <m>(0, 15), (6, 50), (10, 125), (17, 120)</m>. Hollow circles must be placed at the right boundaries where transitions occur: <m>(6, 15), (10, 50), (17, 125)</m>.
+          </p>
+        </li>
+      </ol>
+    </p>
+    <image source="figures/ecommerce_traffic_plotting_problem.png" width="75%">
+    <shortdescription>Step regression for ecommerce traffic plotting problem.</shortdescription>
+    </image>
+  </solution>
+</exercise> -->
+
+
+  </handout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section xml:id="cmse381-lec20-polynomialandstepfunctions-worksheet" component="ws20">
-  <title>Jupyter Notebook: Lec 20 - Polynomial Regression and Step Functions</title>
+  <title>Day 20 worksheet</title>
   <introduction>
     <p>In this module we are going to implement polynomial regression and step functions as discussed in class.</p>
     <program language="python">
@@ -22,10 +22,12 @@
   </introduction>
   <subsection xml:id="cmse381-lec20-polynomialandstepfunctions-worksheet-ptx-0-loading-in-the-data">
     <title>0. Loading in the data</title>
-    <p>We're going to use the <c>Wage</c> data used in the book, so note that many of your plots can be checked by looking at figures in the book.</p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2d664388c56e51af2d83cea1fe3027f4/Wage.csv"
-      df = pd.read_csv(url, index_col =0 )
+    <p>We're going to use the <xref ref="wages-csv"/> used in the book, so note that many of your plots can be checked by looking at figures in the book.</p>
+
+      <p>
+        Load the data into the dataframe <c>df</c>, and run the following commands.
+      </p>
+    <program language="python">      
       df.head()
     </program>
     <program language="python">

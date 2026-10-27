@@ -75,13 +75,11 @@
           <ul>
             <li><p>Make a matrix of predictors <m>X</m> with columns <m>X^0, X^1, X^2, \ldots, X^p</m>.</p>
                 <tabular>
-                    <row>
-                        <cell></cell><cell><m>X_0</m></cell><cell><m>X_1</m></cell><cell><m>X_1^2</m></cell><cell><m>\ldots</m></cell><cell><m>X_1^n</m></cell>
-                        <cell>1</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
-                        <cell>2</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
-                        <cell><m>\vdots</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
-                        <cell><m>n</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell>
-                    </row>
+                    <row><cell></cell><cell><m>X_0</m></cell><cell><m>X_1</m></cell><cell><m>X_1^2</m></cell><cell><m>\ldots</m></cell><cell><m>X_1^p</m></cell></row>
+                        <row><cell>1</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row>
+                        <row><cell>2</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row>
+                        <row><cell><m>\vdots</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row>
+                        <row><cell><m>n</m></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row>
                 </tabular>
                 
                 </li>
@@ -127,7 +125,7 @@
                 </li>
                 <li>
                     <p>
-                        Most of the data is low earners (about 79 earners out of 3000 data points). 
+                        Most of the data is low earners (about 79 high earners only out of 3000 data points). 
                     </p>
                 </li>
                 <li>
@@ -194,7 +192,7 @@
             <li><p>Step functions allow models to be learned without imposing a global structure.</p></li>
                 <li>
                     <p>
-                         They are very popular in biostatistics and epidemiology 5-year age groups are often used to define the bins. 5-year age groups are often used to define the bins.
+                         They are very popular in biostatistics and epidemiology. 5-year age groups are often used to define the bins.
                     </p>
                 </li>
             </ul>

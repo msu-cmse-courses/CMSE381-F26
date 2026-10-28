@@ -8,7 +8,10 @@
       7.1: Polynomial regression
     </p>
     <p>
-        7.2: Step functions
+        7.2: Step functions (regression and classification)
+    </p>
+        <p>
+      7.3: Basis functions
     </p>
   </introduction>
 
@@ -22,6 +25,10 @@
     <li>How do you fit step function models?</li>
     <li>What do polynomial regression and step functions have in common?</li>
     <li>What are the differences between polynomial regression and step functions?</li>
+          <li>How do you fit step function models for classification problems?</li>
+    <li>You should also be able to implement them in <c>Python</c>.</li>
+    <li>What is the purpose of using basis functions? </li>
+      <li>You should be able to articulate what the basis functions <m>b_i</m> are for polynomial regression and step functions.</li>
   </ul>
 
   </objectives>
@@ -634,6 +641,141 @@ Using the cutpoints <m>c_1 = 3</m>, <m>c_2 = 5</m>, and <m>c_3 = 7</m>, we can d
     </image>
   </solution>
 </exercise> -->
+
+  <paragraphs>
+    <title>Classification versions</title>
+    <p>Remember logistic regression?</p>
+    <sidebyside widths="50% 50%">
+      <stack>
+        <image source="figures/LogisticFunction.png">
+          <shortdescription>Graph and formula of the logistic function y equals e to the x over one plus e to the x, showing its characteristic S-curve from zero to one.</shortdescription>
+        </image>
+      </stack>
+      <stack>
+        <p>
+          Logistic regression:
+          <md>p(X) = \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}}</md>
+        </p>
+        <p>Multiple features (Multiple logistic regression):</p>
+        <p>
+          <md>
+            p(X) =
+            \frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}
+            {1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}
+          </md>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Classification version: Polynomial regression</title>
+    <p>
+      <md>
+        \Pr(y_i&gt;250 \mid x_i) =
+        \frac{\exp(\beta_0+\beta_1x_i+\cdots+\beta_dx_i^d)}
+        {1+\exp(\beta_0+\beta_1x_i+\cdots+\beta_dx_i^d)}
+      </md>
+    </p>
+    <sidebyside widths="43.75% 56.25%">
+      <stack>
+        <image source="figures/Fig7-1b.png">
+          <shortdescription>Plot showing the probability of high wage versus age using a nonlinear fit with confidence bands.</shortdescription>
+        </image>
+      </stack>
+      <stack>
+        <p>
+          <ul>
+            <li><p>The previous figure shows a distinct subcluster of high earners making more than $250K.</p></li>
+            <li><p>Build a logistic regression model as above.</p></li>
+            <li><p>The 95% confidence interval gets very wide on the right side.</p></li>
+            <li><p>The large sample size, <m>n=3{,}000</m>, but small number of high earners (79) leads to high coefficient variance and wide confidence intervals.</p></li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Classification version: Step functions</title>
+    <p>
+      <md>
+        \Pr(y_i&gt;250 \mid x_i) =
+        \frac{\exp(\beta_0+\beta_1C_1(x_i)+\beta_2C_2(x_i)+\cdots+\beta_KC_K(x_i))}
+        {1+\exp(\beta_0+\beta_1C_1(x_i)+\beta_2C_2(x_i)+\cdots+\beta_KC_K(x_i))}
+      </md>
+    </p>
+    <sidebyside widths="43.75% 56.25%">
+      <stack>
+        <image source="figures/Fig7-2b.png">
+          <shortdescription>Plot showing the probability of high wage versus age using a green step function fit with dashed confidence bands.</shortdescription>
+        </image>
+      </stack>
+      <stack>
+        <p>
+          <ul>
+            <li><p>Again, the model learns that middle region.</p></li>
+            <li><p>The confidence interval is still large on the right, likely because there is less data there.</p></li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs component="slides-inst-notes">
+    <title>Coding bit: classification version</title>
+    <sidebyside widths="50% 50%">
+      <stack>
+        <image source="figures/WageColoredBy250.png">
+          <shortdescription>Scatter plot of wage data with points colored and separated by a 250 threshold.</shortdescription>
+        </image>
+      </stack>
+      <stack>
+        <p>Talk through the material on the projector; there is nothing for students to code.</p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+
+
+
+
+  <paragraphs>
+    <title>Basis Functions Setup</title>
+    <p>Polynomial and piecewise-constant regression models are special cases of a <em>basis function</em> approach.</p>
+    <p>
+      <md>
+        y_i = \beta_0 + \beta_1b_1(x_i) + \beta_2b_2(x_i)
+        + \cdots + \beta_Kb_K(x_i) + \epsilon_i
+      </md>
+    </p>
+    <sidebyside widths="50% 50%">
+      <stack>
+        <p>
+          <ul>
+            <li><p>Pick a collection of basis functions <m>b_1(X),\cdots,b_K(X)</m>.</p></li>
+            <li><p>Use least squares to figure out the coefficients.</p></li>
+            <li><p>Explain the <m>b_i</m> for polynomial and stepwise functions.</p></li>
+            <li><p>In contrast to dimension-reduction methods, here we want to add dimensions.</p></li>
+          </ul>
+        </p>
+      </stack>
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>There are lots of possible options for basis functions.
+              <ul>
+                <li><p>Examples include wavelets and Fourier series.</p></li>
+                <li><p>Another is regression splines, which we will learn in this class.</p></li>
+              </ul>
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
 
 
   </handout>

@@ -217,76 +217,76 @@
           <cell>20</cell>
           <cell>W</cell>
           <cell>10/28</cell>
-          <cell>Polynomial &amp; Step functions</cell>
-          <cell>7.1-7.2</cell>
+          <cell>Polynomial &amp; Step functions. Basis functions.</cell>
+          <cell>7.1-7.3</cell>
           <cell></cell>
         </row>
         <row>
           <cell>21</cell>
           <cell>F</cell>
           <cell>10/30</cell>
-          <cell>Step functions; Basis functions; start splines</cell>
-          <cell>7.2-7.4</cell>
+          <cell>Regression splines</cell>
+          <cell>7.4</cell>
           <cell>HW#4 due</cell>
         </row>
         <row>
           <cell>22</cell>
           <cell>M</cell>
           <cell>11/02</cell>
-          <cell>Regression splines</cell>
-          <cell>7.4</cell>
+          <cell>Decision trees</cell>
+          <cell>8.1</cell>
           <cell>HW#5 assigned</cell>
         </row>
         <row>
           <cell>23</cell>
           <cell>W</cell>
           <cell>11/04</cell>
-          <cell>Decision trees</cell>
-          <cell>8.1</cell>
-          <cell></cell>
-        </row>
-        <row>
-          <cell>24</cell>
-          <cell>F</cell>
-          <cell>11/06</cell>
           <cell>Random forests</cell>
           <cell>8.2.1, 8.2.2</cell>
           <cell></cell>
         </row>
         <row>
           <cell></cell>
-          <cell>M</cell>
-          <cell>11/09</cell>
+          <cell>F</cell>
+          <cell>11/06</cell>
           <cell>Catch up day/Practice Problems</cell>
           <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>24</cell>
+          <cell>M</cell>
+          <cell>11/09</cell>
+          <cell>Maximal margin classifier</cell>
+          <cell>9.1</cell>
           <cell>HW#5 due</cell>
         </row>
         <row>
           <cell>25</cell>
           <cell>W</cell>
           <cell>11/11</cell>
-          <cell>Maximal margin classifier</cell>
-          <cell>9.1</cell>
+          <cell>SVC</cell>
+          <cell>9.2</cell>
           <cell>HW#6 assigned</cell>
         </row>
         <row>
           <cell>26</cell>
           <cell>F</cell>
           <cell>11/13</cell>
-          <cell>SVC</cell>
-          <cell>9.2</cell>
-          <cell></cell>
-        </row>
-        <row>
-          <cell>27</cell>
-          <cell>M</cell>
-          <cell>11/16</cell>
           <cell>SVM</cell>
           <cell>9.3, 9.4</cell>
           <cell></cell>
         </row>
         <row>
-          <cell>28</cell>
+          <cell></cell>
+          <cell>M</cell>
+          <cell>11/16</cell>
+          <cell>Catch up day/Practice Problems</cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>27</cell>
           <cell>W</cell>
           <cell>11/18</cell>
           <cell>Single layer NN</cell>
@@ -294,7 +294,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>29</cell>
+          <cell>28</cell>
           <cell>F</cell>
           <cell>11/20</cell>
           <cell>Multi layer NN</cell>
@@ -302,7 +302,7 @@
           <cell>HW#6 due</cell>
         </row>
         <row>
-          <cell>30</cell>
+          <cell>29</cell>
           <cell>M</cell>
           <cell>11/23</cell>
           <cell>CNN</cell>
@@ -326,7 +326,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>31</cell>
+          <cell>30</cell>
           <cell>M</cell>
           <cell>11/30</cell>
           <cell>Unsupervised learning/clustering Part 1</cell>
@@ -334,7 +334,7 @@
           <cell></cell>
         </row>
         <row>
-          <cell>32</cell>
+          <cell>31</cell>
           <cell>W</cell>
           <cell>12/02</cell>
           <cell>Unsupervised learning/clustering Part 2</cell>

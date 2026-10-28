@@ -436,6 +436,10 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-title-box"><a href="cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions" class="internal"><span class="title">2. Step functions</span></a></div>
 <ul id="ptx-toc-group-cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-ptx-2-step-functions-17" class="internal"><span class="title">Exercises</span></a></div></li></ul>
 </li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-001-lec22-stepclassification-worksheet-classification-version-of-step-functions" class="internal"><span class="title">Classification version of step functions</span></a></div>
+<ul id="ptx-toc-group-cmse381-001-lec22-stepclassification-worksheet-classification-version-of-step-functions" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-001-lec22-stepclassification-worksheet-classification-version-of-step-functions-6" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec20-polynomialandstepfunctions-worksheet.html#cmse381-lec21-polynomialandstepfunctions-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
 </ul>
 </li>
@@ -620,7 +624,9 @@ eBookConfig.enable_chatcodes =  false;
 <section class="introduction" id="day-20-lecture-2">
 <div class="para" id="day-20-lecture-2-1">7.1: Polynomial regression<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para" id="day-20-lecture-2-2">7.2: Step functions<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-20-lecture-2-2">7.2: Step functions (regression and classification)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-20-lecture-2-3">7.3: Basis functions<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div></section>
 <article class="objectives goal-like" id="day-20-lecture-3"><h3 class="heading">
 <span class="type">Objectives<span class="colon heading-divison-mark heading-divison-mark__colon">:</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Covered in this class</span>
@@ -649,6 +655,22 @@ eBookConfig.enable_chatcodes =  false;
 <li id="day-20-lecture-3-2-6">
 <div class="para" id="p-derived-day-20-lecture-3-2-6">What are the differences between polynomial regression and step functions?</div>
 <div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-20-lecture-3-2-6" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-20-lecture-3-2-7">
+<div class="para" id="p-derived-day-20-lecture-3-2-7">How do you fit step function models for classification problems?</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-20-lecture-3-2-7" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-20-lecture-3-2-8">
+<div class="para" id="p-derived-day-20-lecture-3-2-8">You should also be able to implement them in <code class="code-inline tex2jax_ignore">Python</code>.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-20-lecture-3-2-8" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-20-lecture-3-2-9">
+<div class="para" id="p-derived-day-20-lecture-3-2-9">What is the purpose of using basis functions?</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-20-lecture-3-2-9" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-20-lecture-3-2-10">
+<div class="para" id="p-derived-day-20-lecture-3-2-10">You should be able to articulate what the basis functions <span class="process-math">\(b_i\)</span> are for polynomial regression and step functions.</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-20-lecture-3-2-10" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
 <div class="autopermalink" aria-hidden="true" data-description="Objectives: Covered in this class"><a tabindex="-1" href="#day-20-lecture-3" title="Copy heading and permalink for Objectives: Covered in this class" aria-label="Copy heading and permalink for Objectives: Covered in this class">🔗</a></div>
@@ -1595,7 +1617,191 @@ F(X) = \begin{cases}
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Task 111.c"><a tabindex="-1" href="#day-20-lecture-10-5" title="Copy heading and permalink for Task 111.c" aria-label="Copy heading and permalink for Task 111.c">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 111: Coffee shop sales step regression"><a tabindex="-1" href="#day-20-lecture-10" title="Copy heading and permalink for Checkpoint 111: Coffee shop sales step regression" aria-label="Copy heading and permalink for Checkpoint 111: Coffee shop sales step regression">🔗</a></div>
-</article></details><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 20"><a tabindex="-1" href="#day-20-lecture" title="Copy heading and permalink for Handout: Day 20" aria-label="Copy heading and permalink for Handout: Day 20">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-20-lecture-11"><h3 class="heading"><span class="title">Classification versions.</span></h3>
+<div class="para" id="day-20-lecture-11-2">Remember logistic regression?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-11-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/LogisticFunction.png" class="contained" alt="Graph and formula of the logistic function y equals e to the x over one plus e to the x, showing its characteristic S-curve from zero to one."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-20-lecture-11-3-2-1">
+<div class="para">Logistic regression:</div>
+<div class="displaymath process-math" id="day-20-lecture-11-3-2-1-1">
+\begin{equation*}
+p(X) = \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-11-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-20-lecture-11-3-2-2">Multiple features (Multiple logistic regression):<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-11-3-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-20-lecture-11-3-2-3">
+<div class="displaymath process-math" id="day-20-lecture-11-3-2-3-1">
+\begin{equation*}
+p(X) =
+\frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}
+{1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-11-3-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Classification versions"><a tabindex="-1" href="#day-20-lecture-11" title="Copy heading and permalink for Paragraphs: Classification versions" aria-label="Copy heading and permalink for Paragraphs: Classification versions">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-20-lecture-12"><h3 class="heading"><span class="title">Classification version: Polynomial regression.</span></h3>
+<div class="para logical" id="day-20-lecture-12-2">
+<div class="displaymath process-math" id="day-20-lecture-12-2-1">
+\begin{equation*}
+\Pr(y_i&gt;250 \mid x_i) =
+\frac{\exp(\beta_0+\beta_1x_i+\cdots+\beta_dx_i^d)}
+{1+\exp(\beta_0+\beta_1x_i+\cdots+\beta_dx_i^d)}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:43.75% 56.25%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig7-1b.png" class="contained" alt="Plot showing the probability of high wage versus age using a nonlinear fit with confidence bands."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-20-lecture-12-3-2-1">
+<ul class="disc" id="day-20-lecture-12-3-2-1-1">
+<li id="day-20-lecture-12-3-2-1-1-1">
+<div class="para" id="day-20-lecture-12-3-2-1-1-1-1">The previous figure shows a distinct subcluster of high earners making more than $250K.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-12-3-2-1-1-2">
+<div class="para" id="day-20-lecture-12-3-2-1-1-2-1">Build a logistic regression model as above.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-12-3-2-1-1-3">
+<div class="para" id="day-20-lecture-12-3-2-1-1-3-1">The 95% confidence interval gets very wide on the right side.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-12-3-2-1-1-4">
+<div class="para" id="day-20-lecture-12-3-2-1-1-4-1">The large sample size, <span class="process-math">\(n=3{,}000\text{,}\)</span> but small number of high earners (79) leads to high coefficient variance and wide confidence intervals.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-12-3-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-12-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Classification version: Polynomial regression"><a tabindex="-1" href="#day-20-lecture-12" title="Copy heading and permalink for Paragraphs: Classification version: Polynomial regression" aria-label="Copy heading and permalink for Paragraphs: Classification version: Polynomial regression">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-20-lecture-13"><h3 class="heading"><span class="title">Classification version: Step functions.</span></h3>
+<div class="para logical" id="day-20-lecture-13-2">
+<div class="displaymath process-math" id="day-20-lecture-13-2-1">
+\begin{equation*}
+\Pr(y_i&gt;250 \mid x_i) =
+\frac{\exp(\beta_0+\beta_1C_1(x_i)+\beta_2C_2(x_i)+\cdots+\beta_KC_K(x_i))}
+{1+\exp(\beta_0+\beta_1C_1(x_i)+\beta_2C_2(x_i)+\cdots+\beta_KC_K(x_i))}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-13-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:43.75% 56.25%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig7-2b.png" class="contained" alt="Plot showing the probability of high wage versus age using a green step function fit with dashed confidence bands."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-20-lecture-13-3-2-1">
+<ul class="disc" id="day-20-lecture-13-3-2-1-1">
+<li id="day-20-lecture-13-3-2-1-1-1">
+<div class="para" id="day-20-lecture-13-3-2-1-1-1-1">Again, the model learns that middle region.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-13-3-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-13-3-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-13-3-2-1-1-2">
+<div class="para" id="day-20-lecture-13-3-2-1-1-2-1">The confidence interval is still large on the right, likely because there is less data there.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-13-3-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-13-3-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-13-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Classification version: Step functions"><a tabindex="-1" href="#day-20-lecture-13" title="Copy heading and permalink for Paragraphs: Classification version: Step functions" aria-label="Copy heading and permalink for Paragraphs: Classification version: Step functions">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-20-lecture-14"><h3 class="heading"><span class="title">Basis Functions Setup.</span></h3>
+<div class="para" id="day-20-lecture-14-2">Polynomial and piecewise-constant regression models are special cases of a <em class="emphasis">basis function</em> approach.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-20-lecture-14-3">
+<div class="displaymath process-math" id="day-20-lecture-14-3-1">
+\begin{equation*}
+y_i = \beta_0 + \beta_1b_1(x_i) + \beta_2b_2(x_i)
++ \cdots + \beta_Kb_K(x_i) + \epsilon_i
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-20-lecture-14-4-1-1">
+<ul class="disc" id="day-20-lecture-14-4-1-1-1">
+<li id="day-20-lecture-14-4-1-1-1-1">
+<div class="para" id="day-20-lecture-14-4-1-1-1-1-1">Pick a collection of basis functions <span class="process-math">\(b_1(X),\cdots,b_K(X)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-14-4-1-1-1-2">
+<div class="para" id="day-20-lecture-14-4-1-1-1-2-1">Use least squares to figure out the coefficients.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-14-4-1-1-1-3">
+<div class="para" id="day-20-lecture-14-4-1-1-1-3-1">Explain the <span class="process-math">\(b_i\)</span> for polynomial and stepwise functions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-14-4-1-1-1-4">
+<div class="para" id="day-20-lecture-14-4-1-1-1-4-1">In contrast to dimension-reduction methods, here we want to add dimensions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-1-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-20-lecture-14-4-2-1">
+<ul class="disc" id="day-20-lecture-14-4-2-1-1">
+<li id="day-20-lecture-14-4-2-1-1-1">
+<div class="para logical" id="day-20-lecture-14-4-2-1-1-1-1">
+<div class="para">There are lots of possible options for basis functions.</div>
+<ul class="circle" id="day-20-lecture-14-4-2-1-1-1-1-1">
+<li id="day-20-lecture-14-4-2-1-1-1-1-1-1">
+<div class="para" id="day-20-lecture-14-4-2-1-1-1-1-1-1-1">Examples include wavelets and Fourier series.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-20-lecture-14-4-2-1-1-1-1-1-2">
+<div class="para" id="day-20-lecture-14-4-2-1-1-1-1-1-2-1">Another is regression splines, which we will learn in this class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-20-lecture-14-4-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-20-lecture-14-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Basis Functions Setup"><a tabindex="-1" href="#day-20-lecture-14" title="Copy heading and permalink for Paragraphs: Basis Functions Setup" aria-label="Copy heading and permalink for Paragraphs: Basis Functions Setup">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 20"><a tabindex="-1" href="#day-20-lecture" title="Copy heading and permalink for Handout: Day 20" aria-label="Copy heading and permalink for Handout: Day 20">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Section: Exam 3 Material"><a tabindex="-1" href="#sec-exam3-material" title="Copy heading and permalink for Section: Exam 3 Material" aria-label="Copy heading and permalink for Section: Exam 3 Material">🔗</a></div>
 </section>
 </div>

@@ -269,76 +269,407 @@
         <image source="figures/Fig7-3c.png">
           <shortdescription>Scatter plot of Wage versus Age with a smooth red cubic spline regression line joined at age fifty.</shortdescription>
         </image>
-        <p>
-          Test your understanding:
-          <url href="https://PollEv.com/multiple_choice_polls/bkj0zshpQHzhiwM3UXroS/respond">PollEv</url>
-        </p>
       </stack>
     </sidebyside>
   </paragraphs>
 
-  <paragraphs>
-    <title>Example</title>
-    <sidebyside widths="50% 50%">
-      <stack>
-        <p>We have the following piecewise cubic polynomial:</p>
-        <p>
-          <md>
-            f(x) =
-            \begin{cases}
-            2+x+x^2+0.1x^3 \amp x \leq 1 \\
-            b_0+b_1x+b_2x^2-x^3 \amp x &gt; 1
-            \end{cases}
-          </md>
-        </p>
-        <p>What are <m>b_0</m>, <m>b_1</m>, and <m>b_2</m> to make this a cubic spline?</p>
-        <p>Check your answers:</p>
-      </stack>
-      <stack>
-        <image source="figures/SplineMatchingExample.png">
-          <shortdescription>Polynomial curve on a coordinate grid ending at point (1, 4.1).</shortdescription>
-        </image>
-      </stack>
-    </sidebyside>
-        <figure>
-          <caption>Desmos cubic spline matching example</caption>
-          <interactive desmos="kbm0zivqco" />
-        </figure>
-  </paragraphs>
+<example>
+<title>Computing coefficients of a piecewise cubic polynomial</title>
+  <statement>
+    <p>
+      We have the following piecewise cubic polynomial:
+    </p>
+    <p>
+      <md>
+        f(x) =
+        \begin{cases}
+        2+x+x^2+0.1x^3 &amp; x \leq 1 \\
+        b_0+b_1x+b_2x^2-x^3 &amp; x > 1
+        \end{cases}
+      </md>
+    </p>
+    <p>
+      What are the values of \(b_0\), \(b_1\), and \(b_2\) that make this a cubic spline?
+    </p>
+    <image source="figures/SplineMatchingExample.png">
+      <shortdescription>Piecewise cubic polynomials illustrating spline matching at the breakpoint. </shortdescription>
+    </image>
+  </statement>
+  <hint>
+    <p>
+      A cubic spline must be continuous and have continuous first and second derivatives at the breakpoint \(x=1\). Set the function values, first derivatives, and second derivatives equal at \(x=1\) to obtain a system of three equations.
+    </p>
+  </hint>
+  <solution>
+    <p>First, impose continuity at <m>x=1</m>:</p>
+    <p>
+      <md>
+        2+1+1+0.1=b_0+b_1+b_2-1,
+      </md>
+    </p>
+    <p>which gives</p>
+    <p>
+      <md>
+        b_0+b_1+b_2=5.1.
+      </md>
+    </p>
+    <p>Next, impose continuity of the first derivative. Matching at <m>x=1</m> gives</p>
+    <p>
+      <md>
+        3.3=b_1+2b_2-3,
+      </md>
+    </p>
+    <p>or</p>
+    <p>
+      <md>
+        b_1+2b_2=6.3.
+      </md>
+    </p>
+    <p>Finally, impose continuity of the second derivative:</p>
+    <p>
+      <md>
+        2.6=2b_2-6,
+      </md>
+    </p>
+    <p>so</p>
+    <p>
+      <md>
+        b_2=4.3.
+      </md>
+    </p>
+    <p>Substituting back, we obtain</p>
+    <p>
+      <md>
+        b_1=-2.3,\qquad b_0=3.1.
+      </md>
+    </p>
+    <p>Therefore, the coefficients are</p>
+    <p>
+      <md>
+        b_0=3.1,\quad b_1=-2.3,\quad b_2=4.3.
+      </md>
+    </p>
+  </solution>
+</example>
 
-  <paragraphs>
-    <title>More space for work</title>
-    <sidebyside widths="50% 50%">
-      <stack>
-        <p>
+<exercise xml:id="first_example_DOF">
+  <title>Degrees of freedom</title>
+  <introduction>
+    <p>
+      The following tasks are related to the shown figure. Assume we are fitting a cubic polynomial over each segment.
+    </p>
+    <image source="figures/dof_first_explanation.png" width="70%">
+      <shortdescription>Different partitions for the range of a single predictor X. The first one on the left shows 3 interior knots. The one on the right shows K interior knots. Both figures show 2 exterior knots at the two boundaries of the range of X.</shortdescription>      
+    </image>    
+  </introduction>
+  <task>
+    <statement>
+      <p>
+        For Figure (a), how many piecewise functions do we need to define?
+      </p>
+    </statement>
+    <answer>
+      <p>
+        We have 3 segments, so we need 4 polynomials. 
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        For Figure (a), how many coefficients do we need to fit in total? This is the <term>degrees of freedom</term> of the model with no constraints. 
+      </p>
+    </statement>
+    <hint>
+      <p>
+        A cubic polynomial requires fitting 4 constants: <m>\beta_0 + \beta_1 X + \beta_2 X + \beta_3 X </m>.
+      </p>
+    </hint>
+    <hint>
+      <p>
+        We need to fit those coefficients for each function defined over each segment.
+      </p>
+    </hint>
+    <answer>
+      <p>We have 4 segments, and 4 coefficients over each segment, so we need to fit <m>4\times4=16</m> coefficients.</p>
+      </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        If we impose continuity and smoothness at the (interior) knots, how many constraints will we have to impose?
+      </p>
+    </statement>
+    <hint>
+      <p>
+        Continuity means that <m>f_{k-1}(X_k)=f_{k+1}(X_k)</m> at any (interior) knot <m>k</m>.
+      </p>
+    </hint>
+    <hint>
+      <p>
+        Smoothness means that we must require the first and second derivatives to be equal at the knots. 
+        <md>
+        <mrow>f'_{k-1}(X_k)=f'_{k+1}(X_k)</mrow>
+        <mrow>f''_{k-1}(X_k)=f''_{k+1}(X_k)</mrow>
+        </md>
+        
+      </p>
+    </hint>
+    <answer>
+      <p>
+        We have 3 interior knots with 3 constraints at each know, so we would impose <m>3\times 3=9</m> constraints.
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        What is the degree of freedom (DOF) for the model with the continuity and smoothness constraints?
+      </p>
+    </statement>
+    <hint>
+      <p>
+        The DOF can be computed by finding the total number of degrees of freedom assuming no constraints, and then subtracting the number of constraints. in this case this gives <m>16-9=7</m>.
+      </p>
+    </hint>
+  </task>
+  <task>
+    <statement>
+      <p>
+        For Figure (b), what's the DOF if we use cubic splines that satisfy continuity and smoothness at the (interior) knots?
+      </p>
+    </statement>
+    <answer>
+      <p>
+        We have <m>K</m> interior knots, so the unconstrained model would have <m>4(K+1)</m> DOFs. However, we must subtract the required constraints to find the DOF for our model. With <m>K</m> knots, we would have <m>3K</m> constraints in total.
+      </p>
+      <p>
+        Therefore, <m>\text{DOF}=4(K+1)-3K=K+4</m>.
+      </p>
+    </answer>
+  </task>
+</exercise>
+
+
+    <paragraphs xml:id="cubic-spline-construction">
+      <title>Building up to cubic splines</title>
+      <p>A piecewise cubic regression can be discontinuous at a knot. Requiring continuity removes the jump, but the fit may still have a pointy join. A cubic spline also requires the first and second derivatives to be continuous at each knot, producing a smooth join.</p>
+      <image source="figures/Fig7-3a.png" xml:id="cubic-spline-discontinuous-fit" width="45%">
+        <shortdescription>Wage versus Age scatter plot with a discontinuous piecewise cubic regression line split at age fifty.</shortdescription>
+      </image>
+      <image source="figures/Fig7-3b.png" xml:id="cubic-spline-continuous-fit" width="45%">
+        <shortdescription>Wage versus Age scatter plot with a continuous piecewise cubic regression line joined at age fifty.</shortdescription>
+      </image>
+      <image source="figures/Fig7-3c.png" xml:id="cubic-spline-smooth-fit" width="45%">
+        <shortdescription>Wage versus Age scatter plot with a smooth cubic spline regression line joined at age fifty.</shortdescription>
+      </image>
+      <p><md>f(x)=\begin{cases}\beta_0^1+\beta_1^1x+\beta_2^1x^2+\beta_3^1x^3 &amp; x&lt;c\\\beta_0^2+\beta_1^2x+\beta_2^2x^2+\beta_3^2x^3 &amp; x&gt;c\end{cases}</md></p>
+      <p>With one knot, there are initially eight coefficients. Continuity of the function and its first two derivatives gives three constraints, leaving five degrees of freedom. A cubic spline with <m>K</m> knots uses <m>4+K</m> degrees of freedom.</p>
+    </paragraphs>
+    <paragraphs xml:id="cubic-spline-bases">
+      <title>Basis representations</title>
+      
+
+<p>
+  <ul>
+    <li>
+      <p>
+        Choose basis functions <m>b_i</m> to represent a cubic spline with <m>K</m> knots:
+      </p>
+      <p>
+        <md>
+          y_i=\beta_0+\beta_1b_1(x_i)+\beta_2b_2(x_i)+\cdots+\beta_{K+3}b_{K+3}(x_i)+\epsilon_i
+        </md>
+      </p>
+    </li>
+    <li>
+      <p>
+        There is no unique basis representation. The book uses a different basis; this material follows scikit-learn's approach.
+      </p>
+    </li>
+    <li>
+      <p>
+        The truncated power basis function is <m>h(x,z)=(x-z)^3_+</m>, defined to be <m>(x-z)^3</m> when <m>x>z</m> and zero otherwise. The book writes the knot as <m>\xi</m>; here it is written as <m>z</m>.
+      </p>
+    </li>
+    <li>
+      <p>
+        For knots <m>z_1,\ldots,z_K</m>, the book's basis consists of <m>X</m>, <m>X^2</m>, <m>X^3</m>, and <m>h(X,z_1),\ldots,h(X,z_K)</m>. Adding <m>h(X,z_i)</m> introduces a discontinuity in the third derivative at <m>z_i</m>.
+      </p>
+      <p>
+        <md>
+          f(X)=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4h(X,z_1)+\beta_5h(X,z_2)+\cdots+\beta_{K+3}h(X,z_K)
+        </md>
+      </p>
+    </li>
+    <li>
+      <p>
+        These <m>3+K</m> basis functions and the intercept give <m>K+4</m> coefficients, matching the degrees of freedom from the piecewise-polynomial construction.
+      </p>
+    </li>
+    <li>
+      <p>
+        A B-spline basis instead combines functions that are continuous and differentiable everywhere.
+      </p>
+    </li>
+  </ul>
+</p>
+
+      <image source="figures/B-Spline_Basis_sklearn.png" xml:id="cubic-spline-bspline-basis" width="60%">
+        <shortdescription>Six overlapping B-spline basis functions generated by scikit-learn, with vertical dashed knot positions.</shortdescription>
+      </image>
+<note>
+  <p>
+    The spirit of the relevant theorem is: If you pick a degree for your polynomial, and pick the locations and number of the knots, then the B-splines of the same degree and knots can uniquely represent a regression spline over the data.
+  </p>
+</note>
+    </paragraphs>
+
+    <paragraphs xml:id="cubic-spline-practice">
+      <title>Notes on cubic splines. Natural cubic splines.</title>
+      <p>
+        <ul>
+      <li><p>A natural spline is a regression spline with boundary constraints that require the function to be linear at the boundaries.</p></li>
+        <li>
+          <p>
+      The natural boundary conditions eliminate two additional degrees of freedom by requiring zero curvature at the endpoints:
           <md>
-            f(x) =
-            \begin{cases}
-            2+x+x^2+0.1x^3 \amp x \leq 1 \\
-            b_0+b_1x+b_2x^2-x^3 \amp x &gt; 1
-            \end{cases}
-          </md>
-        </p>
-        <p component="slides-inst-notes">
-          Instructor tool for generating the solution while varying <m>b_3</m>:
-          <url href="https://www.desmos.com/calculator/5prmps9cuo">Desmos calculator</url>
-        </p>
-      </stack>
-      <stack>
-        <p>One solution is:</p>
+        f''(X_{\text{left}})=0,\qquad f''(X_{\text{right}})=0.
+      </md>     
+          </p>
+        </li>
+      <li><p> Cubic splines are often useful because the eye may not detect their remaining discontinuities, though variance can still be 
+        high near the outer range of the predictors.</p></li>
+        </ul>
+      </p>
+      <image source="figures/Fig7-4.png" xml:id="cubic-spline-natural-comparison" width="45%">
+        <shortdescription>Comparison of natural cubic spline and cubic spline fits on Wage versus Age data with three knots and confidence bands.</shortdescription>
+      </image>
+      
+        </paragraphs>
+      <exercise>
+        <title>DOF for natural splines</title>
+        <introduction>
+          <p>
+            Using the same figure from <xref ref="first_example_DOF"/>, answer the following questions. Re-use your previous answers as much as possible.
+          </p>
+        </introduction>
+        <task>
+          <statement>
+            <p>
+              For Figure (a), what is the DOF for a natural spline?
+            </p>
+          </statement>
+          <answer>
+            <p>
+              The calculated DOF for a cubic spline was 7. Since natural cubic splines add two more constraints, we have
+              <md>
+                \text{DOF}=7-2=5.
+              </md>
+              
+            </p>
+          </answer>
+        </task>
+        <task>
+          <statement>
+            <p>
+              For Figure (b), what is the DOF for a natural spline?
+            </p>
+          </statement>
+        <answer>
+            <p>
+              The calculated DOF for a cubic spline was <m>K+4</m>. Since natural cubic splines add two more constraints, we have
+              <md>
+                \text{DOF}=K+4-2=K+2.
+              </md>              
+            </p>
+        </answer>
+        </task>
+      </exercise>
+
+      <paragraphs>
+        <title>Where to put the (interior) knots?</title>        
+        <p>Knots can be placed uniformly or selected from the data, for example at data quantiles.</p>
+        
+      <image source="figures/Fig7-5.png" xml:id="cubic-spline-knot-placement" width="70%">
+        <shortdescription>Wage versus Age examples comparing polynomial and natural spline fits, including high wage classifications.</shortdescription>
+      </image>
+      </paragraphs>
+    <paragraphs>
+      <title>How many knots to use?</title>   
+      <p>
+        <ul>
+          <li><p>Use cross-validation, likely <m>k</m>-fold, to compare candidate numbers of knots. </p>  </li>
+            <li>
+              <p> The figure is the MSE from 10-fold CV.                    
+              </p>
+            </li>
+          <li><p>In the lecture's 10-fold cross-validation example, a linear model is too simple, while three or four degrees of freedom for the cubic spline are enough.</p>  </li>
+        </ul>
+      </p>      
+      
+      <image source="figures/Fig7-6b.png" xml:id="cubic-spline-knot-count" width="70%">
+        <shortdescription>Mean squared error versus degrees of freedom for a cubic spline, dropping and then leveling off.</shortdescription>
+      </image>
+      </paragraphs>
+    <paragraphs>      
+      <title>Cubic splines vs Polynomial regression</title>     
+
+<p>
+  <ul>
+    <li>
+      <p>
+        A natural cubic spline with 15 degrees of freedom can be compared with a degree-15 polynomial.
+      </p>
+    </li>
+    <li>
+      <p>
+        The polynomial's flexibility can produce poor boundary behavior.
+      </p>
+    </li>
+    <li>
+      <p>
+        Splines add flexibility through knots, allowing more flexibility where the function changes rapidly.
+      </p>
+    </li>
+  </ul>
+</p>
+      <image source="figures/Fig7-7.png" xml:id="cubic-spline-polynomial-comparison" width="45%">
+        <shortdescription>Wage versus Age comparing a natural cubic spline with a high-degree polynomial regression fit.</shortdescription>
+      </image>
+    </paragraphs>
+  <exercise>
+    <title>Splines DOF practice.</title>
+    <task>
+      <statement>
         <p>
-          <md>
-            f(x) =
-            \begin{cases}
-            2+x+x^2+0.1x^3 \amp x \leq 1 \\
-            3.1-2.3x+4.3x^2-x^3 \amp x &gt; 1
-            \end{cases}
-          </md>
+          Fill out the missing values.
         </p>
-        <image source="figures/SplineMatchingExample-Soln.png">
-          <shortdescription>Graph on a coordinate grid showing a solid red curve and a dashed blue curve meeting at the point (1, 4.1), representing a piecewise spline solution.</shortdescription>
-        </image>
-      </stack>
-    </sidebyside>
-  </paragraphs>
+              <image source="figures/spline_DOF_practice.png" width="60%">
+        <shortdescription>A table showing in each row the range for one predictor, X, and different number of interior knots. Missing values include the number of interior, exterior, and total knots as well as the DOF for splines and natural splines. </shortdescription>
+      </image>      
+      </statement>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Can you come up with an equation for DOF if we are using cubic splines with degree <m>d</m>, and <m>K</m> interior knots? What is the equation if we use natural splines instead?
+        </p>
+      </statement>
+    </task>
+    
+  </exercise>
+
 </handout>
+
+
+
+
+
+
+
+
+
+
+
+

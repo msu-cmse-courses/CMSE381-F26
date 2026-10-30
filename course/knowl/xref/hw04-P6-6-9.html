@@ -36,7 +36,7 @@ from sklearn.model_selection import GridSearchCV, KFold, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 </code></pre></div>
-<div class="para">We will use the <a href="sec-college-data-set.html#college-data" class="xref" data-knowl="./knowl/xref/college-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 138: College data set">Data 138</a>. Load the data into <code class="code-inline tex2jax_ignore">college_df</code>, then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para">We will use the <a href="sec-college-data-set.html#college-data" class="xref" data-knowl="./knowl/xref/college-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 143: College data set">Data 143</a>. Load the data into <code class="code-inline tex2jax_ignore">college_df</code>, then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="code-box"><pre class="program clipboardable"><code class="language-py">college_df = college_df.set_index("Unnamed: 0")
 college_df = pd.get_dummies(college_df, drop_first=True)

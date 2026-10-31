@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec30-cnn-worksheet" component="ws30">
-  <title>Jupyter Notebook: CMSE381 - Lec 30 - CNNs</title>
+<section xml:id="cmse381-lec30-hierarchicalclustering-worksheet" component="ws30">
+  <title>Day 30 worksheet</title>
   <introduction>
     <!-- unsupported HTML omitted from source cell 0 -->
     <program language="python">
@@ -13,169 +13,115 @@
       %matplotlib inline
       import time
     </program>
-  </introduction>
-  <subsection xml:id="cmse381-lec30-cnn-worksheet-playing-with-cnns">
-    <title>Playing with CNNs</title>
-    <p>Our next job is to get some more intuition for the Convolutional Neural Net architecture.</p>
-    <p>Load in the toy "image" <url href="../../DataSets/DataSets.md#dl-toyimage">on the DataSets page</url> to try out some tools.</p>
+    <p>I've made us some data, easy case first, where we've got data that I made drawing from three clusters. You can probably look at the picture and figure out what they should be.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/9df4c0ec6c692c4bfec98dd22cc76350/DL-ToyImage.csv"
-      M = np.loadtxt(url)
-      plt.matshow(M)
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/540ccc8f37c0962c8003b5048bca8946/Clustering-ToyData.csv"
+      X = np.loadtxt(url)
+      plt.scatter(X[:,0],X[:,1])
+      plt.show()
+    </program>
+    <p>But notice that when I look at the order the points are included in the matrix, it's got nothing to do with the order that the points came in the matrix.</p>
+    <program language="python">
+      plt.scatter(X[:,0],X[:,1], c = list(range(X.shape[0])))
       plt.colorbar()
+      plt.title('Colored by order of points in the matrix')
       plt.show()
     </program>
-  </subsection>
-  <subsection xml:id="cmse381-lec30-cnn-worksheet-convolution-layer">
-    <title>Convolution Layer</title>
-    <p>First, we're going to try out convlution on this image. Here's a convolution filter matrix for us to test this onn.</p>
+    <p>The next thing we can do is look at the <em>distance matrix</em> of the points, which is a square matrix for which entry <c>D[i,j]</c> is the distance between points <c>i</c> and <c>j</c>.</p>
     <program language="python">
-      F = np.zeros((5,5))
-      F[:,:2] = 1
-      F[:, 3:] = 1
-      plt.spy(F)
-      print(F)
+      from scipy.spatial import distance_matrix
+
+      D = distance_matrix(X,X)
+
+      plt.matshow(D)
+      plt.colorbar()
+      plt.title('Distance matrix')
       plt.show()
     </program>
-    <exercises>
-      <title>Exercises</title>
-      <exercisegroup>
-        <title>Practice</title>
-        <introduction>
-          <p>Complete the following exercises.</p>
-        </introduction>
-        <exercise>
-          <task>
-            <statement>
-              <p>Extract a portion of the matrix <m>M</m> from the top left of the same size as the filter matrix <m>F</m> and take the dot product of the two. This is the entry that would go in entry <m>[0, 0]</m> of the convolved image.</p>
-            </statement>
-            <hint>
-              <p>Slice the top-left patch with the same row and column dimensions as <c>F</c>.</p>
-            </hint>
-            <hint>
-              <p>A convolution entry is the sum of the element-by-element products of the patch and filter.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not use <c>np.dot</c> here: matrix multiplication mixes rows and columns instead of multiplying corresponding pixels and filter entries.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  patch = M[:F.shape[0], :F.shape[1]]
-                  convolved_00 = np.sum(patch * F)
-                  convolved_00
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Do the same thing, but shifted right by one. This is the entry that would go in entry <m>[0, 1]</m> of the convolved image.</p>
-            </statement>
-            <hint>
-              <p>Keep the row slice unchanged and move both column-slice endpoints one position to the right.</p>
-            </hint>
-            <hint>
-              <p>Multiply the shifted patch and <c>F</c> element by element, then sum all entries.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Shift only the input patch, not the filter, and keep the patch shape equal to <c>F.shape</c>.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  patch = M[:F.shape[0], 1:1 + F.shape[1]]
-                  convolved_01 = np.sum(patch * F)
-                  convolved_01
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Now, do this for every entry in the matrix. Update this <c>NewM</c> matrix so that each entry is the convolution of the input image.</p>
-            </statement>
-            <hint>
-              <p>For valid convolution, the output dimensions are <c>input_size - filter_size + 1</c> in each direction.</p>
-            </hint>
-            <hint>
-              <p>At output position <c>(i, j)</c>, slice the matching patch of <c>M</c>, multiply it by <c>F</c> element by element, and sum.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Remember the <c>+ 1</c> in each output dimension; omitting it skips the final valid filter position.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  out_rows = M.shape[0] - F.shape[0] + 1
-                  out_cols = M.shape[1] - F.shape[1] + 1
-                  NewM = np.zeros((out_rows, out_cols))
-                  for i in range(out_rows):
-                      for j in range(out_cols):
-                          patch = M[i:i + F.shape[0], j:j + F.shape[1]]
-                          NewM[i, j] = np.sum(patch * F)
-                  plt.matshow(NewM)
-                  plt.colorbar()
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Here's a different filter. What happens when you convolve the image with this one instead?</p>
-              <program language="python">
-                <code>
-                  F = np.zeros((5, 5))
-                  F[:2, :] = 1
-                  print(F)
-                  plt.spy(F)
-                  plt.show()
+    <p>There are lots of controls in that function including messing with the choice of distances between the points, but for now we'll leave it at the good ol' fashioned Euclidean distance,</p>
+    <p><md>
+    \| x - y \| = \sqrt{ \sum_k (x_k-y_k)^2 } = \sqrt{(x_1-y_1)^2 + (x_2-y_2)^2}.
+    </md></p>
+    <p>Before we go on, here's a trick for figuring out where a particular data point is.</p>
+    <program language="python">
+      # I want to find point 53
 
-                  # Convolve M with this new filter.
-                  ...
-                </code>
-              </program>
-            </statement>
-            <hint>
-              <p>Reuse the nested-loop structure from the preceding exercise; only the entries of <c>F</c> have changed.</p>
-            </hint>
-            <hint>
-              <p>Because the nonzero entries now form horizontal rows, compare the result with the earlier vertically oriented filter.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Recompute both <c>NewM</c> and its dimensions after redefining <c>F</c>; otherwise you may be plotting the previous convolution.</p>
-            </hint>
-            <answer>
-              <p>The changed orientation makes the filter aggregate a different directional pattern in each local patch, so the highlighted structures in the convolved image change accordingly.</p>
-              <program language="python">
-                <code>
-                  out_rows = M.shape[0] - F.shape[0] + 1
-                  out_cols = M.shape[1] - F.shape[1] + 1
-                  NewM = np.zeros((out_rows, out_cols))
-                  for i in range(out_rows):
-                      for j in range(out_cols):
-                          patch = M[i:i + F.shape[0], j:j + F.shape[1]]
-                          NewM[i, j] = np.sum(patch * F)
-                  plt.matshow(NewM)
-                  plt.colorbar()
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-      </exercisegroup>
-    </exercises>
-  </subsection>
-  <subsection xml:id="cmse381-lec30-cnn-worksheet-pooling-layer">
-    <title>Pooling Layer</title>
+      colors = np.zeros(X.shape[0])
+      colors[53] = -1 #&lt;--- Make the color of point 53 different from the others
+
+      plt.scatter(X[:,0],X[:,1], c = colors)
+      plt.colorbar()
+      plt.title('Colored by order of points in the matrix')
+      print('Distance:', D[18,7])
+      plt.show()
+    </program>
+    <p>I can also play around with looking at the connections like in class, where we connect up points within distance <m>r</m> of each other. Mess around with the <m>r</m> value below to see what changes. Be careful: large <m>r</m> values wil make for slow drawing.</p>
+    <program language="python">
+      plt.scatter(X[:,0],X[:,1])
+
+      r = 0.3
+
+      for i in range(X.shape[0]):
+          for j in range(X.shape[0]):
+              if D[i,j] &lt;= r:
+                  p = X[(i,j),:]
+                  plt.plot(p[:,0],p[:,1],c = 'black')
+
+      plt.show()
+    </program>
+    <p>This matrix is very helpful for understanding distances, however, my code in just a moment is going to need the <c>condensed</c> distance matrix. It turns out that it has the same information as the above distance matrix, just flattened out. For our purposes, you won't need to fully understand this but the curious can go check out the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html">documentation</url>.</p>
+    <program language="python">
+      from scipy.spatial.distance import pdist
+
+      P = pdist(X)
+      P.shape
+    </program>
+    <p>And with that, we can get <c>scipy</c> to compute our dendrogram for us!</p>
+    <program language="python">
+      from scipy.cluster import hierarchy
+    </program>
+    <program language="python">
+      Z = hierarchy.linkage(pdist(X), 'single')
+
+      plt.figure()
+
+      dn = hierarchy.dendrogram(Z)
+      plt.show()
+    </program>
+    <p>First thing to notice, it automatically gives me some color visual guesses for what it thinks the threshold should be for clustering. Hunting around in the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.dendrogram.html">documentation</url>, it turns out it chooses this threshold based on some information in the linkage diagram......</p>
+    <program language="python">
+      h = 0.7*max(Z[:,2])  #&lt;---- this equation is what it uses to pick the cutoff
+      print('Chosen threshold:', h)
+    </program>
+    <p>...but we can also control the cutoff that it draws the colors</p>
+    <program language="python">
+      thresh_height = 0.8
+
+      dn = hierarchy.dendrogram(Z, color_threshold = thresh_height)
+      plt.axhline(y = thresh_height, color = 'r', linestyle = '-')
+      plt.show()
+    </program>
+    <p>Now the magic is that we have the ability to extract the clusters based on the chosen threshold.</p>
+    <program language="python">
+      labels = hierarchy.fcluster(Z,h,criterion = 'distance')
+
+      plt.scatter(X[:,0],X[:,1],c = labels)
+      plt.show()
+    </program>
+    <program language="python">
+      np.unique(labels)
+    </program>
+  </introduction>
+  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-a-nastier-example">
+    <title>A nastier example</title>
+    <p>I made another data set that's a bit more ambiguous. How many clusters are there? 2? 3? Ok, ok, let's not fight about it. I actually made it using three centers of a normal distribution, but one could argue whether there's two cleanly split clusters, or whether this is related to density and therefore there are 3.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/3620eb9976196da8a0f980c4b0435b94/Clustering-ToyData2.csv"
+      X = np.loadtxt(url)
+      plt.scatter(X[:,0],X[:,1])
+      plt.show()
+    </program>
+    <p>Now, we can mess with the choice of linkage to see how this changes the clustering assignment.</p>
     <!-- horizontal rule in source notebook -->
     <exercises>
       <title>Exercises</title>
@@ -187,26 +133,148 @@
         <exercise>
           <task>
             <statement>
-              <p>After our convolution layer, we often build a pooling layer.</p>
-              <p>Fix up the following code to create a pooled image from your convolved image.</p>
+              <p><alert>Answer these:</alert></p>
+              <p><ul>
+                <li>
+                  <p>Where are the 7th and 18th (according to python numbering) points in the scatter plot above?</p>
+                </li>
+                <li>
+                  <p>Are they in the same cluster (based on eyeballing it) or different clusters?</p>
+                </li>
+                <li>
+                  <p>What is the distance between the 7th and 18th points? Use the distance matrix to figure it out</p>
+                </li>
+              </ul></p>
             </statement>
             <hint>
-              <p>A non-overlapping <m>2\times2</m> max-pooling layer produces half as many rows and columns, using integer division.</p>
+              <p>Use <c>X[[7, 18]]</c> to print the two coordinates, then highlight those same zero-based row indices in the scatter plot.</p>
             </hint>
             <hint>
-              <p>Output entry <c>(i, j)</c> is the maximum of <c>NewM[2*i:2*i+2, 2*j:2*j+2]</c>.</p>
+              <p>The distance matrix entry can be read as either <c>D[7, 18]</c> or <c>D[18, 7]</c> because Euclidean distance is symmetric.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Use <c>NewM.shape[1]</c> for the column loop; using the row count works only by accident for a square image.</p>
+              <p><alert>Common error:</alert> The wording follows Python numbering, so use indices 7 and 18—not the seventh and eighteenth rows counted from one.</p>
+            </hint>
+            <answer>
+              <p>Point 7 is approximately <m>(0.2705,0.1507)</m> and point 18 is approximately <m>(3.6264,1.8462)</m>. They appear in different visual clusters, and their Euclidean distance is approximately <m>3.7599</m>.</p>
+              <program language="python">
+                <code>
+                  print('point 7:', X[7])
+                  print('point 18:', X[18])
+                  print('distance:', D[7, 18])
+                  colors = np.zeros(X.shape[0])
+                  colors[[7, 18]] = 1
+                  plt.scatter(X[:, 0], X[:, 1], c=colors)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>How many clusters are there if we have a cutoff of 2.0?</p>
+            </statement>
+            <hint>
+              <p>Cut the single-linkage dendrogram at height 2.0; every connected component below that horizontal line is one cluster.</p>
+            </hint>
+            <hint>
+              <p>Verify the visual count with <c>hierarchy.fcluster</c>, then count the unique labels.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not count dendrogram colors directly: branches above the threshold and singleton coloring can make the color count misleading.</p>
+            </hint>
+            <answer>
+              <p>A cutoff of 2.0 produces 2 clusters.</p>
+              <program language="python">
+                <code>
+                  thresh_height = 2.0
+                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
+                  plt.axhline(y=thresh_height, color='r', linestyle='-')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>(Continue from above) What about for 0.5?</p>
+            </statement>
+            <hint>
+              <p>Lowering the cutoff prevents merges whose linkage distance exceeds 0.5, so the number of clusters should increase.</p>
+            </hint>
+            <hint>
+              <p>Use <c>hierarchy.fcluster(Z, 0.5, criterion='distance')</c> and count its distinct labels.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> A lower horizontal cut cannot produce fewer clusters than a higher cut on the same dendrogram.</p>
+            </hint>
+            <answer>
+              <p>A cutoff of 0.5 produces 8 clusters.</p>
+              <program language="python">
+                <code>
+                  thresh_height = 0.5
+                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
+                  plt.axhline(y=thresh_height, color='r', linestyle='-')
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Where are the clusters associated to a threshold of 2.0?</p>
+            </statement>
+            <hint>
+              <p>Generate flat labels with <c>hierarchy.fcluster(Z, 2.0, criterion='distance')</c>.</p>
+            </hint>
+            <hint>
+              <p>Color the original scatter plot with those labels so every point's assignment is visible.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Apply <c>fcluster</c> to the linkage matrix <c>Z</c>, not to the square distance matrix <c>D</c>.</p>
             </hint>
             <answer>
               <program language="python">
                 <code>
-                  poolM = np.zeros((NewM.shape[0] // 2, NewM.shape[1] // 2))
-                  for i in range(poolM.shape[0]):
-                      for j in range(poolM.shape[1]):
-                          poolM[i, j] = np.max(NewM[2*i:2*i + 2, 2*j:2*j + 2])
-                  plt.matshow(poolM)
+                  labels = hierarchy.fcluster(Z,2,criterion = 'distance')
+
+                  plt.scatter(X[:,0],X[:,1],c = labels)
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>(Continue from above) What about 0.5?</p>
+            </statement>
+            <hint>
+              <p>Repeat the flat-cluster calculation with <c>t=0.5</c> while keeping <c>criterion='distance'</c>.</p>
+            </hint>
+            <hint>
+              <p>Use a qualitative colormap such as <c>tab10</c> because cluster numbers are category labels, not measured magnitudes.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the labels from the 2.0 cutoff; rerun <c>fcluster</c> after changing the threshold.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  labels = hierarchy.fcluster(Z,0.5,criterion = 'distance')
+
+                  plt.scatter(X[:,0],X[:,1],c = labels, cmap = 'tab10')
                   plt.colorbar()
                   plt.show()
                 </code>
@@ -217,39 +285,95 @@
         <exercise>
           <task>
             <statement>
-              @@PTX-HEADER:2:Playing with a pre-trained classifier@@
-              <p>As with the regular neural nets, trying to train our own CNN is beyond the scope of the class. But we can play with some toys to see how the trained versions work.</p>
-              <p>Open the following in another browser tab to answer the questions below: <url href="https://poloclub.github.io/cnn-explainer/">https://poloclub.github.io/cnn-explainer/</url></p>
-              <p><ol>
+              <p>Draw the single linkage cluster dendogram as above.</p>
+              <p><ul>
                 <li>
-                  <p>Read the section below on what each layer of the network does.</p>
+                  <p>Is there a reasonable choice of threshold?</p>
                 </li>
                 <li>
-                  <p>What is the 2nd top prediction output for the bell pepper picture?</p>
+                  <p>Using this threshold, how many clusters are there?</p>
                 </li>
                 <li>
-                  <p>Clicking on the "+" button lets you upload a picture. What does your face get classified as?</p>
+                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
                 </li>
-              </ol></p>
+              </ul></p>
             </statement>
             <hint>
-              <p>Follow one activation through convolution, ReLU, pooling, flattening, and the final class-probability layer; summarize the role of each stage in your own words.</p>
+              <p>Recompute <c>Z</c> from the second data set using <c>hierarchy.linkage(pdist(X), 'single')</c>, then inspect the largest merge heights.</p>
             </hint>
             <hint>
-              <p>For the bell-pepper and uploaded images, read the ranked labels and probabilities shown by the live tool rather than guessing from the picture.</p>
+              <p>Try a horizontal cut near 1.2 and use <c>fcluster</c> to count and plot the resulting assignments.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> There is no fixed prediction for an arbitrary uploaded face, and the live demo may change; record the image used and the probabilities you actually observe.</p>
+              <p><alert>Common error:</alert> Make sure <c>X</c> contains <c>Clustering-ToyData2.csv</c>; otherwise you will silently redraw the first example.</p>
             </hint>
             <answer>
-              <p>Convolution layers extract local visual patterns, ReLU keeps positive activations and introduces nonlinearity, pooling reduces spatial resolution, flattening forms a feature vector, and the final softmax reports class probabilities. For the bell-pepper image, record the current second-ranked label shown by CNN Explainer. The face-upload result depends on the chosen image, so a complete answer reports its top labels and probabilities and briefly comments on whether they are sensible.</p>
+              <p>Single linkage shows a chaining effect in this data set. A cutoff near 1.2 is defensible and produces 2 broad clusters, though another threshold can be argued if it is justified from the dendrogram.</p>
+              <program language="python">
+                <code>
+                  Z = hierarchy.linkage(pdist(X), 'single')
+                  threshold = 1.2
+                  hierarchy.dendrogram(Z, color_threshold=threshold)
+                  plt.axhline(y=threshold, color='r', linestyle='-')
+                  plt.show()
+                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Modify your linkage to use <c>complete</c> instead of <c>single</c> and draw the resulting dendrogram.</p>
+              <p><ul>
+                <li>
+                  <p>Is there a reasonable choice of threshold?</p>
+                </li>
+                <li>
+                  <p>Using this threshold, how many clusters are there?</p>
+                </li>
+                <li>
+                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
+                </li>
+              </ul></p>
+            </statement>
+            <hint>
+              <p>Change only the linkage method to <c>'complete'</c>, then redraw the dendrogram before choosing a threshold.</p>
+            </hint>
+            <hint>
+              <p>A cut near 5 separates the three prominent branches; verify the count with <c>fcluster</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the single-linkage matrix <c>Z</c>; the linkage matrix itself must be recomputed with the complete method.</p>
+            </hint>
+            <answer>
+              <p>With complete linkage, a cutoff near 5 is a reasonable choice and produces 3 clusters. Compared with single linkage, complete linkage resists joining groups through a chain of individually close points.</p>
+              <program language="python">
+                <code>
+                  Z = hierarchy.linkage(pdist(X), 'complete')
+                  threshold = 5.0
+                  hierarchy.dendrogram(Z, color_threshold=threshold)
+                  plt.axhline(y=threshold, color='r', linestyle='-')
+                  plt.show()
+                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
+                  print('number of clusters:', len(np.unique(labels)))
+                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
+                  plt.colorbar()
+                  plt.show()
+                </code>
+              </program>
             </answer>
           </task>
         </exercise>
       </exercisegroup>
     </exercises>
   </subsection>
-  <subsection xml:id="cmse381-lec30-cnn-worksheet-congratulations-we-re-done">
+  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
     <p>
       

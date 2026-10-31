@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec27-svm-worksheet" component="ws27">
-  <title>Jupyter Notebook: Lec 27: SVMs</title>
+<section xml:id="cmse381-lec27-nn-code-worksheet" component="ws27">
+  <title>Day 27 worksheet</title>
   <introduction>
-    <p>[Image: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/1920px-Kernel_Machine.svg.png]</p>
+    <!-- unsupported HTML omitted from source cell 0 -->
     <program language="python">
       # Everyone's favorite standard imports
       import numpy as np
@@ -12,236 +12,89 @@
       import matplotlib.pyplot as plt
       %matplotlib inline
       import time
-
-
-      # ML imports we've used previously
-      from sklearn.metrics import confusion_matrix
-      from sklearn.model_selection import train_test_split
-      from sklearn.metrics import mean_squared_error
-      from sklearn.model_selection import GridSearchCV
-
-      # For today, we just need SVC
-      from sklearn.svm import SVC
     </program>
-    <p>We now have discussed three related methods in class. The book's definitions as we talked about in class are:</p>
-    <p><ul>
-      <li>
-        <p><em>Maximal Margin Classifiers</em>, where the goal was to find a separating hyperplane with no misclassifications,</p>
-      </li>
-      <li>
-        <p><em>Support vector classifiers</em>, where we allow for a soft margin and hence some misclassifications, but only allow for a linear kernel, and</p>
-      </li>
-      <li>
-        <p><em>Support vector machines</em>, where we have a soft margin and an option for kernels.</p>
-      </li>
-    </ul></p>
-    <p>It turns out that <c>sklearn</c> has only one function to do all of this. A reminder from last time. <alert>There are two things that will likely be confusing. </alert></p>
-    <p><ul>
-      <li>
-        <p>The command is just called <c>SVC</c>, but you should thinking of it as doing the most general SVM as defined in the book and then we can modify our inputs to allow for the other options as necessary.</p>
-      </li>
-      <li>
-        <p>The cost input parameter is not the same as the <c>C</c> defined in the book. However, it controls the same thing; that is, the amount of tolerance we have for data points on the wrong side of the margin and/or wrong side of the boundary.</p>
-      </li>
-    </ul></p>
-    <p>The command below is the same as from the last notebook. The goal is just to be able to draw the boundaries from the SVM easily.</p>
     <program language="python">
-      # Run this cell to define the function
-      def plot_svc(svc, X, y, h=0.02, pad=0.25):
-          x_min, x_max = X[:, 0].min()-pad, X[:, 0].max()+pad
-          y_min, y_max = X[:, 1].min()-pad, X[:, 1].max()+pad
-          xvec = np.arange(x_min, x_max, h)
-          yvec = np.arange(y_min, y_max, h)
-          xx, yy = np.meshgrid(xvec,yvec )
+      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Mess with these
+      beta = np.array((-1,2,1,-2))               #&lt;----- These, too
 
-          Z = svc.predict(np.c_[xx.ravel(), yy.ravel()])
-          Z = Z.reshape(xx.shape)
-          plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.2)
+      #--- below here plots the output values for many combinations of 
+      #--- X1,X2
 
-          plt.scatter(X[:,0], X[:,1], s=70, c=y, cmap=mpl.cm.Paired)
-          # Support vectors indicated in plot by X's
-          sv = svc.support_vectors_
-          plt.scatter(sv[:,0], sv[:,1], c='k', marker='x', s=100, linewidths=1)
-
-          if svc.kernel == 'linear':
-              # Get the margin lines 
-              w = svc.coef_[0]
-              a = -w[0] / w[1]
-              yhyperplane = a * xvec - (svc.intercept_[0]) / w[1]
-              margin = 1 / np.sqrt(np.sum(svc.coef_ ** 2))
-              ymargin_down = yhyperplane+  - np.sqrt(1 + a ** 2) * margin
-              ymargin_up = yhyperplane + np.sqrt(1 + a ** 2) * margin
-              plt.plot(xvec,ymargin_down, "k--")
-              plt.plot(xvec,ymargin_up, "k--")
+      a = np.linspace(-10,10,30)
+      b = np.linspace(-10,10,30)
+      x,y = np.meshgrid(a,b)
+      M = np.zeros((len(a),len(b)))
+      for i in range(len(a)):
+          for j in range(len(a)):
+              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
 
 
+      # --- Make plots----
+      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
 
-          plt.xlim(x_min, x_max)
-          plt.ylim(y_min, y_max)
-          plt.xlabel('X1')
-          plt.ylabel('X2')
-          plt.show()
-          print('Number of support vectors: ', svc.support_.size)
-    </program>
-  </introduction>
-  <subsection xml:id="cmse381-lec27-svm-worksheet-swapping-out-the-kernel">
-    <title>Swapping out the kernel</title>
-    <p>In today's class, we've been discussing changing the kernel function and then learning the model
-    <md>
-    f(x) = \beta_0 + \sum_{i \in \mathcal{S}}\alpha_i K(x,x_i)
-    </md></p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/dcaac2f6e75924a7e16c4caf01bb2a2f/SVM-Data3.csv"
-      data3 = np.loadtxt(url)
-      X = data3[:,:2]
-      y = data3[:,2]
+      # Heatmap version 
+      ax1.set(aspect='equal')
+      colormesh = ax1.pcolormesh(x,y,M)
+      ax1.set_xlabel('X1')
+      ax1.set_ylabel('X2')
+      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
 
+      # Contour plot version 
+      ax2.set(aspect='equal')
+      contour = ax2.contour(x,y,M)
+      ax2.set_xlabel('X1')
+      ax2.set_ylabel('X2')
+      fig.colorbar(contour,ax = ax2, shrink = 0.5)
 
-      plt.scatter(X[:,0], X[:,1], s=70, c=y, cmap=mpl.cm.Paired)
-      plt.xlabel('X1')
-      plt.ylabel('X2')
       plt.show()
     </program>
-    <exercises>
-      <title>Exercises</title>
-      <exercisegroup>
-        <title>Practice</title>
-        <introduction>
-          <p>Complete the following exercises.</p>
-        </introduction>
-        <exercise>
-          <task>
-            <statement>
-              <p>Train a SVC using a radial kernel (this is <c>kernel = 'rbf'</c> as input to the <c>SVC</c> function) and with <m>C=1</m>, <m>\gamma = 1</m>. Use the <c>plot_svc</c> function to see what the learned boundary looks like.</p>
-            </statement>
-            <hint>
-              <p>Instantiate <c>SVC(kernel='rbf', C=1, gamma=1)</c>, fit it on <c>X, y</c>, and then call <c>plot_svc</c>.</p>
-            </hint>
-            <hint>
-              <p>The RBF kernel can create a curved boundary; inspect both the regions and highlighted support vectors.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> The scikit-learn kernel name is <c>'rbf'</c>, not <c>'radial'</c>.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  svm = SVC(C=1.0, kernel='rbf', gamma=1)
-                  svm.fit(X, y)
-                  plot_svc(svm, X, y)
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>What happens if you increase <m>C</m> to 100? Is this model looking better or worse than what you had before?</p>
-            </statement>
-            <hint>
-              <p>Refit a new RBF SVC with the same <m>\gamma</m> and only change <m>C</m>.</p>
-            </hint>
-            <hint>
-              <p>Compare boundary complexity and training errors, then discuss the likely bias-variance tradeoff.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Higher scikit-learn <c>C</c> penalizes violations more strongly; it does not mean a wider, more tolerant margin.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  # Increasing C parameter, allowing more flexibility
-                  svm2 = SVC(C=100, kernel='rbf', gamma=1.0)
-                  svm2.fit(X,y)
-                  plot_svc(svm2, X,y)
+    <program language="python">
+      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Original choices 
+      beta = np.array((-1,2,1,-2))               #&lt;----- of matrices
 
-                  # This is worse because we're heading for overfitting land.
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Use the <c>GridSearchCV</c> function (see the last lab for examples of using it) to determine the best <m>C</m> and <m>\gamma</m> parameters.</p>
-            </statement>
-            <hint>
-              <p>Give <c>GridSearchCV</c> an RBF SVC and a dictionary containing lists for both <c>C</c> and <c>gamma</c>.</p>
-            </hint>
-            <hint>
-              <p>Fit the search on <c>X, y</c> and inspect <c>best_params_</c> and <c>best_score_</c>.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Tune <m>C</m> and <m>\gamma</m> jointly; optimizing them in two isolated searches can miss the best combination.</p>
-            </hint>
-            <answer>
-              <p>For the parameter grid stored in the notebook, the ten-fold search selects <m>C=1</m> and <m>\gamma=0.1</m>.</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Use the <c>plot_svc</c> function to take a look at the above result.</p>
-            </statement>
-            <hint>
-              <p>Use <c>clf.best_estimator_</c>, which has already been refit on the full data by default.</p>
-            </hint>
-            <hint>
-              <p>Pass the best estimator, <c>X</c>, and <c>y</c> to <c>plot_svc</c> and compare it with the manually chosen models.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not hard-code the earlier <m>C=1,\gamma=1</m> model after the search chose a different <m>\gamma</m>.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  best_svm = clf.best_estimator_
-                  print(clf.best_params_)
-                  plot_svc(best_svm, X, y)
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-      </exercisegroup>
-    </exercises>
-  </subsection>
-  <subsection xml:id="cmse381-lec27-svm-worksheet-still-have-time">
-    <title>Still have time?</title>
-    <p>Download the NIST data set from here: <url href="https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits">https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits</url></p>
-    <p>You just need two files for now, the training set <c>optdigits.tra</c> and the testing set <c>optdigits.tes</c>. The following commands will pull the data from the remote server. Optionally, you can download the files directly to your computer.</p>
-    <program language="python">
-      X_train = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra', header=None)
-      X_train.head()
-    </program>
-    <program language="python">
-      X_test = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tes', header=None)
-      X_test.head()
-    </program>
-    <program language="python">
-      # X_train = pd.read_csv('optdigits.tra', header=None) #&lt;-- put this line back in if you saved the data locally
-      y_train = X_train[64]
-      X_train = X_train.drop(X_train.columns[64], axis=1)
+      a = np.linspace(-10,10,30)
+      b = np.linspace(-10,10,30)
+      x,y = np.meshgrid(a,b)
+      M = np.zeros((len(a),len(b)))
+      for i in range(len(a)):
+          for j in range(len(a)):
+              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
 
-      # X_test = pd.read_csv('optdigits.tes', header=None) #&lt;-- put this line back in if you saved the data locally
-      y_test = X_test[64]
-      X_test = X_test.drop(X_test.columns[64], axis=1)
-    </program>
-    <program language="python">
-      print(X_train.shape)
-      print(X_test.shape)
-    </program>
-    <p>This data set consists of 8x8 images of handwritten digits. The following command will draw each data point for you. Mess around with the value of <m>i</m> below to see other examples</p>
-    <program language="python">
-      i = 13
-      plt.imshow(X_train.values[i].reshape(8,8), cmap="gray") 
+      # --- Make plots----
+      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
+
+      # Heatmap version 
+      ax1.set(aspect='equal')
+      colormesh = ax1.pcolormesh(x,y,M)
+      ax1.set_xlabel('X1')
+      ax1.set_ylabel('X2')
+      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
+
+      # Contour plot version 
+      ax2.set(aspect='equal')
+      contour = ax2.contour(x,y,M)
+      ax2.set_xlabel('X1')
+      ax2.set_ylabel('X2')
+      fig.colorbar(contour,ax = ax2, shrink = 0.5)
       plt.show()
-      print(f'Data point {i} is labeled as {y_train[i]}')
+    </program>
+    <p>So of course, if we were actually building this beast, our bigger job would be to find good choices of <m>w</m> and <m>\beta</m> based on our available training data. Let's pretend for the moment I have the following prediction data.</p>
+    <program language="python">
+      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/260ce1afe5ae90499a2e960020056fe9/DL-toy-data.csv"
+      data = np.loadtxt(url)
+      X = data[:,:2]
+      y = data[:,2]
+
+      plt.scatter(X[:,0],X[:,1], c= y)
+      plt.colorbar()
+      plt.show()
     </program>
     <!-- horizontal rule in source notebook -->
+  </introduction>
+  <subsection xml:id="cmse381-lec29-nn-code-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
+    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
     <exercises>
       <title>Exercises</title>
       <exercisegroup>
@@ -252,45 +105,54 @@
         <exercise>
           <task>
             <statement>
-              <p>Build a classifier to predict the correct digit for a given handwritten digit. As you do this, answer the following questions:</p>
-              <p><ul>
-                <li>
-                  <p>What choice of kernel does best?</p>
-                </li>
-                <li>
-                  <p>What are the optimal choices of parameters for the SVC?</p>
-                </li>
-                <li>
-                  <p>How well does your classifier do? Don't forget that quality measures should always use testing data.</p>
-                </li>
-              </ul></p>
+              @@PTX-HEADER:1:Building your own basic neural network@@
+              <p>We're going to try to play with building some simple portions of the neural nets described in class.</p>
+              <p>First up, let's try to build the following example we played with in class:
+              [Image: Example Neural Net from Class]</p>
+              <p>Add code where noted below to create an automatic computation of the things we did in class. <alert>Note: You can replace this code with the matrix version if you prefer, but this structure is built to work with the individual equations version.</alert></p>
             </statement>
             <hint>
-              <p>Tune candidate kernels and their relevant parameters using cross-validation on the provided training set only.</p>
+              <p>For each hidden unit, compute its affine input from the bias and two input weights, then apply ReLU with <c>max(value, 0)</c>.</p>
             </hint>
             <hint>
-              <p>After choosing the best configuration, evaluate it exactly once on the separate testing set with accuracy and a confusion matrix.</p>
+              <p>Collect the three activations and combine them with the output-layer weights and output bias.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> A perfect training confusion matrix does not answer how well the classifier generalizes; parameter selection must not use the test labels.</p>
+              <p><alert>Common error:</alert> Do not apply ReLU to the final output unless the architecture explicitly says to; here ReLU is used only for the hidden units.</p>
             </hint>
             <answer>
-              <p>A linear SVC is a strong baseline for these 64 pixel features. In the stored run it fits the training set perfectly and obtains about 96.1% test accuracy. A more extensive answer may compare linear, RBF, and polynomial kernels by cross-validation, then report only the chosen model's held-out result.</p>
               <program language="python">
                 <code>
-                  from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay
+                  def MyFirstNN(X1,X2,w, beta):
 
-                  parameter_grid = [
-                      {'kernel': ['linear'], 'C': [0.1, 1, 10]},
-                      {'kernel': ['rbf'], 'C': [1, 10], 'gamma': ['scale', 0.001, 0.01]}
-                  ]
-                  search = GridSearchCV(SVC(), parameter_grid, cv=5, scoring='accuracy', n_jobs=-1)
-                  search.fit(X_train, y_train)
-                  best_digit_svc = search.best_estimator_
-                  test_predictions = best_digit_svc.predict(X_test)
-                  print('best parameters:', search.best_params_)
-                  print('test accuracy:', accuracy_score(y_test, test_predictions))
-                  ConfusionMatrixDisplay.from_predictions(y_test, test_predictions)
+                      X = np.array((1,X1,X2))
+                      A = []
+
+                      for i in range(3): 
+                          # Option 1: 
+                          Ai = w[i][0] + w[i][1]*X1 + w[i][2]*X2
+
+                          # Option 2 with dot products:
+                          Ai = np.dot(w[i],X)
+
+                          # Either way, relu: 
+                          Ai = max(Ai,0)
+                          A.append(Ai)
+
+                      A = np.array(A)
+
+                      # Option 1, long way: 
+                      Y = beta[0] + beta[1]*A[0] + beta[2]*A[1] + beta[3]*A[2]
+
+                      # Option 2, with dot products: 
+                      Y = beta[0] + np.dot(beta[1:], A)
+
+                      return Y
+
+                  w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)])
+                  beta = np.array((-1,2,1,-2))
+                  print('(1,0) should give  1  =&gt; ', MyFirstNN(1,0,w,beta))
+                  print('(0,1) should give -1  =&gt; ', MyFirstNN(0,1,w,beta))
                 </code>
               </program>
             </answer>
@@ -299,40 +161,155 @@
         <exercise>
           <task>
             <statement>
+              <p>Play with the following code by changing around your <m>w</m> and <m>\beta</m> matrix values.</p>
               <p><ul>
                 <li>
-                  <p>How well does your above classifier do? Don't forget that quality measures should always use testing data.</p>
+                  <p>What sorts of changes occur in the resulting function value outputs?</p>
+                </li>
+                <li>
+                  <p>We're using the ReLU as our activation function above, which replaces the entry with the positive value of the entry. Why am I able to get negative results out of the neural net?</p>
                 </li>
               </ul></p>
             </statement>
             <hint>
-              <p>Predict labels for <c>X_test</c>, then compute the fraction matching <c>y_test</c>.</p>
+              <p>Change one weight or bias at a time and compare the heatmaps so you can attribute the effect.</p>
             </hint>
             <hint>
-              <p>Use a confusion matrix to see which individual digits are most often confused.</p>
+              <p>Separate the roles of <c>w</c> (hidden-unit boundaries) and <c>beta</c> (how activated units are combined at the output).</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Keep the conventional confusion-matrix orientation—true labels first and predicted labels second—when interpreting rows and columns.</p>
+              <p><alert>Common error:</alert> Nonnegative hidden activations do not force a nonnegative output because output weights and the output bias may be negative.</p>
             </hint>
             <answer>
-              <p>The stored linear-SVC run correctly classifies 1727 of 1797 test images, for approximately 96.1% accuracy. The confusion matrix reveals that errors are concentrated among visually similar digits rather than being evenly distributed.</p>
+              <p>Changing a row of <m>w</m> moves or rotates the boundary where one hidden unit activates, changing the piecewise-linear regions. Changing <m>\beta</m> changes the vertical contribution of those regions to the final surface. Negative network outputs are possible even though every ReLU activation is nonnegative because the output layer uses negative coefficients (and may have a negative bias); a weighted sum of nonnegative activations need not be nonnegative.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Write a modified version of your <c>MyFirstNN</c> function that uses a sigmoid function instead of ReLu. Use the block below to draw a 2D heatmap and/or contour plot like above. What sort of patterns can you get in the resulting output function?</p>
+            </statement>
+            <hint>
+              <p>Replace each hidden-unit ReLU call with <m>\sigma(z)=1/(1+e^{-z})</m> while leaving the affine computations unchanged.</p>
+            </hint>
+            <hint>
+              <p>Use the same grid evaluation loop to compare the smoother output surface with the ReLU version.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Apply sigmoid to each hidden pre-activation, not once to the final weighted sum, unless you intentionally change the architecture.</p>
+            </hint>
+            <answer>
               <program language="python">
                 <code>
-                  from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay
-                  test_predictions = best_digit_svc.predict(X_test) if 'best_digit_svc' in globals() else svc.predict(X_test)
-                  print('test accuracy:', accuracy_score(y_test, test_predictions))
-                  ConfusionMatrixDisplay.from_predictions(y_test, test_predictions)
+                  def MyFirstNN(X1,X2,w, beta):
+
+                      X = np.array((X1,X2))
+                      A = []
+
+                      for i in range(3): 
+                          Ai = w[i,0] + np.dot(w[i,1:],X)
+
+                          # Sigmoid activation function
+                          Ai = 1/(1+np.exp(-Ai))
+                          A.append(Ai)
+
+                      A = np.array(A)
+
+                      Y = beta[0] + np.dot(beta[1:], A)
+
+                      return Y
                 </code>
               </program>
             </answer>
           </task>
         </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>The functions you have created are what the neural net would predict given a new input data point.</p>
+              <p>For the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function, what output prediction would you get for an input <m>(-10,10)</m>?</p>
+            </statement>
+            <hint>
+              <p>Evaluate the three hidden affine functions at <m>X_1=-10,X_2=10</m> and apply sigmoid to each.</p>
+            </hint>
+            <hint>
+              <p>Substitute the three activations into <m>Y=\beta_0+\beta_1A_1+\beta_2A_2+\beta_3A_3</m>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Keep the bias as the first entry of each row of <c>w</c>; it is not multiplied by either input coordinate.</p>
+            </hint>
+            <answer>
+              <p>The hidden pre-activations are <m>-9</m>, <m>9</m>, and <m>3</m>. Applying sigmoid and then the output weights gives approximately <m>-1.9050</m>.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Given this particular data set, what is the mean squared error for the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function?</p>
+            </statement>
+            <hint>
+              <p>Evaluate <c>MyFirstNN</c> once for every row of the two-column input matrix and store the predictions in the original row order.</p>
+            </hint>
+            <hint>
+              <p>Compare the resulting prediction vector with <c>y</c> using <c>mean_squared_error</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not hard-code the loop length as 30 in reusable code; use <c>len(X)</c> so every observation is evaluated.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  y_predict = np.array([MyFirstNN(row[0], row[1], w, beta) for row in X])
+                  print('MSE:', mean_squared_error(y, y_predict))
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>We're not going to train the model* ourselves, so let's switch now to the following online tool for training model.</p>
+              <p>Open this website in another window: <url href="https://playground.tensorflow.org/#activation=tanh&amp;batchSize=10&amp;dataset=xor&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4&amp;seed=0.85627&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false"><url href="https://playground.tensorflow.org">https://playground.tensorflow.org</url></url></p>
+              <p>*Translation: chosing better weights <m>w</m> and <m>\beta</m> to improve this score.</p>
+              <p><ol>
+                <li>
+                  <p>Start by working with a neural network with a single hidden layer on the data set labeled "Exclusive or". The initial setup has random weights chosen so the test loss on the right isn't very good. Hit the play button to watch the model find better and better weights to improve the prediction.</p>
+                </li>
+                <li>
+                  <p>Hover over the neurons on your trained model. What does the colormap shown on the right mean?</p>
+                </li>
+                <li>
+                  <p>What does the thickness/color of the edges between features/neurons mean? How does it align with our notation from class?</p>
+                </li>
+                <li>
+                  <p>What happens when you train the model using more or less neurons (hidden units) in the layer? What happens if you increase</p>
+                </li>
+                <li>
+                  <p>What happens when you train the same model on the spiral data set?</p>
+                </li>
+                <li>
+                  <p>If your settings are like mine, the sprial data set results are not good. Play with parameters until you can get test loss below 10% on the spiral data set.</p>
+                </li>
+              </ol></p>
+            </statement>
+            <hint>
+              <p>Hover over a hidden unit to view its activation over the input plane, and over an edge to relate color and thickness to a signed weight.</p>
+            </hint>
+            <hint>
+              <p>For the spiral data, add enough hidden units or layers to form a curved boundary, then compare training and test loss rather than training loss alone.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Changing many controls simultaneously makes the result hard to interpret; first vary width, depth, activation, or learning rate one at a time.</p>
+            </hint>
+            <answer>
+              <p>The neuron colormap shows where that unit activates over the two-dimensional input space. Edge thickness represents weight magnitude and edge color represents its sign, corresponding to the entries of <m>w</m> and <m>\beta</m>. More hidden units increase flexibility and can fit XOR more easily, but unnecessary width may make training less stable or encourage overfitting. The spiral data require a substantially more flexible nonlinear boundary; several hidden layers/units with a nonlinear activation can bring test loss below 10%, although exact settings vary with initialization. One working family of settings is three ReLU layers with roughly four units each, followed by checking that both training and test losses remain low.</p>
+            </answer>
+          </task>
+        </exercise>
       </exercisegroup>
     </exercises>
-  </subsection>
-  <subsection xml:id="cmse381-lec27-svm-worksheet-congratulations-we-re-done">
-    <title>Congratulations, we're done!</title>
-    <p>
-    </p>
   </subsection>
 </section>

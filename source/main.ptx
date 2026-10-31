@@ -59,8 +59,7 @@
       <xi:include href="./activities/day27-worksheet.ptx"/>
       <xi:include href="./activities/day28-worksheet.ptx"/>
       <xi:include href="./activities/day29-worksheet.ptx"/>
-      <xi:include href="./activities/day30-worksheet.ptx"/>
-      <xi:include href="./activities/day31-worksheet.ptx"/>
+      <xi:include href="./activities/day30-worksheet.ptx"/>      
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 
@@ -312,7 +311,7 @@
 
         <xi:include href="./handouts/Day20-alt-slides.ptx"/>
         <xi:include href="./handouts/Day21-alt-slides.ptx"/>
-        <xi:include href="./handouts/Day22.ptx"/>
+        <xi:include href="./handouts/Day22-alt-slides.ptx"/>
         <xi:include href="./handouts/Day23.ptx"/>
         <xi:include href="./handouts/Day24.ptx"/>
         <xi:include href="./handouts/Day25.ptx"/>
@@ -359,6 +358,7 @@
       <xi:include href="./data-sets/polynomial-toy-data.ptx"/>
       <xi:include href="./data-sets/OJ-data-set.ptx"/>
       <xi:include href="./data-sets/wages-data-set.ptx"/>
+      <xi:include href="./data-sets/carseats-data-set.ptx"/>
     </chapter>
 
     <chapter xml:id="ch-study-guides">

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="carseats-data">
+    <title>Carseats Data Set</title>
+
+    <data xml:id="carseat-csv">
+      <title>Carseat Data Set</title>
+      
+   
+
+      <p>A simulated data set containing sales of child car seats at 400 different stores. 
+<dl>
+  <li>
+    <title>Sales</title>
+    <p>Unit sales (in thousands) at each location.</p>
+  </li>
+  <li>
+    <title>CompPrice</title>
+    <p>Price charged by competitor at each location.</p>
+  </li>
+  <li>
+    <title>Income</title>
+    <p>Community income level (in thousands of dollars).</p>
+  </li>
+  <li>
+    <title>Advertising</title>
+    <p>Local advertising budget for company at each location (in thousands of dollars).</p>
+  </li>
+  <li>
+    <title>Population</title>
+    <p>Population size in region (in thousands).</p>
+  </li>
+  <li>
+    <title>Price</title>
+    <p>Price company charges for car seats at each site.</p>
+  </li>
+  <li>
+    <title>ShelveLoc</title>
+    <p>A factor with levels <c>Bad</c>, <c>Good</c>, and <c>Medium</c> indicating the quality of the shelving location for the car seats at each site.</p>
+  </li>
+  <li>
+    <title>Age</title>
+    <p>Average age of the local population.</p>
+  </li>
+  <li>
+    <title>Education</title>
+    <p>Education level at each location.</p>
+  </li>
+  <li>
+    <title>Urban</title>
+    <p>A factor with levels <c>No</c> and <c>Yes</c> to indicate whether the store is in an urban or rural location.</p>
+  </li>
+  <li>
+    <title>US</title>
+    <p>A factor with levels <c>No</c> and <c>Yes</c> to indicate whether the store is in the US or not.</p>
+  </li>
+</dl>
+</p>
+
+<p>
+  Reference: James, G., Witten, D., Hastie, T., and Tibshirani, R. (2013). <em>An Introduction to Statistical Learning with Applications in R</em>. <url href="https://www.statlearning.com">https://www.statlearning.com</url>. Springer-Verlag, New York.
+
+
+      </p>
+      
+      <p>
+        <dataurl source="data/Carseats.csv" visual="Carseat Data Set" xml:id="datafile-Carseats-csv"/>
+      </p>
+
+    </data>
+        
+    </subsection>

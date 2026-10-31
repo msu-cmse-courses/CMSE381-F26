@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec28-nn-code-worksheet" component="ws28">
-  <title>Jupyter Notebook: Lecture 28: Single Layer Neural Nets</title>
+<section xml:id="cmse381-lec28-multi-nn-worksheet" component="ws28">
+  <title>Day 28 worksheet</title>
   <introduction>
     <!-- unsupported HTML omitted from source cell 0 -->
     <program language="python">
@@ -12,89 +12,90 @@
       import matplotlib.pyplot as plt
       %matplotlib inline
       import time
+
+      from sklearn.model_selection import train_test_split
     </program>
-    <program language="python">
-      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Mess with these
-      beta = np.array((-1,2,1,-2))               #&lt;----- These, too
-
-      #--- below here plots the output values for many combinations of 
-      #--- X1,X2
-
-      a = np.linspace(-10,10,30)
-      b = np.linspace(-10,10,30)
-      x,y = np.meshgrid(a,b)
-      M = np.zeros((len(a),len(b)))
-      for i in range(len(a)):
-          for j in range(len(a)):
-              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
-
-
-      # --- Make plots----
-      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
-
-      # Heatmap version 
-      ax1.set(aspect='equal')
-      colormesh = ax1.pcolormesh(x,y,M)
-      ax1.set_xlabel('X1')
-      ax1.set_ylabel('X2')
-      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
-
-      # Contour plot version 
-      ax2.set(aspect='equal')
-      contour = ax2.contour(x,y,M)
-      ax2.set_xlabel('X1')
-      ax2.set_ylabel('X2')
-      fig.colorbar(contour,ax = ax2, shrink = 0.5)
-
-      plt.show()
-    </program>
-    <program language="python">
-      w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)]) #&lt;----- Original choices 
-      beta = np.array((-1,2,1,-2))               #&lt;----- of matrices
-
-      a = np.linspace(-10,10,30)
-      b = np.linspace(-10,10,30)
-      x,y = np.meshgrid(a,b)
-      M = np.zeros((len(a),len(b)))
-      for i in range(len(a)):
-          for j in range(len(a)):
-              M[i,j] = MyFirstNN(a[i],b[j],w, beta)
-
-      # --- Make plots----
-      fig,(ax1,ax2) = plt.subplots(1,2, sharey = True)
-
-      # Heatmap version 
-      ax1.set(aspect='equal')
-      colormesh = ax1.pcolormesh(x,y,M)
-      ax1.set_xlabel('X1')
-      ax1.set_ylabel('X2')
-      fig.colorbar(colormesh,ax = ax1, shrink = 0.5)
-
-      # Contour plot version 
-      ax2.set(aspect='equal')
-      contour = ax2.contour(x,y,M)
-      ax2.set_xlabel('X1')
-      ax2.set_ylabel('X2')
-      fig.colorbar(contour,ax = ax2, shrink = 0.5)
-      plt.show()
-    </program>
-    <p>So of course, if we were actually building this beast, our bigger job would be to find good choices of <m>w</m> and <m>\beta</m> based on our available training data. Let's pretend for the moment I have the following prediction data.</p>
-    <program language="python">
-      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/260ce1afe5ae90499a2e960020056fe9/DL-toy-data.csv"
-      data = np.loadtxt(url)
-      X = data[:,:2]
-      y = data[:,2]
-
-      plt.scatter(X[:,0],X[:,1], c= y)
-      plt.colorbar()
-      plt.show()
-    </program>
-    <!-- horizontal rule in source notebook -->
+    <p>Today we are going to build some basic neural nets using <url href="https://pytorch.org/">pytorch</url>.</p>
+    <p>This lecture makes use of many helpful available tutorials, including those listed below:</p>
+    <p><ul>
+      <li>
+        <p><url href="https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html">https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html</url></p>
+      </li>
+      <li>
+        <p><url href="https://pythonprogramming.net/data-deep-learning-neural-network-pytorch/?completed=/introduction-deep-learning-neural-network-pytorch/">https://pythonprogramming.net/data-deep-learning-neural-network-pytorch/?completed=/introduction-deep-learning-neural-network-pytorch/</url></p>
+      </li>
+      <li>
+        <p><url href="https://towardsdatascience.com/building-neural-network-using-pytorch-84f6e75f9a">https://towardsdatascience.com/building-neural-network-using-pytorch-84f6e75f9a</url></p>
+      </li>
+      <li>
+        <p><url href="https://github.com/amitrajitbose/handwritten-digit-recognition/">https://github.com/amitrajitbose/handwritten-digit-recognition/</url></p>
+      </li>
+    </ul></p>
   </introduction>
-  <subsection xml:id="cmse381-lec29-nn-code-worksheet-congratulations-we-re-done">
-    <title>Congratulations, we're done!</title>
-    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
-    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-get-up-and-running">
+    <title>Get up and running</title>
+    <p>Your first job is to get <c>pytorch</c> running on your machine.</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-if-you-re-on-decs-egr-jupyterhub">
+    <title>If you're on DECS EGR jupyterhub......</title>
+    <p>This year, it would seem that all the necessary requirements are already installed. If you are having issues, please talk to your instructor first! <alert>DO NOT</alert> try to run <c>pip install torch</c> as this will cause major issues with the amount of space you have on JupyterHub.</p>
+    <!-- unsupported HTML omitted from source cell 2 -->
+    <p>--&gt;</p>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-if-you-re-on-a-local-machine">
+    <title>If you're on a local machine......</title>
+    <p>Your first job is to install pytorch.</p>
+    <program language="bash">
+      pip install torch
+    </program>
+    <p>We will also be using some example data sets found in the following package.</p>
+    <program language="bash">
+      pip install torchvision
+    </program>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-either-way">
+    <title>Either way.....</title>
+    <p>If all goes well, the imports below should work.</p>
+    <program language="python">
+      import torch
+      from torch import nn
+      import torch.optim as optim
+      # import torch.trainloader
+      import torch
+      import numpy as np
+      from torch.utils.data import TensorDataset, DataLoader
+      print(torch.__version__)
+    </program>
+    <p>Our first job is to build our chosen architecture. One of the simplest ways to do this is with the <c>nn.Sequential</c> class. All we need to do is to pass information about what we want to do at each step. The following code builds a neural network with:</p>
+    <p><ul>
+      <li>
+        <p>Input of two variables <m>(X_1,X_2)</m>, so <m>p=2</m></p>
+      </li>
+      <li>
+        <p>A first hidden layer with 5 units, where we take linear combinations of the inputs and then use the ReLU activation function.</p>
+      </li>
+      <li>
+        <p>A second hidden layer with 3 units, this time using the Sigmoid activation function</p>
+      </li>
+      <li>
+        <p>A final output layer</p>
+      </li>
+    </ul></p>
+    <program language="python">
+      # Hyperparameters for our network
+      input_size = 2
+      hidden_sizes = [5,3]
+      output_size = 1
+
+      # Build a feed-forward network
+      model = nn.Sequential(nn.Linear(input_size, hidden_sizes[0]),
+                            nn.ReLU(),
+                            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+                            nn.Sigmoid(),
+                            nn.Linear(hidden_sizes[1], output_size))
+      print(model)
+    </program>
+    <p>Note at this point that we haven't trained anything or used data in any way. This is only the setup. This is like when we were doing linear regression, and we have <c>linreg = LinearRegression()</c> but we hadn't done <c>linreg.fit(X,y)</c> yet.</p>
     <exercises>
       <title>Exercises</title>
       <exercisegroup>
@@ -105,211 +106,495 @@
         <exercise>
           <task>
             <statement>
-              @@PTX-HEADER:1:Building your own basic neural network@@
-              <p>We're going to try to play with building some simple portions of the neural nets described in class.</p>
-              <p>First up, let's try to build the following example we played with in class:
-              [Image: Example Neural Net from Class]</p>
-              <p>Add code where noted below to create an automatic computation of the things we did in class. <alert>Note: You can replace this code with the matrix version if you prefer, but this structure is built to work with the individual equations version.</alert></p>
-            </statement>
-            <hint>
-              <p>For each hidden unit, compute its affine input from the bias and two input weights, then apply ReLU with <c>max(value, 0)</c>.</p>
-            </hint>
-            <hint>
-              <p>Collect the three activations and combine them with the output-layer weights and output bias.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not apply ReLU to the final output unless the architecture explicitly says to; here ReLU is used only for the hidden units.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  def MyFirstNN(X1,X2,w, beta):
-
-                      X = np.array((1,X1,X2))
-                      A = []
-
-                      for i in range(3): 
-                          # Option 1: 
-                          Ai = w[i][0] + w[i][1]*X1 + w[i][2]*X2
-
-                          # Option 2 with dot products:
-                          Ai = np.dot(w[i],X)
-
-                          # Either way, relu: 
-                          Ai = max(Ai,0)
-                          A.append(Ai)
-
-                      A = np.array(A)
-
-                      # Option 1, long way: 
-                      Y = beta[0] + beta[1]*A[0] + beta[2]*A[1] + beta[3]*A[2]
-
-                      # Option 2, with dot products: 
-                      Y = beta[0] + np.dot(beta[1:], A)
-
-                      return Y
-
-                  w = np.array([(1,2,1),(-1,0,1),(3,-1,-1)])
-                  beta = np.array((-1,2,1,-2))
-                  print('(1,0) should give  1  =&gt; ', MyFirstNN(1,0,w,beta))
-                  print('(0,1) should give -1  =&gt; ', MyFirstNN(0,1,w,beta))
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Play with the following code by changing around your <m>w</m> and <m>\beta</m> matrix values.</p>
+              <p>Write code to build an architecture with the following specifications:</p>
               <p><ul>
                 <li>
-                  <p>What sorts of changes occur in the resulting function value outputs?</p>
+                  <p><m>p=20</m> input variables</p>
                 </li>
                 <li>
-                  <p>We're using the ReLU as our activation function above, which replaces the entry with the positive value of the entry. Why am I able to get negative results out of the neural net?</p>
+                  <p>Three hidden layers, with 10, 5, and 3 units respectively.</p>
+                </li>
+                <li>
+                  <p>Use the ReLU activation function at every step.</p>
                 </li>
               </ul></p>
+              <p>Note you're not training the model, just setting up the architecture.</p>
             </statement>
             <hint>
-              <p>Change one weight or bias at a time and compare the heatmaps so you can attribute the effect.</p>
+              <p>Connect dimensions in order: <m>20\to10\to5\to3\to1</m>.</p>
             </hint>
             <hint>
-              <p>Separate the roles of <c>w</c> (hidden-unit boundaries) and <c>beta</c> (how activated units are combined at the output).</p>
+              <p>Place <c>nn.ReLU()</c> after each of the three hidden linear layers, but not automatically after the final output layer.</p>
             </hint>
             <hint>
-              <p><alert>Common error:</alert> Nonnegative hidden activations do not force a nonnegative output because output weights and the output bias may be negative.</p>
-            </hint>
-            <answer>
-              <p>Changing a row of <m>w</m> moves or rotates the boundary where one hidden unit activates, changing the piecewise-linear regions. Changing <m>\beta</m> changes the vertical contribution of those regions to the final surface. Negative network outputs are possible even though every ReLU activation is nonnegative because the output layer uses negative coefficients (and may have a negative bias); a weighted sum of nonnegative activations need not be nonnegative.</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Write a modified version of your <c>MyFirstNN</c> function that uses a sigmoid function instead of ReLu. Use the block below to draw a 2D heatmap and/or contour plot like above. What sort of patterns can you get in the resulting output function?</p>
-            </statement>
-            <hint>
-              <p>Replace each hidden-unit ReLU call with <m>\sigma(z)=1/(1+e^{-z})</m> while leaving the affine computations unchanged.</p>
-            </hint>
-            <hint>
-              <p>Use the same grid evaluation loop to compare the smoother output surface with the ReLU version.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Apply sigmoid to each hidden pre-activation, not once to the final weighted sum, unless you intentionally change the architecture.</p>
+              <p><alert>Common error:</alert> The input size of every <c>nn.Linear</c> layer must equal the output size of the preceding layer.</p>
             </hint>
             <answer>
               <program language="python">
                 <code>
-                  def MyFirstNN(X1,X2,w, beta):
+                  input_size = 20
+                  hidden_sizes = [10,5,3]
+                  output_size = 1
 
-                      X = np.array((X1,X2))
-                      A = []
 
-                      for i in range(3): 
-                          Ai = w[i,0] + np.dot(w[i,1:],X)
-
-                          # Sigmoid activation function
-                          Ai = 1/(1+np.exp(-Ai))
-                          A.append(Ai)
-
-                      A = np.array(A)
-
-                      Y = beta[0] + np.dot(beta[1:], A)
-
-                      return Y
+                  model2 = nn.Sequential(nn.Linear(input_size, hidden_sizes[0]),
+                                        nn.ReLU(),
+                                        nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+                                        nn.ReLU(),
+                                        nn.Linear(hidden_sizes[1], hidden_sizes[2]),
+                                        nn.ReLU(),
+                                        nn.Linear(hidden_sizes[2], output_size))
+                  print(model2)
                 </code>
               </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>The functions you have created are what the neural net would predict given a new input data point.</p>
-              <p>For the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function, what output prediction would you get for an input <m>(-10,10)</m>?</p>
-            </statement>
-            <hint>
-              <p>Evaluate the three hidden affine functions at <m>X_1=-10,X_2=10</m> and apply sigmoid to each.</p>
-            </hint>
-            <hint>
-              <p>Substitute the three activations into <m>Y=\beta_0+\beta_1A_1+\beta_2A_2+\beta_3A_3</m>.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Keep the bias as the first entry of each row of <c>w</c>; it is not multiplied by either input coordinate.</p>
-            </hint>
-            <answer>
-              <p>The hidden pre-activations are <m>-9</m>, <m>9</m>, and <m>3</m>. Applying sigmoid and then the output weights gives approximately <m>-1.9050</m>.</p>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Given this particular data set, what is the mean squared error for the neural net using <m>w</m> and <m>\beta</m> from class, and using the sigmoid activation function?</p>
-            </statement>
-            <hint>
-              <p>Evaluate <c>MyFirstNN</c> once for every row of the two-column input matrix and store the predictions in the original row order.</p>
-            </hint>
-            <hint>
-              <p>Compare the resulting prediction vector with <c>y</c> using <c>mean_squared_error</c>.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not hard-code the loop length as 30 in reusable code; use <c>len(X)</c> so every observation is evaluated.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  y_predict = np.array([MyFirstNN(row[0], row[1], w, beta) for row in X])
-                  print('MSE:', mean_squared_error(y, y_predict))
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>We're not going to train the model* ourselves, so let's switch now to the following online tool for training model.</p>
-              <p>Open this website in another window: <url href="https://playground.tensorflow.org/#activation=tanh&amp;batchSize=10&amp;dataset=xor&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4&amp;seed=0.85627&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false"><url href="https://playground.tensorflow.org">https://playground.tensorflow.org</url></url></p>
-              <p>*Translation: chosing better weights <m>w</m> and <m>\beta</m> to improve this score.</p>
-              <p><ol>
-                <li>
-                  <p>Start by working with a neural network with a single hidden layer on the data set labeled "Exclusive or". The initial setup has random weights chosen so the test loss on the right isn't very good. Hit the play button to watch the model find better and better weights to improve the prediction.</p>
-                </li>
-                <li>
-                  <p>Hover over the neurons on your trained model. What does the colormap shown on the right mean?</p>
-                </li>
-                <li>
-                  <p>What does the thickness/color of the edges between features/neurons mean? How does it align with our notation from class?</p>
-                </li>
-                <li>
-                  <p>What happens when you train the model using more or less neurons (hidden units) in the layer? What happens if you increase</p>
-                </li>
-                <li>
-                  <p>What happens when you train the same model on the spiral data set?</p>
-                </li>
-                <li>
-                  <p>If your settings are like mine, the sprial data set results are not good. Play with parameters until you can get test loss below 10% on the spiral data set.</p>
-                </li>
-              </ol></p>
-            </statement>
-            <hint>
-              <p>Hover over a hidden unit to view its activation over the input plane, and over an edge to relate color and thickness to a signed weight.</p>
-            </hint>
-            <hint>
-              <p>For the spiral data, add enough hidden units or layers to form a curved boundary, then compare training and test loss rather than training loss alone.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Changing many controls simultaneously makes the result hard to interpret; first vary width, depth, activation, or learning rate one at a time.</p>
-            </hint>
-            <answer>
-              <p>The neuron colormap shows where that unit activates over the two-dimensional input space. Edge thickness represents weight magnitude and edge color represents its sign, corresponding to the entries of <m>w</m> and <m>\beta</m>. More hidden units increase flexibility and can fit XOR more easily, but unnecessary width may make training less stable or encourage overfitting. The spiral data require a substantially more flexible nonlinear boundary; several hidden layers/units with a nonlinear activation can bring test loss below 10%, although exact settings vary with initialization. One working family of settings is three ReLU layers with roughly four units each, followed by checking that both training and test losses remain low.</p>
             </answer>
           </task>
         </exercise>
       </exercisegroup>
     </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-building-the-simple-architecture-from-last-class">
+    <title>Building the simple architecture from last class</title>
+    <!-- unsupported HTML omitted from source cell 9 -->
+    <p>Here is our very simple data set to use. It's similar to the data set from last time, just with way more data points.</p>
+    <program language="python">
+      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/292b7c684d4b90eea57803ddcc173c1b/DL-toy-data-bigger.csv"
+      data = np.loadtxt(url)
+      X = data[:,:2]
+      y = data[:,2]
+
+      plt.scatter(X[:,0],X[:,1], c= y)
+      plt.colorbar()
+      plt.show()
+
+      data.shape
+    </program>
+    <p>In order to make <c>torch</c> play nice with this data set, I'm going to put it in a custom class. Don't worry too much about this, it's just to make some things easier later.</p>
+    <program language="python">
+      from torch.utils.data import Dataset
+
+      class CustomDataset(Dataset):
+          def __init__(self, X, y):
+              self.X = X
+              self.y = y
+
+          def __len__(self):
+              return len(self.X)
+
+          def __getitem__(self, idx):
+              return self.X[idx], self.y[idx]
+
+      DL_toy_torch = CustomDataset(X, y)
+    </program>
+    <p>I'm going to build a train/test split before getting into the <c>pytorch</c> framework. I need to convert my input data to <c>pytorch</c>'s fancy <c>DataLoader</c> class.</p>
+    <program language="python">
+      import torch
+      from torch.utils.data import random_split
+
+      # Split the dataset into 80% train, 20% test
+      # Unlike sklearn, torch wants a length of the training size rather than the percentage
+      train_size = int(0.8 * len(DL_toy_torch))
+      test_size = len(data) - train_size
+      train_dataset, test_dataset = random_split(DL_toy_torch, [train_size, test_size])
+
+      # Create DataLoaders for the train and test sets
+      trainloader = torch.utils.data.DataLoader(train_dataset, batch_size=64)
+      testloader = torch.utils.data.DataLoader(test_dataset, batch_size=64)
+    </program>
+    <p>Essentially, the <c>trainloader</c> and <c>testloader</c> are now storing our data sets. The <c>batch_size</c> input is to allow for only loading in a subset of our data at a time. For our silly little data set, this doesn't particularly matter. However, for real data sets with gigabytes of data, the batch size makes it so that we don't overload the memory of the computer trying to read in the whole data set at once.</p>
+    <p>Below, we can see that if we iterate over <c>trainloader</c>, we are handed 64 data points at a time, with their <c>X</c> and <c>y</c> information separated</p>
+    <program language="python">
+      for data_X, data_y in trainloader:
+          print(f"data_X is a subset of X with shape {data_X.shape}")
+          print(f"data_X: ")
+          print(data_X[:10, :])
+          print("\n")
+          print(f"data_y is the matching labels of y with shape {data_y.shape}")
+          print(f"data_y: ")
+          print(data_y[:10])
+          print('---')
+          break #&lt;---- Comment to show a the entire output of the iteration
+    </program>
+    <p>Now for the actual training of the model. We are not covering the inner workings of the training in class, so for the purposes of today you don't need to worry much about the specifics here. However, the basic idea is that <c>epochs</c> gives us the number of times we're willing to update our coefficients to see if we're improving. "Improving" is measured by the loss function, in this case chosen to be <c>nn.MSELoss</c> which uses mean squared error.</p>
+    <p>The code below will run over multiple epochs, and store the training loss at each step.</p>
+    <program language="python">
+      %time 
+      LossList = []
+
+      criterion = nn.MSELoss()# Optimizers require the parameters to optimize and a learning rate
+      optimizer = optim.SGD(mySecondNN.parameters(), lr=0.003)
+      epochs = 300
+      for e in range(epochs):
+          running_loss = 0
+          for data, target in trainloader:
+              data = data.float()
+              target = target.float()
+
+              # Training pass
+              optimizer.zero_grad()
+
+              # Forward pass
+              output = mySecondNN(data) #&lt;--- note this line is using the model you set up at the beginning of this section
+
+              # Calculating the loss
+              # output = output.float()
+              # target = target.float()
+              loss = criterion(output, target)
+              loss.backward()
+              optimizer.step()
+
+              running_loss += loss.item()
+          else:
+              LossList.append(running_loss/len(trainloader))
+              # print(f"Training loss: {running_loss/len(trainloader)}")
+
+      plt.plot(LossList)
+      plt.ylabel('Loss')
+      plt.xlabel('Epoch')
+      plt.show()
+    </program>
+    <p>Note that the training loss appears to be improving over time. Now we can then predict using our trained model on our test set to see how well we are really doing. The only reason this code is as complicated as it is is the batch loader, otherwise the main work is done with the <c>criterion(prediction, target)</c> command.</p>
+    <program language="python">
+      Out_predict = []
+      Out_target = []
+      for data_X, data_y in testloader:
+          predict = mySecondNN(data_X.float())
+          Out_predict.append(predict)
+
+          y_test_tensor = data_y.float()
+          Out_target.append(y_test_tensor)
+
+      all_predictions = torch.cat(Out_predict)
+      all_targets = torch.cat(Out_target)
+
+      criterion(all_predictions,all_targets)
+    </program>
+    <p>Of course, this data set is very tiny, with not much to be done in terms of training, so lets go look at a bigger data set.</p>
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Build the model for the example we used in the last class, with the picture included above. This model had two input variables, three hidden units in a single layer, and a single output. Use ReLU for your activation function. Save your model as <c>mySecondNN</c>.</p>
+            </statement>
+            <hint>
+              <p>The first linear map has two inputs and three outputs; the second has three inputs and one output.</p>
+            </hint>
+            <hint>
+              <p>Insert ReLU between those two linear layers to activate the hidden units.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not create three hidden layers because there are three hidden units; all three units belong to one layer.</p>
+            </hint>
+            <answer>
+              <program language="python">
+                <code>
+                  # Hyperparameters for our network
+                  input_size = 2
+                  hidden_size = 3
+                  output_size = 1
+
+                  # Build a feed-forward network
+                  mySecondNN = nn.Sequential(nn.Linear(input_size, hidden_size),
+                                        nn.ReLU(),
+                                        nn.Linear(hidden_size, output_size))
+                  print(mySecondNN)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-mnist-data-set">
+    <title>MNIST data set</title>
+    <p>Now that we know the basics, we can build a neural net like discussed in class on the MNIST data set. The first time you run the commands below, it will save the MNIST data set into a folder called <c>MNIST</c> in the same place you're running this jupyter notebook. After that, it will just reload the data from that folder as long as it hasn't moved.</p>
+    <program language="python">
+      from torchvision import transforms, datasets
+
+      train = datasets.MNIST('', train=True, download=True,
+                             transform=transforms.Compose([
+                                 transforms.ToTensor()
+                             ]))
+
+      test = datasets.MNIST('', train=False, download=True,
+                             transform=transforms.Compose([
+                                 transforms.ToTensor()
+                             ]))
+    </program>
+    <program language="python">
+      print('---Train---\n')
+      print(train)
+      print('\n---Test---\n')
+
+      print(test)
+    </program>
+    <p>As before, we are loading in our data set in batches to keep from crashing your memory.</p>
+    <program language="python">
+      trainloader = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
+      testloader = torch.utils.data.DataLoader(test, batch_size=10, shuffle=False)
+    </program>
+    <p>Let's take a look at our data. The following code lets me spit out the first batch of data.</p>
+    <program language="python">
+      for images, labels in trainloader:
+          print(images)
+          print(labels)
+          break
+    </program>
+    <p>Note that <c>images</c> is a tensor of input data points from the first batch, while <c>labels</c> is a tensor of the labels.</p>
+    <program language="python">
+      labels
+    </program>
+    <p>This data happens to be from images of digits, so we can visualize each input data point and its label as follows. Mess around with the <c>i</c> value to see different data points in this batch.</p>
+    <program language="python">
+      i = 0 #&lt;---- this number can be from 0 to 9, and will show different data points
+            #      Notice that the index i is not the same as the label of the integer in the pic.
+
+      X = images[i]
+      y = labels[i].item()
+
+      plt.imshow(X.view(28,28))
+      plt.title('This is a ' + str(y))
+    </program>
+    <p>For our data set, we will simply flatten each image into a vector to pass into the neural network. That means that because each image is <m>28 \times 28</m> pixels, we will end up with a flattened data point of size 784. The code below is taking each image from the batch, flattening it to a vector, and returning the 10 data points in the batch as below</p>
+    <program language="python">
+      images_flat = images.view(images.shape[0], -1)
+      print(images_flat)
+      print(images_flat.shape)
+    </program>
+    <p>Now you can run the code below to train your model!</p>
+    <p><alert>Warning:</alert> This code can be pretty slow. On my desktop, it took about 3 minutes. You can try things like increasing the number of epochs, but note that this will also increase the running time.</p>
+    <program language="python">
+      %%time 
+
+      # Define the loss
+      criterion = nn.NLLLoss()
+      optimizer = optim.SGD(model.parameters(), lr=0.003)
+
+      epochs = 5
+      for e in range(epochs):
+          running_loss = 0
+          for images, labels in trainloader:
+              # Flatten MNIST images into a 784 long vector
+              images = images.view(images.shape[0], -1)
+
+              # Training pass
+              optimizer.zero_grad()
+
+              output = model(images)
+              loss = criterion(output, labels)
+              loss.backward()
+              optimizer.step()
+
+              running_loss += loss.item()
+          else:
+              print(f"Training loss: {running_loss/len(trainloader)}")
+    </program>
+    <p>We can then look at what sorts of predictions we have for new data points.</p>
+    <program language="python">
+      # This function is just for drawing.  As with the rest of this 
+      # tutorial, the code is adapted heavily from 
+      # https://github.com/amitrajitbose/handwritten-digit-recognition 
+
+      def view_classify(img, ps):
+          ''' Function for viewing an image and it's predicted classes.
+          '''
+          ps = ps.data.numpy().squeeze()
+
+          fig, (ax1, ax2) = plt.subplots(figsize=(6,9), ncols=2)
+          ax1.imshow(img.resize_(1, 28, 28).numpy().squeeze())
+          ax1.axis('off')
+          ax2.barh(np.arange(10), ps)
+          ax2.set_aspect(0.1)
+          ax2.set_yticks(np.arange(10))
+          ax2.set_yticklabels(np.arange(10))
+          ax2.set_title('Class Probability')
+          ax2.set_xlim(0, 1.1)
+          plt.tight_layout()
+    </program>
+    <p>The code below will show the image, and the probabilities for each class label. The actual prediction comes from the label with the highest probability.</p>
+    <program language="python">
+      i = 4 #&lt;--- Mess with this number to see different data points and their predictions
+
+      images, labels = next(iter(testloader))
+
+      img = images[i].view(1, 784)
+      with torch.no_grad():
+          logps = model(img)
+
+      ps = torch.exp(logps)
+      probab = list(ps.numpy()[0])
+      print("Predicted Digit =", probab.index(max(probab)))
+      view_classify(img.view(1, 28, 28), ps)
+      # plt.savefig('MNIST-ExamplePrediction.png',bbox_inches = 'tight')
+    </program>
+    <p>The code below will show the count of correct predictions.</p>
+    <program language="python">
+      correct_count, all_count = 0, 0
+      for images,labels in testloader:
+        for i in range(len(labels)):
+          img = images[i].view(1, 784)
+          # Turn off gradients to speed up this part
+          with torch.no_grad():
+              logps = model(img)
+
+          # Output of the network are log-probabilities, 
+          # need to take exponential for probabilities
+          ps = torch.exp(logps)
+          probab = list(ps.numpy()[0])
+          pred_label = probab.index(max(probab))
+          true_label = labels.numpy()[i]
+          if(true_label == pred_label):
+            correct_count += 1
+          all_count += 1
+
+      print("Number Of Images Tested =", all_count)
+      print("\nModel Accuracy =", (correct_count/all_count))
+    </program>
+    <program language="python">
+      import torch
+      from torch import nn
+      from torch.utils.data import DataLoader
+      from torchvision import datasets
+      from torchvision.transforms import ToTensor
+    </program>
+    <program language="python">
+      # Download training data.
+      training_data = datasets.FashionMNIST(
+          root="data",
+          train=True,
+          download=True,
+          transform=ToTensor(),
+      )
+
+      # Download test data.
+      test_data = datasets.FashionMNIST(
+          root="data",
+          train=False,
+          download=True,
+          transform=ToTensor(),
+      )
+    </program>
+    <p>The labels are stored as digits, but below is the map from the documentation.</p>
+    <program language="python">
+      labels_map = {0: 'T-shirt/top', 1: 'Trouser', 2: 'Pullover', 3: 'Dress', 4: 'Coat', 5: 'Sandal', 6: 'Shirt', 7: 'Sneaker', 8: 'Bag', 9: 'Ankle boot'}
+    </program>
+    <p>This code will show you a random collection of sample images.</p>
+    <program language="python">
+      # This code will show you a random collection of sample images.
+      fig, ax = plt.subplots(nrows=5, ncols=5, figsize = (20,10))
+      for row in ax:
+          for col in row:
+              entry = np.random.randint(100)
+              col.imshow(training_data.data[entry])
+              col.axis('off')
+              col.set_title(labels_map[training_data.targets[entry].item()])
+
+      # plt.savefig('FashionMNIST-Examples.png', bbox_inches = 'tight')
+    </program>
+    <!-- horizontal rule in source notebook -->
+    <exercises>
+      <title>Exercises</title>
+      <exercisegroup>
+        <title>Practice</title>
+        <introduction>
+          <p>Complete the following exercises.</p>
+        </introduction>
+        <exercise>
+          <task>
+            <statement>
+              <p>Ok, so now we can actually train our model on MNIST!</p>
+              <p>For the code below, sketch the diagram for the model we've built.</p>
+              <program language="python">
+                <code>
+                  input_size = 784
+                  hidden_sizes = [128, 64]
+                  output_size = 10
+
+                  model = nn.Sequential(
+                      nn.Linear(input_size, hidden_sizes[0]), nn.ReLU(),
+                      nn.Linear(hidden_sizes[0], hidden_sizes[1]), nn.ReLU(),
+                      nn.Linear(hidden_sizes[1], output_size),
+                      nn.LogSoftmax(dim=1)
+                  )
+                  print(model)
+                </code>
+              </program>
+            </statement>
+            <hint>
+              <p>Draw one node group for each dimensionality printed by the linear layers: 784, 128, 64, and 10.</p>
+            </hint>
+            <hint>
+              <p>Label ReLU after the first two linear maps and LogSoftmax after the ten-output layer.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> The 784 input values are flattened pixels, not 784 hidden units; the hidden layers contain 128 and 64 units.</p>
+            </hint>
+            <answer>
+              <p>The architecture is: 784 flattened pixel inputs <m>\rightarrow</m> a fully connected layer with 128 hidden units <m>\rightarrow</m> ReLU <m>\rightarrow</m> a fully connected layer with 64 hidden units <m>\rightarrow</m> ReLU <m>\rightarrow</m> 10 output units, one per digit <m>\rightarrow</m> LogSoftmax.</p>
+            </answer>
+          </task>
+        </exercise>
+        <exercise>
+          <task>
+            <statement>
+              <p>Optional extension: build and evaluate a neural network that predicts the ten labels in the FashionMNIST data set.</p>
+            </statement>
+            <hint>
+              <p>Reuse the MNIST workflow: create data loaders, flatten each <m>28\times28</m> image to 784 inputs, and retain ten output units.</p>
+            </hint>
+            <hint>
+              <p>Train with <c>NLLLoss</c>, then evaluate accuracy on the separate FashionMNIST test loader and translate indices with <c>labels_map</c>.</p>
+            </hint>
+            <hint>
+              <p><alert>Common error:</alert> Do not reuse the MNIST loaders after downloading FashionMNIST; the model must train and test on <c>training_data</c> and <c>test_data</c>.</p>
+            </hint>
+            <answer>
+              <p>One valid baseline uses the same <m>784\to128\to64\to10</m> architecture as MNIST. FashionMNIST is generally harder, so exact accuracy varies, but the workflow must report held-out test performance and should inspect common confusions such as Shirt versus T-shirt/top or Pullover.</p>
+              <program language="python">
+                <code>
+                  trainloader = DataLoader(training_data, batch_size=64, shuffle=True)
+                  testloader = DataLoader(test_data, batch_size=64, shuffle=False)
+                  model = nn.Sequential(
+                      nn.Flatten(),
+                      nn.Linear(28 * 28, 128), nn.ReLU(),
+                      nn.Linear(128, 64), nn.ReLU(),
+                      nn.Linear(64, 10), nn.LogSoftmax(dim=1)
+                  )
+                  criterion = nn.NLLLoss()
+                  optimizer = optim.SGD(model.parameters(), lr=0.003)
+                  for _ in range(5):
+                      model.train()
+                      for images, labels in trainloader:
+                          optimizer.zero_grad()
+                          loss = criterion(model(images), labels)
+                          loss.backward()
+                          optimizer.step()
+                  model.eval()
+                  correct = total = 0
+                  with torch.no_grad():
+                      for images, labels in testloader:
+                          predictions = model(images).argmax(dim=1)
+                          correct += (predictions == labels).sum().item()
+                          total += labels.numel()
+                  print('test accuracy:', correct / total)
+                </code>
+              </program>
+            </answer>
+          </task>
+        </exercise>
+      </exercisegroup>
+    </exercises>
+  </subsection>
+  <subsection xml:id="cmse381-lec29-multi-nn-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p>      
+    </p>
   </subsection>
 </section>

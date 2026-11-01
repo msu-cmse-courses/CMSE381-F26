@@ -25,10 +25,8 @@
   </introduction>
   <subsection xml:id="cmse381-lec24-decisiontrees-worksheet-fitting-regression-trees">
     <title>Fitting Regression Trees</title>
-    <p>We can now turn to setting up a basic regression tree. For this example, we're going to use the <xref ref="carseat-csv" visual="custom"><c>Carseat</c> data</xref> where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff.</p>
+    <p>We can now turn to setting up a basic regression tree. For this example, we're going to use the <xref ref="carseat-csv" visual="custom"><c>Carseat</c> data</xref> where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff. Load the data into <c>carseats</c> dataframe, and run the following commands.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2cec98f7fc943558992925bc2510bb9d/Carseats.csv"
-      carseats = pd.read_csv(url).drop('Unnamed: 0', axis=1)
       carseats.ShelveLoc = pd.factorize(carseats.ShelveLoc)[0]
       carseats.Urban = carseats.Urban.map({'No':0, 'Yes':1})
       carseats.US = carseats.US.map({'No':0, 'Yes':1})

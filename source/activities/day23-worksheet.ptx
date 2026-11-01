@@ -3,7 +3,6 @@
 <section xml:id="cmse381-lec23-randomforests-worksheet" component="ws23">
   <title>Day 23 worksheet</title>
   <introduction>
-    <p>[Image: https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/63890/forest-glade-clipart-md.png]</p>
     <p>In this module we are going to set up random forest models.</p>
     <program language="python">
       # Everyone's favorite standard imports
@@ -21,10 +20,8 @@
   </introduction>
   <subsection xml:id="cmse381-lec24-randomforests-worksheet-loading-the-data">
     <title>Loading the data</title>
-    <p>Since we're doing regression trees, again, we're going to use the <c>Carseat</c> data where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff.</p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/2cec98f7fc943558992925bc2510bb9d/Carseats.csv"
-      carseats = pd.read_csv(url).drop('Unnamed: 0', axis=1)
+    <p>Since we're doing regression trees, again, we're going to use <xref ref="carseat-csv" visual="custom"><c>Carseat</c> data</xref> where we will predict <c>Sales</c> from the rest of the columns. I'll do a bit of cleanup for you so we can get to the good stuff. Load the data into <c>carseats</c> dataframe, and run the following commands.</p>
+    <program language="python">      
       carseats.ShelveLoc = pd.factorize(carseats.ShelveLoc)[0]
       carseats.Urban = carseats.Urban.map({'No':0, 'Yes':1})
       carseats.US = carseats.US.map({'No':0, 'Yes':1})
@@ -67,8 +64,7 @@
           axs[i].set_title(f"Tree {i+1}", fontsize = 30)
       plt.show()
     </program>
-    <figure><caption>Stop Icon</caption><image source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Vienna_Convention_road_sign_B2a.svg/180px-Vienna_Convention_road_sign_B2a.svg.png"><description><p>Stop Icon</p></description></image></figure>
-    <p>Great, you got to here! Hang out for a bit, there's more lecture before we go on to the next portion.</p>
+    
     <exercises>
       <title>Exercises</title>
       <exercisegroup>

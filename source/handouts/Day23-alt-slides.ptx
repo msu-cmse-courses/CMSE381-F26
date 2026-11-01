@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day23" xml:id="day-23-lecture">
+  <title>Day 23</title>
+
+  <introduction>
+
+    <p>
+        8.2.1 Bagging
+    </p>
+    <p>
+        8.2.2 Random forest
+    </p>
+  </introduction>
+
+<objectives>
+  <ul>
+    <li><p>Explain what bagging of decision trees accomplishes.</p></li>
+    <li>
+      <p>Describe how to use out-of-bag error estimation for decision trees.
+      <ul>
+        <li><p>Describe the procedure for both regression and classification trees.</p></li>
+      </ul>
+      </p>
+    </li>
+    <li><p>Explain what problem of bagging is addressed by random forests.</p></li>
+    <li><p>Describe the relationship between random forests and bagging.</p></li>
+  </ul>
+</objectives>
+
+<paragraphs>
+  <title>Bagging: Use ensemble of trees to reduce variance</title>
+  <sidebyside widths="45% 45%">
+    <stack>
+      <p>Want to do (but can't):</p>
+      <p>Build separate models from independent training sets, and average resulting predictions:</p>
+      <p>
+        <ul>
+          <li><p><m>\hat f^1(x), \cdots, \hat f^B(x)</m> for <m>B</m> separate training sets.</p></li>
+          <li><p>Return the average:</p></li>
+        </ul>
+      </p>
+      <p>
+        <md>
+          \hat f_{\text{avg}}(x) = \frac{1}{B} \sum_{b=1}^B \hat f^b(x)
+        </md>
+      </p>
+      <p>
+        <ul >
+          <li><p>Decreases variance, but is not practical.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>Bootstrap modification:</p>
+      <p>
+        <ul>
+          <li><p>Work with a fixed data set.</p></li>
+          <li><p>Take <m>B</m> samples from this data set (with replacement).</p></li>
+          <li><p>Train the method on the <m>b</m>th sample to get <m>\hat f^{*b}(x)</m>.</p></li>
+          <li><p>Return the average of predictions (regression):</p></li>
+        </ul>
+      </p>
+      <p>
+        <md>
+          \hat f_{\text{bag}}(x) = \frac{1}{B} \sum_{b=1}^B \hat f^{*b}(x)
+        </md>
+      </p>
+      <p>Or use majority vote (classification).</p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Tree version</title>
+  <image source="figures/TreeBaggingCartoon.png" width="60%">
+    <shortdescription>Visual representation of bagging showing a blue data block leading to multiple red sample blocks and green trees.</shortdescription>
+  </image>
+  <p>
+    <ul>
+      <li><p>Blue represents the original data set <m>X:n \times p</m>.</p></li>
+      <li><p>Red represents the subsampled data sets.</p></li>
+      <li><p>Build a tree from each subsampled data set.</p></li>
+      <li><p>Obtain a prediction from each tree and return the average.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+
+<paragraphs>
+  <title>Prediction on new data point</title>
+  <image source="figures/TreeBaggingCartoon-OnlyTrees.png" width="60%">
+    <shortdescription>Cartoon illustration of multiple green trees, representing an ensemble of decision trees.</shortdescription>
+  </image>
+  <p>
+    <ul>
+      <li><p>A new data point is passed through each tree, and the resulting predictions are averaged.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+<paragraphs>
+  <title>Example: Heart classification data</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig8-8.png">
+      <shortdescription>Line plot comparing test and out-of-bag error for bagging and random forest models as the number of trees increases.</shortdescription>
+    </image>
+    <p>
+      <ul>
+        <li><p>The example is for classification.</p></li>
+        <li><p>Ignore everything but the black lines.</p></li>
+        <li><p>The dashed line is the test error from a single classification tree.</p></li>
+        <li><p>The solid black line is the test error from the bagged version.</p></li>
+        <li><p><m>B</m> only needs to be large enough for the error to stabilize; about 100 trees is sufficient.</p></li>
+        <li><p>The number of trees is not a flexibility parameter.</p></li>
+      </ul>
+    </p>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Out of Bag Error Estimation</title>
+
+    <image source="figures/TreeBaggingCartoon-MoreTrees.png" width="60%">
+      <shortdescription>Diagram showing several red data samples, each corresponding to an individual green decision tree, representing a bagging ensemble process.</shortdescription>
+    </image>
+      <p>
+        <ul>
+          <li><p>On average, a bootstrap sample uses about 2/3 of the data.</p></li>
+          <li><p>The remaining observations not used are called out-of-bag (OOB) observations.</p></li>
+          <li><p>For each observation, run it through all the trees for which it was not used in training.</p></li>
+          <li><p>Return the average (or majority vote) of those predictions as the test prediction. This relies on the law of large numbers.</p></li>
+          <li><p>A bootstrapped version of LOOCV.</p></li>
+        </ul>
+      </p>
+
+
+
+</paragraphs>
+
+<paragraphs>
+  <title>Error using OOB</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig8-8.png">
+      <shortdescription>Line plot comparing test and out-of-bag (OOB) error for bagging and random forest models as the number of trees increases.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>The green line represents OOB error.</p></li>
+          <li><p>Note that OOB error is averaged over approximately <m>B/3</m> predictions per observation.</p></li>
+          <li><p>The book suggests that the much lower OOB error may simply be due to random chance.</p></li>
+        </ul>
+      </p>      
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Random forests: The idea</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>Goal: decorrelate the bagged trees.</p>
+      <p>
+        <ul>
+          <li><p>If there is a strong predictor, the first split of most trees will be the same.</p></li>
+          <li><p>Most or all trees will be highly correlated.</p></li>
+          <li><p>Averaging highly correlated quantities does not decrease variance as much as averaging uncorrelated quantities.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>The random forest fix:</p>
+      <p>
+        <ul>
+          <li><p>Each time a split is considered, use only a random subset of <m>m</m> of the predictors.</p></li>
+          <li><p>Take a fresh sample of predictors at every split.</p></li>
+          <li><p>Typically, <m>m \approx \sqrt{p}</m>.</p></li>
+          <li><p>On average, <m>(p-m)/p</m> of the splits will not consider the strong predictor.</p></li>
+          <li><p><m>m=p</m> gives back bagging.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Example on gene expression</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig8-10.png">
+      <shortdescription>Plot of test classification error versus number of trees comparing random forests with m=p, m=p/2, and m=square root of p.</shortdescription>
+    </image>
+    <p>
+      <ul>
+        <li><p>Helpful for large <m>p</m>.</p></li>
+        <li><p>Predict one of 14 types of cancer (15 total classes), using the 500 genes with the most variance.</p></li>
+        <li><p>Randomly split the data into training and test sets, and compare three values of <m>m</m>.</p></li>
+        <li><p>Error rate of a single tree: 45.7%.</p></li>
+        <li><p>Null error rate: 75.4% (classify every observation into the dominant overall class, which here is the healthy class).</p></li>
+        <li><p>400 trees are enough for good performance.</p></li>
+        <li><p><m>m=\sqrt{p}</m> provides a small improvement over bagging (<m>m=p</m>) in this case.</p></li>
+      </ul>
+    </p>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>TL;DR</title>
+  <sidebyside widths="50% 50%">
+    <p>
+      <ul>
+        <li><p>Bagging: Trees are grown independently on random samples. The trees tend to be similar to each other, which can result in getting caught in local optima.</p></li>
+        <li><p>Random forest: Trees are grown independently on samples, but each split is made using a random subset of features.</p></li>
+      </ul>
+    </p>
+    <p></p>
+  </sidebyside>
+</paragraphs>
+
+</handout>

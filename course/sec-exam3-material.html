@@ -2852,122 +2852,158 @@ f(X_1,\ldots,X_p)=\hat{Y}\text{.}
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Viewing Regions Defined by Tree"><a tabindex="-1" href="#day-22-lecture-9" title="Copy heading and permalink for Paragraphs: Viewing Regions Defined by Tree" aria-label="Copy heading and permalink for Paragraphs: Viewing Regions Defined by Tree">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-10"><h3 class="heading"><span class="title">How do we actually get the tree? Two steps.</span></h3>
+<details id="day-22-lecture-10" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">118</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Expressing the regions of a regression tree.</span>
+</h3></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-22-lecture-10-2">
+<div class="para" id="day-22-lecture-10-2-1">Given the following two splits, answer the following questions. express the shaded region <span class="process-math">\(R\)</span> using set notation <span class="process-math">\(R=\{X|...\}\)</span> and sketch the corresponding tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/figures/decision_tree_notation_ex1.png" class="contained" alt="Two squares, a and b, showing a square grid from zero to 1 with X1 on the x-axis and X2 on the Yaxis. The grid splits the square into four equi-spaces regions. One square is shaded in each figure at the following location."></div>
+</div>
+<article class="task exercise-like" id="day-22-lecture-10-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-22-lecture-10-3-1-1">Sketch the corresponding tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-10-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/figures/decision_tree_notation_ex1a_answer.png" class="contained" alt="The decision tree for the shaded region R."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 118.a.1"><a tabindex="-1" href="#day-22-lecture-10-3-2" title="Copy heading and permalink for Answer 118.a.1" aria-label="Copy heading and permalink for Answer 118.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 118.a"><a tabindex="-1" href="#day-22-lecture-10-3" title="Copy heading and permalink for Task 118.a" aria-label="Copy heading and permalink for Task 118.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-22-lecture-10-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-22-lecture-10-4-1-1">Express the shaded region <span class="process-math">\(R\)</span> using set notation <span class="process-math">\(R=\{X|...\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-10-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-22-lecture-10-4-2-1">
+<span class="process-math">\(R=\{X\mid X_1 \geq 0.5, X_2&lt;0.5, X_1&lt;0.75, X_2\geq 0.25\}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 118.b.1"><a tabindex="-1" href="#day-22-lecture-10-4-2" title="Copy heading and permalink for Answer 118.b.1" aria-label="Copy heading and permalink for Answer 118.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 118.b"><a tabindex="-1" href="#day-22-lecture-10-4" title="Copy heading and permalink for Task 118.b" aria-label="Copy heading and permalink for Task 118.b">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 118: Expressing the regions of a regression tree"><a tabindex="-1" href="#day-22-lecture-10" title="Copy heading and permalink for Example 118: Expressing the regions of a regression tree" aria-label="Copy heading and permalink for Example 118: Expressing the regions of a regression tree">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-22-lecture-11"><h3 class="heading"><span class="title">How do we actually get the tree? Two steps.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-22-lecture-10-2-1-1">
-<ol class="decimal" id="day-22-lecture-10-2-1-1-1">
-<li id="day-22-lecture-10-2-1-1-1-1">
-<div class="para" id="day-22-lecture-10-2-1-1-1-1-1">We divide the predictor space -- that is, the set of possible values for <span class="process-math">\(X_1, X_2, \ldots, X_p\)</span> -- into <span class="process-math">\(J\)</span> distinct and non-overlapping regions, <span class="process-math">\(R_1, R_2, \ldots, R_J\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-2-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-11-2-1-1">
+<ol class="decimal" id="day-22-lecture-11-2-1-1-1">
+<li id="day-22-lecture-11-2-1-1-1-1">
+<div class="para" id="day-22-lecture-11-2-1-1-1-1-1">We divide the predictor space -- that is, the set of possible values for <span class="process-math">\(X_1, X_2, \ldots, X_p\)</span> -- into <span class="process-math">\(J\)</span> distinct and non-overlapping regions, <span class="process-math">\(R_1, R_2, \ldots, R_J\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item 1"><a tabindex="-1" href="#day-22-lecture-10-2-1-1-1-1" title="Copy heading and permalink for Item 1" aria-label="Copy heading and permalink for Item 1">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 1"><a tabindex="-1" href="#day-22-lecture-11-2-1-1-1-1" title="Copy heading and permalink for Item 1" aria-label="Copy heading and permalink for Item 1">🔗</a></div>
 </li>
-<li id="day-22-lecture-10-2-1-1-1-2">
-<div class="para" id="day-22-lecture-10-2-1-1-1-2-1">For every observation that falls into the region <span class="process-math">\(R_j\text{,}\)</span> we make the same prediction: the mean of the response values for the training observations in <span class="process-math">\(R_j\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-2-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-11-2-1-1-1-2">
+<div class="para" id="day-22-lecture-11-2-1-1-1-2-1">For every observation that falls into the region <span class="process-math">\(R_j\text{,}\)</span> we make the same prediction: the mean of the response values for the training observations in <span class="process-math">\(R_j\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item 2"><a tabindex="-1" href="#day-22-lecture-10-2-1-1-1-2" title="Copy heading and permalink for Item 2" aria-label="Copy heading and permalink for Item 2">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 2"><a tabindex="-1" href="#day-22-lecture-11-2-1-1-1-2" title="Copy heading and permalink for Item 2" aria-label="Copy heading and permalink for Item 2">🔗</a></div>
 </li>
 </ol>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-10-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-3b.png" class="contained" alt="A two-dimensional feature space partitioned into five rectangular regions R1 through R5 by vertical and horizontal splits."></div></div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: How do we actually get the tree? Two steps"><a tabindex="-1" href="#day-22-lecture-10" title="Copy heading and permalink for Paragraphs: How do we actually get the tree? Two steps" aria-label="Copy heading and permalink for Paragraphs: How do we actually get the tree? Two steps">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: How do we actually get the tree? Two steps"><a tabindex="-1" href="#day-22-lecture-11" title="Copy heading and permalink for Paragraphs: How do we actually get the tree? Two steps" aria-label="Copy heading and permalink for Paragraphs: How do we actually get the tree? Two steps">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-11"><h3 class="heading"><span class="title">Step 1: How do we decide on <span class="process-math">\(R_j\)</span>s?</span></h3>
+<section class="paragraphs" id="day-22-lecture-12"><h3 class="heading"><span class="title">Step 1: How do we decide on <span class="process-math">\(R_j\)</span>s?</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para" id="day-22-lecture-11-2-1-1">Goal:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-22-lecture-12-2-1-1">Goal:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para" id="day-22-lecture-11-2-1-2">Find boxes <span class="process-math">\(R_1,\ldots,R_J\)</span> that minimize<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-22-lecture-12-2-1-2">Find boxes <span class="process-math">\(R_1,\ldots,R_J\)</span> that minimize<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para logical" id="day-22-lecture-11-2-1-3">
-<div class="displaymath process-math" id="day-22-lecture-11-2-1-3-1">
+<div class="para logical" id="day-22-lecture-12-2-1-3">
+<div class="displaymath process-math" id="day-22-lecture-12-2-1-3-1">
 \begin{equation*}
 \sum_{j=1}^J \sum_{i \in R_j} (y_i-\hat y_{R_j})^2
 \end{equation*}
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="para" id="day-22-lecture-11-2-1-4">
-<span class="process-math">\(\hat y_{R_j}\)</span> = mean response for training observations in the <span class="process-math">\(j\)</span>th box.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-1-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-</div>
-<div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-22-lecture-11-2-2-1">
-<ul class="disc" id="day-22-lecture-11-2-2-1-1">
-<li id="day-22-lecture-11-2-2-1-1-1">
-<div class="para" id="day-22-lecture-11-2-2-1-1-1-1">Cost is just RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-11-2-2-1-1-2">
-<div class="para" id="day-22-lecture-11-2-2-1-1-2-1">Can’t actually check every possible partition.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-11-2-2-1-1-3">
-<div class="para" id="day-22-lecture-11-2-2-1-1-3-1">Instead, use a top-down greedy approach called <span class="process-math">\(\text{Recursive binary splitting}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-11-2-2-1-1-4">
-<div class="para" id="day-22-lecture-11-2-2-1-1-4-1">Begins at the top of the tree with all data points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-11-2-2-1-1-5">
-<div class="para" id="day-22-lecture-11-2-2-1-1-5-1">Uses the best split at every step.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-11-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-</ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-11-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-</div>
-</div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Step 1: How do we decide on R_js?"><a tabindex="-1" href="#day-22-lecture-11" title="Copy heading and permalink for Paragraphs: Step 1: How do we decide on R_js?" aria-label="Copy heading and permalink for Paragraphs: Step 1: How do we decide on R_js?">🔗</a></div>
-</section>
-<section class="paragraphs" id="day-22-lecture-12"><h3 class="heading"><span class="title">Recursive Binary Splitting.</span></h3>
-<div class="sidebyside">
-<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
-<div class="sbspanel sbspanel--top top" style="">
-<div class="para" id="day-22-lecture-12-2-1-1">One split:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="para logical" id="day-22-lecture-12-2-1-2">
-<ul class="disc" id="day-22-lecture-12-2-1-2-1">
-<li id="day-22-lecture-12-2-1-2-1-1">
-<div class="para" id="day-22-lecture-12-2-1-2-1-1-1">Pick <span class="process-math">\(X_j\)</span> and cutpoint <span class="process-math">\(s\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-12-2-1-2-1-2">
-<div class="para" id="day-22-lecture-12-2-1-2-1-2-1">Choose them so that splitting into <span class="process-math">\(\{X \mid X_j &lt; s\}\)</span> and <span class="process-math">\(\{X \mid X_j \geq s\}\)</span> results in the largest possible reduction in RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-</ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="para logical" id="day-22-lecture-12-2-1-3">
-<ul class="disc" id="day-22-lecture-12-2-1-3-1">
-<li id="day-22-lecture-12-2-1-3-1-1">
-<div class="para" id="day-22-lecture-12-2-1-3-1-1-1">Note here we look at all combinations of <span class="process-math">\(X_j\)</span> and <span class="process-math">\(s\)</span> for each split of the tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-1-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-</ul>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-22-lecture-12-2-1-4">
+<span class="process-math">\(\hat y_{R_j}\)</span> = mean response for training observations in the <span class="process-math">\(j\)</span>th box.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-1-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para logical" id="day-22-lecture-12-2-2-1">
-<div class="displaymath process-math" id="day-22-lecture-12-2-2-1-1">
+<ul class="disc" id="day-22-lecture-12-2-2-1-1">
+<li id="day-22-lecture-12-2-2-1-1-1">
+<div class="para" id="day-22-lecture-12-2-2-1-1-1-1">Cost is just RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-12-2-2-1-1-2">
+<div class="para" id="day-22-lecture-12-2-2-1-1-2-1">Can’t actually check every possible partition.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-12-2-2-1-1-3">
+<div class="para" id="day-22-lecture-12-2-2-1-1-3-1">Instead, use a top-down greedy approach called <span class="process-math">\(\text{Recursive binary splitting}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-12-2-2-1-1-4">
+<div class="para" id="day-22-lecture-12-2-2-1-1-4-1">Begins at the top of the tree with all data points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-12-2-2-1-1-5">
+<div class="para" id="day-22-lecture-12-2-2-1-1-5-1">Uses the best split at every step.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-12-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Step 1: How do we decide on R_js?"><a tabindex="-1" href="#day-22-lecture-12" title="Copy heading and permalink for Paragraphs: Step 1: How do we decide on R_js?" aria-label="Copy heading and permalink for Paragraphs: Step 1: How do we decide on R_js?">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-22-lecture-13"><h3 class="heading"><span class="title">Recursive Binary Splitting.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-22-lecture-13-2-1-1">One split:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-22-lecture-13-2-1-2">
+<ul class="disc" id="day-22-lecture-13-2-1-2-1">
+<li id="day-22-lecture-13-2-1-2-1-1">
+<div class="para" id="day-22-lecture-13-2-1-2-1-1-1">Pick <span class="process-math">\(X_j\)</span> and cutpoint <span class="process-math">\(s\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-13-2-1-2-1-2">
+<div class="para" id="day-22-lecture-13-2-1-2-1-2-1">Choose them so that splitting into <span class="process-math">\(\{X \mid X_j &lt; s\}\)</span> and <span class="process-math">\(\{X \mid X_j \geq s\}\)</span> results in the largest possible reduction in RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-22-lecture-13-2-1-3">
+<ul class="disc" id="day-22-lecture-13-2-1-3-1">
+<li id="day-22-lecture-13-2-1-3-1-1">
+<div class="para" id="day-22-lecture-13-2-1-3-1-1-1">Note here we look at all combinations of <span class="process-math">\(X_j\)</span> and <span class="process-math">\(s\)</span> for each split of the tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-2-1-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-22-lecture-13-2-2-1">
+<div class="displaymath process-math" id="day-22-lecture-13-2-2-1-1">
 \begin{equation*}
 \begin{aligned}
 R_1(j,s) &amp;= \{X \mid X_j &lt; s\}\\
@@ -2975,10 +3011,10 @@ R_2(j,s) &amp;= \{X \mid X_j \geq s\}
 \end{aligned}
 \end{equation*}
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para logical" id="day-22-lecture-12-2-2-2">
-<div class="displaymath process-math" id="day-22-lecture-12-2-2-2-1">
+<div class="para logical" id="day-22-lecture-13-2-2-2">
+<div class="displaymath process-math" id="day-22-lecture-13-2-2-2-1">
 \begin{equation*}
 \begin{aligned}
 &amp;\sum_{i \mid x_i \in R_1(j,s)}(y_i - \hat y_{R_1})^2\\
@@ -2986,83 +3022,243 @@ R_2(j,s) &amp;= \{X \mid X_j \geq s\}
 \end{aligned}
 \end{equation*}
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-12-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Recursive Binary Splitting"><a tabindex="-1" href="#day-22-lecture-12" title="Copy heading and permalink for Paragraphs: Recursive Binary Splitting" aria-label="Copy heading and permalink for Paragraphs: Recursive Binary Splitting">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Recursive Binary Splitting"><a tabindex="-1" href="#day-22-lecture-13" title="Copy heading and permalink for Paragraphs: Recursive Binary Splitting" aria-label="Copy heading and permalink for Paragraphs: Recursive Binary Splitting">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-13"><h3 class="heading"><span class="title">Rinse and repeat.</span></h3>
+<section class="paragraphs" id="day-22-lecture-14"><h3 class="heading"><span class="title">Rinse and repeat.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-3c.png" class="contained" alt="Decision tree diagram illustrating the sequence of binary splits on X1 and X2 resulting in regions R1 through R5."></div></div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-3b.png" class="contained" alt="A two-dimensional feature space partitioned into five rectangular regions R1 through R5 by vertical and horizontal splits."></div></div>
 </div>
 </div>
-<div class="para logical" id="day-22-lecture-13-3">
-<ul class="disc" id="day-22-lecture-13-3-1">
-<li id="day-22-lecture-13-3-1-1">
-<div class="para" id="day-22-lecture-13-3-1-1-1">Do this repeatedly.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-14-3">
+<ul class="disc" id="day-22-lecture-14-3-1">
+<li id="day-22-lecture-14-3-1-1">
+<div class="para" id="day-22-lecture-14-3-1-1-1">Do this repeatedly.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-13-3-1-2">
-<div class="para" id="day-22-lecture-13-3-1-2-1">Each time, we can split one of the previously identified regions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-14-3-1-2">
+<div class="para" id="day-22-lecture-14-3-1-2-1">Each time, we can split one of the previously identified regions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-13-3-1-3">
-<div class="para" id="day-22-lecture-13-3-1-3-1">Keep going until some stopping criterion is reached. For example, continue until each region has at most 5 observations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-14-3-1-3">
+<div class="para" id="day-22-lecture-14-3-1-3-1">Keep going until some stopping criterion is reached. For example, continue until each region has at most 5 observations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-13-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-13-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Rinse and repeat"><a tabindex="-1" href="#day-22-lecture-13" title="Copy heading and permalink for Paragraphs: Rinse and repeat" aria-label="Copy heading and permalink for Paragraphs: Rinse and repeat">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Rinse and repeat"><a tabindex="-1" href="#day-22-lecture-14" title="Copy heading and permalink for Paragraphs: Rinse and repeat" aria-label="Copy heading and permalink for Paragraphs: Rinse and repeat">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-14"><h3 class="heading"><span class="title">Pruning.</span></h3>
+<details id="day-22-lecture-15" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">119</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Recursive binary splitting with one predictor..</span>
+</h3></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-22-lecture-15-2">
+<div class="para" id="day-22-lecture-15-2-1">Consider the following data set with one predictor <span class="process-math">\(X\)</span> and a response <span class="process-math">\(Y\text{.}\)</span> We will use recursive binary splitting to find the best first split for the data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 90%; margin-left: 5%; margin-right: 5%;"><img src="external/figures/recursive_splitting_ex1.png" class="contained" alt="A scatter plot of Y versus X."></div>
+</div>
+<article class="task exercise-like" id="day-22-lecture-15-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-22-lecture-15-3-1-1">Sketch all the possible splits for the first split and number them from left to right.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-15-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="image-box" style="width: 90%; margin-left: 5%; margin-right: 5%;"><img src="external/figures/recursive_splitting_ex1_splits.png" class="contained" alt="A scatter plot of Y versus X with vertical lines indicating possible splits numbered from left to right."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 119.a.1"><a tabindex="-1" href="#day-22-lecture-15-3-2" title="Copy heading and permalink for Answer 119.a.1" aria-label="Copy heading and permalink for Answer 119.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 119.a"><a tabindex="-1" href="#day-22-lecture-15-3" title="Copy heading and permalink for Task 119.a" aria-label="Copy heading and permalink for Task 119.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-22-lecture-15-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-22-lecture-15-4-1-1">For each region, calculate the RSS and the mean response that correspond to that split. Use the following table. Which split is best?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<figure class="table table-like" id="day-22-lecture-15-4-1-2"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">120<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>RSS Breakdown by Split<div class="autopermalink" aria-hidden="true" data-description="Table 120: RSS Breakdown by Split"><a tabindex="-1" href="#day-22-lecture-15-4-1-2" title="Copy heading and permalink for Table 120: RSS Breakdown by Split" aria-label="Copy heading and permalink for Table 120: RSS Breakdown by Split">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="c m b1 r0 l0 t0 lines">Split</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Mean response for <span class="process-math">\(X \lt s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Mean response for <span class="process-math">\(X \ge s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">RSS for <span class="process-math">\(X \lt s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">RSS for <span class="process-math">\(X \ge s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Total RSS</th>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_1\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_2\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_3\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_4\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_5\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+</tr>
+</table></div>
+</figure><div class="solutions">
+<details id="day-22-lecture-15-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<figure class="table table-like" id="day-22-lecture-15-4-2-1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">121<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>RSS Breakdown by Split<div class="autopermalink" aria-hidden="true" data-description="Table 121: RSS Breakdown by Split"><a tabindex="-1" href="#day-22-lecture-15-4-2-1" title="Copy heading and permalink for Table 121: RSS Breakdown by Split" aria-label="Copy heading and permalink for Table 121: RSS Breakdown by Split">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="c m b1 r0 l0 t0 lines">Split</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Mean response for <span class="process-math">\(X \lt s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Mean response for <span class="process-math">\(X \ge s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">RSS for <span class="process-math">\(X \lt s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">RSS for <span class="process-math">\(X \ge s_i\)</span>
+</th>
+<th scope="col" class="c m b1 r0 l0 t0 lines">Total RSS</th>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_1=1.80\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">2.100</td>
+<td class="c m b0 r0 l0 t0 lines">6.620</td>
+<td class="c m b0 r0 l0 t0 lines">0.000</td>
+<td class="c m b0 r0 l0 t0 lines">27.688</td>
+<td class="c m b0 r0 l0 t0 lines">27.688</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_2=2.75\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">2.750</td>
+<td class="c m b0 r0 l0 t0 lines">7.425</td>
+<td class="c m b0 r0 l0 t0 lines">0.845</td>
+<td class="c m b0 r0 l0 t0 lines">14.728</td>
+<td class="c m b0 r0 l0 t0 lines">15.573</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_3=3.90\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">3.233</td>
+<td class="c m b0 r0 l0 t0 lines">8.500</td>
+<td class="c m b0 r0 l0 t0 lines">2.247</td>
+<td class="c m b0 r0 l0 t0 lines">0.860</td>
+<td class="c m b0 r0 l0 t0 lines">3.107</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_4=5.00\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">4.375</td>
+<td class="c m b0 r0 l0 t0 lines">8.850</td>
+<td class="c m b0 r0 l0 t0 lines">17.888</td>
+<td class="c m b0 r0 l0 t0 lines">0.125</td>
+<td class="c m b0 r0 l0 t0 lines">18.013</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_5=6.05\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">5.220</td>
+<td class="c m b0 r0 l0 t0 lines">9.100</td>
+<td class="c m b0 r0 l0 t0 lines">32.168</td>
+<td class="c m b0 r0 l0 t0 lines">0.000</td>
+<td class="c m b0 r0 l0 t0 lines">32.168</td>
+</tr>
+</table></div>
+</figure>
+<div class="para" id="day-22-lecture-15-4-2-2">The best split is at <span class="process-math">\(s = 3.90\)</span> since it results in the lowest total RSS of 3.107.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-4-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-22-lecture-15-4-2-3">
+<em class="alert">This table was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.</em><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-4-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 119.b.1"><a tabindex="-1" href="#day-22-lecture-15-4-2" title="Copy heading and permalink for Answer 119.b.1" aria-label="Copy heading and permalink for Answer 119.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 119.b"><a tabindex="-1" href="#day-22-lecture-15-4" title="Copy heading and permalink for Task 119.b" aria-label="Copy heading and permalink for Task 119.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-22-lecture-15-5"><h4 class="heading"><span class="codenumber">(c)</span></h4>
+<div class="para" id="day-22-lecture-15-5-1-1">Assume we impose a minimum leaf size of 2 observations. The optimal split in this case is at <span class="process-math">\(X=3.9\text{.}\)</span> What is the predicted response <span class="process-math">\(\hat{Y}\)</span> for a new observation with <span class="process-math">\(X=3.5\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-15-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-22-lecture-15-5-2-1">Since <span class="process-math">\(X=3.5\)</span> is less than the split point of <span class="process-math">\(3.9\text{,}\)</span> it falls into the left region <span class="process-math">\(R_1\text{.}\)</span> The predicted response <span class="process-math">\(\hat{Y}\)</span> for this new observation is the mean response of the training observations in <span class="process-math">\(R_1\text{,}\)</span> which is <span class="process-math">\(3.233\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 119.c.1"><a tabindex="-1" href="#day-22-lecture-15-5-2" title="Copy heading and permalink for Answer 119.c.1" aria-label="Copy heading and permalink for Answer 119.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 119.c"><a tabindex="-1" href="#day-22-lecture-15-5" title="Copy heading and permalink for Task 119.c" aria-label="Copy heading and permalink for Task 119.c">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 119: Recursive binary splitting with one predictor."><a tabindex="-1" href="#day-22-lecture-15" title="Copy heading and permalink for Example 119: Recursive binary splitting with one predictor." aria-label="Copy heading and permalink for Example 119: Recursive binary splitting with one predictor.">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-22-lecture-16"><h3 class="heading"><span class="title">Pruning.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-4.png" class="contained" alt="Complex regression tree for baseball player salaries featuring multiple splits on Years, Hits, RBI, Walks, Runs, and Putouts."></div></div>
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-22-lecture-14-2-2-1">
-<ul class="disc" id="day-22-lecture-14-2-2-1-1">
-<li id="day-22-lecture-14-2-2-1-1-1">
-<div class="para" id="day-22-lecture-14-2-2-1-1-1-1">Big trees leave you open to potential overfitting.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-16-2-2-1">
+<ul class="disc" id="day-22-lecture-16-2-2-1-1">
+<li id="day-22-lecture-16-2-2-1-1-1">
+<div class="para" id="day-22-lecture-16-2-2-1-1-1-1">Big trees leave you open to potential overfitting.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-14-2-2-1-1-2">
-<div class="para" id="day-22-lecture-14-2-2-1-1-2-1">Could just stop building earlier, but that’s short-sighted.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-16-2-2-1-1-2">
+<div class="para" id="day-22-lecture-16-2-2-1-1-2-1">Could just stop building earlier, but that’s short-sighted.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-14-2-2-1-1-3">
-<div class="para" id="day-22-lecture-14-2-2-1-1-3-1">Instead, grow a big tree and prune it back.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-16-2-2-1-1-3">
+<div class="para" id="day-22-lecture-16-2-2-1-1-3-1">Instead, grow a big tree and prune it back.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-14-2-2-1-1-4">
-<div class="para" id="day-22-lecture-14-2-2-1-1-4-1">Find the subtree with the best test error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-16-2-2-1-1-4">
+<div class="para" id="day-22-lecture-16-2-2-1-1-4-1">Find the subtree with the best test error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-14-2-2-1-1-5">
-<div class="para" id="day-22-lecture-14-2-2-1-1-5-1">There are too many subtrees to test them all.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-16-2-2-1-1-5">
+<div class="para" id="day-22-lecture-16-2-2-1-1-5-1">There are too many subtrees to test them all.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-14-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-14-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pruning"><a tabindex="-1" href="#day-22-lecture-14" title="Copy heading and permalink for Paragraphs: Pruning" aria-label="Copy heading and permalink for Paragraphs: Pruning">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pruning"><a tabindex="-1" href="#day-22-lecture-16" title="Copy heading and permalink for Paragraphs: Pruning" aria-label="Copy heading and permalink for Paragraphs: Pruning">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-15"><h3 class="heading"><span class="title">Result of pruning.</span></h3>
+<section class="paragraphs" id="day-22-lecture-17"><h3 class="heading"><span class="title">Result of pruning.</span></h3>
 <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/figures/Fig8-5.png" class="contained" alt="Plot of Mean Squared Error versus tree size for Training, Cross-Validation, and Test sets, including error bars for each."></div>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:0.5%;margin-right:0.5%;grid-template-columns:49.4949494949495% 49.4949494949495%;column-gap:1%;">
@@ -3070,220 +3266,478 @@ R_2(j,s) &amp;= \{X \mid X_j \geq s\}
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-1.png" class="contained" alt="Pruned regression tree with three terminal nodes."></div></div>
 </div>
 </div>
-<div class="para logical" id="day-22-lecture-15-4">
-<ul class="disc" id="day-22-lecture-15-4-1">
-<li id="day-22-lecture-15-4-1-1">
-<div class="para" id="day-22-lecture-15-4-1-1-1">Result of pruning is the three-leaf tree on the right. This example technically uses a more complex pruning method than the one described.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-4-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-17-4">
+<ul class="disc" id="day-22-lecture-17-4-1">
+<li id="day-22-lecture-17-4-1-1">
+<div class="para" id="day-22-lecture-17-4-1-1-1">Result of pruning is the three-leaf tree on the right. This example technically uses a complex pruning method, but we will not discuss its details in this course.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-17-4-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-15-4-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-17-4-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-15-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-17-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Result of pruning"><a tabindex="-1" href="#day-22-lecture-15" title="Copy heading and permalink for Paragraphs: Result of pruning" aria-label="Copy heading and permalink for Paragraphs: Result of pruning">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Result of pruning"><a tabindex="-1" href="#day-22-lecture-17" title="Copy heading and permalink for Paragraphs: Result of pruning" aria-label="Copy heading and permalink for Paragraphs: Result of pruning">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-16"><h3 class="heading"><span class="title">Decisions trees for classification: Basic idea.</span></h3>
+<section class="paragraphs" id="day-22-lecture-18"><h3 class="heading"><span class="title">Decision trees for classification: Basic idea.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:38.8888888888889% 50%;column-gap:10%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-6c.png" class="contained" alt="Classification tree for heart disease predicting Yes or No based on splits of Thal, Ca, MaxHR, and ChestPain."></div></div>
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para logical" id="day-22-lecture-16-2-2-1">
-<ul class="disc" id="day-22-lecture-16-2-2-1-1">
-<li id="day-22-lecture-16-2-2-1-1-1">
-<div class="para" id="day-22-lecture-16-2-2-1-1-1-1">
-<span class="process-math">\(\hat p_{mk}\)</span> = proportion of training observations in <span class="process-math">\(R_m\)</span> from the <span class="process-math">\(k\)</span>th class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-18-2-2-1">
+<ul class="disc" id="day-22-lecture-18-2-2-1-1">
+<li id="day-22-lecture-18-2-2-1-1-1">
+<div class="para" id="day-22-lecture-18-2-2-1-1-1-1">
+<span class="process-math">\(\hat p_{mk}\)</span> = proportion of training observations in <span class="process-math">\(R_m\)</span> from the <span class="process-math">\(k\)</span>th class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-16-2-2-1-1-2">
-<div class="para" id="day-22-lecture-16-2-2-1-1-2-1">
-<span class="process-math">\(E = 1-\max_k(\hat p_{mk})\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-18-2-2-1-1-2">
+<div class="para logical" id="day-22-lecture-18-2-2-1-1-2-1">
+<div class="displaymath process-math" id="day-22-lecture-18-2-2-1-1-2-1-1">
+\begin{align*}
+E \amp= 1-\max_k(\hat p_{mk})\\
+\amp= \frac{\text{no.~of minority class observations in } R_m}{\text{total observations in } R_m}
+\end{align*}
 </div>
-<div class="para logical" id="day-22-lecture-16-2-2-1-1-2-2">
-<ul class="circle" id="day-22-lecture-16-2-2-1-1-2-2-1">
-<li id="day-22-lecture-16-2-2-1-1-2-2-1-1">
-<div class="para" id="day-22-lecture-16-2-2-1-1-2-2-1-1-1">Fraction of training observations not in the most common class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-</ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-18-2-2-1-1-2-2">
+<ul class="circle" id="day-22-lecture-18-2-2-1-1-2-2-1">
+<li id="day-22-lecture-18-2-2-1-1-2-2-1-1">
+<div class="para" id="day-22-lecture-18-2-2-1-1-2-2-1-1-1">Fraction of training observations not in the most common class for that region.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-</ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="para logical" id="day-22-lecture-16-2-2-2">
-<ul class="disc" id="day-22-lecture-16-2-2-2-1">
-<li id="day-22-lecture-16-2-2-2-1-1">
-<div class="para" id="day-22-lecture-16-2-2-2-1-1-1">Example from heart data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-16-2-2-2-1-2">
-<div class="para" id="day-22-lecture-16-2-2-2-1-2-1">Can’t use RSS; need an error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-16-2-2-2-1-3">
-<div class="para" id="day-22-lecture-16-2-2-2-1-3-1">Could decide splits by classification error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
-</li>
-<li id="day-22-lecture-16-2-2-2-1-4">
-<div class="para" id="day-22-lecture-16-2-2-2-1-4-1">Not necessarily the best approach. There are other options, but we will not discuss those in our class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-16-2-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-16-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-22-lecture-18-2-2-2">
+<ul class="disc" id="day-22-lecture-18-2-2-2-1">
+<li id="day-22-lecture-18-2-2-2-1-1">
+<div class="para" id="day-22-lecture-18-2-2-2-1-1-1">Example from heart data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-18-2-2-2-1-2">
+<div class="para" id="day-22-lecture-18-2-2-2-1-2-1">Can’t use RSS; need an error rate.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-18-2-2-2-1-3">
+<div class="para logical" id="day-22-lecture-18-2-2-2-1-3-1">
+<div class="para">In practice, the splits are decided based on <dfn class="terminology">Gini index</dfn> or <dfn class="terminology">cross-entropy</dfn>, but we will not discuss those in our class.</div>
+<ul class="circle" id="day-22-lecture-18-2-2-2-1-3-1-3">
+<li id="day-22-lecture-18-2-2-2-1-3-1-3-1">
+<div class="para" id="day-22-lecture-18-2-2-2-1-3-1-3-1-1">We will use the misclassification error rate for by-hand computation of the splits in our class, which is easier to understand and compute.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-3-1-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-3-1-3-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-18-2-2-2-1-4">
+<div class="para" id="day-22-lecture-18-2-2-2-1-4-1">Gini index, cross-entropy, or misclassification error rate can be used for pruning; however, the prediction accuracy is the goal, then classification error rate is preferable for pruning.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-18-2-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-18-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Decisions trees for classification: Basic idea"><a tabindex="-1" href="#day-22-lecture-16" title="Copy heading and permalink for Paragraphs: Decisions trees for classification: Basic idea" aria-label="Copy heading and permalink for Paragraphs: Decisions trees for classification: Basic idea">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Decision trees for classification: Basic idea"><a tabindex="-1" href="#day-22-lecture-18" title="Copy heading and permalink for Paragraphs: Decision trees for classification: Basic idea" aria-label="Copy heading and permalink for Paragraphs: Decision trees for classification: Basic idea">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-17"><h3 class="heading"><span class="title">Example.</span></h3>
+<section class="paragraphs" id="day-22-lecture-19"><h3 class="heading"><span class="title">Example.</span></h3>
 <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/Fig8-6a.png" class="contained" alt="Large, complex classification tree for heart disease predicting Yes or No based on numerous clinical features and splits."></div>
-<div class="para logical" id="day-22-lecture-17-3">
-<ul class="disc" id="day-22-lecture-17-3-1">
-<li id="day-22-lecture-17-3-1-1">
-<div class="para" id="day-22-lecture-17-3-1-1-1">The terminal nodes here: Yes = person has heart disease; No = no heart disease.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-17-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-19-3">
+<ul class="disc" id="day-22-lecture-19-3-1">
+<li id="day-22-lecture-19-3-1-1">
+<div class="para" id="day-22-lecture-19-3-1-1-1">The terminal nodes here: Yes = person has heart disease; No = no heart disease.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-17-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-19-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-17-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Example"><a tabindex="-1" href="#day-22-lecture-17" title="Copy heading and permalink for Paragraphs: Example" aria-label="Copy heading and permalink for Paragraphs: Example">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Example"><a tabindex="-1" href="#day-22-lecture-19" title="Copy heading and permalink for Paragraphs: Example" aria-label="Copy heading and permalink for Paragraphs: Example">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-18"><h3 class="heading"><span class="title">Pruning the example.</span></h3>
+<section class="paragraphs" id="day-22-lecture-20"><h3 class="heading"><span class="title">Pruning the example.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:50% 38.8888888888889%;column-gap:10%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-6b.png" class="contained" alt="Plot of classification error versus tree size for Training, Cross-Validation, and Test sets, with error bars for each."></div></div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-6c.png" class="contained" alt="Classification tree for heart disease predicting Yes or No based on splits of Thal, Ca, MaxHR, and ChestPain."></div></div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pruning the example"><a tabindex="-1" href="#day-22-lecture-18" title="Copy heading and permalink for Paragraphs: Pruning the example" aria-label="Copy heading and permalink for Paragraphs: Pruning the example">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pruning the example"><a tabindex="-1" href="#day-22-lecture-20" title="Copy heading and permalink for Paragraphs: Pruning the example" aria-label="Copy heading and permalink for Paragraphs: Pruning the example">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-19"><h3 class="heading"><span class="title">Linear models vs trees.</span></h3>
+<details id="day-22-lecture-21" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">122</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Classification trees..</span>
+</h3></summary>
+<article class="exercise exercise-like knowl__content">
+<div class="introduction" id="day-22-lecture-21-2">
+<div class="para" id="day-22-lecture-21-2-1"><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/decision_trees_classification_prediction_ex1.png" class="contained" alt="TWo figures showing two decision trees with different data, but the same partitions. The one on the right (b) has in addition one test point shown as a square."></div>
+</div>
+<article class="task exercise-like" id="day-22-lecture-21-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-22-lecture-21-3-1-1">For the decision tree shown in Figure (a), what is the classification error rate for <span class="process-math">\(R_1\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-21-3-2" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
+<div class="para" id="day-22-lecture-21-3-2-1">The classification error rate for <span class="process-math">\(R_1\)</span> is <span class="process-math">\(0.4\text{.}\)</span> This is because there are 5 observations in <span class="process-math">\(R_1\)</span> and 2 of them are misclassified. Therefore, the error rate is <span class="process-math">\(\frac{2}{5} = 0.4\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Solution 122.a.1"><a tabindex="-1" href="#day-22-lecture-21-3-2" title="Copy heading and permalink for Solution 122.a.1" aria-label="Copy heading and permalink for Solution 122.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 122.a"><a tabindex="-1" href="#day-22-lecture-21-3" title="Copy heading and permalink for Task 122.a" aria-label="Copy heading and permalink for Task 122.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-22-lecture-21-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-22-lecture-21-4-1-1">For the decision tree shown in Figure (b), determine the predicted class for the shown point.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-21-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-22-lecture-21-4-2-1">The predicted class for the shown point is circle, since that’s the majority class in the partition that the point falls into.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 122.b.1"><a tabindex="-1" href="#day-22-lecture-21-4-2" title="Copy heading and permalink for Answer 122.b.1" aria-label="Copy heading and permalink for Answer 122.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 122.b"><a tabindex="-1" href="#day-22-lecture-21-4" title="Copy heading and permalink for Task 122.b" aria-label="Copy heading and permalink for Task 122.b">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 122: Classification trees."><a tabindex="-1" href="#day-22-lecture-21" title="Copy heading and permalink for Checkpoint 122: Classification trees." aria-label="Copy heading and permalink for Checkpoint 122: Classification trees.">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-22-lecture-22"><h3 class="heading"><span class="title">Linear models vs trees.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="image-box"><img src="external/figures/Fig8-7-top.png" class="contained" alt="Two plots comparing a linear decision boundary with a decision tree approximation using axis-aligned rectangular splits in feature space."></div>
-<div class="para logical" id="day-22-lecture-19-2-1-2">
-<ul class="disc" id="day-22-lecture-19-2-1-2-1">
-<li id="day-22-lecture-19-2-1-2-1-1">
-<div class="para" id="day-22-lecture-19-2-1-2-1-1-1">Obviously, the linear model does better here.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-22-2-1-2">
+<ul class="disc" id="day-22-lecture-22-2-1-2-1">
+<li id="day-22-lecture-22-2-1-2-1-1">
+<div class="para" id="day-22-lecture-22-2-1-2-1-1-1">Obviously, the linear model does better here.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-22-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-19-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-22-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-22-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
 <div class="image-box"><img src="external/figures/Fig8-7-bottom.png" class="contained" alt="Two plots showing a decision tree perfectly capturing a rectangular boundary with axis-aligned splits, compared to a linear boundary."></div>
-<div class="para logical" id="day-22-lecture-19-2-2-2">
-<ul class="disc" id="day-22-lecture-19-2-2-2-1">
-<li id="day-22-lecture-19-2-2-2-1-1">
-<div class="para" id="day-22-lecture-19-2-2-2-1-1-1">Not going to beat this case, though.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-22-2-2-2">
+<ul class="disc" id="day-22-lecture-22-2-2-2-1">
+<li id="day-22-lecture-22-2-2-2-1-1">
+<div class="para" id="day-22-lecture-22-2-2-2-1-1-1">Not going to beat this case, though.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-22-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-19-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-22-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-19-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-22-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Linear models vs trees"><a tabindex="-1" href="#day-22-lecture-19" title="Copy heading and permalink for Paragraphs: Linear models vs trees" aria-label="Copy heading and permalink for Paragraphs: Linear models vs trees">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Linear models vs trees"><a tabindex="-1" href="#day-22-lecture-22" title="Copy heading and permalink for Paragraphs: Linear models vs trees" aria-label="Copy heading and permalink for Paragraphs: Linear models vs trees">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-20"><h3 class="heading"><span class="title">Pros/Cons.</span></h3>
+<section class="paragraphs" id="day-22-lecture-23"><h3 class="heading"><span class="title">Pros/Cons.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para" id="day-22-lecture-20-2-1-1">Pros:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-22-lecture-23-2-1-1">Pros:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para logical" id="day-22-lecture-20-2-1-2">
-<ul class="disc" id="day-22-lecture-20-2-1-2-1">
-<li id="day-22-lecture-20-2-1-2-1-1">
-<div class="para" id="day-22-lecture-20-2-1-2-1-1-1">Trees are very easy to explain to people. Often easier to explain than linear regression!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-23-2-1-2">
+<ul class="disc" id="day-22-lecture-23-2-1-2-1">
+<li id="day-22-lecture-23-2-1-2-1-1">
+<div class="para" id="day-22-lecture-23-2-1-2-1-1-1">Trees are very easy to explain to people. Often easier to explain than linear regression!<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-20-2-1-2-1-2">
-<div class="para" id="day-22-lecture-20-2-1-2-1-2-1">Trees can be displayed graphically and are easily interpreted even by a non-expert, especially if they are small.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-23-2-1-2-1-2">
+<div class="para" id="day-22-lecture-23-2-1-2-1-2-1">Trees can be displayed graphically and are easily interpreted even by a non-expert, especially if they are small.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-20-2-1-2-1-3">
-<div class="para" id="day-22-lecture-20-2-1-2-1-3-1">Trees can easily handle qualitative predictors without the need to create dummy variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-23-2-1-2-1-3">
+<div class="para" id="day-22-lecture-23-2-1-2-1-3-1">Trees can easily handle qualitative predictors without the need to create dummy variables.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-1-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-1-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style="">
-<div class="para" id="day-22-lecture-20-2-2-1">Cons:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-22-lecture-23-2-2-1">Cons:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para logical" id="day-22-lecture-20-2-2-2">
-<ul class="disc" id="day-22-lecture-20-2-2-2-1">
-<li id="day-22-lecture-20-2-2-2-1-1">
-<div class="para" id="day-22-lecture-20-2-2-2-1-1-1">Not as accurate as other methods of classification and regression.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-23-2-2-2">
+<ul class="disc" id="day-22-lecture-23-2-2-2-1">
+<li id="day-22-lecture-23-2-2-2-1-1">
+<div class="para" id="day-22-lecture-23-2-2-2-1-1-1">Not as accurate as other methods of classification and regression.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-20-2-2-2-1-2">
-<div class="para" id="day-22-lecture-20-2-2-2-1-2-1">Not robust: a small change in the data can cause a large change in the estimated tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-23-2-2-2-1-2">
+<div class="para" id="day-22-lecture-23-2-2-2-1-2-1">Not robust: a small change in the data can cause a large change in the estimated tree.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-20-2-2-2-1-3">
-<div class="para" id="day-22-lecture-20-2-2-2-1-3-1">Fix: aggregate many decision trees.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-23-2-2-2-1-3">
+<div class="para" id="day-22-lecture-23-2-2-2-1-3-1">Fix: aggregate many decision trees.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-20-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-23-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-20-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-23-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
 </div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pros/Cons"><a tabindex="-1" href="#day-22-lecture-20" title="Copy heading and permalink for Paragraphs: Pros/Cons" aria-label="Copy heading and permalink for Paragraphs: Pros/Cons">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Pros/Cons"><a tabindex="-1" href="#day-22-lecture-23" title="Copy heading and permalink for Paragraphs: Pros/Cons" aria-label="Copy heading and permalink for Paragraphs: Pros/Cons">🔗</a></div>
 </section>
-<section class="paragraphs" id="day-22-lecture-21"><h3 class="heading"><span class="title">TL;DR.</span></h3>
+<section class="paragraphs" id="day-22-lecture-24"><h3 class="heading"><span class="title">TL;DR.</span></h3>
 <div class="sidebyside">
 <div class="sbsrow" style="margin-left:3.75%;margin-right:3.75%;grid-template-columns:48.6486486486486% 43.2432432432432%;column-gap:7.5%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-1.png" class="contained" alt="Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes."></div></div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig8-2.png" class="contained" alt="Scatter plot of Hits versus Years partitioned into three regions R1, R2, and R3 by a regression tree."></div></div>
 </div>
 </div>
-<div class="para logical" id="day-22-lecture-21-3">
-<ul class="disc" id="day-22-lecture-21-3-1">
-<li id="day-22-lecture-21-3-1-1">
-<div class="para" id="day-22-lecture-21-3-1-1-1">Split into regions by greedily decreasing RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para logical" id="day-22-lecture-24-3">
+<ul class="disc" id="day-22-lecture-24-3-1">
+<li id="day-22-lecture-24-3-1-1">
+<div class="para" id="day-22-lecture-24-3-1-1-1">Split into regions by greedily decreasing RSS.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-24-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-21-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-24-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-21-3-1-2">
-<div class="para" id="day-22-lecture-21-3-1-2-1">Prune the tree using cost complexity.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-24-3-1-2">
+<div class="para" id="day-22-lecture-24-3-1-2-1">Prune the tree using cost complexity.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-24-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-21-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-24-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="day-22-lecture-21-3-1-3">
-<div class="para" id="day-22-lecture-21-3-1-3-1">Not robust: next time, figure out how to aggregate trees.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<li id="day-22-lecture-24-3-1-3">
+<div class="para" id="day-22-lecture-24-3-1-3-1">Not robust: next time, figure out how to aggregate trees.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-24-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-21-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-24-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-21-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-24-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: TL;DR"><a tabindex="-1" href="#day-22-lecture-21" title="Copy heading and permalink for Paragraphs: TL;DR" aria-label="Copy heading and permalink for Paragraphs: TL;DR">🔗</a></div>
-</section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 22"><a tabindex="-1" href="#day-22-lecture" title="Copy heading and permalink for Handout: Day 22" aria-label="Copy heading and permalink for Handout: Day 22">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: TL;DR"><a tabindex="-1" href="#day-22-lecture-24" title="Copy heading and permalink for Paragraphs: TL;DR" aria-label="Copy heading and permalink for Paragraphs: TL;DR">🔗</a></div>
+</section>
+<details id="day-22-lecture-25" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">123</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Classification Trees: Predictions and Splits.</span>
+</h3></summary>
+<article class="exercise exercise-like knowl__content">
+<div class="introduction" id="day-22-lecture-25-2">
+<div class="para logical" id="day-22-lecture-25-2-1">
+<div class="para">A company wants to predict whether a customer will purchase a subscription to its online service based on three predictors:</div>
+<ul class="disc" id="day-22-lecture-25-2-1-1">
+<li id="day-22-lecture-25-2-1-1-1">
+<div class="para" id="day-22-lecture-25-2-1-1-1-1">
+<span class="process-math">\(X_1\text{:}\)</span> Age (years)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-2-1-1-2">
+<div class="para" id="day-22-lecture-25-2-1-1-2-1">
+<span class="process-math">\(X_2\text{:}\)</span> Annual income (in thousands of dollars)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-2-1-1-3">
+<div class="para" id="day-22-lecture-25-2-1-1-3-1">
+<span class="process-math">\(X_3\text{:}\)</span> Student status (Yes or No)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-22-lecture-25-2-2">The response variable <span class="process-math">\(Y\)</span> indicates whether the customer purchases a subscription (Yes or No). The company collects the following data:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<figure class="table table-like" id="day-22-lecture-25-2-3"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">124<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Customer Subscription Data<div class="autopermalink" aria-hidden="true" data-description="Table 124: Customer Subscription Data"><a tabindex="-1" href="#day-22-lecture-25-2-3" title="Copy heading and permalink for Table 124: Customer Subscription Data" aria-label="Copy heading and permalink for Table 124: Customer Subscription Data">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="c m b0 r0 l0 t0 lines">Customer</th>
+<th scope="col" class="c m b0 r0 l0 t0 lines"><span class="process-math">\(X_1\)</span></th>
+<th scope="col" class="c m b0 r0 l0 t0 lines"><span class="process-math">\(X_2\)</span></th>
+<th scope="col" class="c m b0 r0 l0 t0 lines"><span class="process-math">\(X_3\)</span></th>
+<th scope="col" class="c m b0 r0 l0 t0 lines"><span class="process-math">\(Y\)</span></th>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="c m b0 r0 l0 t0 lines">21</td>
+<td class="c m b0 r0 l0 t0 lines">28</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="c m b0 r0 l0 t0 lines">24</td>
+<td class="c m b0 r0 l0 t0 lines">35</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">3</td>
+<td class="c m b0 r0 l0 t0 lines">26</td>
+<td class="c m b0 r0 l0 t0 lines">42</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">4</td>
+<td class="c m b0 r0 l0 t0 lines">29</td>
+<td class="c m b0 r0 l0 t0 lines">55</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">5</td>
+<td class="c m b0 r0 l0 t0 lines">31</td>
+<td class="c m b0 r0 l0 t0 lines">48</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">6</td>
+<td class="c m b0 r0 l0 t0 lines">33</td>
+<td class="c m b0 r0 l0 t0 lines">62</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">7</td>
+<td class="c m b0 r0 l0 t0 lines">35</td>
+<td class="c m b0 r0 l0 t0 lines">45</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">8</td>
+<td class="c m b0 r0 l0 t0 lines">38</td>
+<td class="c m b0 r0 l0 t0 lines">58</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">9</td>
+<td class="c m b0 r0 l0 t0 lines">41</td>
+<td class="c m b0 r0 l0 t0 lines">72</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">10</td>
+<td class="c m b0 r0 l0 t0 lines">44</td>
+<td class="c m b0 r0 l0 t0 lines">85</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">11</td>
+<td class="c m b0 r0 l0 t0 lines">47</td>
+<td class="c m b0 r0 l0 t0 lines">68</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">12</td>
+<td class="c m b0 r0 l0 t0 lines">52</td>
+<td class="c m b0 r0 l0 t0 lines">95</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">13</td>
+<td class="c m b0 r0 l0 t0 lines">56</td>
+<td class="c m b0 r0 l0 t0 lines">78</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+<td class="c m b0 r0 l0 t0 lines">No</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">14</td>
+<td class="c m b0 r0 l0 t0 lines">61</td>
+<td class="c m b0 r0 l0 t0 lines">105</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+<td class="c m b0 r0 l0 t0 lines">Yes</td>
+</tr>
+</table></div>
+</figure>
+<div class="para" id="day-22-lecture-25-2-4">
+<em class="alert">This exercise was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.</em><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-2-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="day-22-lecture-25-3"><h4 class="heading">
+<span class="codenumber">(a)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Making Predictions.</span>
+</h4>
+<div class="para" id="day-22-lecture-25-3-2-1">Suppose we fit the following classification tree to the data:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/classification_tree_ex1.png" class="contained" alt="Classification tree with a root split at Age less than or equal to 36. The left branch splits on Student status, predicting Yes for students and No for nonstudents. The right branch splits on Income less than or equal to 75, predicting No for income at most 75 and Yes otherwise."></div> 
+<div class="para logical" id="day-22-lecture-25-3-2-3">
+<div class="para">Use the classification tree to predict whether each of the following new customers will purchase a subscription:</div>
+<ol class="decimal" id="day-22-lecture-25-3-2-3-1">
+<li id="day-22-lecture-25-3-2-3-1-1">
+<div class="para" id="day-22-lecture-25-3-2-3-1-1-1">Age = 27, income = $40,000, student = Yes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 1"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-1" title="Copy heading and permalink for Item 1" aria-label="Copy heading and permalink for Item 1">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-2-3-1-2">
+<div class="para" id="day-22-lecture-25-3-2-3-1-2-1">Age = 27, income = $40,000, student = No.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 2"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-2" title="Copy heading and permalink for Item 2" aria-label="Copy heading and permalink for Item 2">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-2-3-1-3">
+<div class="para" id="day-22-lecture-25-3-2-3-1-3-1">Age = 42, income = $65,000, student = Yes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 3"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-3" title="Copy heading and permalink for Item 3" aria-label="Copy heading and permalink for Item 3">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-2-3-1-4">
+<div class="para" id="day-22-lecture-25-3-2-3-1-4-1">Age = 50, income = $90,000, student = No.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item 4"><a tabindex="-1" href="#day-22-lecture-25-3-2-3-1-4" title="Copy heading and permalink for Item 4" aria-label="Copy heading and permalink for Item 4">🔗</a></div>
+</li>
+</ol>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-22-lecture-25-3-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para logical" id="day-22-lecture-25-3-3-1">
+<ul class="disc" id="day-22-lecture-25-3-3-1-1">
+<li id="day-22-lecture-25-3-3-1-1-1">
+<div class="para" id="day-22-lecture-25-3-3-1-1-1-1">Yes<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-3-1-1-2">
+<div class="para" id="day-22-lecture-25-3-3-1-1-2-1">No<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-3-1-1-3">
+<div class="para" id="day-22-lecture-25-3-3-1-1-3-1">No<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-22-lecture-25-3-3-1-1-4">
+<div class="para" id="day-22-lecture-25-3-3-1-1-4-1">Yes<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-22-lecture-25-3-3-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-22-lecture-25-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 123.a.1"><a tabindex="-1" href="#day-22-lecture-25-3-3" title="Copy heading and permalink for Answer 123.a.1" aria-label="Copy heading and permalink for Answer 123.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 123.a: Making Predictions"><a tabindex="-1" href="#day-22-lecture-25-3" title="Copy heading and permalink for Task 123.a: Making Predictions" aria-label="Copy heading and permalink for Task 123.a: Making Predictions">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 123: Classification Trees: Predictions and Splits"><a tabindex="-1" href="#day-22-lecture-25" title="Copy heading and permalink for Checkpoint 123: Classification Trees: Predictions and Splits" aria-label="Copy heading and permalink for Checkpoint 123: Classification Trees: Predictions and Splits">🔗</a></div>
+</article></details><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 22"><a tabindex="-1" href="#day-22-lecture" title="Copy heading and permalink for Handout: Day 22" aria-label="Copy heading and permalink for Handout: Day 22">🔗</a></div>
 </section>
 <section class="handout" id="day-23-lecture" data-margins="0.75in 0.75in 0.75in 0.75in">
 <h2 class="heading hide-type">

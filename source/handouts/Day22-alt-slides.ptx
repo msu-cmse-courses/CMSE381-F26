@@ -238,6 +238,42 @@
     </image>
   </sidebyside>
 </paragraphs>
+<example>
+  <title>Expressing the regions of a regression tree</title>
+  <introduction>
+    <p>
+      Given the following two splits, answer the following questions. express the shaded region <m>R</m> using set notation <m>R=\{X|...\}</m> and sketch the corresponding tree.            
+    </p>
+    <image source="figures/decision_tree_notation_ex1.png" width="70%">
+    <shortdescription>Two squares, a and b, showing a square grid from zero to 1 with X1 on the x-axis and X2 on the Yaxis. The grid splits the square into four equi-spaces regions. One square is shaded in each figure at the following location. </shortdescription>
+    </image>
+  </introduction>
+  <task>
+<statement>
+      <p>
+        Sketch the corresponding tree.
+      </p>
+    </statement>
+    <answer>
+      <image source="figures/decision_tree_notation_ex1a_answer.png" width="70%">
+        <shortdescription>The decision tree for the shaded region R.</shortdescription>        
+      </image>
+    </answer>
+  </task>
+  <task> 
+  <statement>
+    <p>
+    Express the shaded region <m>R</m> using set notation <m>R=\{X|...\}</m>.      
+    </p>
+  </statement>  
+  <answer>
+    <p>      
+      <m>R=\{X\mid X_1 \geq 0.5, X_2&lt;0.5, X_1&lt;0.75, X_2\geq 0.25\}</m>
+    </p>
+  </answer>
+  </task>
+
+</example>
 
 <paragraphs>
   <title>How do we actually get the tree? Two steps</title>
@@ -347,6 +383,167 @@
       </p>
     
 </paragraphs>
+<example>
+  <title>Recursive binary splitting with one predictor.</title>
+  <introduction>
+    <p>
+      Consider the following data set with one predictor <m>X</m> and a response <m>Y</m>. We will use recursive binary splitting to find the best first split for the data.
+    </p>
+    <image source="figures/recursive_splitting_ex1.png" width="90%">
+      <shortdescription>A scatter plot of Y versus X.</shortdescription>
+    </image>
+    </introduction>
+    <task>
+      <statement>
+        <p>
+          Sketch all the possible splits for the first split and number them from left to right. 
+        </p>
+      </statement>
+      <answer>
+        <image source="figures/recursive_splitting_ex1_splits.png" width="90%">
+          <shortdescription>A scatter plot of Y versus X with vertical lines indicating possible splits numbered from left to right.</shortdescription>
+        </image>
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          For each region, calculate the RSS and the mean response that correspond to that split. Use the following table. Which split is best?
+        </p>
+        <table>
+    <title>RSS Breakdown by Split</title>
+    <tabular halign="center">
+        <row header="yes" bottom="minor">
+            <cell>Split</cell>
+            <cell>Mean response for <m>X \lt s_i</m></cell>
+            <cell>Mean response for <m>X \ge s_i</m></cell>
+            <cell>RSS for <m>X \lt s_i</m></cell>
+            <cell>RSS for <m>X \ge s_i</m></cell>
+            <cell>Total RSS</cell>
+        </row>
+        <row>
+            <cell><m> s_1</m></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell><m> s_2</m></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell><m> s_3</m></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell><m> s_4</m></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell><m> s_5</m></cell>            
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>        
+    </tabular>
+</table>
+
+      </statement>
+      <answer>
+<table>
+    <title>RSS Breakdown by Split</title>
+    <tabular halign="center">
+        <row header="yes" bottom="minor">
+            <cell>Split</cell>
+            <cell>Mean response for <m>X \lt s_i</m></cell>
+            <cell>Mean response for <m>X \ge s_i</m></cell>
+            <cell>RSS for <m>X \lt s_i</m></cell>
+            <cell>RSS for <m>X \ge s_i</m></cell>
+            <cell>Total RSS</cell>
+        </row>
+        <row>
+            <cell><m> s_1=1.80</m></cell>
+            <cell>2.100</cell>
+            <cell>6.620</cell>
+            <cell>0.000</cell>
+            <cell>27.688</cell>
+            <cell>27.688</cell>
+        </row>
+        <row>
+            <cell><m> s_2=2.75</m></cell>
+            <cell>2.750</cell>
+            <cell>7.425</cell>
+            <cell>0.845</cell>
+            <cell>14.728</cell>
+            <cell>15.573</cell>
+        </row>
+        <row>
+            <cell><m> s_3=3.90</m></cell>
+            <cell>3.233</cell>
+            <cell>8.500</cell>
+            <cell>2.247</cell>
+            <cell>0.860</cell>
+            <cell>3.107</cell>
+        </row>
+        <row>
+            <cell><m> s_4=5.00</m></cell>
+            <cell>4.375</cell>
+            <cell>8.850</cell>
+            <cell>17.888</cell>
+            <cell>0.125</cell>
+            <cell>18.013</cell>
+        </row>
+        <row>
+            <cell><m> s_5=6.05</m></cell>
+            <cell>5.220</cell>
+            <cell>9.100</cell>
+            <cell>32.168</cell>
+            <cell>0.000</cell>
+            <cell>32.168</cell>
+        </row>
+    </tabular>
+</table>
+<p>
+  The best split is at <m>s = 3.90</m> since it results in the lowest total RSS of 3.107.
+</p>
+  <p>
+<alert>
+    This table was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
+    </alert>    
+    </p> 
+      </answer>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Assume we impose a minimum leaf size of 2 observations. The optimal split in this case is at <m>X=3.9</m>. What is the predicted response <m>\hat{Y}</m> for a new observation with <m>X=3.5</m>?
+        </p>
+      </statement>
+      <answer>
+        <p>
+          Since <m>X=3.5</m> is less than the split point of <m>3.9</m>, it falls into the left region <m>R_1</m>. The predicted response <m>\hat{Y}</m> for this new observation is the mean response of the training observations in <m>R_1</m>, which is <m>3.233</m>.
+        </p>
+      </answer>
+    </task>
+  
+  
+</example>
 
 <paragraphs>
   <title>Pruning</title>
@@ -385,13 +582,13 @@
       </sidebyside>
   <p>
     <ul>
-      <li><p>Result of pruning is the three-leaf tree on the right. This example technically uses a more complex pruning method than the one described.</p></li>
+      <li><p>Result of pruning is the three-leaf tree on the right. This example technically uses a complex pruning method, but we will not discuss its details in this course.</p></li>
     </ul>
   </p>
 </paragraphs>
 
 <paragraphs>
-  <title>Decisions trees for classification: Basic idea</title>
+  <title>Decision trees for classification: Basic idea</title>
   <sidebyside widths="35% 45%">
     <image source="figures/Fig8-6c.png">
       <shortdescription>Classification tree for heart disease predicting Yes or No based on splits of Thal, Ca, MaxHR, and ChestPain.</shortdescription>
@@ -401,10 +598,12 @@
         <ul>
           <li><p><m>\hat p_{mk}</m> = proportion of training observations in <m>R_m</m> from the <m>k</m>th class.</p></li>
           <li>
-            <p><m>E = 1-\max_k(\hat p_{mk})</m></p>
+            <p><md><mrow>E \amp= 1-\max_k(\hat p_{mk})</mrow>
+              <mrow>\amp= \frac{\text{no.~of minority class observations in } R_m}{\text{total observations in } R_m}</mrow>
+              </md></p>
             <p>
               <ul>
-                <li><p>Fraction of training observations not in the most common class.</p></li>
+                <li><p>Fraction of training observations not in the most common class for that region.</p></li>
               </ul>
             </p>
           </li>
@@ -414,8 +613,15 @@
         <ul>
           <li><p>Example from heart data.</p></li>
           <li><p>Can't use RSS; need an error rate.</p></li>
-          <li><p>Could decide splits by classification error rate.</p></li>
-          <li><p>Not necessarily the best approach. There are other options, but we will not discuss those in our class.</p></li>
+          <li><p>In practice, the splits are decided based on <term>Gini index</term> or <term>cross-entropy</term>, but we will not discuss those in our class.          
+          <ul>
+            <li>
+              <p>
+                We will use the misclassification error rate for by-hand computation of the splits in our class, which is easier to understand and compute. 
+              </p>
+            </li>              
+          </ul></p></li>
+          <li><p>Gini index, cross-entropy, or misclassification error rate can be used for pruning; however, the prediction accuracy is the goal, then classification error rate is preferable for pruning.</p></li>
         </ul>
       </p>
     </stack>
@@ -445,6 +651,44 @@
     </image>
   </sidebyside>
 </paragraphs>
+
+<exercise>
+<title>Classification trees.</title>
+
+
+<introduction>
+  <p>
+    
+  </p>
+  <image source="figures/decision_trees_classification_prediction_ex1.png">
+  <shortdescription>TWo figures showing two decision trees with different data, but the same partitions. The one on the right (b) has in addition one test point shown as a square. </shortdescription>
+  </image>
+</introduction>
+<task>
+  <statement>
+    <p>
+      For the decision tree shown in Figure (a), what is the classification error rate for <m>R_1</m>?
+    </p>
+  </statement>
+  <solution>
+    <p>
+      The classification error rate for <m>R_1</m> is <m>0.4</m>. This is because there are 5 observations in <m>R_1</m> and 2 of them are misclassified. Therefore, the error rate is <m>\frac{2}{5} = 0.4</m>.
+    </p>
+  </solution>
+</task>
+<task>
+  <statement>
+    <p>
+      For the decision tree shown in Figure (b), determine the predicted class for the shown point.
+    </p>
+  </statement>
+  <answer>
+    <p>
+      The predicted class for the shown point is circle, since that's the majority class in the partition that the point falls into.
+    </p>
+  </answer>
+</task>
+</exercise>
 
 <paragraphs>
   <title>Linear models vs trees</title>
@@ -504,7 +748,7 @@
     <image source="figures/Fig8-1.png">
       <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
     </image>
-    <image source="figures/Fig8-2.png">
+    <image source="figures/Fig8-2.png" width="80%">
       <shortdescription>Scatter plot of Hits versus Years partitioned into three regions R1, R2, and R3 by a regression tree.</shortdescription>
     </image>
   </sidebyside>
@@ -516,5 +760,142 @@
         </ul>
       </p>
 </paragraphs>
+
+<exercise>
+    <title>Classification Trees: Predictions and Splits</title>
+    <introduction>
+        <p>
+            A company wants to predict whether a customer will purchase a subscription to its online service based on three predictors:
+        <ul>
+            <li><p><m>X_1</m>: Age (years)</p></li>
+            <li><p><m>X_2</m>: Annual income (in thousands of dollars)</p></li>
+            <li><p><m>X_3</m>: Student status (Yes or No)</p></li>
+        </ul>
+        </p>
+        <p>
+            The response variable <m>Y</m> indicates whether the customer purchases a subscription (Yes or No). The company collects the following data:
+        </p>
+        <table>
+            <title>Customer Subscription Data</title>
+            <tabular halign="center">
+                <row header="yes">
+                    <cell>Customer</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell><m>X_3</m></cell>
+                    <cell><m>Y</m></cell>
+                </row>
+                <row><cell>1</cell><cell>21</cell><cell>28</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>2</cell><cell>24</cell><cell>35</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>3</cell><cell>26</cell><cell>42</cell><cell>Yes</cell><cell>No</cell></row>
+                <row><cell>4</cell><cell>29</cell><cell>55</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>5</cell><cell>31</cell><cell>48</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>6</cell><cell>33</cell><cell>62</cell><cell>No</cell><cell>Yes</cell></row>
+                <row><cell>7</cell><cell>35</cell><cell>45</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>8</cell><cell>38</cell><cell>58</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>9</cell><cell>41</cell><cell>72</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>10</cell><cell>44</cell><cell>85</cell><cell>No</cell><cell>Yes</cell></row>
+                <row><cell>11</cell><cell>47</cell><cell>68</cell><cell>Yes</cell><cell>No</cell></row>
+                <row><cell>12</cell><cell>52</cell><cell>95</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>13</cell><cell>56</cell><cell>78</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>14</cell><cell>61</cell><cell>105</cell><cell>Yes</cell><cell>Yes</cell></row>
+            </tabular>
+        </table>
+
+          <p>
+<alert>
+    This exercise was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
+    </alert>    
+    </p> 
+    </introduction>
+    <task>
+        <title>Making Predictions</title>
+        <statement>
+        <p>
+            Suppose we fit the following classification tree to the data:
+        </p>
+        <image source="figures/classification_tree_ex1.png">
+            <shortdescription>
+                Classification tree with a root split at Age less than or equal to 36. The left branch splits on Student status, predicting Yes for students and No for nonstudents. The right branch splits on Income less than or equal to 75, predicting No for income at most 75 and Yes otherwise.
+            </shortdescription>
+        </image>
+        <p>
+            Use the classification tree to predict whether each of the following new customers will purchase a subscription:
+        <ol>
+            <li><p>Age = 27, income = $40,000, student = Yes.</p></li>
+            <li><p>Age = 27, income = $40,000, student = No.</p></li>
+            <li><p>Age = 42, income = $65,000, student = Yes.</p></li>
+            <li><p>Age = 50, income = $90,000, student = No.</p></li>
+        </ol>
+        </p>
+        </statement>
+        <answer>
+          <p>
+            <ul>
+              <li>
+                <p>
+                  Yes
+                </p>
+              </li>
+              <li>
+                <p>
+                  No
+                </p>
+              </li>
+              <li>
+                <p>
+                  No
+                </p>
+              </li>
+              <li>
+                <p>
+                  Yes
+                </p>
+              </li>
+            </ul>
+          </p>
+        </answer>
+    </task>
+    <!-- <task>
+        <title>Computing the Classification Error Rate</title>
+        <statement>
+        <p>
+            Suppose a different classification tree produces the following predictions on the training data:
+        </p>
+        <table>
+            <title>Actual and Predicted Classifications</title>
+            <tabular halign="center">
+                <row header="yes">
+                    <cell>Customer</cell>
+                    <cell>Actual</cell>
+                    <cell>Predicted</cell>
+                </row>
+                <row><cell>1</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>2</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>3</cell><cell>No</cell><cell>Yes</cell></row>
+                <row><cell>4</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>5</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>6</cell><cell>Yes</cell><cell>No</cell></row>
+                <row><cell>7</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>8</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>9</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>10</cell><cell>Yes</cell><cell>Yes</cell></row>
+                <row><cell>11</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>12</cell><cell>No</cell><cell>Yes</cell></row>
+                <row><cell>13</cell><cell>No</cell><cell>No</cell></row>
+                <row><cell>14</cell><cell>Yes</cell><cell>No</cell></row>
+            </tabular>
+        </table>
+        <p>
+        <ol>
+            <li><p>Construct a confusion matrix for these predictions.</p></li>            
+            <li><p>Compute the classification error rate.</p></li>
+            <li><p>Compute the classification accuracy.</p></li>
+        </ol>
+        </p>
+        </statement>
+    </task> -->
+    
+</exercise>
 
   </handout>

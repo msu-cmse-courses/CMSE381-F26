@@ -4,857 +4,1531 @@
   <title>Day 22</title>
 
   <introduction>
-
     <p>
-        8.1: Decision Trees
+      8.1: Decision Trees
     </p>
   </introduction>
 
-<objectives>
-  <ul>
-    <li>
-      <p>Understand how a decision tree makes decisions.
-      <ul>
-        <li>
-          <p>Given a tree and a data point with multiple predictors <m>(x_1,x_2,\ldots,x_p)</m>, derive the predicted outcome <m>\hat{y}</m>.</p>
-        </li>
-        <li>
-          <p>Do this for both regression and classification decision trees.</p>
-        </li>
-      </ul>
-      </p>
-    </li>
-    <li>
-      <p>Identify the different parts of a decision tree and explain what they represent.
-      <ul>
-        <li>
-          <p>Identify leaves (terminal nodes), internal nodes, and branches (edges).</p>
-        </li>
-        <li>
-          <p>Given a simple example (e.g., two predictors), identify which regions of the predictor space map to each leaf.</p>
-        </li>
-      </ul>
-      </p>
-    </li>
-    <li>
-      <p>Understand how to fit a decision tree.
-      <ul>
-        <li>
-          <p>Identify the cost function for regression and classification trees.</p>
-        </li>
-        <li>
-          <p>Explain how recursive binary splitting works.</p>
-        </li>
-        <li>
-          <p>Explain when and how the splitting process ends.</p>
-        </li>
-      </ul>
-      </p>
-    </li>
-    <li>
-      <p>Identify the meta-parameters of decision trees that determine their flexibility.</p>
-    </li>
-    <li>
-      <p>Explain why decision trees need to be pruned.</p>
-    </li>
-    <li>
-      <p>Compare the advantages and disadvantages of decision trees and linear regression.</p>
-    </li>
-  </ul>
-</objectives>
-
-<paragraphs>
-  <title>Big idea</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-    <p>
-      <ul>
-        <li>
-          <p>Previously, we've always had some form of function for prediction: <md>f(X_1,\ldots,X_p)=\hat{Y}</md>.</p>
-        </li>
-        <li>
-          <p>Now, we make a sequence of decisions to make a prediction, either for regression or classification.</p>
-        </li>
-        <li>
-          <p>Recall: regression means the outcome is quantitative, while classification means the outcome is qualitative.</p>
-        </li>        
-      </ul>
-      </p>
-    </stack>
-    <stack>
-      <image source="figures/binarytree-faces-w800.png">
-        <shortdescription>A binary decision tree using modal verbs Should, Could, Would, and Did leading to various emotional faces.</shortdescription>
-      </image>
-      <p>
-        Image: <url href="https://marekbennett.com/2014/02/14/decision-tree/">Decision tree illustration</url>.
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Subset of Hitters data</title>
-  <sidebyside widths="35% 45%">
-    <image source="figures/Hitters-TreeSlides.png">
-      <shortdescription>Table displaying baseball hitter data with columns for Hits, Years, Salary, and LogSalary.</shortdescription>
-    </image>
-    <stack>
-      <p>
-        <ul>
-          <li>
-            <p>Remove observations with missing salary values.</p>
-          </li>
-          <li>
-            <p>Log-transform salary to obtain a distribution that is closer to a bell shape.</p>
-          </li>
-          <li>
-            <p>Goal: predict log salary. We can reverse the transformation by returning <m>\exp(x)</m> if the model returns <m>x</m>.</p>
-          </li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>First decision tree example</title>
-  <sidebyside widths="25% 45%">
-    <image source="figures/Hitters-TreeSlides-OnlyLog.png">
-      <shortdescription>Table displaying baseball hitter data with columns for Hits, Years, and LogSalary.</shortdescription>
-    </image>
-    
-    <image source="figures/Fig8-1.png">
-      <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
-    </image>
-  </sidebyside>
-  
-      <p>
-        <ul>
-          <li>
-            <p>Top split assigns observations with <m>Years &lt; 4.5</m> (in major leagues) to the left branch.</p>
-          </li>
-          <li>
-            <p>Return the mean response for players in that group.</p>
-          </li>
-          <li>
-            <p>Predictions:</p>
-            <p>
-              <ul>
-                <li>
-                  <p>Mean log salary is 5.107, so the predicted salary is <m>\exp(5.107)=\$165,174</m> thousand dollars.</p>
-                </li>
-                <li>
-                  <p><m>5.999 \Rightarrow \$402,834</m>.</p>
-                </li>
-                <li>
-                  <p><m>6.740 \Rightarrow \$845,346</m>.</p>
-                </li>
-              </ul>
-            </p>
-          </li>
-        </ul>
-      </p>
-    
-</paragraphs>
-
-<paragraphs>
-  <title>Interpretation of example</title>
-  <sidebyside widths="35% 45%">
-    <image source="figures/Fig8-1.png">
-      <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
-    </image>
-    <stack>
-      <p>
-        <ul>
-          <li>
-            <p>Years is the most important factor for determining salary.</p>
-          </li>
-          <li>
-            <p>Players with less experience earn lower salaries than more experienced players.</p>
-          </li>
-          <li>
-            <p>For less experienced players, the number of hits plays little role in salary.</p>
-          </li>
-          <li>
-            <p>For more experienced players, the number of hits affects salary.</p>
-          </li>
-          <li>
-            <p>This is likely an oversimplification of the real relationship, but it is easier to interpret and has a nice graphical representation.</p>
-          </li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Regions defined by the tree</title>
-  <sidebyside widths="35% 45%">
-    <image source="figures/Fig8-1.png">
-      <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
-    </image>
-    <stack>
-      <p>
-        <ul>
-          <li>
-            <p>Note that the tree is is drawn <q>upside-down</q></p>
-          </li>
-          <li>
-            <p>Leaves (terminal nodes) of the tree:</p>
-            <p>
-              <ul>
-                <li>
-                  <p><m>R_1=\{X\mid Years&lt;4.5\}</m></p>
-                </li>
-                <li>
-                  <p><m>R_2=\{X\mid Years\geq 4.5,\ Hits&lt;117.5\}</m></p>
-                </li>
-                <li>
-                  <p><m>R_3=\{X\mid Years\geq 4.5,\ Hits\geq 117.5\}</m></p>
-                </li>
-              </ul>
-            </p>
-          </li>
-          <li>
-            <p>Other splits are called internal nodes.</p>
-          </li>
-          <li>
-            <p>Segments that connect nodes are called branches or edges.</p>
-          </li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Viewing Regions Defined by Tree</title>
-  <sidebyside widths="35% 45%">
-    <image source="figures/Fig8-1.png">
-      <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
-    </image>
-    <image source="figures/Fig8-2.png">
-      <shortdescription>Scatter plot of Hits versus Years partitioned into three regions R1, R2, and R3 by a regression tree.</shortdescription>
-    </image>
-  </sidebyside>
-</paragraphs>
-<example>
-  <title>Expressing the regions of a regression tree</title>
-  <introduction>
-    <p>
-      Given the following two splits, answer the following questions. express the shaded region <m>R</m> using set notation <m>R=\{X|...\}</m> and sketch the corresponding tree.            
-    </p>
-    <image source="figures/decision_tree_notation_ex1.png" width="70%">
-    <shortdescription>Two squares, a and b, showing a square grid from zero to 1 with X1 on the x-axis and X2 on the Yaxis. The grid splits the square into four equi-spaces regions. One square is shaded in each figure at the following location. </shortdescription>
-    </image>
-  </introduction>
-  <task>
-<statement>
-      <p>
-        Sketch the corresponding tree.
-      </p>
-    </statement>
-    <answer>
-      <image source="figures/decision_tree_notation_ex1a_answer.png" width="70%">
-        <shortdescription>The decision tree for the shaded region R.</shortdescription>        
-      </image>
-    </answer>
-  </task>
-  <task> 
-  <statement>
-    <p>
-    Express the shaded region <m>R</m> using set notation <m>R=\{X|...\}</m>.      
-    </p>
-  </statement>  
-  <answer>
-    <p>      
-      <m>R=\{X\mid X_1 \geq 0.5, X_2&lt;0.5, X_1&lt;0.75, X_2\geq 0.25\}</m>
-    </p>
-  </answer>
-  </task>
-
-</example>
-
-<paragraphs>
-  <title>How do we actually get the tree? Two steps</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-      <p>
-        <ol>
-          <li>
-            <p>We divide the predictor space -- that is, the set of possible values for <m>X_1, X_2, \ldots, X_p</m> -- into <m>J</m> distinct and non-overlapping regions, <m>R_1, R_2, \ldots, R_J</m>.</p>
-          </li>
-          <li>
-            <p>For every observation that falls into the region <m>R_j</m>, we make the same prediction: the mean of the response values for the training observations in <m>R_j</m>.</p>
-          </li>
-        </ol>
-      </p>
-
-    </stack>
-    <image source="figures/Fig8-3b.png">
-      <shortdescription>A two-dimensional feature space partitioned into five rectangular regions R1 through R5 by vertical and horizontal splits.</shortdescription>
-    </image>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Step 1: How do we decide on <m>R_j</m>s?</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-      <p><bold>Goal:</bold></p>
-      <p>Find boxes <m>R_1,\ldots,R_J</m> that minimize</p>
-      <p>
-        <md>
-          \sum_{j=1}^J \sum_{i \in R_j} (y_i-\hat y_{R_j})^2
-        </md>
-      </p>
-      <p><m>\hat y_{R_j}</m> = mean response for training observations in the <m>j</m>th box.</p>
-    </stack>
-    <stack>
-      <p>
-        <ul>
-          <li><p>Cost is just RSS.</p></li>
-          <li><p>Can't actually check every possible partition.</p></li>
-          <li><p>Instead, use a top-down greedy approach called <m>\text{Recursive binary splitting}</m>.</p></li>
-          <li><p>Begins at the top of the tree with all data points.</p></li>
-          <li><p>Uses the best split at every step.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Recursive Binary Splitting</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-      <p>One split:</p>
-      <p>
-        <ul>
-          <li><p>Pick <m>X_j</m> and cutpoint <m>s</m>.</p></li>
-          <li><p>Choose them so that splitting into <m>\{X \mid X_j &lt; s\}</m> and <m>\{X \mid X_j \geq s\}</m> results in the largest possible reduction in RSS.</p></li>
-        </ul>
-      </p>
-      <p>
-        <ul>
-          <li><p>Note here we look at all combinations of <m>X_j</m> and <m>s</m> for each split of the tree.</p></li>
-        </ul>
-      </p>
-    </stack>
-    <stack>
-      <p>
-        <md>
-          \begin{aligned}
-          R_1(j,s) &amp;= \{X \mid X_j &lt; s\}\\
-          R_2(j,s) &amp;= \{X \mid X_j \geq s\}
-          \end{aligned}
-        </md>
-      </p>
-      <p>
-        <md>
-          \begin{aligned}
-          &amp;\sum_{i \mid x_i \in R_1(j,s)}(y_i - \hat y_{R_1})^2\\
-          &amp;+\sum_{i \mid x_i \in R_2(j,s)}(y_i - \hat y_{R_2})^2
-          \end{aligned}
-        </md>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Rinse and repeat</title>
-  <sidebyside widths="45% 45%">
-
-    <image source="figures/Fig8-3c.png">
-      <shortdescription>Decision tree diagram illustrating the sequence of binary splits on X1 and X2 resulting in regions R1 through R5.</shortdescription>
-    </image>
-    <image source="figures/Fig8-3b.png">
-      <shortdescription>A two-dimensional feature space partitioned into five rectangular regions R1 through R5 by vertical and horizontal splits.</shortdescription>
-    </image>
-  </sidebyside>
-      
-      <p>
-        <ul>
-          <li><p>Do this repeatedly.</p></li>
-          <li><p>Each time, we can split one of the previously identified regions.</p></li>
-          <li><p>Keep going until some stopping criterion is reached. For example, continue until each region has at most 5 observations.</p></li>
-        </ul>
-      </p>
-    
-</paragraphs>
-<example>
-  <title>Recursive binary splitting with one predictor.</title>
-  <introduction>
-    <p>
-      Consider the following data set with one predictor <m>X</m> and a response <m>Y</m>. We will use recursive binary splitting to find the best first split for the data.
-    </p>
-    <image source="figures/recursive_splitting_ex1.png" width="90%">
-      <shortdescription>A scatter plot of Y versus X.</shortdescription>
-    </image>
-    </introduction>
-    <task>
-      <statement>
-        <p>
-          Sketch all the possible splits for the first split and number them from left to right. 
-        </p>
-      </statement>
-      <answer>
-        <image source="figures/recursive_splitting_ex1_splits.png" width="90%">
-          <shortdescription>A scatter plot of Y versus X with vertical lines indicating possible splits numbered from left to right.</shortdescription>
-        </image>
-      </answer>
-    </task>
-    <task>
-      <statement>
-        <p>
-          For each region, calculate the RSS and the mean response that correspond to that split. Use the following table. Which split is best?
-        </p>
-        <table>
-    <title>RSS Breakdown by Split</title>
-    <tabular halign="center">
-        <row header="yes" bottom="minor">
-            <cell>Split</cell>
-            <cell>Mean response for <m>X \lt s_i</m></cell>
-            <cell>Mean response for <m>X \ge s_i</m></cell>
-            <cell>RSS for <m>X \lt s_i</m></cell>
-            <cell>RSS for <m>X \ge s_i</m></cell>
-            <cell>Total RSS</cell>
-        </row>
-        <row>
-            <cell><m> s_1</m></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-        </row>
-        <row>
-            <cell><m> s_2</m></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-        </row>
-        <row>
-            <cell><m> s_3</m></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-        </row>
-        <row>
-            <cell><m> s_4</m></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-        </row>
-        <row>
-            <cell><m> s_5</m></cell>            
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-            <cell></cell>
-        </row>        
-    </tabular>
-</table>
-
-      </statement>
-      <answer>
-<table>
-    <title>RSS Breakdown by Split</title>
-    <tabular halign="center">
-        <row header="yes" bottom="minor">
-            <cell>Split</cell>
-            <cell>Mean response for <m>X \lt s_i</m></cell>
-            <cell>Mean response for <m>X \ge s_i</m></cell>
-            <cell>RSS for <m>X \lt s_i</m></cell>
-            <cell>RSS for <m>X \ge s_i</m></cell>
-            <cell>Total RSS</cell>
-        </row>
-        <row>
-            <cell><m> s_1=1.80</m></cell>
-            <cell>2.100</cell>
-            <cell>6.620</cell>
-            <cell>0.000</cell>
-            <cell>27.688</cell>
-            <cell>27.688</cell>
-        </row>
-        <row>
-            <cell><m> s_2=2.75</m></cell>
-            <cell>2.750</cell>
-            <cell>7.425</cell>
-            <cell>0.845</cell>
-            <cell>14.728</cell>
-            <cell>15.573</cell>
-        </row>
-        <row>
-            <cell><m> s_3=3.90</m></cell>
-            <cell>3.233</cell>
-            <cell>8.500</cell>
-            <cell>2.247</cell>
-            <cell>0.860</cell>
-            <cell>3.107</cell>
-        </row>
-        <row>
-            <cell><m> s_4=5.00</m></cell>
-            <cell>4.375</cell>
-            <cell>8.850</cell>
-            <cell>17.888</cell>
-            <cell>0.125</cell>
-            <cell>18.013</cell>
-        </row>
-        <row>
-            <cell><m> s_5=6.05</m></cell>
-            <cell>5.220</cell>
-            <cell>9.100</cell>
-            <cell>32.168</cell>
-            <cell>0.000</cell>
-            <cell>32.168</cell>
-        </row>
-    </tabular>
-</table>
-<p>
-  The best split is at <m>s = 3.90</m> since it results in the lowest total RSS of 3.107.
-</p>
-  <p>
-<alert>
-    This table was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
-    </alert>    
-    </p> 
-      </answer>
-    </task>
-    <task>
-      <statement>
-        <p>
-          Assume we impose a minimum leaf size of 2 observations. The optimal split in this case is at <m>X=3.9</m>. What is the predicted response <m>\hat{Y}</m> for a new observation with <m>X=3.5</m>?
-        </p>
-      </statement>
-      <answer>
-        <p>
-          Since <m>X=3.5</m> is less than the split point of <m>3.9</m>, it falls into the left region <m>R_1</m>. The predicted response <m>\hat{Y}</m> for this new observation is the mean response of the training observations in <m>R_1</m>, which is <m>3.233</m>.
-        </p>
-      </answer>
-    </task>
-  
-  
-</example>
-
-<paragraphs>
-  <title>Pruning</title>
-  <sidebyside widths="45% 45%">
-    <image source="figures/Fig8-4.png">
-      <shortdescription>Complex regression tree for baseball player salaries featuring multiple splits on Years, Hits, RBI, Walks, Runs, and Putouts.</shortdescription>
-    </image>
-    <stack>
-      <p>
-        <ul>
-          <li><p>Big trees leave you open to potential overfitting.</p></li>
-          <li><p>Could just stop building earlier, but that's short-sighted.</p></li>
-          <li><p>Instead, grow a big tree and prune it back.</p></li>
-          <li><p>Find the subtree with the best test error rate.</p></li>
-          <li><p>There are too many subtrees to test them all.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Result of pruning</title>
-
-    <image source="figures/Fig8-5.png" width="75%">
-      <shortdescription>Plot of Mean Squared Error versus tree size for Training, Cross-Validation, and Test sets, including error bars for each.</shortdescription>
-    </image>
-
-      <sidebyside widths="49% 49%">
-        <image source="figures/Fig8-4.png">
-          <shortdescription>Complex regression tree for baseball player salaries featuring multiple splits on Years, Hits, RBI, Walks, Runs, and Putouts.</shortdescription>
-        </image>
-        <image source="figures/Fig8-1.png">
-          <shortdescription>Pruned regression tree with three terminal nodes.</shortdescription>
-        </image>
-      </sidebyside>
-  <p>
+  <objectives>
     <ul>
-      <li><p>Result of pruning is the three-leaf tree on the right. This example technically uses a complex pruning method, but we will not discuss its details in this course.</p></li>
-    </ul>
-  </p>
-</paragraphs>
-
-<paragraphs>
-  <title>Decision trees for classification: Basic idea</title>
-  <sidebyside widths="35% 45%">
-    <image source="figures/Fig8-6c.png">
-      <shortdescription>Classification tree for heart disease predicting Yes or No based on splits of Thal, Ca, MaxHR, and ChestPain.</shortdescription>
-    </image>
-    <stack>
-      <p>
-        <ul>
-          <li><p><m>\hat p_{mk}</m> = proportion of training observations in <m>R_m</m> from the <m>k</m>th class.</p></li>
-          <li>
-            <p><md><mrow>E \amp= 1-\max_k(\hat p_{mk})</mrow>
-              <mrow>\amp= \frac{\text{no.~of minority class observations in } R_m}{\text{total observations in } R_m}</mrow>
-              </md></p>
-            <p>
-              <ul>
-                <li><p>Fraction of training observations not in the most common class for that region.</p></li>
-              </ul>
-            </p>
-          </li>
-        </ul>
-      </p>
-      <p>
-        <ul>
-          <li><p>Example from heart data.</p></li>
-          <li><p>Can't use RSS; need an error rate.</p></li>
-          <li><p>In practice, the splits are decided based on <term>Gini index</term> or <term>cross-entropy</term>, but we will not discuss those in our class.          
+      <li>
+        <p>
+          Understand how a decision tree makes decisions.
           <ul>
             <li>
               <p>
-                We will use the misclassification error rate for by-hand computation of the splits in our class, which is easier to understand and compute. 
+                Given a tree and a data point with multiple predictors
+                <m>(x_1,x_2,\ldots,x_p)</m>, derive the predicted outcome
+                <m>\hat{y}</m>.
               </p>
-            </li>              
-          </ul></p></li>
-          <li><p>Gini index, cross-entropy, or misclassification error rate can be used for pruning; however, the prediction accuracy is the goal, then classification error rate is preferable for pruning.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
+            </li>
 
-<paragraphs>
-  <title>Example</title>
-  <image source="figures/Fig8-6a.png">
-    <shortdescription>Large, complex classification tree for heart disease predicting Yes or No based on numerous clinical features and splits.</shortdescription>
-  </image>
-  <p>
-    <ul>
-      <li><p>The terminal nodes here: Yes = person has heart disease; No = no heart disease.</p></li>
+            <li>
+              <p>
+                Do this for both regression and classification decision trees.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Identify the different parts of a decision tree and explain what they
+          represent.
+          <ul>
+            <li>
+              <p>
+                Identify leaves (terminal nodes), internal nodes, and branches
+                (edges).
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Given a simple example (e.g., two predictors), identify which
+                regions of the predictor space map to each leaf.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Understand how to fit a decision tree.
+          <ul>
+            <li>
+              <p>
+                Identify the cost function for regression and classification
+                trees.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Explain how recursive binary splitting works.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Explain when and how the splitting process ends.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Identify the meta-parameters of decision trees that determine their
+          flexibility.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Explain why decision trees need to be pruned.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Compare the advantages and disadvantages of decision trees and linear
+          regression.
+        </p>
+      </li>
     </ul>
-  </p>
-</paragraphs>
+  </objectives>
 
-<paragraphs>
-  <title>Pruning the example</title>
-  <sidebyside widths="45% 35%">
-    <image source="figures/Fig8-6b.png">
-      <shortdescription>Plot of classification error versus tree size for Training, Cross-Validation, and Test sets, with error bars for each.</shortdescription>
-    </image>
-    <image source="figures/Fig8-6c.png">
-      <shortdescription>Classification tree for heart disease predicting Yes or No based on splits of Thal, Ca, MaxHR, and ChestPain.</shortdescription>
-    </image>
-  </sidebyside>
-</paragraphs>
+  <paragraphs>
+    <title>Big idea</title>
 
-<exercise>
-<title>Classification trees.</title>
-
-
-<introduction>
-  <p>
-    
-  </p>
-  <image source="figures/decision_trees_classification_prediction_ex1.png">
-  <shortdescription>TWo figures showing two decision trees with different data, but the same partitions. The one on the right (b) has in addition one test point shown as a square. </shortdescription>
-  </image>
-</introduction>
-<task>
-  <statement>
-    <p>
-      For the decision tree shown in Figure (a), what is the classification error rate for <m>R_1</m>?
-    </p>
-  </statement>
-  <solution>
-    <p>
-      The classification error rate for <m>R_1</m> is <m>0.4</m>. This is because there are 5 observations in <m>R_1</m> and 2 of them are misclassified. Therefore, the error rate is <m>\frac{2}{5} = 0.4</m>.
-    </p>
-  </solution>
-</task>
-<task>
-  <statement>
-    <p>
-      For the decision tree shown in Figure (b), determine the predicted class for the shown point.
-    </p>
-  </statement>
-  <answer>
-    <p>
-      The predicted class for the shown point is circle, since that's the majority class in the partition that the point falls into.
-    </p>
-  </answer>
-</task>
-</exercise>
-
-<paragraphs>
-  <title>Linear models vs trees</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-      <image source="figures/Fig8-7-top.png">
-        <shortdescription>Two plots comparing a linear decision boundary with a decision tree approximation using axis-aligned rectangular splits in feature space.</shortdescription>
-      </image>
-      <p>
-        <ul>
-          <li><p>Obviously, the linear model does better here.</p></li>
-        </ul>
-      </p>
-    </stack>
-    <stack>
-      <image source="figures/Fig8-7-bottom.png">
-        <shortdescription>Two plots showing a decision tree perfectly capturing a rectangular boundary with axis-aligned splits, compared to a linear boundary.</shortdescription>
-      </image>
-      <p>
-        <ul>
-          <li><p>Not going to beat this case, though.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>Pros/Cons</title>
-  <sidebyside widths="45% 45%">
-    <stack>
-      <p>Pros:</p>
-      <p>
-        <ul>
-          <li><p>Trees are very easy to explain to people. Often easier to explain than linear regression!</p></li>
-          <li><p>Trees can be displayed graphically and are easily interpreted even by a non-expert, especially if they are small.</p></li>
-          <li><p>Trees can easily handle qualitative predictors without the need to create dummy variables.</p></li>
-        </ul>
-      </p>
-    </stack>
-    <stack>
-      <p>Cons:</p>
-      <p>
-        <ul>
-          <li><p>Not as accurate as other methods of classification and regression.</p></li>
-          <li><p>Not robust: a small change in the data can cause a large change in the estimated tree.</p></li>
-          <li><p>Fix: aggregate many decision trees.</p></li>
-        </ul>
-      </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
-
-<paragraphs>
-  <title>TL;DR</title>
-  <sidebyside widths="45% 40%">
-    <image source="figures/Fig8-1.png">
-      <shortdescription>Regression tree for baseball player salaries splitting on Years and Hits to produce three leaf nodes.</shortdescription>
-    </image>
-    <image source="figures/Fig8-2.png" width="80%">
-      <shortdescription>Scatter plot of Hits versus Years partitioned into three regions R1, R2, and R3 by a regression tree.</shortdescription>
-    </image>
-  </sidebyside>
-      <p>
-        <ul>
-          <li><p>Split into regions by greedily decreasing RSS.</p></li>
-          <li><p>Prune the tree using cost complexity.</p></li>
-          <li><p>Not robust: next time, figure out how to aggregate trees.</p></li>
-        </ul>
-      </p>
-</paragraphs>
-
-<exercise>
-    <title>Classification Trees: Predictions and Splits</title>
-    <introduction>
+    <sidebyside widths="45% 45%">
+      <stack>
         <p>
-            A company wants to predict whether a customer will purchase a subscription to its online service based on three predictors:
-        <ul>
-            <li><p><m>X_1</m>: Age (years)</p></li>
-            <li><p><m>X_2</m>: Annual income (in thousands of dollars)</p></li>
-            <li><p><m>X_3</m>: Student status (Yes or No)</p></li>
-        </ul>
-        </p>
-        <p>
-            The response variable <m>Y</m> indicates whether the customer purchases a subscription (Yes or No). The company collects the following data:
-        </p>
-        <table>
-            <title>Customer Subscription Data</title>
-            <tabular halign="center">
-                <row header="yes">
-                    <cell>Customer</cell>
-                    <cell><m>X_1</m></cell>
-                    <cell><m>X_2</m></cell>
-                    <cell><m>X_3</m></cell>
-                    <cell><m>Y</m></cell>
-                </row>
-                <row><cell>1</cell><cell>21</cell><cell>28</cell><cell>Yes</cell><cell>Yes</cell></row>
-                <row><cell>2</cell><cell>24</cell><cell>35</cell><cell>Yes</cell><cell>Yes</cell></row>
-                <row><cell>3</cell><cell>26</cell><cell>42</cell><cell>Yes</cell><cell>No</cell></row>
-                <row><cell>4</cell><cell>29</cell><cell>55</cell><cell>Yes</cell><cell>Yes</cell></row>
-                <row><cell>5</cell><cell>31</cell><cell>48</cell><cell>No</cell><cell>No</cell></row>
-                <row><cell>6</cell><cell>33</cell><cell>62</cell><cell>No</cell><cell>Yes</cell></row>
-                <row><cell>7</cell><cell>35</cell><cell>45</cell><cell>No</cell><cell>No</cell></row>
-                <row><cell>8</cell><cell>38</cell><cell>58</cell><cell>Yes</cell><cell>Yes</cell></row>
-                <row><cell>9</cell><cell>41</cell><cell>72</cell><cell>No</cell><cell>No</cell></row>
-                <row><cell>10</cell><cell>44</cell><cell>85</cell><cell>No</cell><cell>Yes</cell></row>
-                <row><cell>11</cell><cell>47</cell><cell>68</cell><cell>Yes</cell><cell>No</cell></row>
-                <row><cell>12</cell><cell>52</cell><cell>95</cell><cell>No</cell><cell>No</cell></row>
-                <row><cell>13</cell><cell>56</cell><cell>78</cell><cell>No</cell><cell>No</cell></row>
-                <row><cell>14</cell><cell>61</cell><cell>105</cell><cell>Yes</cell><cell>Yes</cell></row>
-            </tabular>
-        </table>
+          <ul>
+            <li>
+              <p>
+                Previously, we've always had some form of function for
+                prediction:
+                <md>
+                  f(X_1,\ldots,X_p)=\hat{Y}
+                </md>.
+              </p>
+            </li>
 
-          <p>
-<alert>
-    This exercise was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
-    </alert>    
-    </p> 
-    </introduction>
-    <task>
-        <title>Making Predictions</title>
-        <statement>
-        <p>
-            Suppose we fit the following classification tree to the data:
+            <li>
+              <p>
+                Now, we make a sequence of decisions to make a prediction,
+                either for regression or classification.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Recall: regression means the outcome is quantitative, while
+                classification means the outcome is qualitative.
+              </p>
+            </li>
+          </ul>
         </p>
-        <image source="figures/classification_tree_ex1.png">
-            <shortdescription>
-                Classification tree with a root split at Age less than or equal to 36. The left branch splits on Student status, predicting Yes for students and No for nonstudents. The right branch splits on Income less than or equal to 75, predicting No for income at most 75 and Yes otherwise.
-            </shortdescription>
+      </stack>
+
+      <stack>
+        <image source="figures/binarytree-faces-w800.png">
+          <shortdescription>
+            A binary decision tree using modal verbs Should, Could, Would, and
+            Did leading to various emotional faces.
+          </shortdescription>
         </image>
+
         <p>
-            Use the classification tree to predict whether each of the following new customers will purchase a subscription:
-        <ol>
-            <li><p>Age = 27, income = $40,000, student = Yes.</p></li>
-            <li><p>Age = 27, income = $40,000, student = No.</p></li>
-            <li><p>Age = 42, income = $65,000, student = Yes.</p></li>
-            <li><p>Age = 50, income = $90,000, student = No.</p></li>
-        </ol>
+          Image:
+          <url href="https://marekbennett.com/2014/02/14/decision-tree/">Decision tree illustration</url>.
         </p>
-        </statement>
-        <answer>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Subset of Hitters data</title>
+
+    <sidebyside widths="35% 45%">
+      <image source="figures/Hitters-TreeSlides.png">
+        <shortdescription>
+          Table displaying baseball hitter data with columns for Hits, Years,
+          Salary, and LogSalary.
+        </shortdescription>
+      </image>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Remove observations with missing salary values.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Log-transform salary to obtain a distribution that is closer to
+                a bell shape.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Goal: predict log salary.
+                We can reverse the transformation by returning <m>\exp(x)</m> if
+                the model returns <m>x</m>.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>First decision tree example</title>
+
+    <sidebyside widths="25% 45%">
+      <image source="figures/Hitters-TreeSlides-OnlyLog.png">
+        <shortdescription>
+          Table displaying baseball hitter data with columns for Hits, Years,
+          and LogSalary.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Regression tree for baseball player salaries splitting on Years and
+          Hits to produce three leaf nodes.
+        </shortdescription>
+      </image>
+    </sidebyside>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Top split assigns observations with <m>Years &lt; 4.5</m> (in major
+            leagues) to the left branch.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Return the mean response for players in that group.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Predictions:
+          </p>
+
           <p>
             <ul>
               <li>
                 <p>
-                  Yes
+                  Mean log salary is 5.107, so the predicted salary is
+                  <m>\exp(5.107)=\$165,174</m> thousand dollars.
                 </p>
               </li>
+
               <li>
                 <p>
-                  No
+                  <m>5.999 \Rightarrow \$402,834</m>.
                 </p>
               </li>
+
               <li>
                 <p>
-                  No
-                </p>
-              </li>
-              <li>
-                <p>
-                  Yes
+                  <m>6.740 \Rightarrow \$845,346</m>.
                 </p>
               </li>
             </ul>
           </p>
-        </answer>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Interpretation of example</title>
+
+    <sidebyside widths="35% 45%">
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Regression tree for baseball player salaries splitting on Years and
+          Hits to produce three leaf nodes.
+        </shortdescription>
+      </image>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Years is the most important factor for determining salary.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Players with less experience earn lower salaries than more
+                experienced players.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                For less experienced players, the number of hits plays little
+                role in salary.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                For more experienced players, the number of hits affects salary.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                This is likely an oversimplification of the real relationship,
+                but it is easier to interpret and has a nice graphical
+                representation.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Regions defined by the tree</title>
+
+    <sidebyside widths="35% 45%">
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Regression tree for baseball player salaries splitting on Years and
+          Hits to produce three leaf nodes.
+        </shortdescription>
+      </image>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Note that the tree is is drawn <q>upside-down</q>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Leaves (terminal nodes) of the tree:
+              </p>
+
+              <p>
+                <ul>
+                  <li>
+                    <p>
+                      <m>R_1=\{X\mid Years&lt;4.5\}</m>
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      <m>R_2=\{X\mid Years\geq 4.5,\ Hits&lt;117.5\}</m>
+                    </p>
+                  </li>
+
+                  <li>
+                    <p>
+                      <m>R_3=\{X\mid Years\geq 4.5,\ Hits\geq 117.5\}</m>
+                    </p>
+                  </li>
+                </ul>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Other splits are called internal nodes.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Segments that connect nodes are called branches or edges.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Viewing Regions Defined by Tree</title>
+
+    <sidebyside widths="35% 45%">
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Regression tree for baseball player salaries splitting on Years and
+          Hits to produce three leaf nodes.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-2.png">
+        <shortdescription>
+          Scatter plot of Hits versus Years partitioned into three regions R1,
+          R2, and R3 by a regression tree.
+        </shortdescription>
+      </image>
+    </sidebyside>
+  </paragraphs>
+
+  <example>
+    <title>Expressing the regions of a regression tree</title>
+
+    <introduction>
+      <p>
+        Given the following two splits, answer the following questions.
+        express the shaded region <m>R</m> using set notation <m>R=\{X|...\}</m>
+        and sketch the corresponding tree.
+      </p>
+
+      <image source="figures/decision_tree_notation_ex1.png" width="70%">
+        <shortdescription>
+          Two squares, a and b, showing a square grid from zero to 1 with X1 on
+          the x-axis and X2 on the Yaxis.
+          The grid splits the square into four equi-spaces regions.
+          One square is shaded in each figure at the following location.
+        </shortdescription>
+      </image>
+    </introduction>
+
+    <task>
+      <statement>
+        <p>
+          Sketch the corresponding tree.
+        </p>
+      </statement>
+
+      <answer>
+        <image source="figures/decision_tree_notation_ex1a_answer.png" width="70%">
+          <shortdescription>
+            The decision tree for the shaded region R.
+          </shortdescription>
+        </image>
+      </answer>
+    </task>
+
+    <task>
+      <statement>
+        <p>
+          Express the shaded region <m>R</m> using set notation
+          <m>R=\{X|...\}</m>.
+        </p>
+      </statement>
+
+      <answer>
+        <p>
+          <m>R=\{X\mid X_1 \geq 0.5, X_2&lt;0.5, X_1&lt;0.75, X_2\geq 0.25\}</m>
+        </p>
+      </answer>
+    </task>
+  </example>
+
+  <paragraphs>
+    <title>How do we actually get the tree? Two steps</title>
+
+    <sidebyside widths="45% 45%">
+      <stack>
+        <p>
+          <ol>
+            <li>
+              <p>
+                We divide the predictor space -- that is, the set of possible
+                values for <m>X_1, X_2, \ldots, X_p</m> -- into <m>J</m>
+                distinct and non-overlapping regions,
+                <m>R_1, R_2, \ldots, R_J</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                For every observation that falls into the region <m>R_j</m>, we
+                make the same prediction: the mean of the response values for
+                the training observations in <m>R_j</m>.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </stack>
+
+      <image source="figures/Fig8-3b.png">
+        <shortdescription>
+          A two-dimensional feature space partitioned into five rectangular
+          regions R1 through R5 by vertical and horizontal splits.
+        </shortdescription>
+      </image>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Step 1: How do we decide on <m>R_j</m>s?</title>
+
+    <sidebyside widths="45% 45%">
+      <stack>
+        <p>
+          <bold>Goal:</bold>
+        </p>
+
+        <p>
+          Find boxes <m>R_1,\ldots,R_J</m> that minimize
+        </p>
+
+        <p>
+          <md>
+            \sum_{j=1}^J \sum_{i \in R_j} (y_i-\hat y_{R_j})^2
+          </md>
+        </p>
+
+        <p>
+          <m>\hat y_{R_j}</m> = mean response for training observations in the
+          <m>j</m>th box.
+        </p>
+      </stack>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Cost is just RSS.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Can't actually check every possible partition.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Instead, use a top-down greedy approach called
+                <m>\text{Recursive binary splitting}</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Begins at the top of the tree with all data points.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Uses the best split at every step.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Recursive Binary Splitting</title>
+
+    <sidebyside widths="45% 45%">
+      <stack>
+        <p>
+          One split:
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Pick <m>X_j</m> and cutpoint <m>s</m>.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Choose them so that splitting into <m>\{X \mid X_j &lt; s\}</m>
+                and <m>\{X \mid X_j \geq s\}</m> results in the largest possible
+                reduction in RSS.
+              </p>
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Note here we look at all combinations of <m>X_j</m> and <m>s</m>
+                for each split of the tree.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+
+      <stack>
+        <p>
+          <md>
+            \begin{aligned}
+          R_1(j,s) &amp;= \{X \mid X_j &lt; s\}\\
+          R_2(j,s) &amp;= \{X \mid X_j \geq s\}
+          \end{aligned}
+          </md>
+        </p>
+
+        <p>
+          <md>
+            \begin{aligned}
+          &amp;\sum_{i \mid x_i \in R_1(j,s)}(y_i - \hat y_{R_1})^2\\
+          &amp;+\sum_{i \mid x_i \in R_2(j,s)}(y_i - \hat y_{R_2})^2
+          \end{aligned}
+          </md>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Rinse and repeat</title>
+
+    <sidebyside widths="45% 45%">
+      <image source="figures/Fig8-3c.png">
+        <shortdescription>
+          Decision tree diagram illustrating the sequence of binary splits on X1
+          and X2 resulting in regions R1 through R5.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-3b.png">
+        <shortdescription>
+          A two-dimensional feature space partitioned into five rectangular
+          regions R1 through R5 by vertical and horizontal splits.
+        </shortdescription>
+      </image>
+    </sidebyside>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Do this repeatedly.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Each time, we can split one of the previously identified regions.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Keep going until some stopping criterion is reached.
+            For example, continue until each region has at most 5 observations.
+          </p>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <example>
+    <title>Recursive binary splitting with one predictor.</title>
+
+    <introduction>
+      <p>
+        Consider the following data set with one predictor <m>X</m> and a
+        response <m>Y</m>.
+        We will use recursive binary splitting to find the best first split for
+        the data.
+      </p>
+
+      <image source="figures/recursive_splitting_ex1.png" width="90%">
+        <shortdescription>A scatter plot of Y versus X.</shortdescription>
+      </image>
+    </introduction>
+
+    <task>
+      <statement>
+        <p>
+          Sketch all the possible splits for the first split and number them
+          from left to right.
+        </p>
+      </statement>
+
+      <answer>
+        <image source="figures/recursive_splitting_ex1_splits.png" width="90%">
+          <shortdescription>
+            A scatter plot of Y versus X with vertical lines indicating possible
+            splits numbered from left to right.
+          </shortdescription>
+        </image>
+      </answer>
+    </task>
+
+    <task>
+      <statement>
+        <p>
+          For each region, calculate the RSS and the mean response that
+          correspond to that split.
+          Use the following table.
+          Which split is best?
+        </p>
+
+        <table>
+          <title>RSS Breakdown by Split</title>
+
+          <tabular halign="center">
+            <row header="yes" bottom="minor">
+              <cell>Split</cell>
+              <cell>Mean response for <m>X \lt s_i</m></cell>
+              <cell>Mean response for <m>X \ge s_i</m></cell>
+              <cell>RSS for <m>X \lt s_i</m></cell>
+              <cell>RSS for <m>X \ge s_i</m></cell>
+              <cell>Total RSS</cell>
+            </row>
+
+            <row>
+              <cell><m> s_1</m></cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+
+            <row>
+              <cell><m> s_2</m></cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+
+            <row>
+              <cell><m> s_3</m></cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+
+            <row>
+              <cell><m> s_4</m></cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+
+            <row>
+              <cell><m> s_5</m></cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+          </tabular>
+        </table>
+      </statement>
+
+      <answer>
+        <table>
+          <title>RSS Breakdown by Split</title>
+
+          <tabular halign="center">
+            <row header="yes" bottom="minor">
+              <cell>Split</cell>
+              <cell>Mean response for <m>X \lt s_i</m></cell>
+              <cell>Mean response for <m>X \ge s_i</m></cell>
+              <cell>RSS for <m>X \lt s_i</m></cell>
+              <cell>RSS for <m>X \ge s_i</m></cell>
+              <cell>Total RSS</cell>
+            </row>
+
+            <row>
+              <cell><m> s_1=1.80</m></cell>
+              <cell>2.100</cell>
+              <cell>6.620</cell>
+              <cell>0.000</cell>
+              <cell>27.688</cell>
+              <cell>27.688</cell>
+            </row>
+
+            <row>
+              <cell><m> s_2=2.75</m></cell>
+              <cell>2.750</cell>
+              <cell>7.425</cell>
+              <cell>0.845</cell>
+              <cell>14.728</cell>
+              <cell>15.573</cell>
+            </row>
+
+            <row>
+              <cell><m> s_3=3.90</m></cell>
+              <cell>3.233</cell>
+              <cell>8.500</cell>
+              <cell>2.247</cell>
+              <cell>0.860</cell>
+              <cell>3.107</cell>
+            </row>
+
+            <row>
+              <cell><m> s_4=5.00</m></cell>
+              <cell>4.375</cell>
+              <cell>8.850</cell>
+              <cell>17.888</cell>
+              <cell>0.125</cell>
+              <cell>18.013</cell>
+            </row>
+
+            <row>
+              <cell><m> s_5=6.05</m></cell>
+              <cell>5.220</cell>
+              <cell>9.100</cell>
+              <cell>32.168</cell>
+              <cell>0.000</cell>
+              <cell>32.168</cell>
+            </row>
+          </tabular>
+        </table>
+
+        <p>
+          The best split is at <m>s = 3.90</m> since it results in the lowest
+          total RSS of 3.107.
+        </p>
+
+        <p>
+          <alert>
+    This table was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
+    </alert>
+        </p>
+      </answer>
+    </task>
+
+    <task>
+      <statement>
+        <p>
+          Assume we impose a minimum leaf size of 2 observations.
+          The optimal split in this case is at <m>X=3.9</m>.
+          What is the predicted response <m>\hat{Y}</m> for a new observation
+          with <m>X=3.5</m>?
+        </p>
+      </statement>
+
+      <answer>
+        <p>
+          Since <m>X=3.5</m> is less than the split point of <m>3.9</m>, it
+          falls into the left region <m>R_1</m>.
+          The predicted response <m>\hat{Y}</m> for this new observation is the
+          mean response of the training observations in <m>R_1</m>, which is
+          <m>3.233</m>.
+        </p>
+      </answer>
+    </task>
+  </example>
+
+  <paragraphs>
+    <title>Pruning</title>
+
+    <sidebyside widths="45% 45%">
+      <image source="figures/Fig8-4.png">
+        <shortdescription>
+          Complex regression tree for baseball player salaries featuring
+          multiple splits on Years, Hits, RBI, Walks, Runs, and Putouts.
+        </shortdescription>
+      </image>
+
+      <stack>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Big trees leave you open to potential overfitting.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Could just stop building earlier, but that's short-sighted.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Instead, grow a big tree and prune it back.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Find the subtree with the best test error rate.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                There are too many subtrees to test them all.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Result of pruning</title>
+
+    <image source="figures/Fig8-5.png" width="75%">
+      <shortdescription>
+        Plot of Mean Squared Error versus tree size for Training,
+        Cross-Validation, and Test sets, including error bars for each.
+      </shortdescription>
+    </image>
+
+    <sidebyside widths="49% 49%">
+      <image source="figures/Fig8-4.png">
+        <shortdescription>
+          Complex regression tree for baseball player salaries featuring
+          multiple splits on Years, Hits, RBI, Walks, Runs, and Putouts.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Pruned regression tree with three terminal nodes.
+        </shortdescription>
+      </image>
+    </sidebyside>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Result of pruning is the three-leaf tree on the right.
+            This example technically uses a complex pruning method, but we will
+            not discuss its details in this course.
+          </p>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Decision trees for classification: Basic idea</title>
+
+    <image source="figures/Fig8-6c.png" width="60%">
+      <shortdescription>
+        Classification tree for heart disease predicting Yes or No based on
+        splits of Thal, Ca, MaxHR, and ChestPain.
+      </shortdescription>
+
+      <description>
+        <p>
+          Example decision tree for classificaiton using the <c>Heart</c>
+          dataset.
+        </p>
+      </description>
+    </image>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Can't use RSS; need an error rate.
+          </p>
+        </li>
+        <li>
+          <p>
+            Define <m>\hat p_{mk}</m> = proportion of training observations in
+            <m>R_m</m> from the <m>k</m>th class.
+            Then the classificaiton error for region <m>R_m</m> is given by:
+            <md>
+              <mrow>E \amp= 1-\max_k(\hat p_{mk})</mrow>
+              <mrow>\amp= \frac{\text{no.~of minority class observations in } R_m}{\text{total observations in } R_m}</mrow>
+            </md>
+          </p>
+
+          <p>
+            <ul>
+              <li>
+                <p>
+                  Fraction of training observations not in the most common class
+                  for that region.
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <ul>
+        <li>
+          <p>            
+            The <term>split error</term> for classification is the weighted
+            average of the errors for the left and right nodes, where the
+            weights are the proportions of observations in each node.
+            The formula for the error <m>E_s</m> is given below for split
+            <m>s</m>.
+            <md>
+              \text{E}_s = \frac{N_{\text{left}}}{N} \times E_{\text{left}} + \frac{N_{\text{right}}}{N} \times E_{\text{right}}
+            </md>
+            where <m>N</m> is the number of points in the parent node,
+            <m>N_{\text{left}}</m> and <m>N_{\text{right}}</m> are the number of
+            points in the left and right child nodes, respectively.
+            <m>E_{\text{left}}</m> and <m>E_{\text{right}}</m> are the
+            classification errors for the left and right child nodes,
+            respectively.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            In practice, the splits are decided based on <term>Gini index</term>
+            or <term>cross-entropy</term>, but we will not discuss those in our
+            class.
+            <ul>
+              <li>
+                <p>
+                  We will use the misclassification error rate for by-hand
+                  computation of the splits in our class, which is easier to
+                  understand and compute.
+                </p>
+              </li>
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Gini index, cross-entropy, or misclassification error rate can be
+            used for pruning; however, the prediction accuracy is the goal, then
+            classification error rate is preferable for pruning.
+          </p>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Example</title>
+
+    <image source="figures/Fig8-6a.png">
+      <shortdescription>
+        Large, complex classification tree for heart disease predicting Yes or
+        No based on numerous clinical features and splits.
+      </shortdescription>
+    </image>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            The terminal nodes here: Yes = person has heart disease; No = no
+            heart disease.
+          </p>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Pruning the example</title>
+
+    <sidebyside widths="45% 35%">
+      <image source="figures/Fig8-6b.png">
+        <shortdescription>
+          Plot of classification error versus tree size for Training,
+          Cross-Validation, and Test sets, with error bars for each.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-6c.png">
+        <shortdescription>
+          Classification tree for heart disease predicting Yes or No based on
+          splits of Thal, Ca, MaxHR, and ChestPain.
+        </shortdescription>
+      </image>
+    </sidebyside>
+  </paragraphs>
+
+  <exercise>
+    <title>Classification trees.</title>
+
+    <introduction>
+      <p/>
+      <image source="figures/decision_trees_classification_prediction_ex1.png">
+        <shortdescription>
+          TWo figures showing two decision trees with different data, but the
+          same partitions.
+          The one on the right (b) has in addition one test point shown as a
+          square.
+        </shortdescription>
+      </image>
+    </introduction>
+
+    <task>
+      <statement>
+        <p>
+          For the decision tree shown in Figure (a), what is the classification
+          error rate for <m>R_1</m>?
+        </p>
+      </statement>
+
+      <solution>
+        <p>
+          The classification error rate for <m>R_1</m> is <m>0.4</m>.
+          This is because there are 5 observations in <m>R_1</m> and 2 of them
+          are misclassified.
+          Therefore, the error rate is <m>\frac{2}{5} = 0.4</m>.
+        </p>
+      </solution>
+    </task>
+
+    <task>
+      <statement>
+        <p>
+          For the decision tree shown in Figure (b), determine the predicted
+          class for the shown point.
+        </p>
+      </statement>
+
+      <answer>
+        <p>
+          The predicted class for the shown point is circle, since that's the
+          majority class in the partition that the point falls into.
+        </p>
+      </answer>
+    </task>
+  </exercise>
+
+  <paragraphs>
+    <title>Linear models vs trees</title>
+
+    <sidebyside widths="45% 45%">
+      <stack>
+        <image source="figures/Fig8-7-top.png">
+          <shortdescription>
+            Two plots comparing a linear decision boundary with a decision tree
+            approximation using axis-aligned rectangular splits in feature
+            space.
+          </shortdescription>
+        </image>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Obviously, the linear model does better here.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+
+      <stack>
+        <image source="figures/Fig8-7-bottom.png">
+          <shortdescription>
+            Two plots showing a decision tree perfectly capturing a rectangular
+            boundary with axis-aligned splits, compared to a linear boundary.
+          </shortdescription>
+        </image>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Not going to beat this case, though.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Pros/Cons</title>
+
+    <sidebyside widths="45% 45%">
+      <stack>
+        <p>
+          Pros:
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Trees are very easy to explain to people.
+                Often easier to explain than linear regression!
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Trees can be displayed graphically and are easily interpreted
+                even by a non-expert, especially if they are small.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Trees can easily handle qualitative predictors without the need
+                to create dummy variables.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+
+      <stack>
+        <p>
+          Cons:
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              <p>
+                Not as accurate as other methods of classification and
+                regression.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Not robust: a small change in the data can cause a large change
+                in the estimated tree.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Fix: aggregate many decision trees.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </stack>
+    </sidebyside>
+  </paragraphs>
+
+  <paragraphs>
+    <title>TL;DR</title>
+
+    <sidebyside widths="45% 40%">
+      <image source="figures/Fig8-1.png">
+        <shortdescription>
+          Regression tree for baseball player salaries splitting on Years and
+          Hits to produce three leaf nodes.
+        </shortdescription>
+      </image>
+
+      <image source="figures/Fig8-2.png" width="80%">
+        <shortdescription>
+          Scatter plot of Hits versus Years partitioned into three regions R1,
+          R2, and R3 by a regression tree.
+        </shortdescription>
+      </image>
+    </sidebyside>
+
+    <p>
+      <ul>
+        <li>
+          <p>
+            Split into regions by greedily decreasing RSS.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Prune the tree using cost complexity.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            Not robust: next time, figure out how to aggregate trees.
+          </p>
+        </li>
+      </ul>
+    </p>
+  </paragraphs>
+
+  <exercise>
+    <title>Classification Trees: Predictions and Splits</title>
+
+    <introduction>
+      <p>
+        A company wants to predict whether a customer will purchase a
+        subscription to its online service based on three predictors:
+        <ul>
+          <li>
+            <p>
+              <m>X_1</m>: Age (years)
+            </p>
+          </li>
+
+          <li>
+            <p>
+              <m>X_2</m>: Annual income (in thousands of dollars)
+            </p>
+          </li>
+
+          <li>
+            <p>
+              <m>X_3</m>: Student status (Yes or No)
+            </p>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        The response variable <m>Y</m> indicates whether the customer purchases
+        a subscription (Yes or No).
+        The company collects the following data:
+      </p>
+
+      <table>
+        <title>Customer Subscription Data</title>
+
+        <tabular halign="center">
+          <row header="yes">
+            <cell>Customer</cell>
+            <cell><m>X_1</m></cell>
+            <cell><m>X_2</m></cell>
+            <cell><m>X_3</m></cell>
+            <cell><m>Y</m></cell>
+          </row>
+
+          <row>
+            <cell>1</cell>
+            <cell>21</cell>
+            <cell>28</cell>
+            <cell>Yes</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>2</cell>
+            <cell>24</cell>
+            <cell>35</cell>
+            <cell>Yes</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>3</cell>
+            <cell>26</cell>
+            <cell>42</cell>
+            <cell>Yes</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>4</cell>
+            <cell>29</cell>
+            <cell>55</cell>
+            <cell>Yes</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>5</cell>
+            <cell>31</cell>
+            <cell>48</cell>
+            <cell>No</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>6</cell>
+            <cell>33</cell>
+            <cell>62</cell>
+            <cell>No</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>7</cell>
+            <cell>35</cell>
+            <cell>45</cell>
+            <cell>No</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>8</cell>
+            <cell>38</cell>
+            <cell>58</cell>
+            <cell>Yes</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>9</cell>
+            <cell>41</cell>
+            <cell>72</cell>
+            <cell>No</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>10</cell>
+            <cell>44</cell>
+            <cell>85</cell>
+            <cell>No</cell>
+            <cell>Yes</cell>
+          </row>
+
+          <row>
+            <cell>11</cell>
+            <cell>47</cell>
+            <cell>68</cell>
+            <cell>Yes</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>12</cell>
+            <cell>52</cell>
+            <cell>95</cell>
+            <cell>No</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>13</cell>
+            <cell>56</cell>
+            <cell>78</cell>
+            <cell>No</cell>
+            <cell>No</cell>
+          </row>
+
+          <row>
+            <cell>14</cell>
+            <cell>61</cell>
+            <cell>105</cell>
+            <cell>Yes</cell>
+            <cell>Yes</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        <alert>
+    This exercise was generated with the help of ChatGPT. Please double-check the calculations and ensure that they are correct.
+    </alert>
+      </p>
+    </introduction>
+
+    <task>
+      <title>Making Predictions</title>
+
+      <statement>
+        <p>
+          Suppose we fit the following classification tree to the data:
+        </p>
+
+        <image source="figures/classification_tree_ex1.png">
+          <shortdescription>
+            Classification tree with a root split at Age less than or equal to
+            36.
+            The left branch splits on Student status, predicting Yes for
+            students and No for nonstudents.
+            The right branch splits on Income less than or equal to 75,
+            predicting No for income at most 75 and Yes otherwise.
+          </shortdescription>
+        </image>
+
+        <p>
+          Use the classification tree to predict whether each of the following
+          new customers will purchase a subscription:
+          <ol>
+            <li>
+              <p>
+                Age = 27, income = $40,000, student = Yes.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Age = 27, income = $40,000, student = No.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Age = 42, income = $65,000, student = Yes.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Age = 50, income = $90,000, student = No.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+
+      <answer>
+        <p>
+          <ul>
+            <li>
+              <p>
+                Yes
+              </p>
+            </li>
+
+            <li>
+              <p>
+                No
+              </p>
+            </li>
+
+            <li>
+              <p>
+                No
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Yes
+              </p>
+            </li>
+          </ul>
+        </p>
+      </answer>
     </task>
     <!-- <task>
         <title>Computing the Classification Error Rate</title>
@@ -895,7 +1569,5 @@
         </p>
         </statement>
     </task> -->
-    
-</exercise>
-
-  </handout>
+  </exercise>
+</handout>

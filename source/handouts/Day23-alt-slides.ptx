@@ -82,6 +82,11 @@
       <li><p>Red represents the subsampled data sets.</p></li>
       <li><p>Build a tree from each subsampled data set.</p></li>
       <li><p>Obtain a prediction from each tree and return the average.</p></li>
+        <li>
+          <p>
+            For classification, return the majority vote of the predictions from each tree.
+          </p>
+        </li>
     </ul>
   </p>
 </paragraphs>
@@ -98,6 +103,73 @@
     </ul>
   </p>
 </paragraphs>
+
+<example xml:id="regression_prediction_ex1">
+  <title>Regression bagging example</title>
+  <statement>
+    <p>
+      For the shown data and bagged trees, predict the response for the new data point <m>x_0</m> (the yellow star).
+    </p>
+    <table>
+    <title>Sample Data</title>
+    <tabular halign="center">
+        <row header="yes" bottom="major">
+            <cell>Data Point</cell>
+            <cell>Y</cell>
+        </row>
+        <row>
+            <cell>1</cell>
+            <cell>4.2</cell>
+        </row>
+        <row>
+            <cell>2</cell>
+            <cell>6.8</cell>
+        </row>
+        <row>
+            <cell>3</cell>
+            <cell>5.1</cell>
+        </row>
+    </tabular>
+</table>
+    <image source="figures/regression_prediction_ex1.png">
+      <shortdescription>A data set with 3 points, a new data point (yellow star) and three different baggings obtained by bootstrap sampling.</shortdescription>      
+    </image>
+  </statement>
+  <solution>
+    <p>
+      The predicted response for the new data point <m>x_0</m> is the average of the predictions from each bagged tree.
+<md>    
+        <mrow>\hat{f}_{\text{bag}}(x) \amp=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)</mrow>
+        <mrow>\amp= \frac{1}{3}(6.8 + 4.2+5.1)= 5.37 </mrow>
+</md>
+      
+    </p>
+    <image source="figures/regression_prediction_ex1_answer.png">
+      <shortdescription>A data set with 3 points, a new data point (yellow star) and three different baggings obtained by bootstrap sampling. Average prediction from all bagged trees is shown.</shortdescription>      
+    </image>
+  </solution>
+</example>
+
+<example>
+  <title>Classification bagging example</title>
+  <statement>
+    <p>
+      For the shown data and bagged trees, predict the class (triangle or circle) for the new data point <m>x_0</m> (the yellow star).
+    </p>
+    <image source="figures/classification_prediction_ex1.png" xml:id="classification_prediction_ex1">
+      <shortdescription>A data set with 3 points and two classes (triangles and circles), a new data point (yellow star) and three different baggings obtained by bootstrap sampling.</shortdescription>      
+    </image>
+  </statement>
+  <solution>
+    <p>
+      The predicted response for the new data point <m>x_0</m> is the majority vote from all the bagged trees, which is the circle class (2 out of 3 trees predict circle).
+    </p>
+    <image source="figures/classification_prediction_ex1_answer.png">
+      <shortdescription>A data set with 3 points and two classes (triangles and circles), a new data point (yellow star) and three different baggings obtained by bootstrap sampling. Majority vote for predictions from all bagged trees is shown.</shortdescription>      
+    </image>
+  </solution>
+</example>
+
 <paragraphs>
   <title>Example: Heart classification data</title>
   <sidebyside widths="50% 50%">
@@ -118,7 +190,7 @@
 </paragraphs>
 
 <paragraphs>
-  <title>Out of Bag Error Estimation</title>
+  <title>Estimating the test error: Out of Bag (OOB) error</title>
 
     <image source="figures/TreeBaggingCartoon-MoreTrees.png" width="60%">
       <shortdescription>Diagram showing several red data samples, each corresponding to an individual green decision tree, representing a bagging ensemble process.</shortdescription>
@@ -129,16 +201,154 @@
           <li><p>The remaining observations not used are called out-of-bag (OOB) observations.</p></li>
           <li><p>For each observation, run it through all the trees for which it was not used in training.</p></li>
           <li><p>Return the average (or majority vote) of those predictions as the test prediction. This relies on the law of large numbers.</p></li>
-          <li><p>A bootstrapped version of LOOCV.</p></li>
+          <li><p>For B sufficiently large, OOB error is equivalent to leave-one-out cross-validation error.</p></li>
+            <li>
+              <p>
+                OOB error is a good estimate of test error, and is more computationally efficient that cross-validation especially for large datasets.
+              </p>
+            </li>
         </ul>
       </p>
-
-
-
 </paragraphs>
 
+<example>
+  <title>OOB for classification</title>  
+  <statement>
+    <p>    
+      What is the OOB error for the data and bagged trees shown below?    
+    </p>
+<image source="figures/classification_OOB_error_ex1.png" width="90%">
+  <shortdescription>Four horizontal panels. The top shows the original data which contains 3 points from two classes (triangles and circles) and the 3 bags obtained using bootstrap sampling. Each of teh subsequent horizontal panels shows one of the bags with space for the students to compare the predicted classes versus the true classes for each OOB observation.</shortdescription>
+  
+</image>
+  </statement>
+  <hint>
+    <p>
+      The OOB error is the proportion of misclassified observations when using the majority vote of the trees for which each observation was not included in the training set. In this case, we would determine the OOB predictions for each of the three data points and then calculate the overall misclassification rate.
+    </p>
+  </hint>
+    <solution>
+<image source="figures/classification_OOB_error_ex1_answer.png" width="100%">
+  <shortdescription>Four horizontal panels. The top shows the original data and the 3 bags obtained using bootstrap sampling. Each of teh subsequent horizontal panels shows the OOB predictions for each data point.</shortdescription>  
+</image>
+<p>
+  The OOB classification error is <m>\frac{1}{3} \approx 0.33</m> since one of the three observations is misclassified when using the OOB predictions.
+</p>
+      </solution>
+  
+</example>
+
+<example>
+  <title>OOB for regression.</title>  
+  <statement>
+    <p>
+      What is the OOB error for the data and bagged trees in <xref ref="regression_prediction_ex1"/>? Use the following table to help you compute the OOB predictions and the squared differences between the true response and the predicted response for each observation.
+    </p>
+
+          <table>
+    <title>Sample Data</title>
+    <tabular halign="center">
+        <row header="yes" bottom="major">
+            <cell>Data Point <m>y_i</m></cell>
+            <cell>Y</cell>
+            <cell><m>\hat{f}^{*1}</m></cell>
+            <cell><m>\hat{f}^{*2}</m></cell>
+            <cell><m>\hat{f}^{*3}</m></cell>
+            <cell>OOB Prediction <m>\hat{y}_i</m></cell>
+            <cell><m>(y_i-\hat{y}_i)^2</m></cell>
+        </row>
+        <row>
+            <cell>1</cell>
+            <cell>4.2</cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell>2</cell>
+            <cell>6.8</cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+        <row>
+            <cell>3</cell>
+            <cell>5.1</cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+        </row>
+    </tabular>
+</table>
+
+  </statement>  
+    <hint>
+    <p>      
+        The OOB error is the average of the squared differences between the true response and the predicted response for each observation, using only the trees for which that observation was not included in the training set. In this case, we would calculate the OOB predictions for each of the three data points and then compute the mean squared error.      
+    </p>
+  </hint>
+<solution>
+      <table>
+    <title>Sample Data</title>
+    <tabular halign="center">
+        <row header="yes" bottom="major">
+            <cell>Data Point <m>y_i</m></cell>
+            <cell>Y</cell>
+            <cell><m>\hat{f}^{*1}</m></cell>
+            <cell><m>\hat{f}^{*2}</m></cell>
+            <cell><m>\hat{f}^{*3}</m></cell>
+            <cell>OOB Prediction <m>\hat{y}_i</m></cell>
+            <cell><m>(y_i-\hat{y}_i)^2</m></cell>
+        </row>
+        <row>
+            <cell>1</cell>
+            <cell>4.2</cell>
+            <cell>5.1</cell>
+            <cell>None</cell>
+            <cell>None</cell>
+            <cell>5.1</cell>
+            <cell>(4.2-5.1)^2 = 0.81</cell>
+        </row>
+        <row>
+            <cell>2</cell>
+            <cell>6.8</cell>
+            <cell>None</cell>
+            <cell>4.2</cell>
+            <cell>None</cell>
+            <cell>4.2</cell>
+            <cell>(6.8-4.2)^2 = 6.76</cell>
+        </row>
+        <row>
+            <cell>3</cell>
+            <cell>5.1</cell>
+            <cell>None</cell>
+            <cell>None</cell>
+            <cell>4.2</cell>
+            <cell>4.2</cell>
+            <cell>(5.1-4.2)^2 = 0.81</cell>
+        </row>
+    </tabular>
+</table>
+  <p>
+    The OOB regression error is 
+    <md>
+    <mrow> \text{OOB MSE} \amp= \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2 </mrow>
+    <mrow>\amp= \frac{1}{3}((4.2-5.1)^2 + (6.8-5.1)^2 + (5.1-5.1)^2)</mrow>
+    <mrow> \amp= \frac{1}{3}(0.81 + 2.89 + 0) = \frac{3.7}{3} \approx 1.23</mrow>
+    </md>
+  Note that <m>n</m> in the denominator is the number of valid observations, i.e., observations that are out of bag for at least one of the bags. For example, if one observations is never out of the bag, then you would replace <m>n</m> by <m>n-1</m>. If 13 observations are never out of bag, the denominator becomes <m>n-13</m>. Never out of bag observations usually occur if the number of trees <m>B</m> is small, so increasing the number of trees ensures that all observations are out of bag for at least one tree.
+  </p>
+</solution>
+</example>
+
 <paragraphs>
-  <title>Error using OOB</title>
+  <title>Estimating the test error: OOB error</title>
   <sidebyside widths="50% 50%">
     <image source="figures/Fig8-8.png">
       <shortdescription>Line plot comparing test and out-of-bag (OOB) error for bagging and random forest models as the number of trees increases.</shortdescription>
@@ -183,6 +393,78 @@
   </sidebyside>
 </paragraphs>
 
+<example>
+  <title>Sketching random forest splits</title>
+  <introduction>
+    <p>
+      In this example, we will practice sketching the splits made by a random forest model in a two-dimensional predictor space. The provided figure shows the predictor plane defined by <m>X_1</m> and <m>X_2</m>, along with dashed lines that represent potential split locations. 
+    </p>
+    <image source="figures/random_forests_sketching_ex1.png" width="60%">
+      <shortdescription>A square showing the regions for two predictors X1 and X2 with dashed lines that define a non-uniform grid for answering the question.</shortdescription>
+      </image>
+
+       <table xml:id="random_forest_splits_ex1">
+    <title>Randomly generated split sequence</title>
+    <tabular halign="center">
+        <row header="yes" bottom="major">
+            <cell>Split</cell>
+            <cell>Random number</cell>
+        </row>
+        <row>
+          <cell>1</cell>
+          <cell>2</cell>
+        </row>
+        <row>
+      <cell>2</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell>2</cell>
+    </row>
+
+  </tabular>
+</table>
+  </introduction>
+  <task>
+  <statement>
+    <p>
+      Using random forests, sketch the splits in the provided predictor plane <m>(X_1,X_2)</m> using the random numbers shown in <xref ref="random_forest_splits_ex1"/> for each split. Align your splits with the dashed lines in the provided figure. your choice of which dashed line to choose for the split in each region is not important, but the split variable must be correct. Assume that no stopping criterion is reached, i.e., you need to make all possible splits for the given sequence of random numbers. 
+    </p>
+    <p>
+      There can be multiple valid answers, but the number of regions should be the same for all valid answers.
+    </p>
+      </statement>
+    <answer>
+      <p>
+        This is a possible solution.
+      </p>
+      <image source="figures/random_forests_sketching_ex1_answer.png" width="60%">
+        <shortdescription>A square showing the regions for two predictors X1 and X2 with one possible splitting of the predictor space into a non-uniform grid.</shortdescription>
+        
+      </image>
+    </answer>
+      </task>
+      <task>
+        <statement>
+          <p>
+            How many total regions did you end up with?
+          </p>
+        </statement>
+        <answer>
+          <p>
+            You should end up with <m>2^4=16</m> regions, since each split divides a region into two new regions.
+          </p>
+        </answer>
+      </task>
+</example>
+
+
+
 <paragraphs>
   <title>Example on gene expression</title>
   <sidebyside widths="50% 50%">
@@ -205,15 +487,97 @@
 
 <paragraphs>
   <title>TL;DR</title>
-  <sidebyside widths="50% 50%">
+  
     <p>
       <ul>
         <li><p>Bagging: Trees are grown independently on random samples. The trees tend to be similar to each other, which can result in getting caught in local optima.</p></li>
         <li><p>Random forest: Trees are grown independently on samples, but each split is made using a random subset of features.</p></li>
       </ul>
     </p>
-    <p></p>
-  </sidebyside>
+  
 </paragraphs>
+
+<exercise>
+  <title>Computing random forest splits for classification</title>
+  <introduction>
+    <p>
+      In this exercise, we will practice computing the splits made by a random forest model in a two-dimensional predictor space for a classification problem. The provided figure shows the predictor plane defined by <m>X_1</m> and <m>X_2</m>, the data points, and the dashed lines that represent potential split locations. 
+    </p>
+
+    <p>
+  The <term>split error</term> for classification is the weighted average of the errors for the left and right nodes, where the weights are the proportions of observations in each node. The formula for the error <m>E_s</m> is given below for split <m>s</m>.
+  <md>
+  \text{E}_s = \frac{N_{\text{left}}}{N} \times E_{\text{left}} + \frac{N_{\text{right}}}{N} \times E_{\text{right}}
+</md>
+where <m>N</m> is the number of points in the parent node, <m>N_{\text{left}}</m> and <m>N_{\text{right}}</m> are the number of points in the left and right child nodes, respectively. <m>E_{\text{left}}</m> and <m>E_{\text{right}}</m> are the classification errors for the left and right child nodes, respectively.
+
+</p>
+<image source="figures/random_forests_splitting_ex1.png" width="60%">
+  <shortdescription>Qualitative data (three circles and three triangles) on a two-dimensional predictor space, X1 and X2. A non-uniform grid of all potential split locations is shown as dashed lines.</shortdescription>  
+</image>
+
+  </introduction>
+  <task>
+    <statement>
+     <p>
+  Using recursive binary splitting, how many errors corresponding to possible splits will you need to compute to determine the first and second splits ?
+      </p>
+    </statement>
+    <answer>
+      <p>
+        You will need to compute the errors for 4 rows in the table <xref ref="split_errors_ex1"/> to determine the first split, and then you will need to compute the errors for 4 additional rows to determine the second split. This is because each split divides the data into two child nodes, and you will need to evaluate the potential splits for each child node separately.
+      </p>
+    </answer>
+  </task>
+  <task>
+  <statement>
+    <p>
+  Using recursive binary splitting, draw the first and second splits using the randomly generated sequence <m>\{2,1\}</m> for which predictor to split on. Table <xref ref="split_errors_ex1"/> must be used to determine the location for each split. Note that you will not need to compute the error for all the split locations provided in the table since subsequent splits will be made on the child nodes. The split variable and split point for each split is determined by the split that minimizes the classification error.
+</p>
+
+<table xml:id="split_errors_ex1">
+    <title>Classification error rate versus splits.</title>
+    <tabular halign="center">
+        <row header="yes" bottom="major">
+            <cell>Splits</cell>
+            <cell><m>E_{\text{left}}</m></cell>
+            <cell><m>E_{\text{right}}</m></cell>
+            <cell><m>E</m></cell>
+        </row>
+        <row><cell><m>s_{21}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{21}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{21}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{21}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{21}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{21}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{22}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{23}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
+        <row><cell><m>s_{24}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
+    </tabular>
+</table>
+    
+  </statement>
+  <hint>
+    <p>
+      Work in teams on this problem.
+    </p>
+  </hint>
+  </task>
+</exercise>
 
 </handout>

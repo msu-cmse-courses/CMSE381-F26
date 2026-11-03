@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math">
+<article class="example example-like"><h2 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">125</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Regression bagging example.</span>
+</h2>
+<div class="para">For the shown data and bagged trees, predict the response for the new data point <span class="process-math">\(x_0\)</span> (the yellow star).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#regression_prediction_ex1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<figure class="table table-like"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">126<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Sample Data<div class="autopermalink" aria-hidden="true" data-description="Table 126: Sample Data"><a tabindex="-1" href="#regression_prediction_ex1-2-2" title="Copy heading and permalink for Table 126: Sample Data" aria-label="Copy heading and permalink for Table 126: Sample Data">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="c m b3 r0 l0 t0 lines">Data Point</th>
+<th scope="col" class="c m b3 r0 l0 t0 lines">Y</th>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="c m b0 r0 l0 t0 lines">4.2</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="c m b0 r0 l0 t0 lines">6.8</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">3</td>
+<td class="c m b0 r0 l0 t0 lines">5.1</td>
+</tr>
+</table></div>
+</figure> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/regression_prediction_ex1.png" class="contained" alt="A data set with 3 points, a new data point (yellow star) and three different baggings obtained by bootstrap sampling."></div>
+<div class="solutions">
+<details class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
+<div class="para logical">
+<div class="para">The predicted response for the new data point <span class="process-math">\(x_0\)</span> is the average of the predictions from each bagged tree.</div>
+<div class="displaymath process-math">
+\begin{align*}
+\hat{f}_{\text{bag}}(x) \amp=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)\\
+\amp= \frac{1}{3}(6.8 + 4.2+5.1)= 5.37 
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#regression_prediction_ex1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/regression_prediction_ex1_answer.png" class="contained" alt="A data set with 3 points, a new data point (yellow star) and three different baggings obtained by bootstrap sampling. Average prediction from all bagged trees is shown."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Solution 125.1"><a tabindex="-1" href="#regression_prediction_ex1-3" title="Copy heading and permalink for Solution 125.1" aria-label="Copy heading and permalink for Solution 125.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 125: Regression bagging example"><a tabindex="-1" href="#regression_prediction_ex1" title="Copy heading and permalink for Example 125: Regression bagging example" aria-label="Copy heading and permalink for Example 125: Regression bagging example">🔗</a></div>
+</article><span class="incontext"><a class="internal" href="sec-exam3-material.html#regression_prediction_ex1">In Context</a></span>
+</body>
+</html>

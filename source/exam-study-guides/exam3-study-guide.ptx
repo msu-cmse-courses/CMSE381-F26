@@ -1,0 +1,307 @@
+<section xml:id="exam3-study-guide" component="exam3-material">
+  <title>Exam 3 study guide</title>
+  <introduction>
+    <p>
+      Here we summarize the detailed learning goals in terms of a series of topics or questions that you should be able to answer by exam 3 for this part of the course.
+    </p>
+    <p>
+      Make sure to check out the practice problems in <xref ref="exam3-practice-problems" text="title"/>, which will be updated periodically as cover more of thee topics in class. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. 
+    </p>
+  </introduction>
+
+  <subsection xml:id="exam3-polynomial-step-functions">
+    <title>Polynomial Functions and Step Functions</title>
+    <p>Required readings: Chapter Sections 7.1-7.2 (4 pages)</p>
+    <p>
+      <ul>
+        <li><p>Why do people want to use polynomial regression rather than simple linear regression?</p></li>
+        <li>
+          <p>How do you fit polynomial regression models?
+            <ul>
+              <li><p>You should be able to describe the procedures verbally and implement them in Python.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>Why do people want to use step functions rather than simple linear regression?</p></li>
+        <li>
+          <p>How do you fit step function models?
+            <ul>
+              <li><p>You should be able to describe the procedures for both regression and classification problems.</p></li>
+              <li><p>You should also be able to implement them in Python.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What is common between polynomial regression and step functions?</p></li>
+        <li>
+          <p>What is an advantage of using step functions over polynomials despite their simplicity?
+            <ul>
+              <li><p>You should be able to distinguish between models with equations that apply to the whole domain and those that do not.</p></li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="exam3-basis-functions-splines">
+    <title>Basis Functions and Splines</title>
+    <p>Required readings: Chapter Sections 7.3-7.4 (7 pages)</p>
+    <p>
+      <ul>
+        <li>
+          <p>What are basis functions?
+            <ul>
+              <li><p>You should be able to articulate what the basis functions <m>b_i</m> are for different models that we have covered.</p></li>
+              <li><p>Examples include polynomial functions, step functions, and cubic splines.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>What is the purpose of using basis functions?
+            <ul>
+              <li><p>How do they influence model flexibility?</p></li>
+              <li><p>How does this purpose manifest in different models, such as regression splines?</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How do you define cubic splines mathematically in terms of piecewise polynomials?
+            <ul>
+              <li><p>You should be able to write down the equations for the model between knots.</p></li>
+              <li><p>You should be able to write down the equations for constraints at the knots.</p></li>
+              <li><p>You should be able to determine the total degrees of freedom.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>How do you calculate the cubic spline coefficients by hand by applying the mathematical definitions above?</p></li>
+        <li>
+          <p>How do you define cubic splines in terms of basis functions?
+            <ul>
+              <li><p>You should be able to describe them mathematically in terms of the truncated power basis function (textbook version).</p></li>
+              <li><p>You should be able to visualize them as B-spline basis functions in Python.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>How do you fit a cubic spline model to data in Python?</p></li>
+        <li>
+          <p>How do you change the model flexibility?
+            <ul>
+              <li><p>What are the relevant metaparameters?</p></li>
+              <li><p>How do you choose the appropriate flexibility?</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What precautions must you take at the outer boundary? Why?</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="exam3-decision-trees-random-forests">
+    <title>Decision Trees and Random Forests</title>
+    <p>Required readings: Chapter Sections 8.1-8.2.2 (16 pages)</p>
+    <p>
+      <ul>
+        <li>
+          <p>How does a decision tree make decisions?
+            <ul>
+              <li><p>Given a tree and a data point with multiple predictors <m>(x_1, x_2, \cdots, x_p)</m>, you should be able to derive the predicted outcome <m>\hat{y}</m>.</p></li>
+              <li><p>You should be able to do this for both regression and classification decision trees.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>What are the different parts of a decision tree called? What do they represent?
+            <ul>
+              <li><p>You should be able to identify leaves (terminal nodes), internal nodes, and branches/edges.</p></li>
+              <li><p>Given a simple example (e.g., two predictors), you should be able to identify which region in the predictor space maps to which leaf.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How do you fit a decision tree?
+            <ul>
+              <li><p>What is the cost function for regression and classification trees, respectively?</p></li>
+              <li><p>How does recursive binary splitting work?</p></li>
+              <li><p>How does it end?</p></li>
+              <li><p>How do you do it in Python? How do you visualize the tree in Python?</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What metaparameter of decision trees determines their flexibility?</p></li>
+        <li><p>Why do you need to prune the tree?</p></li>
+        <li><p>What are the advantages and disadvantages of using decision trees versus linear regression?</p></li>
+        <li><p>What does bagging of decision trees accomplish?</p></li>
+        <li>
+          <p>How do you use out-of-bag error estimation for decision trees?
+            <ul>
+              <li><p>You should be able to describe this for both regression and classification trees.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What problem of bagging does using random forests address?</p></li>
+        <li><p>What is the relationship between random forests and bagging?</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="exam3-maximal-margin-support-vector-machines">
+    <title>Maximal Margin Classifiers and Support Vector Classifier/Machines</title>
+    <p>Required readings: Chapter Sections 9.1-9.4 (17 pages)</p>
+    <p>
+      <ul>
+        <li>
+          <p>What is a hyperplane?
+            <ul>
+              <li><p>How do you mathematically describe this hyperplane?</p></li>
+              <li><p>How do you mathematically describe the two sides of the hyperplane?</p></li>
+              <li><p>Given the equation of the hyperplane and the coordinates of a point, you should be able to tell which side of the plane the point is on.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>What qualifies a hyperplane as a separating hyperplane?
+            <ul>
+              <li><p>You should be able to describe this mathematically using an inequality.</p></li>
+              <li><p>You should also be able to determine whether a hyperplane is a separating hyperplane given a graph, or given the equation of the plane and the coordinates and class of a few points.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>How do you use a separating hyperplane as a classifier?</p></li>
+        <li>
+          <p>What makes a hyperplane a maximal margin hyperplane?
+            <ul>
+              <li><p>What are its margin and support vectors?</p></li>
+              <li><p>Given a graph, you should be able to clearly label the margin and support vectors. You should also be able to infer the size of the margin from reading the graph.</p></li>
+              <li><p>You should also be able to describe the optimization problem mathematically.</p></li>
+              <li><p>Given the equation of the maximal margin hyperplane and the coordinates of support vectors, you should be able to calculate the size of the margin by hand.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>What is the difference between Support Vector Classifier and Maximal Margin Classifier?
+            <ul>
+              <li><p>What shortcomings of Maximal Margin Classifier does Support Vector Classifier overcome?</p></li>
+              <li><p>How?</p></li>
+              <li><p>You should be able to describe the difference verbally, graphically, and mathematically.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How do you interpret each element of the mathematical formulation of Support Vector Machine graphically?
+            <ul>
+              <li><p>Given a graph of Support Vector Classifier and some data points, you should be able to derive the values of different parameters in the mathematical formulation (e.g., <m>M</m>, <m>\epsilon_i</m>).</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What parameters control the flexibility (hence bias-variance trade-off) of Support Vector Classifier?</p></li>
+        <li><p>What are the support vectors of Support Vector Classifier?</p></li>
+        <li>
+          <p>How do you use Support Vector Classifier in Python?
+            <ul>
+              <li><p>You should be able to obtain and interpret the fitted parameters.</p></li>
+              <li><p>You should be able to select the appropriate hyperparameter that optimizes the bias-variance trade-off.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How is nonlinearity introduced in Support Vector Machine?
+            <ul>
+              <li><p>You should be able to describe how kernels work conceptually and mathematically.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What type of kernel makes Support Vector Machine equivalent to Support Vector Classifier?</p></li>
+        <li><p>What other kernels are there?</p></li>
+        <li><p>What type of kernel leads to more local behavior?</p></li>
+        <li>
+          <p>How do you use Support Vector Machine in Python?
+            <ul>
+              <li><p>You should be able to fit a Support Vector Machine using different kernels covered in class.</p></li>
+              <li><p>You should be able to select the appropriate hyperparameter that optimizes the bias-variance trade-off.</p></li>
+            </ul>
+          </p>
+        </li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="exam3-neural-networks">
+    <title>Neural Networks</title>
+    <p>Required readings: Chapter Sections 10.1-10.3 (14 pages)</p>
+    <p>
+      <ul>
+        <li>
+          <p>What is the architecture of a one-layer feed-forward neural network?
+            <ul>
+              <li><p>You should be able to describe what happens at each layer (e.g., input layer, hidden layer, output layer) conceptually and mathematically.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>What is activation? What types of activation functions are there?
+            <ul>
+              <li><p>You should be able to explain it mathematically.</p></li>
+              <li><p>Given example inputs and weights from the previous matrix, you should be able to calculate the activation <m>A</m> by hand (with the help of a calculator).</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How does a one-layer feed-forward neural network produce an output?
+            <ul>
+              <li><p>Given a <m>\beta</m> matrix and activation from the previous layer, you should be able to calculate the output by hand.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What do the fitted parameters minimize in a one-layer feed-forward neural network?</p></li>
+        <li>
+          <p>What is the architecture of multilayer feed-forward neural networks?
+            <ul>
+              <li><p>You should be able to describe what happens at each layer mathematically for a typical classification problem.</p></li>
+              <li><p>You should be able to calculate class probabilities for the output layer using softmax.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>How do you classify images using multilayer neural networks in Python?</p></li>
+        <li>
+          <p>What is the architecture of a convolutional neural network?
+            <ul>
+              <li><p>You should be able to describe the types of layers, how they are arranged, and the purpose of each of them.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <p>How does convolution work?
+            <ul>
+              <li><p>You should be able to compute the result of the convolution between a simple matrix and a simple filter by hand.</p></li>
+            </ul>
+          </p>
+        </li>
+        <li><p>What information does a convolutional neural network capture through convolution?</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+
+<subsection xml:id="exam3-unsupervised-learning" component="exam3-material">
+  <title>Unsupervised Learning / Clustering</title> 
+    <p>Required readings: Chapter Sections 12.1 and 12.4 (16 pages)</p> 
+    <p>
+      <ul>
+        <li><p>What is the difference between supervised and unsupervised learning?</p></li>
+        <li><p>What do clustering methods aim to accomplish?</p></li>
+        <li><p>How do you interpret a dendrogram of hierarchical clustering?</p></li>
+        <li><p>How are different linkage methods defined?</p></li>
+        <li><p>How do you perform hierarchical clustering in Python?</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+<subsection xml:id="exam3-practice-problems">
+  <title>Exam 3 practice problems</title>
+
+  <p>
+    This section will be updated periodically with practice problems for exam 3. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. Stay tuned.
+  </p>
+  </subsection>
+
+</section>

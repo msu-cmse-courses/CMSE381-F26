@@ -367,6 +367,7 @@
       <!-- Include study guides -->
       <xi:include href="./exam-study-guides/exam1-study-guide.ptx"/>
       <xi:include href="./exam-study-guides/exam2-study-guide.ptx"/>
+      <xi:include href="./exam-study-guides/exam3-study-guide.ptx"/>
     </chapter>
     <!-- <chapter xml:id="slides">
       <title>Slides</title>

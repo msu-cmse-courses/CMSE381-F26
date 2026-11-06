@@ -601,6 +601,18 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam2-study-guide.html#exam2-practice-problems" class="internal"><span class="title">Exam 2 practice problems</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="exam3-study-guide.html" class="internal"><span class="title">Exam 3 study guide</span></a></div>
+<ul id="ptx-toc-group-exam3-study-guide" class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-polynomial-step-functions" class="internal"><span class="title">Polynomial Functions and Step Functions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-basis-functions-splines" class="internal"><span class="title">Basis Functions and Splines</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-decision-trees-random-forests" class="internal"><span class="title">Decision Trees and Random Forests</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-maximal-margin-support-vector-machines" class="internal"><span class="title">Maximal Margin Classifiers and Support Vector Classifier/Machines</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-neural-networks" class="internal"><span class="title">Neural Networks</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-unsupervised-learning" class="internal"><span class="title">Unsupervised Learning / Clustering</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="exam3-study-guide.html#exam3-practice-problems" class="internal"><span class="title">Exam 3 practice problems</span></a></div></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul></nav></div>
@@ -3952,7 +3964,7 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="displaymath process-math" id="regression_prediction_ex1-3-1-2">
 \begin{align*}
 \hat{f}_{\text{bag}}(x) \amp=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)\\
-\amp= \frac{1}{3}(6.8 + 4.2+5.1)= 5.37 
+\amp= \frac{1}{3}(6.8 + 4.2+6.8)= 5.93 
 \end{align*}
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#regression_prediction_ex1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -4274,20 +4286,25 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 <li id="day-23-lecture-14-2-2-2-1-3">
-<div class="para" id="day-23-lecture-14-2-2-2-1-3-1">Typically, <span class="process-math">\(m \approx \sqrt{p}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-14-2-2-2-1-3-1">Typically for classification, <span class="process-math">\(m \approx \sqrt{p}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 <li id="day-23-lecture-14-2-2-2-1-4">
-<div class="para" id="day-23-lecture-14-2-2-2-1-4-1">On average, <span class="process-math">\((p-m)/p\)</span> of the splits will not consider the strong predictor.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-14-2-2-2-1-4-1">For regression, <span class="process-math">\(m \approx p/3\)</span> is a common starting point (often tuned further using the OOB error).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 <li id="day-23-lecture-14-2-2-2-1-5">
-<div class="para" id="day-23-lecture-14-2-2-2-1-5-1">
-<span class="process-math">\(m=p\)</span> gives back bagging.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-14-2-2-2-1-5-1">On average, <span class="process-math">\((p-m)/p\)</span> of the splits will not consider the strong predictor.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-23-lecture-14-2-2-2-1-6">
+<div class="para" id="day-23-lecture-14-2-2-2-1-6-1">
+<span class="process-math">\(m=p\)</span> gives back bagging.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-23-lecture-14-2-2-2-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-14-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -4305,41 +4322,123 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="para" id="day-23-lecture-15-2-1">In this example, we will practice sketching the splits made by a random forest model in a two-dimensional predictor space. The provided figure shows the predictor plane defined by <span class="process-math">\(X_1\)</span> and <span class="process-math">\(X_2\text{,}\)</span> along with dashed lines that represent potential split locations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/random_forests_sketching_ex1.png" class="contained" alt="A square showing the regions for two predictors X1 and X2 with dashed lines that define a non-uniform grid for answering the question."></div>
-<figure class="table table-like" id="random_forest_splits_ex1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">133<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Randomly generated split sequence<div class="autopermalink" aria-hidden="true" data-description="Table 133: Randomly generated split sequence"><a tabindex="-1" href="#random_forest_splits_ex1" title="Copy heading and permalink for Table 133: Randomly generated split sequence" aria-label="Copy heading and permalink for Table 133: Randomly generated split sequence">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
-<tr class="header-horizontal">
-<th scope="col" class="c m b3 r0 l0 t0 lines">Split</th>
-<th scope="col" class="c m b3 r0 l0 t0 lines">Random number</th>
+<figure class="table table-like" id="random_forest_splits_ex1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">133<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Random number generator calls<div class="autopermalink" aria-hidden="true" data-description="Table 133: Random number generator calls"><a tabindex="-1" href="#random_forest_splits_ex1" title="Copy heading and permalink for Table 133: Random number generator calls" aria-label="Copy heading and permalink for Table 133: Random number generator calls">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="l m b0 r0 l0 t0 lines">Call</td>
+<td class="l m b0 r0 l0 t0 lines">Random number</td>
+<td class="l m b0 r0 l0 t0 lines">Call</td>
+<td class="l m b0 r0 l0 t0 lines">Random number</td>
 </tr>
 <tr>
-<td class="c m b0 r0 l0 t0 lines">1</td>
-<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_1\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{17}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
 </tr>
 <tr>
-<td class="c m b0 r0 l0 t0 lines">2</td>
-<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_2\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{18}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
 </tr>
 <tr>
-<td class="c m b0 r0 l0 t0 lines">3</td>
-<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_3\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{19}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
 </tr>
 <tr>
-<td class="c m b0 r0 l0 t0 lines">4</td>
-<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_4\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{20}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_5\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{21}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_6\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{22}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_7\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{23}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_8\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{24}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_9\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{25}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{10}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{26}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{11}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{27}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{12}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{28}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{13}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{29}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{14}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{30}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{15}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{31}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{16}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines"><span class="process-math">\(c_{32}\)</span></td>
+<td class="l m b0 r0 l0 t0 lines">2</td>
 </tr>
 </table></div>
 </figure>
 </div>
 <article class="task exercise-like" id="day-23-lecture-15-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
-<div class="para" id="day-23-lecture-15-3-1-1">Using random forests, sketch the splits in the provided predictor plane <span class="process-math">\((X_1,X_2)\)</span> using the random numbers shown in <a href="sec-exam3-material.html#random_forest_splits_ex1" class="xref" data-knowl="./knowl/xref/random_forest_splits_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 133: Randomly generated split sequence">Table 133</a> for each split. Align your splits with the dashed lines in the provided figure. your choice of which dashed line to choose for the split in each region is not important, but the split variable must be correct. Assume that no stopping criterion is reached, i.e., you need to make all possible splits for the given sequence of random numbers.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-15-3-1-1">Using random forests with depth 4, sketch the splits in the provided predictor plane <span class="process-math">\((X_1,X_2)\)</span> using as many of the random numbers shown in <a href="sec-exam3-material.html#random_forest_splits_ex1" class="xref" data-knowl="./knowl/xref/random_forest_splits_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 133: Random number generator calls">Table 133</a> for each split as needed. Align your splits with the dashed lines in the provided figure. your choice of which dashed line to choose for the split in each region is not important (as long as you are able to make all the required splits), but the split variable must be correct. Assume that no stopping criterion is reached, i.e., you need to make all possible splits for the given tree depth.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
-<div class="para" id="day-23-lecture-15-3-1-2">There can be multiple valid answers, but the number of regions should be the same for all valid answers.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-3-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-15-3-1-2">There can be multiple valid answers, but the number of regions should be the same for all of them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-3-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
 <details id="day-23-lecture-15-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
 <div class="answer solution-like knowl__content">
 <div class="para" id="day-23-lecture-15-3-2-1">This is a possible solution.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/random_forests_sketching_ex1_answer.png" class="contained" alt="A square showing the regions for two predictors X1 and X2 with one possible splitting of the predictor space into a non-uniform grid."></div>
+<div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/figures/random_forests_sketching_ex1_answer.png" class="contained" alt="A square showing the regions for two predictors X1 and X2 with one possible splitting of the predictor space into a non-uniform grid."></div>
 <div class="autopermalink" aria-hidden="true" data-description="Answer 132.a.1"><a tabindex="-1" href="#day-23-lecture-15-3-2" title="Copy heading and permalink for Answer 132.a.1" aria-label="Copy heading and permalink for Answer 132.a.1">🔗</a></div>
 </div></details>
 </div>
@@ -4351,7 +4450,7 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="solutions">
 <details id="day-23-lecture-15-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
 <div class="answer solution-like knowl__content">
-<div class="para" id="day-23-lecture-15-4-2-1">You should end up with <span class="process-math">\(2^4=16\)</span> regions, since each split divides a region into two new regions.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-15-4-2-1">You should end up with <span class="process-math">\(2^4=16\)</span> regions, since each split divides a region into two new regions, and the depth of the tree is 4.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-15-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Answer 132.b.1"><a tabindex="-1" href="#day-23-lecture-15-4-2" title="Copy heading and permalink for Answer 132.b.1" aria-label="Copy heading and permalink for Answer 132.b.1">🔗</a></div>
 </div></details>
@@ -4449,12 +4548,14 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/random_forests_splitting_ex1.png" class="contained" alt="Qualitative data (three circles and three triangles) on a two-dimensional predictor space, X1 and X2. A non-uniform grid of all potential split locations is shown as dashed lines."></div>
 </div>
 <article class="task exercise-like" id="day-23-lecture-18-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
-<div class="para" id="day-23-lecture-18-3-1-1">Using recursive binary splitting, how many errors corresponding to possible splits will you need to compute to determine the first and second splits ?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-18-3-1-1">Using recursive binary splitting with tree depth of 2, how many errors corresponding to possible splits will you need to compute?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
 <details id="day-23-lecture-18-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
 <div class="answer solution-like knowl__content">
-<div class="para" id="day-23-lecture-18-3-2-1">You will need to compute the errors for 4 rows in the table <a href="sec-exam3-material.html#split_errors_ex1" class="xref" data-knowl="./knowl/xref/split_errors_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 135: Classification error rate versus splits.">Table 135</a> to determine the first split, and then you will need to compute the errors for 4 additional rows to determine the second split. This is because each split divides the data into two child nodes, and you will need to evaluate the potential splits for each child node separately.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-18-3-2-1">You will need to compute the errors for 4 rows in the table <a href="sec-exam3-material.html#split_errors_ex1" class="xref" data-knowl="./knowl/xref/split_errors_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 135: Starting table for classification error rate versus splits. Add more rows as needed.">Table 135</a> to determine the first split.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-23-lecture-18-3-2-2">Next, you will need to compute 5 more errors for splitting one of the child nodes along <span class="process-math">\(X_1\text{,}\)</span> and at most 3 more errors for splitting the other child node along <span class="process-math">\(X_2\text{.}\)</span> So altogether, you will need to compute at most 12 errors to determine the first and second splits. This is because each split divides the data into two child nodes, and you will need to evaluate the potential splits for each child node separately.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-3-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Answer 134.a.1"><a tabindex="-1" href="#day-23-lecture-18-3-2" title="Copy heading and permalink for Answer 134.a.1" aria-label="Copy heading and permalink for Answer 134.a.1">🔗</a></div>
 </div></details>
@@ -4462,9 +4563,13 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="autopermalink" aria-hidden="true" data-description="Task 134.a"><a tabindex="-1" href="#day-23-lecture-18-3" title="Copy heading and permalink for Task 134.a" aria-label="Copy heading and permalink for Task 134.a">🔗</a></div>
 </article>
 <article class="task exercise-like" id="day-23-lecture-18-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
-<div class="para" id="day-23-lecture-18-4-1-1">Using recursive binary splitting, draw the first and second splits using the randomly generated sequence <span class="process-math">\(\{2,1\}\)</span> for which predictor to split on. Table <a href="sec-exam3-material.html#split_errors_ex1" class="xref" data-knowl="./knowl/xref/split_errors_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 135: Classification error rate versus splits.">Table 135</a> must be used to determine the location for each split. Note that you will not need to compute the error for all the split locations provided in the table since subsequent splits will be made on the child nodes. The split variable and split point for each split is determined by the split that minimizes the classification error.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-23-lecture-18-4-1-1">Using recursive binary splitting, draw the splits corresponding to tree depth of 2 using as many rows of the randomly generated sequence <a href="sec-exam3-material.html#random_forest_splits_ex1" class="xref" data-knowl="./knowl/xref/random_forest_splits_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 133: Random number generator calls">Table 133</a> as needed to decide the predictor to split on.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
-<figure class="table table-like" id="split_errors_ex1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">135<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Classification error rate versus splits.<div class="autopermalink" aria-hidden="true" data-description="Table 135: Classification error rate versus splits."><a tabindex="-1" href="#split_errors_ex1" title="Copy heading and permalink for Table 135: Classification error rate versus splits." aria-label="Copy heading and permalink for Table 135: Classification error rate versus splits.">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<div class="para" id="day-23-lecture-18-4-1-2">Table <a href="sec-exam3-material.html#split_errors_ex1" class="xref" data-knowl="./knowl/xref/split_errors_ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Table 135: Starting table for classification error rate versus splits. Add more rows as needed.">Table 135</a> provides a starting point for you, but you must append additional rows to the table for the additional splits.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-4-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="day-23-lecture-18-4-1-3">The split variable and split point for each split must be determined by the split that minimizes the classification error.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-23-lecture-18-4-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<figure class="table table-like" id="split_errors_ex1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">135<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Starting table for classification error rate versus splits. Add more rows as needed.<div class="autopermalink" aria-hidden="true" data-description="Table 135: Starting table for classification error rate versus splits. Add more rows as needed."><a tabindex="-1" href="#split_errors_ex1" title="Copy heading and permalink for Table 135: Starting table for classification error rate versus splits. Add more rows as needed." aria-label="Copy heading and permalink for Table 135: Starting table for classification error rate versus splits. Add more rows as needed.">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr class="header-horizontal">
 <th scope="col" class="c m b3 r0 l0 t0 lines">Splits</th>
 <th scope="col" class="c m b3 r0 l0 t0 lines"><span class="process-math">\(E_{\text{left}}\)</span></th>
@@ -4491,126 +4596,6 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 </tr>
 <tr>
 <td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{21}, s_{11}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{21}, s_{12}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{21}, s_{13}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{21}, s_{14}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{21}, s_{15}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{22}, s_{11}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{22}, s_{12}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{22}, s_{13}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{22}, s_{14}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{22}, s_{15}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{23}, s_{11}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{23}, s_{12}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{23}, s_{13}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{23}, s_{14}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{23}, s_{15}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}, s_{11}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}, s_{12}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}, s_{13}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}, s_{14}\)</span></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-<td class="c m b0 r0 l0 t0 lines"></td>
-</tr>
-<tr>
-<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s_{24}, s_{15}\)</span></td>
 <td class="c m b0 r0 l0 t0 lines"></td>
 <td class="c m b0 r0 l0 t0 lines"></td>
 <td class="c m b0 r0 l0 t0 lines"></td>

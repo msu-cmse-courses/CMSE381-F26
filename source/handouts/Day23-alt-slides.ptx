@@ -140,7 +140,7 @@
       The predicted response for the new data point <m>x_0</m> is the average of the predictions from each bagged tree.
 <md>    
         <mrow>\hat{f}_{\text{bag}}(x) \amp=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)</mrow>
-        <mrow>\amp= \frac{1}{3}(6.8 + 4.2+5.1)= 5.37 </mrow>
+        <mrow>\amp= \frac{1}{3}(6.8 + 4.2+6.8)= 5.93 </mrow>
 </md>
       
     </p>
@@ -384,7 +384,8 @@
         <ul>
           <li><p>Each time a split is considered, use only a random subset of <m>m</m> of the predictors.</p></li>
           <li><p>Take a fresh sample of predictors at every split.</p></li>
-          <li><p>Typically, <m>m \approx \sqrt{p}</m>.</p></li>
+          <li><p>Typically for classification, <m>m \approx \sqrt{p}</m>.</p></li>
+            <li><p>For regression, <m>m \approx p/3</m> is a common starting point (often tuned further using the OOB error). </p></li>
           <li><p>On average, <m>(p-m)/p</m> of the splits will not consider the strong predictor.</p></li>
           <li><p><m>m=p</m> gives back bagging.</p></li>
         </ul>
@@ -403,47 +404,48 @@
       <shortdescription>A square showing the regions for two predictors X1 and X2 with dashed lines that define a non-uniform grid for answering the question.</shortdescription>
       </image>
 
-       <table xml:id="random_forest_splits_ex1">
-    <title>Randomly generated split sequence</title>
-    <tabular halign="center">
-        <row header="yes" bottom="major">
-            <cell>Split</cell>
-            <cell>Random number</cell>
-        </row>
-        <row>
-          <cell>1</cell>
-          <cell>2</cell>
-        </row>
-        <row>
-      <cell>2</cell>
-      <cell>1</cell>
-    </row>
+<table xml:id="random_forest_splits_ex1">
+  <title>Random number generator calls</title>
+  <tabular>
     <row>
-      <cell>3</cell>
-      <cell>1</cell>
+      <cell>Call</cell>
+      <cell>Random number</cell>
+      <cell>Call</cell>
+      <cell>Random number</cell>
     </row>
-    <row>
-      <cell>4</cell>
-      <cell>2</cell>
-    </row>
-
+    <row><cell><m>c_1</m>   </cell><cell>2</cell><cell><m>c_{17}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_2</m>   </cell><cell>1</cell><cell><m>c_{18}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_3</m>   </cell><cell>2</cell><cell><m>c_{19}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_4</m>   </cell><cell>1</cell><cell><m>c_{20}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_5</m>   </cell><cell>1</cell><cell><m>c_{21}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_6</m>   </cell><cell>1</cell><cell><m>c_{22}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_7</m>   </cell><cell>2</cell><cell><m>c_{23}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_8</m>   </cell><cell>2</cell><cell><m>c_{24}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_9</m>   </cell><cell>1</cell><cell><m>c_{25}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_{10}</m></cell><cell>1</cell><cell><m>c_{26}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_{11}</m></cell><cell>2</cell><cell><m>c_{27}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_{12}</m></cell><cell>1</cell><cell><m>c_{28}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_{13}</m></cell><cell>2</cell><cell><m>c_{29}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_{14}</m></cell><cell>1</cell><cell><m>c_{30}</m></cell><cell>2</cell></row>
+    <row><cell><m>c_{15}</m></cell><cell>1</cell><cell><m>c_{31}</m></cell><cell>1</cell></row>
+    <row><cell><m>c_{16}</m></cell><cell>1</cell><cell><m>c_{32}</m></cell><cell> 2 </cell></row>
   </tabular>
 </table>
   </introduction>
   <task>
   <statement>
     <p>
-      Using random forests, sketch the splits in the provided predictor plane <m>(X_1,X_2)</m> using the random numbers shown in <xref ref="random_forest_splits_ex1"/> for each split. Align your splits with the dashed lines in the provided figure. your choice of which dashed line to choose for the split in each region is not important, but the split variable must be correct. Assume that no stopping criterion is reached, i.e., you need to make all possible splits for the given sequence of random numbers. 
+      Using random forests with depth 4, sketch the splits in the provided predictor plane <m>(X_1,X_2)</m> using as many of the random numbers shown in <xref ref="random_forest_splits_ex1"/> for each split as needed. Align your splits with the dashed lines in the provided figure. your choice of which dashed line to choose for the split in each region is not important (as long as you are able to make all the required splits), but the split variable must be correct. Assume that no stopping criterion is reached, i.e., you need to make all possible splits for the given tree depth. 
     </p>
     <p>
-      There can be multiple valid answers, but the number of regions should be the same for all valid answers.
+      There can be multiple valid answers, but the number of regions should be the same for all of them.
     </p>
       </statement>
     <answer>
       <p>
         This is a possible solution.
       </p>
-      <image source="figures/random_forests_sketching_ex1_answer.png" width="60%">
+      <image source="figures/random_forests_sketching_ex1_answer.png" width="75%">
         <shortdescription>A square showing the regions for two predictors X1 and X2 with one possible splitting of the predictor space into a non-uniform grid.</shortdescription>
         
       </image>
@@ -457,7 +459,7 @@
         </statement>
         <answer>
           <p>
-            You should end up with <m>2^4=16</m> regions, since each split divides a region into two new regions.
+            You should end up with <m>2^4=16</m> regions, since each split divides a region into two new regions, and the depth of the tree is 4.
           </p>
         </answer>
       </task>
@@ -520,23 +522,32 @@ where <m>N</m> is the number of points in the parent node, <m>N_{\text{left}}</m
   <task>
     <statement>
      <p>
-  Using recursive binary splitting, how many errors corresponding to possible splits will you need to compute to determine the first and second splits ?
+  Using recursive binary splitting with tree depth of 2, how many errors corresponding to possible splits will you need to compute?
       </p>
     </statement>
     <answer>
       <p>
-        You will need to compute the errors for 4 rows in the table <xref ref="split_errors_ex1"/> to determine the first split, and then you will need to compute the errors for 4 additional rows to determine the second split. This is because each split divides the data into two child nodes, and you will need to evaluate the potential splits for each child node separately.
+        You will need to compute the errors for 4 rows in the table <xref ref="split_errors_ex1"/> to determine the first split.
+      </p>
+      <p>
+        Next, you will need to compute 5 more errors for splitting one of the child nodes along <m>X_1</m>, and at most 3 more errors for splitting the other child node along <m>X_2</m>. So altogether, you will need to compute at most 12 errors to determine the first and second splits. This is because each split divides the data into two child nodes, and you will need to evaluate the potential splits for each child node separately.
       </p>
     </answer>
   </task>
   <task>
   <statement>
     <p>
-  Using recursive binary splitting, draw the first and second splits using the randomly generated sequence <m>\{2,1\}</m> for which predictor to split on. Table <xref ref="split_errors_ex1"/> must be used to determine the location for each split. Note that you will not need to compute the error for all the split locations provided in the table since subsequent splits will be made on the child nodes. The split variable and split point for each split is determined by the split that minimizes the classification error.
+  Using recursive binary splitting, draw the splits corresponding to tree depth of 2 using as many rows of the randomly generated sequence <xref ref="random_forest_splits_ex1"/> as needed to decide the predictor to split on. 
+  </p>
+  <p>
+    Table <xref ref="split_errors_ex1"/> provides a starting point for you, but you must append additional rows to the table for the additional splits. 
+  </p>
+<p>
+   The split variable and split point for each split must be determined by the split that minimizes the classification error.
 </p>
 
 <table xml:id="split_errors_ex1">
-    <title>Classification error rate versus splits.</title>
+    <title>Starting table for classification error rate versus splits. Add more rows as needed.</title>
     <tabular halign="center">
         <row header="yes" bottom="major">
             <cell>Splits</cell>
@@ -548,26 +559,6 @@ where <m>N</m> is the number of points in the parent node, <m>N_{\text{left}}</m
         <row><cell><m>s_{22}</m></cell><cell></cell><cell></cell><cell></cell></row>
         <row><cell><m>s_{23}</m></cell><cell></cell><cell></cell><cell></cell></row>
         <row><cell><m>s_{24}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{21}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{21}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{21}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{21}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{21}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{22}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{22}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{22}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{22}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{22}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{23}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{23}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{23}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{23}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{23}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{24}, s_{11}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{24}, s_{12}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{24}, s_{13}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{24}, s_{14}</m></cell><cell></cell><cell></cell><cell></cell></row>
-        <row><cell><m>s_{24}, s_{15}</m></cell><cell></cell><cell></cell><cell></cell></row>
     </tabular>
 </table>
     

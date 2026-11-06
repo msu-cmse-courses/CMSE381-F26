@@ -300,8 +300,338 @@
   <title>Exam 3 practice problems</title>
 
   <p>
-    This section will be updated periodically with practice problems for exam 3. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. Stay tuned.
+    This section will be updated periodically with practice problems for exam 3. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. 
   </p>
+
+  <exercise xml:id="step-function-practice">
+  <introduction>
+    <p>Step functions with the knots marked on the <m>x</m>-axis as black dots were used to obtain the shown regression model. Answer the following questions.</p>
+    
+    <image source="figures/step_function_problem" width="75%">
+      <shortdescription>Regression model obtained using step functions, with knots marked as black dots on the x-axis.</shortdescription>
+    </image>
+  </introduction>
+  <task>
+  <statement>    
+    <p>Fill out the shown table for <m>C_i(X)</m>.</p>          
+    <tabular>
+      <row>
+        <cell><m>X</m></cell>
+        <cell><m>C_0(X)</m></cell>
+        <cell><m>C_1(X)</m></cell>
+        <cell><m>C_2(X)</m></cell>
+        <cell><m>C_3(X)</m></cell>
+        <cell><m>C_4(X)</m></cell>
+        <cell><m>C_5(X)</m></cell>
+        <cell><m>C_6(X)</m></cell>
+        <cell><m>C_7(X)</m></cell>
+      </row>
+      <row>
+        <cell>1</cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/>
+      </row>
+      <row>
+        <cell>4</cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/>
+      </row>
+      <row>
+        <cell>7</cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/>
+      </row>
+    </tabular>
+  </statement>
+  </task>
+  <task>
+  <statement>
+    <p>Write the equation for the fitted model.</p>
+  </statement>
+  </task>
+  <task>
+  <statement>
+    <p>Predict the response <m>Y(X^*)</m> given <m>X^*=-1</m>.</p>
+      </statement>
+  </task>
+  <task>
+  <statement>
+    <p>Predict the response <m>Y(X^*)</m> given <m>X^*=10</m>.</p>
+      </statement>
+  </task>
+</exercise>
+
+<exercise xml:id="step-function-plot">
+  <statement>
+    <p>Regression using step functions with knots <m>c_1=2</m>, <m>c_2=4</m>, and <m>c_3=6</m> returned the function</p>
+    <p>
+      <md>Y=-3+4C_1(X)+C_2(X)-C_3(X).</md>
+    </p>
+    <p>Draw this function below. </p>
+    <image source="figures/empty_grid" width="75%">
+      <shortdescription>Blank coordinate grid for sketching the step function.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="spline-degrees-of-freedom">
+  <statement>
+    <p>Fill in the missing cells in the shown tables. </p>
+    <image source="figures/spline_DOF_quiz" width="75%">
+      <shortdescription>Table for practicing degrees of freedom for splines.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="cubic-spline-coefficients">
+  <statement>
+    <p>We have the following piecewise cubic polynomial:</p>
+    <p>
+      <md>
+        f(x)=
+        \begin{cases}
+        2+x+x^2+0.1x^3 &amp; x\leq 1,\\
+        b_0+b_1x+b_2x^2-x^3 &amp; x&gt;1.
+        \end{cases}
+      </md>
+    </p>
+    <p>What are <m>b_0</m>, <m>b_1</m>, and <m>b_2</m> to make this a cubic spline?</p>    
+  </statement>
+</exercise>
+
+<exercise xml:id="recursive-binary-splitting-region">
+  <statement>
+    <p>Express the shaded region <m>R</m> using set notation <m>R=\{X\mid\ldots\}</m> and sketch the corresponding tree.</p>
+    <image source="figures/recursive_binary_splitting_question">
+      <shortdescription>Predictor space with a shaded region to be represented using set notation and a decision tree.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="recursive-binary-splitting-3d-region">
+  <statement>
+    <p>Sketch and shade the region <m>R</m> indicated by the equivalent representations in (a) and (b). </p>
+    <image source="figures/recursive_binary_splitting_question3D">
+      <shortdescription>Three-dimensional predictor-space representations corresponding to a region to be sketched and shaded.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="decision-tree-classification-prediction">
+  <statement>
+    <p>A decision tree classifier was trained and is shown in the figure. Use this classifier to predict the class (star or circle) of the three test points <m>x_1^*</m>, <m>x_2^*</m>, and <m>x_3^*</m> indicated by the filled-in rectangles.</p>
+        <image source="figures/decision_trees_classification_prediction" width="75%">
+      <shortdescription>Decision tree classifier and three test points indicated by filled rectangles.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="decision-tree-regression-prediction">
+  <statement>
+    <p>A decision tree regression model was trained and is shown in the figure. Use this model to predict the three test points <m>x_1^*</m>, <m>x_2^*</m>, and <m>x_3^*</m> indicated by the filled-in rectangles. The table below shows the <m>Y</m> values for the data.</p>
+       <sidebyside widths="65% 35%">
+      <image source="figures/decision_trees_regression_prediction" width="75%">
+        <shortdescription>Decision tree regression model with three test points indicated by filled rectangles.</shortdescription>
+      </image>
+      <table>
+      <title>Training Data</title>      
+        <tabular>
+          <row><cell><m>i</m></cell><cell><m>Y_i</m></cell></row>
+          <row><cell>1</cell><cell>3.7</cell></row>
+          <row><cell>2</cell><cell>9.1</cell></row>
+          <row><cell>3</cell><cell>0.6</cell></row>
+          <row><cell>4</cell><cell>6.8</cell></row>
+          <row><cell>5</cell><cell>2.1</cell></row>
+          <row><cell>6</cell><cell>8.9</cell></row>
+          <row><cell>7</cell><cell>4.6</cell></row>
+          <row><cell>8</cell><cell>1.1</cell></row>
+          <row><cell>9</cell><cell>7.3</cell></row>
+          <row><cell>10</cell><cell>5.4</cell></row>
+        </tabular>
+      </table>
+    </sidebyside>
+  </statement>
+</exercise>
+
+<exercise xml:id="decision-tree-classification-error-gini">
+  <introduction>
+    <p>A decision tree classifier was trained and is shown in the figure. Answer the following questions. </p>
+  
+    <image source="figures/decision_trees_classification_error" width="75%">
+      <shortdescription>Decision tree classifier showing four regions for computing classification error.</shortdescription>
+    </image>
+    </introduction>
+    <task>
+      <statement>
+        <p>
+          Compute the classification error rate for each region.
+        </p>
+    <table>
+    <title>Values of the step functions</title>    
+      <tabular>
+        <row><cell>Region <m>R</m></cell><cell>Classification Error<m>E</m></cell></row>
+        <row><cell><m>R_1</m></cell><cell/></row>
+        <row><cell><m>R_2</m></cell><cell/></row>
+        <row><cell><m>R_3</m></cell><cell/></row>
+        <row><cell><m>R_4</m></cell><cell/></row>
+      </tabular>
+    </table>
+      </statement>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Compute the splitting error for each split.
+        </p>
+      </statement>
+    </task>
+</exercise>
+
+<exercise xml:id="recursive-binary-splitting-first-cut">
+  <introduction>
+    <p>Use recursive binary splitting and the shown figure to answer the following questions. Complete the tables for each part, and use them to justify your answer in each case.</p>    
+    <image source="figures/recursive_binary_splitting_first_cut">
+      <shortdescription>Predictor-space diagrams for identifying the first cut using recursive binary splitting.</shortdescription>
+    </image>
+    </introduction>
+    <task>
+      <statement>
+        <p>
+           Identify the first cut in the classification tree (a).         
+        </p>
+        <table>
+        <title>Recursive binary splitting errors for classification tree.</title>
+          <tabular>
+            <row><cell>Splits</cell><cell>Error</cell><cell>Splits</cell><cell>Error</cell></row>
+            <row><cell><m>s_{11}</m></cell><cell/><cell><m>s_{21}</m></cell><cell/></row>
+            <row><cell><m>s_{12}</m></cell><cell/><cell><m>s_{22}</m></cell><cell/></row>
+            <row><cell><m>s_{13}</m></cell><cell/><cell><m>s_{23}</m></cell><cell/></row>
+            <row><cell><m>s_{14}</m></cell><cell/><cell><m>s_{24}</m></cell><cell/></row>
+            <row><cell><m>s_{15}</m></cell><cell/><cell><m>s_{25}</m></cell><cell/></row>
+            <row><cell><m>s_{16}</m></cell><cell/><cell><m>s_{26}</m></cell><cell/></row>
+            <row><cell><m>s_{17}</m></cell><cell/><cell><m>s_{27}</m></cell><cell/></row>
+            <row><cell><m>s_{18}</m></cell><cell/><cell><m>s_{28}</m></cell><cell/></row>
+            <row><cell/><cell/><cell><m>s_{29}</m></cell><cell/></row>
+          </tabular>
+        </table>
+      </statement>
+      <hint>
+        <p>For classification, use the splitting error
+  <md>
+  \text{E}_s = \frac{N_{\text{left}}}{N} \times E_{\text{left}} + \frac{N_{\text{right}}}{N} \times E_{\text{right}}
+</md>
+where <m>N</m> is the number of points in the parent node, <m>N_{\text{left}}</m> and <m>N_{\text{right}}</m> are the number of points in the left and right child nodes, respectively. <m>E_{\text{left}}</m> and <m>E_{\text{right}}</m> are the classification errors for the left and right child nodes, respectively.   </p>
+</hint>
+    </task>
+    <task>
+      <statement>
+        <p>
+          Identify the first cut in the regression tree (b) using the data given in the table below. 
+        </p>
+
+    <table>
+    <title>Training Data for part (b).</title>       
+      <tabular>
+        <row>
+          <cell><m>i</m></cell>
+          <cell><m>Y_i</m></cell>
+          <cell><m>i</m></cell>
+          <cell><m>Y_i</m></cell>
+        </row>
+        <row><cell>1</cell><cell>7.5</cell><cell>6</cell><cell>9.8</cell></row>
+        <row><cell>2</cell><cell>8.8</cell><cell>7</cell><cell>7.1</cell></row>
+        <row><cell>3</cell><cell>6</cell><cell>8</cell><cell>8.5</cell></row>
+        <row><cell>4</cell><cell>9.4</cell><cell>9</cell><cell>8.3</cell></row>
+        <row><cell>5</cell><cell>7.8</cell><cell>10</cell><cell>9.2</cell></row>
+      </tabular>
+    </table>
+      
+
+
+        <table>
+        <title>Recursive binary splitting errors for regression tree.</title>
+          <tabular>
+            <row><cell>Splits</cell><cell>Error</cell><cell>Splits</cell><cell>Error</cell></row>
+            <row><cell><m>s_{11}</m></cell><cell/><cell><m>s_{21}</m></cell><cell/></row>
+            <row><cell><m>s_{12}</m></cell><cell/><cell><m>s_{22}</m></cell><cell/></row>
+            <row><cell><m>s_{13}</m></cell><cell/><cell><m>s_{23}</m></cell><cell/></row>
+            <row><cell><m>s_{14}</m></cell><cell/><cell><m>s_{24}</m></cell><cell/></row>
+            <row><cell><m>s_{15}</m></cell><cell/><cell><m>s_{25}</m></cell><cell/></row>
+            <row><cell><m>s_{16}</m></cell><cell/><cell><m>s_{26}</m></cell><cell/></row>
+            <row><cell><m>s_{17}</m></cell><cell/><cell><m>s_{27}</m></cell><cell/></row>
+            <row><cell><m>s_{18}</m></cell><cell/><cell><m>s_{28}</m></cell><cell/></row>
+            <row><cell/><cell/><cell><m>s_{29}</m></cell><cell/></row>
+          </tabular>
+        </table>
+              </statement>
+              <hint>
+                <p>
+For regression, use the RSS splitting error.
+                </p>
+              </hint>
+    </task>
+
+
+  
+</exercise>
+
+<exercise xml:id="oob-classification-error">
+  <statement>
+    <p>Compute the Out-Of-Bag (OOB) error. If you need to split the predictors' space, use a tree with one level. In case of a tie when splitting along either <m>X_1</m> or <m>X_2</m>, break the tie by splitting <m>X_1</m>.</p>
+    
+    <image source="figures/OOB_error_classification" width="85%">
+      <shortdescription>Classification data and tree information for computing the out-of-bag error.</shortdescription>
+    </image>
+  </statement>
+</exercise>
+
+<exercise xml:id="oob-regression-error">
+  <statement>
+    <p>Compute the Out-Of-Bag (OOB) error using the data given in the table below. If you need to split the predictors' space, use a tree with one level. In case of a tie when splitting along either <m>X_1</m> or <m>X_2</m>, break the tie by splitting <m>X_1</m>.</p>
+    <image source="figures/OOB_error_regression" width="85%">
+      <shortdescription>Regression data and tree information for computing the out-of-bag error.</shortdescription>
+    </image>
+    <table>
+    <title>Training Data.</title>    
+      <tabular>
+        <row><cell><m>i</m></cell><cell><m>Y_i</m></cell></row>
+        <row><cell>1</cell><cell>3.4</cell></row>
+        <row><cell>2</cell><cell>6.2</cell></row>
+        <row><cell>3</cell><cell>7</cell></row>
+        <row><cell>4</cell><cell>8.3</cell></row>
+        <row><cell>5</cell><cell>4.1</cell></row>
+        <row><cell>6</cell><cell>10.1</cell></row>
+        <row><cell>7</cell><cell>9.5</cell></row>
+      </tabular>
+    </table>    
+  </statement>
+</exercise>
+
+
+
+<exercise xml:id="random-forest-first-second-splits">
+  <statement>
+    <p>Using random forests, draw the first and second splits using the first two random numbers in the shown table for each split.</p>    
+    <sidebyside widths="65% 35%">
+      <image source="figures/random_forests_splitting">
+        <shortdescription>Predictor space for drawing the first and second splits in a random forest.</shortdescription>
+      </image>
+      <table>
+      <title>Random Numbers for each split.</title>      
+        <tabular>
+          <row>
+            <cell>Split</cell>
+            <cell>Random number generator on <m>\{1,2\}</m></cell>
+          </row>
+          <row><cell>1</cell><cell>2</cell></row>
+          <row><cell>2</cell><cell>1</cell></row>
+          <row><cell>3</cell><cell>2</cell></row>
+          <row><cell>4</cell><cell>2</cell></row>
+          <row><cell>5</cell><cell>1</cell></row>
+        </tabular>
+      </table>
+    </sidebyside>
+  </statement>
+  <hint>
+    <p>
+      Use the classification splitting error formula to determine the best split at each step.
+    </p>
+  </hint>
+</exercise>
   </subsection>
 
 </section>

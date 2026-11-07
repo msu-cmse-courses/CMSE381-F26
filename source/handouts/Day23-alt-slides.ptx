@@ -543,7 +543,7 @@ where <m>N</m> is the number of points in the parent node, <m>N_{\text{left}}</m
     Table <xref ref="split_errors_ex1"/> provides a starting point for you, but you must append additional rows to the table for the additional splits. 
   </p>
 <p>
-   The split variable and split point for each split must be determined by the split that minimizes the classification error.
+   The split variable and split point for each split must be determined by the split that minimizes the split error <m>E_s</m>.
 </p>
 
 <table xml:id="split_errors_ex1">

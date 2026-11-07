@@ -490,7 +490,7 @@
     <sidebyside widths="45% 45%">
       <stack>
         <p>
-          <bold>Goal:</bold>
+          Goal:
         </p>
 
         <p>
@@ -967,7 +967,7 @@
           <p>
             Define <m>\hat p_{mk}</m> = proportion of training observations in
             <m>R_m</m> from the <m>k</m>th class.
-            Then the classificaiton error for region <m>R_m</m> is given by:
+            Then the classification error for region <m>R_m</m> is given by:
             <md>
               <mrow>E \amp= 1-\max_k(\hat p_{mk})</mrow>
               <mrow>\amp= \frac{\text{no.~of minority class observations in } R_m}{\text{total observations in } R_m}</mrow>

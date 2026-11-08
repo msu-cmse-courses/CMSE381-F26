@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day24" xml:id="day-24-lecture">
+  <title>Day 24</title>
+
+  <introduction>
+
+    <p>
+        Ch 9.1: Maximum Margin Classifier 
+    </p>
+  </introduction>
+
+<objectives>
+  <ul>
+    <li>
+      <p>What is a hyperplane?
+      <ul>
+        <li><p>How do you mathematically describe a hyperplane?</p></li>
+        <li><p>How do you mathematically describe the two sides of a hyperplane?</p></li>
+        <li><p>Given the equation of a hyperplane and the coordinates of a point, determine which side of the hyperplane the point is on.</p></li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>What qualifies a hyperplane as a separating hyperplane?
+      <ul>
+        <li><p>Describe this mathematically using an inequality.</p></li>
+        <li><p>Determine whether a hyperplane is a separating hyperplane given a graph, or given the equation of the hyperplane and the coordinates and classes of a few points.</p></li>
+      </ul>
+      </p>
+    </li>
+    <li><p>How do you use a separating hyperplane as a classifier?</p></li>
+    <li>
+      <p>What makes a hyperplane a maximal margin hyperplane?
+      <ul>
+        <li><p>What are its margin and support vectors?</p></li>
+        <li><p>Given a graph, clearly label the margin and support vectors. Also infer the size of the margin from the graph.</p></li>
+        <li><p>Describe the optimization problem mathematically.</p></li>
+        <li><p>Given the equation of the maximal margin hyperplane and the coordinates of support vectors, calculate the size of the margin by hand.</p></li>
+      </ul>
+      </p>
+    </li>
+  </ul>
+</objectives>
+
+<paragraphs>
+  <title>The goal</title>
+  <sidebyside widths="45% 50%">
+    <image source="figures/SVM-Example">
+      <shortdescription>An example of a support vector machine for classification.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>Today is all about classification.</p></li>
+          <li><p>The goal is to find a line in the middle that separates the two classes. There are lots of options, but we want the one that stays as far away from everyone as possible.</p></li>
+          <li><p>For today, we need to use <m>y\in\{-1,1\}</m> for this to make sense.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>What is a hyperplane?</title>
+
+  <image source="figures/hyperplanes_p1_p2_p3" width="90%">
+    <shortdescription>Three figures showing hyperplane examples for Euclidean dimension 1 (hyperplane is shown as a point), dimension 2 (hyperplane is shown as a line), and dimension 3 (hyperplane is shown as a 2D plane).</shortdescription>    
+  </image>
+
+      <p>
+        <ul>
+          <li><p>In <m>p</m>-dimensional space, a hyperplane is a flat affine subspace of dimension <m>p-1</m>.</p></li>
+          <li><p>Affine means it does not have to pass through the origin.</p></li>
+        </ul>
+      </p>
+
+</paragraphs>
+
+<paragraphs>
+  <title>Mathematical definition of a hyperplane</title>
+  <p>
+    <md>
+      \beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p=0
+    </md>
+  </p>
+
+      <p>
+        <ul>
+          <li><p>Being on the hyperplane means having a point <m>X=(X_1,X_2,\cdots,X_p)^T</m> satisfying this equation.</p></li>
+          <li component="slides-inst-notes"><p>Show that when <m>p=2</m>, this is just a line.</p></li>
+        </ul>
+      </p>
+
+</paragraphs>
+
+<paragraphs>
+  <title>Hyperplane for <m>p=2</m></title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-1.png">
+      <shortdescription>A hyperplane separating two regions with blue and purple colors.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <md>1+2X_1+3X_2=0</md>
+      </p>
+      <p>
+        <ul>
+          <li><p><m>X_1=-0.5</m>, <m>X_2=0</m>, on boundary, with with <m>1+2X_1+3X_2=0</m>.</p></li>
+          <li><p><m>X_1=0</m>, <m>X_2=-1</m>, on the lower left, with <m>1+2X_1+3X_2&lt;0</m>.</p></li>
+          <li><p><m>X_1=0</m>, <m>X_2=1</m>, on the upper right, with <m>1+2X_1+3X_2&gt;0</m>.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>There are two sides to every hyperplane</title>
+
+    <p>
+      <md>
+        \beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p&lt;0
+      </md>
+    </p>
+    <p>
+      <md>
+        \beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p&gt;0
+      </md>
+    </p>
+
+  <image source="figures/Fig9-1.png" width="50%">
+    <shortdescription>A hyperplane separating two regions with blue and purple colors.</shortdescription>
+  </image>
+</paragraphs>
+
+
+<paragraphs>
+  <title>Classification Setup</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>Data matrix:</p>
+      <p>
+        <md>
+          X=
+          \begin{pmatrix}
+          - &amp; x_1^T &amp; -\\
+          - &amp; x_2^T &amp; -\\
+          &amp; \vdots &amp; \\
+          - &amp; x_n^T &amp; -
+          \end{pmatrix}_{n\times p}
+        </md>
+      </p>
+      <p>
+        <md>
+          x_1=
+          \begin{pmatrix}
+          x_{11}\\
+          \vdots\\
+          x_{1p}
+          \end{pmatrix},
+          \cdots,
+          x_n=
+          \begin{pmatrix}
+          x_{n1}\\
+          \vdots\\
+          x_{np}
+          \end{pmatrix}
+        </md>
+      </p>
+    </stack>
+    <stack>
+      <p>Observations in one of two classes, <m>y_i\in\{-1,1\}</m>.</p>
+      <p>
+        <md>
+          Y=
+          \begin{pmatrix}
+          y_1\\
+          y_2\\
+          \vdots\\
+          y_n
+          \end{pmatrix}
+        </md>
+      </p>
+    </stack>
+  </sidebyside>
+  <p>Separate out a test observation:</p>
+  <p>
+    <md>x^*=(x_1^*\;\cdots\;x_p^*)^T</md>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>Separating Hyperplane</title>
+  <p>
+    <md>
+      \begin{aligned}
+      \beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&gt;0
+      &amp;\text{ if }y_i=1\\
+      \beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&lt;0
+      &amp;\text{ if }y_i=-1
+      \end{aligned}
+    </md>
+  </p>
+  <sidebyside widths="45% 55%">
+    <image source="figures/Fig9-2a.png">
+      <shortdescription>Three separating hyperplanes separating two classes of observations.</shortdescription>
+    </image>
+      <p>
+        <ul>
+          <li><p>Linearly separable data.</p></li>
+            <li>
+                <p>
+                    Two-class classification. 
+                </p>
+            </li>
+          <li><p>No points can be on the wrong side of the line (no noise, and no outliers).</p></li>
+        </ul>
+      </p>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Another way to say it</title>
+  <p>
+    <md>
+      \begin{aligned}
+      \beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&gt;0
+      &amp;\text{ if }y_i=1\\
+      \beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&lt;0
+      &amp;\text{ if }y_i=-1
+      \end{aligned}
+    </md>
+  </p>
+  <p>For all <m>i</m>:</p>
+  <p>
+    <md>
+      y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})&gt;0
+    </md>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>Separating hyperplane becomes a classifier</title>
+
+    <image source="figures/Fig9-2b.png" width="50%">
+      <shortdescription>A separating hyperplane used as a classifier.</shortdescription>
+    </image>
+      <p>If you have a separating hyperplane:</p>
+      <p>
+        <ul>
+          <li>
+            <p>Check</p>
+            <p>
+              <md>
+                f(x^*)=\beta_0+\beta_1x_1^*+\beta_2x_2^*+\cdots+\beta_px_p^*
+              </md>
+            </p>
+          </li>
+          <li><p>If positive, assign <m>\hat{y}=1</m>.</p></li>
+          <li><p>If negative, assign <m>\hat{y}=-1</m>.</p></li>
+        </ul>
+      </p>
+
+
+</paragraphs>
+
+<paragraphs>
+  <title>How do we pick?</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-2a.png">
+      <shortdescription>Three separating hyperplanes separating two classes of observations.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>There's lots of separating hyperplanes here, so how do we find a "best" one?</p></li>
+          <li><p>Compute the perpendicular distance from each training observation to a given separating hyperplane.</p></li>
+          <li><p>The smallest such distance is the <m>margin</m>.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Distance from an observation to a hyperplane</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/SVM-example-WithLine1">
+      <shortdescription>SVM example with line 1.</shortdescription>
+    </image>
+    <image source="figures/SVM-example-WithLine2">
+      <shortdescription>SVM example with line 2.</shortdescription>
+    </image>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Maximal margin classifier</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-3.png">
+      <shortdescription>Maximal margin classifier.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>The <term>maximal margin hyperplane</term> is the hyperplane with the largest minimum distance to the training observations.</p></li>
+          <li><p>Classifying using it gives you the <term>maximal margin classifier</term>.</p></li>
+          <li><p>Observations that are closest are called <term>support vectors</term>.</p></li>
+          <li><p>If points moved slightly, then the maximal margin hyperplane would move.</p></li>
+          <li><p>There is no effect if any other points moved.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<example>
+  <title>MMC demonstration example</title>
+  <introduction>    
+    <image source="figures/SVM-DesmosExample.png" width="60%">
+      <shortdescription>MMC demonstration example.</shortdescription>
+    </image>
+  </introduction>
+      <task>
+        <statement><p>Sketch the maximal margin hyperplane.</p></statement>
+      </task>
+      <task>
+        <statement><p>What is the equation of this line in the form <m>\beta_0+\beta_1X_1+\beta_2X_2=0</m>?</p></statement>
+            <answer>
+                <p>
+                    <md>X_{1} + X_{2}- 4 = 0</md>
+                </p>
+            </answer>
+      </task>
+      <task>
+        <statement><p>Circle the support vectors. What is their distance from the line?</p></statement>
+      </task>
+      <task>
+      <statement>
+        <p>Classify the points <m>(0,0)</m>, <m>(4,4)</m>, and <m>(2,2)</m>.</p></statement>
+      <answer>
+        <p>
+            Points are at distance <m>\frac{\sqrt{2}}{2}</m>. Build the isoceles right triangle with <m>d</m> on two sides and 1 for hypotenuse.
+        </p>
+      </answer>
+      </task>
+<figure>
+  <interactive desmos="tklbommiwz" width="100%" aspect="3:2">
+    <shortdescription>Interactive graph for the maximal margin classifier exercise.</shortdescription>
+  </interactive>
+  <caption>Explore the separating hyperplane and identify the support vectors.</caption>
+</figure>
+</example>
+
+<paragraphs>
+  <title>Mathematical Formulation</title>
+      <p>
+<md>
+  <mrow>\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M</mrow>
+  <mrow>\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,</mrow>
+  <mrow>\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M \quad \forall i = 1, \dots, n</mrow>
+</md>
+</p>
+<p>
+        <ul>
+          <li><p>The last equation forces points to be on the correct side of the hyperplane if <m>M&gt;0</m>.</p></li>
+          <li><p>Making <m>M</m> as big as possible gives the maximal margin hyperplane.</p></li>
+        </ul>
+      </p> 
+  
+</paragraphs>
+
+<paragraphs>
+  <title>First constraint</title>
+  <sidebyside widths="35% 65%">
+    <image source="figures/SVM-DesmosExample-WithLine.png">
+      <shortdescription>SVM demonstration example with a separating line.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>We had the equation <m>-4+X_1+X_2=0</m>.</p></li>
+          <li><p>We can divide by any number and get the same line.</p></li>
+          <li><p><m>\sum_{i=1}^p\beta_i^2=1^2+1^2=2</m>.</p></li>
+          <li><p>We get the same sloped line if we divide by <m>\sqrt{\sum_{i=1}^p\beta_i^2}</m>.</p></li>
+          <li><p>We just need to solve for the intercept.</p></li>
+          <li><p><m>-\frac{4}{\sqrt{2}}+\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2=0</m>.</p></li>
+          <li><p><m>-2\sqrt{2}+\frac{\sqrt{2}}{2}X_1+\frac{\sqrt{2}}{2}X_2=0</m>.</p></li>
+          <li><p>Check that <m>\sum_{i=1}^p\beta_i^2</m> is now 1.</p></li>
+          <li><p>Plug in the support vector <m>x_i=(1,4)</m>, which gives <m>y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=1/\sqrt{2}=:M</m> (the margin).</p></li>
+          <li><p>Note that <m>y=1</m> corresponds to the red Xs, and <m>y=-1</m> corresponds to the blue dots below the line.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Second constraint</title>
+  <sidebyside widths="35% 65%">
+    <stack>
+      <image source="figures/SVM-DesmosExample-WithLine.png">
+        <shortdescription>SVM demonstration example with a separating line.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p>Blue circles: <m>y_i=-1</m>.</p></li>
+          <li><p>Red Xs: <m>y_i=1</m>.</p></li>
+          <li><p><m>-2\sqrt{2}+\frac{\sqrt{2}}{2}X_1+\frac{\sqrt{2}}{2}X_2=0</m>.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>
+        <md>y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2})\geq M</md>
+      </p>
+      <p>
+        <ul>
+          <li>
+            <p>For point <m>(3,2)</m>:
+            <ul>
+              <li><p><m>y_i=1</m>.</p></li>
+              <li><p><m>1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 3+\frac{\sqrt{2}}{2}\cdot 2\right)=\frac{\sqrt{2}}{2}</m>.</p></li>
+            </ul>
+            </p>
+          </li>
+          <li>
+            <p>For point <m>(0,3)</m>:
+            <ul>
+              <li><p><m>y_i=-1</m>.</p></li>
+              <li><p><m>-1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 0+\frac{\sqrt{2}}{2}\cdot 3\right)=\frac{\sqrt{2}}{2}</m>.</p></li>
+            </ul>
+            </p>
+          </li>
+          <li>
+            <p>For point <m>(1,1)</m>:
+            <ul>
+              <li><p><m>y_i=-1</m>.</p></li>
+              <li><p><m>-1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 1+\frac{\sqrt{2}}{2}\cdot 1\right)=\sqrt{2}</m>.</p></li>
+            </ul>
+            </p>
+          </li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<example>
+  <title>An example with a bad choice of hyperplane</title>
+ <introduction>
+      <image source="figures/SVM-DesmosExample-WithBadLine.png">
+        <shortdescription>SVM demonstration example with a poorly chosen separating line.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p>Blue circles: <m>y_i=-1</m>.</p></li>
+          <li><p>Red Xs: <m>y_i=1</m>.</p></li>
+          <li><p><m>-\frac{4}{\sqrt{5}}+\frac{1}{\sqrt{5}}X_1+\frac{2}{\sqrt{5}}X_2=0</m>.</p></li>
+        </ul>
+      </p>
+      </introduction>
+
+      <task>
+        <statement>
+          <p>What is <m>y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2})</m> for the point <m>x_i=(0,3)</m>?</p>
+        </statement>
+      <answer>
+      <p>        
+        <md>
+        <mrow>-1\left(-\frac{4}{\sqrt{5}}+\frac{1}{\sqrt{5}}\cdot 0+\frac{2}{\sqrt{5}}\cdot 3\right)  \amp=</mrow>
+        <mrow>\amp=-1(-4+6)\frac{1}{\sqrt{5}}</mrow>
+        <mrow>\amp=\frac{-2}{\sqrt{5}}</mrow>
+        </md>
+        </p>
+        <p>Note that this is negative, so no positive <m>M</m> will make this a valid separating hyperplane.</p>
+      </answer>
+      </task>
+
+</example>
+
+<paragraphs>
+  <title>Adding another constraint: A margin</title>
+  <sidebyside widths="45% 55%">
+    <stack>
+      <image source="figures/SVM-DesmosExample-WithLine.png">
+        <shortdescription>SVM demonstration example with a separating line.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p>Blue circles: <m>y_i=-1</m>.</p></li>
+          <li><p>Red Xs: <m>y_i=1</m>.</p></li>
+          <li><p><m>-2\sqrt{2}+\frac{\sqrt{2}}{2}X_1+\frac{\sqrt{2}}{2}X_2=0</m>.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>
+        <md>y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2})\geq M</md>
+      </p>
+      <p>
+        <ul>
+          <li><p>Ensures each point is on the correct side for a positive <m>M</m>.</p></li>
+          <li><p>When we have unit normal coefficients, the second constraint is the distance from the input point to the diagonal.</p></li>
+          <li><p>We make sure every distance is bigger than <m>M</m>, and then make <m>M</m> as big as possible.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Mathematical Formulation</title>
+
+    <p><md>
+  <mrow>\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M</mrow>
+  <mrow>\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,</mrow>
+  <mrow>\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M \quad \forall i = 1, \dots, n</mrow>
+</md>
+</p>
+
+
+      <p>
+        <ul>
+          <li><p><m>M</m> ensures every point is at least distance <m>M</m> from the hyperplane.</p></li>
+          <li><p>Because of the multiplication by <m>y_i</m>, this also requires that the point is on the correct side of the hyperplane.</p></li>
+          <li><p>The last equation forces points to be on the correct side of the hyperplane if <m>M&gt;0</m>.</p></li>
+          <li><p>Making <m>M</m> as big as possible gives the maximal margin hyperplane.</p></li>
+        </ul>
+      </p>
+
+</paragraphs>
+
+<paragraphs>
+  <title>But what if....</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-4.png">
+      <shortdescription>Example of a dataset for which no separating hyperplane exists.</shortdescription>
+    </image>
+    <stack>
+      <p>
+        <ul>
+          <li><p>...there is no separating hyperplane.</p></li>
+          <li><p>This means that there is no solution for <m>M&gt;0</m>.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Sensitivity to new points</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-5a.png">
+      <shortdescription>First example illustrating sensitivity of the maximal margin classifier to new observations.</shortdescription>
+    </image>
+    <image source="figures/Fig9-5b.png">
+      <shortdescription>Second example illustrating sensitivity of the maximal margin classifier to new observations.</shortdescription>
+    </image>
+  </sidebyside>
+  <p>
+    <ul>
+      <li><p>Even if there is a separating hyperplane, it might not be a good one.</p></li>
+      <li><p>Add a blue observation on the right.</p></li>
+      <li><p>This causes a dramatic shift in the maximal margin hyperplane.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+</handout>

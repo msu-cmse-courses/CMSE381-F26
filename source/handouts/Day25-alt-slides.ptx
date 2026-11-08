@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day25" xml:id="day-25-lecture">
+    <title>Day 25</title>
+
+    <introduction>
+        <p>
+            9.2: Support Vector Classifier
+        </p>
+    </introduction>
+
+    <objectives>
+        <ul>
+            <li>
+                <p>
+                    What is the difference between the Support Vector Classifier
+                    and the Maximal Margin Classifier?
+                    <ul>
+                        <li>
+                            <p>
+                                What shortcomings of the Maximal Margin
+                                Classifier does the Support Vector Classifier
+                                overcome?
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                How?
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                You should be able to describe the difference
+                                verbally, graphically, and mathematically.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    How do you interpret each element of the mathematical
+                    formulation of the Support Vector Machine graphically?
+                    <ul>
+                        <li>
+                            <p>
+                                Given a graph of a Support Vector Classifier and
+                                some data points, you should be able to derive
+                                the values of different parameters in the
+                                mathematical formulation (e.g., <m>M</m>,
+                                <m>\epsilon_i</m>).
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What parameter controls the flexibility (and hence the
+                    bias-variance trade-off) of the Support Vector Classifier?
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    What are the support vectors of a Support Vector Machine?
+                </p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs>
+        <title>Support Vector Classifier (SVC): Basic idea</title>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        Be okay with having a classifier that isn't quite
+                        perfect.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Aim for greater robustness to individual observations.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Better classification of most of the training
+                        observations.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The result is a support vector classifier.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Also called a soft margin classifier.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Soft margin</title>
+
+        <sidebyside widths="50% 50%">
+            <stack>
+                <image source="figures/Fig9-6a.png">
+                    <shortdescription>
+                        Some observations lie on the wrong side of the margin.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Some points on the wrong side of the margin.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <stack>
+                <image source="figures/Fig9-6b.png">
+                    <shortdescription>
+                        Some observations lie on the wrong side of the
+                        hyperplane and are misclassified.
+                    </shortdescription>
+                </image>
+
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Some points on the wrong side of the hyperplane
+                                (misclassified).
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Find positive <m>\epsilon</m>'s that will satisfy this</title>
+
+        <p>
+            Fix <m>M=\sqrt{2}</m>:
+        </p>
+
+        <p>
+            <md>
+                y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
+      \geq M(1-\epsilon_i)
+            </md>
+        </p>
+
+        <sidebyside widths="50% 50%">
+            <image source="figures/SVC-DesmosExample-A_and_C.png">
+                <shortdescription>
+                    Support vector classifier example showing points A and C.
+                </shortdescription>
+            </image>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Point out that <m>M</m> is the distance from the
+                                center hyperplane to the noted margin.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>A</m> is on the correct side of the
+                                hyperplane.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The left side is already bigger than <m>M</m>,
+                                so set <m>\epsilon_i=0</m>.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <m>C</m> is on the wrong side of the hyperplane
+                                for its label.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                The left side of the equation is negative.
+                                What <m>\epsilon</m> satisfies this?
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <md>
+                                    -\frac{\sqrt{2}}{2}=\sqrt{2}(1-\epsilon)
+                                </md>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <md>
+                                    \epsilon=\frac{3}{2}
+                                </md>
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <example>
+        <title>What is <m>\epsilon</m>?</title>
+
+        <statement>
+            <p>
+                Fix <m>M=\sqrt{2}</m>:
+                <md>
+                    y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
+      \geq M(1-\epsilon_i)
+                </md>
+            </p>
+
+            <p>
+                Fill in the table so that the inequality is satisfied.
+            </p>
+
+            <image source="figures/SVC-DesmosExample.png" width="60%">
+                <shortdescription>
+                    SVC demo example showing the points used to determine the
+                    slack variables.
+                </shortdescription>
+            </image>
+
+            <table>
+                <title>Partially filled out table.</title>
+
+                <tabular>
+                    <row>
+                        <cell>Point</cell>
+                        <cell>Left Side</cell>
+                        <cell><m>\epsilon_i</m></cell>
+                        <cell><m>M(1-\epsilon_i)</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>A</cell>
+                        <cell><m>2\sqrt{2}</m></cell>
+                        <cell><m>0</m></cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>B</cell>
+                        <cell><m>\frac{\sqrt{2}}{2}</m></cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>C</cell>
+                        <cell><m>-\frac{\sqrt{2}}{2}</m></cell>
+                        <cell><m>1.5</m></cell>
+                        <cell><m>-\frac{\sqrt{2}}{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>X</cell>
+                        <cell><m>\frac{3\sqrt{2}}{2}</m></cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>Y</cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+
+                    <row>
+                        <cell>Z</cell>
+                        <cell><m>-\sqrt{2}</m></cell>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </tabular>
+            </table>
+        </statement>
+
+        <answer>
+            <table>
+                <title>Completed Table</title>
+
+                <tabular>
+                    <row>
+                        <cell>Point</cell>
+                        <cell>Left Side</cell>
+                        <cell><m>\epsilon_i</m></cell>
+                        <cell><m>M(1-\epsilon_i)</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>A</cell>
+                        <cell><m>2\sqrt{2}</m></cell>
+                        <cell><m>0</m></cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>B</cell>
+                        <cell><m>\frac{\sqrt{2}}{2}</m></cell>
+                        <cell><m>\frac{1}{2}</m></cell>
+                        <cell><m>\frac{\sqrt{2}}{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>C</cell>
+                        <cell><m>-\frac{\sqrt{2}}{2}</m></cell>
+                        <cell><m>1.5</m></cell>
+                        <cell><m>-\frac{\sqrt{2}}{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>X</cell>
+                        <cell><m>\frac{3\sqrt{2}}{2}</m></cell>
+                        <cell><m>0</m></cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>Y</cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                        <cell><m>0</m></cell>
+                        <cell><m>\sqrt{2}</m></cell>
+                    </row>
+
+                    <row>
+                        <cell>Z</cell>
+                        <cell><m>-\sqrt{2}</m></cell>
+                        <cell><m>2</m></cell>
+                        <cell><m>-\sqrt{2}</m></cell>
+                    </row>
+                </tabular>
+            </table>
+
+            <p>
+                To use for the later slide: Total <m>\epsilon</m> is 4.
+            </p>
+        </answer>
+    </example>
+
+    <paragraphs>
+        <title>What is <m>\epsilon</m>?</title>
+
+        <sidebyside widths="50% 50%">
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                If <m>\epsilon_i=0</m>, then the observation is
+                                on the correct side of the margin.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>\epsilon_i&gt;0</m>, then the observation
+                                is on the wrong side of the margin (violated
+                                margin).
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                If <m>\epsilon_i&gt;1</m>, then the observation
+                                is on the wrong side of the hyperplane.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+
+            <image source="figures/Fig9-6b.png">
+                <shortdescription>
+                    Some points are on the wrong side of the hyperplane and are
+                    misclassified.
+                </shortdescription>
+            </image>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>What is <m>C</m>?</title>
+
+        <p>
+            <md>
+                <mrow>
+    \underset{\beta_0,\beta_1,\ldots,\beta_p,\epsilon_1,\ldots,\epsilon_n,M}{\text{maximize}}
+    \quad M
+  </mrow>
+                <mrow>
+    \text{subject to}\quad \sum_{j=1}^{p}\beta_j^2=1
+  </mrow>
+                <mrow>
+    y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
+    \geq M(1-\epsilon_i)
+  </mrow>
+                <mrow>
+    \epsilon_i\geq 0,\qquad \sum_{i=1}^{n}\epsilon_i\leq C
+  </mrow>
+            </md>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        <m>C</m> is nonnegative tuning parameter.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Bounds the sum of the <m>\epsilon_i</m>, so it controls
+                        the number and severity of margin violations (the
+                        budget).
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>C=0</m> means no violations are allowed.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>C&gt;0</m> means the total amount of margin violation
+                        is bounded by <m>C</m>; it does not necessarily limit
+                        the number of observations on the wrong side of the
+                        hyperplane to <m>C</m>.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        In the previous example, the total of the
+                        <m>\epsilon_i</m> was 4, so the hyperplane satisfies the
+                        constraint for <m>C\geq 4</m>.
+                    </p>
+                </li>
+            </ul>
+        </p>
+
+        <image source="figures/Fig9-6b.png" width="60%">
+            <shortdescription>
+                Some points are on the wrong side of the hyperplane and are
+                misclassified.
+            </shortdescription>
+        </image>
+    </paragraphs>
+
+    <paragraphs>
+        <title>Examples messing with <m>C</m></title>
+
+        <sidebyside width="25%">
+            <image source="figures/Fig9-7d.png">
+                <shortdescription>
+                    Support vector classifier with the largest value of C among
+                    the four examples.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig9-7c.png">
+                <shortdescription>
+                    Support vector classifier with the second-largest value of
+                    C.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig9-7b.png">
+                <shortdescription>
+                    Support vector classifier with the second-smallest value of
+                    C.
+                </shortdescription>
+            </image>
+
+            <image source="figures/Fig9-7a.png">
+                <shortdescription>
+                    Support vector classifier with the smallest value of C.
+                </shortdescription>
+            </image>
+        </sidebyside>
+
+        <p>
+            Increasing <m>C</m> <m>\longrightarrow</m>
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        As <m>C</m> increases, the margin becomes narrower, and
+                        fewer margin violations are allowed.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        <m>C</m> controls the bias-variance trade-off.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Small <m>C</m>: more flexibility, lower bias, higher
+                        variance.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Large <m>C</m>: less flexibility, higher bias, lower
+                        variance.
+                    </p>
+                </li>
+            </ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>What affects the hyperplane?</title>
+
+        <sidebyside widths="50% 50%">
+            <image source="figures/Fig9-7d.png">
+                <shortdescription>
+                    Support vector classifier with a large value of C.
+                </shortdescription>
+            </image>
+
+            <stack>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Only observations on the margin or violating the
+                                margin affect the hyperplane.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                These observations are called support vectors.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                Changing the positions of other points does not
+                                affect the hyperplane found.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </stack>
+        </sidebyside>
+    </paragraphs>
+
+    <paragraphs>
+        <title>TL;DR</title>
+
+        <sbsgroup width="50%">
+            <sidebyside>
+                <p>
+                    <term>Maximal Margin Classifier</term>
+                </p>
+
+                <p>
+                    <term>Support Vector Classifier</term>
+                </p>
+            </sidebyside>
+
+            <sidebyside>
+                <p>
+                    <md>
+                        <mrow>\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M</mrow>
+                        <mrow>\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,</mrow>
+                        <mrow>\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M</mrow>
+                        <mrow> \quad \forall i = 1, \dots, n</mrow>
+                    </md>
+                </p>
+
+                <p>
+                    <md>
+                        <mrow>\underset{\beta_0,\beta_1,\ldots,\beta_p,\epsilon_1,\ldots,\epsilon_n,M}{\text{maximize}} \quad M</mrow>
+                        <mrow>\text{subject to}\quad \sum_{j=1}^{p}\beta_j^2=1</mrow>
+                        <mrow> y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}) \geq M(1-\epsilon_i)</mrow>
+                        <mrow>\epsilon_i\geq 0,\qquad \sum_{i=1}^{n}\epsilon_i\leq C</mrow>
+                    </md>
+                </p>
+            </sidebyside>
+
+            <sidebyside>
+                <image source="figures/Fig9-3.png">
+                    <shortdescription>
+                        Maximal margin classifier separating two classes of
+                        observations.
+                    </shortdescription>
+                </image>
+
+                <image source="figures/Fig9-7d.png">
+                    <shortdescription>
+                        Support vector classifier with a large value of C.
+                    </shortdescription>
+                </image>
+            </sidebyside>            
+        </sbsgroup>
+    </paragraphs>
+<paragraphs>
+  <title>Limiting factor of SVC</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig9-8a.png">
+      <shortdescription>An example showing data of two classes where one class is clustered within an ellipsoid in the center of the X1, X2 predictor space.</shortdescription>
+    </image>
+    <image source="figures/Fig9-8b.png">
+      <shortdescription>An example illustrating a limitation of the support vector classifier when used to fit data where the a hyperplane does not separate the two classes.</shortdescription>
+    </image>
+  </sidebyside>
+  <p>
+    <ul>
+      <li><p>Requires linear decision boundaries.</p></li>
+      <li><p>"Nonlinear" can mean many things. How do you choose features to learn?</p></li>
+      <li><p>The right-hand figure shows the result from SVC.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+</handout>

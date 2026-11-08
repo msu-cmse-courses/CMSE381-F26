@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day25" xml:id="day-25-lecture">
+    <title>Day 25</title>
+
+    <introduction>
+        <p>
+            9.2: Support Vector Classifier
+        </p>
+    </introduction>
+
+    <objectives>
+    
+  <ul>
+    <li>
+      <p>How is nonlinearity introduced in Support Vector Machines?
+      <ul>
+        <li><p>You should be able to describe how kernels work conceptually and mathematically.</p></li>
+      </ul>
+      </p>
+    </li>
+    <li><p>What type of kernel makes a Support Vector Machine equivalent to a Support Vector Classifier?</p></li>
+    <li><p>What other kernels are there?</p></li>
+    <li><p>What type of kernel leads to more local behavior?</p></li>
+    <li>
+      <p>How do you use Support Vector Machines in Python?
+      <ul>
+        <li><p>You should be able to fit a Support Vector Machine using different kernels covered in class.</p></li>
+        <li><p>You should be able to select the appropriate hyperparameter that optimizes the bias-variance trade-off.</p></li>
+      </ul>
+      </p>
+    </li>
+  </ul>
+        
+    </objectives>
+
+    <paragraphs>
+        <title>Enlarging the feature space</title>
+
+        <image source="figures/enlarging_feature_space" width="60%">
+        <shortdescription>Non-linearly separable data drawn on the plane of predictors X1 and X2 on the left panel, and the same data linearly separable by a hyperplane when enlarging the feature space to the sum of the squared predictors.</shortdescription>
+        </image>
+
+        <p>
+            Problem: Data not linearly separable. What if we enlarge the feature space?
+        </p>
+
+        <p>
+            <ul>
+                <li>
+                    <p>
+                        What if we enlarge the feature space using <m>Z=X^2 + Y^2</m>?
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        The data becomes linearly separable!
+                    </p>
+                </li>
+            </ul>
+        </p>
+        
+
+    <p>
+  Say we want to enlarge the feature space using <m>2p</m> features:
+</p>
+
+<me>X_1, X_1^2, X_2, X_2^2, \dots, X_p, X_p^2</me>
+
+<p>
+  Optimization becomes:
+</p>
+
+<p>
+<md>
+  <mrow>\amp \underset{\beta_0, \beta_{11}, \beta_{12}, \dots, \beta_{p1}, \beta_{p2}, \epsilon_1, \dots, \epsilon_n, M}{\text{maximize}} \quad M</mrow>
+  <mrow>\amp \text{subject to } y_i \left( \beta_0 + \sum_{j=1}^p \beta_{j1}x_{ij} + \sum_{j=1}^p \beta_{j2}x_{ij}^2 \right) \geq M(1 - \epsilon_i),</mrow>
+  <mrow>\amp \sum_{i=1}^n \epsilon_i \leq C, \quad \epsilon_i \geq 0, \quad \sum_{j=1}^p \sum_{k=1}^2 \beta_{jk}^2 = 1.</mrow>
+</md>
+</p>
+
+<p>
+    This becomes unwieldly if we have to check, say every degree 2 monomial <m>X_iX_j</m>, so need something more efficient. 
+</p>
+    </paragraphs>
+
+
+</handout>

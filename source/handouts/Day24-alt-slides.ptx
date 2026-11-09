@@ -6,7 +6,7 @@
   <introduction>
 
     <p>
-        Ch 9.1: Maximum Margin Classifier 
+        Ch 9.1: Maximum Margin Classifier (MMC)
     </p>
   </introduction>
 
@@ -37,6 +37,11 @@
         <li><p>Given a graph, clearly label the margin and support vectors. Also infer the size of the margin from the graph.</p></li>
         <li><p>Describe the optimization problem mathematically.</p></li>
         <li><p>Given the equation of the maximal margin hyperplane and the coordinates of support vectors, calculate the size of the margin by hand.</p></li>
+          <li>
+            <p>
+              Recognize MMC as a hard margin classifier and describe its sensitivity to new points.
+            </p>
+          </li>
       </ul>
       </p>
     </li>
@@ -88,32 +93,147 @@
       <p>
         <ul>
           <li><p>Being on the hyperplane means having a point <m>X=(X_1,X_2,\cdots,X_p)^T</m> satisfying this equation.</p></li>
+            <li>
+              <p>
+                The vector <m>\beta=(\beta_1,\beta_2,\cdots,\beta_p)^T</m> is the normal vector to the hyperplane.
+                <ul>
+                  <li>
+                    <p>
+                      If <m>\boldsymbol{\beta}=(\beta_1,\beta_2,\cdots,\beta_p)^T</m> is normalized such that <m>\sum_{j=1}^p \beta_{j}^2 = 1</m>, then <m>\boldsymbol{\beta}</m> represents the unit normal vector to the hyperplane.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The <term>signed perpendicular distance</term> from a point <m>\mathbf{x}_i=(x_{i1},x_{i2},\cdots,x_{ip})^T</m> to the hyperplane is given by 
+                      <md>
+                        \frac{\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}}{\sqrt{\sum_{j=1}^p \beta_{j}^2}}=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}
+                      </md>
+                    </p>
+                  </li>
+                </ul>
+              </p>
+            </li>
           <li component="slides-inst-notes"><p>Show that when <m>p=2</m>, this is just a line.</p></li>
         </ul>
       </p>
+<aside>
+  <title>Dot product</title>
+  
+  <p>
+    The quantity
+    <md>\beta_{0} + \beta_{1} x_{1} + \beta_{2} x_{2} + \ldots + \beta_{N} x_{N}</md>
+  </p>
+  <p>
+    Is the same as
+    <md>
+      \begin{bmatrix} \beta_0 \amp \beta_1 \amp \beta_2 \amp \ldots \amp \beta_N \end{bmatrix}\begin{bmatrix}1\\x_1\\x_2\\\vdots\\x_N\end{bmatrix}
+    </md>
+    
+  </p>
+<p>
+  Is the same as
+  <md>
+    \begin{bmatrix} \beta_0 \\ \beta_1 \\\beta_2 \\ \vdots \\ \beta_N \end{bmatrix} \cdot \begin{bmatrix}1\\x_1\\x_2\\\vdots\\x_N\end{bmatrix}
+  </md>
+  
+</p>
 
+
+
+  <p>
+    Is the same as
+    <md>\beta_{0} + \boldsymbol{\beta}^{T} \mathbf{x}</md>
+  </p>
+
+  <p>
+          where
+          <m>\mathbf{\beta}=\begin{bmatrix}\beta_{0} \\ \beta_{1} \\\beta_{2} \\ \vdots \\ \beta_{N}\end{bmatrix}</m>
+          and
+          <m>\mathbf{x}= \begin{bmatrix}1\\x_{1}\\x_{2}\\\vdots\\x_{N}\end{bmatrix}</m>
+  </p>
+  
+</aside>
 </paragraphs>
 
-<paragraphs>
-  <title>Hyperplane for <m>p=2</m></title>
-  <sidebyside widths="50% 50%">
-    <image source="figures/Fig9-1.png">
-      <shortdescription>A hyperplane separating two regions with blue and purple colors.</shortdescription>
+<example>
+  <title>Signed perpendicular distance</title>
+  <statement>
+    <p>
+      For the shown data points and hyperplane, sketch the <m>f(x^*)</m> for each of the shown points and indicate whether its positive (+ve) or negative (-ve). How confident are you in your classification of each point? Why?
+    </p>
+    <image source= "figures/sketch_fxstar_ex1" width="60%">
+      <shortdescription>Data points from two classes with a line separating them. Three data points are labeled as a, b, and c.</shortdescription>      
     </image>
-    <stack>
+  </statement>
+  <answer>
+    <p>
+      The figure shows the values returned by each point when substituted into the hyperplane equation. The sign of the value indicates which side of the hyperplane the point is on, and the magnitude indicates how far away it is from the hyperplane. 
+    </p>
+    <p>
+      We are more confident in the classification of points that are further away from the hyperplane, and less confident in the classification of points that are closer to the hyperplane. Therefore, wer are most confidnent in the classification of point c, and least confident in the classification of point a.
+    </p>
+        <image source= "figures/sketch_fxstar_ex1_sol" width="60%">
+      <shortdescription>Data points from two classes with a line separating them. Three data points are labeled as a, b, and c. Sketched lines indicate the the value returned by f(x*) for each point along with its sign.</shortdescription>      
+    </image>
+  </answer>
+  
+</example>
+
+<example>
+  <title>Hyperplane with <m>p=2</m></title>
+  <introduction>
+    <p>
+      The equation for the shown hpyerplane is 
+      <md>1+2X_1+3X_2=0.</md> 
+    </p>
+    <p>
+      For each of the given point, determine whether the point is above, on, or below the boundary. Justify your answers.
+    </p>
+      <image source="figures/Fig9-1.png" width="60%">
+        <shortdescription>A hyperplane separating two regions with blue and purple colors.</shortdescription>
+      </image>
+
+
+  </introduction>
+  <task>
+    <statement>
       <p>
-        <md>1+2X_1+3X_2=0</md>
+        <m>(X_1,X_2)=(-0.5, 0).</m>
       </p>
+    </statement>
+    <answer>
       <p>
-        <ul>
-          <li><p><m>X_1=-0.5</m>, <m>X_2=0</m>, on boundary, with with <m>1+2X_1+3X_2=0</m>.</p></li>
-          <li><p><m>X_1=0</m>, <m>X_2=-1</m>, on the lower left, with <m>1+2X_1+3X_2&lt;0</m>.</p></li>
-          <li><p><m>X_1=0</m>, <m>X_2=1</m>, on the upper right, with <m>1+2X_1+3X_2&gt;0</m>.</p></li>
-        </ul>
+        Substitute into the equation of the hyperplane to obtain <m>1+2(-0.5)+3(0)=0</m>. Therefore, the point is on the boundary.
       </p>
-    </stack>
-  </sidebyside>
-</paragraphs>
+    </answer>    
+  </task>
+  <task>
+    <statement>
+      <p>
+        <m>(X_1,X_2)=(0, -1).</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        Substitute into the equation of the hyperplane to obtain <m>1+2(0)+3(-1)=1-3=-2</m>. Since this is less than 0, the point is below the boundary.
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        <m>(X_1,X_2)=(0, 1).</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        Substitute into the equation of the hyperplane to obtain <m>1+2(0)+3(1)=1+3=4</m>. Since this is greater than 0, the point is above the boundary.
+      </p>
+    </answer>
+  </task>
+</example>
+
+
 
 <paragraphs>
   <title>There are two sides to every hyperplane</title>
@@ -132,6 +252,10 @@
   <image source="figures/Fig9-1.png" width="50%">
     <shortdescription>A hyperplane separating two regions with blue and purple colors.</shortdescription>
   </image>
+
+  <p>
+    We can use the separating hyperplane to design a classifier.
+  </p>
 </paragraphs>
 
 
@@ -307,6 +431,7 @@
           <li><p>The <term>maximal margin hyperplane</term> is the hyperplane with the largest minimum distance to the training observations.</p></li>
           <li><p>Classifying using it gives you the <term>maximal margin classifier</term>.</p></li>
           <li><p>Observations that are closest are called <term>support vectors</term>.</p></li>
+            <li><p>Support vectors satisfy <md>Y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=M.</md></p></li>
           <li><p>If points moved slightly, then the maximal margin hyperplane would move.</p></li>
           <li><p>There is no effect if any other points moved.</p></li>
         </ul>
@@ -355,20 +480,29 @@
 
 <paragraphs>
   <title>Mathematical Formulation</title>
-      <p>
-<md>
+
+    <p><md>
   <mrow>\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M</mrow>
   <mrow>\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,</mrow>
   <mrow>\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M \quad \forall i = 1, \dots, n</mrow>
 </md>
 </p>
-<p>
+
+
+      <p>
         <ul>
+          <li>
+            <p>
+              MMC requires perfect linear separation, so it is a <term>hard margin classifier</term>.
+            </p>
+          </li>
+          <li><p><m>M</m> ensures every point is at least distance <m>M</m> from the hyperplane.</p></li>
+          <li><p>Because of the multiplication by <m>y_i</m>, this also requires that the point is on the correct side of the hyperplane.</p></li>
           <li><p>The last equation forces points to be on the correct side of the hyperplane if <m>M&gt;0</m>.</p></li>
           <li><p>Making <m>M</m> as big as possible gives the maximal margin hyperplane.</p></li>
         </ul>
-      </p> 
-  
+      </p>
+
 </paragraphs>
 
 <paragraphs>
@@ -447,7 +581,7 @@
   </sidebyside>
 </paragraphs>
 
-<example>
+<!-- <example>
   <title>An example with a bad choice of hyperplane</title>
  <introduction>
       <image source="figures/SVM-DesmosExample-WithBadLine.png">
@@ -478,9 +612,9 @@
       </answer>
       </task>
 
-</example>
+</example> -->
 
-<paragraphs>
+<!-- <paragraphs>
   <title>Adding another constraint: A margin</title>
   <sidebyside widths="45% 55%">
     <stack>
@@ -508,29 +642,94 @@
       </p>
     </stack>
   </sidebyside>
-</paragraphs>
+</paragraphs> -->
 
-<paragraphs>
-  <title>Mathematical Formulation</title>
+<exercise>
+  <introduction>
+    <p>
+      Consider the following dataset with two predictors,
+      <m>X_1</m> and <m>X_2</m>, and a binary response variable
+      <m>Y</m>.
+    </p>
+    <tabular>
+      <row header="yes">
+        <cell>Observation</cell>
+        <cell><m>X_1</m></cell>
+        <cell><m>X_2</m></cell>
+        <cell><m>Y</m></cell>
+      </row>
+      <row>
+        <cell>1</cell><cell>1.4</cell><cell>8.2</cell><cell>+1</cell>
+      </row>
+      <row>
+        <cell>2</cell><cell>2.0</cell><cell>6.0</cell><cell>+1</cell>
+      </row>
+      <row>
+        <cell>3</cell><cell>7.1</cell><cell>4.0</cell><cell>+1</cell>
+      </row>
+      <row>
+        <cell>4</cell><cell>6.0</cell><cell>3.0</cell><cell>+1</cell>
+      </row>
+      <row>
+        <cell>5</cell><cell>1.3</cell><cell>2.0</cell><cell>-1</cell>
+      </row>
+      <row>
+        <cell>6</cell><cell>2.0</cell><cell>3.5</cell><cell>-1</cell>
+      </row>
+      <row>
+        <cell>7</cell><cell>4.2</cell><cell>0.5</cell><cell>-1</cell>
+      </row>
+      <row>
+        <cell>8</cell><cell>6.0</cell><cell>0.5</cell><cell>-1</cell>
+      </row>
+    </tabular>
+    <p>
+      Suppose observations 2, 4, 6, and 8 are the support vectors.
+      The maximal margin classifier is given by
+    </p>
+    <p>
+      <m>0.6X_1+0.8X_2-5=0.</m>
+    </p>
+    <!-- <p>
+      Recall that the coefficients satisfy
+      <m>\beta_1^2+\beta_2^2=1</m>, and the support vectors
+      satisfy
+    <md>
+      Y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=1.
+    </md>
+    </p> -->
+  </introduction>
+  <task>
+  <statement>    
+    <p>
+      Using the given information, calculate the margin <m>M</m>, as defined in our book and class notes: the minimum perpendicular distance from the observations to the separating hyperplane.
+    </p>
+    </statement>
+  <solution>
+    <image source="figures/MMC_checkpoint" width="70%">
+      <shortdescription>Data points from two classes plotted on the X1, X2 predictor space. The separating hyperplane and the support vectors are identified, and the (equal) distance from each support vector to the hyperplane is shown.</shortdescription>
+      
+    </image>
+  <p>To determine the margin <m>M</m>, substitute a support vector into the margin-boundary equation. Recall that support vectors satisfy
+    <md>Y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=M.</md>
+  </p>
+  <p>Using observation 2, which is a positive support vector with coordinates <m>(X_1,X_2)=(2,6)</m> and <m>Y=1</m>, we obtain</p>
+  <p>
+    <md>1(0.6(2)+0.8(6)-5)=M,</md>
+    <md>1.2+4.8-5=M,</md>
+    <md>M=1.</md>
+  </p>
+  <p>Therefore, the two margin boundaries are</p>
+  <p>
+    <md>0.6X_1+0.8X_2-5=1</md>
+    <md>0.6X_1+0.8X_2-5=-1.</md>
+  </p>
+  <p>The margin is <m>M=1</m>, which is the perpendicular distance from the separating hyperplane to either margin boundary. The full distance between the two boundaries is <m>2M=2</m>.</p>
+</solution>
 
-    <p><md>
-  <mrow>\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M</mrow>
-  <mrow>\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,</mrow>
-  <mrow>\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M \quad \forall i = 1, \dots, n</mrow>
-</md>
-</p>
+  </task>
 
-
-      <p>
-        <ul>
-          <li><p><m>M</m> ensures every point is at least distance <m>M</m> from the hyperplane.</p></li>
-          <li><p>Because of the multiplication by <m>y_i</m>, this also requires that the point is on the correct side of the hyperplane.</p></li>
-          <li><p>The last equation forces points to be on the correct side of the hyperplane if <m>M&gt;0</m>.</p></li>
-          <li><p>Making <m>M</m> as big as possible gives the maximal margin hyperplane.</p></li>
-        </ul>
-      </p>
-
-</paragraphs>
+</exercise>
 
 <paragraphs>
   <title>But what if....</title>
@@ -565,6 +764,9 @@
       <li><p>Add a blue observation on the right.</p></li>
       <li><p>This causes a dramatic shift in the maximal margin hyperplane.</p></li>
     </ul>
+  </p>
+  <p>
+    This calls for a more flexible approach, which we will discuss next time.
   </p>
 </paragraphs>
 

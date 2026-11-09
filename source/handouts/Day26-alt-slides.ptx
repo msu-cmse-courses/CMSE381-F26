@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<handout component="day25" xml:id="day-25-lecture">
-    <title>Day 25</title>
+<handout component="day26" xml:id="day-26-lecture">
+    <title>Day 26</title>
 
     <introduction>
         <p>
-            9.2: Support Vector Classifier
+            9.3: Support Vector Machines (SVMs)
         </p>
     </introduction>
 
@@ -63,9 +63,9 @@
 
     <p>
   Say we want to enlarge the feature space using <m>2p</m> features:
-</p>
 
-<me>X_1, X_1^2, X_2, X_2^2, \dots, X_p, X_p^2</me>
+<md>X_1, X_1^2, X_2, X_2^2, \dots, X_p, X_p^2</md>
+</p>
 
 <p>
   Optimization becomes:

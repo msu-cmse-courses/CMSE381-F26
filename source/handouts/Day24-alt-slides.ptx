@@ -51,7 +51,7 @@
 <paragraphs>
   <title>The goal</title>
   <sidebyside widths="45% 50%">
-    <image source="figures/SVM-Example">
+    <image source="figures/SVM-example">
       <shortdescription>An example of a support vector machine for classification.</shortdescription>
     </image>
     <stack>

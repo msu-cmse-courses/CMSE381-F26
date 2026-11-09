@@ -499,6 +499,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec23-randomforests-worksheet.html#cmse381-lec25-randomforests-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="cmse381-lec24-maximal-margin-classifier.html" class="internal"><span class="title">Day 24 worksheet</span></a></div></li>
 </ul>
 </li>
 <li class="toc-item toc-chapter contains-active">
@@ -546,6 +547,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-21-lecture" class="internal"><span class="title">Day 21</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-22-lecture" class="internal"><span class="title">Day 22</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-23-lecture" class="internal"><span class="title">Day 23</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-24-lecture" class="internal"><span class="title">Day 24</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -705,6 +707,12 @@ eBookConfig.enable_chatcodes =  false;
 <a href="sec-exam3-material.html#day-23-lecture" class="internal" title="Handout: Day 23">Day 23</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam3-material-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-exam3-material-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="sec-exam3-material-2-1-1-5">
+<div class="para" id="sec-exam3-material-2-1-1-5-1">
+<a href="sec-exam3-material.html#day-24-lecture" class="internal" title="Handout: Day 24">Day 24</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam3-material-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-exam3-material-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 </ul>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam3-material-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -4611,6 +4619,1064 @@ E \amp= 1-\max_k(\hat p_{mk})\\
 <div class="autopermalink" aria-hidden="true" data-description="Task 134.b"><a tabindex="-1" href="#day-23-lecture-18-4" title="Copy heading and permalink for Task 134.b" aria-label="Copy heading and permalink for Task 134.b">🔗</a></div>
 </article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 134: Computing random forest splits for classification"><a tabindex="-1" href="#day-23-lecture-18" title="Copy heading and permalink for Checkpoint 134: Computing random forest splits for classification" aria-label="Copy heading and permalink for Checkpoint 134: Computing random forest splits for classification">🔗</a></div>
 </article></details><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 23"><a tabindex="-1" href="#day-23-lecture" title="Copy heading and permalink for Handout: Day 23" aria-label="Copy heading and permalink for Handout: Day 23">🔗</a></div>
+</section>
+<section class="handout" id="day-24-lecture" data-margins="0.75in 0.75in 0.75in 0.75in">
+<h2 class="heading hide-type">
+<span class="type">Handout</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 24</span><div class="print-links"><a href="?printpreview=day-24-lecture" class="print-link" title="Print preview"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8ad;</span></a></div>
+</h2>
+<section class="introduction" id="day-24-lecture-2">
+<div class="para" id="day-24-lecture-2-1">Ch 9.1: Maximum Margin Classifier (MMC)<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<article class="objectives goal-like" id="day-24-lecture-3"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc" id="day-24-lecture-3-1">
+<li id="day-24-lecture-3-1-1">
+<div class="para logical" id="day-24-lecture-3-1-1-1">
+<div class="para">What is a hyperplane?</div>
+<ul class="circle" id="day-24-lecture-3-1-1-1-1">
+<li id="day-24-lecture-3-1-1-1-1-1">
+<div class="para" id="day-24-lecture-3-1-1-1-1-1-1">How do you mathematically describe a hyperplane?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-1-1-1-2">
+<div class="para" id="day-24-lecture-3-1-1-1-1-2-1">How do you mathematically describe the two sides of a hyperplane?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-1-1-1-3">
+<div class="para" id="day-24-lecture-3-1-1-1-1-3-1">Given the equation of a hyperplane and the coordinates of a point, determine which side of the hyperplane the point is on.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-1-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-24-lecture-3-1-1" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-2">
+<div class="para logical" id="day-24-lecture-3-1-2-1">
+<div class="para">What qualifies a hyperplane as a separating hyperplane?</div>
+<ul class="circle" id="day-24-lecture-3-1-2-1-1">
+<li id="day-24-lecture-3-1-2-1-1-1">
+<div class="para" id="day-24-lecture-3-1-2-1-1-1-1">Describe this mathematically using an inequality.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-2-1-1-2">
+<div class="para" id="day-24-lecture-3-1-2-1-1-2-1">Determine whether a hyperplane is a separating hyperplane given a graph, or given the equation of the hyperplane and the coordinates and classes of a few points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-24-lecture-3-1-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-3">
+<div class="para" id="day-24-lecture-3-1-3-1">How do you use a separating hyperplane as a classifier?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-24-lecture-3-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-4">
+<div class="para logical" id="day-24-lecture-3-1-4-1">
+<div class="para">What makes a hyperplane a maximal margin hyperplane?</div>
+<ul class="circle" id="day-24-lecture-3-1-4-1-1">
+<li id="day-24-lecture-3-1-4-1-1-1">
+<div class="para" id="day-24-lecture-3-1-4-1-1-1-1">What are its margin and support vectors?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-4-1-1-2">
+<div class="para" id="day-24-lecture-3-1-4-1-1-2-1">Given a graph, clearly label the margin and support vectors. Also infer the size of the margin from the graph.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-4-1-1-3">
+<div class="para" id="day-24-lecture-3-1-4-1-1-3-1">Describe the optimization problem mathematically.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-4-1-1-4">
+<div class="para" id="day-24-lecture-3-1-4-1-1-4-1">Given the equation of the maximal margin hyperplane and the coordinates of support vectors, calculate the size of the margin by hand.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-3-1-4-1-1-5">
+<div class="para" id="day-24-lecture-3-1-4-1-1-5-1">Recognize MMC as a hard margin classifier and describe its sensitivity to new points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-3-1-4-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-3-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-24-lecture-3-1-4" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Objectives"><a tabindex="-1" href="#day-24-lecture-3" title="Copy heading and permalink for Objectives" aria-label="Copy heading and permalink for Objectives">🔗</a></div>
+</article>
+<section class="paragraphs" id="day-24-lecture-4"><h3 class="heading"><span class="title">The goal.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:46.1538461538462% 51.2820512820513%;column-gap:2.5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/SVM-Example.svg" role="img" class="contained" alt="An example of a support vector machine for classification."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-4-2-2-1">
+<ul class="disc" id="day-24-lecture-4-2-2-1-1">
+<li id="day-24-lecture-4-2-2-1-1-1">
+<div class="para" id="day-24-lecture-4-2-2-1-1-1-1">Today is all about classification.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-4-2-2-1-1-2">
+<div class="para" id="day-24-lecture-4-2-2-1-1-2-1">The goal is to find a line in the middle that separates the two classes. There are lots of options, but we want the one that stays as far away from everyone as possible.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-4-2-2-1-1-3">
+<div class="para" id="day-24-lecture-4-2-2-1-1-3-1">For today, we need to use <span class="process-math">\(y\in\{-1,1\}\)</span> for this to make sense.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-4-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-4-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: The goal"><a tabindex="-1" href="#day-24-lecture-4" title="Copy heading and permalink for Paragraphs: The goal" aria-label="Copy heading and permalink for Paragraphs: The goal">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-5"><h3 class="heading"><span class="title">What is a hyperplane?</span></h3>
+<div class="image-box" style="width: 90%; margin-left: 5%; margin-right: 5%;"><img src="external/figures/hyperplanes_p1_p2_p3.svg" role="img" class="contained" alt="Three figures showing hyperplane examples for Euclidean dimension 1 (hyperplane is shown as a point), dimension 2 (hyperplane is shown as a line), and dimension 3 (hyperplane is shown as a 2D plane)."></div>
+<div class="para logical" id="day-24-lecture-5-3">
+<ul class="disc" id="day-24-lecture-5-3-1">
+<li id="day-24-lecture-5-3-1-1">
+<div class="para" id="day-24-lecture-5-3-1-1-1">In <span class="process-math">\(p\)</span>-dimensional space, a hyperplane is a flat affine subspace of dimension <span class="process-math">\(p-1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-5-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-5-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-5-3-1-2">
+<div class="para" id="day-24-lecture-5-3-1-2-1">Affine means it does not have to pass through the origin.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-5-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-5-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-5-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: What is a hyperplane?"><a tabindex="-1" href="#day-24-lecture-5" title="Copy heading and permalink for Paragraphs: What is a hyperplane?" aria-label="Copy heading and permalink for Paragraphs: What is a hyperplane?">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-6"><h3 class="heading"><span class="title">Mathematical definition of a hyperplane.</span></h3>
+<div class="para logical" id="day-24-lecture-6-2">
+<div class="displaymath process-math" id="day-24-lecture-6-2-1">
+\begin{equation*}
+\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p=0
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-6-3">
+<ul class="disc" id="day-24-lecture-6-3-1">
+<li id="day-24-lecture-6-3-1-1">
+<div class="para" id="day-24-lecture-6-3-1-1-1">Being on the hyperplane means having a point <span class="process-math">\(X=(X_1,X_2,\cdots,X_p)^T\)</span> satisfying this equation.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-6-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-6-3-1-2">
+<div class="para logical" id="day-24-lecture-6-3-1-2-1">
+<div class="para">The vector <span class="process-math">\(\beta=(\beta_1,\beta_2,\cdots,\beta_p)^T\)</span> is the normal vector to the hyperplane.</div>
+<ul class="circle" id="day-24-lecture-6-3-1-2-1-2">
+<li id="day-24-lecture-6-3-1-2-1-2-1">
+<div class="para" id="day-24-lecture-6-3-1-2-1-2-1-1">If <span class="process-math">\(\boldsymbol{\beta}=(\beta_1,\beta_2,\cdots,\beta_p)^T\)</span> is normalized such that <span class="process-math">\(\sum_{j=1}^p \beta_{j}^2 = 1\text{,}\)</span> then <span class="process-math">\(\boldsymbol{\beta}\)</span> represents the unit normal vector to the hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-3-1-2-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-6-3-1-2-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-6-3-1-2-1-2-2">
+<div class="para logical" id="day-24-lecture-6-3-1-2-1-2-2-1">
+<div class="para">The <dfn class="terminology">signed perpendicular distance</dfn> from a point <span class="process-math">\(\mathbf{x}_i=(x_{i1},x_{i2},\cdots,x_{ip})^T\)</span> to the hyperplane is given by</div>
+<div class="displaymath process-math" id="day-24-lecture-6-3-1-2-1-2-2-1-3">
+\begin{equation*}
+\frac{\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}}{\sqrt{\sum_{j=1}^p \beta_{j}^2}}=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-3-1-2-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-6-3-1-2-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-6-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<details id="day-24-lecture-6-4" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading">
+<span class="type">Aside<span class="colon heading-divison-mark heading-divison-mark__colon">:</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Dot product.</span>
+</h4></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para logical" id="day-24-lecture-6-4-2">
+<div class="para">The quantity</div>
+<div class="displaymath process-math" id="day-24-lecture-6-4-2-1">
+\begin{equation*}
+\beta_{0} + \beta_{1} x_{1} + \beta_{2} x_{2} + \ldots + \beta_{N} x_{N}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-6-4-3">
+<div class="para">Is the same as</div>
+<div class="displaymath process-math" id="day-24-lecture-6-4-3-1">
+\begin{equation*}
+\begin{bmatrix} \beta_0 \amp \beta_1 \amp \beta_2 \amp \ldots \amp \beta_N \end{bmatrix}\begin{bmatrix}1\\x_1\\x_2\\\vdots\\x_N\end{bmatrix}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-4-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-6-4-4">
+<div class="para">Is the same as</div>
+<div class="displaymath process-math" id="day-24-lecture-6-4-4-1">
+\begin{equation*}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\\beta_2 \\ \vdots \\ \beta_N \end{bmatrix} \cdot \begin{bmatrix}1\\x_1\\x_2\\\vdots\\x_N\end{bmatrix}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-4-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-6-4-5">
+<div class="para">Is the same as</div>
+<div class="displaymath process-math" id="day-24-lecture-6-4-5-1">
+\begin{equation*}
+\beta_{0} + \boldsymbol{\beta}^{T} \mathbf{x}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-4-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-6-4-6">where <span class="process-math">\(\mathbf{\beta}=\begin{bmatrix}\beta_{0} \\ \beta_{1} \\\beta_{2} \\ \vdots \\ \beta_{N}\end{bmatrix}\)</span> and <span class="process-math">\(\mathbf{x}= \begin{bmatrix}1\\x_{1}\\x_{2}\\\vdots\\x_{N}\end{bmatrix}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-6-4-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Mathematical definition of a hyperplane"><a tabindex="-1" href="#day-24-lecture-6" title="Copy heading and permalink for Paragraphs: Mathematical definition of a hyperplane" aria-label="Copy heading and permalink for Paragraphs: Mathematical definition of a hyperplane">🔗</a></div>
+</section>
+<details id="day-24-lecture-7" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">136</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Signed perpendicular distance.</span>
+</h3></summary>
+<article class="example example-like knowl__content">
+<div class="para" id="day-24-lecture-7-2-1">For the shown data points and hyperplane, sketch the <span class="process-math">\(f(x^*)\)</span> for each of the shown points and indicate whether its positive (+ve) or negative (-ve). How confident are you in your classification of each point? Why?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-7-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> <div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/sketch_fxstar_ex1.svg" role="img" class="contained" alt="Data points from two classes with a line separating them. Three data points are labeled as a, b, and c."></div>
+<div class="solutions">
+<details id="day-24-lecture-7-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-24-lecture-7-3-1">The figure shows the values returned by each point when substituted into the hyperplane equation. The sign of the value indicates which side of the hyperplane the point is on, and the magnitude indicates how far away it is from the hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-7-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-7-3-2">We are more confident in the classification of points that are further away from the hyperplane, and less confident in the classification of points that are closer to the hyperplane. Therefore, wer are most confidnent in the classification of point c, and least confident in the classification of point a.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-7-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/sketch_fxstar_ex1_sol.svg" role="img" class="contained" alt="Data points from two classes with a line separating them. Three data points are labeled as a, b, and c. Sketched lines indicate the the value returned by f(x*) for each point along with its sign."></div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 136.1"><a tabindex="-1" href="#day-24-lecture-7-3" title="Copy heading and permalink for Answer 136.1" aria-label="Copy heading and permalink for Answer 136.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Example 136: Signed perpendicular distance"><a tabindex="-1" href="#day-24-lecture-7" title="Copy heading and permalink for Example 136: Signed perpendicular distance" aria-label="Copy heading and permalink for Example 136: Signed perpendicular distance">🔗</a></div>
+</article></details>
+<details id="day-24-lecture-8" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">137</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Hyperplane with <span class="process-math">\(p=2\)</span>.</span>
+</h3></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-24-lecture-8-2">
+<div class="para logical" id="day-24-lecture-8-2-1">
+<div class="para">The equation for the shown hpyerplane is</div>
+<div class="displaymath process-math" id="day-24-lecture-8-2-1-1">
+\begin{equation*}
+1+2X_1+3X_2=0.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-8-2-2">For each of the given point, determine whether the point is above, on, or below the boundary. Justify your answers.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/Fig9-1.png" class="contained" alt="A hyperplane separating two regions with blue and purple colors."></div>
+</div>
+<article class="task exercise-like" id="day-24-lecture-8-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-24-lecture-8-3-1-1">
+<span class="process-math">\((X_1,X_2)=(-0.5, 0).\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-8-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-24-lecture-8-3-2-1">Substitute into the equation of the hyperplane to obtain <span class="process-math">\(1+2(-0.5)+3(0)=0\text{.}\)</span> Therefore, the point is on the boundary.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 137.a.1"><a tabindex="-1" href="#day-24-lecture-8-3-2" title="Copy heading and permalink for Answer 137.a.1" aria-label="Copy heading and permalink for Answer 137.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 137.a"><a tabindex="-1" href="#day-24-lecture-8-3" title="Copy heading and permalink for Task 137.a" aria-label="Copy heading and permalink for Task 137.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-24-lecture-8-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-24-lecture-8-4-1-1">
+<span class="process-math">\((X_1,X_2)=(0, -1).\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-8-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-24-lecture-8-4-2-1">Substitute into the equation of the hyperplane to obtain <span class="process-math">\(1+2(0)+3(-1)=1-3=-2\text{.}\)</span> Since this is less than 0, the point is below the boundary.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 137.b.1"><a tabindex="-1" href="#day-24-lecture-8-4-2" title="Copy heading and permalink for Answer 137.b.1" aria-label="Copy heading and permalink for Answer 137.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 137.b"><a tabindex="-1" href="#day-24-lecture-8-4" title="Copy heading and permalink for Task 137.b" aria-label="Copy heading and permalink for Task 137.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-24-lecture-8-5"><h4 class="heading"><span class="codenumber">(c)</span></h4>
+<div class="para" id="day-24-lecture-8-5-1-1">
+<span class="process-math">\((X_1,X_2)=(0, 1).\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-8-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-24-lecture-8-5-2-1">Substitute into the equation of the hyperplane to obtain <span class="process-math">\(1+2(0)+3(1)=1+3=4\text{.}\)</span> Since this is greater than 0, the point is above the boundary.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-8-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 137.c.1"><a tabindex="-1" href="#day-24-lecture-8-5-2" title="Copy heading and permalink for Answer 137.c.1" aria-label="Copy heading and permalink for Answer 137.c.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 137.c"><a tabindex="-1" href="#day-24-lecture-8-5" title="Copy heading and permalink for Task 137.c" aria-label="Copy heading and permalink for Task 137.c">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 137: Hyperplane with p=2"><a tabindex="-1" href="#day-24-lecture-8" title="Copy heading and permalink for Example 137: Hyperplane with p=2" aria-label="Copy heading and permalink for Example 137: Hyperplane with p=2">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-24-lecture-9"><h3 class="heading"><span class="title">There are two sides to every hyperplane.</span></h3>
+<div class="para logical" id="day-24-lecture-9-2">
+<div class="displaymath process-math" id="day-24-lecture-9-2-1">
+\begin{equation*}
+\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p&lt;0
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-9-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-9-3">
+<div class="displaymath process-math" id="day-24-lecture-9-3-1">
+\begin{equation*}
+\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_pX_p&gt;0
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-9-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/Fig9-1.png" class="contained" alt="A hyperplane separating two regions with blue and purple colors."></div>
+<div class="para" id="day-24-lecture-9-5">We can use the separating hyperplane to design a classifier.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-9-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: There are two sides to every hyperplane"><a tabindex="-1" href="#day-24-lecture-9" title="Copy heading and permalink for Paragraphs: There are two sides to every hyperplane" aria-label="Copy heading and permalink for Paragraphs: There are two sides to every hyperplane">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-10"><h3 class="heading"><span class="title">Classification Setup.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-24-lecture-10-2-1-1">Data matrix:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-10-2-1-2">
+<div class="displaymath process-math" id="day-24-lecture-10-2-1-2-1">
+\begin{equation*}
+X=
+\begin{pmatrix}
+- &amp; x_1^T &amp; -\\
+- &amp; x_2^T &amp; -\\
+&amp; \vdots &amp; \\
+- &amp; x_n^T &amp; -
+\end{pmatrix}_{n\times p}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-10-2-1-3">
+<div class="displaymath process-math" id="day-24-lecture-10-2-1-3-1">
+\begin{equation*}
+x_1=
+\begin{pmatrix}
+x_{11}\\
+\vdots\\
+x_{1p}
+\end{pmatrix},
+\cdots,
+x_n=
+\begin{pmatrix}
+x_{n1}\\
+\vdots\\
+x_{np}
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-2-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-24-lecture-10-2-2-1">Observations in one of two classes, <span class="process-math">\(y_i\in\{-1,1\}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-10-2-2-2">
+<div class="displaymath process-math" id="day-24-lecture-10-2-2-2-1">
+\begin{equation*}
+Y=
+\begin{pmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_n
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="para" id="day-24-lecture-10-3">Separate out a test observation:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-10-4">
+<div class="displaymath process-math" id="day-24-lecture-10-4-1">
+\begin{equation*}
+x^*=(x_1^*\;\cdots\;x_p^*)^T
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-10-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Classification Setup"><a tabindex="-1" href="#day-24-lecture-10" title="Copy heading and permalink for Paragraphs: Classification Setup" aria-label="Copy heading and permalink for Paragraphs: Classification Setup">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-11"><h3 class="heading"><span class="title">Separating Hyperplane.</span></h3>
+<div class="para logical" id="day-24-lecture-11-2">
+<div class="displaymath process-math" id="day-24-lecture-11-2-1">
+\begin{equation*}
+\begin{aligned}
+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&gt;0
+&amp;\text{ if }y_i=1\\
+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&lt;0
+&amp;\text{ if }y_i=-1
+\end{aligned}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-11-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:45% 55%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-2a.png" class="contained" alt="Three separating hyperplanes separating two classes of observations."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-11-3-2">
+<ul class="disc" id="day-24-lecture-11-3-2-1">
+<li id="day-24-lecture-11-3-2-1-1">
+<div class="para" id="day-24-lecture-11-3-2-1-1-1">Linearly separable data.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-11-3-2-1-2">
+<div class="para" id="day-24-lecture-11-3-2-1-2-1">Two-class classification.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-11-3-2-1-3">
+<div class="para" id="day-24-lecture-11-3-2-1-3-1">No points can be on the wrong side of the line (no noise, and no outliers).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-11-3-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-11-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Separating Hyperplane"><a tabindex="-1" href="#day-24-lecture-11" title="Copy heading and permalink for Paragraphs: Separating Hyperplane" aria-label="Copy heading and permalink for Paragraphs: Separating Hyperplane">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-12"><h3 class="heading"><span class="title">Another way to say it.</span></h3>
+<div class="para logical" id="day-24-lecture-12-2">
+<div class="displaymath process-math" id="day-24-lecture-12-2-1">
+\begin{equation*}
+\begin{aligned}
+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&gt;0
+&amp;\text{ if }y_i=1\\
+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip}&lt;0
+&amp;\text{ if }y_i=-1
+\end{aligned}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-12-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-12-3">For all <span class="process-math">\(i\text{:}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-12-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-12-4">
+<div class="displaymath process-math" id="day-24-lecture-12-4-1">
+\begin{equation*}
+y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})&gt;0
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-12-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Another way to say it"><a tabindex="-1" href="#day-24-lecture-12" title="Copy heading and permalink for Paragraphs: Another way to say it" aria-label="Copy heading and permalink for Paragraphs: Another way to say it">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-13"><h3 class="heading"><span class="title">Separating hyperplane becomes a classifier.</span></h3>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/figures/Fig9-2b.png" class="contained" alt="A separating hyperplane used as a classifier."></div>
+<div class="para" id="day-24-lecture-13-3">If you have a separating hyperplane:<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-13-4">
+<ul class="disc" id="day-24-lecture-13-4-1">
+<li id="day-24-lecture-13-4-1-1">
+<div class="para" id="day-24-lecture-13-4-1-1-1">Check<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-4-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-13-4-1-1-2">
+<div class="displaymath process-math" id="day-24-lecture-13-4-1-1-2-1">
+\begin{equation*}
+f(x^*)=\beta_0+\beta_1x_1^*+\beta_2x_2^*+\cdots+\beta_px_p^*
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-4-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-13-4-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-13-4-1-2">
+<div class="para" id="day-24-lecture-13-4-1-2-1">If positive, assign <span class="process-math">\(\hat{y}=1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-4-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-13-4-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-13-4-1-3">
+<div class="para" id="day-24-lecture-13-4-1-3-1">If negative, assign <span class="process-math">\(\hat{y}=-1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-4-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-13-4-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-13-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Separating hyperplane becomes a classifier"><a tabindex="-1" href="#day-24-lecture-13" title="Copy heading and permalink for Paragraphs: Separating hyperplane becomes a classifier" aria-label="Copy heading and permalink for Paragraphs: Separating hyperplane becomes a classifier">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-14"><h3 class="heading"><span class="title">How do we pick?</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-2a.png" class="contained" alt="Three separating hyperplanes separating two classes of observations."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-14-2-2-1">
+<ul class="disc" id="day-24-lecture-14-2-2-1-1">
+<li id="day-24-lecture-14-2-2-1-1-1">
+<div class="para" id="day-24-lecture-14-2-2-1-1-1-1">There’s lots of separating hyperplanes here, so how do we find a "best" one?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-14-2-2-1-1-2">
+<div class="para" id="day-24-lecture-14-2-2-1-1-2-1">Compute the perpendicular distance from each training observation to a given separating hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-14-2-2-1-1-3">
+<div class="para" id="day-24-lecture-14-2-2-1-1-3-1">The smallest such distance is the <span class="process-math">\(margin\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-14-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-14-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: How do we pick?"><a tabindex="-1" href="#day-24-lecture-14" title="Copy heading and permalink for Paragraphs: How do we pick?" aria-label="Copy heading and permalink for Paragraphs: How do we pick?">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-15"><h3 class="heading"><span class="title">Distance from an observation to a hyperplane.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/SVM-example-WithLine1.svg" role="img" class="contained" alt="SVM example with line 1."></div></div>
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/SVM-example-WithLine2.svg" role="img" class="contained" alt="SVM example with line 2."></div></div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Distance from an observation to a hyperplane"><a tabindex="-1" href="#day-24-lecture-15" title="Copy heading and permalink for Paragraphs: Distance from an observation to a hyperplane" aria-label="Copy heading and permalink for Paragraphs: Distance from an observation to a hyperplane">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-16"><h3 class="heading"><span class="title">Maximal margin classifier.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-3.png" class="contained" alt="Maximal margin classifier."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-16-2-2-1">
+<ul class="disc" id="day-24-lecture-16-2-2-1-1">
+<li id="day-24-lecture-16-2-2-1-1-1">
+<div class="para" id="day-24-lecture-16-2-2-1-1-1-1">The <dfn class="terminology">maximal margin hyperplane</dfn> is the hyperplane with the largest minimum distance to the training observations.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-16-2-2-1-1-2">
+<div class="para" id="day-24-lecture-16-2-2-1-1-2-1">Classifying using it gives you the <dfn class="terminology">maximal margin classifier</dfn>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-16-2-2-1-1-3">
+<div class="para" id="day-24-lecture-16-2-2-1-1-3-1">Observations that are closest are called <dfn class="terminology">support vectors</dfn>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-16-2-2-1-1-4">
+<div class="para logical" id="day-24-lecture-16-2-2-1-1-4-1">
+<div class="para">Support vectors satisfy</div>
+<div class="displaymath process-math" id="day-24-lecture-16-2-2-1-1-4-1-1">
+\begin{equation*}
+Y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=M.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-16-2-2-1-1-5">
+<div class="para" id="day-24-lecture-16-2-2-1-1-5-1">If points moved slightly, then the maximal margin hyperplane would move.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-16-2-2-1-1-6">
+<div class="para" id="day-24-lecture-16-2-2-1-1-6-1">There is no effect if any other points moved.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-16-2-2-1-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-16-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Maximal margin classifier"><a tabindex="-1" href="#day-24-lecture-16" title="Copy heading and permalink for Paragraphs: Maximal margin classifier" aria-label="Copy heading and permalink for Paragraphs: Maximal margin classifier">🔗</a></div>
+</section>
+<details id="day-24-lecture-17" class="example example-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">138</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">MMC demonstration example.</span>
+</h3></summary>
+<article class="example example-like knowl__content">
+<div class="introduction" id="day-24-lecture-17-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/SVM-DesmosExample.png" class="contained" alt="MMC demonstration example."></div></div>
+<article class="task exercise-like" id="day-24-lecture-17-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-24-lecture-17-3-1-1">Sketch the maximal margin hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 138.a"><a tabindex="-1" href="#day-24-lecture-17-3" title="Copy heading and permalink for Task 138.a" aria-label="Copy heading and permalink for Task 138.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-24-lecture-17-4"><h4 class="heading"><span class="codenumber">(b)</span></h4>
+<div class="para" id="day-24-lecture-17-4-1-1">What is the equation of this line in the form <span class="process-math">\(\beta_0+\beta_1X_1+\beta_2X_2=0\text{?}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-17-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para logical" id="day-24-lecture-17-4-2-1">
+<div class="displaymath process-math" id="day-24-lecture-17-4-2-1-1">
+\begin{equation*}
+X_{1} + X_{2}- 4 = 0
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 138.b.1"><a tabindex="-1" href="#day-24-lecture-17-4-2" title="Copy heading and permalink for Answer 138.b.1" aria-label="Copy heading and permalink for Answer 138.b.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 138.b"><a tabindex="-1" href="#day-24-lecture-17-4" title="Copy heading and permalink for Task 138.b" aria-label="Copy heading and permalink for Task 138.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-24-lecture-17-5"><h4 class="heading"><span class="codenumber">(c)</span></h4>
+<div class="para" id="day-24-lecture-17-5-1-1">Circle the support vectors. What is their distance from the line?<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 138.c"><a tabindex="-1" href="#day-24-lecture-17-5" title="Copy heading and permalink for Task 138.c" aria-label="Copy heading and permalink for Task 138.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="day-24-lecture-17-6"><h4 class="heading"><span class="codenumber">(d)</span></h4>
+<div class="para" id="day-24-lecture-17-6-1-1">Classify the points <span class="process-math">\((0,0)\text{,}\)</span> <span class="process-math">\((4,4)\text{,}\)</span> and <span class="process-math">\((2,2)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-17-6-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
+<div class="para" id="day-24-lecture-17-6-2-1">Points are at distance <span class="process-math">\(\frac{\sqrt{2}}{2}\text{.}\)</span> Build the isoceles right triangle with <span class="process-math">\(d\)</span> on two sides and 1 for hypotenuse.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-17-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Answer 138.d.1"><a tabindex="-1" href="#day-24-lecture-17-6-2" title="Copy heading and permalink for Answer 138.d.1" aria-label="Copy heading and permalink for Answer 138.d.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 138.d"><a tabindex="-1" href="#day-24-lecture-17-6" title="Copy heading and permalink for Task 138.d" aria-label="Copy heading and permalink for Task 138.d">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Example 138: MMC demonstration example"><a tabindex="-1" href="#day-24-lecture-17" title="Copy heading and permalink for Example 138: MMC demonstration example" aria-label="Copy heading and permalink for Example 138: MMC demonstration example">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-24-lecture-18"><h3 class="heading"><span class="title">Mathematical Formulation.</span></h3>
+<div class="para logical" id="day-24-lecture-18-2">
+<div class="displaymath process-math" id="day-24-lecture-18-2-1">
+\begin{align*}
+\amp \underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} M\\
+\amp \text{subject to } \sum_{j=1}^{p} \beta_j^2 = 1,\\
+\amp y_i(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}) \ge M \quad \forall i = 1, \dots, n
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-18-3">
+<ul class="disc" id="day-24-lecture-18-3-1">
+<li id="day-24-lecture-18-3-1-1">
+<div class="para" id="day-24-lecture-18-3-1-1-1">MMC requires perfect linear separation, so it is a <dfn class="terminology">hard margin classifier</dfn>.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-18-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-18-3-1-2">
+<div class="para" id="day-24-lecture-18-3-1-2-1">
+<span class="process-math">\(M\)</span> ensures every point is at least distance <span class="process-math">\(M\)</span> from the hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-18-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-18-3-1-3">
+<div class="para" id="day-24-lecture-18-3-1-3-1">Because of the multiplication by <span class="process-math">\(y_i\text{,}\)</span> this also requires that the point is on the correct side of the hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-18-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-18-3-1-4">
+<div class="para" id="day-24-lecture-18-3-1-4-1">The last equation forces points to be on the correct side of the hyperplane if <span class="process-math">\(M&gt;0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-18-3-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-18-3-1-5">
+<div class="para" id="day-24-lecture-18-3-1-5-1">Making <span class="process-math">\(M\)</span> as big as possible gives the maximal margin hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-18-3-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-18-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Mathematical Formulation"><a tabindex="-1" href="#day-24-lecture-18" title="Copy heading and permalink for Paragraphs: Mathematical Formulation" aria-label="Copy heading and permalink for Paragraphs: Mathematical Formulation">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-19"><h3 class="heading"><span class="title">First constraint.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 65%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/SVM-DesmosExample-WithLine.png" class="contained" alt="SVM demonstration example with a separating line."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-19-2-2-1">
+<ul class="disc" id="day-24-lecture-19-2-2-1-1">
+<li id="day-24-lecture-19-2-2-1-1-1">
+<div class="para" id="day-24-lecture-19-2-2-1-1-1-1">We had the equation <span class="process-math">\(-4+X_1+X_2=0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-2">
+<div class="para" id="day-24-lecture-19-2-2-1-1-2-1">We can divide by any number and get the same line.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-3">
+<div class="para" id="day-24-lecture-19-2-2-1-1-3-1">
+<span class="process-math">\(\sum_{i=1}^p\beta_i^2=1^2+1^2=2\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-4">
+<div class="para" id="day-24-lecture-19-2-2-1-1-4-1">We get the same sloped line if we divide by <span class="process-math">\(\sqrt{\sum_{i=1}^p\beta_i^2}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-5">
+<div class="para" id="day-24-lecture-19-2-2-1-1-5-1">We just need to solve for the intercept.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-6">
+<div class="para" id="day-24-lecture-19-2-2-1-1-6-1">
+<span class="process-math">\(-\frac{4}{\sqrt{2}}+\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2=0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-7">
+<div class="para" id="day-24-lecture-19-2-2-1-1-7-1">
+<span class="process-math">\(-2\sqrt{2}+\frac{\sqrt{2}}{2}X_1+\frac{\sqrt{2}}{2}X_2=0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-7-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-7" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-8">
+<div class="para" id="day-24-lecture-19-2-2-1-1-8-1">Check that <span class="process-math">\(\sum_{i=1}^p\beta_i^2\)</span> is now 1.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-8-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-8" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-9">
+<div class="para" id="day-24-lecture-19-2-2-1-1-9-1">Plug in the support vector <span class="process-math">\(x_i=(1,4)\text{,}\)</span> which gives <span class="process-math">\(y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=1/\sqrt{2}=:M\)</span> (the margin).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-9-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-9" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-19-2-2-1-1-10">
+<div class="para" id="day-24-lecture-19-2-2-1-1-10-1">Note that <span class="process-math">\(y=1\)</span> corresponds to the red Xs, and <span class="process-math">\(y=-1\)</span> corresponds to the blue dots below the line.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-10-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-19-2-2-1-1-10" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-19-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: First constraint"><a tabindex="-1" href="#day-24-lecture-19" title="Copy heading and permalink for Paragraphs: First constraint" aria-label="Copy heading and permalink for Paragraphs: First constraint">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-20"><h3 class="heading"><span class="title">Second constraint.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 65%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="image-box"><img src="external/figures/SVM-DesmosExample-WithLine.png" class="contained" alt="SVM demonstration example with a separating line."></div>
+<div class="para logical" id="day-24-lecture-20-2-1-2">
+<ul class="disc" id="day-24-lecture-20-2-1-2-1">
+<li id="day-24-lecture-20-2-1-2-1-1">
+<div class="para" id="day-24-lecture-20-2-1-2-1-1-1">Blue circles: <span class="process-math">\(y_i=-1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-1-2-1-2">
+<div class="para" id="day-24-lecture-20-2-1-2-1-2-1">Red Xs: <span class="process-math">\(y_i=1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-1-2-1-3">
+<div class="para" id="day-24-lecture-20-2-1-2-1-3-1">
+<span class="process-math">\(-2\sqrt{2}+\frac{\sqrt{2}}{2}X_1+\frac{\sqrt{2}}{2}X_2=0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-1-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-20-2-2-1">
+<div class="displaymath process-math" id="day-24-lecture-20-2-2-1-1">
+\begin{equation*}
+y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2})\geq M
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-20-2-2-2">
+<ul class="disc" id="day-24-lecture-20-2-2-2-1">
+<li id="day-24-lecture-20-2-2-2-1-1">
+<div class="para logical" id="day-24-lecture-20-2-2-2-1-1-1">
+<div class="para">For point <span class="process-math">\((3,2)\text{:}\)</span>
+</div>
+<ul class="circle" id="day-24-lecture-20-2-2-2-1-1-1-2">
+<li id="day-24-lecture-20-2-2-2-1-1-1-2-1">
+<div class="para" id="day-24-lecture-20-2-2-2-1-1-1-2-1-1">
+<span class="process-math">\(y_i=1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-2-2-1-1-1-2-2">
+<div class="para" id="day-24-lecture-20-2-2-2-1-1-1-2-2-1">
+<span class="process-math">\(1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 3+\frac{\sqrt{2}}{2}\cdot 2\right)=\frac{\sqrt{2}}{2}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-2-2-1-2">
+<div class="para logical" id="day-24-lecture-20-2-2-2-1-2-1">
+<div class="para">For point <span class="process-math">\((0,3)\text{:}\)</span>
+</div>
+<ul class="circle" id="day-24-lecture-20-2-2-2-1-2-1-2">
+<li id="day-24-lecture-20-2-2-2-1-2-1-2-1">
+<div class="para" id="day-24-lecture-20-2-2-2-1-2-1-2-1-1">
+<span class="process-math">\(y_i=-1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-2-2-1-2-1-2-2">
+<div class="para" id="day-24-lecture-20-2-2-2-1-2-1-2-2-1">
+<span class="process-math">\(-1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 0+\frac{\sqrt{2}}{2}\cdot 3\right)=\frac{\sqrt{2}}{2}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-2-2-1-3">
+<div class="para logical" id="day-24-lecture-20-2-2-2-1-3-1">
+<div class="para">For point <span class="process-math">\((1,1)\text{:}\)</span>
+</div>
+<ul class="circle" id="day-24-lecture-20-2-2-2-1-3-1-2">
+<li id="day-24-lecture-20-2-2-2-1-3-1-2-1">
+<div class="para" id="day-24-lecture-20-2-2-2-1-3-1-2-1-1">
+<span class="process-math">\(y_i=-1\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-20-2-2-2-1-3-1-2-2">
+<div class="para" id="day-24-lecture-20-2-2-2-1-3-1-2-2-1">
+<span class="process-math">\(-1\left(-2\sqrt{2}+\frac{\sqrt{2}}{2}\cdot 1+\frac{\sqrt{2}}{2}\cdot 1\right)=\sqrt{2}\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-20-2-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-20-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Second constraint"><a tabindex="-1" href="#day-24-lecture-20" title="Copy heading and permalink for Paragraphs: Second constraint" aria-label="Copy heading and permalink for Paragraphs: Second constraint">🔗</a></div>
+</section>
+<details id="day-24-lecture-21" class="exercise exercise-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading">
+<span class="type">Checkpoint</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">140</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
+</h3></summary>
+<article class="exercise exercise-like knowl__content">
+<div class="introduction" id="day-24-lecture-21-1">
+<div class="para" id="day-24-lecture-21-1-1">Consider the following dataset with two predictors, <span class="process-math">\(X_1\)</span> and <span class="process-math">\(X_2\text{,}\)</span> and a binary response variable <span class="process-math">\(Y\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="tabular-box natural-width"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l m b0 r0 l0 t0 lines">Observation</th>
+<th scope="col" class="l m b0 r0 l0 t0 lines"><span class="process-math">\(X_1\)</span></th>
+<th scope="col" class="l m b0 r0 l0 t0 lines"><span class="process-math">\(X_2\)</span></th>
+<th scope="col" class="l m b0 r0 l0 t0 lines"><span class="process-math">\(Y\)</span></th>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines">1.4</td>
+<td class="l m b0 r0 l0 t0 lines">8.2</td>
+<td class="l m b0 r0 l0 t0 lines">+1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">2</td>
+<td class="l m b0 r0 l0 t0 lines">2.0</td>
+<td class="l m b0 r0 l0 t0 lines">6.0</td>
+<td class="l m b0 r0 l0 t0 lines">+1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">3</td>
+<td class="l m b0 r0 l0 t0 lines">7.1</td>
+<td class="l m b0 r0 l0 t0 lines">4.0</td>
+<td class="l m b0 r0 l0 t0 lines">+1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">4</td>
+<td class="l m b0 r0 l0 t0 lines">6.0</td>
+<td class="l m b0 r0 l0 t0 lines">3.0</td>
+<td class="l m b0 r0 l0 t0 lines">+1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">5</td>
+<td class="l m b0 r0 l0 t0 lines">1.3</td>
+<td class="l m b0 r0 l0 t0 lines">2.0</td>
+<td class="l m b0 r0 l0 t0 lines">-1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">6</td>
+<td class="l m b0 r0 l0 t0 lines">2.0</td>
+<td class="l m b0 r0 l0 t0 lines">3.5</td>
+<td class="l m b0 r0 l0 t0 lines">-1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">7</td>
+<td class="l m b0 r0 l0 t0 lines">4.2</td>
+<td class="l m b0 r0 l0 t0 lines">0.5</td>
+<td class="l m b0 r0 l0 t0 lines">-1</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">8</td>
+<td class="l m b0 r0 l0 t0 lines">6.0</td>
+<td class="l m b0 r0 l0 t0 lines">0.5</td>
+<td class="l m b0 r0 l0 t0 lines">-1</td>
+</tr>
+</table></div>
+<div class="para" id="day-24-lecture-21-1-3">Suppose observations 2, 4, 6, and 8 are the support vectors. The maximal margin classifier is given by<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-21-1-4">
+<span class="process-math">\(0.6X_1+0.8X_2-5=0.\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-1-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<article class="task exercise-like" id="day-24-lecture-21-2"><h4 class="heading"><span class="codenumber">(a)</span></h4>
+<div class="para" id="day-24-lecture-21-2-1-1">Using the given information, calculate the margin <span class="process-math">\(M\text{,}\)</span> as defined in our book and class notes: the minimum perpendicular distance from the observations to the separating hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="solutions">
+<details id="day-24-lecture-21-2-2" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
+<div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/figures/MMC_checkpoint.svg" role="img" class="contained" alt="Data points from two classes plotted on the X1, X2 predictor space. The separating hyperplane and the support vectors are identified, and the (equal) distance from each support vector to the hyperplane is shown."></div>
+<div class="para logical" id="day-24-lecture-21-2-2-2">
+<div class="para">To determine the margin <span class="process-math">\(M\text{,}\)</span> substitute a support vector into the margin-boundary equation. Recall that support vectors satisfy</div>
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-2-2">
+\begin{equation*}
+Y_i(\beta_0+\beta_1X_{i1}+\beta_2X_{i2})=M.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-21-2-2-3">Using observation 2, which is a positive support vector with coordinates <span class="process-math">\((X_1,X_2)=(2,6)\)</span> and <span class="process-math">\(Y=1\text{,}\)</span> we obtain<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-21-2-2-4">
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-4-1">
+\begin{equation*}
+1(0.6(2)+0.8(6)-5)=M,
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-4-2">
+\begin{equation*}
+1.2+4.8-5=M,
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-4-3">
+\begin{equation*}
+M=1.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-21-2-2-5">Therefore, the two margin boundaries are<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-24-lecture-21-2-2-6">
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-6-1">
+\begin{equation*}
+0.6X_1+0.8X_2-5=1
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="day-24-lecture-21-2-2-6-2">
+\begin{equation*}
+0.6X_1+0.8X_2-5=-1.
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-21-2-2-7">The margin is <span class="process-math">\(M=1\text{,}\)</span> which is the perpendicular distance from the separating hyperplane to either margin boundary. The full distance between the two boundaries is <span class="process-math">\(2M=2\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-21-2-2-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Solution 140.a.1"><a tabindex="-1" href="#day-24-lecture-21-2-2" title="Copy heading and permalink for Solution 140.a.1" aria-label="Copy heading and permalink for Solution 140.a.1">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Task 140.a"><a tabindex="-1" href="#day-24-lecture-21-2" title="Copy heading and permalink for Task 140.a" aria-label="Copy heading and permalink for Task 140.a">🔗</a></div>
+</article><div class="autopermalink" aria-hidden="true" data-description="Checkpoint 140"><a tabindex="-1" href="#day-24-lecture-21" title="Copy heading and permalink for Checkpoint 140" aria-label="Copy heading and permalink for Checkpoint 140">🔗</a></div>
+</article></details>
+<section class="paragraphs" id="day-24-lecture-22"><h3 class="heading"><span class="title">But what if.....</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-4.png" class="contained" alt="Example of a dataset for which no separating hyperplane exists."></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-24-lecture-22-2-2-1">
+<ul class="disc" id="day-24-lecture-22-2-2-1-1">
+<li id="day-24-lecture-22-2-2-1-1-1">
+<div class="para" id="day-24-lecture-22-2-2-1-1-1-1">...there is no separating hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-22-2-2-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-22-2-2-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-22-2-2-1-1-2">
+<div class="para" id="day-24-lecture-22-2-2-1-1-2-1">This means that there is no solution for <span class="process-math">\(M&gt;0\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-22-2-2-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-22-2-2-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-22-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: But what if...."><a tabindex="-1" href="#day-24-lecture-22" title="Copy heading and permalink for Paragraphs: But what if...." aria-label="Copy heading and permalink for Paragraphs: But what if....">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-24-lecture-23"><h3 class="heading"><span class="title">Sensitivity to new points.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-5a.png" class="contained" alt="First example illustrating sensitivity of the maximal margin classifier to new observations."></div></div>
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig9-5b.png" class="contained" alt="Second example illustrating sensitivity of the maximal margin classifier to new observations."></div></div>
+</div>
+</div>
+<div class="para logical" id="day-24-lecture-23-3">
+<ul class="disc" id="day-24-lecture-23-3-1">
+<li id="day-24-lecture-23-3-1-1">
+<div class="para" id="day-24-lecture-23-3-1-1-1">Even if there is a separating hyperplane, it might not be a good one.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-23-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-23-3-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-23-3-1-2">
+<div class="para" id="day-24-lecture-23-3-1-2-1">Add a blue observation on the right.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-23-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-23-3-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-24-lecture-23-3-1-3">
+<div class="para" id="day-24-lecture-23-3-1-3-1">This causes a dramatic shift in the maximal margin hyperplane.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-23-3-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-24-lecture-23-3-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-23-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="day-24-lecture-23-4">This calls for a more flexible approach, which we will discuss next time.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-24-lecture-23-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Sensitivity to new points"><a tabindex="-1" href="#day-24-lecture-23" title="Copy heading and permalink for Paragraphs: Sensitivity to new points" aria-label="Copy heading and permalink for Paragraphs: Sensitivity to new points">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 24"><a tabindex="-1" href="#day-24-lecture" title="Copy heading and permalink for Handout: Day 24" aria-label="Copy heading and permalink for Handout: Day 24">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Section: Exam 3 Material"><a tabindex="-1" href="#sec-exam3-material" title="Copy heading and permalink for Section: Exam 3 Material" aria-label="Copy heading and permalink for Section: Exam 3 Material">🔗</a></div>
 </section>
 </div>

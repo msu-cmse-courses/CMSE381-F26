@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Hyperplanes in one-, two-, and three-dimensional spaces</title>
+  <desc id="desc">Three panels show that a hyperplane is a point in one dimension, a line in two dimensions, and a plane in three dimensions.</desc>
+  <defs>
+    <style>
+      .axis { stroke:#171717; stroke-width:2.5; fill:none; stroke-linecap:round; }
+      .hyper { stroke:#1762bd; stroke-width:7; fill:none; stroke-linecap:round; }
+      .plane { fill:#75a9e8; fill-opacity:.62; stroke:#1762bd; stroke-width:1.5; }
+      .heading { font: italic 36px Georgia, serif; fill:#111; }
+      .axislabel { font: italic 27px Georgia, serif; fill:#111; }
+      .equation { font: italic 31px Georgia, serif; fill:#1762bd; }
+      .caption { font: 23px Georgia, serif; fill:#111; text-anchor:middle; }
+      .panel { fill:#f4f7fc; stroke:#dce4f0; stroke-width:1.5; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="#171717"/>
+    </marker>
+  </defs>
+
+  <!-- Panel headings -->
+  <rect x="35" y="24" width="345" height="62" rx="14" fill="#dce9fa"/>
+  <rect x="428" y="24" width="345" height="62" rx="14" fill="#dce9fa"/>
+  <rect x="821" y="24" width="345" height="62" rx="14" fill="#dce9fa"/>
+  <text class="heading" x="207.5" y="66" text-anchor="middle">p = 1</text>
+  <text class="heading" x="600.5" y="66" text-anchor="middle">p = 2</text>
+  <text class="heading" x="993.5" y="66" text-anchor="middle">p = 3</text>
+
+  <!-- p = 1: a point on the real line -->
+  <line class="axis" x1="48" y1="270" x2="365" y2="270" marker-end="url(#arrow)"/>
+  <circle cx="207" cy="270" r="10" fill="#1762bd"/>
+  <text class="axislabel" x="354" y="307">x</text>
+  <text class="equation" x="207" y="318" text-anchor="middle">a</text>
+
+  <!-- p = 2: a line in the plane -->
+  <line class="axis" x1="455" y1="270" x2="745" y2="270" marker-end="url(#arrow)"/>
+  <line class="axis" x1="600" y1="390" x2="600" y2="126" marker-end="url(#arrow)"/>
+  <line class="hyper" x1="485" y1="202" x2="715" y2="202"/>
+  <text class="axislabel" x="734" y="305">x</text>
+  <text class="axislabel" x="618" y="137">y</text>
+  <text class="equation" x="690" y="176" text-anchor="end">y = a</text>
+
+  <!-- p = 3: a plane in three-dimensional space -->
+  <line class="axis" x1="993" y1="292" x2="993" y2="112" marker-end="url(#arrow)"/>
+  <line class="axis" x1="993" y1="292" x2="1154" y2="314" marker-end="url(#arrow)"/>
+  <line class="axis" x1="993" y1="292" x2="875" y2="360" marker-end="url(#arrow)"/>
+  <polygon class="plane" points="930,183 1117,188 1042,244 855,239"/>
+  <text class="axislabel" x="1008" y="119">z</text>
+  <text class="axislabel" x="1158" y="326">y</text>
+  <text class="axislabel" x="856" y="380">x</text>
+  <text class="equation" x="1108" y="166" text-anchor="end">z = a</text>
+
+  <!-- Captions -->
+  <rect class="panel" x="28" y="425" width="360" height="108" rx="15"/>
+  <rect class="panel" x="420" y="425" width="360" height="108" rx="15"/>
+  <rect class="panel" x="812" y="425" width="360" height="108" rx="15"/>
+  <text class="caption" x="208" y="465">
+    <tspan x="208">A hyperplane in 1D</tspan>
+    <tspan x="208" dy="31">is a point (dimension 0).</tspan>
+  </text>
+  <text class="caption" x="600" y="465">
+    <tspan x="600">A hyperplane in 2D</tspan>
+    <tspan x="600" dy="31">is a line (dimension 1).</tspan>
+  </text>
+  <text class="caption" x="992" y="465">
+    <tspan x="992">A hyperplane in 3D</tspan>
+    <tspan x="992" dy="31">is a plane (dimension 2).</tspan>
+  </text>
+</svg>

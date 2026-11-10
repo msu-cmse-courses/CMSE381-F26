@@ -53,7 +53,7 @@
  <md>
     f(x_1,x_2) =
     \begin{cases}
-      \texttt{chicken} \amp \text{if } (x_2)^3-x_2-x_1 > 0,\\
+      \texttt{chicken} \amp \text{if } (x_2)^3-x_2-x_1 \gt 0,\\
       \texttt{egg} \amp \text{else.}
     \end{cases}
 </md>
@@ -87,7 +87,7 @@ def generateData(N=90,xBounds = [-7,7],yBounds = [-7,7],sigma=1, seed = None):
     Noise = np.random.normal(0, sigma, N)
     Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise)
     def ChickOrEgg(z):
-        if z>0:
+        if z > 0:
             return 'chicken'
         else:
             return 'egg'

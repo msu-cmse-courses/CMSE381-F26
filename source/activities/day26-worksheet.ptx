@@ -2,8 +2,7 @@
 
 <section xml:id="cmse381-lec26-svm-worksheet" component="ws26">
   <title>Day 26 worksheet</title>
-  <introduction>
-    <p>[Image: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/1920px-Kernel_Machine.svg.png]</p>
+  <introduction>    
     <program language="python">
       # Everyone's favorite standard imports
       import numpy as np
@@ -90,8 +89,10 @@
     <md>
     f(x) = \beta_0 + \sum_{i \in \mathcal{S}}\alpha_i K(x,x_i)
     </md></p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/dcaac2f6e75924a7e16c4caf01bb2a2f/SVM-Data3.csv"
+    <p>
+      Load the data <xref ref="SVM-data2-csv"/> into <c>data3</c>, and run the following commands.
+    </p>
+    <program language="python">      
       data3 = np.loadtxt(url)
       X = data3[:,:2]
       y = data3[:,2]
@@ -211,7 +212,7 @@
   </subsection>
   <subsection xml:id="cmse381-lec27-svm-worksheet-still-have-time">
     <title>Still have time?</title>
-    <p>Download the NIST data set from here: <url href="https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits">https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits</url></p>
+    <p>Download the NIST data set from here: <url href="https://archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits">archive.ics.uci.edu/ml/datasets/optical+recognition+of+handwritten+digits</url></p>
     <p>You just need two files for now, the training set <c>optdigits.tra</c> and the testing set <c>optdigits.tes</c>. The following commands will pull the data from the remote server. Optionally, you can download the files directly to your computer.</p>
     <program language="python">
       X_train = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra', header=None)

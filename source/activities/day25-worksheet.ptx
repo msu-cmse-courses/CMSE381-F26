@@ -3,7 +3,7 @@
 <section xml:id="cmse381-lec25-svc-worksheet" component="ws25">
   <title>Day 25 worksheet</title>
   <introduction>
-    <p>[Image: https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/SVM_margin.png/300px-SVM_margin.png]</p>
+    
     <program language="python">
       # Everyone's favorite standard imports
       import numpy as np
@@ -56,13 +56,10 @@
       plt.show()
     </program>
     <p>For now, we're going to mess with some synthetic data (meaning I generated it and saved it as a CSV for you).</p>
+      <p>
+        Load the <xref ref="SVM-data-csv"/> into <c>data_df</c>, and run the following commands.
+      </p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/79b8d68a386530ebf693a9130c756277/SVM-Data.csv"
-      data_df = pd.read_csv(url, 
-                      delimiter=' ', 
-                      header = None, 
-                      )
-
       data_df.columns = ['X1','X2', 'y']
       data_df.head(10)
     </program>
@@ -327,7 +324,7 @@
         <exercise>
           <task>
             <statement>
-              <p>Load in the <c>SVM-Data2.csv</c> data from the folder. Run this same analysis again, namely:</p>
+              <p>Load in <xref ref="SVM-data2-csv"/>. Run this same analysis again, namely:</p>
               <p><ul>
                 <li>
                   <p>Use the <c>GridSearchCV</c> function to determine the best choice of <m>C</m>.</p>
@@ -390,7 +387,6 @@
   </subsection>
   <subsection xml:id="cmse381-lec26-svc-worksheet-congratulations-we-re-done">
     <title>Congratulations, we're done!</title>
-    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
-    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
-  </subsection>
+    <p></p>
+      </subsection>
 </section>

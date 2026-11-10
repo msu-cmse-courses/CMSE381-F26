@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<subsection xml:id="SVM-data-set">
+    <title>SVM data sets</title>
+
+    <p>The section contains several SVM data sets. </p>
+
+<data xml:id="SVM-data-csv">
+      <title>SVM data set</title>
+
+      <image source="figures/SVM-Data.png" width="75%">
+        <shortdescription>Scatter plot of synthetically generated data in the plane of two predictors. The data has two classes: orange circles, and light blue circles.</shortdescription>        
+      </image>
+
+<p>
+  The code used to generate this data is below.
+</p>
+
+<program language="python">
+    <code>
+# Generating random data: 20 observations of 2 features and divide into two classes.
+
+np.random.seed(5)
+n = 50
+X = np.random.randn(n,2)
+y = np.repeat([1,-1], n/2) 
+X[y == -1] = X[y == -1]+2
+
+data = np.concatenate((X,y.reshape(-1,1)), axis = 1)
+np.random.shuffle(data)
+</code>
+</program>
+
+      <p>
+        <dataurl source="data/SVM-Data.csv" visual="SVM-Data file"/>
+      </p>
+
+    </data>
+
+
+<data xml:id="SVM-data2-csv">
+      <title>SVM data 2 set</title>
+
+      <image source="figures/SVM-Data2.png" width="75%">
+        <shortdescription>Scatter plot of synthetically generated data in the plane of two predictors. The data has two classes: dark blue circles, and yellow circles.</shortdescription>        
+      </image>
+
+<p>
+  The code used to generate this data is below.
+</p>
+
+<program language="python">
+    <code>
+# Generating random data: 50 observations of 2 features and divide into two classes.
+# This one is more spread about than original
+np.random.seed(48824)
+n = 50
+X = np.random.randn(n,2)
+y = np.repeat([1,-1], n/2) # 
+X[y == -1] = X[y == -1]+2
+X[y == 1] = X[y == 1]-1.5
+X[:,1][y == 1] = X[:,1][y == 1]+.9
+y = y*-1
+
+data = np.concatenate((X,y.reshape(-1,1)), axis = 1)
+np.random.shuffle(data)
+</code>
+</program>
+
+      <p>
+        <dataurl source="data/SVM-Data2.csv" visual="SVM-Data2 file"/>
+      </p>
+
+    </data>
+
+<data xml:id="SVM-data3-csv">
+      <title>SVM data 3 set</title>
+
+      <image source="figures/SVM-Data3.png" width="75%">
+        <shortdescription>Scatter plot of synthetically generated data in the plane of two predictors. The data has two classes: dark blue circles, and yellow circles.</shortdescription>        
+      </image>
+
+<p>
+  The code used to generate this data is below.
+</p>
+
+<program language="python">
+    <code>
+np.random.seed(8)
+n = 100
+k = int(n/4)
+X = np.random.randn(n,2)
+X[:2*k] = X[:2*k] +3
+X[2*k+1:3*k] = X[2*k+1:3*k] -3
+y = np.concatenate([np.repeat(-1, 3*k), np.repeat(1,n-3*k)])
+data = np.concatenate((X,y.reshape(-1,1)), axis = 1)
+</code>
+</program>
+
+      <p>
+        <dataurl source="data/SVM-Data3.csv" visual="SVM-Data3 file"/>
+      </p>
+
+    </data> 
+        
+    </subsection>

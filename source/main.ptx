@@ -359,6 +359,7 @@
       <xi:include href="./data-sets/OJ-data-set.ptx"/>
       <xi:include href="./data-sets/wages-data-set.ptx"/>
       <xi:include href="./data-sets/carseats-data-set.ptx"/>
+      <xi:include href="./data-sets/SVM-data.ptx"/>
     </chapter>
 
     <chapter xml:id="ch-study-guides">

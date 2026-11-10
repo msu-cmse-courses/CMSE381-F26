@@ -500,6 +500,16 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 <li class="toc-item toc-section"><div class="toc-title-box"><a href="cmse381-lec24-maximal-margin-classifier.html" class="internal"><span class="title">Day 24 worksheet</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec25-svc-worksheet.html" class="internal"><span class="title">Day 25 worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec25-svc-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec25-svc-worksheet.html#cmse381-lec26-svc-worksheet-messing-with-c" class="internal"><span class="title">Messing with <span class="process-math">\(C\)</span></span></a></div>
+<ul id="ptx-toc-group-cmse381-lec26-svc-worksheet-messing-with-c" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec25-svc-worksheet.html#cmse381-lec26-svc-worksheet-messing-with-c-13" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec25-svc-worksheet.html#cmse381-lec26-svc-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -548,6 +558,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-22-lecture" class="internal"><span class="title">Day 22</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-23-lecture" class="internal"><span class="title">Day 23</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-24-lecture" class="internal"><span class="title">Day 24</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-25-lecture" class="internal"><span class="title">Day 25</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -579,6 +590,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="sec-OJ-data-set.html" class="internal"><span class="title">Orange Juice Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="wages-data.html" class="internal"><span class="title">Wages Data Set</span></a></div></li>
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="carseats-data.html" class="internal"><span class="title">Carseats Data Set</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="SVM-data-set.html" class="internal"><span class="title">SVM data sets</span></a></div></li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -864,7 +876,7 @@ from sklearn.model_selection import GridSearchCV, KFold, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 </code></pre></div>
-<div class="para" id="hw04-P6-6-9-2-3">We will use the <a href="sec-college-data-set.html#college-data" class="xref" data-knowl="./knowl/xref/college-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 166: College data set">Data 166</a>. Load the data into <code class="code-inline tex2jax_ignore">college_df</code>, then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="hw04-P6-6-9-2-3">We will use the <a href="sec-college-data-set.html#college-data" class="xref" data-knowl="./knowl/xref/college-data.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 170: College data set">Data 170</a>. Load the data into <code class="code-inline tex2jax_ignore">college_df</code>, then run the following.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw04-P6-6-9-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="code-box"><pre class="program clipboardable"><code class="language-py">college_df = college_df.set_index("Unnamed: 0")
 college_df = pd.get_dummies(college_df, drop_first=True)

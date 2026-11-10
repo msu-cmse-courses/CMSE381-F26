@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--******************************************-->
+<!--*  Authored with PreTeXt                 *-->
+<!--*  pretextbook.org                       *-->
+<!--*  Theme: denver                         *-->
+<!--*  Palette:                              *-->
+<!--******************************************-->
+
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math">
+<article class="data computation-like"><h2 class="heading">
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">175</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">SVM data set.</span>
+</h2>
+<div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/figures/SVM-Data.png" class="contained" alt="Scatter plot of synthetically generated data in the plane of two predictors. The data has two classes: orange circles, and light blue circles."></div>
+<div class="para">The code used to generate this data is below.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#SVM-data-csv-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="code-box"><pre class="program clipboardable"><code class="language-py"># Generating random data: 20 observations of 2 features and divide into two classes.
+
+np.random.seed(5)
+n = 50
+X = np.random.randn(n,2)
+y = np.repeat([1,-1], n/2) 
+X[y == -1] = X[y == -1]+2
+
+data = np.concatenate((X,y.reshape(-1,1)), axis = 1)
+np.random.shuffle(data)
+</code></pre></div>
+<div class="para">
+<a class="external" href="external/data/SVM-Data.csv" target="_blank"><code class="code-inline tex2jax_ignore">SVM-Data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#SVM-data-csv-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Data 175: SVM data set"><a tabindex="-1" href="#SVM-data-csv" title="Copy heading and permalink for Data 175: SVM data set" aria-label="Copy heading and permalink for Data 175: SVM data set">🔗</a></div>
+</article><span class="incontext"><a class="internal" href="SVM-data-set.html#SVM-data-csv">In Context</a></span>
+</body>
+</html>

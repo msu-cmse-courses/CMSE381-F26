@@ -19,7 +19,7 @@
 </head>
 <body class="ignore-math">
 <article class="data computation-like"><h2 class="heading">
-<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">163</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Chicken and Egg Data Set.</span>
+<span class="type">Data</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">167</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Chicken and Egg Data Set.</span>
 </h2>
 <div class="para logical">
 <div class="para">A data file with 90 observations that label each data point according to two predictors.</div>
@@ -53,7 +53,7 @@
 \begin{equation*}
 f(x_1,x_2) =
 \begin{cases}
-\texttt{chicken} \amp \text{if } (x_2)^3-x_2-x_1 &gt; 0,\\
+\texttt{chicken} \amp \text{if } (x_2)^3-x_2-x_1 \gt 0,\\
 \texttt{egg} \amp \text{else.}
 \end{cases}
 \end{equation*}
@@ -75,7 +75,7 @@ f(x_1,x_2) =
     Noise = np.random.normal(0, sigma, N)
     Check = Data[:,1]**3 - 4*Data[:,1] - (Data[:,0]+Noise)
     def ChickOrEgg(z):
-        if z&gt;0:
+        if z &gt; 0:
             return 'chicken'
         else:
             return 'egg'
@@ -100,7 +100,7 @@ plt.plot(tx,ty, color = 'grey')
 <div class="para">
 <a class="external" href="external/data/ChickenEgg.csv" target="_blank"><code class="code-inline tex2jax_ignore">ChickenEgg.csv data file</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#ChickenEgg-csv-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Data 163: Chicken and Egg Data Set"><a tabindex="-1" href="#ChickenEgg-csv" title="Copy heading and permalink for Data 163: Chicken and Egg Data Set" aria-label="Copy heading and permalink for Data 163: Chicken and Egg Data Set">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Data 167: Chicken and Egg Data Set"><a tabindex="-1" href="#ChickenEgg-csv" title="Copy heading and permalink for Data 167: Chicken and Egg Data Set" aria-label="Copy heading and permalink for Data 167: Chicken and Egg Data Set">🔗</a></div>
 </article><span class="incontext"><a class="internal" href="chicken-and-egg-set.html#ChickenEgg-csv">In Context</a></span>
 </body>
 </html>

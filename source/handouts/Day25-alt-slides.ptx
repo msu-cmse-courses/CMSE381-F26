@@ -241,10 +241,10 @@
     <title>Finding the range of <m>\epsilon_i</m></title>
     <introduction>
 <p>
-            Fix the margin <m>M=\sqrt{2}</m>, and recall that
+            Fix the margin <m>M</m>, and recall that
             <md>
                 y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
-      \geq M(1-\epsilon_i)
+      \geq M(1-\epsilon_i).
             </md>
         </p>
 
@@ -253,7 +253,7 @@
         </p>
 
 
-            <image source="figures/SVC-DesmosExample-A_and_C.png" width="60%">
+            <image source="figures/SVC_eps_MC_ex1" width="52%">
                 <shortdescription>
                     Support vector classifier example showing points A and C.
                 </shortdescription>
@@ -279,7 +279,7 @@
         <choice>
         <statement>
         <p>
-            <m>0 \lt \epsilon_A \lt 0</m>
+            <m>0 \lt \epsilon_A \lt 1</m>
             </p>
         </statement>
         </choice>
@@ -309,7 +309,7 @@
         <choice correct="yes">
         <statement>
         <p>
-            <m>0 \lt \epsilon_B \lt 0</m>
+            <m>0 \lt \epsilon_B \lt 1</m>
             </p>
         </statement>
         <feedback>
@@ -342,7 +342,7 @@
         <choice>
         <statement>
         <p>
-            <m>0 \lt \epsilon_C \lt 0</m>
+            <m>0 \lt \epsilon_C \lt 1</m>
             </p>
         </statement>
         </choice>
@@ -625,14 +625,14 @@
 
                 <li>
                     <p>
-                        Small <m>C</m>: less flexibility, lower bias, higher
+                        Small <m>C</m>: less flexibility, higher bias, lower
                         variance.
                     </p>
                 </li>
 
                 <li>
                     <p>
-                        Large <m>C</m>: more flexibility, higher bias, lower
+                        Large <m>C</m>: more flexibility, lower bias, higher
                         variance.
                     </p>
                 </li>

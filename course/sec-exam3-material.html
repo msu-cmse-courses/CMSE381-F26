@@ -5911,18 +5911,18 @@ M=1.
 <article class="example example-like knowl__content">
 <div class="introduction" id="day-25-lecture-8-2">
 <div class="para logical" id="day-25-lecture-8-2-1">
-<div class="para">Fix the margin <span class="process-math">\(M=\sqrt{2}\text{,}\)</span> and recall that</div>
+<div class="para">Fix the margin <span class="process-math">\(M\text{,}\)</span> and recall that</div>
 <div class="displaymath process-math" id="day-25-lecture-8-2-1-2">
 \begin{equation*}
 y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
-\geq M(1-\epsilon_i)
+\geq M(1-\epsilon_i).
 \end{equation*}
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-8-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="day-25-lecture-8-2-2">Choose the correct <span class="process-math">\(\epsilon_i\)</span> range for each of the following points.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-8-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/figures/SVC-DesmosExample-A_and_C.png" class="contained" alt="Support vector classifier example showing points A and C."></div>
+<div class="image-box" style="width: 52%; margin-left: 24%; margin-right: 24%;"><img src="external/figures/SVC_eps_MC_ex1.svg" role="img" class="contained" alt="Support vector classifier example showing points A and C."></div>
 </div>
 <article class="task exercise-like" id="day-25-lecture-8-3"><h4 class="heading"><span class="codenumber">(a)</span></h4>
 <div class="ptx-runestone-container"><div class="runestone multiplechoice_section">
@@ -5939,7 +5939,7 @@ y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
 </div>
 </li>
 <li data-component="answer" id="_opt_b">
-<div class="para" id="day-25-lecture-8-3-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_A \lt 0\)</span></div>
+<div class="para" id="day-25-lecture-8-3-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_A \lt 1\)</span></div>
 </li>
 <li data-component="feedback" id="_opt_b">
 <li data-component="answer" id="_opt_c">
@@ -5962,7 +5962,7 @@ y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
 </li>
 <li data-component="feedback" id="_opt_a">
 <li data-component="answer" id="_opt_b" data-correct="">
-<div class="para" id="day-25-lecture-8-4-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_B \lt 0\)</span></div>
+<div class="para" id="day-25-lecture-8-4-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_B \lt 1\)</span></div>
 </li>
 <li data-component="feedback" id="_opt_b">
 <div class="para" id="day-25-lecture-8-4-2-2-2-1">Correct! Point B is on the correct side of the classifier, but within the margin <span class="process-math">\(M\text{,}\)</span> so <span class="process-math">\(0 \lt \epsilon_B \lt 1\text{.}\)</span>
@@ -5988,7 +5988,7 @@ y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
 </li>
 <li data-component="feedback" id="_opt_a">
 <li data-component="answer" id="_opt_b">
-<div class="para" id="day-25-lecture-8-5-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_C \lt 0\)</span></div>
+<div class="para" id="day-25-lecture-8-5-2-2-1-1"><span class="process-math">\(0 \lt \epsilon_C \lt 1\)</span></div>
 </li>
 <li data-component="feedback" id="_opt_b">
 <li data-component="answer" id="_opt_c" data-correct="">
@@ -6192,12 +6192,12 @@ y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_px_{ip})
 <span class="process-math">\(C\)</span> controls the bias-variance trade-off:</div>
 <ul class="circle" id="day-25-lecture-11-4-1-2-1-2">
 <li id="day-25-lecture-11-4-1-2-1-2-1">
-<div class="para" id="day-25-lecture-11-4-1-2-1-2-1-1">Small <span class="process-math">\(C\text{:}\)</span> less flexibility, lower bias, higher variance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-25-lecture-11-4-1-2-1-2-1-1">Small <span class="process-math">\(C\text{:}\)</span> less flexibility, higher bias, lower variance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
 <li id="day-25-lecture-11-4-1-2-1-2-2">
-<div class="para" id="day-25-lecture-11-4-1-2-1-2-2-1">Large <span class="process-math">\(C\text{:}\)</span> more flexibility, higher bias, lower variance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="day-25-lecture-11-4-1-2-1-2-2-1">Large <span class="process-math">\(C\text{:}\)</span> more flexibility, lower bias, higher variance.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-25-lecture-11-4-1-2-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>

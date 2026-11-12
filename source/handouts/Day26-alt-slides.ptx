@@ -37,7 +37,7 @@
     <paragraphs>
         <title>Enlarging the feature space</title>
 
-        <image source="figures/enlarging_feature_space" width="60%">
+        <image source="figures/enlarging_feature_space" width="80%">
         <shortdescription>Non-linearly separable data drawn on the plane of predictors X1 and X2 on the left panel, and the same data linearly separable by a hyperplane when enlarging the feature space to the sum of the squared predictors.</shortdescription>
         </image>
 
@@ -49,12 +49,12 @@
             <ul>
                 <li>
                     <p>
-                        What if we enlarge the feature space using <m>Z=X^2 + Y^2</m>?
+                        Enlarge using <m>Z=X^2 + Y^2</m>?
                     </p>
                 </li>
                 <li>
                     <p>
-                        The data becomes linearly separable!
+                        The data becomes linearly separable in the enlarged space!
                     </p>
                 </li>
             </ul>
@@ -80,9 +80,61 @@
 </p>
 
 <p>
-    This becomes unwieldly if we have to check, say every degree 2 monomial <m>X_iX_j</m>, so need something more efficient. 
+  <ul>
+    <li>
+      <p>
+    This becomes unwieldly if we have to check, say every degree 2 monomial <m>X_iX_j</m>, so need something more efficient.         
+      </p>
+    </li>
+    <li>
+      <p>
+        What if we want to enlarge the feature space using non-polynomial functions. How do we do that?
+      </p>
+    </li>
+<li>
+  <p>
+    The support vector machine allows enlarging the feature space in a computationally efficient way.
+  </p>
+</li>
+  </ul>
 </p>
     </paragraphs>
+
+  <paragraphs>
+    <title></title>
+    <p>
+      Let <m>\mathbf{x}=(x_1,\ldots, x_p)</m> be a new test observation. The SVC can be written as
+      <md>
+      <mrow>f(x) \amp= \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p</mrow>
+      <mrow>     \amp= \beta_0 + \sum\limits_{j=1}^p{\beta_j x_j}</mrow>
+      <mrow>     \amp= \beta_0 +  [x_1,\ldots,x_p]\cdot [beta_1,\ldots,\beta_p]</mrow>
+      <mrow>     \amp= \beta_0 + \langle\mathbf{x},\boldsymbol{\beta} \rangle </mrow>
+      </md>      
+    </p>
+
+    <p>
+      The same SVC can be equivalently written observation weights <m>\alpha_i</m> as
+      <md>
+      <mrow>f(x) \amp= \beta_0 + (\sum\limits_{i=1}^n{\alpha_i x_{i1}}) x_1 + (\sum\limits_{i=1}^n{\alpha_i x_{i2}}) x_2 + \ldots + (\sum\limits_{i=1}^n{\alpha_i x_{ip}}) x_p</mrow>
+        <mrow>   \amp= \beta_0 + \sum\limits_{j=1}^p{(\sum\limits_{i=1}^n{\alpha_i x_{ij}}) x_j} </mrow>
+        <mrow> \amp= \beta_0 + \sum\limits_{i=1}^n{\alpha_i \langle x, x_i\rangle}</mrow>
+      </md>
+      
+    </p>
+  </paragraphs>
+
+  <paragraphs>
+    <title>Enlarging the feature space via kernels</title>
+    <p>
+      The kernel trick: Assume we have features <m>(x_1,x_2,x_3)</m> and observations <m>y_1, y_2, y_3</m>. We want to enlarge the feature space to 
+      <md>
+        \varphi(\mathbf{x})=(x_1 x_1 ,x_1 x_2,x_1 x_3,x_2 x_1, x_2 x_2, x_2 x_3, x_3 x_1,x_3 x_2, x_3 x_3).
+      </md>      
+    </p>
+    <p>
+      Approach 1: Compute the enlarged feature space for each observation, then perform the inner product.
+    </p>
+  </paragraphs>
 
 
 </handout>

@@ -91,6 +91,13 @@
         What if we want to enlarge the feature space using non-polynomial functions. How do we do that?
       </p>
     </li>
+    </ul>
+    </p>
+    </paragraphs>
+    <paragraphs>
+  <title>Inner products as a measure of similarity</title>
+  <p>
+    <ul>
 <li>
   <p>
     The support vector machine allows enlarging the feature space in a computationally efficient way.
@@ -98,43 +105,446 @@
 </li>
   </ul>
 </p>
-    </paragraphs>
 
-  <paragraphs>
-    <title></title>
     <p>
       Let <m>\mathbf{x}=(x_1,\ldots, x_p)</m> be a new test observation. The SVC can be written as
       <md>
       <mrow>f(x) \amp= \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p</mrow>
       <mrow>     \amp= \beta_0 + \sum\limits_{j=1}^p{\beta_j x_j}</mrow>
-      <mrow>     \amp= \beta_0 +  [x_1,\ldots,x_p]\cdot [beta_1,\ldots,\beta_p]</mrow>
+      <mrow>     \amp= \beta_0 +  [x_1,\ldots,x_p]\cdot [\beta_1,\ldots,\beta_p]</mrow>
       <mrow>     \amp= \beta_0 + \langle\mathbf{x},\boldsymbol{\beta} \rangle </mrow>
       </md>      
     </p>
 
     <p>
-      The same SVC can be equivalently written observation weights <m>\alpha_i</m> as
+      The same SVC can be equivalently written using observation weights <m>\alpha_i</m> according to
       <md>
       <mrow>f(x) \amp= \beta_0 + (\sum\limits_{i=1}^n{\alpha_i x_{i1}}) x_1 + (\sum\limits_{i=1}^n{\alpha_i x_{i2}}) x_2 + \ldots + (\sum\limits_{i=1}^n{\alpha_i x_{ip}}) x_p</mrow>
         <mrow>   \amp= \beta_0 + \sum\limits_{j=1}^p{(\sum\limits_{i=1}^n{\alpha_i x_{ij}}) x_j} </mrow>
         <mrow> \amp= \beta_0 + \sum\limits_{i=1}^n{\alpha_i \langle x, x_i\rangle}</mrow>
       </md>
-      
+      Only support vectors have <m>\alpha_i \neq 0.</m> So if we let the <m>\mathcal{S}</m> be the set of indices for the support vectors among the <m>n</m> data points, then we only need to evaluate <m>\mathcal{S}</m> terms
+      <md>f(x)=\beta_0 + \sum\limits_{i \in \mathcal{S}}{\alpha_i \langle x,x_i \rangle}.</md>   
+      <ul>
+        <li>
+          <p>
+            To fit <m>\alpha_1,\ldots,\alpha_n</m> and <m>\beta_0</m>, we need the <m>\binom{n}{2}</m> inner products <m>\langle x_i, x_i' \rangle</m> between all pairs of training observations.
+          </p>
+        </li>
+        <li>
+          <p>
+            The inner product is considered a measure of similarity.
+          </p>
+        </li>
+      </ul>      
     </p>
-  </paragraphs>
+  
+
+
+  <definition xml:id="def-dot-product">
+  <title>Dot/Inner product</title>
+    <statement>
+      <p>
+        For vectors in a Euclidean space, the dot product is defined as
+        <md>
+  \vec{a} \cdot \vec{b} = \begin{cases}
+
+    |\vec{a}| |\vec{b}| \cos{\gamma}, &amp; \text{if } \vec{a} \neq \vec{0} \text{ and } \vec{b} \neq \vec{0}, \\
+    0, &amp; \text{if } \vec{a} = \vec{0} \text{ or } \vec{b} = \vec{0}.
+  \end{cases}
+</md>
+where <m>0 \leq \gamma \leq \pi</m>.
+      </p>
+      <image source="figures/dotprod" width="80%">
+        <shortdescription>Three panels showing two vectors with an angle between them that is greater than, equal, and less than zero, respectively.</shortdescription>        
+      </image>
+      <p>
+        More generally, we can define an inner product between two vectors <m>\mathbf{a}</m> and <m>\mathbf{b}</m> from a vector space (not generally Euclidean), and we denote the corresponding inner product by 
+        <md>
+          \langle \mathbf{a}, \mathbf{b} \rangle.
+        </md>
+        
+      </p>
+    </statement>
+  </definition>  
+</paragraphs>
+<example>
+  <title>Dot product and similarity</title>
+  <introduction>
+    <p>
+      Given the shown vectors, Find the dot product in each case. How is the similarity of the vectors quantified using the dot product in each case?
+    </p>
+    <image source="figures/dot_product_four_examples" width="70%">
+      <shortdescription>Four panels, each showing two vectors. The first three panels show vectors in the plane, while the third panel shows a vector in 3D.</shortdescription>      
+    </image>
+  </introduction>
+  <task>
+    <statement>
+      <p>
+        Figure (a).
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\mathbf{a}\cdot \mathbf{b}=\frac{\sqrt{3}}{2}</m>. The vectors point in the same direction (similar). 
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        Figure (b).
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\mathbf{a}\cdot \mathbf{b}=0</m>. The two vectors are unrelated (perpendicular). 
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        Figure (c).
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\mathbf{a}\cdot \mathbf{b}=-1</m>. The two vectors point in opposite directions (dissimilar).
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        Figure (d).
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\mathbf{a}\cdot \mathbf{b}=5+0+6=11</m>. The vectors point in the same direction (similar). 
+      </p>
+    </answer>
+  </task>  
+</example>
+
+<exercise>
+  <title>More dot products practice</title>
+  <introduction>
+    <p>
+      Compute the following dot products.
+    </p>
+  </introduction>
+  <task>
+    <statement>
+      <p>
+        <m>\langle(1,1), (0,3) \rangle</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\langle(1,1), (0,3) \rangle=0+3=3.</m>
+      </p>
+    </answer>
+  </task>
+    <task>
+    <statement>
+      <p>
+        <m>\langle(1,1), (3,2) \rangle</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\langle(1,1), (3,2) \rangle=3+2=5.</m>
+      </p>
+    </answer>
+  </task>
+    <task>
+    <statement>
+      <p>
+        <m>\langle(2,3), (0,3) \rangle</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\langle(2,3), (0,3) \rangle=0+9=9.</m>
+      </p>
+    </answer>
+  </task>
+    <task>
+    <statement>
+      <p>
+        <m>\langle(2,3), (3,2) \rangle</m>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        <m>\langle(2,3), (3,2) \rangle=6+6=12.</m>
+      </p>
+    </answer>
+  </task>  
+  </exercise>
+
 
   <paragraphs>
     <title>Enlarging the feature space via kernels</title>
+    <p>Recall that the support vector classifier can be written as
+      <md>f(x)=\beta_0 + \sum\limits_{i=1}^n{\alpha_i \langle x, x_i\rangle}.</md>
+      <ul>
+        <li>
+          <p>
+            So we only need to know how close or similar the data points are to each other (not there exact coordinates in the enlarged space). 
+          </p>
+        </li>
+        <li>
+          <p>
+            Computing the similarity between data points turns out to be way more efficient than evaluating their absolute coordinates in the enlarged space.
+          </p>
+        </li>
+        <li>
+          <p>
+            <term>kernel</term> <m>K(x_i,x_i')</m> is a more generalized way of thinking about how close or similar to samples are. It provides a family of alternatives and generalizations to the dot product <m>\langle x_i,x_i' \rangle</m>. 
+          </p>
+        </li>
+        <li>
+          <p>
+            Using the language of kernels, <m>\langle x_i,x_i' \rangle</m> is known as the <term>linear kernel</term>.
+          </p>
+        </li>
+      </ul>
+    </p> 
+<p>
+    We can now write our <term>support vector machine</term> (SVM) as
+<md>
+  <mrow>y_i f(x_i) \geq M(1 - \epsilon_i), \text{ where}</mrow>
+  <mrow>f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \alpha_i K(x, x_i).</mrow>
+</md>
+<ul>
+  <li>
     <p>
-      The kernel trick: Assume we have features <m>(x_1,x_2,x_3)</m> and observations <m>y_1, y_2, y_3</m>. We want to enlarge the feature space to 
-      <md>
-        \varphi(\mathbf{x})=(x_1 x_1 ,x_1 x_2,x_1 x_3,x_2 x_1, x_2 x_2, x_2 x_3, x_3 x_1,x_3 x_2, x_3 x_3).
-      </md>      
+      SVM is what we get when we combine a non-linear kernel <m>K</m> with an SVC classifier.
     </p>
+  </li>
+  <li>
     <p>
-      Approach 1: Compute the enlarged feature space for each observation, then perform the inner product.
+      We choose <m>K</m> in advance.
+    </p>
+  </li>
+</ul>
+    
     </p>
   </paragraphs>
+
+<paragraphs>
+  <title>A polynomial kernel</title>
+  <p>
+    <md>
+      K(x_i,x_{i'})=
+      \left(1+\sum_{j=1}^{p}x_{ij}x_{i'j}\right)^d
+    </md>
+  </p>
+  <sidebyside widths="55% 45%">
+    <stack>
+      <p>
+        <ul >
+          <li><p>Much more flexible decision boundary.</p></li>
+          <li><p>Amounts to fitting a support vector classifier in a higher-dimensional space involving polynomials of degree <m>d</m>, rather than in the original feature space.</p></li>
+          <li><p>Right: degree 3 polynomial kernel.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <image source="figures/Fig9-9a.png">
+      <shortdescription>Example of a support vector classifier using a polynomial kernel.</shortdescription>
+    </image>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>A radial kernel</title>
+  <p>
+    <md>
+      K(x_i,x_{i'})=
+      \exp\left(-\gamma\sum_{j=1}^{p}(x_{ij}-x_{i'j})^2\right)
+    </md>
+  </p>
+  <sidebyside widths="55% 45%">
+    <stack>
+      <p>
+        <ul >
+          <li><p>This is essentially a Gaussian kernel.</p></li>
+          <li><p>A large distance makes <m>\sum_j(x_{ij}-x_{i'j})^2</m> large, but then <m>e^{-\text{large}}</m> is tiny.</p></li>
+          <li><p>In <m>f(x)</m>, this means that <m>x_i</m> plays little role if it is far away.</p></li>
+          <li><p>The radial kernel has local behavior.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <image source="figures/Fig9-9b.png">
+      <shortdescription>Example of a support vector classifier using a radial kernel.</shortdescription>
+    </image>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>One-Vs-One Classification</title>
+  <p>Also called all-pairs.</p>
+
+
+      <algorithm xml:id="one-vs-one-svm">
+  <title>One-Vs-One Classification</title>
+  <statement>
+    <p>Given a new observation <m>x^*</m> and <m>K&gt;2</m> possible classes:
+    <ol>
+      <li>
+        <p>Construct <m>\binom{K}{2}</m> binary SVM classifiers, one for each pair of classes.</p>
+      </li>
+      <li>
+        <p>For each pair of classes, use the corresponding SVM to classify the observation <m>x^*</m> as belonging to one of the two classes. The predicted class receives one vote.</p>
+      </li>
+      <li>
+        <p>Assign the observation to the class that receives the most votes across all pairwise classifiers.</p>
+      </li>
+    </ol>
+    </p>
+  </statement>
+</algorithm>
+
+<example>
+  <title>One-Vs-One Classification</title>
+  <statement>
+    <p>Assume we have <m>K</m> classes:
+      <m>\{\text{apple},\text{banana},\text{orange},\text{kiwi}\}</m>. Given a test observation <m>x^*</m>, how do we use SVM to classify it?
+    </p>
+  </statement>
+  <solution>
+        <p>For one-vs-one classification, we fit <m>\binom{K}{2}</m> SVMs, one for each pair of classes:</p>
+    <p>
+      <ul>
+        <li><p>Apple vs. banana</p></li>
+        <li><p>Apple vs. orange</p></li>
+        <li><p>Apple vs. kiwi</p></li>
+        <li><p>Banana vs. orange</p></li>
+        <li><p>Banana vs. kiwi</p></li>
+        <li><p>Orange vs. kiwi</p></li>
+      </ul>
+    </p>
+    <p>Given a test observation <m>x^*</m>, assign <m>x^*</m> to the class that is most frequently predicted by the pairwise classifiers (i.e., the class that receives the most votes).</p>
+  </solution>
+</example>
+
+</paragraphs>
+
+<paragraphs>
+  <title>One-Vs-All Classification</title>
+
+      <algorithm xml:id="one-vs-all-svm">
+  <title>One-Vs-All Classification</title>
+  <statement>
+    <p>Given a new observation <m>x^*</m> and <m>K&gt;2</m> possible classes:</p>
+    <p>
+      <ol>
+        <li>
+          <p>Fit <m>K</m> binary SVM classifiers, each comparing one class (coded as +1) against the remaining <m>K-1</m> classes (coded as -1).</p>
+        </li>
+        <li>
+          <p>For each class <m>k</m>, determine the fitted coefficients and evaluate the decision function at <m>x^*</m>:</p>
+          <p>
+            <md>
+              f_k(x^*)=\beta_{0k}+\beta_{1k}x_1^*
+              +\cdots+\beta_{pk}x_p^*.
+            </md>
+          </p>
+        </li>
+        <li>
+          <p>Assign the observation to the class <m>k</m> for which <m>f_k(x^*)</m> is largest. This amounts to a high level of confidence that the test observation belongs to the kth class rather than to any of the other classes.</p>
+        </li>
+      </ol>
+    </p>
+  </statement>
+</algorithm>
+
+<example>
+  <title>One-Vs-All Classification</title>
+  <statement>
+    <p>Suppose we want to classify fruit into one of four classes:
+      <m>\{\text{apples},\text{bananas},\text{oranges},\text{strawberries}\}</m>. How can we can we classify a new observation <m>x^*</m> using one-vs-all classification?
+    </p>
+    
+  </statement>
+  <solution>
+    <p>For one-vs-all classification, we fit <m>K=4</m> SVMs, where each SVM distinguishes one class from the remaining three classes:</p>
+    <p>
+      <ul>
+        <li><p>Apples vs. not apples (bananas, oranges, strawberries)</p></li>
+        <li><p>Bananas vs. not banana (apples, oranges, strawberries)</p></li>
+        <li><p>Oranges vs. not oranges (apples, bananas, strawberries)</p></li>
+        <li><p>Strawberries vs. not strawberries (apples, bananas, oranges)</p></li>
+      </ul>
+    </p>
+    <p>Given a test observation <m>x^*</m>, evaluate the four fitted decision functions:</p>
+    <p>
+      <md>
+        \begin{aligned}
+        f_1(x^*)&amp;=\beta_{01}+\beta_{11}x_1^*+\cdots+\beta_{p1}x_p^*,\\
+        f_2(x^*)&amp;=\beta_{02}+\beta_{12}x_1^*+\cdots+\beta_{p2}x_p^*,\\
+        f_3(x^*)&amp;=\beta_{03}+\beta_{13}x_1^*+\cdots+\beta_{p3}x_p^*,\\
+        f_4(x^*)&amp;=\beta_{04}+\beta_{14}x_1^*+\cdots+\beta_{p4}x_p^*.
+        \end{aligned}
+      </md>
+    </p>
+    <p>Assign the test observation to the class corresponding to the largest decision-function value.
+    
+      <!-- <md>
+        \widehat{y}(x^*)=\underset{k\in\{1,2,3,4\}}{\operatorname{argmax}}\ f_k(x^*).
+      </md> -->
+    </p>
+  </solution>
+</example>
+
+</paragraphs>
+<paragraphs>
+  <title>TL;DR</title>
+
+      <p>SVM:
+        <md>
+          f(x)=\beta_0+\sum_{i\in\mathcal{S}}\alpha_i K(x,x_i)
+        </md>
+      </p>
+
+      <p><m>\text{Kernels}</m></p>
+      <p>
+        <ul>
+          <li>
+            <p>Linear</p>
+            <p>
+              <md>
+                K(x_i,x_{i'})=\sum_{j=1}^{p}x_{ij}x_{i'j}
+              </md>
+            </p>
+          </li>
+          <li>
+            <p>Polynomial</p>
+            <p>
+              <md>
+                K(x_i,x_{i'})=
+                \left(1+\sum_{j=1}^{p}x_{ij}x_{i'j}\right)^d
+              </md>
+            </p>
+          </li>
+          <li>
+            <p>Radial</p>
+            <p>
+              <md>
+                K(x_i,x_{i'})=
+                \exp\left(-\gamma\sum_{j=1}^{p}
+                (x_{ij}-x_{i'j})^2\right)
+              </md>
+            </p>
+          </li>
+        </ul>
+      </p>
+
+</paragraphs>
+
 
 
 </handout>

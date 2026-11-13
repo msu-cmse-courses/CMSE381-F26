@@ -510,6 +510,20 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec25-svc-worksheet.html#cmse381-lec26-svc-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
 </ul>
 </li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html" class="internal"><span class="title">Day 26 worksheet</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec26-svm-worksheet" class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html#cmse381-lec27-svm-worksheet-swapping-out-the-kernel" class="internal"><span class="title">Swapping out the kernel</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec27-svm-worksheet-swapping-out-the-kernel" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html#cmse381-lec27-svm-worksheet-swapping-out-the-kernel-5" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html#cmse381-lec27-svm-worksheet-still-have-time" class="internal"><span class="title">Still have time?</span></a></div>
+<ul id="ptx-toc-group-cmse381-lec27-svm-worksheet-still-have-time" class="structural toc-item-list"><li class="toc-item toc-exercises"><div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html#cmse381-lec27-svm-worksheet-still-have-time-10" class="internal"><span class="title">Exercises</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cmse381-lec26-svm-worksheet.html#cmse381-lec27-svm-worksheet-congratulations-we-re-done" class="internal"><span class="title">Congratulations, we’re done!</span></a></div></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-item toc-chapter">
@@ -559,6 +573,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-23-lecture" class="internal"><span class="title">Day 23</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-24-lecture" class="internal"><span class="title">Day 24</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-25-lecture" class="internal"><span class="title">Day 25</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-26-lecture" class="internal"><span class="title">Day 26</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -856,9 +871,9 @@ eBookConfig.enable_chatcodes =  false;
 <span class="codenumber">1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Question 1: Polynomial, Step, and Spline Models.</span>
 </h2>
 <div class="introduction" id="hw05-q1-2">
-<div class="para" id="hw05-q1-2-1">Use <a href="polynomial-toy-data.html#PolynomialToy-csv" class="xref" data-knowl="./knowl/xref/PolynomialToy-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 171: Polynomial Toy Data Set">Data 171</a> to predict <code class="code-inline tex2jax_ignore">y</code> from <code class="code-inline tex2jax_ignore">x</code> using polynomial regression, a step function, and a cubic spline. For each model, identify its tuning parameter, select it with <span class="process-math">\(k\)</span>-fold cross-validation, and refit the selected model on all observations. Finally, overlay the three fits on one plot and compare them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw05-q1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="hw05-q1-2-1">Use <a href="polynomial-toy-data.html#PolynomialToy-csv" class="xref" data-knowl="./knowl/xref/PolynomialToy-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 178: Polynomial Toy Data Set">Data 178</a> to predict <code class="code-inline tex2jax_ignore">y</code> from <code class="code-inline tex2jax_ignore">x</code> using polynomial regression, a step function, and a cubic spline. For each model, identify its tuning parameter, select it with <span class="process-math">\(k\)</span>-fold cross-validation, and refit the selected model on all observations. Finally, overlay the three fits on one plot and compare them.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw05-q1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para" id="hw05-q1-2-2">Use the published CSV in <a href="polynomial-toy-data.html#PolynomialToy-csv" class="xref" data-knowl="./knowl/xref/PolynomialToy-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 171: Polynomial Toy Data Set">Data 171</a> for your analysis, and load it into <code class="code-inline tex2jax_ignore">polydef</code> data frame.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw05-q1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="hw05-q1-2-2">Use the published CSV in <a href="polynomial-toy-data.html#PolynomialToy-csv" class="xref" data-knowl="./knowl/xref/PolynomialToy-csv.html" data-reveal-label="Reveal" data-close-label="Close" title="Data 178: Polynomial Toy Data Set">Data 178</a> for your analysis, and load it into <code class="code-inline tex2jax_ignore">polydef</code> data frame.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#hw05-q1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="code-box"><pre class="program clipboardable"><code class="language-py">import numpy as np
 import pandas as pd

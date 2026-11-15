@@ -5,7 +5,7 @@
       Here we summarize the detailed learning goals in terms of a series of topics or questions that you should be able to answer by exam 3 for this part of the course.
     </p>
     <p>
-      Make sure to check out the practice problems in <xref ref="exam3-practice-problems" text="title"/>, which will be updated periodically as cover more of thee topics in class. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. 
+      Make sure to check out the practice problems in <xref ref="exam3-practice-problems" text="title"/>, which will be updated periodically as we cover more of the topics in class. You should be able to answer all of the questions in this study guide and the practice problems by the time of the exam. 
     </p>
   </introduction>
 
@@ -304,6 +304,7 @@
   </p>
 
   <exercise xml:id="step-function-practice">
+  <title>Step functions: Dummy variables and prediction</title>
   <introduction>
     <p>Step functions with the knots marked on the <m>x</m>-axis as black dots were used to obtain the shown regression model. Answer the following questions.</p>
     
@@ -356,6 +357,9 @@
 </exercise>
 
 <exercise xml:id="step-function-plot">
+<title>Step functions: Sketching</title>
+
+
   <statement>
     <p>Regression using step functions with knots <m>c_1=2</m>, <m>c_2=4</m>, and <m>c_3=6</m> returned the function</p>
     <p>
@@ -369,6 +373,9 @@
 </exercise>
 
 <exercise xml:id="spline-degrees-of-freedom">
+<title>Regression splines: Degrees of freedom</title>
+
+
   <statement>
     <p>Fill in the missing cells in the shown tables. </p>
     <image source="figures/spline_DOF_quiz" width="75%">
@@ -378,6 +385,9 @@
 </exercise>
 
 <exercise xml:id="cubic-spline-coefficients">
+<title>Cubic spline: Finding admissible coefficients</title>
+
+
   <statement>
     <p>We have the following piecewise cubic polynomial:</p>
     <p>
@@ -394,6 +404,9 @@
 </exercise>
 
 <exercise xml:id="recursive-binary-splitting-region">
+<title>Recursive binary splitting: 2D example</title>
+
+
   <statement>
     <p>Express the shaded region <m>R</m> using set notation <m>R=\{X\mid\ldots\}</m> and sketch the corresponding tree.</p>
     <image source="figures/recursive_binary_splitting_question">
@@ -403,6 +416,9 @@
 </exercise>
 
 <exercise xml:id="recursive-binary-splitting-3d-region">
+<title>Recursive binary splitting: 3D example</title>
+
+
   <statement>
     <p>Sketch and shade the region <m>R</m> indicated by the equivalent representations in (a) and (b). </p>
     <image source="figures/recursive_binary_splitting_question3D">
@@ -412,6 +428,7 @@
 </exercise>
 
 <exercise xml:id="decision-tree-classification-prediction">
+<title>Classification trees: Making predictions</title>
   <statement>
     <p>A decision tree classifier was trained and is shown in the figure. Use this classifier to predict the class (star or circle) of the three test points <m>x_1^*</m>, <m>x_2^*</m>, and <m>x_3^*</m> indicated by the filled-in rectangles.</p>
         <image source="figures/decision_trees_classification_prediction" width="75%">
@@ -421,6 +438,9 @@
 </exercise>
 
 <exercise xml:id="decision-tree-regression-prediction">
+<title>Regression trees: Making predictions</title>
+
+
   <statement>
     <p>A decision tree regression model was trained and is shown in the figure. Use this model to predict the three test points <m>x_1^*</m>, <m>x_2^*</m>, and <m>x_3^*</m> indicated by the filled-in rectangles. The table below shows the <m>Y</m> values for the data.</p>
        <sidebyside widths="65% 35%">
@@ -448,6 +468,9 @@
 </exercise>
 
 <exercise xml:id="decision-tree-classification-error-gini">
+<title>Classification trees: Error rate</title>
+
+
   <introduction>
     <p>A decision tree classifier was trained and is shown in the figure. Answer the following questions. </p>
   
@@ -482,6 +505,9 @@
 </exercise>
 
 <exercise xml:id="recursive-binary-splitting-first-cut">
+<title>Recursive binary splitting: Determining where to cut</title>
+
+
   <introduction>
     <p>Use recursive binary splitting and the shown figure to answer the following questions. Complete the tables for each part, and use them to justify your answer in each case.</p>    
     <image source="figures/recursive_binary_splitting_first_cut">
@@ -570,6 +596,9 @@ For regression, use the RSS splitting error.
 </exercise>
 
 <exercise xml:id="oob-classification-error">
+<title>OOB: Classification error</title>
+
+
   <statement>
     <p>Compute the Out-Of-Bag (OOB) error. If you need to split the predictors' space, use a tree with one level. In case of a tie when splitting along either <m>X_1</m> or <m>X_2</m>, break the tie by splitting <m>X_1</m>.</p>
     
@@ -580,6 +609,7 @@ For regression, use the RSS splitting error.
 </exercise>
 
 <exercise xml:id="oob-regression-error">
+<title>OOB: Regression error</title>
   <statement>
     <p>Compute the Out-Of-Bag (OOB) error using the data given in the table below. If you need to split the predictors' space, use a tree with one level. In case of a tie when splitting along either <m>X_1</m> or <m>X_2</m>, break the tie by splitting <m>X_1</m>.</p>
     <image source="figures/OOB_error_regression" width="85%">
@@ -604,6 +634,9 @@ For regression, use the RSS splitting error.
 
 
 <exercise xml:id="random-forest-first-second-splits">
+<title>Random forests: Determining the splits</title>
+
+
   <statement>
     <p>Using random forests, draw the first and second splits using the first two random numbers in the shown table for each split.</p>    
     <sidebyside widths="65% 35%">
@@ -632,6 +665,748 @@ For regression, use the RSS splitting error.
     </p>
   </hint>
 </exercise>
+
+
+<exercise>
+  <title>Classifying using hyperplanes</title>
+  <introduction>
+    <p>Each of the following tasks show a hyperplane separating two classes: circles and triangles. For each case, you are given the equation of the hyperplane and a test observation <m>\mathbf{X}=(X_1,X_2)</m>. Determine whether the observation would be classified as a circle or a triangle.</p>
+  </introduction>
+  <task>
+    <statement>
+      <p>The separating hyperplane is</p>
+      <p><md>-1+X_1+X_2=0.</md></p>
+        <p>The test observation is <m>\mathbf{X}=(2,2)</m>.</p>
+              <image source="figures/MMC_classification_a" width="50%">
+        <shortdescription>A figure showing a line separating two classes of observations: circles and triangles.</shortdescription>
+      </image>
+    </statement>
+      <hint>
+    <p>
+          Recall that a point is classified according to the sign of the linear function
+    <md>
+      f(\mathbf{X})=\beta_0+\beta_1X_1+\beta_2X_2.
+    </md>
+    </p>
+  </hint>
+      <choices>
+    <choice> 
+    <statement>
+      <p>
+        Circle.
+      </p>
+      </statement>
+    </choice>
+        <choice correct="yes"> 
+    <statement>
+      <p>
+        Triangle.
+      </p>
+      </statement>
+    </choice>
+    </choices>
+  </task>
+  <task>
+    <statement>
+      <p>The separating hyperplane is</p>
+      <p><md>-1.5-X_1+X_2=0.</md></p>
+        <p>The test observation is <m>\mathbf{X}=(0.5,0.5)</m>.</p>
+              <image source="figures/MMC_classification_b" width="50%">
+        <shortdescription>A figure showing a line separating two classes of observations: circles and triangles.</shortdescription>
+      </image>
+    </statement>
+          <choices>
+    <choice  correct="yes"> 
+    <statement>
+      <p>
+        Circle.
+      </p>
+      </statement>
+    </choice>
+        <choice> 
+    <statement>
+      <p>
+        Triangle.
+      </p>
+      </statement>
+    </choice>
+    </choices>
+  </task>
+  <task>
+    <statement>
+      <p>The separating hyperplane is</p>
+      <p><md>-1.5+2X_1-X_2=0.</md></p>
+        <p>The test observation is <m>\mathbf{X}=(1,0)</m>.</p>
+                      <image source="figures/MMC_classification_c" width="50%">
+        <shortdescription>A figure showing a line separating two classes of observations: circles and triangles.</shortdescription>
+      </image>
+    </statement>
+      <choices>
+    <choice> 
+    <statement>
+      <p>
+        Circle.
+      </p>
+      </statement>
+    </choice>
+        <choice correct="yes"> 
+    <statement>
+      <p>
+        Triangle.
+      </p>
+      </statement>
+    </choice>
+    </choices>
+  </task>
+  <task>
+    <statement>
+      <p>The separating hyperplane is</p>
+      <p><md>2-X_1-X_2=0.</md></p>
+        <p>The test observation is <m>\mathbf{X}=(1,2)</m>.</p>
+                      <image source="figures/MMC_classification_d" width="50%">
+        <shortdescription>A figure showing a line separating two classes of observations: circles and triangles.</shortdescription>
+      </image>
+    </statement>
+          <choices>
+    <choice correct="yes"> 
+    <statement>
+      <p>
+        Circle.
+      </p>
+      </statement>
+    </choice>
+        <choice> 
+    <statement>
+      <p>
+        Triangle.
+      </p>
+      </statement>
+    </choice>
+    </choices>
+  </task>
+</exercise>
+
+
+<exercise xml:id="problem-15">
+  <title>Maximal Margin Classifier (MMC)</title>
+  <introduction>
+    <p>For (a) and (b), answer the following questions. The margin <m>M=2</m> for both.</p>
+    <figure>
+      <caption>Maximal margin classifier and support vector classifier.</caption>
+      <image source="figures/MMC_SVC">
+        <shortdescription>Figures illustrating a maximal margin classifier and a support vector classifier.</shortdescription>
+      </image>
+    </figure>
+  </introduction>
+  <task>
+    <statement>
+      <p>Label each as either a soft margin or hard margin classifier.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Label each as either an MMC or an SVC.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Write the corresponding optimization problem for each.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>For the SVC, estimate <m>\epsilon_i</m> for each observation.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>For the SVC, find the budget <m>C</m>.</p>
+    </statement>
+  </task>
+</exercise>
+
+<exercise xml:id="problem-16">
+  <title>Support Vector Classifier (SVC)</title>
+  <introduction>
+    <p>For the shown SVC, answer the following questions.</p>
+    <figure>
+      <caption>Support vector classifier with labeled observations.</caption>
+      <image source="figures/SVC_epsilon_problem" width="70%">
+        <shortdescription>A support vector classifier with labeled observations.</shortdescription>
+      </image>
+    </figure>
+  </introduction>
+  <task>
+    <statement>
+      <p>Compute the margin <m>M</m>.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Complete the following table, where the left side refers to</p>
+      <p>
+        <md>
+          y_i(\beta_0+\beta_1x_{i1}+\beta_2x_{i2}).
+        </md>
+      </p>
+      <table>
+        <title>Slack variables and margin constraints</title>
+        <tabular>
+          <row header="yes">
+            <cell>Point</cell>
+            <cell>Left Side</cell>
+            <cell><m>\epsilon_i</m></cell>
+            <cell><m>M(1-\epsilon_i)</m></cell>
+          </row>
+          <row><cell>A</cell><cell/><cell/><cell/></row>
+          <row><cell>B</cell><cell/><cell/><cell/></row>
+          <row><cell>C</cell><cell/><cell/><cell/></row>
+          <row><cell>D</cell><cell/><cell/><cell/></row>
+          <row><cell>X</cell><cell/><cell/><cell/></row>
+          <row><cell>Y</cell><cell/><cell/><cell/></row>
+          <row><cell>Z</cell><cell/><cell/><cell/></row>
+          <row><cell>W</cell><cell/><cell/><cell/></row>
+        </tabular>
+      </table>
+    </statement>
+  </task>
+</exercise>
+
+
+<exercise>
+  <title>SVM: One-Vs-One Classification</title>
+  <introduction>
+    <p>Suppose we want to classify observations into one of four categories: <m>A</m>, <m>B</m>, <m>C</m>, and <m>D</m>. Each observation is described by two quantitative predictors, <m>X_1</m> and <m>X_2</m>.</p>
+    <p>We use the one-vs-one approach to construct an SVM classifier. </p>
+    <p>Suppose the six fitted pairwise SVMs for this problem have the following decision functions:</p>
+    <p><md>
+      \begin{aligned}
+      f_{AB}(\mathbf{X}) &amp;= X_1+X_2-2,\\
+      f_{AC}(\mathbf{X}) &amp;= X_1-X_2+0.5,\\
+      f_{AD}(\mathbf{X}) &amp;= X_1+X_2-4,\\
+      f_{BC}(\mathbf{X}) &amp;= X_1-X_2+0.5,\\
+      f_{BD}(\mathbf{X}) &amp;= X_1+X_2-4,\\
+      f_{CD}(\mathbf{X}) &amp;= X_1+X_2-2.
+      \end{aligned}
+    </md></p>
+    <p>For each pairwise classifier, a positive decision-function value predicts the first class in the subscript, while a negative value predicts the second class. For example, if <m>f_{AB}(\mathbf{X})&gt;0</m>, the classifier predicts class <m>A</m>; if <m>f_{AB}(\mathbf{X})&lt;0</m>, it predicts class <m>B</m>.</p>
+    <p>Consider the new observation</p>
+    <p><md>\mathbf{X}^\ast=(X_1^\ast,X_2^\ast)=(1,2).</md></p>
+      <p>
+        (This was created with the help of ChatGPT).
+      </p>
+  </introduction>
+  <task>
+    <statement>
+      <p>How many binary SVM classifiers must be fitted for this problem? List all the pairs of classes that are compared.</p>
+    </statement>
+    <hint>
+      <p>
+        For one-vs-one classification with SVM we fit a separate binary SVM for every pair of classes. For a problem with <m>K</m> classes, the total number of pairwise classifiers is</p>
+    <p><md>\binom{K}{2}=\frac{K(K-1)}{2}.</md></p>
+    </hint>
+    <solution>
+      <p>There are <m>K=4</m> classes, so the number of pairwise classifiers is</p>
+      <p><md>
+        \binom{4}{2}=\frac{4(4-1)}{2}=6.
+      </md></p>
+      <p>The six pairs of classes are:</p>
+      <p><ul>
+        <li><p><m>A</m> vs. <m>B</m></p></li>
+        <li><p><m>A</m> vs. <m>C</m></p></li>
+        <li><p><m>A</m> vs. <m>D</m></p></li>
+        <li><p><m>B</m> vs. <m>C</m></p></li>
+        <li><p><m>B</m> vs. <m>D</m></p></li>
+        <li><p><m>C</m> vs. <m>D</m></p></li>
+      </ul></p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Evaluate each of the six decision functions at <m>\mathbf{X}^\ast</m>. For each pairwise classifier, identify which class is predicted.</p>
+    </statement>
+    <solution>
+      <p>Substitute <m>X_1^\ast=1</m> and <m>X_2^\ast=2</m> into each decision function:</p>
+      <p><md>
+        \begin{aligned}
+        f_{AB}(\mathbf{X}^\ast)&amp;=1+2-2=1,\\
+        f_{AC}(\mathbf{X}^\ast)&amp;=1-2+0.5=-0.5,\\
+        f_{AD}(\mathbf{X}^\ast)&amp;=1+2-4=-1,\\
+        f_{BC}(\mathbf{X}^\ast)&amp;=1-2+0.5=-0.5,\\
+        f_{BD}(\mathbf{X}^\ast)&amp;=1+2-4=-1,\\
+        f_{CD}(\mathbf{X}^\ast)&amp;=1+2-2=1.
+        \end{aligned}
+      </md></p>
+      <p>Using the sign of each decision function, the predictions are:</p>
+      <p><ul>
+        <li><p><m>A</m> vs. <m>B</m>: <m>f_{AB}(\mathbf{X}^\ast)&gt;0</m>, so predict <m>A</m>.</p></li>
+        <li><p><m>A</m> vs. <m>C</m>: <m>f_{AC}(\mathbf{X}^\ast)&lt;0</m>, so predict <m>C</m>.</p></li>
+        <li><p><m>A</m> vs. <m>D</m>: <m>f_{AD}(\mathbf{X}^\ast)&lt;0</m>, so predict <m>D</m>.</p></li>
+        <li><p><m>B</m> vs. <m>C</m>: <m>f_{BC}(\mathbf{X}^\ast)&lt;0</m>, so predict <m>C</m>.</p></li>
+        <li><p><m>B</m> vs. <m>D</m>: <m>f_{BD}(\mathbf{X}^\ast)&lt;0</m>, so predict <m>D</m>.</p></li>
+        <li><p><m>C</m> vs. <m>D</m>: <m>f_{CD}(\mathbf{X}^\ast)&gt;0</m>, so predict <m>C</m>.</p></li>
+      </ul></p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Construct a vote tally showing the number of votes received by each of the four classes. Which class receives the most votes?</p>
+    </statement>
+    <solution>
+      <p>Each pairwise classifier gives one vote to its predicted class. Counting the predictions from the previous part gives:</p>
+      <table>
+        <title>Vote tally for the test observation</title>
+        <tabular>
+          <row header="yes">
+            <cell>Class</cell>
+            <cell>Number of votes</cell>
+          </row>
+          <row><cell><m>A</m></cell><cell>1</cell></row>
+          <row><cell><m>B</m></cell><cell>0</cell></row>
+          <row><cell><m>C</m></cell><cell>3</cell></row>
+          <row><cell><m>D</m></cell><cell>2</cell></row>
+        </tabular>
+      </table>
+      <p>Class <m>C</m> receives the most votes, with three votes.</p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Using the one-vs-one classification rule, which class would you assign to the new observation <m>\mathbf{X}^\ast</m>? Explain how the pairwise predictions lead to your answer.</p>
+    </statement>
+    <solution>
+      <p>Under the one-vs-one approach, we assign the observation to the class that receives the most votes from the pairwise classifiers. Since class <m>C</m> receives three votes, more than any other class, we classify the new observation as</p>
+      <p><md>\boxed{\text{Class }C.}</md></p>
+    </solution>
+  </task>
+</exercise>
+
+<exercise>
+  <title>SVM: One-Vs-All Classification</title>
+  <introduction>
+    <p>Suppose we want to classify observations into one of four categories: <m>A</m>, <m>B</m>, <m>C</m>, and <m>D</m>. Each observation is described by two quantitative predictors, <m>X_1</m> and <m>X_2</m>.</p>
+    <p>We use the one-vs-all approach to construct an SVM classifier. </p>
+    <p>Suppose the four fitted SVMs for this problem have the following decision functions:</p>
+    <p><md>
+      \begin{aligned}
+      f_A(\mathbf{X}) &amp;= X_1+X_2-4,\\
+      f_B(\mathbf{X}) &amp;= 2X_1-X_2+1,\\
+      f_C(\mathbf{X}) &amp;= -X_1+2X_2-1,\\
+      f_D(\mathbf{X}) &amp;= -X_1-X_2+1.
+      \end{aligned}
+    </md></p>
+    <p>A positive decision-function value indicates that the corresponding classifier predicts its class rather than the remaining classes. Since the classifiers are fitted independently, it is possible for more than one classifier to produce a positive value, or for all classifiers to produce negative values.</p>
+    <p>To obtain a final prediction, we assign the observation to the class with the largest decision-function value.</p>
+    <!-- <p><md>
+      \widehat{Y}=\underset{k\in\{A,B,C,D\}}{\operatorname{argmax}}\ f_k(\mathbf{X}).
+    </md></p> -->
+    <p>Consider the new observation</p>
+    <p><md>
+      \mathbf{X}^\ast=(X_1^\ast,X_2^\ast)=(1,2).
+    </md></p>
+          <p>
+        (This was created with the help of ChatGPT).
+      </p>
+  </introduction>
+  <task>
+    <statement>
+      <p>How many binary SVM classifiers must be fitted for this problem? Describe how the classes are grouped for each classifier.</p>
+    </statement>
+    <hint>
+      <p>
+        In this approach, we fit one binary SVM for each class, treating that class as the positive class and all remaining classes as the negative class. Thus, for a problem with <m>K</m> classes, we fit <m>K</m> binary SVM classifiers.
+      </p>
+    </hint>
+    <solution>
+      <p>There are <m>K=4</m> classes, so we fit four binary SVM classifiers. Each classifier separates one class from all the remaining classes:</p>
+      <p><ul>
+        <li><p>Classifier A: class <m>A</m> vs. classes <m>B,C,D</m>.</p></li>
+        <li><p>Classifier B: class <m>B</m> vs. classes <m>A,C,D</m>.</p></li>
+        <li><p>Classifier C: class <m>C</m> vs. classes <m>A,B,D</m>.</p></li>
+        <li><p>Classifier D: class <m>D</m> vs. classes <m>A,B,C</m>.</p></li>
+      </ul></p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Evaluate each of the four decision functions at <m>\mathbf{X}^\ast</m>. For each classifier, determine whether its decision-function value is positive or negative. Which classifiers predict their corresponding class?</p>
+    </statement>
+    <solution>
+      <p>Substitute <m>X_1^\ast=1</m> and <m>X_2^\ast=2</m> into each decision function:</p>
+      <p><md>
+        \begin{aligned}
+        f_A(\mathbf{X}^\ast)&amp;=1+2-4=-1,\\
+        f_B(\mathbf{X}^\ast)&amp;=2(1)-2+1=1,\\
+        f_C(\mathbf{X}^\ast)&amp;=-1+2(2)-1=2,\\
+        f_D(\mathbf{X}^\ast)&amp;=-1-2+1=-2.
+        \end{aligned}
+      </md></p>
+      <p>The results are summarized below:</p>
+      <table>
+        <title>One-vs-all decision-function values</title>
+        <tabular>
+          <row header="yes">
+            <cell>Classifier</cell>
+            <cell>Decision value</cell>
+            <cell>Prediction</cell>
+          </row>
+          <row><cell>A</cell><cell><m>-1</m></cell><cell>Not A</cell></row>
+          <row><cell>B</cell><cell><m>1</m></cell><cell>B</cell></row>
+          <row><cell>C</cell><cell><m>2</m></cell><cell>C</cell></row>
+          <row><cell>D</cell><cell><m>-2</m></cell><cell>Not D</cell></row>
+        </tabular>
+      </table>
+      <p>Classifiers B and C produce positive decision-function values and therefore predict their corresponding classes.</p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Using the one-vs-all classification rule, which class would you assign to the new observation <m>\mathbf{X}^\ast</m>? Explain why.</p>
+    </statement>
+    <solution>
+      <p>We assign the observation to the class with the largest decision-function value. The four values are</p>
+      <p><md>
+        \begin{aligned}
+        f_A(\mathbf{X}^\ast)&amp;=-1,\\
+        f_B(\mathbf{X}^\ast)&amp;=1,\\
+        f_C(\mathbf{X}^\ast)&amp;=2,\\
+        f_D(\mathbf{X}^\ast)&amp;=-2.
+        \end{aligned}
+      </md></p>
+      <p>Since <m>f_C(\mathbf{X}^\ast)=2</m> is the largest value, we classify the new observation as</p>
+      <p><md>\boxed{\text{Class }C.}</md></p>
+    </solution>
+  </task>
+</exercise>
+
+
+
+<exercise xml:id="problem-17">
+  <title>NN: Computing <m>A_i</m></title>
+  <statement>
+    <p>Given the shown figure, compute <m>A_1</m> and <m>A_2</m> for <m>X_1=1</m> and <m>X_2=0</m>, given</p>
+    <p>
+      <md>
+        <mrow>w_{10}=1,\quad w_{11}=2,\quad w_{12}=1</mrow>
+        <mrow>w_{20}=-1,\quad w_{21}=0,\quad w_{22}=1</mrow>
+      </md>
+    </p>
+    <p>Use the ReLU activation function <m>g(z)</m>.</p>
+    <figure>
+      <caption>Neural network for computing the hidden-layer activations.</caption>
+      <image source="figures/NN_find_Ak" width="70%">
+        <shortdescription>Neural network diagram for computing the hidden-layer activations A1 and A2.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+<exercise xml:id="problem-18">
+  <title>NN: Computing <m>Y</m></title>
+  <statement>
+    <p>Compute <m>Y</m> for <m>X_1=1</m> and <m>X_2=0</m>, given</p>
+    <p>
+      <md>
+        <mrow>w_{10}=1,\quad w_{11}=2,\quad w_{12}=1</mrow>
+        <mrow>w_{20}=-1,\quad w_{21}=0,\quad w_{22}=1</mrow>
+        <mrow>w_{30}=3,\quad w_{31}=-1,\quad w_{32}=-1</mrow>
+      </md>
+    </p>
+    <p>Use the ReLU activation function <m>g(z)</m>.</p>
+    <figure>
+      <caption>Neural network for computing the output.</caption>
+      <image source="figures/NN_find_Y" width="70%">
+        <shortdescription>Neural network diagram for computing the output Y.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+
+
+
+
+
+
+
+<exercise>
+  <title>NN: Predicting <m>Y</m></title>
+  <statement>
+    <p>For the shown neural net, predict the output for <m>\mathbf{X}=(1,0,1)</m> using the given weights. Use the ReLU activation function.</p>
+    <figure>
+      <caption>Neural network for computing the output.</caption>
+      <image source="figures/NN_compute_output">
+        <shortdescription>Neural network diagram with weights for computing the output.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+<exercise>
+  <title>NN: Multiple outcomes</title>
+  <introduction>
+    <p>Given the shown neural net, answer the following questions. Here <m>M</m> is the number of possible outcomes, <m>K</m> is the number of hidden units, and <m>p</m> is the number of predictors.</p>
+    <figure>
+      <caption>Neural network for classification.</caption>
+      <image source="figures/NN_classification_WS">
+        <shortdescription>Neural network architecture for a classification problem.</shortdescription>
+      </image>
+    </figure>
+  </introduction>
+  <task>
+    <statement>
+      <p>Find <m>M</m>, <m>K</m>, and <m>p</m> for this example. How many hidden layers are there?</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Write the equation for the ReLU activation function <m>g(z)</m>.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Compute <m>A_1</m> and <m>A_2</m> using the following weights and equations. Use ReLU as the activation function <m>g(z)</m>, and set <m>\mathbf{X}=(1,1)</m>. Can you do this using the matrix-vector product we learned too?</p>
+      <p><md>
+        w=\begin{bmatrix}
+        -1 &amp; 2 &amp; 1\\
+        2 &amp; 3 &amp; -4
+        \end{bmatrix}
+      </md></p>
+      <p><md>
+        A_k=h_k(\mathbf{X})=g\left(w_{k0}+\sum_{j=1}^{p}w_{kj}X_j\right)
+      </md></p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>This neural net is actually trying to <em>classify</em> the output as either "type 1" (<m>Y_0</m>) or "type 2" (<m>Y_1</m>). We need an <m>M\times(K+1)</m> matrix <m>\boldsymbol{\beta}</m>, which is <m>2\times3</m> for this neural net. Compute the temporary variable <m>Z_m</m> for each possible outcome. We will next use this variable to compute the probability that the observation belongs to each of the two classes.</p>
+      <p><md>
+        Z_m=\beta_{m0}+\sum_{\ell=1}^{K}\beta_{m\ell}A_\ell,
+        \qquad
+        \boldsymbol{\beta}=
+        \begin{bmatrix}
+        2 &amp; -1 &amp; -3\\
+        2 &amp; 3 &amp; 4
+        \end{bmatrix}
+      </md></p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>We now have <m>M</m> real numbers <m>Z_1,\ldots,Z_M</m> corresponding to <m>M</m> possible categorical outcomes. We need a way to convert these <m>M</m> numbers to a probability distribution over <m>M</m> possible outcomes. This can be accomplished using the softmax function <m>f_m(\mathbf{X})</m> shown below. Compute <m>f_m</m> for each of the two possible outcomes.</p>
+      <p><md>
+        f_m(\mathbf{X})=\operatorname{Pr}(Y=m\mid\mathbf{X})
+        =\frac{e^{Z_m}}{\sum_{\ell=0}^{M}e^{Z_\ell}}
+      </md></p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>The last step is to predict the class for the given observation. Which class would you predict and why?</p>
+    </statement>
+  </task>
+</exercise>
+
+<exercise>
+  <title>NN: Identifying problem type</title>
+  <introduction>
+    <p>Given the shown neural net, answer the following questions.</p>
+    <figure>
+      <caption>Neural network with multiple hidden layers for regression.</caption>
+      <image source="figures/NN_multiLayer_regression_WS">
+        <shortdescription>Neural network architecture with multiple hidden layers.</shortdescription>
+      </image>
+    </figure>
+  </introduction>
+  <task>
+    <statement>
+      <p>How many hidden layers are there?</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Find <m>M</m> and <m>p</m> for this example. Do you think this is a classification or regression problem? Why?</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Compute all the <m>A</m>'s. The subscript of <m>K</m> is the corresponding number of hidden units of that layer; for example, <m>K_1</m> is the number of hidden units in layer 1 (<m>L_1</m>), etc.</p>
+      <p><md>
+        A^{(1)}_k=h^{(1)}_k(\mathbf{X})
+        =g\left(w^{(1)}_{k0}+\sum_{j=1}^{p}w^{(1)}_{kj}X_j\right)
+      </md></p>
+      <p><md>
+        A^{(2)}_\ell=h^{(2)}_\ell(\mathbf{X})
+        =g\left(w^{(2)}_{\ell 0}+\sum_{k=1}^{K_1}w^{(2)}_{\ell k}A^{(1)}_k\right)
+      </md></p>
+      <p>Use the weights</p>
+      <p><md>
+        L_1:\quad w^{(1)}=
+        \begin{bmatrix}
+        1 &amp; 0 &amp; 2\\
+        0 &amp; -5 &amp; 1\\
+        2 &amp; 3 &amp; -1
+        \end{bmatrix}
+      </md></p>
+      <p><md>
+        L_2:\quad w^{(2)}=
+        \begin{bmatrix}
+        1 &amp; 0 &amp; -3 &amp; 1\\
+        -1 &amp; 4 &amp; 0 &amp; -2
+        \end{bmatrix}
+      </md></p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Predict <m>Y</m> for <m>\mathbf{X}=(1,1)</m>. Use the <m>\boldsymbol{\beta}</m> vector below.</p>
+      <p><md>
+        \boldsymbol{\beta}=
+        \begin{bmatrix}
+        1 &amp; -1 &amp; -2
+        \end{bmatrix}
+      </md></p>
+    </statement>
+  </task>
+</exercise>
+
+<exercise>
+  <title>CNN: Padding</title>
+  <statement>
+    <p><em>Padding:</em> Let's introduce basic CNN concepts. The figure shows a <m>4\times4</m> image and a uniformly (or symmetrically) padded image with padding parameter <m>P=1</m>. Note that the same number of zero rows (one in this case) were added to the top and bottom, and the same number of zero columns (one in this case) were added to the left and right.</p>
+    <p>Uniformly pad the third image using <m>P=2</m>, and write the corresponding dimension in the shown boxes. Note that sometimes it is necessary to apply non-uniform padding. Padding is typically applied to control the size of resulting matrices in CNNs and to capture contributions of boundary pixels.</p>
+    <figure>
+      <caption>Uniform padding of an image.</caption>
+      <image source="figures/CNN_padding" width="90%">
+        <shortdescription>Three images illustrating uniform padding, including an image to be padded with parameter P equal to 2.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+<exercise>
+  <title>CNN: Stride and Convolution</title>
+  <statement>
+    <p><em>Stride and convolution:</em> Figure 1 shows how to convolve an image with a filter (or kernel) using stride <m>S=2</m>. Find the convolved image for the original image given in Figure 2 using stride <m>S=1</m>.</p>
+    <figure>
+      <caption>Convolution.</caption>
+      <image source="figures/convolution">
+        <shortdescription>Example showing the convolution of an image with a filter using stride S equal to 2.</shortdescription>
+      </image>
+    </figure>
+    <figure>
+      <caption>Convolution problem.</caption>
+      <image source="figures/convolution_example" width="70%">
+        <shortdescription>Original image and filter for the convolution exercise.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+<exercise>
+  <title>CNN: Max pooling</title>
+  <statement>
+    <p><em>Max pooling:</em> Figure 1 shows how to condense a convolved image into a smaller summary image using <em>max pooling</em> with stride <m>S=2</m>. Perform max pooling using a <m>2\times2</m> block for the convolved image in Figure 2 using:</p>
+    <p><ol>
+      <li><p><m>S=2</m>.</p></li>
+      <li><p><m>S=1</m>.</p></li>
+    </ol></p>
+    <figure>
+      <caption>Max pooling.</caption>
+      <image source="figures/max_pooling">
+        <shortdescription>Example illustrating max pooling with stride S equal to 2.</shortdescription>
+      </image>
+    </figure>
+    <figure>
+      <caption>Max pooling problem.</caption>
+      <image source="figures/max_pooling_example" width="60%">
+        <shortdescription>Convolved image to be used for the max pooling exercise.</shortdescription>
+      </image>
+    </figure>
+  </statement>
+</exercise>
+
+<exercise>
+  <title>CNN: Filters</title>
+  <introduction>
+    <figure>
+      <caption>Example images for filters.</caption>
+      <image source="figures/filters_examples" width="90%">
+        <shortdescription>Three example images labeled (a), (b), and (c) for applying convolutional neural network filters.</shortdescription>
+      </image>
+    </figure>
+    <p>CNNs apply filters (also called kernels) to pick up features such as edges, texture, and corners. Below are some common filters.</p>
+    <p><md>
+      \text{Filter 1:}\quad
+      \begin{bmatrix}
+      -1 &amp; -1 &amp; -1\\
+      0 &amp; 0 &amp; 0\\
+      1 &amp; 1 &amp; 1
+      \end{bmatrix}
+    </md></p>
+    <p><md>
+      \text{Filter 2:}\quad
+      \begin{bmatrix}
+      1 &amp; 0 &amp; -1\\
+      1 &amp; 0 &amp; -1\\
+      1 &amp; 0 &amp; -1
+      \end{bmatrix}
+    </md></p>
+    <p><md>
+      \text{Filter 3:}\quad
+      \begin{bmatrix}
+      1 &amp; 0 &amp; 1\\
+      0 &amp; 1 &amp; 0\\
+      1 &amp; 0 &amp; 1
+      \end{bmatrix}
+    </md></p>
+    <p><md>
+      \text{Filter 4:}\quad
+      \begin{bmatrix}
+      -1 &amp; 0 &amp; 1\\
+      -2 &amp; 0 &amp; 2\\
+      -1 &amp; 0 &amp; 1
+      \end{bmatrix}
+    </md></p>
+  </introduction>
+  <task>
+    <statement>
+      <p>For Figures (a)--(c), sketch the edges by hand with your teammates. Assume 0 corresponds to low intensity or dark pixels, while 1 corresponds to high intensity or light pixels.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Apply uniform padding with <m>P=1</m> for each figure. This will help us capture boundary pixels.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Apply each of the filters above to Figures (a)--(c) using stride <m>S=1</m>.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Apply ReLU elementwise to the convolved matrices.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Perform max pooling on the resulting matrices (the convolved matrices to which ReLU was applied elementwise) using a <m>2\times2</m> block with stride <m>S=1</m>.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Examine the resulting matrices, and discuss what each of these filters is doing.</p>
+    </statement>
+  </task>
+  <task>
+    <statement>
+      <p>Do a Google search (or use GenAI) to see what each filter given above is called and what it does. Does the answer match your intuition from the part above?</p>
+    </statement>
+  </task>
+</exercise>
+
+
   </subsection>
 
 </section>

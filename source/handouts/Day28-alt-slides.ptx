@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+    
+    <section xml:id="day-28-lecture" component="day28">
+        <title>Day 28</title>
+    
+        <p>
+            <dataurl source="slides/slides-Day30/CMSE381-Lec30-Ch10_2-MultiLayerNeuralNet.html" visual="Day28 slides"/>
+        </p>
+    
+        </section>

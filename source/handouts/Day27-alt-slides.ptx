@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day27" xml:id="day-27-lecture">
+    <title>Day 27</title>
+
+    <introduction>
+        <p>
+            Ch 10.1: Neural Nets
+        </p>
+    </introduction>
+<objectives>
+  <ul>
+    <li>
+      <p>Describe the architecture of a simple feed-forward neural network.
+      <ul>
+        <li>
+          <p>Explain conceptually and mathematically what happens at each layer, including the input, hidden, and output layers.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Explain activation and identify different types of activation functions.
+      <ul>
+        <li>
+          <p>Describe activation mathematically.</p>
+        </li>
+        <li>
+          <p>Given example inputs and weights from the previous matrix, calculate the activation <m>A</m> by hand, with the help of a calculator.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Explain how a simple feed-forward neural network produces an output.
+      <ul>
+        <li>
+          <p>Given a <m>\beta</m> matrix and the activation from the previous layer, calculate the output by hand.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Identify what the fitted parameters minimize in a simple feed-forward neural network.</p>
+    </li>
+  </ul>
+</objectives>
+
+<paragraphs>
+  <title>The Idea</title>
+      <p><ul >
+        <li><p>We have input vector of <m>p</m> variables, <m>X=(X_1,\ldots,X_p)</m>;</p></li>
+        <li><p>and some <sq>black-box</sq> nonlinear function <m>f(X)</m>.</p></li>
+        <li><p>The predicted response <m>\widehat{Y}</m> is the output.</p></li>
+        <li><p>We have encountered nonlinear methods before, such as trees.</p></li>
+        <li><p>The difference here is the structure of the model.</p></li>
+      </ul></p>
+
+</paragraphs>
+
+
+<paragraphs>
+  <title>Feed-Forward Neural Network: The Cartoon</title>
+  <sidebyside widths="50% 50%">
+    <image source="figures/Fig10-1.png">
+      <shortdescription>Feed-forward neural network diagram.</shortdescription>
+    </image>
+    <stack>
+      <p><ul >
+        <li><p>The input layer consists of the starting data <m>X_i</m>.</p></li>
+        <li><p>The hidden layer receives inputs from the input layer and converts them into activations <m>A_k</m>.</p></li>
+        <li><p>Each arrow represents taking a linear combination of the values, using weights, to obtain the next value.</p></li>
+        <li><p>This network has one hidden layer followed by the output layer.</p></li>
+        <li><p>We choose the number of hidden units <m>K</m>; here, <m>K=5</m>.</p></li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>A Very Simple Example: Computing <m>A_k</m> for <m>(1,0)</m></title>
+  <sidebyside widths="50% 50%">
+    <stack>
+    <p>
+      <md>
+  A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
+</md>
+</p>
+      <image source="figures/DL-simple-ex.jpg">
+        <shortdescription>Simple neural network example.</shortdescription>
+      </image>
+    </stack>
+    <stack>
+      <p><ul >
+        <li><p><m>A_k</m> are called activations.</p></li>
+        <li><p>Choose an activation function <m>g(z)</m>.</p></li>
+      </ul></p>
+      <p><ul >
+        <li><p></p>
+          <image source="figures/DL-simple-ex-Input10.jpg">
+            <shortdescription>Input values for the example with input (1,0).</shortdescription>
+          </image>
+          <image source="figures/DL-simple-ex-Input10-Soln.jpg">
+            <shortdescription>Activation calculations for the example with input (1,0).</shortdescription>
+          </image>
+        </li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>A Very Simple Example: Computing <m>Y</m> for <m>(1,0)</m></title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p><m>f(X)=\beta_0+\sum_{k=1}^{K}\beta_k A_k</m></p>
+      <image source="figures/DL-simple-ex.jpg">
+        <shortdescription>Simple neural network example.</shortdescription>
+      </image>
+    </stack>
+    <stack>
+      <p><ul >
+        <li><p></p>
+          <image source="figures/DL-simple-ex-Input10.jpg">
+            <shortdescription>Input values for the example with input (1,0).</shortdescription>
+          </image>
+          <image source="figures/DL-simple-ex-Input10-Soln.jpg">
+            <shortdescription>Activation calculations for the example with input (1,0).</shortdescription>
+          </image>
+        </li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>A Very Simple Example: Computing <m>Y</m> for <m>(0,1)</m></title>
+
+    <p>
+      <md>
+  A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
+</md>
+</p>
+    <p>
+    <m>f(X)=\beta_0+\sum_{k=1}^{K}\beta_k A_k</m>
+  </p>
+  <sidebyside widths="50% 50%">
+    <image source="figures/DL-simple-ex.jpg">
+      <shortdescription>Simple neural network example.</shortdescription>
+    </image>
+    <stack>
+      <p><ul >
+        <li>
+          <p>For input <m>(0,1)</m>, show the corresponding input values and activation calculations.</p>
+          <image source="figures/DL-simple-ex-Input01.jpg">
+            <shortdescription>Input values for the example with input (0,1).</shortdescription>
+          </image>
+          <image source="figures/DL-simple-ex-Input01-Soln.jpg">
+            <shortdescription>Activation calculations for the example with input (0,1).</shortdescription>
+          </image>
+        </li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>A Different Example</title>
+
+      <p>Consider a neural network with input data points having <m>p=3</m>, that is, <m>(X_1,X_2,X_3)</m>, and two units in the hidden layer.</p>
+      <p><ul>
+        <li>
+          <p>Draw the architecture of this neural network.</p>
+        </li>
+        <li>
+          <p>Using the <m>\omega</m> and <m>\beta</m> matrices, determine the predicted output <m>\widehat{Y}</m> for the input point <m>(2,0,1)</m>.</p>
+          <p>
+            <md>
+              \omega =
+              \begin{pmatrix}
+              1 &amp; 0 &amp; -2 &amp; 2\\
+              -3 &amp; 1 &amp; 0 &amp; -1
+              \end{pmatrix}
+              \qquad
+              \beta =
+              \begin{pmatrix}
+              -1\\
+              -2\\
+              1
+              \end{pmatrix}
+            </md>
+          </p>
+        </li>
+        <li>
+          <p>Use the activation function</p>
+          <p>
+            <md>
+              g(z)=(z)_+=
+              \begin{cases}
+              0 &amp; \text{if } z&lt;0,\\
+              z &amp; \text{otherwise}.
+              \end{cases}
+            </md>
+          </p>
+        </li>
+      </ul></p>
+<image source="figures/NeuralNetwork_example.jpg">
+  <shortdescription>Neural network example.</shortdescription>
+</image>
+</paragraphs>
+
+<paragraphs>
+  <title>What If There's No Activation Function?</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <image source="figures/NN-Example2-Architecture.jpeg">
+        <shortdescription>Architecture of the second neural network example.</shortdescription>
+      </image>
+      <p>
+        <md>
+          \omega =
+          \begin{pmatrix}
+          1 &amp; 2 &amp; 3\\
+          4 &amp; 5 &amp; 6
+          \end{pmatrix}
+          \qquad
+          \beta =
+          \begin{pmatrix}
+          -1\\
+          -2\\
+          1
+          \end{pmatrix}
+        </md>
+      </p>
+    </stack>
+    <stack>
+      <p><ul >
+        <li>
+          <p>Calculate the network output with no activation function to show that the result is simply another linear function.</p>
+          <image source="figures/NN-Example2-Calc.jpeg">
+            <shortdescription>Calculation showing the neural network output without an activation function.</shortdescription>
+          </image>
+        </li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Choices for Activation Functions</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>Sigmoid:</p>
+      <p>
+        <md>
+          g(z)=\frac{e^z}{1+e^z}=\frac{1}{1+e^{-z}}
+        </md>
+      </p>
+      <image source="figures/Sigmoid-pytorch.png">
+        <shortdescription>Sigmoid activation function.</shortdescription>
+      </image>
+    </stack>
+    <stack>
+      <p>ReLU: Rectified Linear Unit</p>
+      <p>
+        <md>
+          g(z)=(z)_+=
+          \begin{cases}
+          0 &amp; \text{if } z&lt;0,\\
+          z &amp; \text{otherwise}.
+          \end{cases}
+        </md>
+      </p>
+      <image source="figures/ReLU-pytorch.png">
+        <shortdescription>ReLU activation function.</shortdescription>
+      </image>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Matrix Version: First Layer</title>
+  <sidebyside widths="30% 70%">
+    <image source="figures/DL-simple-ex.jpg">
+      <shortdescription>Simple neural network example.</shortdescription>
+    </image>
+    <stack>
+    <p>
+      <md>
+  A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
+</md>
+</p>
+      <p>
+        <md>
+          A=g(\mathbf{W}\cdot\mathbf{X})
+          \qquad
+          \mathbf{X}^T=(1\;X_1\;X_2\;\cdots\;X_p)
+        </md>
+      </p>
+      <p><ul >
+        <li><p>Calculate the matrix multiplication using the matrices shown on the left to demonstrate that the matrix formulation gives the same equations.</p></li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Matrix Version: Output</title>
+  <sidebyside widths="30% 70%">
+    <image source="figures/DL-simple-ex.jpg">
+      <shortdescription>Simple neural network example.</shortdescription>
+    </image>
+    <stack>
+      <p><m>f(X)=\beta_0+\sum_{k=1}^{K}\beta_k A_k</m></p>
+      <p>
+        <md>
+          Y=\beta\cdot\mathbf{A}
+          \qquad
+          \mathbf{A}^T=(1\;A_1\;A_2\;\cdots\;A_K)
+        </md>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Now What?</title>
+  <p>Choose the model parameters by minimizing the residual sum of squares (RSS):</p>
+  <p>
+    <md>
+      \text{RSS}=\sum_{i=1}^{n}(y_i-f(x_i))^2
+    </md>
+  </p>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p><em>Chosen in advance:</em></p>
+      <p><ul>
+        <li><p>Number of layers (more on that next lecture).</p></li>
+        <li><p>Number of hidden units.</p></li>
+        <li><p>Activation function <m>g(z)</m>.</p></li>
+      </ul></p>
+    </stack>
+    <stack>
+      <p><em>Tuned by the model:</em></p>
+      <p><ul >
+        <li><p><m>\omega</m></p></li>
+        <li><p><m>\beta</m></p></li>
+      </ul></p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+
+</handout>

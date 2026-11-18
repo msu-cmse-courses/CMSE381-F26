@@ -42,7 +42,7 @@
     </p>
 
        <p>
-        <dataurl source="data/Hitters.csv" visual="Hitters.csv data file"/>
+        <dataurl source="data/OJ.csv" visual="OJ.csv data file"/>
       </p>
 </data>
   

@@ -603,7 +603,7 @@ eBookConfig.enable_chatcodes =  false;
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-25-lecture" class="internal"><span class="title">Day 25</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-26-lecture" class="internal"><span class="title">Day 26</span></a></div></li>
 <li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-27-lecture" class="internal"><span class="title">Day 27</span></a></div></li>
-<li class="toc-item toc-section"><div class="toc-title-box"><a href="sec-exam3-material.html#day-28-lecture" class="internal"><span class="title">Day 28</span></a></div></li>
+<li class="toc-item toc-handout"><div class="toc-title-box"><a href="sec-exam3-material.html#day-28-lecture" class="internal"><span class="title">Day 28</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -791,7 +791,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 <li id="sec-exam3-material-2-1-1-9">
 <div class="para" id="sec-exam3-material-2-1-1-9-1">
-<a href="sec-exam3-material.html#day-28-lecture" class="internal" title="Section: Day 28">Day 28</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam3-material-2-1-1-9-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<a href="sec-exam3-material.html#day-28-lecture" class="internal" title="Handout: Day 28">Day 28</a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#sec-exam3-material-2-1-1-9-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#sec-exam3-material-2-1-1-9" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
@@ -7601,14 +7601,497 @@ Y=\beta\cdot\mathbf{A}
 <div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Now What?"><a tabindex="-1" href="#day-27-lecture-14" title="Copy heading and permalink for Paragraphs: Now What?" aria-label="Copy heading and permalink for Paragraphs: Now What?">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 27"><a tabindex="-1" href="#day-27-lecture" title="Copy heading and permalink for Handout: Day 27" aria-label="Copy heading and permalink for Handout: Day 27">🔗</a></div>
 </section>
-<section class="section" id="day-28-lecture">
+<section class="handout" id="day-28-lecture" data-margins="0.75in 0.75in 0.75in 0.75in">
 <h2 class="heading hide-type">
-<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 28</span>
+<span class="type">Handout</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Day 28</span><div class="print-links"><a href="?printpreview=day-28-lecture" class="print-link" title="Print preview"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8ad;</span></a></div>
 </h2>
-<div class="para" id="day-28-lecture-2">
-<a class="external" href="external/slides/slides-Day30/CMSE381-Lec30-Ch10_2-MultiLayerNeuralNet.html" target="_blank"><code class="code-inline tex2jax_ignore">Day28 slides</code></a><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<section class="introduction" id="day-28-lecture-2">
+<div class="para" id="day-28-lecture-2-1">Ch 10.2: Multi-Layer Neural Nets<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<article class="objectives goal-like" id="day-28-lecture-3"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc" id="day-28-lecture-3-1">
+<li id="day-28-lecture-3-1-1">
+<div class="para logical" id="day-28-lecture-3-1-1-1">
+<div class="para">Describe the architecture of multilayer neural networks.</div>
+<ul class="circle" id="day-28-lecture-3-1-1-1-1">
+<li id="day-28-lecture-3-1-1-1-1-1">
+<div class="para" id="day-28-lecture-3-1-1-1-1-1-1">Explain mathematically what happens at each layer of a typical classification network.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-3-1-1-1-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" aria-hidden="true" data-description="Section: Day 28"><a tabindex="-1" href="#day-28-lecture" title="Copy heading and permalink for Section: Day 28" aria-label="Copy heading and permalink for Section: Day 28">🔗</a></div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-3-1-1-1-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-3-1-1-1-1-2">
+<div class="para" id="day-28-lecture-3-1-1-1-1-2-1">Calculate class probabilities at the output layer using the softmax function.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-3-1-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-3-1-1-1-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-3-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-28-lecture-3-1-1" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="day-28-lecture-3-1-2">
+<div class="para" id="day-28-lecture-3-1-2-1">Classify images using multilayer neural networks in Python.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-3-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Objective"><a tabindex="-1" href="#day-28-lecture-3-1-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Objectives"><a tabindex="-1" href="#day-28-lecture-3" title="Copy heading and permalink for Objectives" aria-label="Copy heading and permalink for Objectives">🔗</a></div>
+</article>
+<section class="paragraphs" id="day-28-lecture-4"><h3 class="heading"><span class="title">Multiple Layers.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="day-28-lecture-4-2-2-1">
+<li id="day-28-lecture-4-2-2-1-1">
+<div class="para" id="day-28-lecture-4-2-2-1-1-1">Include more layers.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-4-2-2-1-2">
+<div class="para" id="day-28-lecture-4-2-2-1-2-1">Can choose the number of units per layer.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-4-2-2-1-3">
+<div class="para" id="day-28-lecture-4-2-2-1-3-1">Each layer consists of linear combinations of the outputs from the previous layer, followed by an activation function.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-4-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Multiple Layers"><a tabindex="-1" href="#day-28-lecture-4" title="Copy heading and permalink for Paragraphs: Multiple Layers" aria-label="Copy heading and permalink for Paragraphs: Multiple Layers">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-5"><h3 class="heading"><span class="title">More Typical for Image Classification.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="day-28-lecture-5-2-1-1">Example: MNIST<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-5-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box"><img src="external/figures/Fig10-3.png" class="contained" alt="MNIST dataset example"></div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="day-28-lecture-5-2-2-1">
+<li id="day-28-lecture-5-2-2-1-1">
+<div class="para" id="day-28-lecture-5-2-2-1-1-1">Goal: Build a model to classify images into their correct digit class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-5-2-2-1-2">
+<div class="para" id="day-28-lecture-5-2-2-1-2-1">Each image has <span class="process-math">\(p=28\cdot 28=784\)</span> pixels.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-5-2-2-1-3">
+<div class="para" id="day-28-lecture-5-2-2-1-3-1">Each pixel is a grayscale value in <span class="process-math">\([0,255]\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-5-2-2-1-4">
+<div class="para" id="day-28-lecture-5-2-2-1-4-1">So we have 784 numbers as input and 10 classes as output.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-5-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: More Typical for Image Classification"><a tabindex="-1" href="#day-28-lecture-5" title="Copy heading and permalink for Paragraphs: More Typical for Image Classification" aria-label="Copy heading and permalink for Paragraphs: More Typical for Image Classification">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-6"><h3 class="heading"><span class="title">Hidden Layers.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-6-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-6-2-2-1-1">
+\begin{align*}
+A_k^{(1)} &amp;= h_k^{(1)}(X)\\
+&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-6-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-6-2-2-2">
+<div class="displaymath process-math" id="day-28-lecture-6-2-2-2-1">
+\begin{align*}
+A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)\\
+&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-6-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ul class="disc" id="day-28-lecture-6-2-2-3">
+<li id="day-28-lecture-6-2-2-3-1">
+<div class="para" id="day-28-lecture-6-2-2-3-1-1">Assume we are classifying an MNIST image with <span class="process-math">\(28\times 28=784\)</span> pixels.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-6-2-2-3-2">
+<div class="para" id="day-28-lecture-6-2-2-3-2-1">Two hidden layers: <span class="process-math">\(L_1\)</span> has 256 units and <span class="process-math">\(L_2\)</span> has 128 units.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-6-2-2-3-3">
+<div class="para" id="day-28-lecture-6-2-2-3-3-1">10 output variables corresponding to the 10 digit classes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-6-2-2-3-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Hidden Layers"><a tabindex="-1" href="#day-28-lecture-6" title="Copy heading and permalink for Paragraphs: Hidden Layers" aria-label="Copy heading and permalink for Paragraphs: Hidden Layers">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-7"><h3 class="heading"><span class="title">More on That Architecture.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:7.5%;margin-right:7.5%;grid-template-columns:29.4117647058824% 52.9411764705882%;column-gap:15%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-7-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-7-2-2-1-1">
+\begin{align*}
+A_k^{(1)} &amp;= h_k^{(1)}(X)\\
+&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-7-2-2-2">
+<div class="displaymath process-math" id="day-28-lecture-7-2-2-2-1">
+\begin{align*}
+A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)\\
+&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ul class="disc" id="day-28-lecture-7-2-2-3">
+<li id="day-28-lecture-7-2-2-3-1">
+<div class="para" id="day-28-lecture-7-2-2-3-1-1">Superscript denotes the layer.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-7-2-2-3-2">
+<div class="para" id="day-28-lecture-7-2-2-3-2-1">
+<span class="process-math">\(W_1\)</span> denotes the entire matrix of weights.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-7-2-2-3-3">
+<div class="para" id="day-28-lecture-7-2-2-3-3-1">In this setting, the size is <span class="process-math">\(785\times 256=200{,}960\)</span> values.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-7-2-2-3-4">
+<div class="para" id="day-28-lecture-7-2-2-3-4-1">785 instead of 784 to include the intercept term (called the bias in this literature).<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-7-2-2-3-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: More on That Architecture"><a tabindex="-1" href="#day-28-lecture-7" title="Copy heading and permalink for Paragraphs: More on That Architecture" aria-label="Copy heading and permalink for Paragraphs: More on That Architecture">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-8"><h3 class="heading"><span class="title">Matrix Version: First Layer.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:26.3157894736842% 68.4210526315789%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-8-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-8-2-2-1-1">
+\begin{align*}
+A_k^{(1)} &amp;= h_k^{(1)}(X)\\
+&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-8-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-8-2-2-2">
+<div class="displaymath process-math" id="day-28-lecture-8-2-2-2-1">
+\begin{equation*}
+A^{(1)} = g\left(\mathbf{W}^{(1)}\cdot\mathbf{X}\right)
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-8-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-8-2-2-3">
+<div class="displaymath process-math" id="day-28-lecture-8-2-2-3-1">
+\begin{equation*}
+\mathbf{X}^T = (1\; X_1\; X_2\; \cdots\; X_p)
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-8-2-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Matrix Version: First Layer"><a tabindex="-1" href="#day-28-lecture-8" title="Copy heading and permalink for Paragraphs: Matrix Version: First Layer" aria-label="Copy heading and permalink for Paragraphs: Matrix Version: First Layer">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-9"><h3 class="heading"><span class="title">Matrix Version: Second Layer.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:26.3157894736842% 68.4210526315789%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-9-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-9-2-2-1-1">
+\begin{align*}
+A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)\\
+&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-9-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-9-2-2-2">
+<div class="displaymath process-math" id="day-28-lecture-9-2-2-2-1">
+\begin{equation*}
+A^{(2)} = g\left(\mathbf{W}^{(2)}\cdot\mathbf{A}^{(1)}\right)
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-9-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-9-2-2-3">
+<div class="displaymath process-math" id="day-28-lecture-9-2-2-3-1">
+\begin{equation*}
+\left(\mathbf{A}^{(1)}\right)^T =
+(1\; A^{(1)}_1\; A^{(1)}_2\; \cdots\; A^{(1)}_{K_1})
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-9-2-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Matrix Version: Second Layer"><a tabindex="-1" href="#day-28-lecture-9" title="Copy heading and permalink for Paragraphs: Matrix Version: Second Layer" aria-label="Copy heading and permalink for Paragraphs: Matrix Version: Second Layer">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-10"><h3 class="heading"><span class="title">Matrix Version: Last Layer, First Step.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:26.3157894736842% 68.4210526315789%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-10-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-10-2-2-1-1">
+\begin{align*}
+Z_m &amp;= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} h_\ell^{(2)}(X)\\
+&amp;= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} A_\ell^{(2)},
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-10-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-10-2-2-2">
+<div class="displaymath process-math" id="day-28-lecture-10-2-2-2-1">
+\begin{equation*}
+\mathbf{Z} = \boldsymbol{\beta}\cdot\mathbf{A}^{(2)}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-10-2-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-10-2-2-3">
+<div class="displaymath process-math" id="day-28-lecture-10-2-2-3-1">
+\begin{equation*}
+\boldsymbol{\beta}\text{ is an }M\times(K_2+1)\text{ matrix}
+\end{equation*}
+</div>
+<div class="displaymath process-math" id="day-28-lecture-10-2-2-3-2">
+\begin{equation*}
+\left(\mathbf{A}^{(2)}\right)^T =
+(1\; A^{(2)}_1\; A^{(2)}_2\; \cdots\; A^{(2)}_{K_2})
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-10-2-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ul class="disc" id="day-28-lecture-10-2-2-4">
+<li id="day-28-lecture-10-2-2-4-1">
+<div class="para" id="day-28-lecture-10-2-2-4-1-1">
+<span class="process-math">\(\mathbf{Z}\)</span> is a temporary variable, later used in the softmax function.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-10-2-2-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-10-2-2-4-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-10-2-2-4-2">
+<div class="para" id="day-28-lecture-10-2-2-4-2-1">
+<span class="process-math">\(M\)</span> is the number of classes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-10-2-2-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-10-2-2-4-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: Matrix Version: Last Layer, First Step"><a tabindex="-1" href="#day-28-lecture-10" title="Copy heading and permalink for Paragraphs: Matrix Version: Last Layer, First Step" aria-label="Copy heading and permalink for Paragraphs: Matrix Version: Last Layer, First Step">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-11"><h3 class="heading"><span class="title">The Last Layer for Classification: Softmax.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:7.5%;margin-right:7.5%;grid-template-columns:29.4117647058824% 52.9411764705882%;column-gap:15%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram showing the output layer"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-11-2-2-1">
+<div class="displaymath process-math" id="day-28-lecture-11-2-2-1-1">
+\begin{align*}
+f_m(X) \amp= \Pr(Y = m \mid X)\\
+\amp= \frac{e^{Z_m}}{\sum_{\ell=0}^9 e^{Z_\ell}},
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<ul class="disc" id="day-28-lecture-11-2-2-2">
+<li id="day-28-lecture-11-2-2-2-1">
+<div class="para" id="day-28-lecture-11-2-2-2-1-1">We want the outputs to behave like probabilities.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-11-2-2-2-2">
+<div class="para" id="day-28-lecture-11-2-2-2-2-1">Use the softmax activation function <span class="process-math">\(f_m(X)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-11-2-2-2-3">
+<div class="para" id="day-28-lecture-11-2-2-2-3-1">All values are non-negative.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-11-2-2-2-4">
+<div class="para" id="day-28-lecture-11-2-2-2-4-1">The values sum to 1.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-11-2-2-2-5">
+<div class="para" id="day-28-lecture-11-2-2-2-5-1">Return the class with the highest predicted probability.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-11-2-2-2-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: The Last Layer for Classification: Softmax"><a tabindex="-1" href="#day-28-lecture-11" title="Copy heading and permalink for Paragraphs: The Last Layer for Classification: Softmax" aria-label="Copy heading and permalink for Paragraphs: The Last Layer for Classification: Softmax">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-12"><h3 class="heading"><span class="title">An Example.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:36.8421052631579% 57.8947368421053%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="day-28-lecture-12-2-1-1">
+<div class="displaymath process-math" id="day-28-lecture-12-2-1-1-1">
+\begin{align*}
+f_m(X) \amp= \Pr(Y = m \mid X)\\
+\amp= \frac{e^{Z_m}}{\sum_{\ell=0}^9 e^{Z_\ell}},
+\end{align*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-12-2-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-12-2-1-2">
+<div class="displaymath process-math" id="day-28-lecture-12-2-1-2-1">
+\begin{equation*}
+\mathbf{Z} =
+\begin{pmatrix}
+1 &amp; 3 &amp; -1 &amp; 2 &amp; 5
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-12-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="day-28-lecture-12-2-2-1">
+<li id="day-28-lecture-12-2-2-1-1">
+<div class="para" id="day-28-lecture-12-2-2-1-1-1">
+<span class="process-math">\(\displaystyle e^1+e^3+e^{-1}+e^2+e^5=178.97\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-12-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-12-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-12-2-2-1-2">
+<div class="para" id="day-28-lecture-12-2-2-1-2-1">
+<span class="process-math">\(\displaystyle \mathbf{f} =
+\begin{pmatrix}
+0.01518 &amp; 0.1122 &amp; 0.00205 &amp; 0.04128 &amp; 0.82924
+\end{pmatrix}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-12-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-12-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: An Example"><a tabindex="-1" href="#day-28-lecture-12" title="Copy heading and permalink for Paragraphs: An Example" aria-label="Copy heading and permalink for Paragraphs: An Example">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-13"><h3 class="heading"><span class="title">MNIST.</span></h3>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/figures/Fig10-3.png" class="contained" alt="MNIST dataset example"></div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<ul class="disc" id="day-28-lecture-13-2-2-1">
+<li id="day-28-lecture-13-2-2-1-1">
+<div class="para" id="day-28-lecture-13-2-2-1-1-1">Goal: Build a model to classify images into their correct digit class.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-13-2-2-1-2">
+<div class="para" id="day-28-lecture-13-2-2-1-2-1">Each image has <span class="process-math">\(p=28\cdot 28=784\)</span> pixels.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-13-2-2-1-3">
+<div class="para" id="day-28-lecture-13-2-2-1-3-1">Each pixel is a grayscale value in <span class="process-math">\([0,255]\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-13-2-2-1-4">
+<div class="para" id="day-28-lecture-13-2-2-1-4-1">Data are converted into column order.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-4" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-13-2-2-1-5">
+<div class="para" id="day-28-lecture-13-2-2-1-5-1">Output is represented by a one-hot vector <span class="process-math">\(Y=(Y_0,Y_1,\cdots,Y_9)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-5" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-13-2-2-1-6">
+<div class="para" id="day-28-lecture-13-2-2-1-6-1">60K training images and 10K test images.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-13-2-2-1-6" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: MNIST"><a tabindex="-1" href="#day-28-lecture-13" title="Copy heading and permalink for Paragraphs: MNIST" aria-label="Copy heading and permalink for Paragraphs: MNIST">🔗</a></div>
+</section>
+<section class="paragraphs" id="day-28-lecture-14"><h3 class="heading"><span class="title">TL;DR.</span></h3>
+<div class="para" id="day-28-lecture-14-2">Feed Forward Neural Net<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/figures/Fig10-4.png" class="contained" alt="Multiple layers neural network diagram"></div>
+<div class="para logical" id="day-28-lecture-14-4">
+<div class="displaymath process-math" id="day-28-lecture-14-4-1">
+\begin{gather*}
+A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j),
+\end{gather*}
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para logical" id="day-28-lecture-14-5">
+<ul class="disc" id="day-28-lecture-14-5-1">
+<li id="day-28-lecture-14-5-1-1">
+<div class="para" id="day-28-lecture-14-5-1-1-1">Combines input data using learned weights.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-5-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-14-5-1-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-14-5-1-2">
+<div class="para" id="day-28-lecture-14-5-1-2-1">Uses linear combinations of the inputs to compute outputs.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-5-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-14-5-1-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="day-28-lecture-14-5-1-3">
+<div class="para" id="day-28-lecture-14-5-1-3-1">Sometimes applies softmax to obtain class probabilities.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-5-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Item"><a tabindex="-1" href="#day-28-lecture-14-5-1-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#day-28-lecture-14-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" aria-hidden="true" data-description="Paragraphs: TL;DR"><a tabindex="-1" href="#day-28-lecture-14" title="Copy heading and permalink for Paragraphs: TL;DR" aria-label="Copy heading and permalink for Paragraphs: TL;DR">🔗</a></div>
+</section><div class="autopermalink" aria-hidden="true" data-description="Handout: Day 28"><a tabindex="-1" href="#day-28-lecture" title="Copy heading and permalink for Handout: Day 28" aria-label="Copy heading and permalink for Handout: Day 28">🔗</a></div>
 </section><div class="autopermalink" aria-hidden="true" data-description="Section: Exam 3 Material"><a tabindex="-1" href="#sec-exam3-material" title="Copy heading and permalink for Section: Exam 3 Material" aria-label="Copy heading and permalink for Section: Exam 3 Material">🔗</a></div>
 </section>
 </div>

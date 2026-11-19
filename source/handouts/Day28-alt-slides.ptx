@@ -1,13 +1,395 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<handout component="day28" xml:id="day-28-lecture">
+    <title>Day 28</title>
 
-
-    
-    <section xml:id="day-28-lecture" component="day28">
-        <title>Day 28</title>
-    
+    <introduction>
         <p>
-            <dataurl source="slides/slides-Day30/CMSE381-Lec30-Ch10_2-MultiLayerNeuralNet.html" visual="Day28 slides"/>
+            Ch 10.2: Multi-Layer Neural Nets
         </p>
-    
-        </section>
+    </introduction>
+<objectives>
+  <ul>
+    <li>
+      <p>Describe the architecture of multilayer neural networks.
+      <ul>
+        <li>
+          <p>Explain mathematically what happens at each layer of a typical classification network.</p>
+        </li>
+        <li>
+          <p>Calculate class probabilities at the output layer using the softmax function.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Classify images using multilayer neural networks in Python.</p>
+    </li>
+  </ul>
+</objectives>
+
+<paragraphs>
+  <title>Multiple Layers</title>
+  <sidebyside widths="45% 45%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+      <ul  >
+        <li>
+          <p>Include more layers.</p>
+        </li>
+        <li>
+          <p>Can choose the number of units per layer.</p>
+        </li>
+        <li>
+          <p>Each layer consists of linear combinations of the outputs from the previous layer, followed by an activation function.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>More Typical for Image Classification</title>
+  <sidebyside widths="45% 45%">
+    <stack>
+      <p>Example: MNIST</p>
+      <image source="figures/Fig10-3.png">
+        <shortdescription>MNIST dataset example</shortdescription>
+      </image>
+    </stack>
+    <stack>
+      <ul  >
+        <li>
+          <p>Goal: Build a model to classify images into their correct digit class.</p>
+        </li>
+        <li>
+          <p>Each image has <m>p=28\cdot 28=784</m> pixels.</p>
+        </li>
+        <li>
+          <p>Each pixel is a grayscale value in <m>[0,255]</m>.</p>
+        </li>
+        <li>
+          <p>So we have 784 numbers as input and 10 classes as output.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Hidden Layers</title>
+  <sidebyside widths="45% 45%">
+
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+      <p>
+  <md>
+  <mrow>A_k^{(1)} &amp;= h_k^{(1)}(X)</mrow>
+  <mrow>&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)</mrow>
+</md>
+  </p>
+
+      <p>
+      <md>
+  <mrow>A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)</mrow>
+  <mrow>&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})</mrow>
+</md>
+</p>
+
+      <ul  >
+        <li>
+          <p>Assume we are classifying an MNIST image with <m>28\times 28=784</m> pixels.</p>
+        </li>
+        <li>
+          <p>Two hidden layers: <m>L_1</m> has 256 units and <m>L_2</m> has 128 units.</p>
+        </li>
+        <li>
+          <p>10 output variables corresponding to the 10 digit classes.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>More on That Architecture</title>
+  <sidebyside widths="25% 45%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+      <p>
+  <md>
+  <mrow>A_k^{(1)} &amp;= h_k^{(1)}(X)</mrow>
+  <mrow>&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)</mrow>
+</md>
+  </p>
+
+      <p>
+      <md>
+  <mrow>A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)</mrow>
+  <mrow>&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})</mrow>
+</md>
+</p>
+      <ul  >
+        <li>
+          <p>Superscript denotes the layer.</p>
+        </li>
+        <li>
+          <p><m>W_1</m> denotes the entire matrix of weights.</p>
+        </li>
+        <li>
+          <p>In this setting, the size is <m>785\times 256=200{,}960</m> values.</p>
+        </li>
+        <li>
+          <p>785 instead of 784 to include the intercept term (called the bias in this literature).</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Matrix Version: First Layer</title>
+  <sidebyside widths="25% 65%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+    <p>
+  <md>
+    <mrow>A_k^{(1)} &amp;= h_k^{(1)}(X)</mrow>
+    <mrow>&amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)</mrow>
+  </md>
+</p>
+
+
+      <p>
+        <md>
+          A^{(1)} = g\left(\mathbf{W}^{(1)}\cdot\mathbf{X}\right)
+        </md>
+      </p>
+      <p>
+        <md>
+          \mathbf{X}^T = (1\; X_1\; X_2\; \cdots\; X_p)
+        </md>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Matrix Version: Second Layer</title>
+  <sidebyside widths="25% 65%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+    <p>
+  <md>
+    <mrow>A_\ell^{(2)} &amp;= h_\ell^{(2)}(X)</mrow>
+    <mrow>&amp;= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})</mrow>
+  </md>
+</p>
+
+
+      <p>
+        <md>
+          A^{(2)} = g\left(\mathbf{W}^{(2)}\cdot\mathbf{A}^{(1)}\right)
+        </md>
+      </p>
+      <p>
+        <md>
+          \left(\mathbf{A}^{(1)}\right)^T =
+          (1\; A^{(1)}_1\; A^{(1)}_2\; \cdots\; A^{(1)}_{K_1})
+        </md>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Matrix Version: Last Layer, First Step</title>
+  <sidebyside widths="25% 65%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram</shortdescription>
+    </image>
+    <stack>
+    <p>
+  <md>
+    <mrow>Z_m &amp;= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} h_\ell^{(2)}(X)</mrow>
+    <mrow>&amp;= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} A_\ell^{(2)},</mrow>
+  </md>
+</p>
+
+
+      <p>
+        <md>
+          \mathbf{Z} = \boldsymbol{\beta}\cdot\mathbf{A}^{(2)}
+        </md>
+      </p>
+      <p>
+        <md>
+          \boldsymbol{\beta}\text{ is an }M\times(K_2+1)\text{ matrix}
+        </md>
+        <md>
+          \left(\mathbf{A}^{(2)}\right)^T =
+          (1\; A^{(2)}_1\; A^{(2)}_2\; \cdots\; A^{(2)}_{K_2})
+        </md>
+      </p>
+      <ul  >
+        <li>
+          <p><m>\mathbf{Z}</m> is a temporary variable, later used in the softmax function.</p>
+        </li>
+        <li>
+          <p><m>M</m> is the number of classes.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>The Last Layer for Classification: Softmax</title>
+  <sidebyside widths="25% 45%">
+    <image source="figures/Fig10-4.png">
+      <shortdescription>Multiple layers neural network diagram showing the output layer</shortdescription>
+    </image>
+    <stack>
+    <p>
+  <md>
+    <mrow>f_m(X) \amp= \Pr(Y = m \mid X)</mrow>
+    <mrow> \amp= \frac{e^{Z_m}}{\sum_{\ell=0}^9 e^{Z_\ell}},</mrow>
+  </md>
+</p>
+
+
+      <ul  >
+        <li>
+          <p>We want the outputs to behave like probabilities.</p>
+        </li>
+        <li>
+          <p>Use the softmax activation function <m>f_m(X)</m>.</p>
+        </li>
+        <li>
+          <p>All values are non-negative.</p>
+        </li>
+        <li>
+          <p>The values sum to 1.</p>
+        </li>
+        <li>
+          <p>Return the class with the highest predicted probability.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>An Example</title>
+  <sidebyside widths="35% 55%">
+    <stack>
+        <p>
+  <md>
+    <mrow>f_m(X) \amp= \Pr(Y = m \mid X)</mrow>
+    <mrow> \amp= \frac{e^{Z_m}}{\sum_{\ell=0}^9 e^{Z_\ell}},</mrow>
+  </md>
+</p>
+
+      <p>
+        <md>
+          \mathbf{Z} =
+          \begin{pmatrix}
+          1 &amp; 3 &amp; -1 &amp; 2 &amp; 5
+          \end{pmatrix}
+        </md>
+      </p>
+    </stack>
+    <stack>
+      <ul  >
+        <li>
+          <p>
+            <m>e^1+e^3+e^{-1}+e^2+e^5=178.97</m>
+          </p>
+        </li>
+        <li>
+          <p>
+            <m>
+              \mathbf{f} =
+              \begin{pmatrix}
+              0.01518 &amp; 0.1122 &amp; 0.00205 &amp; 0.04128 &amp; 0.82924
+              \end{pmatrix}
+            </m>
+          </p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>MNIST</title>
+  <sidebyside widths="45% 45%">
+    <image source="figures/Fig10-3.png">
+      <shortdescription>MNIST dataset example</shortdescription>
+    </image>
+    <stack>
+      <ul  >
+        <li>
+          <p>Goal: Build a model to classify images into their correct digit class.</p>
+        </li>
+        <li>
+          <p>Each image has <m>p=28\cdot 28=784</m> pixels.</p>
+        </li>
+        <li>
+          <p>Each pixel is a grayscale value in <m>[0,255]</m>.</p>
+        </li>
+        <li>
+          <p>Data are converted into column order.</p>
+        </li>
+        <li>
+          <p>Output is represented by a one-hot vector <m>Y=(Y_0,Y_1,\cdots,Y_9)</m>.</p>
+        </li>
+        <li>
+          <p>60K training images and 10K test images.</p>
+        </li>
+      </ul>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>TL;DR</title>
+
+      <p>Feed Forward Neural Net</p>
+      <image source="figures/Fig10-4.png">
+        <shortdescription>Multiple layers neural network diagram</shortdescription>
+      </image>
+      <p>
+  <md>
+    <mrow>A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j),</mrow>
+  </md>
+</p>
+      <p>
+      <ul>
+        <li>
+          <p>Combines input data using learned weights.</p>
+        </li>
+        <li>
+          <p>Uses linear combinations of the inputs to compute outputs.</p>
+        </li>
+        <li>
+          <p>Sometimes applies softmax to obtain class probabilities.</p>
+        </li>
+      </ul>
+      </p>
+
+</paragraphs>
+
+
+
+</handout>

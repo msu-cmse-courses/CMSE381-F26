@@ -318,7 +318,7 @@
         <xi:include href="./handouts/Day26-alt-slides.ptx"/>
         <xi:include href="./handouts/Day27-alt-slides.ptx"/>
         <xi:include href="./handouts/Day28-alt-slides.ptx"/>
-        <xi:include href="./handouts/Day29.ptx"/>
+        <xi:include href="./handouts/Day29-alt-slides.ptx"/>
         <xi:include href="./handouts/Day30.ptx"/>
         <xi:include href="./handouts/Day31.ptx"/>
         <xi:include href="./handouts/Day32.ptx"/>
@@ -360,6 +360,7 @@
       <xi:include href="./data-sets/wages-data-set.ptx"/>
       <xi:include href="./data-sets/carseats-data-set.ptx"/>
       <xi:include href="./data-sets/SVM-data.ptx"/>
+      <xi:include href="./data-sets/DL-data-sets.ptx"/>
     </chapter>
 
     <chapter xml:id="ch-study-guides">

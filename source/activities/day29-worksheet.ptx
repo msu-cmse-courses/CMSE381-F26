@@ -17,10 +17,8 @@
   <subsection xml:id="cmse381-lec30-cnn-worksheet-playing-with-cnns">
     <title>Playing with CNNs</title>
     <p>Our next job is to get some more intuition for the Convolutional Neural Net architecture.</p>
-    <p>Load in the toy "image" <url href="../../DataSets/DataSets.md#dl-toyimage">on the DataSets page</url> to try out some tools.</p>
+    <p>Load the toy "image" <xref ref="DL-ToyImage"/> into the variable <c>M</c> to try out some tools. You can use the command <c>np.loadtxt()</c>.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/9df4c0ec6c692c4bfec98dd22cc76350/DL-ToyImage.csv"
-      M = np.loadtxt(url)
       plt.matshow(M)
       plt.colorbar()
       plt.show()
@@ -28,7 +26,7 @@
   </subsection>
   <subsection xml:id="cmse381-lec30-cnn-worksheet-convolution-layer">
     <title>Convolution Layer</title>
-    <p>First, we're going to try out convlution on this image. Here's a convolution filter matrix for us to test this onn.</p>
+    <p>First, we're going to try out convolution on this image. Here's a convolution filter matrix for us to test this onn.</p>
     <program language="python">
       F = np.zeros((5,5))
       F[:,:2] = 1

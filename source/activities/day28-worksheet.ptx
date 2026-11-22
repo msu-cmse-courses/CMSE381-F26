@@ -156,10 +156,8 @@
   <subsection xml:id="cmse381-lec29-multi-nn-worksheet-building-the-simple-architecture-from-last-class">
     <title>Building the simple architecture from last class</title>
     <!-- unsupported HTML omitted from source cell 9 -->
-    <p>Here is our very simple data set to use. It's similar to the data set from last time, just with way more data points.</p>
+    <p>Here is our very simple data set to use <xref ref="DL-toy-data-bigger"/>. It's similar to the data set from last time, just with way more data points. Load the data using <c>data = np.loadtxt()</c>.</p>
     <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/292b7c684d4b90eea57803ddcc173c1b/DL-toy-data-bigger.csv"
-      data = np.loadtxt(url)
       X = data[:,:2]
       y = data[:,2]
 

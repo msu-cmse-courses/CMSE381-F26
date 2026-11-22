@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<handout component="day29" xml:id="day-29-lecture">
+    <title>Day 29</title>
+
+    <introduction>
+        <p>
+            Ch 10.3: Convolutional Neural Nets
+        </p>
+    </introduction>
+
+<objectives>
+  <ul>
+    <li>
+      <p>Describe the architecture of a convolutional neural network.
+      <ul>
+        <li>
+          <p>Identify the different types of layers, how they are arranged, and the purpose of each layer.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Explain how convolution works.
+      <ul>
+        <li>
+          <p>Compute by hand the result of the convolution between a simple matrix and a simple filter.</p>
+        </li>
+      </ul>
+      </p>
+    </li>
+    <li>
+      <p>Explain what information convolutional neural networks capture through convolution.</p>
+    </li>
+  </ul>
+</objectives>
+
+<paragraphs>
+  <title>Convolutional Neural Network (CNN)</title>
+  <p>
+    Last Time: Flattening the Image — Why Is It Not Great?
+  </p>
+  <sidebyside width="50%">
+    <stack>
+      <p>
+        <md>
+          \begin{pmatrix}
+          1 &amp; 1 &amp; 0 \\
+          4 &amp; 2 &amp; 1 \\
+          0 &amp; 2 &amp; 1
+          \end{pmatrix}
+          \longrightarrow
+          \begin{pmatrix}
+          1 \\ 1 \\ 0 \\
+          4 \\ 2 \\ 1 \\
+          0 \\ 2 \\ 1
+          \end{pmatrix}
+        </md>
+      </p>
+    </stack>
+    <stack>
+      <p>
+        <ul >
+          <li><p>Just ignore the fact that we have a picture.</p></li>
+          <li><p>Loses a lot of the structure that we might want for more complicated images.</p></li>
+          <li><p>The answer is CNNs, which take in image data and build a neural network that specifically tracks that structure.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Example Data Set: CIFAR100 Data</title>
+    <image source="figures/Fig10-5.png">
+      <shortdescription>Examples of images from the CIFAR100 data set.</shortdescription>
+    </image>
+
+
+      <p>
+        <ul>
+          <li><p>60,000 images: 50,000 training and 10,000 test images.</p></li>
+          <li><p>Labels with 20 superclasses (e.g., aquatic mammals).</p></li>
+          <li><p>5 classes per superclass (beaver, dolphin, otter, seal, whale).</p></li>
+          <li><p>Images are <m>32\times 32</m> pixels.</p></li>
+        </ul>
+      </p>
+
+
+</paragraphs>
+
+<paragraphs>
+  <title>Image Channel Data</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>
+        <ul>
+          <li><p>Three 8-bit numbers per pixel (red, green, blue).</p></li>
+          <li><p>Numbers are organized in a <m>feature map</m>, which is a three-dimensional array.</p></li>
+          <li><p>The first two directions are spatial (<m>32\times 32</m>).</p></li>
+          <li><p>The third is the <m>channel</m> axis, representing the three colors.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <image source="figures/Fig10-8-onlychannels.png">
+        <shortdescription>Illustration of the three color channels of an image: red, green, and blue.</shortdescription>
+      </image>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>How Does Your Brain Do It? The Visual Hierarchy</title>
+  <image source="figures/Visual_Hierarchy.jpeg">
+    <shortdescription>Illustration of the visual hierarchy in human visual processing.</shortdescription>
+  </image>
+  <p>
+    Mauro Manassi, Bilge Sayim, and Michael H. Herzog, “When crowding of crowding leads to uncrowding,” <i>Journal of Vision</i> 13(13):10 (2013).
+    <url href="https://doi.org/10.1167/13.13.10">https://doi.org/10.1167/13.13.10</url>.
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>CNNs</title>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>
+        <ul>
+          <li><p>Really similar to the human visual hierarchy.</p></li>
+          <li><p>Earlier layers identify low-level features in the input image, such as small edges and patches of color.</p></li>
+          <li><p>Low-level features are combined into higher-level features (parts of ears, eyes, etc.) in later layers.</p></li>
+          <li><p>This is done using special types of hidden layers: <m>convolution</m> layers and <m>pooling</m> layers.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <image source="figures/Fig10-6.png">
+        <shortdescription>Diagram illustrating the hierarchical feature extraction process in a convolutional neural network.</shortdescription>
+      </image>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Convolution Layer: Convolution Filter</title>
+  <sidebyside widths="55% 40%">
+      <p>Original Image:
+        <md>
+          \begin{bmatrix}
+          a &amp; b &amp; c\\
+          d &amp; e &amp; f\\
+          g &amp; h &amp; i\\
+          j &amp; k &amp; l
+          \end{bmatrix}
+        </md>
+      </p>
+      <p>Convolution Filter:
+        <md>
+          \begin{bmatrix}
+          \alpha &amp; \beta\\
+          \gamma &amp; \delta
+          \end{bmatrix}
+        </md>
+      </p>
+  </sidebyside>
+        <p>
+        <ul>
+          <li><p>Note that we are just doing an inner product here, which measures (approximately) similarity.</p></li>
+        </ul>
+      </p>
+        <p>Convolved Image
+      <md>
+\begin{bmatrix}
+a\alpha + b\beta + d\gamma + e\delta \amp b\alpha + c\beta + e\gamma + f\delta \\
+d\alpha + e\beta + g\gamma + h\delta \amp e\alpha + f\beta + h\gamma + i\delta \\
+g\alpha + h\beta + j\gamma + k\delta \amp h\alpha + i\beta + k\gamma + l\delta
+\end{bmatrix}
+</md>
+      </p>
+</paragraphs>
+
+<example>
+  <title>Convolution Filter Example</title>
+  <introduction>
+    <p>Consider the image represented by the following matrix. For each task, apply the specified convolution filter to compute the convolved image.</p>
+    <image source="figures/CNN-examplematrix.png" width="60%">
+      <shortdescription>Example image represented as a matrix of pixel values.</shortdescription>
+    </image>
+  </introduction>
+  <task>
+    <statement>
+      <p>Apply the following convolution filter:</p>
+      <p>
+        <md>
+          \begin{bmatrix}
+          0 &amp; 1\\
+          0 &amp; 1
+          \end{bmatrix}
+        </md>
+      </p>
+      <p>What is the convolved image?</p>
+    </statement>
+    <solution>
+      <p>The convolved image is</p>
+      <p>
+        <md>
+          \begin{bmatrix}
+          1 &amp; 3\\
+          0 &amp; 3\\
+          1 &amp; 3
+          \end{bmatrix}.
+        </md>
+      </p>
+      <p>The convolved image highlights regions that resemble the convolution filter. Notice that the result is smaller than the original image.</p>
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>Now apply a different convolution filter:</p>
+      <p>
+        <md>
+          \begin{bmatrix}
+          1 &amp; 1\\
+          0 &amp; 0
+          \end{bmatrix}
+        </md>
+      </p>
+      <p>What is the convolved image?</p>
+    </statement>
+    <solution>
+      <p>The convolved image is</p>
+      <p>
+        <md>
+          \begin{bmatrix}
+          4 &amp; 3\\
+          2 &amp; 1\\
+          3 &amp; 2
+          \end{bmatrix}.
+        </md>
+      </p>
+    </solution>
+  </task>
+</example>
+
+<paragraphs>
+  <title>Convolution Filter: Bigger Example</title>
+  <sidebyside widths="65% 35%">
+    <stack>
+      <image source="figures/Fig10-7.png">
+        <shortdescription>Example of convolution filters applied to an image of a tiger, highlighting regions that resemble the filters.</shortdescription>
+      </image>
+    </stack>
+    <stack>
+      <p>
+        <ul>
+          <li><p>The original image is a <m>192\times 179</m> image of a tiger.</p></li>
+          <li><p>Convolution filters are <m>15\times 15</m> images consisting mostly of zeros (black), with a narrow strip of ones (white).</p></li>
+          <li><p>The filters highlight areas of the tiger that resemble the filter.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+<paragraphs>
+  <title>Convolution Layer</title>
+
+      <image source="figures/Fig10-8.png" width="70%">
+        <shortdescription>Diagram illustrating convolution filters applied to the three color channels of an image and combined into output feature maps.</shortdescription>
+      </image>
+
+      <p>
+        <ul>
+          <li><p>The image is in color, so it has three channels.</p></li>
+          <li><p>This means the convolution filter will have three channels, one per color, each of dimension <m>3\times 3</m>.</p></li>
+          <li><p>The results of the three convolutions are summed to form a two-dimensional output. Color is "forgotten" at this point.</p></li>
+          <li><p>Using <m>K</m> different filters produces <m>K</m> two-dimensional output maps, which can then be treated as channels.</p></li>
+          <li><p>Padding can be used to make the updated image the same size as the original.</p></li>
+        </ul>
+      </p>
+
+</paragraphs>
+
+<paragraphs>
+  <title>More Notes on Convolution</title>
+  <p>
+    <ul>
+      <li><p>The idea of filters comes from image processing.</p></li>
+      <li><p>The novelty in deep learning is that the choice of filters is learned.</p></li>
+      <li><p>Filter weights: there is one hidden unit per pixel in the convolved image, but the weights are more constrained than in a fully connected network.</p></li>
+      <li><p>The same weights are used for all patches of the image and across channels. Each filter has only <m>m\times m</m> weights, where <m>m</m> is the patch size.</p></li>
+      <li><p>ReLU is applied to the convolved image. This is sometimes viewed as a separate layer in a CNN, called a detector layer.</p></li>
+    </ul>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>Pooling Layers</title>
+
+      <p>
+        <ul >
+          <li><p>Condense a large image into a smaller summary image.</p></li>
+          <li><p>There are many options, but max pooling is common.</p></li>
+          <li><p>For each non-overlapping <m>2\times 2</m> block of pixels, produce a single new pixel with the maximum value from that block.</p></li>
+          <li><p>Provides location invariance: as long as a large value occurs in one of the four pixels, the whole block registers as having a large value.</p></li>
+        </ul>
+      </p>
+<p>
+    The following is an illustration of max pooling, where each non-overlapping two-by-two block is replaced by its maximum value.
+<md>
+\text{Max pool}\quad
+\begin{bmatrix}
+1 \amp 2 \amp 5 \amp 3\\
+3 \amp 0 \amp 1 \amp 2\\
+2 \amp 1 \amp 3 \amp 4\\
+1 \amp 1 \amp 2 \amp 0
+\end{bmatrix}
+\longrightarrow
+\begin{bmatrix}
+3 \amp 5\\
+2 \amp 4
+\end{bmatrix}
+</md>
+</p>
+
+
+</paragraphs>
+
+<paragraphs>
+  <title>Putting It Together to Make a CNN</title>
+  <image source="figures/Fig10-8.png">
+    <shortdescription>Architecture of a convolutional neural network, showing convolution and pooling layers followed by fully connected layers and a softmax output.</shortdescription>
+  </image>
+  <sidebyside widths="50% 50%">
+    <stack>
+      <p>
+        <ul>
+          <li><p>Start with three channels.</p></li>
+          <li><p>Get a new channel at the first hidden layer for each filter. Use padding to keep the same size.</p></li>
+          <li><p>The next layer is a max pooling layer.</p></li>
+          <li><p>Convolve and pool several more times.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>
+        <ul >
+          <li><p>Since the size of the image decreases, increase the number of filters in the next convolution layer to compensate.</p></li>
+          <li><p>Flatten the result, then feed it into one or more fully connected layers.</p></li>
+          <li><p>The final layer uses a softmax activation for the 100 classes.</p></li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+  <p>
+    Check out the following tool for an interactive visualization of CNNs.
+    <url href="https://poloclub.github.io/cnn-explainer/">CNN Explainer: Interactive Visualization</url>
+  </p>
+</paragraphs>
+
+<paragraphs>
+  <title>TL;DR</title>
+  <sidebyside widths="48% 48%">
+    <stack>
+      <p>Feed-Forward Neural Network</p>
+      <image source="figures/Fig10-4.png">
+        <shortdescription>Architecture of a feed-forward neural network.</shortdescription>
+      </image>
+      <p>
+<md>
+<mrow> A_k \amp= h_k(\mathbf{X})</mrow>
+<mrow> \amp= g\left(w_{k0} + \sum_{j=1}^{p} w_{kj}X_j\right)</mrow>
+</md>
+</p>
+      <p>
+        <ul>
+          <li><p>Combines input data using learned weights.</p></li>
+          <li><p>Uses a linear combination of the resulting activations to obtain the output.</p></li>
+          <li><p>Sometimes uses a softmax activation to obtain classification probabilities.</p></li>
+        </ul>
+      </p>
+    </stack>
+    <stack>
+      <p>Convolutional Neural Network (CNN)</p>
+      <image source="figures/Fig10-8.png">
+        <shortdescription>Architecture of a convolutional neural network.</shortdescription>
+      </image>
+      <p>
+        <ul>
+          <li><p>A specialized neural network designed to process image data.</p></li>
+          <li>
+            <p>Builds subsequent layers using:
+            <ul>
+              <li><p>Convolution layers</p></li>
+              <li><p>Pooling layers</p></li>
+              <li><p>Fully connected layers</p></li>
+            </ul>
+            </p>
+          </li>
+        </ul>
+      </p>
+    </stack>
+  </sidebyside>
+</paragraphs>
+
+</handout>

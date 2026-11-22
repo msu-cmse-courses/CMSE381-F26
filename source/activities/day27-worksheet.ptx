@@ -78,10 +78,8 @@
       fig.colorbar(contour,ax = ax2, shrink = 0.5)
       plt.show()
     </program>
-    <p>So of course, if we were actually building this beast, our bigger job would be to find good choices of <m>w</m> and <m>\beta</m> based on our available training data. Let's pretend for the moment I have the following prediction data.</p>
+    <p>So of course, if we were actually building this beast, our bigger job would be to find good choices of <m>w</m> and <m>\beta</m> based on our available training data. Let's pretend for the moment I have the following prediction data <xref ref="DL-toy-data"/>. Load the data using <c>data = np.loadtxt()</c></p>
     <program language="python">
-      url ="https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/260ce1afe5ae90499a2e960020056fe9/DL-toy-data.csv"
-      data = np.loadtxt(url)
       X = data[:,:2]
       y = data[:,2]
 
@@ -91,10 +89,7 @@
     </program>
     <!-- horizontal rule in source notebook -->
   </introduction>
-  <subsection xml:id="cmse381-lec29-nn-code-worksheet-congratulations-we-re-done">
-    <title>Congratulations, we're done!</title>
-    <p>Initially created by Dr. Liz Munch, modified by Dr. Lianzhang Bao and Dr. Firas Khasawneh, Michigan State University</p>
-    <p>[Image: Creative Commons License] This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+
     <exercises>
       <title>Exercises</title>
       <exercisegroup>
@@ -311,5 +306,8 @@
         </exercise>
       </exercisegroup>
     </exercises>
+      <subsection xml:id="cmse381-lec29-nn-code-worksheet-congratulations-we-re-done">
+    <title>Congratulations, we're done!</title>
+    <p></p>
   </subsection>
 </section>

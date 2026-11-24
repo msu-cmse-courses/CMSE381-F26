@@ -1135,7 +1135,7 @@ For regression, use the RSS splitting error.
 
 
 <exercise>
-  <title>NN: Computing number parameter to fit  <m>Y</m></title>
+  <title>NN: Computing number of parameters to fit  <m>Y</m></title>
   <introduction>
     <p>
       For each of the following NN architectures, determine the number of parameters that need to be fit. 

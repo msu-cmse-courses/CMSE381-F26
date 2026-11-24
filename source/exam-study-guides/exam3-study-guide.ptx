@@ -425,6 +425,15 @@
       <shortdescription>Three-dimensional predictor-space representations corresponding to a region to be sketched and shaded.</shortdescription>
     </image>
   </statement>
+  <answer>
+    <p>
+      <m>R</m> is the intersection of the shaded volumes that correspond to the rectangular prism obtained by filling in the volume described by each level of the tree.
+    </p>
+    <image source="figures/recursive_binary_splitting_question3D_answer">
+      <shortdescription>Three-dimensional predictor-space representations that show the shaded region corresponding to the given tree, along with the three regions (corresponding to the tree levels) whose intersection give the required region.</shortdescription>
+      
+    </image>
+  </answer>
 </exercise>
 
 <exercise xml:id="decision-tree-classification-prediction">
@@ -1125,7 +1134,84 @@ For regression, use the RSS splitting error.
 
 
 
+<exercise>
+  <title>NN: Computing number parameter to fit  <m>Y</m></title>
+  <introduction>
+    <p>
+      For each of the following NN architectures, determine the number of parameters that need to be fit. 
+    </p>
+  </introduction>
+  <task>
+  <statement>
+    <p>A classification NN with the following:<ul>
+      <li>
+        <p>
+          Input layer: <m>p=784</m> units.
+        </p>
+      </li>
+      <li>
+        <p>
+          Hidden layer 1: <m>K_1=256</m> units.
+        </p>
+      </li>
+      <li>
+        <p>
+          Hidden layer 2: <m>K_2=128</m> units.
+        </p>
+      </li>
+      <li>
+        <p>
+          Output layer: <m>C=10</m> units.
+        </p>
+      </li>
+      </ul></p>
+  </statement>
+  <hint>
+    <p>
+      <md>
+  <mrow>A_{k}^{(1)} \amp= h_{k}^{(1)}(X)</mrow>
+  <mrow>\amp= g(w_{k0}^{(1)} + \sum_{j=1}^{p} w_{kj}^{(1)} X_j)</mrow>
+</md>
 
+      <md>
+  <mrow>A_{\ell}^{(2)} \amp= h_{\ell}^{(2)}(X)</mrow>
+  <mrow>\amp= g(w_{\ell 0}^{(2)} + \sum_{k=1}^{K_1} w_{\ell k}^{(2)} A_k^{(1)})</mrow>
+</md>
+<md>
+  <mrow>Z_m \amp= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} h_{\ell}^{(2)}(X)</mrow>
+  <mrow>\amp= \beta_{m0} + \sum_{\ell=1}^{K_2} \beta_{m\ell} A_{\ell}^{(2)},</mrow>
+</md>
+
+
+    </p>
+  </hint>
+  <solution>
+    <p>
+      For the first hidden layer, we have <m>1+p</m> weights to fit per unit in <m>L_1</m>. For <m>K_1=256</m> units, we have to fit
+      <md>
+        K_1(1+p)=256(1+784)=200,960.
+      </md>
+      
+    </p>
+    <p>
+      For the second hidden layer, we have <m>1+K_1</m> weights to fit per unit in <m>L_2</m>. For <m>K_2=128</m> units, we have to fit
+      <md>
+        K_2(1+K_1)=128(1+256)=32,896.
+      </md>
+    </p>
+    <p>
+      For the output layer, we have <m>1+K_2</m> weights to fit per output unit. For <m>C=10</m> output units, we need to fit
+      <md>
+        C(1+K_2)=10(1+128)=1290
+      </md>
+      Therefore, the total number of weights we need to fit is
+      <md>
+        K_1(1+p) + K_2(1+K_1) + C(1+K_2) =200,960 + 32,896 + 1290= 235,146       
+      </md>
+    </p>
+  </solution>
+  </task>
+</exercise>
 
 
 
@@ -1271,6 +1357,249 @@ For regression, use the RSS splitting error.
 </exercise>
 
 <exercise>
+  <title>CNN: Size of convolved image</title>
+  <introduction>
+    <p>
+      Find the size of the convolved image for each image and filter sizes below.
+    </p>
+  </introduction>
+      <task>
+    <statement>
+      <p>
+        <ul>
+          <li>
+            <p>
+              Image size: <m>3 \times 3</m>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Filter size: <m>2 \times 2</m>.
+            </p>
+          </li>
+        </ul>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        The convolved image will have size <m>2\times 2</m>
+      </p>
+    </answer>
+  </task>
+    <task>
+    <statement>
+      <p>
+        <ul>
+          <li>
+            <p>
+              Image size: <m>4 \times 4</m>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Filter size: <m>2 \times 2</m>.
+            </p>
+          </li>
+        </ul>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        The convolved image will have size <m>3\times 3</m>
+      </p>
+    </answer>
+  </task>
+  <task>
+    <statement>
+      <p>
+        <ul>
+          <li>
+            <p>
+              Image size: <m>32 \times 32</m>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Filter size: <m>3 \times 3</m>.
+            </p>
+          </li>
+        </ul>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        The convolved image will have size <m>30\times 30</m>
+      </p>
+    </answer>
+  </task>
+      <task>
+    <statement>
+      <p>
+        Given <m>1\leq \ell_i \leq N_i</m>, for <m>i=1,2</m>: 
+        <ul>
+          <li>
+            <p>
+              Image size: <m>N_1 \times N_2</m>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Filter size: <m>\ell_1 \times \ell_2</m>.
+            </p>
+          </li>
+        </ul>
+      </p>
+    </statement>
+    <answer>
+      <p>
+        The convolved image will have size <m>(N_1-\ell_1+1)\times (N_2-\ell_2+1)</m>
+      </p>
+    </answer>
+  </task>
+  
+</exercise>
+
+<exercise>
+  <title>Sketching CNN architecture</title>
+  <statement>
+    <p>
+      Given an RGB image, we want to train a CNN for a regression task of one output variable. Here's the sequency of layers we decided to use:
+      <ul>
+        <li>
+          <p>
+            Input layer: a <m>64\times 64</m> pixels RGB image.
+          </p>
+        </li>
+        <li>
+          <p>
+            Convolution layer with 4 convolution filters.
+          </p>
+        </li>
+        <li>
+          <p>
+            Pooling layer with <m>2\times 2</m> max-pool.
+          </p>
+        </li>
+         <li>
+          <p>
+            Convolution layer with 8 convolution filters.
+          </p>
+        </li>
+        <li>
+          <p>
+            Pooling layer with <m>2\times 2</m> max-pool.
+          </p>
+        </li>
+        <li>
+          <p>
+            Hidden layer with 100 units.
+          </p>
+        </li>
+        <li>
+          <p>
+            Output layer with one quantitative predictor.
+          </p>
+        </li>
+      </ul>
+    </p>
+    <p>
+      Use the <xref ref="fig10-8-container" text="custom">CNN figure</xref> we discussed in class as an example. 
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-rgb-convolution">
+  <title>CNN: 3-Channel (RGB) Convolution Calculation</title>
+  <introduction>
+    <p>
+      Suppose we apply a single <m>2 \times 2 \times 3</m> convolutional filter to a <m>2 \times 2</m> RGB image.
+    </p>
+    <p>
+      The three <m>2 \times 2</m> input channels (<m>X_R, X_G, X_B</m>) and corresponding convolution filters (<m>K_R, K_G, K_B</m>) are given by:
+    
+    <md>
+      <mrow>
+        X_R \amp= \begin{bmatrix} 2 \amp 1 \\ 0 \amp 3 \end{bmatrix}, \amp
+        X_G \amp= \begin{bmatrix} 1 \amp 4 \\ 2 \amp 0 \end{bmatrix}, \amp
+        X_B \amp= \begin{bmatrix} 3 \amp 0 \\ 1 \amp 2 \end{bmatrix}
+      </mrow>
+      <mrow>
+        K_R \amp= \begin{bmatrix} 1 \amp 0 \\ -1 \amp 2 \end{bmatrix}, \amp
+        K_G \amp= \begin{bmatrix} 0 \amp 1 \\ 1 \amp -1 \end{bmatrix}, \amp
+        K_B \amp= \begin{bmatrix} -1 \amp 2 \\ 0 \amp 1 \end{bmatrix}
+      </mrow>
+    </md>
+    </p>
+    <p>
+      Answer the following questions.
+    </p>
+  </introduction>
+
+  <task>
+    <statement>
+      <p>
+        Compute the individual convolved images for the Red, Green, and Blue channels: <m>(X_R * K_R)</m>, <m>(X_G * K_G)</m>, and <m>(X_B * K_B)</m>.
+      </p>
+    </statement>
+    <solution>
+      <p>
+        Multiply corresponding entries element-by-element and sum the results for each channel:
+      
+      <md>
+        <mrow>X_R * K_R \amp= (2)(1) + (1)(0) + (0)(-1) + (3)(2) = 2 + 0 + 0 + 6 = 8</mrow>
+        <mrow>X_G * K_G \amp= (1)(0) + (4)(1) + (2)(1) + (0)(-1) = 0 + 4 + 2 + 0 = 6</mrow>
+        <mrow>X_B * K_B \amp= (3)(-1) + (0)(2) + (1)(0) + (2)(1) = -3 + 0 + 0 + 2 = -1</mrow>
+      </md>
+      and the colvolved image in each channel is just a scalar.
+      </p>
+    </solution>
+  </task>
+
+  <task>
+    <statement>
+      <p>
+        Combine the three channel outputs. 
+      </p>
+    </statement>
+    <solution>
+      <p>
+        Sum the three channel results element-wise:
+      
+      <md>
+        z = 8 + 6 + (-1) = 13
+      </md>
+      </p>      
+    </solution>
+  </task>
+  <task>
+    <statement>
+      <p>
+        Add the bias <m>b = -1</m>, and apply the ReLU activation function to find the final output pixel <m>Y(1,1)</m>.
+      </p>
+    </statement>
+    <solution>
+      <p>
+      Sum the three channel results together with the bias <m>b = -1</m>:
+      
+      <md>
+        z = 8 + 6 + (-1) + (-1) = 13 + (-1) = 12
+      </md>
+      </p>
+      <p>
+        Apply the ReLU activation function <m>g(z) = \max(0, z)</m>:
+      
+      <md>
+        Y(1,1) = \max(0, 12) = 12
+      </md>
+      </p>
+    </solution>
+  </task>
+</exercise>
+
+
+
+
+<exercise>
   <title>CNN: Padding</title>
   <statement>
     <p><em>Padding:</em> Let's introduce basic CNN concepts. The figure shows a <m>4\times4</m> image and a uniformly (or symmetrically) padded image with padding parameter <m>P=1</m>. Note that the same number of zero rows (one in this case) were added to the top and bottom, and the same number of zero columns (one in this case) were added to the left and right.</p>
@@ -1404,6 +1733,263 @@ For regression, use the RSS splitting error.
       <p>Do a Google search (or use GenAI) to see what each filter given above is called and what it does. Does the answer match your intuition from the part above?</p>
     </statement>
   </task>
+</exercise>
+
+
+<exercise xml:id="ex-aurebesh-cnn-forward-pass">
+  <title>CNN: Classifying Aurebesh Numerals</title>
+  <introduction>
+    <p>
+      In the <em>Star Wars</em> universe, the <url href="https://fandom.com" visual="://fandom.com">Alternative Aurebesh numeral system</url> (originally introduced in West End Games' 1995 sourcebook <em>Platt's Starport Guide</em> and later featured in <em>Star Wars Rebels</em> and <em>Star Wars: The Last Jedi</em>) represents the digits <m>0</m> through <m>9</m> using a base-5 dot-and-bar notation: <m>0</m> is a hollow ring, <m>1</m>–<m>4</m> are sets of dots, <m>5</m> is a solid horizontal bar, and <m>6</m>–<m>9</m> place <m>1</m>–<m>4</m> dots above a horizontal bar.
+    </p>
+    <p>
+      To teach Convolutional Neural Networks (CNNs) by hand, we encode each Aurebesh digit as a <m>3 \times 3 \times 3</m> RGB tensor <m>\mathbf{X} = (\mathbf{X}_R, \mathbf{X}_G, \mathbf{X}_B)</m>, where each channel is a <m>3 \times 3</m> binary matrix (<m>0</m> or <m>1</m>) styled in an iconic galactic display color:
+    
+    <ul>
+      <li><p><term>Digit 0 (Rebel Blue):</term> Hollow diamond in <m>\mathbf{X}_B</m>.</p></li>
+      <li><p><term>Digit 1 (Imperial Red):</term> Single center dot in <m>\mathbf{X}_R</m>.</p></li>
+      <li><p><term>Digit 2 (X-Wing Green):</term> Two horizontal dots in <m>\mathbf{X}_G</m>.</p></li>
+      <li><p><term>Digit 3 (Sith Crimson):</term> Three dots in a triangle in <m>\mathbf{X}_R</m>.</p></li>
+      <li><p><term>Digit 4 (Mandalorian Gold, <m>R+G</m>):</term> Four corner dots in <m>\mathbf{X}_R</m> and <m>\mathbf{X}_G</m>.</p></li>
+      <li><p><term>Digit 5 (Bespin Amber, <m>R+G</m>):</term> Bottom horizontal bar in <m>\mathbf{X}_R</m> and <m>\mathbf{X}_G</m>.</p></li>
+      <li><p><term>Digit 6 (Holocron Cyan, <m>G+B</m>):</term> One top dot over a bottom bar in <m>\mathbf{X}_G</m> and <m>\mathbf{X}_B</m>.</p></li>
+      <li><p><term>Digit 7 (Alderaan Blue):</term> Two top dots over a bottom bar in <m>\mathbf{X}_B</m>.</p></li>
+      <li><p><term>Digit 8 (Naboo Emerald):</term> Three top dots over a bottom bar in <m>\mathbf{X}_G</m>.</p></li>
+      <li><p><term>Digit 9 (Coruscant Magenta, <m>R+B</m>):</term> Four upper dots over a bottom bar in <m>\mathbf{X}_R</m> and <m>\mathbf{X}_B</m>.</p></li>
+    </ul>
+    </p>
+    <p>
+      Suppose our input image <m>\mathbf{X}</m> is the <term>Aurebesh Digit 6 (Holocron Cyan)</term>, defined by the three <m>3 \times 3</m> channel matrices:
+    </p>
+    <p>
+      <md>
+        <mrow>\mathbf{X}_R = \begin{bmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}, \quad \mathbf{X}_G = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}, \quad \mathbf{X}_B = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}.</mrow>
+      </md>
+    </p>
+    <p>
+      We pass <m>\mathbf{X}</m> through a tiny CNN with two <m>2 \times 2 \times 3</m> convolutional filters (stride <m>s = 1</m>, zero padding <m>p = 0</m>):
+    
+    <ul>
+      <li>
+        <p>
+          <term>Filter 1 (<m>\mathbf{W}^{(1)}</m>, <q>Cyan/Blue Bottom-Bar Detector</q>)</term> with bias <m>b^{(1)} = -2</m>:
+        </p>
+        <p>
+          <md>
+            <mrow>\mathbf{W}^{(1)}_R = \begin{bmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{bmatrix}, \quad \mathbf{W}^{(1)}_G = \begin{bmatrix} 0 &amp; 0 \\ 1 &amp; 1 \end{bmatrix}, \quad \mathbf{W}^{(1)}_B = \begin{bmatrix} 0 &amp; 0 \\ 1 &amp; 1 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+      </li>
+      <li>
+        <p>
+          <term>Filter 2 (<m>\mathbf{W}^{(2)}</m>, <q>Green Top-Dot Detector</q>)</term> with bias <m>b^{(2)} = 0</m>:
+        </p>
+        <p>
+          <md>
+            <mrow>\mathbf{W}^{(2)}_R = \begin{bmatrix} -1 &amp; -1 \\ 0 &amp; 0 \end{bmatrix}, \quad \mathbf{W}^{(2)}_G = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 0 \end{bmatrix}, \quad \mathbf{W}^{(2)}_B = \begin{bmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+      </li>
+    </ul>
+    </p>
+
+<p>
+  This problem was created with the help of chatGPT. I specified the theme and size of the problem, and asked for help writing it out. 
+</p>
+
+
+  </introduction>
+
+
+    <task xml:id="task-aurebesh-conv">
+      <statement>
+        <p>
+          <alert>3D Convolution Pass.</alert> Compute the <m>2 \times 2</m> pre-activation feature maps <m>\mathbf{Z}^{(1)}</m> and <m>\mathbf{Z}^{(2)}</m> by sliding each <m>2 \times 2 \times 3</m> filter across <m>\mathbf{X}</m> with stride <m>1</m> and adding the corresponding bias.
+        </p>
+      </statement>
+      <answer>
+        <p>
+          <md>
+            <mrow>\mathbf{Z}^{(1)} = \begin{bmatrix} -2 &amp; -2 \\ 2 &amp; 2 \end{bmatrix}, \qquad \mathbf{Z}^{(2)} = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 0 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+      </answer>
+      <solution>
+        <p>
+          For each <m>2 \times 2</m> spatial patch <m>(r, c) \in \{1, 2\} \times \{1, 2\}</m>, we sum the element-wise products across all three RGB channels and add the bias:
+        </p>
+        <p>
+          <md>
+            <mrow>Z^{(k)}_{r,c} = \sum_{m=1}^{2}\sum_{n=1}^{2} \left( X_{R, r+m-1, c+n-1} W^{(k)}_{R, m, n} + X_{G, r+m-1, c+n-1} W^{(k)}_{G, m, n} + X_{B, r+m-1, c+n-1} W^{(k)}_{B, m, n} \right) + b^{(k)}.</mrow>
+          </md>
+        </p>
+        <p>
+          <alert>Filter 1 (<m>\mathbf{W}^{(1)}</m>, <m>b^{(1)} = -2</m>):</alert> Since <m>\mathbf{W}^{(1)}_R = \mathbf{0}</m> and only the bottom row of <m>\mathbf{W}^{(1)}_G</m> and <m>\mathbf{W}^{(1)}_B</m> contains <m>1</m>s:
+        </p>
+        <p>
+          <md>
+            <mrow>Z^{(1)}_{1,1} &amp;= (0\cdot 1 + 0\cdot 1)_G + (0\cdot 1 + 0\cdot 1)_B - 2 = -2,</mrow>
+            <mrow>Z^{(1)}_{1,2} &amp;= (0\cdot 1 + 0\cdot 1)_G + (0\cdot 1 + 0\cdot 1)_B - 2 = -2,</mrow>
+            <mrow>Z^{(1)}_{2,1} &amp;= (1\cdot 1 + 1\cdot 1)_G + (1\cdot 1 + 1\cdot 1)_B - 2 = 2 + 2 - 2 = 2,</mrow>
+            <mrow>Z^{(1)}_{2,2} &amp;= (1\cdot 1 + 1\cdot 1)_G + (1\cdot 1 + 1\cdot 1)_B - 2 = 2 + 2 - 2 = 2.</mrow>
+          </md>
+        </p>
+        <p>
+          <alert>Filter 2 (<m>\mathbf{W}^{(2)}</m>, <m>b^{(2)} = 0</m>):</alert> Since <m>\mathbf{X}_R = \mathbf{0}</m> and <m>\mathbf{W}^{(2)}_B = \mathbf{0}</m>, only the top row of <m>\mathbf{W}^{(2)}_G</m> contributes:
+        </p>
+        <p>
+          <md>
+            <mrow>Z^{(2)}_{1,1} &amp;= (0\cdot 1 + 1\cdot 1)_G + 0 = 1,</mrow>
+            <mrow>Z^{(2)}_{1,2} &amp;= (1\cdot 1 + 0\cdot 1)_G + 0 = 1,</mrow>
+            <mrow>Z^{(2)}_{2,1} &amp;= (0\cdot 1 + 0\cdot 1)_G + 0 = 0,</mrow>
+            <mrow>Z^{(2)}_{2,2} &amp;= (0\cdot 1 + 0\cdot 1)_G + 0 = 0.</mrow>
+          </md>
+        </p>
+      </solution>
+    </task>
+
+    <task xml:id="task-aurebesh-relu-pool">
+      <statement>
+        <p>
+          <alert>ReLU Activation and Global Max Pooling.</alert> Apply the ReLU activation function <m>\operatorname{ReLU}(z) = \max(0, z)</m> element-wise to <m>\mathbf{Z}^{(1)}</m> and <m>\mathbf{Z}^{(2)}</m> to obtain <m>\mathbf{A}^{(1)}</m> and <m>\mathbf{A}^{(2)}</m>, and then apply <m>2 \times 2</m> max pooling to flatten the result into a feature vector <m>\mathbf{h} = \begin{bmatrix} h_1 \\ h_2 \end{bmatrix}</m>.
+        </p>
+      </statement>
+      <answer>
+        <p>
+          <md>
+            <mrow>\mathbf{A}^{(1)} = \begin{bmatrix} 0 &amp; 0 \\ 2 &amp; 2 \end{bmatrix}, \quad \mathbf{A}^{(2)} = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 0 \end{bmatrix}, \quad \mathbf{h} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+      </answer>
+      <solution>
+        <p>
+          Applying <m>\operatorname{ReLU}(z) = \max(0, z)</m> zeroes out the negative entries in <m>\mathbf{Z}^{(1)}</m> while leaving <m>\mathbf{Z}^{(2)}</m> unchanged:
+        </p>
+        <p>
+          <md>
+            <mrow>\mathbf{A}^{(1)} = \begin{bmatrix} \max(0,-2) &amp; \max(0,-2) \\ \max(0,2) &amp; \max(0,2) \end{bmatrix} = \begin{bmatrix} 0 &amp; 0 \\ 2 &amp; 2 \end{bmatrix}, \qquad \mathbf{A}^{(2)} = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 0 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+        <p>
+          Next, <m>2 \times 2</m> max pooling selects the maximum value from each <m>2 \times 2</m> feature map:
+        </p>
+        <p>
+          <md>
+            <mrow>h_1 &amp;= \max(0, 0, 2, 2) = 2,</mrow>
+            <mrow>h_2 &amp;= \max(1, 1, 0, 0) = 1.</mrow>
+          </md>
+        </p>
+      </solution>
+    </task>
+
+    <task xml:id="task-aurebesh-dense">
+      <statement>
+        <p>
+          <alert>Fully Connected Classification Layer.</alert> To classify the input among the 10 Aurebesh digits (<m>0</m> through <m>9</m>), the pooled vector <m>\mathbf{h}</m> is passed to a fully connected linear layer <m>\mathbf{s} = \mathbf{W}_{\text{fc}}\mathbf{h} + \mathbf{b}_{\text{fc}}</m>, where the <m>10 \times 2</m> weight matrix and bias vector are:
+        </p>
+        <p>
+          <md>
+            <mrow>\mathbf{W}_{\text{fc}} = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \\ 0 &amp; 2 \\ 0 &amp; 0 \\ 0 &amp; 1 \\ -1 &amp; 0 \\ 2 &amp; 2 \\ 2 &amp; 0 \\ 1 &amp; 2 \\ 1 &amp; -1 \end{bmatrix}, \qquad \mathbf{b}_{\text{fc}} = \begin{bmatrix} -1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 1 \\ -1 \\ 0 \\ -1 \\ 0 \end{bmatrix}.</mrow>
+          </md>
+        </p>
+        <p>
+          Use softmax to determine which Aurebesh digit the CNN predicts.
+        </p>
+      </statement>
+      <answer>
+        <p>
+          <md>
+            <mrow>\mathbf{s} = \begin{bmatrix} 1 &amp; 0 &amp; 2 &amp; 0 &amp; 1 &amp; -1 &amp; 5 &amp; 4 &amp; 3 &amp; 1 \end{bmatrix}^T.</mrow>
+          </md>
+        </p>
+        <p>
+          The highest logit is <m>s_6 = 5</m>, so the CNN predicts <alert>Aurebesh Digit 6</alert>. However, we do not know how confident we are with our prediciton, so we use softmax to estimate the probabilities of each outcome. Try it out, and check the solution below afterwards. 
+        </p>
+      </answer>
+<solution>
+  <p>
+    First, we exponentiate each logit <m>s_c</m> and compute the normalization denominator <m>Z = \sum_{j=0}^{9} e^{s_j}</m>:
+  </p>
+  <p>
+    <md>
+      <mrow>Z &amp;= e^{1} + e^{0} + e^{2} + e^{0} + e^{1} + e^{-1} + e^{5} + e^{4} + e^{3} + e^{1}</mrow>
+      <mrow>&amp;= e^{-1} + 2e^{0} + 3e^{1} + e^{2} + e^{3} + e^{4} + e^{5}</mrow>
+      <mrow>&amp;\approx 0.3679 + 2(1.0000) + 3(2.7183) + 7.3891 + 20.0855 + 54.5982 + 148.4132</mrow>
+      <mrow>&amp;\approx 242.9988.</mrow>
+    </md>
+  </p>
+  <p>
+    Next, we divide each exponentiated logit <m>e^{s_c}</m> by <m>Z \approx 242.9988</m>:
+  </p>
+  <p>
+    <md>
+      <mrow>p_0 = p_4 = p_9 &amp;= \frac{e^{1}}{Z} \approx \frac{2.7183}{242.9988} \approx 0.0112,</mrow>
+      <mrow>p_1 = p_3 &amp;= \frac{e^{0}}{Z} \approx \frac{1.0000}{242.9988} \approx 0.0041,</mrow>
+      <mrow>p_2 &amp;= \frac{e^{2}}{Z} \approx \frac{7.3891}{242.9988} \approx 0.0304,</mrow>
+      <mrow>p_5 &amp;= \frac{e^{-1}}{Z} \approx \frac{0.3679}{242.9988} \approx 0.0015,</mrow>
+      <mrow>p_6 &amp;= \frac{e^{5}}{Z} \approx \frac{148.4132}{242.9988} \approx 0.6108,</mrow>
+      <mrow>p_7 &amp;= \frac{e^{4}}{Z} \approx \frac{54.5982}{242.9988} \approx 0.2247,</mrow>
+      <mrow>p_8 &amp;= \frac{e^{3}}{Z} \approx \frac{20.0855}{242.9988} \approx 0.0827.</mrow>
+    </md>
+  </p>
+  <p>
+    Notice how the exponential scaling amplifies the <m>1</m>-unit logit margin between <m>s_6 = 5</m> and <m>s_7 = 4</m> into a nearly <m>3\times</m> higher confidence (<m>61.08\%</m> versus <m>22.47\%</m>).
+  </p>
+</solution>
+</task>
+</exercise>
+
+
+<exercise xml:id="ex-aurebesh-color-experiments">
+  <title>CNN: Aurebesh Digits-shortcut learning</title>
+  <introduction>
+<p>
+   Although the concept of shortcut learning is interesting with practical applications, it is NOT part of midterm 3. Do this problem either for fun, or for extra learning. 
+</p>
+
+    <p>
+      To construct any <m>3 \times 3 \times 3</m> RGB Aurebesh input tensor <m>\mathbf{X} = (\mathbf{X}_R, \mathbf{X}_G, \mathbf{X}_B)</m>, choose a <term>Spatial Shape Mask</term> <m>\mathbf{M}_c</m> for digit <m>c \in \{0, \dots, 9\}</m> and multiply it by an <term>RGB Color Vector</term> <m>\mathbf{v} = [v_R, v_G, v_B]</m>:
+    </p>
+    <p>
+      <md>
+        <mrow>\mathbf{X}_R = v_R \mathbf{M}_c, \qquad \mathbf{X}_G = v_G \mathbf{M}_c, \qquad \mathbf{X}_B = v_B \mathbf{M}_c.</mrow>
+      </md>
+    </p>
+    <p>
+      Using the spatial masks below together with the following color vectors creates an image of an Aurebesh digit: <term>Imperial Red</term> <m>[1,0,0]</m>, <term>X-Wing Green</term> <m>[0,1,0]</m>, <term>Rebel Blue</term> <m>[0,0,1]</m>, <term>Bespin Amber</term> <m>[1,1,0]</m>, <term>Holocron Cyan</term> <m>[0,1,1]</m>, <term>Coruscant Magenta</term> <m>[1,0,1]</m>, and <term>Stormtrooper White</term> <m>[1,1,1]</m>:
+    </p>
+    <p>
+      <md>
+        <mrow>\mathbf{M}_0 &amp;= \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \end{bmatrix}, \quad \mathbf{M}_1 = \begin{bmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}, \quad \mathbf{M}_2 = \begin{bmatrix} 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}, \quad \mathbf{M}_3 = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}, \quad \mathbf{M}_4 = \begin{bmatrix} 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 1 \end{bmatrix},</mrow>
+        <mrow>\mathbf{M}_5 &amp;= \begin{bmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}, \quad \mathbf{M}_6 = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}, \quad \mathbf{M}_7 = \begin{bmatrix} 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}, \quad \mathbf{M}_8 = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}, \quad \mathbf{M}_9 = \begin{bmatrix} 1 &amp; 0 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}.</mrow>
+      </md>
+      Answer the following.
+    </p>
+
+    <p>
+  This problem was created with the help of chatGPT. I specified the theme and size of the problem, and asked for help writing it out. 
+</p>
+
+
+  </introduction>
+<task xml:id="task-color-swap-test">
+  <statement>
+    <p>
+      <alert>Adversarial Color Swap.</alert> Construct <m>\mathbf{X}</m> for <term>Digit 6</term> rendered in <term>Coruscant Magenta</term> (<m>\mathbf{v} = [1, 0, 1]</m>) and pass it through Filters 1 and 2 from the previous exercise. Compute the pooled feature vector <m>\mathbf{h}</m> and explain why the network misclassifies this input when the green channel is removed.
+    </p>
+  </statement>
+  <solution>
+    <p>
+      With <m>\mathbf{v} = [1, 0, 1]</m>, the input tensor has active pixels in the red and blue channels (<m>\mathbf{X}_R = \mathbf{M}_6</m> and <m>\mathbf{X}_B = \mathbf{M}_6</m>) and an empty green channel (<m>\mathbf{X}_G = \mathbf{0}</m>).
+    </p>
+    <p>
+      For Filter 1 (<m>b^{(1)} = -2</m>), the bottom patches yield <m>Z^{(1)}_{2,1} = Z^{(1)}_{2,2} = 0_G + 2_B - 2 = 0</m>, so <m>h_1 = 0</m>. For Filter 2 (<m>b^{(2)} = 0</m>), the negative weights in <m>\mathbf{W}^{(2)}_R</m> penalize the red top dot, giving <m>Z^{(2)}_{1,1} = Z^{(2)}_{1,2} = -1_R + 0_G = -1</m>, which ReLU zeroes out to <m>h_2 = 0</m>. Because <m>\mathbf{h} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}</m>, the network falls back purely on its bias vector <m>\mathbf{b}_{\text{fc}}</m> and misclassifies the input as Digit 5 (<m>s_5 = 1</m>).
+    </p>
+    <p>
+      <alert>Why this happens (Shortcut Learning):</alert> Because Digit 6 was always presented in Holocron Cyan (<m>[0, 1, 1]</m>), the network cheated by memorizing the green-and-blue color signature rather than learning the underlying dot-and-bar geometry. When tested on an <term>out-of-distribution (OOD) color</term> like Coruscant Magenta (<m>[1, 0, 1]</m>) that it never saw during training, the filters output zero and the model goes blind to the shape. In practice, engineers prevent this failure using <term>color augmentation</term> (randomly shifting hues and channel intensities during training), which forces filters to learn equal weights across R, G, and B so they recognize shapes regardless of lighting or color.
+    </p>
+  </solution>
+</task>
 </exercise>
 
 

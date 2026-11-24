@@ -89,7 +89,7 @@
 
 </paragraphs>
 
-<paragraphs>
+<paragraphs xml:id="Fig10-8-channels-sketch">
   <title>Image Channel Data</title>
   <sidebyside widths="50% 50%">
     <stack>
@@ -327,7 +327,7 @@ g\alpha + h\beta + j\gamma + k\delta \amp h\alpha + i\beta + k\gamma + l\delta
 
 </paragraphs>
 
-<paragraphs>
+<paragraphs xml:id="fig10-8-container">
   <title>Putting It Together to Make a CNN</title>
   <image source="figures/Fig10-8.png">
     <shortdescription>Architecture of a convolutional neural network, showing convolution and pooling layers followed by fully connected layers and a softmax output.</shortdescription>

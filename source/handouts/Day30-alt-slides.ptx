@@ -1,0 +1,1148 @@
+<handout xml:id="day-30-lecture">
+    <title>Day 30</title>
+
+    <objectives>
+        <ul>
+            <li>
+                <p>Identify common failure modes of convolutional neural networks (CNNs).</p>
+            </li>
+            <li>
+                <p>Explain how CNNs can learn spurious correlations instead of meaningful features.</p>
+            </li>
+            <li>
+                <p>Understand how pooling, striding, and other architectural choices can affect spatial information and translation sensitivity.</p>
+            </li>
+            <li>
+                <p>Distinguish between texture and shape information in image classification.</p>
+            </li>
+            <li>
+                <p>Explain how small, carefully chosen perturbations can cause neural networks to make incorrect predictions.</p>
+            </li>
+            <li>
+                <p>Describe approaches for improving the robustness and reliability of CNNs.</p>
+            </li>
+        </ul>
+    </objectives>
+
+    <paragraphs component="slides-inst-notes">
+        <title>Overview</title>
+
+        <p> Convolutional neural networks have achieved remarkable success in image classification, object detection, medical imaging, and many other applications. However, high accuracy on a training or test dataset does not necessarily mean that a network has learned the features we intended it to learn.
+
+            CNNs can exploit shortcuts, discard important spatial information, respond unpredictably to small transformations, prioritize texture over shape, and be fooled by carefully designed perturbations.
+
+            In this lecture, we examine five failure modes. For each one, we will:
+            <ul>
+                <li>
+                    <p>Work through a small problem by hand to understand the underlying issue.</p>
+                </li>
+                <li>
+                    <p>Examine a historical example from the research literature.</p>
+                </li>
+                <li>
+                    <p>Discuss methods researchers have developed to address the problem.</p>
+                </li>
+                </ul>
+            </p>
+
+    </paragraphs>
+
+    <paragraphs component="slides-inst-notes">
+        <title>Lecture Schedule</title>
+
+        <table xml:id="lecture-schedule" >
+            <title>70-Minute Lecture Schedule</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="20%"/>
+                <col width="55%"/>
+                <row>
+                    <cell>Topic</cell>
+                    <cell>Time</cell>
+                    <cell>Activity</cell>
+                </row>
+                <row>
+                    <cell>Introduction</cell>
+                    <cell>5 mins</cell>
+                    <cell>Why high accuracy does not guarantee reliable behavior</cell>
+                </row>
+                <row>
+                    <cell>Failure Mode 1</cell>
+                    <cell>12 mins</cell>
+                    <cell>Spurious correlations and shortcut learning</cell>
+                </row>
+                <row>
+                    <cell>Failure Mode 2</cell>
+                    <cell>10 mins</cell>
+                    <cell>Loss of spatial information through pooling</cell>
+                </row>
+                <row>
+                    <cell>Failure Mode 3</cell>
+                    <cell>12 mins</cell>
+                    <cell>Translation sensitivity</cell>
+                </row>
+                <row>
+                    <cell>Failure Mode 4</cell>
+                    <cell>12 mins</cell>
+                    <cell>Texture versus shape bias</cell>
+                </row>
+                <row>
+                    <cell>Failure Mode 5</cell>
+                    <cell>12 mins</cell>
+                    <cell>Adversarial examples</cell>
+                </row>
+                <row>
+                    <cell>Synthesis</cell>
+                    <cell>7 mins</cell>
+                    <cell>Comparing failure modes and discussing broader implications</cell>
+                </row>
+            </tabular>
+        </table>
+    </paragraphs>
+
+<paragraphs>
+    <title>Introduction: What Does It Mean for a CNN to Fail?</title>
+
+    <p>A CNN achieves 99% test accuracy on cat and dog images. Has it learned to recognize cats and dogs?</p>
+
+    <p>Not necessarily. It may rely on background features rather than the animals themselves.</p>
+
+    <p>High accuracy does not guarantee reliable learning:
+    <ul>
+        <li>
+            <p>A model may perform well on familiar data.</p>
+        </li>
+        <li>
+            <p>It may fail when inputs or data distributions change.</p>
+        </li>
+    </ul>
+    </p>
+
+    <p>We examine five examples of how CNNs can fail.</p>
+</paragraphs>
+
+<paragraphs>
+    <title>Failure Mode 1: Spurious Correlations and Shortcut Learning</title>
+
+    <image source="figures/shortcut-learning-examples.png">
+    <shortdescription>Examples of neural networks exploiting background features and other shortcuts instead of the intended visual features.</shortdescription>
+</image>
+<p>
+    Reference: <url href="https://www.nature.com/articles/s42256-020-00257-z">Geirhos et al. (2020), "Shortcut Learning in Deep Neural Networks," Figure 1.</url>
+</p>
+
+    <p>A CNN may learn features that correlate with the labels rather than features that define the classes.</p>
+
+    <p><term>Shortcut learning</term>: model relies on easy-to-learn patterns instead of the intended features.
+
+    <ul>
+        <li>
+            <p>High accuracy on training-like data.</p>
+        </li>
+        <li>
+            <p>Poor performance when spurious correlations disappear.</p>
+        </li>
+    </ul>
+    </p>
+</paragraphs>
+
+        <example xml:id="cats-dogs-backgrounds">
+    <title>Shortcut learning: Cats, Dogs, and Backgrounds</title>
+
+    <introduction>
+        <p>
+            Suppose we want to train a classifier to distinguish cats from dogs.
+            We represent each image using two binary features:
+        
+        <ul>
+            <li>
+                <p><m>X_1</m>: The animal looks like a cat.</p>
+            </li>
+            <li>
+                <p><m>X_2</m>: The image has an indoor background.</p>
+            </li>
+        </ul>
+        </p>
+
+        <p>The training dataset contains the following examples:</p>
+
+        <table xml:id="shortcut-training-data">
+            <title>Training Data for the Cat and Dog Classifier</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>Label</cell>
+                </row>
+                <row><cell>Cat 1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Cat 2</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Cat 3</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Dog 1</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Dog 2</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Dog 3</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+
+        <p>Consider two possible classifiers:
+
+        <md>
+            f_1(X_1,X_2)=X_1
+        </md>
+        <md>
+            f_2(X_1,X_2)=X_2
+        </md>
+        </p>
+
+        <p>
+            Both classifiers achieve 100% accuracy on the training data.
+        </p>
+
+        <p>Now consider two new images:</p>
+
+        <table xml:id="shortcut-test-data">
+            <title>Test Data with Changed Backgrounds</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>True label</cell>
+                </row>
+                <row><cell>Cat outdoors</cell><cell>1</cell><cell>0</cell><cell>1</cell></row>
+                <row><cell>Dog indoors</cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+    </introduction>
+
+    <task>
+    <statement>
+        <p>What predictions does each classifier make on the two test images?</p>
+            </statement>
+        <solution>
+            <p>
+                For the cat outdoors, the features are
+                <m>(X_1,X_2)=(1,0)</m>. Thus,
+            
+            <md>
+                f_1(1,0)=1,\qquad f_2(1,0)=0.
+            </md>
+            </p>
+            <p>
+                For the dog indoors, the features are
+                <m>(X_1,X_2)=(0,1)</m>. Thus,
+            <md>
+                f_1(0,1)=0,\qquad f_2(0,1)=1.
+            </md>
+            </p>
+        </solution>
+    </task>
+
+    <task>
+    <statement>
+        <p>
+        Which classifier has learned the feature that actually defines the class?            
+        </p>
+    </statement>
+        <solution>
+            <p>
+                The classifier <m>f_1</m> has learned the feature that
+                actually defines the class because it uses animal appearance
+                rather than the background. It correctly classifies both
+                test images.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+        <p>
+            Why could we not distinguish between these two classifiers using
+            only the training accuracy?
+        </p>
+            
+        </statement>
+        <solution>
+            <p>
+                The training data did not allow us to distinguish between
+                the two features. Both were perfectly correlated with the
+                labels. The model could therefore achieve perfect training
+                accuracy by learning either relationship.
+            </p>
+        </solution>
+    </task>
+</example>
+
+<paragraphs>
+    <title>Historical Example: Pneumonia Detection from Chest X-Rays</title>
+
+    <p>In 2018, Zech and collaborators studied whether CNNs could generalize across hospitals.</p>
+
+    <p>Training data came from three hospital systems:
+        <ul>
+            <li><p>National Institutes of Health (NIH).</p></li>
+            <li><p>Mount Sinai Hospital.</p></li>
+            <li><p>Indiana University.</p></li>
+        </ul>
+    </p>
+
+    <p>Key findings:
+        <ul>
+            <li><p>Models identified the source hospital with up to 99.95% and 99.98% accuracy.</p></li>
+            <li><p>Hospitals differ in imaging equipment, processing, patient populations, and acquisition protocols.</p></li>
+            <li><p>These differences can create visual shortcuts correlated with diagnostic labels.</p></li>
+            <li><p>A model may learn hospital-specific features instead of pneumonia-related features.</p></li>
+        </ul>
+    </p>
+
+    <p>Performance across hospitals:
+        <ul>
+            <li><p>Internal test AUC: 0.931.</p></li>
+            <li><p>Indiana University test AUC: 0.815.</p></li>
+        </ul>
+    </p>
+
+    <p>Takeaway: A model can exploit patterns in its training environment that fail to generalize to new environments.</p>
+
+        <p>
+    Reference: <url href="https://doi.org/10.1371/journal.pmed.1002683" visaul="doi.org/10.1371/journal.pmed.1002683">Zech et al. (2018), "Variable generalization performance of a deep learning model to detect pneumonia in chest radiographs: A cross-sectional study."</url>
+</p>
+</paragraphs>
+
+        <paragraphs>
+            <title>How Can We Address Shortcut Learning?</title>
+
+            <p>Several approaches can help:
+            <ul>
+                <li>
+                    <p>Collect more diverse data so that spurious features are not consistently associated with a particular label.</p>
+                </li>
+                <li>
+                    <p>Balance the dataset across relevant subgroups and environments.</p>
+                </li>
+                <li>
+                    <p>Evaluate the model on external datasets collected from different institutions or environments.</p>
+                </li>
+                <li>
+                    <p>Use methods such as Group Distributionally Robust Optimization (Group DRO), which explicitly account for performance across different groups.</p>
+                </li>
+            </ul>
+            </p>
+
+            <p>One formulation of Group DRO is
+            <md>
+                \min_{\theta}\max_{g\in G}L_g(\theta),
+            </md>
+            where <m>L_g(\theta)</m> is the loss on group <m>g</m> and <m>G</m> is the collection of groups being considered.
+
+            Rather than minimizing the average loss across all examples, this objective minimizes the worst-group loss.
+            </p>
+        </paragraphs>
+
+
+    <paragraphs>
+    <title>Failure Mode 2: Loss of Spatial Information Through Pooling</title>
+
+    <p>Pooling reduces feature-map size and computation, but also discards spatial information.</p>
+
+    <p>Pooling can:
+        <ul>
+            <li><p>Reduce computational cost.</p></li>
+            <li><p>Provide some tolerance to small shifts.</p></li>
+            <li><p>Lose information about feature locations.</p></li>
+        </ul>
+    </p>
+</paragraphs>
+
+    <example xml:id="same-pooled-output">
+    <title>Try It by Hand: Two Different Images, the Same Pooled Output</title>
+
+    <introduction>
+        <p>Consider the following two binary images:</p>
+
+        <table xml:id="pooling-inputs">
+            <title>Two Different 2 by 2 Input Images</title>
+            <tabular>
+                <col width="50%"/>
+                <col width="50%"/>
+                <row>
+                    <cell>Image A</cell>
+                    <cell>Image B</cell>
+                </row>
+                <row>
+                    <cell>
+                        <p>
+                            <md>
+                                \begin{bmatrix}
+                                1 \amp 0\\
+                                0 \amp 0
+                                \end{bmatrix}
+                            </md>
+                        </p>
+                    </cell>
+                    <cell>
+                        <p>
+                            <md>
+                                \begin{bmatrix}
+                                0 \amp 0\\
+                                0 \amp 1
+                                \end{bmatrix}
+                            </md>
+                        </p>
+                    </cell>
+                </row>
+            </tabular>
+        </table>
+
+        <p>Apply a 2 by 2 max-pooling operation with stride 2.</p>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>Compute the pooled output for Image A.</p>
+        </statement>
+        <solution>
+            <p>Max pooling returns the maximum value in the pooling window. Thus, the pooled output is:</p>
+            <p>
+                <md>
+                    \begin{bmatrix}
+                    1
+                    \end{bmatrix}
+                </md>
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Compute the pooled output for Image B.</p>
+        </statement>
+        <solution>
+            <p>Max pooling returns the maximum value in the pooling window. Thus, the pooled output is:</p>
+            <p>
+                <md>
+                    \begin{bmatrix}
+                    1
+                    \end{bmatrix}
+                </md>
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>What spatial information has been lost?</p>
+        </statement>
+        <solution>
+            <p>The pooled representation tells us that a feature was detected somewhere in the window, but it does not tell us where it occurred. The two original images are different, but their pooled representations are identical. The spatial location of the nonzero pixel has been lost.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Why might this be a problem in an application such as medical imaging or object localization?</p>
+        </statement>
+        <solution>
+            <p>In applications such as medical imaging or object localization, the precise location of a feature may be essential. For example, the location of a tumor or an object within an image can be as important as detecting its presence. Once this spatial information has been discarded, subsequent layers cannot recover the original location from the pooled output alone.</p>
+        </solution>
+    </task>
+</example>
+
+
+
+       <paragraphs>
+    <title>Historical Example: Small Objects Lost in Semantic Segmentation</title>
+
+    <p>In 2015, Noh, Hong, and Han documented limitations of CNN-based semantic segmentation on the PASCAL VOC dataset.</p>
+
+    <p>Observed failures:
+        <ul>
+            <li>
+                <p>Small objects, such as people, were sometimes classified as background.</p>
+            </li>
+            <li>
+                <p>Large objects received inconsistent labels across different regions.</p>
+            </li>
+            <li>
+                <p>Object boundaries and fine details were lost.</p>
+            </li>
+        </ul>
+    </p>
+
+    <p>Why did this happen?
+        <ul>
+            <li>
+                <p>Pooling and downsampling reduced spatial resolution.</p>
+            </li>
+            <li>
+                <p>Coarse feature maps could not preserve precise object locations.</p>
+            </li>
+            <li>
+                <p>Upsampling could not reliably recover the missing details.</p>
+            </li>
+        </ul>
+    </p>
+
+    <p>Takeaway: A CNN may recognize the presence of an object but fail to identify its precise location and boundaries.</p>
+
+    <p>Reference: <url href="https://openaccess.thecvf.com/content_iccv_2015/papers/Noh_Learning_Deconvolution_Network_ICCV_2015_paper.pdf">Noh, Hong, and Han (2015), Learning Deconvolution Network for Semantic Segmentation.</url></p>
+</paragraphs>
+
+        <paragraphs>
+            <title>How Can We Address the Loss of Spatial Information?</title>
+
+            <p>Possible approaches include:
+            <ul>
+                <li>
+                    <p>Use fewer pooling operations or less aggressive downsampling.</p>
+                </li>
+                <li>
+                    <p>Use encoder-decoder architectures with skip connections, such as U-Net.</p>
+                </li>
+                <li>
+                    <p>Use dilated convolutions to increase the receptive field without reducing spatial resolution.</p>
+                </li>
+                <li>
+                    <p>Use spatial attention mechanisms to help the network preserve or emphasize relevant locations.</p>
+                </li>
+            </ul>
+            </p>
+        </paragraphs>
+
+
+<paragraphs>
+    <title>Failure Mode 3: Translation Sensitivity</title>
+
+    <p>Convolutions are translation equivariant: shifting the input shifts the feature map.</p>
+
+    <p>However, pooling and strided convolutions can break this property:</p>
+    <p>
+        <ul>
+            <li><p>Small input shifts can produce different feature maps.</p></li>
+            <li><p>Predictions may change depending on an object's alignment with the sampling grid.</p></li>
+        </ul>
+    </p>
+</paragraphs>
+
+    <example xml:id="small-translation">
+    <title>Try It by Hand: A Small Translation</title>
+
+    <introduction>
+        <p>Consider the one-dimensional input</p>
+        <p>
+            <md>
+                x=[0,0,1,0,0,0]
+            </md>
+        </p>
+        <p>and a one-position translation</p>
+        <p>
+            <md>
+                x'=[0,0,0,1,0,0].
+            </md>
+        </p>
+
+        <p>Consider the filter</p>
+        <p>
+            <md>
+                w=[1,0,-1].
+            </md>
+        </p>
+
+        <p>Use the standard CNN convention of cross-correlation, and consider valid operations.</p>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>Compute the output using stride 1 for both <m>x</m> and <m>x'</m>.</p>
+        </statement>
+        <solution>
+            <p>For stride 1, the cross-correlation outputs are</p>
+            <p>
+                <md>
+                    x*w=[0,1,0,0]
+                </md>
+            </p>
+            <p>and</p>
+            <p>
+                <md>
+                    x'*w=[0,0,1,0].
+                </md>
+            </p>
+            <p>The response shifts along with the input.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Repeat the calculation using stride 2.</p>
+        </statement>
+        <solution>
+            <p>For stride 2, only every other valid position is sampled. The outputs are</p>
+            <p>
+                <md>
+                    [0,0]
+                </md>
+            </p>
+            <p>for both inputs under this sampling alignment.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Compare the outputs. What changes when the stride is increased?</p>
+        </statement>
+        <solution>
+            <p>With stride 1, the response shifts along with the input. With stride 2, the operation samples only every other valid position, discarding the response at the intermediate location. In this example, both translated inputs produce the same stride-2 output.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Why might a small translation cause a large change in the representation produced by a CNN?</p>
+        </statement>
+        <solution>
+            <p>This example illustrates how subsampling can make a representation sensitive to alignment: a feature can fall between sampled positions and be missed. The precise behavior depends on the filter, stride, padding, and sampling alignment. More broadly, downsampling can discard information about where a feature occurs.</p>
+        </solution>
+    </task>
+</example>
+
+        <paragraphs>
+    <title>Historical Example: Sensitivity to Small Image Transformations</title>
+
+    <p>In 2019, Azulay and Weiss studied CNN sensitivity to small image transformations.</p>
+
+    <p>Key findings:
+        <ul>
+            <li><p>Small translations can substantially change CNN predictions.</p></li>
+            <li><p>Transformed images can appear nearly identical to humans.</p></li>
+            <li><p>Predictions may change even when the object's identity remains unchanged.</p></li>
+        </ul>
+    </p>
+
+    <p>Why does this matter?
+        <ul>
+            <li><p>Small changes in image acquisition should not change a diagnosis.</p></li>
+            <li><p>Patient positioning or camera alignment may affect predictions.</p></li>
+        </ul>
+    </p>
+
+    <p>
+        Reference: <url href="https://www.jmlr.org/papers/volume20/19-519.html">Azulay and Weiss (2019), "Why Do Deep Convolutional Networks Generalize So Poorly to Small Image Transformations?"</url>
+    </p>
+</paragraphs>
+
+        <paragraphs>
+            <title>How Can We Address Translation Sensitivity?</title>
+
+            <p>Several approaches can improve robustness:
+            <ul>
+                <li>
+                    <p>Use translation augmentation during training so that the network sees objects at different locations.</p>
+                </li>
+                <li>
+                    <p>Use anti-aliased downsampling to reduce artifacts caused by subsampling.</p>
+                </li>
+                <li>
+                    <p>Use architectures designed to be translation equivariant.</p>
+                </li>
+                <li>
+                    <p>Reduce unnecessary downsampling when spatial precision is important.</p>
+                </li>
+            </ul>
+            </p>        
+    </paragraphs>
+
+<paragraphs>
+    <title>Failure Mode 4: Texture Bias Instead of Shape Bias</title>
+
+    <p>Humans often recognize objects by their shape, while CNNs can rely heavily on local texture.</p>
+
+    <p>This can lead to misclassification:</p>
+    <p>
+        <ul>
+            <li><p>A CNN may predict a class based on texture.</p></li>
+            <li><p>It may ignore shape cues that suggest a different class.</p></li>
+        </ul>
+    </p>
+</paragraphs>
+
+        <example xml:id="shape-or-texture">
+    <title>Try It by Hand: Shape or Texture?</title>
+
+    <introduction>
+        <p>Suppose we have a classification problem with two classes:
+        <ul>
+            <li>
+                <p>Class 1: circles.</p>
+            </li>
+            <li>
+                <p>Class 0: squares.</p>
+            </li>
+        </ul>
+        </p>
+
+        <p>Each image also has one of two textures:
+        <ul>
+            <li>
+                <p>Stripes.</p>
+            </li>
+            <li>
+                <p>Dots.</p>
+            </li>
+        </ul>
+        </p>
+
+        <p>The training data contains only the following two combinations:</p>
+
+        <table xml:id="texture-training-data">
+            <title>Training Data for Shape and Texture Classification</title>
+            <tabular>
+                <col width="30%"/>
+                <col width="35%"/>
+                <col width="35%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell>Shape</cell>
+                    <cell>Texture</cell>
+                </row>
+                <row>
+                    <cell>A</cell>
+                    <cell>Circle</cell>
+                    <cell>Stripes</cell>
+                </row>
+                <row>
+                    <cell>D</cell>
+                    <cell>Square</cell>
+                    <cell>Dots</cell>
+                </row>
+            </tabular>
+        </table>
+
+        <p>Now consider two new images:</p>
+
+        <table xml:id="texture-test-data">
+            <title>Test Images with Conflicting Shape and Texture</title>
+            <tabular>
+                <col width="30%"/>
+                <col width="35%"/>
+                <col width="35%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell>Shape</cell>
+                    <cell>Texture</cell>
+                </row>
+                <row>
+                    <cell>B</cell>
+                    <cell>Circle</cell>
+                    <cell>Dots</cell>
+                </row>
+                <row>
+                    <cell>C</cell>
+                    <cell>Square</cell>
+                    <cell>Stripes</cell>
+                </row>
+            </tabular>
+        </table>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>What would a shape-based classifier predict for images B and C?</p>
+        </statement>
+        <solution>
+            <p>The shape-based classifier predicts class 1 for image B because it is a circle, and class 0 for image C because it is a square.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>What would a texture-based classifier predict for images B and C?</p>
+        </statement>
+        <solution>
+            <p>The texture-based classifier predicts class 0 for image B because it has dots, and class 1 for image C because it has stripes.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Why can we not determine from the training data whether the classifier will learn shape or texture?</p>
+        </statement>
+        <solution>
+            <p>Both features perfectly predict the training labels. Therefore, the training data does not tell us which feature the model will use.</p>
+            <p>The model may learn the texture relationship because local texture features can be easier for a CNN to detect than global shape information.</p>
+        </solution>
+    </task>
+</example>
+
+<paragraphs>
+    <title>Historical Example: Texture Bias in CNNs</title>
+
+    <p>In 2019, Geirhos and collaborators studied CNNs' tendency to rely on texture rather than shape.</p>
+
+    <p>They introduced cue-conflict images combining the shape of one object with the texture of another.</p>
+
+    <p>
+        <ul>
+            <li><p>Example: a cat-shaped object with elephant texture.</p></li>
+            <li><p>Standard CNNs often classified images by texture rather than shape.</p></li>
+        </ul>
+    </p>
+
+    <p>The researchers introduced Stylized ImageNet to encourage shape-based recognition.</p>
+
+    <p>Training on Stylized ImageNet substantially increased CNNs' shape bias.</p>
+
+    <p>
+        Reference: <url href="https://doi.org/10.1038/s42256-019-0118-3">Geirhos et al. (2019), "ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness."</url>
+    </p>
+</paragraphs>
+
+        <paragraphs>
+            <title>How Can We Address Texture Bias?</title>
+
+            <p>Possible approaches include:
+            <ul>
+                <li>
+                    <p>Train on stylized images to reduce reliance on local texture patterns.</p>
+                </li>
+                <li>
+                    <p>Use shape-oriented data augmentation.</p>
+                </li>
+                <li>
+                    <p>Include diverse visual representations and examples in the training data.</p>
+                </li>
+                <li>
+                    <p>Evaluate models using cue-conflict images to determine whether they rely on shape or texture.</p>
+                </li>
+            </ul>
+            </p>
+    </paragraphs>
+
+<paragraphs>
+    <title>Failure Mode 5: Adversarial Examples</title>
+
+    <p>
+        <ul>
+            <li><p>Small, carefully chosen changes to an image can fool a CNN.</p></li>
+            <li><p>These changes may be nearly imperceptible to humans.</p></li>
+            <li><p>They can cause the network to make a completely different prediction.</p></li>
+            <li><p>Such inputs are called adversarial examples.</p></li>
+        </ul>
+    </p>
+</paragraphs>
+
+    <example xml:id="linear-classifier-perturbation">
+    <title>Try It by Hand: A Linear Classifier</title>
+
+    <introduction>
+        <p>Consider a binary linear classifier</p>
+        <p>
+            <md>
+                f(x)=\operatorname{sign}(w^Tx+b),
+            </md>
+        </p>
+        <p>with</p>
+        <p>
+            <md>
+                w=
+                \begin{bmatrix}
+                1\\
+                1
+                \end{bmatrix},
+                \qquad b=-3.
+            </md>
+        </p>
+
+        <p>Suppose the input is</p>
+        <p>
+            <md>
+                x=
+                \begin{bmatrix}
+                1\\
+                1
+                \end{bmatrix}.
+            </md>
+        </p>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>Compute the classifier score <m>w^Tx+b</m>.</p>
+        </statement>
+        <solution>
+            <p>The original classifier score is</p>
+            <p>
+                <md>
+                    w^Tx+b=1+1-3=-1.
+                </md>
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>What class does the classifier predict?</p>
+        </statement>
+        <solution>
+            <p>Since the classifier score is negative, the classifier predicts class <m>-1</m>.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Find a perturbation <m>\delta</m> such that the perturbed input <m>x+\delta</m> is classified as the other class.</p>
+        </statement>
+        <solution>
+            <p>We want to find a perturbation <m>\delta</m> such that</p>
+            <p>
+                <md>
+                    w^T(x+\delta)+b\geq 0.
+                </md>
+            </p>
+            <p>Equivalently,</p>
+            <p>
+                <md>
+                    w^T\delta\geq 1.
+                </md>
+            </p>
+            <p>One possible perturbation is</p>
+            <p>
+                <md>
+                    \delta=
+                    \begin{bmatrix}
+                    1.1\\
+                    1.1
+                    \end{bmatrix}.
+                </md>
+            </p>
+            <p>The perturbed classifier score becomes</p>
+            <p>
+                <md>
+                    (1+1.1)+(1+1.1)-3=1.2.
+                </md>
+            </p>
+            <p>The classifier now predicts class 1.</p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>Find the perturbation with minimum Euclidean norm that reaches the decision boundary.</p>
+        </statement>
+        <solution>
+            <p>To find the minimum-norm perturbation that reaches the decision boundary, we solve</p>
+            <p>
+                <md>
+                    \min_{\delta}\|\delta\|_2
+                    \qquad\text{subject to}\qquad
+                    w^T\delta=1.
+                </md>
+            </p>
+            <p>The minimum-norm solution is parallel to <m>w</m>:</p>
+            <p>
+                <md>
+                    \delta^\*=
+                    \frac{1}{\|w\|_2^2}w
+                    =
+                    \begin{bmatrix}
+                    1/2\\
+                    1/2
+                    \end{bmatrix}.
+                </md>
+            </p>
+            <p>Its Euclidean norm is</p>
+            <p>
+                <md>
+                    \|\delta^\*\|_2
+                    =
+                    \sqrt{\frac14+\frac14}
+                    =
+                    \frac{1}{\sqrt{2}}.
+                </md>
+            </p>
+            <p>This perturbation reaches the decision boundary. A slightly larger perturbation in the same direction crosses the boundary and changes the predicted class.</p>
+        </solution>
+    </task>
+</example>
+
+
+
+<paragraphs>
+    <title>Historical Example: The Panda-to-Gibbon Example</title>
+
+    <p>In 2015, Goodfellow, Shlens, and Szegedy studied why adversarial examples occur.</p>
+
+    <p>
+        <ul>
+            <li><p>A small, carefully chosen perturbation changed a panda image's predicted class to gibbon.</p></li>
+            <li><p>The perturbed image appeared nearly identical to the original to a human observer.</p></li>
+            <li><p>Small changes across many input coordinates can collectively alter a network's prediction.</p></li>
+        </ul>
+    </p>
+
+    <p>Their work helped establish adversarial examples as an important challenge in deep learning.</p>
+
+    <p>
+        Reference: <url href="https://arxiv.org/abs/1412.6572">Goodfellow, Shlens, and Szegedy (2015), "Explaining and Harnessing Adversarial Examples."</url>
+    </p>
+</paragraphs>
+
+        <paragraphs>
+            <title>How Can We Address Adversarial Examples?</title>
+
+            <p>Several approaches have been developed:
+            <ul>
+                <li>
+                    <p>Adversarial training: include adversarially perturbed examples during training.</p>
+                </li>
+                <li>
+                    <p>Fast Gradient Sign Method (FGSM): generate perturbations using the sign of the loss gradient with respect to the input.</p>
+                </li>
+                <li>
+                    <p>Projected Gradient Descent (PGD): iteratively generate adversarial perturbations while constraining their magnitude.</p>
+                </li>
+                <li>
+                    <p>Certified robustness: use mathematical methods to establish guarantees that a model's prediction cannot change within a specified perturbation region.</p>
+                </li>
+            </ul>
+            </p>
+        </paragraphs>
+
+
+    <paragraphs component="slides-inst-notes">
+        <title>Putting the Failure Modes Together</title>
+
+        <p>The five examples illustrate different ways that a CNN can behave in unexpected ways. Some failures arise because of the data, some because of the architecture, and some because of the geometry of the learned decision boundary.</p>
+
+        <table xml:id="cnn-failure-summary">
+            <title>Summary of CNN Failure Modes and Potential Solutions</title>
+            <tabular>
+                <col width="20%"/>
+                <col width="30%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Failure mode</cell>
+                    <cell>Underlying issue</cell>
+                    <cell>Example</cell>
+                    <cell>Possible solution</cell>
+                </row>
+                <row>
+                    <cell>Shortcut learning</cell>
+                    <cell>The model learns a spurious correlation instead of the intended feature.</cell>
+                    <cell>Hospital-specific features in chest X-rays</cell>
+                    <cell>Diverse data, external validation, Group DRO</cell>
+                </row>
+                <row>
+                    <cell>Loss of spatial information</cell>
+                    <cell>Pooling discards information about the location of features.</cell>
+                    <cell>Two different images produce the same pooled output.</cell>
+                    <cell>Skip connections, encoder-decoder architectures, dilated convolutions</cell>
+                </row>
+                <row>
+                    <cell>Translation sensitivity</cell>
+                    <cell>Striding and downsampling can make predictions sensitive to alignment.</cell>
+                    <cell>A small image translation changes the network output.</cell>
+                    <cell>Translation augmentation, anti-aliased downsampling, equivariant architectures</cell>
+                </row>
+                <row>
+                    <cell>Texture bias</cell>
+                    <cell>The model relies on local texture instead of global shape.</cell>
+                    <cell>Cue-conflict images</cell>
+                    <cell>Stylized ImageNet, shape-oriented augmentation</cell>
+                </row>
+                <row>
+                    <cell>Adversarial examples</cell>
+                    <cell>Small input perturbations can change the predicted class.</cell>
+                    <cell>Panda classified as a gibbon</cell>
+                    <cell>Adversarial training, certified robustness</cell>
+                </row>
+            </tabular>
+        </table>
+    </paragraphs>
+
+    <paragraphs component="slides-inst-notes">
+        <title>Discussion Questions</title>
+
+        <p>
+
+        <ol>
+            <li>
+                <p>Can a model achieve perfect test accuracy and still fail to learn the feature we intended it to learn? Explain.</p>
+            </li>
+            <li>
+                <p>Which of the five failure modes is most directly related to the architecture of a CNN? Which is most directly related to the training data?</p>
+            </li>
+            <li>
+                <p>Why is evaluating a model on data from a different environment important?</p>
+            </li>
+            <li>
+                <p>Can data augmentation solve all five failure modes? Why or why not?</p>
+            </li>
+            <li>
+                <p>Suppose a CNN achieves 99% accuracy on a medical imaging task. What additional experiments would you want to conduct before trusting it in a clinical setting?</p>
+            </li>
+        </ol>
+        </p>
+    </paragraphs>
+
+    <paragraphs>
+        <title>TL;DR</title>
+
+        <p>
+            <ul>
+    <li>
+        <p>CNNs are powerful pattern-recognition systems, but they do not necessarily learn the features that humans expect them to learn.</p>
+    </li>
+    <li>
+        <p>High accuracy alone is not sufficient evidence that a model is reliable. We must also understand what information the model uses, how its architecture transforms that information, and how its predictions behave when the input changes.</p>
+    </li>
+    <li>
+        <p>Developing reliable machine learning systems requires more than optimizing predictive accuracy. It requires carefully designed data, appropriate architectures, meaningful evaluation, and an understanding of the limitations of the learned model.</p>
+    </li>
+</ul>
+        </p>
+    </paragraphs>
+
+    <paragraphs component="slides-inst-notes">
+        <title>Historical References</title>
+        <p>
+
+        <ol>
+            <li>
+                <p>
+                    Zech, J. R., Badgeley, M. A., Liu, M., Costa, A. B., Titano, J. J., and Oermann, E. K. (2018). Variable generalization performance of a deep learning model to detect pneumonia in chest radiographs: A cross-sectional study. <em>PLoS Medicine</em>, 15(11), e1002683.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Ronneberger, O., Fischer, P., and Brox, T. (2015). U-Net: Convolutional networks for biomedical image segmentation. In <em>Medical Image Computing and Computer-Assisted Intervention (MICCAI)</em>, pages 234–241.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Azulay, A. and Weiss, Y. (2019). Why do deep convolutional networks generalize so poorly to small image transformations? <em>Journal of Machine Learning Research</em>, 20(184), 1–25.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Geirhos, R., Rubisch, P., Michaelis, C., Bethge, M., Wichmann, F. A., and Brendel, W. (2019). ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness. <em>International Conference on Learning Representations (ICLR)</em>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Goodfellow, I. J., Shlens, J., and Szegedy, C. (2015). Explaining and harnessing adversarial examples. <em>International Conference on Learning Representations (ICLR)</em>.
+                </p>
+            </li>
+        </ol>
+        </p>
+    </paragraphs>
+</handout>

@@ -3,8 +3,8 @@
 
 
     
-    <section xml:id="day-32-lecture" component="day32">
-        <title>Day 32</title>
+    <section xml:id="day-31-lecture" component="day31">
+        <title>Day 31</title>
     
         <p>
             <dataurl source="slides/slides-Day32/CMSE381-002-Lec32-Ch12_4-Clustering.html" visual="Day32 slides"/>

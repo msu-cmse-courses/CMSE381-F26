@@ -1,0 +1,79 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="#555" stroke-width="1.2"></path>
+    </marker>
+  </defs>
+
+  <rect width="900" height="540" fill="white"></rect>
+
+  <text x="450" y="35" text-anchor="middle" font-size="23" font-weight="bold" fill="#222">
+    Translation Sensitivity from Strided Sampling
+  </text>
+
+  <text x="55" y="85" font-size="17" font-weight="bold" fill="#222">Original input</text>
+  <text x="55" y="111" font-size="15" fill="#444">x = [0, 0, 1, 0, 0, 0]</text>
+
+  <g transform="translate(300,70)" font-size="15" text-anchor="middle">
+    <rect x="0" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="65" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="130" y="0" width="65" height="45" fill="#f5c96a" stroke="#555" stroke-width="2"></rect>
+    <rect x="195" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="260" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="325" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <text x="32" y="28">0</text><text x="97" y="28">0</text>
+    <text x="162" y="28" font-weight="bold">1</text><text x="227" y="28">0</text>
+    <text x="292" y="28">0</text><text x="357" y="28">0</text>
+    <text x="32" y="65" fill="#666">1</text><text x="97" y="65" fill="#666">2</text>
+    <text x="162" y="65" fill="#666">3</text><text x="227" y="65" fill="#666">4</text>
+    <text x="292" y="65" fill="#666">5</text><text x="357" y="65" fill="#666">6</text>
+  </g>
+
+  <text x="55" y="190" font-size="17" font-weight="bold" fill="#222">Shifted input</text>
+  <text x="55" y="216" font-size="15" fill="#444">x' = [0, 0, 0, 1, 0, 0]</text>
+
+  <g transform="translate(300,175)" font-size="15" text-anchor="middle">
+    <rect x="0" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="65" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="130" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="195" y="0" width="65" height="45" fill="#f5c96a" stroke="#555" stroke-width="2"></rect>
+    <rect x="260" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <rect x="325" y="0" width="65" height="45" fill="#f1f1f1" stroke="#555"></rect>
+    <text x="32" y="28">0</text><text x="97" y="28">0</text>
+    <text x="162" y="28">0</text><text x="227" y="28" font-weight="bold">1</text>
+    <text x="292" y="28">0</text><text x="357" y="28">0</text>
+  </g>
+
+  <path d="M495 245 L495 270" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"></path>
+  <text x="515" y="260" font-size="14" fill="#555">One-position translation</text>
+
+  <line x1="55" y1="290" x2="845" y2="290" stroke="#bbb" stroke-width="1"></line>
+
+  <text x="55" y="325" font-size="17" font-weight="bold" fill="#222">Filter</text>
+  <text x="55" y="350" font-size="15" fill="#444">w = [1, 0, -1]</text>
+
+  <text x="300" y="325" font-size="17" font-weight="bold" fill="#222">Stride 1: retain every response</text>
+  <text x="300" y="355" font-size="15" fill="#444">Original: [-1, 0, 1, 0]</text>
+  <text x="300" y="380" font-size="15" fill="#444">Shifted:  [0, 1, 0, 0]</text>
+
+  <text x="300" y="425" font-size="17" font-weight="bold" fill="#222">Stride 2: retain every other response</text>
+
+  <g transform="translate(300,445)" font-size="16" text-anchor="middle">
+    <text x="0" y="0" text-anchor="start" font-size="14" fill="#555">Original</text>
+    <rect x="0" y="12" width="90" height="42" rx="4" fill="#d9e8f7" stroke="#4779a8"></rect>
+    <rect x="105" y="12" width="90" height="42" rx="4" fill="#d9e8f7" stroke="#4779a8"></rect>
+    <text x="45" y="39" font-weight="bold">-1</text>
+    <text x="150" y="39" font-weight="bold">1</text>
+
+    <text x="270" y="0" text-anchor="start" font-size="14" fill="#555">Shifted</text>
+    <rect x="270" y="12" width="90" height="42" rx="4" fill="#f1f1f1" stroke="#888"></rect>
+    <rect x="375" y="12" width="90" height="42" rx="4" fill="#f1f1f1" stroke="#888"></rect>
+    <text x="315" y="39">0</text>
+    <text x="420" y="39">0</text>
+  </g>
+
+  <text x="450" y="530" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">
+    Downsampling can discard a feature response depending on its alignment.
+  </text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .title{font:700 34px Arial,sans-serif;fill:#172033}
+      .head{font:700 25px Arial,sans-serif;fill:#172033}
+      .body{font:22px Arial,sans-serif;fill:#263247}
+      .small{font:19px Arial,sans-serif;fill:#3b475b}
+      .animal{font:700 24px Arial,sans-serif;fill:#172033}
+      .panel{fill:#f7f9fc;stroke:#cbd5e1;stroke-width:2}
+      .card{fill:#fff;stroke:#aab7c8;stroke-width:2}
+      .arrow{stroke:#64748b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .good{fill:#e8f5ec;stroke:#4b9b67;stroke-width:2}
+      .bad{fill:#fff0e8;stroke:#d97745;stroke-width:2}
+      .cat{fill:#dbeafe;stroke:#3976b9;stroke-width:2}
+      .dog{fill:#fce7d7;stroke:#bd7740;stroke-width:2}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="900" fill="#ffffff"/>
+  <text x="700" y="58" text-anchor="middle" class="title">Shortcut learning: the model learns the background, not the animal</text>
+
+  <rect x="55" y="100" width="610" height="340" rx="18" class="panel"/>
+  <rect x="735" y="100" width="610" height="340" rx="18" class="panel"/>
+  <text x="360" y="145" text-anchor="middle" class="head">Training data</text>
+  <text x="1040" y="145" text-anchor="middle" class="head">Test data</text>
+  <text x="360" y="178" text-anchor="middle" class="small">Animal and background are correlated</text>
+  <text x="1040" y="178" text-anchor="middle" class="small">Correlation is deliberately broken</text>
+
+  <!-- training examples -->
+  <rect x="100" y="205" width="240" height="150" rx="12" class="card"/>
+  <rect x="100" y="205" width="240" height="150" rx="12" fill="#d9e8d1"/>
+  <path d="M100 300 Q160 270 220 300 T340 300 L340 355 L100 355Z" fill="#93b58a"/>
+  <text x="220" y="240" text-anchor="middle" class="small">Indoor background</text>
+  <text x="220" y="292" text-anchor="middle" font-size="55">🐱</text>
+  <text x="220" y="385" text-anchor="middle" class="animal">CAT → CAT</text>
+
+  <rect x="380" y="205" width="240" height="150" rx="12" class="card"/>
+  <rect x="380" y="205" width="240" height="150" rx="12" fill="#e7d6b8"/>
+  <path d="M380 305 Q450 275 510 305 T620 305 L620 355 L380 355Z" fill="#b9a078"/>
+  <text x="500" y="240" text-anchor="middle" class="small">Outdoor background</text>
+  <text x="500" y="292" text-anchor="middle" font-size="55">🐶</text>
+  <text x="500" y="385" text-anchor="middle" class="animal">DOG → DOG</text>
+
+  <!-- test examples -->
+  <rect x="780" y="205" width="240" height="150" rx="12" class="card"/>
+  <rect x="780" y="205" width="240" height="150" rx="12" fill="#e7d6b8"/>
+  <path d="M780 305 Q850 275 910 305 T1020 305 L1020 355 L780 355Z" fill="#b9a078"/>
+  <text x="900" y="240" text-anchor="middle" class="small">Outdoor background</text>
+  <text x="900" y="292" text-anchor="middle" font-size="55">🐱</text>
+  <text x="900" y="385" text-anchor="middle" class="animal">CAT</text>
+
+  <rect x="1060" y="205" width="240" height="150" rx="12" class="card"/>
+  <rect x="1060" y="205" width="240" height="150" rx="12" fill="#d9e8d1"/>
+  <path d="M1060 300 Q1120 270 1180 300 T1300 300 L1300 355 L1060 355Z" fill="#93b58a"/>
+  <text x="1180" y="240" text-anchor="middle" class="small">Indoor background</text>
+  <text x="1180" y="292" text-anchor="middle" font-size="55">🐶</text>
+  <text x="1180" y="385" text-anchor="middle" class="animal">DOG</text>
+
+  <rect x="55" y="475" width="1290" height="350" rx="18" class="panel"/>
+  <text x="700" y="520" text-anchor="middle" class="head">Two equally accurate rules on the training set</text>
+
+  <rect x="105" y="555" width="535" height="205" rx="14" class="good"/>
+  <text x="372" y="595" text-anchor="middle" class="head">Animal-based rule</text>
+  <text x="372" y="638" text-anchor="middle" class="body">Looks at the animal itself</text>
+  <text x="372" y="682" text-anchor="middle" class="body">CAT → CAT  ✓</text>
+  <text x="372" y="720" text-anchor="middle" class="body">DOG → DOG  ✓</text>
+  <text x="372" y="790" text-anchor="middle" class="small">Training accuracy: 100%   |   Test accuracy: 100%</text>
+
+  <rect x="760" y="555" width="535" height="205" rx="14" class="bad"/>
+  <text x="1027" y="595" text-anchor="middle" class="head">Background-based shortcut</text>
+  <text x="1027" y="638" text-anchor="middle" class="body">Indoor → CAT; Outdoor → DOG</text>
+  <text x="1027" y="682" text-anchor="middle" class="body">CAT outdoors → DOG  ✗</text>
+  <text x="1027" y="720" text-anchor="middle" class="body">DOG indoors → CAT  ✗</text>
+  <text x="1027" y="790" text-anchor="middle" class="small">Training accuracy: 100%   |   Test accuracy: 0%</text>
+
+  <text x="700" y="865" text-anchor="middle" class="small">A high training score does not reveal which features the model actually uses.</text>
+</svg>

@@ -124,7 +124,7 @@
 <paragraphs>
     <title>Failure Mode 1: Spurious Correlations and Shortcut Learning</title>
 
-    <image source="figures/shortcut-learning-examples.png">
+    <image source="figures/shortcut-learning-examples">
     <shortdescription>Examples of neural networks exploiting background features and other shortcuts instead of the intended visual features.</shortdescription>
 </image>
 <p>
@@ -146,7 +146,7 @@
     </p>
 </paragraphs>
 
-        <example xml:id="cats-dogs-backgrounds">
+        <example xml:id="cats-dogs-backgrounds" component="slides-inst-notes">
     <title>Shortcut learning: Cats, Dogs, and Backgrounds</title>
 
     <introduction>
@@ -281,8 +281,358 @@
     </task>
 </example>
 
+
+<example xml:id="shortcut-learning-hospital-backgrounds" component="slides-inst-notes">
+    <title>Shortcut learning: Pneumonia Detection and Hospital-Specific Cues</title>
+
+    <introduction>
+        <p>
+            Suppose we want to train a convolutional neural network to detect
+            pneumonia from chest X-ray images. The intended task is to identify
+            visual patterns in the lungs that are associated with pneumonia.
+            However, the images may also contain information about the hospital
+            where they were collected, such as image markers, acquisition
+            settings, or other hospital-specific artifacts.
+        </p>
+
+        <p>
+            For simplicity, suppose we represent each image using two binary
+            features:
+        <ul>
+            <li>
+                <p><m>X_1</m>: The image contains visual evidence of pneumonia.</p>
+            </li>
+            <li>
+                <p><m>X_2</m>: The image contains a hospital-specific marker associated with the training hospital.</p>
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            Let the class label be <m>Y=1</m> for pneumonia and <m>Y=0</m>
+            for no pneumonia. Imagine that, in the training dataset, most
+            pneumonia images come from one hospital and most normal images
+            come from another. The resulting simplified dataset might look
+            like this:
+        </p>
+
+        <table xml:id="hospital-shortcut-training-data">
+            <title>Training Data for the Pneumonia Classifier</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>Label</cell>
+                </row>
+                <row><cell>Pneumonia 1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Pneumonia 2</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Pneumonia 3</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Normal 1</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Normal 2</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Normal 3</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+
+        <p>
+            Consider two possible classifiers:
+        <md>
+            f_1(X_1,X_2)=X_1
+        </md>
+        <md>
+            f_2(X_1,X_2)=X_2
+        </md>
+        </p>
+
+        <p>
+            The first classifier uses evidence of pneumonia in the lungs.
+            The second classifier uses the hospital-specific marker instead.
+            Both classifiers achieve 100% accuracy on the training data.
+        </p>
+
+        <p>
+            Now suppose we evaluate the classifiers on images collected at a
+            different hospital. The new hospital does not use the same
+            marker convention, so the relationship between the marker and
+            the diagnosis is no longer present. Consider these test images:
+        </p>
+
+        <table xml:id="hospital-shortcut-test-data">
+            <title>Test Data from a Different Hospital</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>True label</cell>
+                </row>
+                <row><cell>Pneumonia A</cell><cell>1</cell><cell>0</cell><cell>1</cell></row>
+                <row><cell>Normal A</cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>
+                What predictions does each classifier make on the two test
+                images?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                For the pneumonia image, the features are
+                <m>(X_1,X_2)=(1,0)</m>. Thus,
+            <md>
+                f_1(1,0)=1,\qquad f_2(1,0)=0.
+            </md>
+            </p>
+            <p>
+                For the normal image, the features are
+                <m>(X_1,X_2)=(0,1)</m>. Thus,
+            <md>
+                f_1(0,1)=0,\qquad f_2(0,1)=1.
+            </md>
+            </p>
+            <p>
+                The classifier using lung evidence makes both predictions
+                correctly, while the classifier using the hospital marker
+                makes both predictions incorrectly.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>
+                Which classifier has learned the feature that is relevant
+                to the medical task? Explain.
+            </p>
+        </statement>
+        <solution>
+            <p>
+                The classifier <m>f_1</m> uses evidence of pneumonia in the
+                lungs, which is the feature relevant to the intended task.
+                The classifier <m>f_2</m> relies on a hospital-specific
+                marker that is correlated with the diagnosis in the training
+                data but does not indicate whether a patient has pneumonia.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>
+                Why could we not distinguish between these two classifiers
+                using only their training accuracy?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                In the training dataset, the hospital-specific marker and
+                the presence of pneumonia are perfectly correlated with
+                the class labels. Consequently, both classifiers achieve
+                perfect training accuracy, even though only one has learned
+                a relationship that is relevant to the medical task.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>
+                What could a researcher do to reduce the risk that a
+                pneumonia classifier learns hospital-specific shortcuts?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                The researcher could collect images from multiple hospitals
+                and ensure that the dataset includes a variety of acquisition
+                conditions and hospital-specific markers for both classes.
+                The model should also be evaluated on images from hospitals
+                that were not included in training. This external evaluation
+                helps determine whether the classifier generalizes beyond
+                the particular hospitals represented in its training data.
+            </p>
+        </solution>
+    </task>
+</example>
+
+
+<example xml:id="shortcut-learning-wolves-huskies">
+    <title>Shortcut learning: Wolves, Huskies, and Snow</title>
+
+    <introduction>
+        <p>
+            Suppose we want to train an image classifier to distinguish
+            wolves from huskies. We represent each image using two binary
+            features:
+
+        <ul>
+            <li>
+                <p><m>X_1</m>: The animal looks like a wolf.</p>
+            </li>
+            <li>
+                <p><m>X_2</m>: The image contains a snowy background.</p>
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            The training dataset contains mostly wolves photographed in
+            snowy environments and huskies photographed in environments
+            without snow. Let the label be <m>Y=1</m> for wolves and
+            <m>Y=0</m> for huskies.
+        </p>
+
+        <table xml:id="wolves-huskies-training-data">
+            <title>Training Data for the Wolf and Husky Classifier</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>Label</cell>
+                </row>
+                <row><cell>Wolf 1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Wolf 2</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Wolf 3</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+                <row><cell>Husky 1</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Husky 2</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+                <row><cell>Husky 3</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+
+        <p>
+            Consider two possible classifiers:
+
+        <md>
+            f_1(X_1,X_2)=X_1
+        </md>
+        <md>
+            f_2(X_1,X_2)=X_2
+        </md>
+        </p>
+
+        <p>
+            Both classifiers achieve 100% accuracy on the training data.
+            However, <m>f_1</m> uses the animal's appearance, while
+            <m>f_2</m> uses the background.
+        </p>
+
+        <p>
+            Now consider two new images in which the animals appear in
+            different environments:
+        </p>
+
+        <table xml:id="wolves-huskies-test-data">
+            <title>Test Data with Changed Backgrounds</title>
+            <tabular>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <col width="25%"/>
+                <row>
+                    <cell>Image</cell>
+                    <cell><m>X_1</m></cell>
+                    <cell><m>X_2</m></cell>
+                    <cell>True label</cell>
+                </row>
+                <row><cell>Wolf in grass</cell><cell>1</cell><cell>0</cell><cell>1</cell></row>
+                <row><cell>Husky in snow</cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+            </tabular>
+        </table>
+    </introduction>
+
+    <task>
+        <statement>
+            <p>
+                What predictions does each classifier make on the two
+                test images?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                For the wolf in grass, the features are
+                <m>(X_1,X_2)=(1,0)</m>. Therefore,
+            <md>
+                f_1(1,0)=1,\qquad f_2(1,0)=0.
+            </md>
+            </p>
+            <p>
+                For the husky in snow, the features are
+                <m>(X_1,X_2)=(0,1)</m>. Therefore,
+            <md>
+                f_1(0,1)=0,\qquad f_2(0,1)=1.
+            </md>
+            </p>
+            <p>
+                The animal-based classifier correctly classifies both
+                images, while the background-based classifier incorrectly
+                classifies both.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>
+                Which classifier has learned the feature that actually
+                distinguishes wolves from huskies?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                The classifier <m>f_1</m> uses the animal's appearance.
+                The classifier <m>f_2</m> has learned a shortcut: it
+                associates snow with wolves rather than recognizing the
+                animal itself.
+            </p>
+        </solution>
+    </task>
+
+    <task>
+        <statement>
+            <p>
+                Why might a neural network learn the background instead
+                of the animal, even though the animal is the intended
+                classification target?
+            </p>
+        </statement>
+        <solution>
+            <p>
+                The background is an easy and highly predictive feature
+                in the training data. A neural network trained to minimize
+                classification error has no inherent reason to prefer
+                meaningful animal features over background features.
+                If the background provides a reliable prediction on the
+                training data, the network may exploit it.
+            </p>
+        </solution>
+    </task>
+</example>
+
+
+
 <paragraphs>
     <title>Historical Example: Pneumonia Detection from Chest X-Rays</title>
+
+    <image source="figures/zech-hospital-shortcut.png">
+    <shortdescription>Chest radiographs and activation maps illustrating hospital-specific visual features that a convolutional neural network can use to identify the source hospital.</shortdescription>
+</image>
 
     <p>In 2018, Zech and collaborators studied whether CNNs could generalize across hospitals.</p>
 
@@ -350,6 +700,13 @@
 
     <paragraphs>
     <title>Failure Mode 2: Loss of Spatial Information Through Pooling</title>
+
+    <figure xml:id="spatial-information-loss">
+    <caption>Loss of spatial information through global max pooling</caption>
+    <image source="figures/spatial-information-loss">
+        <shortdescription>Two feature maps with activations in different spatial locations produce the same global max-pooled value, illustrating loss of location information.</shortdescription>
+    </image>
+</figure>
 
     <p>Pooling reduces feature-map size and computation, but also discards spatial information.</p>
 
@@ -460,6 +817,17 @@
 
        <paragraphs>
     <title>Historical Example: Small Objects Lost in Semantic Segmentation</title>
+    <figure xml:id="semantic-segmentation-small-objects">
+    <caption>Small objects lost in CNN-based semantic segmentation</caption>
+    <image source="figures/semantic-segmentation-small-objects.png">
+        <shortdescription>
+            Comparison of an input street image, its ground-truth semantic
+            segmentation, and an illustrative CNN prediction. The prediction
+            misses a foreground person, demonstrating loss of small-object
+            information during semantic segmentation.
+        </shortdescription>
+    </image>
+</figure>
 
     <p>In 2015, Noh, Hong, and Han documented limitations of CNN-based semantic segmentation on the PASCAL VOC dataset.</p>
 
@@ -520,6 +888,10 @@
 
 <paragraphs>
     <title>Failure Mode 3: Translation Sensitivity</title>
+
+    <image source="figures/translation-sensitivity">
+    <shortdescription>Two slightly translated versions of an input image and their feature maps after strided sampling, illustrating sensitivity to spatial alignment.</shortdescription>
+</image>
 
     <p>Convolutions are translation equivariant: shifting the input shifts the feature map.</p>
 
@@ -616,6 +988,17 @@
 
         <paragraphs>
     <title>Historical Example: Sensitivity to Small Image Transformations</title>
+    <figure xml:id="cnn-translation-sensitivity">
+    <caption>Sensitivity of CNN predictions to small image translations</caption>
+    <image source="figures/cnn-translation-sensitivity.png">
+        <shortdescription>
+            An original cat image and a version shifted slightly to the
+            right appear nearly identical, but the illustrative CNN
+            predictions differ: cat for the original and dog for the
+            translated image.
+        </shortdescription>
+    </image>
+</figure>
 
     <p>In 2019, Azulay and Weiss studied CNN sensitivity to small image transformations.</p>
 
@@ -662,6 +1045,18 @@
 
 <paragraphs>
     <title>Failure Mode 4: Texture Bias Instead of Shape Bias</title>
+
+<figure xml:id="texture-versus-shape-bias">
+    <caption>A cat-shaped object with elephant-like texture</caption>
+    <image source="figures/texture-bias-shape-vs-texture.png" width="65%">
+        <shortdescription>
+            A cat-shaped animal with elephant-like skin texture,
+            illustrating how texture cues can conflict with shape cues.
+        </shortdescription>
+    </image>
+</figure>
+
+
 
     <p>Humans often recognize objects by their shape, while CNNs can rely heavily on local texture.</p>
 
@@ -785,6 +1180,17 @@
 <paragraphs>
     <title>Historical Example: Texture Bias in CNNs</title>
 
+    <figure xml:id="geirhos-texture-bias">
+    <caption>Texture bias in standard CNNs and increased shape bias through Stylized ImageNet</caption>
+    <image source="figures/geirhos-2019-texture-bias.png" width="75%">
+        <shortdescription>
+            Cue-conflict examples illustrate texture bias in standard
+            CNNs and increased shape bias after training with
+            Stylized ImageNet.
+        </shortdescription>
+    </image>
+</figure>
+
     <p>In 2019, Geirhos and collaborators studied CNNs' tendency to rely on texture rather than shape.</p>
 
     <p>They introduced cue-conflict images combining the shape of one object with the texture of another.</p>
@@ -828,6 +1234,18 @@
 
 <paragraphs>
     <title>Failure Mode 5: Adversarial Examples</title>
+
+<figure xml:id="adversarial-stop-sign">
+    <caption>An illustrative stop-sign adversarial example</caption>
+    <image source="figures/adversarial-stop-sign.jpg">
+        <shortdescription>
+            An original stop-sign image, a small adversarial perturbation,
+            and a nearly identical perturbed image that is illustratively
+            misclassified as a speed-limit sign. A magnified inset shows
+            the subtle image changes.
+        </shortdescription>
+    </image>
+</figure>
 
     <p>
         <ul>
@@ -977,6 +1395,17 @@
 
 <paragraphs>
     <title>Historical Example: The Panda-to-Gibbon Example</title>
+
+    <figure xml:id="adversarial-examples-overview">
+    <caption>How a small adversarial perturbation can fool a CNN</caption>
+    <image source="figures/panda-to-gibbon.png">
+        <shortdescription>
+            An original panda image, a small perturbation, and the resulting
+            adversarial image classified as a gibbon. A magnified inset
+            illustrates the subtle changes.
+        </shortdescription>
+    </image>
+</figure>
 
     <p>In 2015, Goodfellow, Shlens, and Szegedy studied why adversarial examples occur.</p>
 

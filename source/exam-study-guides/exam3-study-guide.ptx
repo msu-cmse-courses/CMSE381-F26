@@ -1120,6 +1120,11 @@ For regression, use the RSS splitting error.
         <mrow>w_{20}=-1,\quad w_{21}=0,\quad w_{22}=1</mrow>
         <mrow>w_{30}=3,\quad w_{31}=-1,\quad w_{32}=-1</mrow>
       </md>
+      and 
+      <md>
+\beta_0=-1, \beta_1=2, \beta_2=1, \beta_3=-2. 
+      </md>
+      
     </p>
     <p>Use the ReLU activation function <m>g(z)</m>.</p>
     <figure>
@@ -1279,10 +1284,10 @@ For regression, use the RSS splitting error.
   </task>
   <task>
     <statement>
-      <p>We now have <m>M</m> real numbers <m>Z_1,\ldots,Z_M</m> corresponding to <m>M</m> possible categorical outcomes. We need a way to convert these <m>M</m> numbers to a probability distribution over <m>M</m> possible outcomes. This can be accomplished using the softmax function <m>f_m(\mathbf{X})</m> shown below. Compute <m>f_m</m> for each of the two possible outcomes.</p>
+      <p>We now have <m>M</m> real numbers <m>Z_0,\ldots,Z_{M-1}</m> corresponding to <m>M</m> possible categorical outcomes. We need a way to convert these <m>M</m> numbers to a probability distribution over <m>M</m> possible outcomes. This can be accomplished using the softmax function <m>f_m(\mathbf{X})</m> shown below. Compute <m>f_m</m> for each of the two possible outcomes.</p>
       <p><md>
         f_m(\mathbf{X})=\operatorname{Pr}(Y=m\mid\mathbf{X})
-        =\frac{e^{Z_m}}{\sum_{\ell=0}^{M}e^{Z_\ell}}
+        =\frac{e^{Z_m}}{\sum_{\ell=0}^{M-1}e^{Z_\ell}}
       </md></p>
     </statement>
   </task>

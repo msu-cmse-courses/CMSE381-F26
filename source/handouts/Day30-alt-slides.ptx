@@ -1351,7 +1351,7 @@
         </solution>
     </task>
 
-    <task>
+    <!-- <task>
         <statement>
             <p>Find the perturbation with minimum Euclidean norm that reaches the decision boundary.</p>
         </statement>
@@ -1388,7 +1388,7 @@
             </p>
             <p>This perturbation reaches the decision boundary. A slightly larger perturbation in the same direction crosses the boundary and changes the predicted class.</p>
         </solution>
-    </task>
+    </task> -->
 </example>
 
 

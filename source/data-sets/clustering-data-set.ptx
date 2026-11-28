@@ -1,0 +1,187 @@
+<subsection xml:id="clustering-toy-data">
+    <title>Clustering Example Data</title>
+
+    <paragraphs>
+        <title>Clustering-ToyData</title>
+
+        <data xml:id="Clustering-ToyData-csv">
+            <title>Clustering-ToyData Data Set</title>
+
+            <p>
+                A data file containing 56 observations, each with two numerical
+                predictors. The data were randomly generated for
+                use in the hierarchical clustering module.
+            </p>
+
+            <image source="data/Clustering-ToyData.png" width="75%">
+                <shortdescription>
+                    Randomly generated two-dimensional data with three distinct
+                    clusters.
+                </shortdescription>
+            </image>
+
+            <p>
+                The data consist of three randomly generated groups, each
+                sampled from a bivariate normal distribution:
+
+            <ul>
+                <li>
+                    <p>
+                        Cluster 1: 20 observations centered at
+                        <m>(0,0)</m>, with standard deviation <m>0.3</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cluster 2: 15 observations centered at
+                        <m>(4,1)</m>, with standard deviation <m>0.5</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cluster 3: 21 observations centered at
+                        <m>(1,3)</m>, with standard deviation <m>0.6</m>.
+                    </p>
+                </li>
+            </ul>
+            </p>
+
+            <p>
+                The observations are concatenated and randomly shuffled before
+                being saved. The original cluster memberships are therefore
+                not explicitly identified in the resulting data file.
+            </p>
+
+            <p>
+                The code used to generate the data is below.
+            </p>
+
+            <program language="python">
+                <code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(1)
+
+n1 = 20
+X1 = np.random.normal((0, 0), 0.3, (n1, 2))
+
+n2 = 15
+X2 = np.random.normal((4, 1), 0.5, (n2, 2))
+
+n3 = 21
+X3 = np.random.normal((1, 3), 0.6, (n3, 2))
+
+for A in [X1, X2, X3]:
+    plt.scatter(A[:, 0], A[:, 1])
+
+X = np.concatenate([X1, X2, X3], axis=0)
+np.random.shuffle(X)
+                </code>
+            </program>
+
+            <p>
+                <dataurl source="data/Clustering-ToyData.csv"
+                    visual="Clustering-ToyData.csv data file"/>
+            </p>
+        </data>
+
+  </paragraphs>
+
+    <paragraphs>
+        <title>Clustering-ToyData2</title>
+
+        <data xml:id="Clustering-ToyData2-csv">
+            <title>Clustering-ToyData2 Data Set</title>
+
+            <p>
+                A data file containing 76 observations, each with two numerical
+                predictors. This data set was randomly generated for use in the hierarchical clustering module.
+            </p>
+
+            <image source="data/Clustering-ToyData2.png" width="75%">
+                <shortdescription>
+                    Randomly generated two-dimensional data with four colored
+                    groups, two of which overlap.
+                </shortdescription>
+            </image>
+
+            <p>
+                The data consist of four randomly generated groups. Two groups
+                are centered at the same location, creating overlapping
+                clusters:
+
+            <ul>
+                <li>
+                    <p>
+                        Cluster 1: 20 observations centered at
+                        <m>(0,0)</m>, with standard deviation <m>1</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cluster 1b: 20 observations centered at
+                        <m>(0,0)</m>, with standard deviation <m>0.5</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cluster 2: 15 observations centered at
+                        <m>(4,1)</m>, with standard deviation <m>0.7</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cluster 3: 21 observations centered at
+                        <m>(1,3)</m>, with standard deviation <m>0.5</m>.
+                    </p>
+                </li>
+            </ul>
+            </p>
+
+            <p>
+                The observations are concatenated and randomly shuffled before
+                being saved. The original group memberships are therefore
+                not explicitly identified in the resulting data file.
+            </p>
+
+            <p>
+                The code used to generate the data is below.
+            </p>
+
+            <program language="python">
+                <code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(1)
+
+n1 = 20
+X1 = np.random.normal((0, 0), 1, (n1, 2))
+
+n1b = 20
+X1b = np.random.normal((0, 0), 0.5, (n1b, 2))
+
+n2 = 15
+X2 = np.random.normal((4, 1), 0.7, (n2, 2))
+
+n3 = 21
+X3 = np.random.normal((1, 3), 0.5, (n3, 2))
+
+for A in [X1, X2, X3, X1b]:
+    plt.scatter(A[:, 0], A[:, 1])
+
+X = np.concatenate([X1, X2, X3, X1b], axis=0)
+np.random.shuffle(X)
+                </code>
+            </program>
+
+            <p>
+                <dataurl source="data/Clustering-ToyData2.csv"
+                    visual="Clustering-ToyData2.csv data file"/>
+            </p>
+        </data>
+
+    </paragraphs>
+
+</subsection>

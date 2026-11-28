@@ -59,7 +59,8 @@
       <xi:include href="./activities/day27-worksheet.ptx"/>
       <xi:include href="./activities/day28-worksheet.ptx"/>
       <xi:include href="./activities/day29-worksheet.ptx"/>
-      <xi:include href="./activities/day30-worksheet.ptx"/>      
+      <xi:include href="./activities/day30-worksheet.ptx"/>  
+      <xi:include href="./activities/day31-worksheet.ptx"/>  
       <!-- Add more xi:include files here to include them in the main course -->
     </chapter>
 
@@ -360,6 +361,7 @@
       <xi:include href="./data-sets/carseats-data-set.ptx"/>
       <xi:include href="./data-sets/SVM-data.ptx"/>
       <xi:include href="./data-sets/DL-data-sets.ptx"/>
+      <xi:include href="./data-sets/clustering-data-set.ptx"/>
     </chapter>
 
     <chapter xml:id="ch-study-guides">

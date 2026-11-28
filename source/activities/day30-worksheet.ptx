@@ -1,382 +1,435 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="cmse381-lec30-hierarchicalclustering-worksheet" component="ws30">
+<section xml:id="cmse381-cnn-failure-modes-activity" component="ws30">
   <title>Day 30 worksheet</title>
+
   <introduction>
-    <!-- unsupported HTML omitted from source cell 0 -->
-    <program language="python">
-      # Everyone's favorite standard imports
-      import numpy as np
-      import pandas as pd
-      import matplotlib as mpl
-      import matplotlib.pyplot as plt
-      %matplotlib inline
-      import time
-    </program>
-    <p>I've made us some data, easy case first, where we've got data that I made drawing from three clusters. You can probably look at the picture and figure out what they should be.</p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/540ccc8f37c0962c8003b5048bca8946/Clustering-ToyData.csv"
-      X = np.loadtxt(url)
-      plt.scatter(X[:,0],X[:,1])
-      plt.show()
-    </program>
-    <p>But notice that when I look at the order the points are included in the matrix, it's got nothing to do with the order that the points came in the matrix.</p>
-    <program language="python">
-      plt.scatter(X[:,0],X[:,1], c = list(range(X.shape[0])))
-      plt.colorbar()
-      plt.title('Colored by order of points in the matrix')
-      plt.show()
-    </program>
-    <p>The next thing we can do is look at the <em>distance matrix</em> of the points, which is a square matrix for which entry <c>D[i,j]</c> is the distance between points <c>i</c> and <c>j</c>.</p>
-    <program language="python">
-      from scipy.spatial import distance_matrix
+    <p>Convolutional neural networks (CNNs) have become important tools in applications ranging from wildlife monitoring and autonomous driving to satellite-image analysis and security systems. Their impressive performance, however, does not mean that they always learn the right features or behave reliably in unfamiliar situations.</p>
 
-      D = distance_matrix(X,X)
+    <p>In this activity, you will examine five research case studies involving CNN-based image classification or object detection. Each case describes a problem that researchers encountered or investigated. Your job is to determine what went wrong, connect the evidence to concepts from lecture, and propose ways to make the systems more reliable.</p>
 
-      plt.matshow(D)
-      plt.colorbar()
-      plt.title('Distance matrix')
-      plt.show()
-    </program>
-    <p>There are lots of controls in that function including messing with the choice of distances between the points, but for now we'll leave it at the good ol' fashioned Euclidean distance,</p>
-    <p><md>
-    \| x - y \| = \sqrt{ \sum_k (x_k-y_k)^2 } = \sqrt{(x_1-y_1)^2 + (x_2-y_2)^2}.
-    </md></p>
-    <p>Before we go on, here's a trick for figuring out where a particular data point is.</p>
-    <program language="python">
-      # I want to find point 53
+    <p>The cases are intentionally presented without naming the corresponding failure modes. You should use the evidence in each case to determine which failure mode is most relevant. Some cases may involve more than one contributing factor, so explain your reasoning rather than simply naming a category.</p>
 
-      colors = np.zeros(X.shape[0])
-      colors[53] = -1 #&lt;--- Make the color of point 53 different from the others
+    <p>For each case, work through the following questions:
+    <ul>
+      <li>
+        <p>What was the task, and what did the researchers observe?</p>
+      </li>
+      <li>
+        <p>Which CNN failure mode from lecture best explains the observed behavior? Explain why.</p>
+      </li>
+      <li>
+        <p>What experiment or evaluation would help diagnose the problem?</p>
+      </li>
+      <li>
+        <p>What changes to the data, architecture, or training procedure might help?</p>
+      </li>
+    </ul>
+    </p>
 
-      plt.scatter(X[:,0],X[:,1], c = colors)
-      plt.colorbar()
-      plt.title('Colored by order of points in the matrix')
-      print('Distance:', D[18,7])
-      plt.show()
-    </program>
-    <p>I can also play around with looking at the connections like in class, where we connect up points within distance <m>r</m> of each other. Mess around with the <m>r</m> value below to see what changes. Be careful: large <m>r</m> values wil make for slow drawing.</p>
-    <program language="python">
-      plt.scatter(X[:,0],X[:,1])
-
-      r = 0.3
-
-      for i in range(X.shape[0]):
-          for j in range(X.shape[0]):
-              if D[i,j] &lt;= r:
-                  p = X[(i,j),:]
-                  plt.plot(p[:,0],p[:,1],c = 'black')
-
-      plt.show()
-    </program>
-    <p>This matrix is very helpful for understanding distances, however, my code in just a moment is going to need the <c>condensed</c> distance matrix. It turns out that it has the same information as the above distance matrix, just flattened out. For our purposes, you won't need to fully understand this but the curious can go check out the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html">documentation</url>.</p>
-    <program language="python">
-      from scipy.spatial.distance import pdist
-
-      P = pdist(X)
-      P.shape
-    </program>
-    <p>And with that, we can get <c>scipy</c> to compute our dendrogram for us!</p>
-    <program language="python">
-      from scipy.cluster import hierarchy
-    </program>
-    <program language="python">
-      Z = hierarchy.linkage(pdist(X), 'single')
-
-      plt.figure()
-
-      dn = hierarchy.dendrogram(Z)
-      plt.show()
-    </program>
-    <p>First thing to notice, it automatically gives me some color visual guesses for what it thinks the threshold should be for clustering. Hunting around in the <url href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.dendrogram.html">documentation</url>, it turns out it chooses this threshold based on some information in the linkage diagram......</p>
-    <program language="python">
-      h = 0.7*max(Z[:,2])  #&lt;---- this equation is what it uses to pick the cutoff
-      print('Chosen threshold:', h)
-    </program>
-    <p>...but we can also control the cutoff that it draws the colors</p>
-    <program language="python">
-      thresh_height = 0.8
-
-      dn = hierarchy.dendrogram(Z, color_threshold = thresh_height)
-      plt.axhline(y = thresh_height, color = 'r', linestyle = '-')
-      plt.show()
-    </program>
-    <p>Now the magic is that we have the ability to extract the clusters based on the chosen threshold.</p>
-    <program language="python">
-      labels = hierarchy.fcluster(Z,h,criterion = 'distance')
-
-      plt.scatter(X[:,0],X[:,1],c = labels)
-      plt.show()
-    </program>
-    <program language="python">
-      np.unique(labels)
-    </program>
+    <p>These are research-based case studies, not necessarily examples of deployed systems causing real-world accidents. Pay attention to what the researchers actually demonstrated and distinguish their findings from your own proposed explanations.</p>
   </introduction>
-  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-a-nastier-example">
-    <title>A nastier example</title>
-    <p>I made another data set that's a bit more ambiguous. How many clusters are there? 2? 3? Ok, ok, let's not fight about it. I actually made it using three centers of a normal distribution, but one could argue whether there's two cleanly split clusters, or whether this is related to density and therefore there are 3.</p>
-    <program language="python">
-      url = "https://msu-cmse-courses.github.io/CMSE381-S26/_downloads/3620eb9976196da8a0f980c4b0435b94/Clustering-ToyData2.csv"
-      X = np.loadtxt(url)
-      plt.scatter(X[:,0],X[:,1])
-      plt.show()
-    </program>
-    <p>Now, we can mess with the choice of linkage to see how this changes the clustering assignment.</p>
-    <!-- horizontal rule in source notebook -->
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-wildlife">
+    <title>Case Study 1: Wildlife Monitoring Across Different Habitats</title>
+
+    <p>Camera traps are widely used by ecologists to monitor wildlife populations. These cameras can collect thousands of images, making manual identification of every animal time-consuming. CNNs offer a way to automate this process by identifying the species appearing in each image.</p>
+
+    <p>A research study investigated how well CNN-based species classifiers generalize across camera locations and habitat conditions in tropical forests. The researchers found that performance depended strongly on the composition of the training data and the locations represented in it.</p>
+
+    <p>For example, when the researchers evaluated models on images from camera locations that were not represented during training, the mean F1-score was approximately 0.32. Performance on previously unseen habitat disturbance levels was even lower, with a mean F1-score of approximately 0.27 in one of their evaluations. Including images from multiple habitat conditions improved generalization.</p>
+
+    <p>The researchers also investigated cropping images around the animals. This improved classification performance and generalization, although it did not eliminate all problems. Cropping also introduced a practical limitation: an animal must first be detected before its cropped image can be classified.</p>
+
+    <p>Read the study: <url href="https://doi.org/10.1111/2041-210X.14031">Can CNN-based species classification generalise across variation in habitat within a camera trap survey?</url> (2022).</p>
+
     <exercises>
-      <title>Exercises</title>
-      <exercisegroup>
-        <title>Practice</title>
-        <introduction>
-          <p>Complete the following exercises.</p>
-        </introduction>
-        <exercise>
-          <task>
-            <statement>
-              <p><alert>Answer these:</alert></p>
-              <p><ul>
-                <li>
-                  <p>Where are the 7th and 18th (according to python numbering) points in the scatter plot above?</p>
-                </li>
-                <li>
-                  <p>Are they in the same cluster (based on eyeballing it) or different clusters?</p>
-                </li>
-                <li>
-                  <p>What is the distance between the 7th and 18th points? Use the distance matrix to figure it out</p>
-                </li>
-              </ul></p>
-            </statement>
-            <hint>
-              <p>Use <c>X[[7, 18]]</c> to print the two coordinates, then highlight those same zero-based row indices in the scatter plot.</p>
-            </hint>
-            <hint>
-              <p>The distance matrix entry can be read as either <c>D[7, 18]</c> or <c>D[18, 7]</c> because Euclidean distance is symmetric.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> The wording follows Python numbering, so use indices 7 and 18—not the seventh and eighteenth rows counted from one.</p>
-            </hint>
-            <answer>
-              <p>Point 7 is approximately <m>(0.2705,0.1507)</m> and point 18 is approximately <m>(3.6264,1.8462)</m>. They appear in different visual clusters, and their Euclidean distance is approximately <m>3.7599</m>.</p>
-              <program language="python">
-                <code>
-                  print('point 7:', X[7])
-                  print('point 18:', X[18])
-                  print('distance:', D[7, 18])
-                  colors = np.zeros(X.shape[0])
-                  colors[[7, 18]] = 1
-                  plt.scatter(X[:, 0], X[:, 1], c=colors)
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>How many clusters are there if we have a cutoff of 2.0?</p>
-            </statement>
-            <hint>
-              <p>Cut the single-linkage dendrogram at height 2.0; every connected component below that horizontal line is one cluster.</p>
-            </hint>
-            <hint>
-              <p>Verify the visual count with <c>hierarchy.fcluster</c>, then count the unique labels.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not count dendrogram colors directly: branches above the threshold and singleton coloring can make the color count misleading.</p>
-            </hint>
-            <answer>
-              <p>A cutoff of 2.0 produces 2 clusters.</p>
-              <program language="python">
-                <code>
-                  thresh_height = 2.0
-                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
-                  print('number of clusters:', len(np.unique(labels)))
-                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
-                  plt.axhline(y=thresh_height, color='r', linestyle='-')
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>(Continue from above) What about for 0.5?</p>
-            </statement>
-            <hint>
-              <p>Lowering the cutoff prevents merges whose linkage distance exceeds 0.5, so the number of clusters should increase.</p>
-            </hint>
-            <hint>
-              <p>Use <c>hierarchy.fcluster(Z, 0.5, criterion='distance')</c> and count its distinct labels.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> A lower horizontal cut cannot produce fewer clusters than a higher cut on the same dendrogram.</p>
-            </hint>
-            <answer>
-              <p>A cutoff of 0.5 produces 8 clusters.</p>
-              <program language="python">
-                <code>
-                  thresh_height = 0.5
-                  labels = hierarchy.fcluster(Z, thresh_height, criterion='distance')
-                  print('number of clusters:', len(np.unique(labels)))
-                  hierarchy.dendrogram(Z, color_threshold=thresh_height)
-                  plt.axhline(y=thresh_height, color='r', linestyle='-')
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Where are the clusters associated to a threshold of 2.0?</p>
-            </statement>
-            <hint>
-              <p>Generate flat labels with <c>hierarchy.fcluster(Z, 2.0, criterion='distance')</c>.</p>
-            </hint>
-            <hint>
-              <p>Color the original scatter plot with those labels so every point's assignment is visible.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Apply <c>fcluster</c> to the linkage matrix <c>Z</c>, not to the square distance matrix <c>D</c>.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  labels = hierarchy.fcluster(Z,2,criterion = 'distance')
+      <exercise>
+        <task>
+          <statement>
+            <p>Describe the classification task. What did the researchers find when they evaluated their models on images from camera locations and habitat conditions that were not represented in the training data?</p>
+          </statement>
+          <hint>
+            <p>Compare the evaluation involving familiar camera locations with the evaluations involving new locations and habitat conditions.</p>
+          </hint>
+          <answer>
+            <p>The task was to identify animal species in camera-trap images. The researchers found that performance decreased substantially when the models were evaluated on images from camera locations or habitat disturbance levels not represented in training. This indicates that high performance on a conventional test split did not guarantee reliable performance in new locations or environmental conditions.</p>
+          </answer>
+        </task>
 
-                  plt.scatter(X[:,0],X[:,1],c = labels)
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>(Continue from above) What about 0.5?</p>
-            </statement>
-            <hint>
-              <p>Repeat the flat-cluster calculation with <c>t=0.5</c> while keeping <c>criterion='distance'</c>.</p>
-            </hint>
-            <hint>
-              <p>Use a qualitative colormap such as <c>tab10</c> because cluster numbers are category labels, not measured magnitudes.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not reuse the labels from the 2.0 cutoff; rerun <c>fcluster</c> after changing the threshold.</p>
-            </hint>
-            <answer>
-              <program language="python">
-                <code>
-                  labels = hierarchy.fcluster(Z,0.5,criterion = 'distance')
+        <task>
+          <statement>
+            <p>Which CNN failure mode from lecture is most relevant to this case? Explain how features of the images other than the animals themselves could influence the predictions.</p>
+          </statement>
+          <hint>
+            <p>Think about the background scenery, lighting, camera position, and other characteristics that may be associated with particular species in the training data.</p>
+          </hint>
+          <answer>
+            <p>The most relevant failure mode is <em>shortcut learning</em>. A CNN may rely on background scenery, lighting, camera characteristics, or other environmental cues that happen to correlate with species labels in the training data. These cues may be predictive in the training locations but become unreliable when the model encounters new locations or habitat conditions. The study supports the importance of background variation and generalization, although it does not establish that every performance decrease was caused by one particular shortcut.</p>
+          </answer>
+        </task>
 
-                  plt.scatter(X[:,0],X[:,1],c = labels, cmap = 'tab10')
-                  plt.colorbar()
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Draw the single linkage cluster dendogram as above.</p>
-              <p><ul>
-                <li>
-                  <p>Is there a reasonable choice of threshold?</p>
-                </li>
-                <li>
-                  <p>Using this threshold, how many clusters are there?</p>
-                </li>
-                <li>
-                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
-                </li>
-              </ul></p>
-            </statement>
-            <hint>
-              <p>Recompute <c>Z</c> from the second data set using <c>hierarchy.linkage(pdist(X), 'single')</c>, then inspect the largest merge heights.</p>
-            </hint>
-            <hint>
-              <p>Try a horizontal cut near 1.2 and use <c>fcluster</c> to count and plot the resulting assignments.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Make sure <c>X</c> contains <c>Clustering-ToyData2.csv</c>; otherwise you will silently redraw the first example.</p>
-            </hint>
-            <answer>
-              <p>Single linkage shows a chaining effect in this data set. A cutoff near 1.2 is defensible and produces 2 broad clusters, though another threshold can be argued if it is justified from the dendrogram.</p>
-              <program language="python">
-                <code>
-                  Z = hierarchy.linkage(pdist(X), 'single')
-                  threshold = 1.2
-                  hierarchy.dendrogram(Z, color_threshold=threshold)
-                  plt.axhline(y=threshold, color='r', linestyle='-')
-                  plt.show()
-                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
-                  print('number of clusters:', len(np.unique(labels)))
-                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
-                  plt.colorbar()
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-        <exercise>
-          <task>
-            <statement>
-              <p>Modify your linkage to use <c>complete</c> instead of <c>single</c> and draw the resulting dendrogram.</p>
-              <p><ul>
-                <li>
-                  <p>Is there a reasonable choice of threshold?</p>
-                </li>
-                <li>
-                  <p>Using this threshold, how many clusters are there?</p>
-                </li>
-                <li>
-                  <p>Draw the cluster assignments on the points using some choice of threshold, reasonable or not.</p>
-                </li>
-              </ul></p>
-            </statement>
-            <hint>
-              <p>Change only the linkage method to <c>'complete'</c>, then redraw the dendrogram before choosing a threshold.</p>
-            </hint>
-            <hint>
-              <p>A cut near 5 separates the three prominent branches; verify the count with <c>fcluster</c>.</p>
-            </hint>
-            <hint>
-              <p><alert>Common error:</alert> Do not reuse the single-linkage matrix <c>Z</c>; the linkage matrix itself must be recomputed with the complete method.</p>
-            </hint>
-            <answer>
-              <p>With complete linkage, a cutoff near 5 is a reasonable choice and produces 3 clusters. Compared with single linkage, complete linkage resists joining groups through a chain of individually close points.</p>
-              <program language="python">
-                <code>
-                  Z = hierarchy.linkage(pdist(X), 'complete')
-                  threshold = 5.0
-                  hierarchy.dendrogram(Z, color_threshold=threshold)
-                  plt.axhline(y=threshold, color='r', linestyle='-')
-                  plt.show()
-                  labels = hierarchy.fcluster(Z, threshold, criterion='distance')
-                  print('number of clusters:', len(np.unique(labels)))
-                  plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='tab10')
-                  plt.colorbar()
-                  plt.show()
-                </code>
-              </program>
-            </answer>
-          </task>
-        </exercise>
-      </exercisegroup>
+        <task>
+          <statement>
+            <p>Suppose a research team randomly divides all available images into training and testing sets. Why might this evaluation overestimate the model's ability to identify animals at a new camera location? Propose a better evaluation strategy.</p>
+          </statement>
+          <hint>
+            <p>Consider whether images from the same camera, or from similar environments, could appear in both sets.</p>
+          </hint>
+          <answer>
+            <p>A random image-level split can place images from the same camera locations and similar backgrounds in both training and testing sets. The test set may therefore be too similar to the training data. A better strategy is to hold out entire camera locations, and ideally evaluate on habitat conditions not represented during training. This tests whether the model generalizes beyond the specific locations and environments it has already seen.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>The researchers found that cropping images around animals improved classification performance. Why might this help? What limitation does this approach introduce?</p>
+          </statement>
+          <hint>
+            <p>Think about what information is removed when the image is cropped, and what must happen before a crop can be classified.</p>
+          </hint>
+          <answer>
+            <p>Cropping can reduce the influence of background scenery and focus the classifier on the animal itself. However, it requires an object detector to locate the animal first. If the detector fails to find an animal, the classifier never receives the relevant crop. Cropping therefore does not eliminate all sources of error in the overall system.</p>
+          </answer>
+        </task>
+      </exercise>
     </exercises>
   </subsection>
-  <subsection xml:id="cmse381-lec31-hierarchicalclustering-worksheet-congratulations-we-re-done">
-    <title>Congratulations, we're done!</title>
-    <p>
-      
-    </p>
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-pedestrians">
+    <title>Case Study 2: Detecting Small and Partially Occluded Pedestrians</title>
+
+    <p>Pedestrian detection is an important component of autonomous driving systems. A vehicle must be able to locate pedestrians in images captured by its cameras so that it can respond appropriately to their presence.</p>
+
+    <p>Detecting pedestrians is not equally difficult in every image. A nearby pedestrian may occupy a large portion of the image, while a distant pedestrian may occupy only a small number of pixels. Pedestrians may also be partially hidden behind vehicles, trees, or other objects.</p>
+
+    <p>Researchers have studied these challenges in CNN-based pedestrian detection. For example, Assefa (2022) investigated small-scale and occluded pedestrian detection and proposed a method to improve the use of feature information for these difficult cases. Other reviews of pedestrian-detection systems discuss the challenge of detecting objects at different scales: deeper feature maps can contain useful semantic information but have lower spatial resolution, while earlier feature maps retain more detailed spatial information.</p>
+
+    <p>Read the study: <url href="https://doi.org/10.1155/2022/9325803">Small-Scale and Occluded Pedestrian Detection Using Multi Mapping Feature Extraction Function and Modified Soft-NMS</url> (2022).</p>
+
+    <p>For additional background, see <url href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8318768/">Pedestrian and Vehicle Detection in Autonomous Vehicle Perception Systems—A Review</url>.</p>
+
+    <exercises>
+      <exercise>
+        <task>
+          <statement>
+            <p>Why are distant or partially occluded pedestrians difficult for a CNN-based detection system to identify? Describe the difference between the information available for a large object and a very small object in an image.</p>
+          </statement>
+          <hint>
+            <p>Think about how many pixels represent the pedestrian and how much information remains after several convolutional and downsampling operations.</p>
+          </hint>
+          <answer>
+            <p>A distant pedestrian may occupy only a small number of pixels, so the image contains relatively little information about the person's appearance. A partially occluded pedestrian may also have important visual features hidden. As feature maps are downsampled, small spatial details can become difficult to preserve. Large objects generally occupy more spatial locations and are more likely to retain useful features in deeper representations.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Which CNN failure mode from lecture is most relevant to the difficulty of detecting small pedestrians? Explain the connection between the architecture of a CNN and the information available to the detector.</p>
+          </statement>
+          <hint>
+            <p>Consider what happens to the spatial resolution of feature maps as information moves through the network.</p>
+          </hint>
+          <answer>
+            <p>The most relevant failure mode is <em>loss of spatial information through pooling and downsampling</em>. Repeated downsampling reduces the spatial resolution of feature maps. Small objects may occupy very few locations in these maps, making their features difficult to preserve or distinguish from the background. Once fine spatial details have been discarded, simply increasing the resolution of a later feature map does not necessarily recover the original information.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Propose two architectural changes that could help a detector identify small pedestrians. Explain why each change might help.</p>
+          </statement>
+          <hint>
+            <p>Think about retaining higher-resolution feature maps and combining information from different stages of the network.</p>
+          </hint>
+          <answer>
+            <p>One approach is to reduce the amount of downsampling so that feature maps retain more spatial detail. Another is to combine shallow, high-resolution feature maps with deeper, more semantic feature maps. Architectures such as feature pyramids and encoder-decoder networks with skip connections use information from multiple resolutions. These strategies can make small-object information more accessible to the detector.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Suppose a pedestrian detector performs well on large, nearby pedestrians but frequently misses distant pedestrians. Would reporting only overall detection accuracy provide enough information to evaluate the system? What additional measurements would you report?</p>
+          </statement>
+          <hint>
+            <p>Consider whether performance should be broken down according to object size and visibility.</p>
+          </hint>
+          <answer>
+            <p>No. Overall performance can hide substantial differences between large and small objects. The evaluation should report detection performance separately for different pedestrian sizes and visibility conditions. It should also examine missed detections and false positives, especially for small and partially occluded pedestrians.</p>
+          </answer>
+        </task>
+      </exercise>
+    </exercises>
+  </subsection>
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-transformations">
+    <title>Case Study 3: Small Changes in Image Position</title>
+
+    <p>Convolutional neural networks are often expected to handle small translations of an object. For example, moving an object a few pixels to the left or right should not usually change its identity. Convolutional filters are applied across spatial locations, and pooling operations are often introduced partly to make representations less sensitive to small changes in position.</p>
+
+    <p>Azulay and Weiss (2019) investigated whether CNNs actually generalize well to small image transformations. They found that small translations and rescalings could substantially change network predictions. Their analysis showed that convolution and data augmentation do not automatically guarantee the desired invariance. They also investigated antialiasing and increased data augmentation as possible remedies, finding that these approaches provided only partial solutions.</p>
+
+    <p>Read the study: <url href="https://www.jmlr.org/papers/volume20/19-519.html">Why do deep convolutional networks generalize so poorly to small image transformations?</url> (2019).</p>
+
+    <exercises>
+      <exercise>
+        <task>
+          <statement>
+            <p>Consider an image of a car that is correctly classified by a CNN. The image is then shifted horizontally by a few pixels, without changing the car itself. The network now predicts a different class with high confidence.</p>
+            <p>Why is this behavior surprising? What assumption about CNNs does it challenge?</p>
+          </statement>
+          <hint>
+            <p>Think about why convolutional layers are often expected to respond similarly when an object moves to a nearby position.</p>
+          </hint>
+          <answer>
+            <p>The behavior is surprising because a small translation does not change the identity of the object. CNNs are often expected to be relatively insensitive to small translations because convolutional filters are applied across the image. The result challenges the assumption that convolution and pooling automatically provide invariance to small image transformations.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Which CNN failure mode from lecture does this example illustrate? Explain the difference between a transformation that changes the image and a transformation that should change the semantic identity of the object.</p>
+          </statement>
+          <hint>
+            <p>Ask whether moving an object a few pixels should change the correct class label.</p>
+          </hint>
+          <answer>
+            <p>This example illustrates <em>translation sensitivity</em>. A small translation changes the pixel arrangement but does not change the semantic identity of the object. A reliable classifier should ideally preserve its prediction under such a transformation, provided the object remains visible and the transformation does not change the task-relevant content.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Design a simple experiment to measure how sensitive a trained image classifier is to small translations. Specify what you would change in the images and what you would measure.</p>
+          </statement>
+          <hint>
+            <p>Think about creating several shifted versions of each test image and comparing their predictions with the original predictions.</p>
+          </hint>
+          <answer>
+            <p>For each test image, generate translated versions by shifting the image horizontally and vertically by a small number of pixels. Apply the same classifier to the original and translated images. Measure the fraction of images whose predicted class changes, the change in classification accuracy, and the change in predicted class probabilities. The results can be reported as a function of the translation magnitude.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Azulay and Weiss investigated antialiasing and data augmentation as possible ways to improve robustness to small transformations. Explain how each approach might help, and why neither should automatically be assumed to solve the problem.</p>
+          </statement>
+          <hint>
+            <p>Consider what information can be lost when an image is sampled or downsampled, and what kinds of transformed examples a network encounters during training.</p>
+          </hint>
+          <answer>
+            <p>Antialiasing can reduce artifacts caused by sampling and downsampling, helping preserve more consistent representations under small shifts. Data augmentation can expose the network to translated and rescaled versions of training images, encouraging it to produce similar predictions for those examples. However, augmentation only covers the transformations and image variations represented in training, and antialiasing does not guarantee invariance throughout the entire network. The study found that these approaches provided only partial improvements.</p>
+          </answer>
+        </task>
+      </exercise>
+    </exercises>
+  </subsection>
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-remote-sensing">
+    <title>Case Study 4: What Do Satellite-Image Classifiers Learn?</title>
+
+    <p>CNNs are widely used to analyze satellite and aerial images. Applications include land-cover classification, agricultural monitoring, urban mapping, and environmental change detection. A model may be trained to distinguish categories such as forests, water, roads, agricultural fields, and built-up areas.</p>
+
+    <p>To make these predictions, a network can use several kinds of visual information. It may use the shapes and spatial arrangements of objects, local patterns and textures, color, or combinations of these features.</p>
+
+    <p>Burgert and collaborators (2025) revisited how researchers measure the reliance of CNNs on different visual features. Their work used controlled suppression of shape, texture, and color cues rather than relying only on cue-conflict images. They found that feature reliance differed across application domains. In their experiments, remote-sensing models showed stronger reliance on texture than models in some other domains.</p>
+
+    <p>This finding raises an important question: what happens when a model encounters a region whose texture differs from the regions represented in its training data, even though the underlying land-cover category has not changed?</p>
+
+    <p>Read the study: <url href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/57a9b97477b67936298489e3c1417b0a-Abstract-Conference.html">ImageNet-trained CNNs are not biased towards texture: Revisiting feature reliance through controlled suppression</url> (NeurIPS 2025).</p>
+
+    <exercises>
+      <exercise>
+        <task>
+          <statement>
+            <p>Explain the difference between texture information and shape information in a satellite image. Give one example of each that could be useful for identifying a land-cover category.</p>
+          </statement>
+          <hint>
+            <p>Texture refers to local visual patterns, while shape concerns the geometry and spatial arrangement of regions or objects.</p>
+          </hint>
+          <answer>
+            <p>Texture describes local patterns such as the repeated appearance of crop rows, the roughness of a forest canopy, or the visual pattern of rooftops. Shape describes the geometry and arrangement of regions, such as the outline of a lake, the boundaries of a field, or the shape of a road network. Both types of information can help identify land-cover categories.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Which CNN failure mode from lecture is most closely related to a model relying heavily on local texture patterns rather than the overall structure of an object or region? Explain why this reliance could become problematic when the model is applied to a new geographic region.</p>
+          </statement>
+          <hint>
+            <p>Think about what happens when a feature that is predictive in the training data is not reliable in a new environment.</p>
+          </hint>
+          <answer>
+            <p>This case is related to <em>texture bias instead of shape bias</em>. If a model relies heavily on local texture patterns, it may perform poorly when those patterns change across geographic regions, seasons, image sensors, or environmental conditions. A model that also uses larger-scale structure and shape may be more robust to some of these changes. The 2025 study reports stronger texture reliance in remote-sensing models in its experiments; it does not imply that every remote-sensing CNN relies exclusively on texture.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Suppose a model is trained to classify agricultural fields using satellite images from one region. It performs well on a test set from that region but makes frequent mistakes when applied to another region where crops, soil, and imaging conditions look different.</p>
+            <p>Propose an experiment that would help determine whether the model relies more on texture or on larger-scale shape and spatial structure.</p>
+          </statement>
+          <hint>
+            <p>Think about how you could change or suppress one type of visual information while retaining the other.</p>
+          </hint>
+          <answer>
+            <p>One experiment is to create modified test images in which texture information is reduced or replaced while the larger-scale shapes and spatial arrangements are retained. A complementary experiment could suppress or alter shape information while preserving local textures. The model's performance on these controlled images can then be compared. If suppressing texture causes a much larger performance decrease than suppressing shape, that would provide evidence of stronger reliance on texture for the evaluated task.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Would simply adding more satellite images from the original geographic region necessarily solve this problem? Suggest a more informative training-data strategy.</p>
+          </statement>
+          <hint>
+            <p>Consider whether more images from the same distribution expose the model to the visual variations it will encounter in other regions.</p>
+          </hint>
+          <answer>
+            <p>Not necessarily. Adding more images from the same region may increase the amount of training data without exposing the model to new textures, sensors, seasons, or geographic conditions. A more informative strategy would include images from multiple regions and conditions, with evaluation sets that hold out entire regions. Training with varied examples can encourage the model to use features that remain informative across those conditions.</p>
+          </answer>
+        </task>
+      </exercise>
+    </exercises>
+  </subsection>
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-adversarial">
+    <title>Case Study 5: Hiding a Person from an Automated Detection System</title>
+
+    <p>Object-detection systems are used in applications such as security monitoring, traffic analysis, and robotics. Unlike image classifiers, which assign a label to an entire image, object detectors also attempt to locate objects by producing bounding boxes and class labels.</p>
+
+    <p>Thys, Van Ranst, and Goedemé (2019) investigated whether a person could be made difficult for an automated surveillance camera to detect. They developed specially designed visual patches that could be placed in front of a person's body. Their experiments showed that these patches could significantly reduce the performance of a person detector. The researchers also tested their approach in real-world scenarios in which the patches were filmed by a camera.</p>
+
+    <p>In the paper's demonstration, a person without the patch is detected, while a person holding the patch in front of their torso is not detected by the system. This is important because the attack does not require changing the camera or the detector itself; it changes what the camera sees.</p>
+
+    <p>Read the study: <url href="https://openaccess.thecvf.com/content_CVPRW_2019/html/CV-COPS/Thys_Fooling_Automated_Surveillance_Cameras_Adversarial_Patches_to_Attack_Person_Detection_CVPRW_2019_paper.html">Fooling Automated Surveillance Cameras: Adversarial Patches to Attack Person Detection</url> (2019).</p>
+
+    <exercises>
+      <exercise>
+        <task>
+          <statement>
+            <p>Describe the attack investigated by the researchers. What did the patch change, and what happened to the detector's output?</p>
+          </statement>
+          <hint>
+            <p>Compare the detector's behavior when a person is visible without the patch and when the person holds the patch in front of their body.</p>
+          </hint>
+          <answer>
+            <p>The researchers designed a visual patch that a person could hold in front of their body. The patch changed the appearance of the image in a way that interfered with the detector's ability to recognize the person. In the demonstration, the detector identified the person without the patch but failed to detect the person holding it.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Which CNN failure mode from lecture does this case illustrate? Explain why this is different from an ordinary classification error caused by an unclear or low-quality image.</p>
+          </statement>
+          <hint>
+            <p>Consider whether the change to the image was accidental or deliberately constructed to influence the model's prediction.</p>
+          </hint>
+          <answer>
+            <p>This case illustrates <em>adversarial examples</em>. The patch is deliberately designed to manipulate the model's output. Unlike an ordinary image-quality problem, the visual modification is constructed specifically to interfere with the detector's learned representation and cause it to miss the person.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Why is it important that the researchers tested their approach using images captured by a real camera rather than only modifying digital images? What additional challenges arise in a physical-world attack?</p>
+          </statement>
+          <hint>
+            <p>Think about lighting, viewing angle, distance, movement, and how a printed patch appears in an actual camera image.</p>
+          </hint>
+          <answer>
+            <p>A digital attack may work only for a particular image or exact pixel arrangement. A physical-world test examines whether the attack remains effective after the patch is printed, positioned in a scene, and captured by a camera. Real-world conditions introduce changes in lighting, distance, viewing angle, perspective, and movement. Demonstrating effectiveness under these conditions provides stronger evidence that the attack can affect a deployed vision system.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Suggest two ways that developers might make a person-detection system more resistant to this type of attack. Explain why each approach might help, and identify one limitation.</p>
+          </statement>
+          <hint>
+            <p>Consider including modified images during training and evaluating the detector under a wider range of visual conditions.</p>
+          </hint>
+          <answer>
+            <p>One approach is adversarial training, in which the detector is trained using examples containing adversarial patches or other challenging visual modifications. This can help the model learn to detect people under conditions that previously caused failures. Another approach is to evaluate the detector using a diverse collection of physical patches, camera angles, lighting conditions, and distances, then improve the system based on observed weaknesses. A limitation is that training against known attacks does not guarantee robustness to new or differently constructed attacks.</p>
+          </answer>
+        </task>
+      </exercise>
+    </exercises>
+  </subsection>
+
+  <subsection xml:id="cmse381-cnn-failure-modes-activity-synthesis">
+    <title>Putting the Cases Together</title>
+
+    <p>You have now examined five research examples involving CNN-based image analysis. The following questions ask you to compare the cases and think about how a system should be evaluated before it is used in an important application.</p>
+
+    <exercises>
+      <exercise>
+        <task>
+          <statement>
+            <p>For each case, summarize the main issue in one sentence. Then identify the CNN failure mode that best explains the issue.</p>
+          </statement>
+          <answer>
+            <p>The five cases illustrate the following failure modes:
+            <ul>
+              <li>
+                <p>Wildlife monitoring: shortcut learning, in which background and environmental features can become unintended predictive cues.</p>
+              </li>
+              <li>
+                <p>Pedestrian detection: loss of spatial information through downsampling, which can make small objects difficult to detect.</p>
+              </li>
+              <li>
+                <p>Small image transformations: translation sensitivity, in which small shifts can change a network's prediction.</p>
+              </li>
+              <li>
+                <p>Satellite-image analysis: texture bias, in which a model may rely heavily on local texture patterns rather than larger-scale shape and spatial structure.</p>
+              </li>
+              <li>
+                <p>Person detection: adversarial examples, in which a deliberately constructed visual modification manipulates the model's output.</p>
+              </li>
+            </ul>
+            </p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Which of the five cases do you think would be most difficult to detect using a conventional random train-test split? Explain your choice.</p>
+          </statement>
+          <hint>
+            <p>Consider cases where training and testing images might share the same locations, backgrounds, visual conditions, or object characteristics.</p>
+          </hint>
+          <answer>
+            <p>There is no single required answer. The wildlife-monitoring case is a strong example because a random image-level split can place images from the same cameras and habitats in both training and testing sets. The model may appear to generalize well even though it performs poorly at new locations. The satellite-image case can present a similar challenge if the training and testing sets share the same geographic and imaging conditions.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Choose one case and describe an evaluation experiment that would provide stronger evidence of reliability than simply reporting classification accuracy on a randomly selected test set.</p>
+          </statement>
+          <hint>
+            <p>Your experiment should deliberately change one relevant aspect of the test conditions while keeping the task itself the same.</p>
+          </hint>
+          <answer>
+            <p>Answers will vary. Examples include testing wildlife classifiers on entirely new camera locations, evaluating pedestrian detectors separately on small and occluded pedestrians, measuring prediction changes under controlled image translations, testing satellite-image models on held-out geographic regions, or evaluating person detectors using physical adversarial patches under different camera conditions.</p>
+          </answer>
+        </task>
+
+        <task>
+          <statement>
+            <p>Consider the following statement:</p>
+            <blockquote>
+              <p>A CNN achieves 98% accuracy on its test set, so it is ready to be deployed.</p>
+            </blockquote>
+            <p>Explain why the five case studies show that this conclusion may be unjustified. What additional evidence would you want before trusting the system?</p>
+          </statement>
+          <hint>
+            <p>Think about whether the test set represents the conditions under which the system will actually be used, and whether the evaluation tests the specific weaknesses discussed in this activity.</p>
+          </hint>
+          <answer>
+            <p>A high test accuracy does not establish that a model will be reliable under new conditions. The test set may not represent new locations, small objects, image transformations, unfamiliar textures, or deliberately modified inputs. Before deployment, I would want evidence from evaluations designed around the expected operating conditions and plausible failure scenarios. This should include tests on independent data, analysis of performance across relevant subgroups and conditions, and targeted robustness tests. The appropriate evaluation depends on the application and the consequences of an error.</p>
+          </answer>
+        </task>
+      </exercise>
+    </exercises>
   </subsection>
 </section>

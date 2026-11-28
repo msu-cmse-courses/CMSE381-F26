@@ -1948,9 +1948,7 @@ For regression, use the RSS splitting error.
 <exercise xml:id="ex-aurebesh-color-experiments">
   <title>CNN: Aurebesh Digits-shortcut learning</title>
   <introduction>
-<p>
-   Although the concept of shortcut learning is interesting with practical applications, it is NOT part of midterm 3. Do this problem either for fun, or for extra learning. 
-</p>
+
 
     <p>
       To construct any <m>3 \times 3 \times 3</m> RGB Aurebesh input tensor <m>\mathbf{X} = (\mathbf{X}_R, \mathbf{X}_G, \mathbf{X}_B)</m>, choose a <term>Spatial Shape Mask</term> <m>\mathbf{M}_c</m> for digit <m>c \in \{0, \dots, 9\}</m> and multiply it by an <term>RGB Color Vector</term> <m>\mathbf{v} = [v_R, v_G, v_B]</m>:

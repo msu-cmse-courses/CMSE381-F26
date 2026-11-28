@@ -39,7 +39,7 @@ lang: "en-US",
 <meta name="twitter:description" content="Fall 2026">
 <meta property="og:description" content="Fall 2026">
 <meta name="twitter:card" content="summary">
-<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.56"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.56"></script><!--** eBookCongig is necessary to configure interactive       **-->
+<script src="_static/pretext/js/jquery.min.js"></script><script src="_static/pretext/js/dist/pretext-core.js?v=2.57"></script><script src="_static/pretext/js/dist/pretext-read-aloud.js?v=2.57"></script><!--** eBookCongig is necessary to configure interactive       **-->
 <!--** Runestone components to run locally in reader's browser **-->
 <!--** No external communication:                              **-->
 <!--**     log level is 0, Runestone Services are disabled     **-->
@@ -2701,6 +2701,12 @@ w_{20}=-1,\quad w_{21}=0,\quad w_{22}=1\\
 w_{30}=3,\quad w_{31}=-1,\quad w_{32}=-1
 \end{gather*}
 </div>
+<div class="para">and</div>
+<div class="displaymath process-math" id="problem-18-2-2-2">
+\begin{equation*}
+\beta_0=-1, \beta_1=2, \beta_2=1, \beta_3=-2. 
+\end{equation*}
+</div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#problem-18-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
 <div class="para" id="problem-18-2-3">Use the ReLU activation function <span class="process-math">\(g(z)\text{.}\)</span><div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#problem-18-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -2886,13 +2892,13 @@ Z_m=\beta_{m0}+\sum_{\ell=1}^{K}\beta_{m\ell}A_\ell,
 <div class="autopermalink" aria-hidden="true" data-description="Task 251.d"><a tabindex="-1" href="#exam3-practice-problems-25-6" title="Copy heading and permalink for Task 251.d" aria-label="Copy heading and permalink for Task 251.d">🔗</a></div>
 </article>
 <article class="task exercise-like" id="exam3-practice-problems-25-7"><h4 class="heading"><span class="codenumber">(e)</span></h4>
-<div class="para" id="exam3-practice-problems-25-7-1-1">We now have <span class="process-math">\(M\)</span> real numbers <span class="process-math">\(Z_1,\ldots,Z_M\)</span> corresponding to <span class="process-math">\(M\)</span> possible categorical outcomes. We need a way to convert these <span class="process-math">\(M\)</span> numbers to a probability distribution over <span class="process-math">\(M\)</span> possible outcomes. This can be accomplished using the softmax function <span class="process-math">\(f_m(\mathbf{X})\)</span> shown below. Compute <span class="process-math">\(f_m\)</span> for each of the two possible outcomes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exam3-practice-problems-25-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="para" id="exam3-practice-problems-25-7-1-1">We now have <span class="process-math">\(M\)</span> real numbers <span class="process-math">\(Z_0,\ldots,Z_{M-1}\)</span> corresponding to <span class="process-math">\(M\)</span> possible categorical outcomes. We need a way to convert these <span class="process-math">\(M\)</span> numbers to a probability distribution over <span class="process-math">\(M\)</span> possible outcomes. This can be accomplished using the softmax function <span class="process-math">\(f_m(\mathbf{X})\)</span> shown below. Compute <span class="process-math">\(f_m\)</span> for each of the two possible outcomes.<div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exam3-practice-problems-25-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div> 
 <div class="para logical" id="exam3-practice-problems-25-7-1-2">
 <div class="displaymath process-math" id="exam3-practice-problems-25-7-1-2-1">
 \begin{equation*}
 f_m(\mathbf{X})=\operatorname{Pr}(Y=m\mid\mathbf{X})
-=\frac{e^{Z_m}}{\sum_{\ell=0}^{M}e^{Z_\ell}}
+=\frac{e^{Z_m}}{\sum_{\ell=0}^{M-1}e^{Z_\ell}}
 \end{equation*}
 </div>
 <div class="autopermalink" aria-hidden="true" data-description="Paragraph"><a tabindex="-1" href="#exam3-practice-problems-25-7-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>

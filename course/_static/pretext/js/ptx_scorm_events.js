@@ -1084,7 +1084,7 @@
         installRestoreHook(restoreMap);
         requestParentResize();
         installWeBWorKSrcdocIntercept();
-        installWeBWorKFetchIntercept();
+        installWeBWorKAjaxIntercept();
         addSubmitButton();
 
         // Add status badges to WeBWorK problems that the student has already answered.
@@ -1351,22 +1351,23 @@
 
 
     // ═══════════════════════════════════════════════════════════════════════
-    // SECTION 12 — WEBWORK REQUEST HANDLING
+    // SECTION 12 — WEBWORK AJAX EVENT HANDLING
     // ═══════════════════════════════════════════════════════════════════════
     //
     // WeBWorK problems in PreTeXt are rendered in iframes but graded by an
-    // external WeBWorK server.  pretext-webwork.js makes a fetch() call from
-    // the parent page to the WeBWorK server and, upon success, fires a
-    // "runestone_ww_check" event on the document body — BUT only when
+    // external WeBWorK server.  Runestone's pretext-webwork.js makes a jQuery
+    // AJAX call from the parent page to the WeBWorK server and, upon success,
+    // fires a "runestone_ww_check" event on the document body — BUT only when
     // eBookConfig.username !== '' (i.e. the user is logged in to Runestone).
     //
     // In a SCORM package, eBookConfig.username is always '' (no Runestone login),
     // so runestone_ww_check never fires and our logBookEvent hook in Section 9
     // never sees WeBWorK submissions.
     //
-    // FIX: We wrap window.fetch.  The wrapper inspects each outgoing request
-    // body and, for a WeBWorK "check" submission, reads the response, extracts
-    // the score and answer data, and calls recordInteraction() ourselves.
+    // FIX: We intercept jQuery's ajaxComplete event directly.  ajaxComplete fires
+    // for every jQuery AJAX call regardless of Runestone login state.  We inspect
+    // the response and, if it looks like a WeBWorK grading result, we extract the
+    // score and answer data and call recordInteraction() ourselves.
     //
     // WeBWorK server response format:
     //   {
@@ -1454,7 +1455,7 @@
 
     // Answer restoration for WeBWorK uses two complementary steps:
     //
-    // 1. The fetch intercept pre-seeds the answer values in the WeBWorK init request so the
+    // 1. ajaxSend pre-seeds the answer values in the WeBWorK init request so the
     //    server renders the form inputs with value= attributes already filled in.
     //    We do NOT use WWsubmit=1 here: submitted-state rendering causes MathQuill
     //    to re-initialise from scratch (discarding any pre-rendered overlay spans),
@@ -1625,10 +1626,11 @@
     }
 
     /**
-     * Parse the body of one WeBWorK response and call recordInteraction() if it
-     * is a student submission.  Called from the fetch wrapper below.
+     * Parse one WeBWorK AJAX response and call recordInteraction() if it is a
+     * student submission.  Called from the jQuery ajaxComplete handler below.
      */
-    function handleWeBWorKResponse(responseText) {
+    function handleWeBWorKAjaxResponse(xhr) {
+        var responseText = xhr && xhr.responseText;
         if (!responseText) return;
 
         var data;
@@ -1691,7 +1693,7 @@
                         ':count:' + keys.length +
                         ':pct:' + percent.toFixed(4);
 
-        console.log('[PTX-SCORM] WeBWorK response intercepted — div_id: "' + divId +
+        console.log('[PTX-SCORM] WeBWorK AJAX response intercepted — div_id: "' + divId +
                     '", score: ' + (percent * 100).toFixed(0) + '%');
 
         try {
@@ -1708,94 +1710,109 @@
     }
 
     /**
-     * Wrap window.fetch so that WeBWorK requests drive handleWeBWorKResponse.
+     * Register the jQuery ajaxComplete listener that drives handleWeBWorKAjaxResponse.
      *
-     * pretext-webwork.js looks up the global fetch at call time, so the wrapper
-     * applies no matter which script loads first.
+     * jQuery is loaded by the Runestone bundle asynchronously; at DOMContentLoaded it
+     * may or may not be available yet.  We try immediately, then fall back to
+     * window "load" (fired after all scripts have executed).
      *
-     * We act only when eBookConfig.username === '' so that we never double-count
-     * in a Runestone-logged-in context (where runestone_ww_check would fire AND
-     * we would also see the response).
+     * We guard the actual interception on eBookConfig.username === '' so that we
+     * never double-count in a Runestone-logged-in context (where runestone_ww_check
+     * would fire AND we would also see the AJAX response).
      */
 
-    function installWeBWorKFetchIntercept() {
-        if (typeof window.fetch !== 'function') return;
-        var originalFetch = window.fetch;
+    function installWeBWorKAjaxIntercept() {
+        // Tracks which jQuery XHR objects correspond to student "check" submissions.
+        // ajaxComplete fires for ALL jQuery AJAX calls — including the automatic
+        // "render problem" request that WeBWorK makes on activation, which also
+        // returns rh_result.answers (the correct answer key, not a student submission).
+        // We use ajaxSend to inspect the outgoing request parameters and mark only
+        // genuine check submissions, then ignore everything else in ajaxComplete.
+        // Plain arrays (not Set) for maximum compatibility — short-lived entries only.
+        var _pendingChecks = [];
 
-        // Pre-seed saved answer values into an init/activation request so WeBWorK
-        // renders the inputs with value="..." baked into the HTML.  Step 2
-        // (patchWeBWorKSrcdoc post-load) then drives MathQuill to display those
-        // values visually.  Returns the new request body, or null to leave it as is.
-        function seedSavedAnswers(params) {
-            var problemUUID = params.get('problemUUID');
-            var divId = problemUUID.replace(/-ww-rs$/, '');
-            var saved = _state.answers[divId] || _state.answers[problemUUID];
-            if (!saved || !saved.answer) return null;
-            var ansObj = JSON.parse(saved.answer);
-            if (!ansObj || !ansObj.answers) return null;
-            var ansKeys = Object.keys(ansObj.answers);
-            if (ansKeys.length === 0) return null;
-            ansKeys.forEach(function (k) {
-                params.set(k, String(ansObj.answers[k]));
-            });
-            // Do NOT set WWsubmit=1: submitted-state rendering causes
-            // MathQuill to re-init from an empty <input>, overwriting the
-            // pre-rendered overlay spans with a blank widget ("flash then blank").
-            // Instead we send a fresh render with the values pre-populated and
-            // inject via MathQuill API after the iframe loads (patchWeBWorKSrcdoc).
-            console.log('[PTX-SCORM] WeBWorK init: pre-seeded form for "' + divId + '" — keys: ' + ansKeys.join(', '));
-            return params.toString();
-        }
 
-        window.fetch = function (resource, init) {
-            var isCheck = false;
-            try {
-                // Only intercept when Runestone services are off (SCORM context).
-                // If someone is logged in to Runestone, runestone_ww_check will fire
-                // and our logBookEvent hook (Section 9) handles it.
-                var runestoneLoggedIn = (typeof eBookConfig !== 'undefined' && eBookConfig.username !== '');
-                if (!runestoneLoggedIn && init && typeof init.body === 'string') {
-                    // Inspect the posted form data (URL-encoded string) to identify
-                    // WeBWorK requests.  pretext-webwork.js makes three kinds of call
-                    // to the WeBWorK render_rpc endpoint:
-                    //   Init/activation (no action arg): answersSubmitted=0  — renders the problem UI
-                    //   Student check  (action="check"): answersSubmitted=1  — grades the answers
-                    //   Reveal answer  (action="reveal"): answersSubmitted=1 + WWcorrectAnsOnly=1
-                    //
-                    // Note: "action" is a local JS variable in handleWW(), NOT a form field.
-                    // The correct discriminator in the request body is answersSubmitted.
-                    // The init response also carries rh_result.answers (the answer key,
-                    // not a student submission), so only check requests are graded.
-                    var params = new URLSearchParams(init.body);
+        function doInstall() {
+            if (!window.jQuery) return false;
+
+            // Only intercept when Runestone services are off (SCORM context).
+            // If someone is logged in to Runestone, runestone_ww_check will fire
+            // and our logBookEvent hook (Section 9) handles it — no need for AJAX interception.
+            var runestoneLoggedIn = (typeof eBookConfig !== 'undefined' && eBookConfig.username !== '');
+            if (runestoneLoggedIn) {
+                console.log('[PTX-SCORM] Runestone login detected — WeBWorK AJAX intercept skipped.');
+                return true;
+            }
+
+            // ajaxSend fires before the request is sent.  Inspect the posted form data
+            // (URL-encoded string) to identify WeBWorK "Check Answers" submissions.
+            //
+            // pretext-webwork.js uses two different calls to the WeBWorK render_rpc endpoint:
+            //   Init/activation (no action arg): answersSubmitted=0  — renders the problem UI
+            //   Student check  (action="check"): answersSubmitted=1  — grades the answers
+            //   Reveal answer  (action="reveal"): answersSubmitted=1 + WWcorrectAnsOnly=1
+            //
+            // Note: "action" is a local JS variable in handleWW(), NOT a form field.
+            // The correct discriminator in the request body is answersSubmitted.
+            jQuery(document).on('ajaxSend', function (event, xhr, settings) {
+                try {
+                    var urlData = settings.data;
+                    if (typeof urlData !== 'string') return;
+                    var params = new URLSearchParams(urlData);
+                    // answersSubmitted=1 means student submitted; WWcorrectAnsOnly=1 means reveal
                     if (params.get('answersSubmitted') === '1' && !params.get('WWcorrectAnsOnly')) {
-                        isCheck = true;
+                        _pendingChecks.push(xhr);
                     } else if (params.get('answersSubmitted') === '0' && params.get('problemUUID')) {
-                        var seededBody = seedSavedAnswers(params);
-                        if (seededBody !== null) {
-                            init = Object.assign({}, init, { body: seededBody });
+                        // Init/activation call.  Pre-seed saved answer values so WeBWorK renders
+                        // the inputs with value="..." baked into the HTML.  Step 2 (patchWeBWorKSrcdoc
+                        // post-load) then drives MathQuill to display those values visually.
+                        var problemUUID = params.get('problemUUID');
+                        var divId = problemUUID.replace(/-ww-rs$/, '');
+                        var saved = _state.answers[divId] || _state.answers[problemUUID];
+                        if (saved && saved.answer) {
+                            try {
+                                var ansObj = JSON.parse(saved.answer);
+                                if (ansObj && ansObj.answers) {
+                                    var ansKeys = Object.keys(ansObj.answers);
+                                    if (ansKeys.length > 0) {
+                                        ansKeys.forEach(function (k) {
+                                            params.set(k, String(ansObj.answers[k]));
+                                        });
+                                        // Do NOT set WWsubmit=1: submitted-state rendering causes
+                                        // MathQuill to re-init from an empty <input>, overwriting the
+                                        // pre-rendered overlay spans with a blank widget ("flash then blank").
+                                        // Instead we send a fresh render with the values pre-populated and
+                                        // inject via MathQuill API after the iframe loads (patchWeBWorKSrcdoc).
+                                        settings.data = params.toString();
+                                        console.log('[PTX-SCORM] WeBWorK init: pre-seeded form for "' + divId + '" — keys: ' + ansKeys.join(', '));
+                                    }
+                                }
+                            } catch (e) { /* leave data unmodified on error */ }
                         }
                     }
-                }
-            } catch (e) { /* leave the request unmodified on error */ }
-
-            var result = originalFetch.call(window, resource, init);
-            if (!isCheck) return result;
-
-            // Read a clone of the response so pretext-webwork.js can still read
-            // the original body.
-            return result.then(function (response) {
-                if (response.ok) {
-                    response.clone().text().then(function (text) {
-                        try { handleWeBWorKResponse(text); } catch (err) {
-                            console.error('[PTX-SCORM] Error in WeBWorK response handler:', err);
-                        }
-                    }).catch(function () { /* unreadable body: nothing to record */ });
-                }
-                return response;
+                } catch (e) { /* ignore parse errors */ }
             });
-        };
 
-        console.log('[PTX-SCORM] WeBWorK fetch intercept registered (check-action only).');
+            // ajaxComplete fires after every request (success or error).
+            // Only process requests we marked in ajaxSend above.
+            jQuery(document).on('ajaxComplete', function (event, xhr) {
+                var checkIdx = _pendingChecks.indexOf(xhr);
+                if (checkIdx !== -1) {
+                    _pendingChecks.splice(checkIdx, 1);
+                    try { handleWeBWorKAjaxResponse(xhr); } catch (err) {
+                        console.error('[PTX-SCORM] Error in WeBWorK AJAX handler:', err);
+                    }
+                }
+            });
+
+            console.log('[PTX-SCORM] WeBWorK AJAX intercept registered (check-action only).');
+            return true;
+        }
+
+        if (!doInstall()) {
+            // jQuery not yet available — retry after all scripts have loaded
+            window.addEventListener('load', doInstall);
+        }
     }
 
 

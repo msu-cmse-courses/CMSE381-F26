@@ -1,13 +1,363 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<handout component="day31" xml:id="day-31-lecture">
+    <title>Day 31</title>
 
-
-    
-    <section xml:id="day-31-lecture" component="day31">
-        <title>Day 31</title>
-    
+    <introduction>
         <p>
-            <dataurl source="slides/slides-Day32/CMSE381-002-Lec32-Ch12_4-Clustering.html" visual="Day32 slides"/>
+            Ch 12.1, 12.4: Unsupervised Learning &amp; Clustering
         </p>
-    
-        </section>
+    </introduction>
+
+    <objectives>
+    <ul>
+        <li>
+            <p>Distinguish between supervised and unsupervised learning.</p>
+        </li>
+        <li>
+            <p>Explain the goals of clustering methods.</p>
+        </li>
+        <li>
+            <p>Interpret a dendrogram produced by hierarchical clustering.</p>
+        </li>
+        <li>
+            <p>Define and distinguish different linkage methods.</p>
+        </li>
+        <li>
+            <p>Perform hierarchical clustering in Python.</p>
+        </li>
+    </ul>
+</objectives>
+
+<paragraphs>
+    <title>Supervised vs. Unsupervised Learning</title>
+    <sidebyside widths="45% 45%">
+        <stack>
+            <p>Supervised Learning</p>
+            <ul>
+                <li>
+                    <p>Input data and corresponding output values are available.</p>
+                </li>
+                <li>
+                    <p>Includes regression and classification.</p>
+                </li>
+                <li>
+                    <p>Compare predictions, <m>\hat{Y}</m>, with observed outputs, <m>Y</m>.</p>
+                </li>
+            </ul>
+        </stack>
+        <stack>
+            <p>Unsupervised Learning</p>
+            <ul>
+                <li>
+                    <p>No predefined output values.</p>
+                </li>
+                <li>
+                    <p>Focuses on relationships among predictors or samples.</p>
+                </li>
+                <li>
+                    <p>Often used for exploratory data analysis.</p>
+                </li>
+                <li>
+                    <p>Goals and evaluation criteria are often less well-defined and more subjective.</p>
+                </li>
+                <li>
+                    <p>No universally accepted assessment measure.</p>
+                </li>
+            </ul>
+        </stack>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>Examples of Unsupervised Learning Problems</title>
+    <p>
+    <ul>
+        <li>
+            <p>Gene expression analysis: Identify subgroups of patients with breast cancer who have similar gene expression profiles.</p>
+        </li>
+        <li>
+            <p>Online shopping: Group shoppers with similar browsing and purchase histories to recommend related products.</p>
+        </li>
+        <li>
+            <p>Search engines: Identify relationships among search queries and results to help select relevant results.</p>
+        </li>
+    </ul>
+    </p>
+</paragraphs>
+
+<paragraphs>
+    <title>Big Idea: Clustering</title>
+
+            <image source="figures/sphx_glr_plot_cluster_comparison_001.png" width="50%">
+            <shortdescription>Comparison of different clustering methods and the clusters they identify in a data set.</shortdescription>
+        </image>
+
+            <p>Clustering: Relationships among samples</p>
+            <p>
+                <ul>
+                    <li>
+                        <p>Find subgroups or clusters within a data set.</p>
+                    </li>
+                    <li>
+                        <p>Sometimes specify the desired number of clusters in advance.</p>
+                    </li>
+                    <li>
+                        <p>Many different clustering techniques are available.</p>
+                    </li>
+                    <li>
+                        <p>Must define what makes two data points similar or different.</p>
+                    </li>
+                </ul>
+            </p>
+
+
+</paragraphs>
+
+<paragraphs>
+    <title>Dendrogram</title>
+    <image source="figures/Fig12-12.png" width="80%">
+        <shortdescription>Dendrogram illustrating the hierarchical merging of individual data points into larger clusters.</shortdescription>
+    </image>
+    <p>
+        <ul>
+            <li>
+                <p>Bottom-up agglomeration: Start with each point as its own cluster and progressively merge clusters.</p>
+            </li>
+            <li>
+                <p>The horizontal ordering of the leaves is arbitrary and can be rearranged.</p>
+            </li>
+            <li>
+                <p>R draws leaves at equal heights rather than at zero.</p>
+            </li>
+            <li>
+                <p>Warning: This is not an example of single linkage.</p>
+            </li>
+        </ul>
+    </p>
+</paragraphs>
+
+<paragraphs>
+    <title>A Bigger Example</title>
+    <sidebyside widths="60% 35%">
+        <stack>
+            <image source="figures/Fig12-10.png" width="100%">
+                <shortdescription>Scatterplot of simulated data generated from three known groups, shown with different colors.</shortdescription>
+            </image>
+            <p>
+                <ul>
+                    <li>
+                        <p>Data were generated with three known group labels.</p>
+                    </li>
+                    <li>
+                        <p>Pretend the colors are hidden: Can clustering recover the groups?</p>
+                    </li>
+                </ul>
+            </p>
+        </stack>
+        <image source="figures/Fig12-11a.png" width="100%">
+            <shortdescription>Cluster visualization of the same data, illustrating the groups identified by a clustering method.</shortdescription>
+        </image>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>Single Linkage</title>
+    <p>Distance between clusters \(A\) and \(B\): the smallest distance between any pair of points, one from each cluster.</p>
+    <p>
+        <md>
+            L(A,B) = \min_{a \in A,\; b \in B} \|a-b\|
+        </md>
+    </p>
+    <sidebyside widths="30% 30%">
+        <image source="figures/SingleLink-0p0.png" width="100%">
+            <shortdescription>Illustration of single linkage between two clusters.</shortdescription>
+        </image>
+        <image source="figures/SingleLink-Distance.png" width="100%">
+            <shortdescription>Illustration of the minimum distance between points in two clusters under single linkage.</shortdescription>
+        </image>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>Building the Dendrogram</title>
+    <sidebyside widths="30% 30% 30%">
+        <stack>
+            <image source="figures/SingleLink-0p0.png" width="100%">
+                <shortdescription>Initial data points, each treated as its own cluster.</shortdescription>
+            </image>
+            <image source="figures/SingleLink-0p10.png" width="100%">
+                <shortdescription>Clusters after the first single-linkage merge.</shortdescription>
+            </image>
+        </stack>
+        <stack>
+            <image source="figures/SingleLink-0p15.png" width="100%">
+                <shortdescription>Clusters after an additional single-linkage merge.</shortdescription>
+            </image>
+            <image source="figures/SingleLink-0p20.png" width="100%">
+                <shortdescription>Clusters after another single-linkage merge.</shortdescription>
+            </image>
+        </stack>
+        <stack>
+            <image source="figures/SingleLink-0p25.png" width="100%">
+                <shortdescription>Clusters at a larger single-linkage distance threshold.</shortdescription>
+            </image>
+            <image source="figures/SingleLink-Dendrogram.png" width="100%">
+                <shortdescription>Dendrogram summarizing the sequence and distances of the single-linkage merges.</shortdescription>
+            </image>
+        </stack>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>How to Get Clusters</title>
+    <sidebyside widths="60% 35%">
+        <image source="figures/Fig12-10-BW.png" width="100%">
+            <shortdescription>Black-and-white scatterplot of the data, without the original group labels.</shortdescription>
+        </image>
+        <image source="figures/Fig12-11b.png" width="100%">
+            <shortdescription>Clustering result showing the groups identified in the data.</shortdescription>
+        </image>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>How to Get Different Clusters</title>
+    <sidebyside widths="60% 35%">
+        <image source="figures/Fig12-10-BW.png" width="100%">
+            <shortdescription>Black-and-white scatterplot of the data, without the original group labels.</shortdescription>
+        </image>
+        <image source="figures/Fig12-11c.png" width="100%">
+            <shortdescription>Alternative clustering result showing a different grouping of the same data.</shortdescription>
+        </image>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>Can Get Any Number of Clusters</title>
+    <sidebyside widths="60% 35%">
+        <image source="figures/Fig12-10-BW.png" width="100%">
+            <shortdescription>Black-and-white scatterplot of the data, without the original group labels.</shortdescription>
+        </image>
+        <image source="figures/Fig12-11a.png" width="100%">
+            <shortdescription>Clustering result showing one possible grouping of the data.</shortdescription>
+        </image>
+    </sidebyside>
+
+</paragraphs>
+
+<paragraphs>
+    <title>Linkage Methods</title>
+<table xml:id="table-linkage-methods">
+    <title>Common Linkage Methods</title>
+    <tabular>
+        <col width="20%"/>
+        <col width="80%"/>
+        <row>
+            <cell>Linkage</cell>
+            <cell>Description</cell>
+        </row>
+        <row>
+            <cell>Complete</cell>
+            <cell>
+                Maximal intercluster dissimilarity. Compute all pairwise dissimilarities between the observations in cluster <m>A</m> and the observations in cluster <m>B</m>, and record the largest of these dissimilarities.
+            </cell>
+        </row>
+        <row>
+            <cell>Single</cell>
+            <cell>
+                Minimal intercluster dissimilarity. Compute all pairwise dissimilarities between the observations in cluster <m>A</m> and the observations in cluster <m>B</m>, and record the smallest of these dissimilarities. Single linkage can result in extended, trailing clusters in which single observations are fused one at a time.
+            </cell>
+        </row>
+        <row>
+            <cell>Average</cell>
+            <cell>
+                Mean intercluster dissimilarity. Compute all pairwise dissimilarities between the observations in cluster <m>A</m> and the observations in cluster <m>B</m>, and record the average of these dissimilarities.
+            </cell>
+        </row>
+        <row>
+            <cell>Centroid</cell>
+            <cell>
+                Dissimilarity between the centroid for cluster <m>A</m> (a mean vector of length <m>p</m>) and the centroid for cluster <m>B</m>. Centroid linkage can result in undesirable inversions.
+            </cell>
+        </row>
+    </tabular>
+</table>
+
+            <p>How do we define the distance between two clusters?</p>
+            <p>
+                <ul>
+                    <li>
+                        <p>Four common approaches are shown at left.</p>
+                    </li>
+                    <li>
+                        <p>Average and complete linkage tend to produce more balanced dendrograms than single linkage.</p>
+                    </li>
+                    <li>
+                        <p>Centroid linkage is used in applications such as genomics.</p>
+                    </li>
+                    <li>
+                        <p>Centroid linkage can produce an inversion: two clusters merge at a height below the height of either individual cluster.</p>
+                    </li>
+                </ul>
+            </p>
+
+</paragraphs>
+
+<paragraphs>
+    <title>Example with Complete Linkage</title>
+    <sidebyside widths="45% 45%">
+        <stack>
+            <image source="figures/Fig12-12a.png" width="50%">
+                <shortdescription>Illustration of complete linkage between two clusters.</shortdescription>
+            </image>
+            <p>Distance between clusters \(A\) and \(B\): the largest distance between any pair of points, one from each cluster.</p>
+            <p>
+                <md>
+                    L(A,B) = \max_{a \in A,\; b \in B} \|a-b\|
+                </md>
+            </p>
+        </stack>
+        <image source="figures/Fig12-13.png" width="100%">
+            <shortdescription>Dendrogram produced using complete linkage.</shortdescription>
+        </image>
+    </sidebyside>
+</paragraphs>
+
+<paragraphs>
+    <title>Examples of Different Linkage Methods</title>
+    <image source="figures/Fig12-14.png" width="70%">
+        <shortdescription>Comparison of hierarchical clustering results obtained using different linkage methods.</shortdescription>
+    </image>
+</paragraphs>
+
+<paragraphs>
+    <title>Dependence on the Dissimilarity Measure</title>
+    <sidebyside widths="45% 45%">
+        <stack>
+            <p>
+                <ul>
+                    <li>
+                        <p>The choice of dissimilarity measure depends on the application and context.</p>
+                    </li>
+                    <li>
+                        <p>Clustering results can change substantially with the chosen distance measure.</p>
+                    </li>
+                    <li>
+                        <p>Each distance measure encodes assumptions about the geometry and shape of the underlying space.</p>
+                    </li>
+                </ul>
+            </p>
+        </stack>
+        <stack>
+            <image source="figures/Clustering-DistanceTweet-JustFig.jpeg" width="100%">
+                <shortdescription>Illustration of how different distance measures can produce different notions of similarity and geometric relationships.</shortdescription>
+            </image>
+            <p>Photo credit: <url href="https://twitter.com/UsmanKayaniPhD/status/1518243229832994818">Usman Kayani</url></p>
+        </stack>
+    </sidebyside>
+</paragraphs>
+
+
+
+    </handout>
